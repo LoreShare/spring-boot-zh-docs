@@ -12,6 +12,8 @@
 - 只翻译自然语言，不翻译代码、命令、配置键、类名、包名、路径、URL、xref 目标和 AsciiDoc 结构。
 - 专业术语、官方 endpoint ID、配置键、类名、命令、路径、协议名保持英文；普通说明、动作、描述和非专名标题必须使用中文。
 - 不要在同一个可见标题、导航项或面包屑中输出“中文解释 (英文标识)”这类重复并列；需要保留官方 ID 时只保留 ID，需要解释含义时只写中文解释。
+- `xref:` 目标必须保持原样；如果 `xref:...#anchor[]` 出现在正文、列表或表格中，方括号中的可见文本必须补成中文目标标题，不能让页面显示原始 `.adoc#anchor`。
+- 不得输出缺少方括号的裸 `xref:...#anchor`。
 - 输出必须是 JSON，不输出额外解释。
 - JSON 字段必须包含 `translated_adoc`、`warnings`、`protected_terms`。
 - `translated_adoc` 必须是完整 AsciiDoc 页面。
@@ -25,6 +27,7 @@
 - fenced/source/listing 代码块。
 - inline code 和反引号内容。
 - `xref:`、`link:`、`include::`、`image::`、`ifdef::`、`endif::` 等 AsciiDoc 语法。
+- `xref:` 的目标部分必须保持原样；可见链接文本可以翻译或由后处理补齐，但不能删除 `[]`。
 - `{attribute}`、`[[anchor]]`、`[#anchor]`。
 - 术语表中的专业术语和官方 endpoint ID。
 - 脚本发送给 DeepSeek 前会把 listing/source 代码块、inline code、AsciiDoc 通用宏（例如 `xref:`、`javadoc:`、`configprop:`、`include-code::`）、anchors、attributes 和不翻译术语替换为 `@@CODE_BLOCK_N@@`、`@@ADOC_TOKEN_N@@`、`@@TERM_N@@` 占位符。
