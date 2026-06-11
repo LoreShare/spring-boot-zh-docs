@@ -1,4 +1,31 @@
-[source,text]
+[source,http,options="nowrap"]
 ----
-该请求或响应示例由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+HTTP/1.1 200 OK
+Content-Type: application/vnd.spring-boot.actuator.v3+json
+Content-Length: 712
+
+{
+  "contexts" : {
+    "application" : {
+      "liquibaseBeans" : {
+        "liquibase" : {
+          "changeSets" : [ {
+            "author" : "marceloverdijk",
+            "changeLog" : "org/springframework/boot/actuate/docs/liquibase/db.changelog-master.yaml",
+            "checksum" : "9:d3589feb2baad02e15540750499ba311",
+            "comments" : "",
+            "contexts" : [ ],
+            "dateExecuted" : "2026-06-10T16:30:16.825Z",
+            "deploymentId" : "1109014334",
+            "description" : "createTable tableName=customer",
+            "execType" : "EXECUTED",
+            "id" : "1",
+            "labels" : [ ],
+            "orderExecuted" : 1
+          } ]
+        }
+      }
+    }
+  }
+}
 ----

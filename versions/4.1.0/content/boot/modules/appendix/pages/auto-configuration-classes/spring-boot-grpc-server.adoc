@@ -1,0 +1,30 @@
+[[appendix.auto-configuration-classes.spring-boot-grpc-server]]
+= spring-boot-grpc-server
+
+以下 auto-configuration 类来自 `spring-boot-grpc-server` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-grpc-server/src/main/java/org/springframework/boot/grpc/server/autoconfigure/GrpcServerAutoConfiguration.java[`GrpcServerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/grpc/server/autoconfigure/GrpcServerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-grpc-server/src/main/java/org/springframework/boot/grpc/server/autoconfigure/health/GrpcServerHealthAutoConfiguration.java[`GrpcServerHealthAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/grpc/server/autoconfigure/health/GrpcServerHealthAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-grpc-server/src/main/java/org/springframework/boot/grpc/server/autoconfigure/health/GrpcServerHealthSchedulerAutoConfiguration.java[`GrpcServerHealthSchedulerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/grpc/server/autoconfigure/health/GrpcServerHealthSchedulerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-grpc-server/src/main/java/org/springframework/boot/grpc/server/autoconfigure/security/GrpcServerOAuth2ResourceServerAutoConfiguration.java[`GrpcServerOAuth2ResourceServerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/grpc/server/autoconfigure/security/GrpcServerOAuth2ResourceServerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-grpc-server/src/main/java/org/springframework/boot/grpc/server/autoconfigure/GrpcServerObservationAutoConfiguration.java[`GrpcServerObservationAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/grpc/server/autoconfigure/GrpcServerObservationAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-grpc-server/src/main/java/org/springframework/boot/grpc/server/autoconfigure/security/GrpcServerSecurityAutoConfiguration.java[`GrpcServerSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/grpc/server/autoconfigure/security/GrpcServerSecurityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-grpc-server/src/main/java/org/springframework/boot/grpc/server/autoconfigure/GrpcServerServicesAutoConfiguration.java[`GrpcServerServicesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/grpc/server/autoconfigure/GrpcServerServicesAutoConfiguration.html[javadoc]
+|===

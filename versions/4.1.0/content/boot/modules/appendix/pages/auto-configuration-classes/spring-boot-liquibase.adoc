@@ -1,0 +1,15 @@
+[[appendix.auto-configuration-classes.spring-boot-liquibase]]
+= spring-boot-liquibase
+
+以下 auto-configuration 类来自 `spring-boot-liquibase` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-liquibase/src/main/java/org/springframework/boot/liquibase/autoconfigure/LiquibaseAutoConfiguration.java[`LiquibaseAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/liquibase/autoconfigure/LiquibaseAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-liquibase/src/main/java/org/springframework/boot/liquibase/autoconfigure/LiquibaseEndpointAutoConfiguration.java[`LiquibaseEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/liquibase/autoconfigure/LiquibaseEndpointAutoConfiguration.html[javadoc]
+|===

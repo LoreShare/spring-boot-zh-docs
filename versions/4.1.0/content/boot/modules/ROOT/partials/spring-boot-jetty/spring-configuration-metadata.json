@@ -1,0 +1,244 @@
+{
+  "groups": [
+    {
+      "name": "management.server.jetty",
+      "type": "org.springframework.boot.jetty.autoconfigure.actuate.web.server.JettyManagementServerProperties",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.actuate.web.server.JettyManagementServerProperties"
+    },
+    {
+      "name": "management.server.jetty.accesslog",
+      "type": "org.springframework.boot.jetty.autoconfigure.actuate.web.server.JettyManagementServerProperties$Accesslog",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.actuate.web.server.JettyManagementServerProperties",
+      "sourceMethod": "getAccesslog()"
+    },
+    {
+      "name": "server.jetty",
+      "type": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties"
+    },
+    {
+      "name": "server.jetty.accesslog",
+      "type": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Accesslog",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties",
+      "sourceMethod": "getAccesslog()"
+    },
+    {
+      "name": "server.jetty.threads",
+      "type": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Threads",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties",
+      "sourceMethod": "getThreads()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.server.jetty.accesslog.prefix",
+      "type": "java.lang.String",
+      "description": "Management log file name prefix.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.actuate.web.server.JettyManagementServerProperties$Accesslog",
+      "defaultValue": "management_"
+    },
+    {
+      "name": "server.jetty.accesslog.append",
+      "type": "java.lang.Boolean",
+      "description": "Append to log.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Accesslog",
+      "defaultValue": false
+    },
+    {
+      "name": "server.jetty.accesslog.custom-format",
+      "type": "java.lang.String",
+      "description": "Custom log format, see org.eclipse.jetty.server.CustomRequestLog. If defined, overrides the \"format\" configuration key.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Accesslog"
+    },
+    {
+      "name": "server.jetty.accesslog.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable access log.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Accesslog",
+      "defaultValue": false
+    },
+    {
+      "name": "server.jetty.accesslog.file-date-format",
+      "type": "java.lang.String",
+      "description": "Date format to place in log file name.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Accesslog"
+    },
+    {
+      "name": "server.jetty.accesslog.filename",
+      "type": "java.lang.String",
+      "description": "Log filename. If not specified, logs redirect to \"System.err\".",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Accesslog"
+    },
+    {
+      "name": "server.jetty.accesslog.format",
+      "type": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Accesslog$Format",
+      "description": "Log format.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Accesslog"
+    },
+    {
+      "name": "server.jetty.accesslog.ignore-paths",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Request paths that should not be logged.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Accesslog"
+    },
+    {
+      "name": "server.jetty.accesslog.retention-period",
+      "type": "java.lang.Integer",
+      "description": "Number of days before rotated log files are deleted.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Accesslog",
+      "defaultValue": 31
+    },
+    {
+      "name": "server.jetty.connection-idle-timeout",
+      "type": "java.time.Duration",
+      "description": "Time that the connection can be idle before it is closed.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties"
+    },
+    {
+      "name": "server.jetty.max-connections",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of connections that the server accepts and processes at any given time.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties",
+      "defaultValue": -1
+    },
+    {
+      "name": "server.jetty.max-form-keys",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of form keys.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties",
+      "defaultValue": 1000
+    },
+    {
+      "name": "server.jetty.max-http-form-post-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum size of the form content in any HTTP post request.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties",
+      "defaultValue": "200000B"
+    },
+    {
+      "name": "server.jetty.max-http-response-header-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum size of the HTTP response header.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties",
+      "defaultValue": "16KB"
+    },
+    {
+      "name": "server.jetty.threads.acceptors",
+      "type": "java.lang.Integer",
+      "description": "Number of acceptor threads to use. When the value is -1, the default, the number of acceptors is derived from the operating environment.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Threads",
+      "defaultValue": -1
+    },
+    {
+      "name": "server.jetty.threads.idle-timeout",
+      "type": "java.time.Duration",
+      "description": "Maximum thread idle time.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Threads",
+      "defaultValue": "60000ms"
+    },
+    {
+      "name": "server.jetty.threads.max",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of threads.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Threads",
+      "defaultValue": 200
+    },
+    {
+      "name": "server.jetty.threads.max-queue-capacity",
+      "type": "java.lang.Integer",
+      "description": "Maximum capacity of the thread pool's backing queue. A default is computed based on the threading configuration.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Threads"
+    },
+    {
+      "name": "server.jetty.threads.min",
+      "type": "java.lang.Integer",
+      "description": "Minimum number of threads. Doesn't have an effect if virtual threads are enabled.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Threads",
+      "defaultValue": 8
+    },
+    {
+      "name": "server.jetty.threads.selectors",
+      "type": "java.lang.Integer",
+      "description": "Number of selector threads to use. When the value is -1, the default, the number of selectors is derived from the operating environment.",
+      "sourceType": "org.springframework.boot.jetty.autoconfigure.JettyServerProperties$Threads",
+      "defaultValue": -1
+    },
+    {
+      "name": "server.jetty.accesslog.date-format",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.jetty.accesslog.custom-format",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "server.jetty.accesslog.extended-format",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.jetty.accesslog.format",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "server.jetty.accesslog.locale",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.jetty.accesslog.custom-format",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "server.jetty.accesslog.log-cookies",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.jetty.accesslog.custom-format",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "server.jetty.accesslog.log-latency",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.jetty.accesslog.custom-format",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "server.jetty.accesslog.log-server",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.jetty.accesslog.custom-format",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "server.jetty.accesslog.time-zone",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.jetty.accesslog.custom-format",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "server.jetty.max-http-post-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.jetty.max-http-form-post-size",
+        "since": "2.2.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

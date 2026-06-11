@@ -1,0 +1,18 @@
+[[appendix.auto-configuration-classes.spring-boot-cache]]
+= spring-boot-cache
+
+以下 auto-configuration 类来自 `spring-boot-cache` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-cache/src/main/java/org/springframework/boot/cache/autoconfigure/CacheAutoConfiguration.java[`CacheAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/cache/autoconfigure/CacheAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-cache/src/main/java/org/springframework/boot/cache/autoconfigure/metrics/CacheMetricsAutoConfiguration.java[`CacheMetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/cache/autoconfigure/metrics/CacheMetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-cache/src/main/java/org/springframework/boot/cache/autoconfigure/CachesEndpointAutoConfiguration.java[`CachesEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/cache/autoconfigure/CachesEndpointAutoConfiguration.html[javadoc]
+|===

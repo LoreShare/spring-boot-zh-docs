@@ -1,0 +1,47 @@
+[source,json,options="nowrap"]
+----
+{
+  "contexts" : {
+    "application" : {
+      "negativeMatches" : {
+        "GsonHttpMessageConvertersConfiguration.GsonHttpMessageConverterConfiguration" : {
+          "notMatched" : [ {
+            "condition" : "GsonHttpMessageConvertersConfiguration.PreferGsonOrJacksonAndJsonbUnavailableCondition",
+            "message" : "AnyNestedCondition 0 matched 2 did not; NestedCondition on GsonHttpMessageConvertersConfiguration.PreferGsonOrJacksonAndJsonbUnavailableCondition.JacksonJsonbUnavailable NoneNestedConditions 1 matched 2 did not; NestedCondition on GsonHttpMessageConvertersConfiguration.JacksonAndJsonbUnavailableCondition.JsonbPreferred @ConditionalOnProperty (spring.http.converters.preferred-json-mapper=jsonb) did not find property 'spring.http.converters.preferred-json-mapper'; NestedCondition on GsonHttpMessageConvertersConfiguration.JacksonAndJsonbUnavailableCondition.Jackson2Available @ConditionalOnBean (types: org.springframework.boot.http.converter.autoconfigure.Jackson2HttpMessageConvertersConfiguration$Jackson2JsonMessageConvertersCustomizer; SearchStrategy: all) did not find any beans of type org.springframework.boot.http.converter.autoconfigure.Jackson2HttpMessageConvertersConfiguration$Jackson2JsonMessageConvertersCustomizer; NestedCondition on GsonHttpMessageConvertersConfiguration.JacksonAndJsonbUnavailableCondition.JacksonAvailable @ConditionalOnBean (types: org.springframework.boot.http.converter.autoconfigure.JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConvertersCustomizer; SearchStrategy: all) found bean 'jacksonJsonHttpMessageConvertersCustomizer'; NestedCondition on GsonHttpMessageConvertersConfiguration.PreferGsonOrJacksonAndJsonbUnavailableCondition.GsonPreferred @ConditionalOnProperty (spring.http.converters.preferred-json-mapper=gson) did not find property 'spring.http.converters.preferred-json-mapper'"
+          } ],
+          "matched" : [ ]
+        },
+        "Jackson2HttpMessageConvertersConfiguration.MappingJackson2XmlHttpMessageConverterConfiguration" : {
+          "notMatched" : [ {
+            "condition" : "OnClassCondition",
+            "message" : "@ConditionalOnClass did not find required class 'com.fasterxml.jackson.dataformat.xml.XmlMapper'"
+          } ],
+          "matched" : [ ]
+        },
+        "Jackson2HttpMessageConvertersConfiguration.MappingJackson2HttpMessageConverterConfiguration" : {
+          "notMatched" : [ {
+            "condition" : "OnClassCondition",
+            "message" : "@ConditionalOnClass did not find required class 'com.fasterxml.jackson.databind.ObjectMapper'"
+          } ],
+          "matched" : [ ]
+        }
+      },
+      "positiveMatches" : {
+        "EndpointAutoConfiguration#propertiesEndpointAccessResolver" : [ {
+          "condition" : "OnBeanCondition",
+          "message" : "@ConditionalOnMissingBean (types: org.springframework.boot.actuate.endpoint.EndpointAccessResolver; SearchStrategy: all) did not find any beans"
+        } ],
+        "EndpointAutoConfiguration#endpointOperationParameterMapper" : [ {
+          "condition" : "OnBeanCondition",
+          "message" : "@ConditionalOnMissingBean (types: org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper; SearchStrategy: all) did not find any beans"
+        } ],
+        "EndpointAutoConfiguration#endpointCachingOperationInvokerAdvisor" : [ {
+          "condition" : "OnBeanCondition",
+          "message" : "@ConditionalOnMissingBean (types: org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor; SearchStrategy: all) did not find any beans"
+        } ]
+      },
+      "unconditionalClasses" : [ "org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration", "org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration" ]
+    }
+  }
+}
+----

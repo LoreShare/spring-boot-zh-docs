@@ -1,0 +1,45 @@
+[[appendix.auto-configuration-classes.spring-boot-autoconfigure]]
+= spring-boot-autoconfigure
+
+以下 auto-configuration 类来自 `spring-boot-autoconfigure` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/aop/AopAutoConfiguration.java[`AopAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/aop/AopAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/availability/ApplicationAvailabilityAutoConfiguration.java[`ApplicationAvailabilityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/availability/ApplicationAvailabilityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/context/ConfigurationPropertiesAutoConfiguration.java[`ConfigurationPropertiesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/context/ConfigurationPropertiesAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/jmx/JmxAutoConfiguration.java[`JmxAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/jmx/JmxAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/context/LifecycleAutoConfiguration.java[`LifecycleAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/context/LifecycleAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/context/MessageSourceAutoConfiguration.java[`MessageSourceAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/context/MessageSourceAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/info/ProjectInfoAutoConfiguration.java[`ProjectInfoAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/info/ProjectInfoAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/context/PropertyPlaceholderAutoConfiguration.java[`PropertyPlaceholderAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/context/PropertyPlaceholderAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/admin/SpringApplicationAdminJmxAutoConfiguration.java[`SpringApplicationAdminJmxAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/admin/SpringApplicationAdminJmxAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/ssl/SslAutoConfiguration.java[`SslAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/ssl/SslAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/task/TaskExecutionAutoConfiguration.java[`TaskExecutionAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/task/TaskExecutionAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/task/TaskSchedulingAutoConfiguration.java[`TaskSchedulingAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/autoconfigure/task/TaskSchedulingAutoConfiguration.html[javadoc]
+|===

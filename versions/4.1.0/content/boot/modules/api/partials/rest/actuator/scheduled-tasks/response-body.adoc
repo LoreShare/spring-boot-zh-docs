@@ -1,0 +1,52 @@
+[source,json,options="nowrap"]
+----
+{
+  "cron" : [ {
+    "expression" : "0 0 0/3 1/1 * ?",
+    "nextExecution" : {
+      "time" : "2026-06-10T17:59:59.999197011Z"
+    },
+    "runnable" : {
+      "target" : "com.example.Processor.processOrders"
+    }
+  } ],
+  "custom" : [ {
+    "lastExecution" : {
+      "exception" : {
+        "message" : "Failed while running custom task",
+        "type" : "java.lang.IllegalStateException"
+      },
+      "status" : "ERROR",
+      "time" : "2026-06-10T16:30:23.620060413Z"
+    },
+    "runnable" : {
+      "target" : "com.example.Processor$CustomTriggeredRunnable@420cf372"
+    },
+    "trigger" : "com.example.Processor$CustomTrigger@708a0150"
+  } ],
+  "fixedDelay" : [ {
+    "initialDelay" : 0,
+    "interval" : 5000,
+    "lastExecution" : {
+      "status" : "SUCCESS",
+      "time" : "2026-06-10T16:30:23.573921180Z"
+    },
+    "nextExecution" : {
+      "time" : "2026-06-10T16:30:28.605594799Z"
+    },
+    "runnable" : {
+      "target" : "com.example.Processor.purge"
+    }
+  } ],
+  "fixedRate" : [ {
+    "initialDelay" : 10000,
+    "interval" : 3000,
+    "nextExecution" : {
+      "time" : "2026-06-10T16:30:33.558713829Z"
+    },
+    "runnable" : {
+      "target" : "com.example.Processor.retrieveIssues"
+    }
+  } ]
+}
+----

@@ -1,0 +1,281 @@
+{
+  "groups": [
+    {
+      "name": "management.opentelemetry.tracing",
+      "type": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties"
+    },
+    {
+      "name": "management.opentelemetry.tracing.export",
+      "type": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Export",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties",
+      "sourceMethod": "getExport()"
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.otlp",
+      "type": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties"
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.otlp.ssl",
+      "type": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties$Ssl",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties",
+      "sourceMethod": "getSsl()"
+    },
+    {
+      "name": "management.opentelemetry.tracing.limits",
+      "type": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Limits",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties",
+      "sourceMethod": "getLimits()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.opentelemetry.tracing.export.include-unsampled",
+      "type": "java.lang.Boolean",
+      "description": "Whether unsampled spans should be exported.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Export",
+      "defaultValue": false
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.max-batch-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum batch size for each export. This must be less than or equal to 'maxQueueSize'.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Export",
+      "defaultValue": 512
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.max-queue-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of spans that are kept in the queue before they will be dropped.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Export",
+      "defaultValue": 2048
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.otlp.compression",
+      "type": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties$Compression",
+      "description": "Method used to compress the payload.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties",
+      "defaultValue": "none"
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.otlp.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Connect timeout for the OTel collector connection.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.otlp.endpoint",
+      "type": "java.lang.String",
+      "description": "URL to the OTel collector's HTTP API.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties"
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.otlp.headers",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Custom HTTP headers you want to pass to the collector, for example auth headers.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties"
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.otlp.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle name.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties$Ssl"
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.otlp.timeout",
+      "type": "java.time.Duration",
+      "description": "Call timeout for the OTel Collector to process an exported batch of data. This timeout spans the entire call: resolving DNS, connecting, writing the request body, server processing, and reading the response body. If the call requires redirects or retries all must complete within one timeout period.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.otlp.transport",
+      "type": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.Transport",
+      "description": "Transport used to send the spans.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingProperties",
+      "defaultValue": "http"
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.schedule-delay",
+      "type": "java.time.Duration",
+      "description": "The delay interval between two consecutive exports.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Export",
+      "defaultValue": "5s"
+    },
+    {
+      "name": "management.opentelemetry.tracing.export.timeout",
+      "type": "java.time.Duration",
+      "description": "Maximum time an export will be allowed to run before being cancelled.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Export",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "management.opentelemetry.tracing.limits.max-attribute-value-length",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of characters for string attribute values.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Limits"
+    },
+    {
+      "name": "management.opentelemetry.tracing.limits.max-attributes",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of attributes per span.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Limits",
+      "defaultValue": 128
+    },
+    {
+      "name": "management.opentelemetry.tracing.limits.max-attributes-per-event",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of attributes per event.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Limits",
+      "defaultValue": 128
+    },
+    {
+      "name": "management.opentelemetry.tracing.limits.max-attributes-per-link",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of attributes per link.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Limits",
+      "defaultValue": 128
+    },
+    {
+      "name": "management.opentelemetry.tracing.limits.max-events",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of events per span.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Limits",
+      "defaultValue": 128
+    },
+    {
+      "name": "management.opentelemetry.tracing.limits.max-links",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of links per span.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Limits",
+      "defaultValue": 128
+    },
+    {
+      "name": "management.opentelemetry.tracing.sampler",
+      "type": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties$Sampler",
+      "description": "Sampler to use.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingProperties",
+      "defaultValue": "parent-based-trace-id-ratio"
+    },
+    {
+      "name": "management.tracing.export.otlp.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether auto-configuration of tracing is enabled to export OTLP traces.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.otlp.tracing.compression",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.tracing.export.otlp.compression",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.tracing.connect-timeout",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.tracing.export.otlp.connect-timeout",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.tracing.endpoint",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.tracing.export.otlp.endpoint",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.tracing.export.enabled",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.tracing.export.otlp.enabled",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.tracing.headers",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.tracing.export.otlp.headers",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.tracing.timeout",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.tracing.export.otlp.timeout",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.tracing.transport",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.tracing.export.otlp.transport",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.tracing.opentelemetry.export.include-unsampled",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.tracing.export.include-unsampled",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.tracing.opentelemetry.export.max-batch-size",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.tracing.export.max-batch-size",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.tracing.opentelemetry.export.max-queue-size",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.tracing.export.max-queue-size",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.tracing.opentelemetry.export.schedule-delay",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.tracing.export.schedule-delay",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.tracing.opentelemetry.export.timeout",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.tracing.export.timeout",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

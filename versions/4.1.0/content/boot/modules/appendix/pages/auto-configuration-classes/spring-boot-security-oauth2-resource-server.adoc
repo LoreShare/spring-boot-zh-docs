@@ -1,0 +1,21 @@
+[[appendix.auto-configuration-classes.spring-boot-security-oauth2-resource-server]]
+= spring-boot-security-oauth2-resource-server
+
+以下 auto-configuration 类来自 `spring-boot-security-oauth2-resource-server` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-security-oauth2-resource-server/src/main/java/org/springframework/boot/security/oauth2/server/resource/autoconfigure/OAuth2ResourceServerAutoConfiguration.java[`OAuth2ResourceServerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/oauth2/server/resource/autoconfigure/OAuth2ResourceServerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security-oauth2-resource-server/src/main/java/org/springframework/boot/security/oauth2/server/resource/autoconfigure/web/OAuth2ResourceServerWebSecurityAutoConfiguration.java[`OAuth2ResourceServerWebSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/oauth2/server/resource/autoconfigure/web/OAuth2ResourceServerWebSecurityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security-oauth2-resource-server/src/main/java/org/springframework/boot/security/oauth2/server/resource/autoconfigure/reactive/ReactiveOAuth2ResourceServerAutoConfiguration.java[`ReactiveOAuth2ResourceServerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/oauth2/server/resource/autoconfigure/reactive/ReactiveOAuth2ResourceServerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security-oauth2-resource-server/src/main/java/org/springframework/boot/security/oauth2/server/resource/autoconfigure/web/reactive/ReactiveOAuth2ResourceServerWebSecurityAutoConfiguration.java[`ReactiveOAuth2ResourceServerWebSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/oauth2/server/resource/autoconfigure/web/reactive/ReactiveOAuth2ResourceServerWebSecurityAutoConfiguration.html[javadoc]
+|===

@@ -1,0 +1,21 @@
+[[appendix.auto-configuration-classes.spring-boot-data-elasticsearch]]
+= spring-boot-data-elasticsearch
+
+以下 auto-configuration 类来自 `spring-boot-data-elasticsearch` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-data-elasticsearch/src/main/java/org/springframework/boot/data/elasticsearch/autoconfigure/DataElasticsearchAutoConfiguration.java[`DataElasticsearchAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/elasticsearch/autoconfigure/DataElasticsearchAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-elasticsearch/src/main/java/org/springframework/boot/data/elasticsearch/autoconfigure/health/DataElasticsearchReactiveHealthContributorAutoConfiguration.java[`DataElasticsearchReactiveHealthContributorAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/elasticsearch/autoconfigure/health/DataElasticsearchReactiveHealthContributorAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-elasticsearch/src/main/java/org/springframework/boot/data/elasticsearch/autoconfigure/DataElasticsearchReactiveRepositoriesAutoConfiguration.java[`DataElasticsearchReactiveRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/elasticsearch/autoconfigure/DataElasticsearchReactiveRepositoriesAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-elasticsearch/src/main/java/org/springframework/boot/data/elasticsearch/autoconfigure/DataElasticsearchRepositoriesAutoConfiguration.java[`DataElasticsearchRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/elasticsearch/autoconfigure/DataElasticsearchRepositoriesAutoConfiguration.html[javadoc]
+|===

@@ -1,0 +1,27 @@
+[source,json,options="nowrap"]
+----
+{
+  "contexts" : {
+    "application" : {
+      "liquibaseBeans" : {
+        "liquibase" : {
+          "changeSets" : [ {
+            "author" : "marceloverdijk",
+            "changeLog" : "org/springframework/boot/actuate/docs/liquibase/db.changelog-master.yaml",
+            "checksum" : "9:d3589feb2baad02e15540750499ba311",
+            "comments" : "",
+            "contexts" : [ ],
+            "dateExecuted" : "2026-06-10T16:30:16.825Z",
+            "deploymentId" : "1109014334",
+            "description" : "createTable tableName=customer",
+            "execType" : "EXECUTED",
+            "id" : "1",
+            "labels" : [ ],
+            "orderExecuted" : 1
+          } ]
+        }
+      }
+    }
+  }
+}
+----

@@ -1,0 +1,976 @@
+{
+  "groups": [
+    {
+      "name": "spring.info",
+      "type": "org.springframework.boot.autoconfigure.info.ProjectInfoProperties",
+      "sourceType": "org.springframework.boot.autoconfigure.info.ProjectInfoProperties"
+    },
+    {
+      "name": "spring.info.build",
+      "type": "org.springframework.boot.autoconfigure.info.ProjectInfoProperties$Build",
+      "sourceType": "org.springframework.boot.autoconfigure.info.ProjectInfoProperties",
+      "sourceMethod": "getBuild()"
+    },
+    {
+      "name": "spring.info.git",
+      "type": "org.springframework.boot.autoconfigure.info.ProjectInfoProperties$Git",
+      "sourceType": "org.springframework.boot.autoconfigure.info.ProjectInfoProperties",
+      "sourceMethod": "getGit()"
+    },
+    {
+      "name": "spring.jmx",
+      "type": "org.springframework.boot.autoconfigure.jmx.JmxProperties",
+      "sourceType": "org.springframework.boot.autoconfigure.jmx.JmxProperties"
+    },
+    {
+      "name": "spring.lifecycle",
+      "type": "org.springframework.boot.autoconfigure.context.LifecycleProperties",
+      "sourceType": "org.springframework.boot.autoconfigure.context.LifecycleProperties"
+    },
+    {
+      "name": "spring.messages",
+      "type": "org.springframework.boot.autoconfigure.context.MessageSourceProperties",
+      "sourceType": "org.springframework.boot.autoconfigure.context.MessageSourceProperties"
+    },
+    {
+      "name": "spring.ssl",
+      "type": "org.springframework.boot.autoconfigure.ssl.SslProperties",
+      "sourceType": "org.springframework.boot.autoconfigure.ssl.SslProperties"
+    },
+    {
+      "name": "spring.ssl.bundle",
+      "type": "org.springframework.boot.autoconfigure.ssl.SslProperties$Bundles",
+      "sourceType": "org.springframework.boot.autoconfigure.ssl.SslProperties",
+      "sourceMethod": "getBundle()"
+    },
+    {
+      "name": "spring.ssl.bundle.watch",
+      "type": "org.springframework.boot.autoconfigure.ssl.SslProperties$Bundles$Watch",
+      "sourceType": "org.springframework.boot.autoconfigure.ssl.SslProperties$Bundles",
+      "sourceMethod": "getWatch()"
+    },
+    {
+      "name": "spring.ssl.bundle.watch.file",
+      "type": "org.springframework.boot.autoconfigure.ssl.SslProperties$Bundles$Watch$File",
+      "sourceType": "org.springframework.boot.autoconfigure.ssl.SslProperties$Bundles$Watch",
+      "sourceMethod": "getFile()"
+    },
+    {
+      "name": "spring.task.execution",
+      "type": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties"
+    },
+    {
+      "name": "spring.task.execution.pool",
+      "type": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Pool",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties",
+      "sourceMethod": "getPool()"
+    },
+    {
+      "name": "spring.task.execution.pool.shutdown",
+      "type": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Pool$Shutdown",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Pool",
+      "sourceMethod": "getShutdown()"
+    },
+    {
+      "name": "spring.task.execution.shutdown",
+      "type": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Shutdown",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties",
+      "sourceMethod": "getShutdown()"
+    },
+    {
+      "name": "spring.task.execution.simple",
+      "type": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Simple",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties",
+      "sourceMethod": "getSimple()"
+    },
+    {
+      "name": "spring.task.scheduling",
+      "type": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties"
+    },
+    {
+      "name": "spring.task.scheduling.pool",
+      "type": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties$Pool",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties",
+      "sourceMethod": "getPool()"
+    },
+    {
+      "name": "spring.task.scheduling.shutdown",
+      "type": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties$Shutdown",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties",
+      "sourceMethod": "getShutdown()"
+    },
+    {
+      "name": "spring.task.scheduling.simple",
+      "type": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties$Simple",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties",
+      "sourceMethod": "getSimple()"
+    },
+    {
+      "name": "spring.web",
+      "type": "org.springframework.boot.autoconfigure.web.WebProperties",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties"
+    },
+    {
+      "name": "spring.web.error",
+      "type": "org.springframework.boot.autoconfigure.web.ErrorProperties",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties",
+      "sourceMethod": "getError()"
+    },
+    {
+      "name": "spring.web.error.whitelabel",
+      "type": "org.springframework.boot.autoconfigure.web.ErrorProperties$Whitelabel",
+      "sourceType": "org.springframework.boot.autoconfigure.web.ErrorProperties",
+      "sourceMethod": "getWhitelabel()"
+    },
+    {
+      "name": "spring.web.resources",
+      "type": "org.springframework.boot.autoconfigure.web.WebProperties$Resources",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties",
+      "sourceMethod": "getResources()"
+    },
+    {
+      "name": "spring.web.resources.cache",
+      "type": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources",
+      "sourceMethod": "getCache()"
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol",
+      "type": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache",
+      "sourceMethod": "getCachecontrol()"
+    },
+    {
+      "name": "spring.web.resources.chain",
+      "type": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources",
+      "sourceMethod": "getChain()"
+    },
+    {
+      "name": "spring.web.resources.chain.strategy",
+      "type": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain$Strategy",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain",
+      "sourceMethod": "getStrategy()"
+    },
+    {
+      "name": "spring.web.resources.chain.strategy.content",
+      "type": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain$Strategy$Content",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain$Strategy",
+      "sourceMethod": "getContent()"
+    },
+    {
+      "name": "spring.web.resources.chain.strategy.fixed",
+      "type": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain$Strategy$Fixed",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain$Strategy",
+      "sourceMethod": "getFixed()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.aop.auto",
+      "type": "java.lang.Boolean",
+      "description": "Add @EnableAspectJAutoProxy.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.aop.proxy-target-class",
+      "type": "java.lang.Boolean",
+      "description": "Whether subclass-based (CGLIB) proxies are to be created (true), as opposed to standard Java interface-based proxies (false).",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.application.admin.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable admin features for the application.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.application.admin.jmx-name",
+      "type": "java.lang.String",
+      "description": "JMX name of the application admin MBean.",
+      "defaultValue": "org.springframework.boot:type=Admin,name=SpringApplication"
+    },
+    {
+      "name": "spring.autoconfigure.exclude",
+      "type": "java.util.List<java.lang.Class>",
+      "description": "Auto-configuration classes to exclude."
+    },
+    {
+      "name": "spring.info.build.encoding",
+      "type": "java.nio.charset.Charset",
+      "description": "File encoding.",
+      "sourceType": "org.springframework.boot.autoconfigure.info.ProjectInfoProperties$Build",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.info.build.location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the generated build-info.properties file.",
+      "sourceType": "org.springframework.boot.autoconfigure.info.ProjectInfoProperties$Build",
+      "defaultValue": "classpath:META-INF\/build-info.properties"
+    },
+    {
+      "name": "spring.info.git.encoding",
+      "type": "java.nio.charset.Charset",
+      "description": "File encoding.",
+      "sourceType": "org.springframework.boot.autoconfigure.info.ProjectInfoProperties$Git",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.info.git.location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the generated git.properties file.",
+      "sourceType": "org.springframework.boot.autoconfigure.info.ProjectInfoProperties$Git",
+      "defaultValue": "classpath:git.properties"
+    },
+    {
+      "name": "spring.jmx.default-domain",
+      "type": "java.lang.String",
+      "description": "JMX domain name.",
+      "sourceType": "org.springframework.boot.autoconfigure.jmx.JmxProperties"
+    },
+    {
+      "name": "spring.jmx.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Expose Spring's management beans to the JMX domain.",
+      "sourceType": "org.springframework.boot.autoconfigure.jmx.JmxProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.jmx.registration-policy",
+      "type": "org.springframework.jmx.support.RegistrationPolicy",
+      "description": "JMX Registration policy.",
+      "sourceType": "org.springframework.boot.autoconfigure.jmx.JmxProperties",
+      "defaultValue": "fail-on-existing"
+    },
+    {
+      "name": "spring.jmx.server",
+      "type": "java.lang.String",
+      "description": "MBeanServer bean name.",
+      "sourceType": "org.springframework.boot.autoconfigure.jmx.JmxProperties",
+      "defaultValue": "mbeanServer"
+    },
+    {
+      "name": "spring.jmx.unique-names",
+      "type": "java.lang.Boolean",
+      "description": "Whether unique runtime object names should be ensured.",
+      "sourceType": "org.springframework.boot.autoconfigure.jmx.JmxProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.lifecycle.timeout-per-shutdown-phase",
+      "type": "java.time.Duration",
+      "description": "Timeout for the shutdown of any phase (group of SmartLifecycle beans with the same 'phase' value).",
+      "sourceType": "org.springframework.boot.autoconfigure.context.LifecycleProperties",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.messages.always-use-message-format",
+      "type": "java.lang.Boolean",
+      "description": "Whether to always apply the MessageFormat rules, parsing even messages without arguments.",
+      "sourceType": "org.springframework.boot.autoconfigure.context.MessageSourceProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.messages.basename",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of basenames (essentially a fully-qualified classpath location), each following the ResourceBundle convention with relaxed support for slash based locations. If it doesn't contain a package qualifier (such as \"org.mypackage\"), it will be resolved from the classpath root.",
+      "sourceType": "org.springframework.boot.autoconfigure.context.MessageSourceProperties",
+      "defaultValue": [
+        "messages"
+      ]
+    },
+    {
+      "name": "spring.messages.cache-duration",
+      "type": "java.time.Duration",
+      "description": "Loaded resource bundle files cache duration. When not set, bundles are cached forever. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.autoconfigure.context.MessageSourceProperties"
+    },
+    {
+      "name": "spring.messages.common-messages",
+      "type": "java.util.List<org.springframework.core.io.Resource>",
+      "description": "List of locale-independent property file resources containing common messages.",
+      "sourceType": "org.springframework.boot.autoconfigure.context.MessageSourceProperties"
+    },
+    {
+      "name": "spring.messages.encoding",
+      "type": "java.nio.charset.Charset",
+      "description": "Message bundles encoding.",
+      "sourceType": "org.springframework.boot.autoconfigure.context.MessageSourceProperties",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.messages.fallback-to-system-locale",
+      "type": "java.lang.Boolean",
+      "description": "Whether to fall back to the system Locale if no files for a specific Locale have been found. if this is turned off, the only fallback will be the default file (e.g. \"messages.properties\" for basename \"messages\").",
+      "sourceType": "org.springframework.boot.autoconfigure.context.MessageSourceProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.messages.use-code-as-default-message",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use the message code as the default message instead of throwing a \"NoSuchMessageException\". Recommended during development only.",
+      "sourceType": "org.springframework.boot.autoconfigure.context.MessageSourceProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.ssl.bundle.jks",
+      "type": "java.util.Map<java.lang.String,org.springframework.boot.autoconfigure.ssl.JksSslBundleProperties>",
+      "description": "Java keystore SSL trust material.",
+      "sourceType": "org.springframework.boot.autoconfigure.ssl.SslProperties$Bundles"
+    },
+    {
+      "name": "spring.ssl.bundle.pem",
+      "type": "java.util.Map<java.lang.String,org.springframework.boot.autoconfigure.ssl.PemSslBundleProperties>",
+      "description": "PEM-encoded SSL trust material.",
+      "sourceType": "org.springframework.boot.autoconfigure.ssl.SslProperties$Bundles"
+    },
+    {
+      "name": "spring.ssl.bundle.watch.file.quiet-period",
+      "type": "java.time.Duration",
+      "description": "Quiet period, after which changes are detected.",
+      "sourceType": "org.springframework.boot.autoconfigure.ssl.SslProperties$Bundles$Watch$File",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "spring.task.execution.mode",
+      "type": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Mode",
+      "description": "Determine when the task executor is to be created.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties",
+      "defaultValue": "auto"
+    },
+    {
+      "name": "spring.task.execution.pool.allow-core-thread-timeout",
+      "type": "java.lang.Boolean",
+      "description": "Whether core threads are allowed to time out. This enables dynamic growing and shrinking of the pool. Doesn't have an effect if virtual threads are enabled.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Pool",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.task.execution.pool.core-size",
+      "type": "java.lang.Integer",
+      "description": "Core number of threads. Doesn't have an effect if virtual threads are enabled.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Pool",
+      "defaultValue": 8
+    },
+    {
+      "name": "spring.task.execution.pool.keep-alive",
+      "type": "java.time.Duration",
+      "description": "Time limit for which threads may remain idle before being terminated. Doesn't have an effect if virtual threads are enabled.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Pool",
+      "defaultValue": "60s"
+    },
+    {
+      "name": "spring.task.execution.pool.max-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum allowed number of threads. If tasks are filling up the queue, the pool can expand up to that size to accommodate the load. Ignored if the queue is unbounded. Doesn't have an effect if virtual threads are enabled.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Pool"
+    },
+    {
+      "name": "spring.task.execution.pool.queue-capacity",
+      "type": "java.lang.Integer",
+      "description": "Queue capacity. An unbounded capacity does not increase the pool and therefore ignores the \"max-size\" property. Doesn't have an effect if virtual threads are enabled.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Pool"
+    },
+    {
+      "name": "spring.task.execution.pool.shutdown.accept-tasks-after-context-close",
+      "type": "java.lang.Boolean",
+      "description": "Whether to accept further tasks after the application context close phase has begun.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Pool$Shutdown",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.task.execution.propagate-context",
+      "type": "java.lang.Boolean",
+      "description": "Whether to propagate the current context to task executions.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.task.execution.shutdown.await-termination",
+      "type": "java.lang.Boolean",
+      "description": "Whether the executor should wait for scheduled tasks to complete on shutdown.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Shutdown",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.task.execution.shutdown.await-termination-period",
+      "type": "java.time.Duration",
+      "description": "Maximum time the executor should wait for remaining tasks to complete.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Shutdown"
+    },
+    {
+      "name": "spring.task.execution.simple.cancel-remaining-tasks-on-close",
+      "type": "java.lang.Boolean",
+      "description": "Whether to cancel remaining tasks on close. Only recommended if threads are commonly expected to be stuck.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Simple",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.task.execution.simple.concurrency-limit",
+      "type": "java.lang.Integer",
+      "description": "Set the maximum number of parallel accesses allowed. -1 indicates no concurrency limit at all.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Simple"
+    },
+    {
+      "name": "spring.task.execution.simple.reject-tasks-when-limit-reached",
+      "type": "java.lang.Boolean",
+      "description": "Whether to reject tasks when the concurrency limit has been reached.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties$Simple",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.task.execution.thread-name-prefix",
+      "type": "java.lang.String",
+      "description": "Prefix to use for the names of newly created threads.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskExecutionProperties",
+      "defaultValue": "task-"
+    },
+    {
+      "name": "spring.task.scheduling.pool.size",
+      "type": "java.lang.Integer",
+      "description": "Maximum allowed number of threads. Doesn't have an effect if virtual threads are enabled.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties$Pool",
+      "defaultValue": 1
+    },
+    {
+      "name": "spring.task.scheduling.shutdown.await-termination",
+      "type": "java.lang.Boolean",
+      "description": "Whether the executor should wait for scheduled tasks to complete on shutdown.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties$Shutdown",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.task.scheduling.shutdown.await-termination-period",
+      "type": "java.time.Duration",
+      "description": "Maximum time the executor should wait for remaining tasks to complete.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties$Shutdown"
+    },
+    {
+      "name": "spring.task.scheduling.simple.concurrency-limit",
+      "type": "java.lang.Integer",
+      "description": "Set the maximum number of parallel accesses allowed. -1 indicates no concurrency limit at all.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties$Simple"
+    },
+    {
+      "name": "spring.task.scheduling.thread-name-prefix",
+      "type": "java.lang.String",
+      "description": "Prefix to use for the names of newly created threads.",
+      "sourceType": "org.springframework.boot.autoconfigure.task.TaskSchedulingProperties",
+      "defaultValue": "scheduling-"
+    },
+    {
+      "name": "spring.threads.virtual.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use virtual threads.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.web.error.include-binding-errors",
+      "type": "org.springframework.boot.autoconfigure.web.ErrorProperties$IncludeAttribute",
+      "description": "When to include \"errors\" attribute.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.ErrorProperties",
+      "defaultValue": "never"
+    },
+    {
+      "name": "spring.web.error.include-exception",
+      "type": "java.lang.Boolean",
+      "description": "Include the \"exception\" attribute.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.ErrorProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.web.error.include-message",
+      "type": "org.springframework.boot.autoconfigure.web.ErrorProperties$IncludeAttribute",
+      "description": "When to include \"message\" attribute.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.ErrorProperties",
+      "defaultValue": "never"
+    },
+    {
+      "name": "spring.web.error.include-path",
+      "type": "org.springframework.boot.autoconfigure.web.ErrorProperties$IncludeAttribute",
+      "description": "When to include \"path\" attribute.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.ErrorProperties",
+      "defaultValue": "always"
+    },
+    {
+      "name": "spring.web.error.include-stacktrace",
+      "type": "org.springframework.boot.autoconfigure.web.ErrorProperties$IncludeAttribute",
+      "description": "When to include the \"trace\" attribute.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.ErrorProperties",
+      "defaultValue": "never"
+    },
+    {
+      "name": "spring.web.error.path",
+      "type": "java.lang.String",
+      "description": "Path of the error controller.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.ErrorProperties",
+      "defaultValue": "\/error"
+    },
+    {
+      "name": "spring.web.error.whitelabel.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the default error page displayed in browsers in case of a server error.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.ErrorProperties$Whitelabel",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.web.locale",
+      "type": "java.util.Locale",
+      "description": "Locale to use. By default, this locale is overridden by the \"Accept-Language\" header.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties"
+    },
+    {
+      "name": "spring.web.locale-resolver",
+      "type": "org.springframework.boot.autoconfigure.web.WebProperties$LocaleResolver",
+      "description": "Define how the locale should be resolved.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties",
+      "defaultValue": "accept-header"
+    },
+    {
+      "name": "spring.web.resources.add-mappings",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable default resource handling.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol.cache-private",
+      "type": "java.lang.Boolean",
+      "description": "Indicate that the response message is intended for a single user and must not be stored by a shared cache.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol"
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol.cache-public",
+      "type": "java.lang.Boolean",
+      "description": "Indicate that any cache may store the response.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol"
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol.max-age",
+      "type": "java.time.Duration",
+      "description": "Maximum time the response should be cached, in seconds if no duration suffix is not specified.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol"
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol.must-revalidate",
+      "type": "java.lang.Boolean",
+      "description": "Indicate that once it has become stale, a cache must not use the response without re-validating it with the server.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol"
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol.no-cache",
+      "type": "java.lang.Boolean",
+      "description": "Indicate that the cached response can be reused only if re-validated with the server.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol"
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol.no-store",
+      "type": "java.lang.Boolean",
+      "description": "Indicate to not cache the response in any case.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol"
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol.no-transform",
+      "type": "java.lang.Boolean",
+      "description": "Indicate intermediaries (caches and others) that they should not transform the response content.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol"
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol.proxy-revalidate",
+      "type": "java.lang.Boolean",
+      "description": "Same meaning as the \"must-revalidate\" directive, except that it does not apply to private caches.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol"
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol.s-max-age",
+      "type": "java.time.Duration",
+      "description": "Maximum time the response should be cached by shared caches, in seconds if no duration suffix is not specified.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol"
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol.stale-if-error",
+      "type": "java.time.Duration",
+      "description": "Maximum time the response may be used when errors are encountered, in seconds if no duration suffix is not specified.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol"
+    },
+    {
+      "name": "spring.web.resources.cache.cachecontrol.stale-while-revalidate",
+      "type": "java.time.Duration",
+      "description": "Maximum time the response can be served after it becomes stale, in seconds if no duration suffix is not specified.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache$Cachecontrol"
+    },
+    {
+      "name": "spring.web.resources.cache.period",
+      "type": "java.time.Duration",
+      "description": "Cache period for the resources served by the resource handler. If a duration suffix is not specified, seconds will be used. Can be overridden by the 'spring.web.resources.cache.cachecontrol' properties.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache"
+    },
+    {
+      "name": "spring.web.resources.cache.use-last-modified",
+      "type": "java.lang.Boolean",
+      "description": "Whether we should use the \"lastModified\" metadata of the files in HTTP caching headers.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Cache",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.web.resources.chain.cache",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable caching in the Resource chain.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.web.resources.chain.compressed",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable resolution of already compressed resources (gzip, brotli). Checks for a resource name with the '.gz' or '.br' file extensions.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.web.resources.chain.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the Spring Resource Handling chain. By default, disabled unless at least one strategy has been enabled.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain"
+    },
+    {
+      "name": "spring.web.resources.chain.strategy.content.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the content Version Strategy.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain$Strategy$Content",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.web.resources.chain.strategy.content.paths",
+      "type": "java.lang.String[]",
+      "description": "List of patterns to apply to the content Version Strategy.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain$Strategy$Content",
+      "defaultValue": [
+        "\/**"
+      ]
+    },
+    {
+      "name": "spring.web.resources.chain.strategy.fixed.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the fixed Version Strategy.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain$Strategy$Fixed",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.web.resources.chain.strategy.fixed.paths",
+      "type": "java.lang.String[]",
+      "description": "List of patterns to apply to the fixed Version Strategy.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain$Strategy$Fixed",
+      "defaultValue": [
+        "\/**"
+      ]
+    },
+    {
+      "name": "spring.web.resources.chain.strategy.fixed.version",
+      "type": "java.lang.String",
+      "description": "Version string to use for the fixed Version Strategy.",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources$Chain$Strategy$Fixed"
+    },
+    {
+      "name": "spring.web.resources.static-locations",
+      "type": "java.lang.String[]",
+      "description": "Locations of static resources. Defaults to classpath:[\/META-INF\/resources\/, \/resources\/, \/static\/, \/public\/].",
+      "sourceType": "org.springframework.boot.autoconfigure.web.WebProperties$Resources",
+      "defaultValue": [
+        "classpath:\/META-INF\/resources\/",
+        "classpath:\/resources\/",
+        "classpath:\/static\/",
+        "classpath:\/public\/"
+      ]
+    },
+    {
+      "name": "spring.git.properties",
+      "type": "java.lang.String",
+      "description": "Resource reference to a generated git info properties file.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.info.git.location",
+        "since": "1.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.add-mappings",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.add-mappings",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.cachecontrol.cache-private",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.cachecontrol.cache-private",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.cachecontrol.cache-public",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.cachecontrol.cache-public",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.cachecontrol.max-age",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.cachecontrol.max-age",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.cachecontrol.must-revalidate",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.cachecontrol.must-revalidate",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.cachecontrol.no-cache",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.cachecontrol.no-cache",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.cachecontrol.no-store",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.cachecontrol.no-store",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.cachecontrol.no-transform",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.cachecontrol.no-transform",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.cachecontrol.proxy-revalidate",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.cachecontrol.proxy-revalidate",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.cachecontrol.s-max-age",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.cachecontrol.s-max-age",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.cachecontrol.stale-if-error",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.cachecontrol.stale-if-error",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.cachecontrol.stale-while-revalidate",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.cachecontrol.stale-while-revalidate",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.period",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.period",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.cache.use-last-modified",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.cache.use-last-modified",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.chain.cache",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.chain.cache",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.chain.compressed",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.chain.compressed",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.chain.enabled",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.chain.enabled",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.chain.gzipped",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.chain.compressed",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.chain.html-application-cache",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.chain.strategy.content.enabled",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.chain.strategy.content.enabled",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.chain.strategy.content.paths",
+      "type": "java.lang.String[]",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.chain.strategy.content.paths",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.chain.strategy.fixed.enabled",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.chain.strategy.fixed.enabled",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.chain.strategy.fixed.paths",
+      "type": "java.lang.String[]",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.chain.strategy.fixed.paths",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.chain.strategy.fixed.version",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.chain.strategy.fixed.version",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.resources.static-locations",
+      "type": "java.lang.String[]",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.resources.static-locations",
+        "since": "2.4.0"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "server.servlet.jsp.class-name",
+      "providers": [
+        {
+          "name": "class-reference",
+          "parameters": {
+            "target": "jakarta.servlet.http.HttpServlet"
+          }
+        }
+      ]
+    },
+    {
+      "name": "spring.jmx.server",
+      "providers": [
+        {
+          "name": "spring-bean-reference",
+          "parameters": {
+            "target": "javax.management.MBeanServer"
+          }
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,0 +1,12 @@
+[[appendix.auto-configuration-classes.spring-boot-groovy-templates]]
+= spring-boot-groovy-templates
+
+以下 auto-configuration 类来自 `spring-boot-groovy-templates` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-groovy-templates/src/main/java/org/springframework/boot/groovy/template/autoconfigure/GroovyTemplateAutoConfiguration.java[`GroovyTemplateAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/groovy/template/autoconfigure/GroovyTemplateAutoConfiguration.html[javadoc]
+|===

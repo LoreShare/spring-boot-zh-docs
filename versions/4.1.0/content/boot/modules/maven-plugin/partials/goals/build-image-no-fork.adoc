@@ -1,1 +1,846 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[build-image.build-image-no-fork-goal]]
+= `spring-boot:build-image-no-fork`
+
+`org.springframework.boot:spring-boot-maven-plugin:4.1.0`
+
+使用 buildpack 将应用程序打包成 OCI 镜像，但不分叉生命周期。当在构建中配置目标 `execution` 时应使用此目标。要在命令行上调用该目标，请改用 `build-image`。
+
+
+
+[[build-image.build-image-no-fork-goal.required-parameters]]
+== 必需参数
+
+[cols="3,2,3"]
+|===
+| 名称 | 类型 | 默认值
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.source-directory[sourceDirectory]
+| `File`
+| `${project.build.directory}`
+
+|===
+
+
+
+[[build-image.build-image-no-fork-goal.optional-parameters]]
+== 可选参数
+
+[cols="3,2,3"]
+|===
+| 名称 | 类型 | 默认值
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.application-directory[applicationDirectory]
+| `String`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.classifier[classifier]
+| `String`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.clean-cache[cleanCache]
+| `Boolean`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.created-date[createdDate]
+| `String`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.docker[docker]
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/Docker.html[Docker]`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.exclude-devtools[excludeDevtools]
+| `boolean`
+| `true`
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.exclude-docker-compose[excludeDockerCompose]
+| `boolean`
+| `true`
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.exclude-group-ids[excludeGroupIds]
+| `String`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.excludes[excludes]
+| `List`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.image[image]
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/Image.html[Image]`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.image-builder[imageBuilder]
+| `String`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.image-name[imageName]
+| `String`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.image-platform[imagePlatform]
+| `String`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.include-optional[includeOptional]
+| `boolean`
+| `false`
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.include-system-scope[includeSystemScope]
+| `boolean`
+| `false`
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.include-tools[includeTools]
+| `boolean`
+| `true`
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.includes[includes]
+| `List`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.layers[layers]
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/Layers.html[Layers]`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.layout[layout]
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/AbstractPackagerMojo.LayoutType.html[LayoutType]`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.layout-factory[layoutFactory]
+| `link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/loader/tools/LayoutFactory.html[LayoutFactory]`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.main-class[mainClass]
+| `String`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.network[network]
+| `String`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.publish[publish]
+| `Boolean`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.pull-policy[pullPolicy]
+| `link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/buildpack/platform/build/PullPolicy.html[PullPolicy]`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.run-image[runImage]
+| `String`
+|
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.skip[skip]
+| `boolean`
+| `false`
+
+| xref:#build-image.build-image-no-fork-goal.parameter-details.trust-builder[trustBuilder]
+| `Boolean`
+|
+
+|===
+
+
+
+[[build-image.build-image-no-fork-goal.parameter-details]]
+== 参数详情
+
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.application-directory]]
+=== `applicationDirectory`
+`Image#applicationDirectory` 的别名，用于通过命令行属性进行配置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `applicationDirectory`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.build-image.applicationDirectory``
+
+| 起始版本
+| `3.1.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.classifier]]
+=== `classifier`
+查找源归档时使用的分类器。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `classifier`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `2.3.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.clean-cache]]
+=== `cleanCache`
+`Image#cleanCache` 的别名，用于通过命令行属性进行配置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `cleanCache`
+
+| 类型
+| `java.lang.Boolean`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.build-image.cleanCache``
+
+| 起始版本
+| `2.4.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.created-date]]
+=== `createdDate`
+`Image#createdDate` 的别名，用于通过命令行属性进行配置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `createdDate`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.build-image.createdDate``
+
+| 起始版本
+| `3.1.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.docker]]
+=== `docker`
+Docker 配置选项。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `docker`
+
+| 类型
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/Docker.html[org.springframework.boot.maven.Docker]`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `2.4.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.exclude-devtools]]
+=== `excludeDevtools`
+从重新打包的归档中排除 Spring Boot devtools。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `excludeDevtools`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `true`
+
+| 用户属性
+| ``spring-boot.repackage.excludeDevtools``
+
+| 起始版本
+| `1.3.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.exclude-docker-compose]]
+=== `excludeDockerCompose`
+从重新打包的归档中排除 Spring Boot 开发服务。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `excludeDockerCompose`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `true`
+
+| 用户属性
+| ``spring-boot.repackage.excludeDockerCompose``
+
+| 起始版本
+| `3.1.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.exclude-group-ids]]
+=== `excludeGroupIds`
+要排除的 groupId 名称的逗号分隔列表（精确匹配）。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `excludeGroupIds`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.excludeGroupIds``
+
+| 起始版本
+| `1.1.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.excludes]]
+=== `excludes`
+要排除的工件定义集合。`Exclude` 元素定义了必需的 `groupId` 和 `artifactId` 组件以及可选的 `classifier` 组件。当作为属性配置时，值应为逗号分隔，组件之间用冒号分隔：`groupId:artifactId,groupId:artifactId:classifier`
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `excludes`
+
+| 类型
+| `java.util.List`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.excludes``
+
+| 起始版本
+| `1.1.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.image]]
+=== `image`
+镜像配置，包含 `builder`、`runImage`、`name`、`env`、`cleanCache`、`verboseLogging`、`pullPolicy` 和 `publish` 选项。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `image`
+
+| 类型
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/Image.html[org.springframework.boot.maven.Image]`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `2.3.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.image-builder]]
+=== `imageBuilder`
+`Image#builder` 的别名，用于通过命令行属性进行配置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `imageBuilder`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.build-image.builder``
+
+| 起始版本
+| `2.3.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.image-name]]
+=== `imageName`
+`Image#name` 的别名，用于通过命令行属性进行配置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `imageName`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.build-image.imageName``
+
+| 起始版本
+| `2.3.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.image-platform]]
+=== `imagePlatform`
+`Image#imagePlatform` 的别名，用于通过命令行属性进行配置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `imagePlatform`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.build-image.imagePlatform``
+
+| 起始版本
+| `3.4.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.include-optional]]
+=== `includeOptional`
+包含可选依赖。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `includeOptional`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `false`
+
+| 用户属性
+|
+
+| 起始版本
+| `3.5.7`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.include-system-scope]]
+=== `includeSystemScope`
+包含系统作用域依赖。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `includeSystemScope`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `false`
+
+| 用户属性
+|
+
+| 起始版本
+| `1.4.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.include-tools]]
+=== `includeTools`
+包含 JAR 工具。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `includeTools`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `true`
+
+| 用户属性
+|
+
+| 起始版本
+| `3.3.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.includes]]
+=== `includes`
+要包含的工件定义集合。`Include` 元素定义了必需的 `groupId` 和 `artifactId` 组件以及可选的 `classifier` 组件。当作为属性配置时，值应为逗号分隔，组件之间用冒号分隔：`groupId:artifactId,groupId:artifactId:classifier`
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `includes`
+
+| 类型
+| `java.util.List`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.includes``
+
+| 起始版本
+| `1.2.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.layers]]
+=== `layers`
+层配置，包含禁用层创建、排除层工具 jar 以及提供自定义层配置文件的选项。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `layers`
+
+| 类型
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/Layers.html[org.springframework.boot.maven.Layers]`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `2.3.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.layout]]
+=== `layout`
+归档的类型（对应于依赖在归档内部的布局方式）。可能的值有 `JAR`、`WAR`、`ZIP`、`DIR`、`NONE`。默认值基于归档类型猜测。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `layout`
+
+| 类型
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/AbstractPackagerMojo.LayoutType.html[org.springframework.boot.maven.AbstractPackagerMojo$LayoutType]`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `2.3.11`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.layout-factory]]
+=== `layoutFactory`
+用于创建可执行归档的布局工厂，如果未设置显式布局。第三方可以提供替代的布局实现。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `layoutFactory`
+
+| 类型
+| `link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/loader/tools/LayoutFactory.html[org.springframework.boot.loader.tools.LayoutFactory]`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `2.3.11`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.main-class]]
+=== `mainClass`
+主类的名称。如果未指定，将使用找到的第一个包含 `main` 方法的已编译类。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `mainClass`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `1.0.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.network]]
+=== `network`
+`Image#network` 的别名，用于通过命令行属性进行配置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `network`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.build-image.network``
+
+| 起始版本
+| `2.6.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.publish]]
+=== `publish`
+`Image#publish` 的别名，用于通过命令行属性进行配置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `publish`
+
+| 类型
+| `java.lang.Boolean`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.build-image.publish``
+
+| 起始版本
+|
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.pull-policy]]
+=== `pullPolicy`
+`Image#pullPolicy` 的别名，用于通过命令行属性进行配置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `pullPolicy`
+
+| 类型
+| `link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/buildpack/platform/build/PullPolicy.html[org.springframework.boot.buildpack.platform.build.PullPolicy]`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.build-image.pullPolicy``
+
+| 起始版本
+|
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.run-image]]
+=== `runImage`
+`Image#runImage` 的别名，用于通过命令行属性进行配置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `runImage`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.build-image.runImage``
+
+| 起始版本
+| `2.3.1`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.skip]]
+=== `skip`
+跳过执行。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `skip`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `false`
+
+| 用户属性
+| ``spring-boot.build-image.skip``
+
+| 起始版本
+| `2.3.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.source-directory]]
+=== `sourceDirectory`
+包含源代码归档的目录。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `sourceDirectory`
+
+| 类型
+| `java.io.File`
+
+| 默认值
+| `${project.build.directory}`
+
+| 用户属性
+|
+
+| 起始版本
+| `2.3.0`
+
+|===
+
+
+[[build-image.build-image-no-fork-goal.parameter-details.trust-builder]]
+=== `trustBuilder`
+`Image#trustBuilder` 的别名，用于通过命令行属性进行配置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `trustBuilder`
+
+| 类型
+| `java.lang.Boolean`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.build-image.trustBuilder``
+
+| 起始版本
+|
+
+|===

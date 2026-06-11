@@ -1,1 +1,647 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.web]]
+== Web 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.web.spring.graphql.cors.allow-credentials]]xref:#application-properties.web.spring.graphql.cors.allow-credentials[`+spring.graphql.cors.allow-credentials+`]
+|+++是否支持凭据。未设置时，不支持凭据。+++
+|
+
+|[[application-properties.web.spring.graphql.cors.allowed-headers]]xref:#application-properties.web.spring.graphql.cors.allowed-headers[`+spring.graphql.cors.allowed-headers+`]
+|+++请求中允许的 HTTP 头列表。'*' 允许所有头。+++
+|
+
+|[[application-properties.web.spring.graphql.cors.allowed-methods]]xref:#application-properties.web.spring.graphql.cors.allowed-methods[`+spring.graphql.cors.allowed-methods+`]
+|+++允许的 HTTP 方法列表。'*' 允许所有方法。未设置时，默认为 GET。+++
+|
+
+|[[application-properties.web.spring.graphql.cors.allowed-origin-patterns]]xref:#application-properties.web.spring.graphql.cors.allowed-origin-patterns[`+spring.graphql.cors.allowed-origin-patterns+`]
+|+++允许的来源模式列表。与仅支持 '*' 的允许来源不同，来源模式更灵活，例如 'https://*.example.com'，并且可以与 allow-credentials 一起使用。当既未设置允许来源也未设置允许来源模式时，跨域请求实际上被禁用。+++
+|
+
+|[[application-properties.web.spring.graphql.cors.allowed-origins]]xref:#application-properties.web.spring.graphql.cors.allowed-origins[`+spring.graphql.cors.allowed-origins+`]
+|+++允许的来源列表，'*' 允许所有来源。当启用 allow-credentials 时，不能使用 '*'，应考虑设置来源模式。当既未设置允许来源也未设置允许来源模式时，跨域请求实际上被禁用。+++
+|
+
+|[[application-properties.web.spring.graphql.cors.exposed-headers]]xref:#application-properties.web.spring.graphql.cors.exposed-headers[`+spring.graphql.cors.exposed-headers+`]
+|+++响应中包含的头列表。+++
+|
+
+|[[application-properties.web.spring.graphql.cors.max-age]]xref:#application-properties.web.spring.graphql.cors.max-age[`+spring.graphql.cors.max-age+`]
+|+++预检请求的响应可以被客户端缓存多长时间。如果未指定持续时间后缀，则使用秒。+++
+|`+1800s+`
+
+|[[application-properties.web.spring.graphql.graphiql.enabled]]xref:#application-properties.web.spring.graphql.graphiql.enabled[`+spring.graphql.graphiql.enabled+`]
+|+++是否启用默认的 GraphiQL UI。+++
+|`+false+`
+
+|[[application-properties.web.spring.graphql.graphiql.path]]xref:#application-properties.web.spring.graphql.graphiql.path[`+spring.graphql.graphiql.path+`]
+|+++GraphiQL UI endpoint 的路径。+++
+|`+/graphiql+`
+
+|[[application-properties.web.spring.graphql.http.path]]xref:#application-properties.web.spring.graphql.http.path[`+spring.graphql.http.path+`]
+|+++用于暴露 GraphQL 请求 HTTP endpoint 的路径。+++
+|`+/graphql+`
+
+|[[application-properties.web.spring.graphql.http.sse.keep-alive]]xref:#application-properties.web.spring.graphql.http.sse.keep-alive[`+spring.graphql.http.sse.keep-alive+`]
+|+++心跳消息发送的频率。+++
+|
+
+|[[application-properties.web.spring.graphql.http.sse.timeout]]xref:#application-properties.web.spring.graphql.http.sse.timeout[`+spring.graphql.http.sse.timeout+`]
+|+++并发处理完成所需的时间。+++
+|
+
+|[[application-properties.web.spring.graphql.rsocket.mapping]]xref:#application-properties.web.spring.graphql.rsocket.mapping[`+spring.graphql.rsocket.mapping+`]
+|+++RSocket 消息处理器的映射。+++
+|
+
+|[[application-properties.web.spring.graphql.rsocket.preferred-json-mapper]]xref:#application-properties.web.spring.graphql.rsocket.preferred-json-mapper[`+spring.graphql.rsocket.preferred-json-mapper+`]
+|+++首选的 JSON 映射器。默认根据环境自动检测。支持的值有 'jackson' 和 'jackson2'（已弃用）。+++
+|`+jackson+`
+
+|[[application-properties.web.spring.graphql.schema.additional-files]]xref:#application-properties.web.spring.graphql.schema.additional-files[`+spring.graphql.schema.additional-files+`]
+|+++要解析的额外单个模式文件的位置。+++
+|`+[]+`
+
+|[[application-properties.web.spring.graphql.schema.file-extensions]]xref:#application-properties.web.spring.graphql.schema.file-extensions[`+spring.graphql.schema.file-extensions+`]
+|+++GraphQL 模式文件的文件扩展名。+++
+|`+.graphqls,.gqls+`
+
+|[[application-properties.web.spring.graphql.schema.inspection.enabled]]xref:#application-properties.web.spring.graphql.schema.inspection.enabled[`+spring.graphql.schema.inspection.enabled+`]
+|+++是否应将模式与应用程序进行比较以检测缺失的映射。+++
+|`+true+`
+
+|[[application-properties.web.spring.graphql.schema.introspection.enabled]]xref:#application-properties.web.spring.graphql.schema.introspection.enabled[`+spring.graphql.schema.introspection.enabled+`]
+|+++是否应在模式级别启用字段内省。+++
+|`+true+`
+
+|[[application-properties.web.spring.graphql.schema.locations]]xref:#application-properties.web.spring.graphql.schema.locations[`+spring.graphql.schema.locations+`]
+|+++GraphQL 模式文件的位置。+++
+|`+classpath:graphql/**/+`
+
+|[[application-properties.web.spring.graphql.schema.printer.enabled]]xref:#application-properties.web.spring.graphql.schema.printer.enabled[`+spring.graphql.schema.printer.enabled+`]
+|+++是否启用打印模式的 endpoint。模式可在 spring.graphql.http.path + "/schema" 下获取。+++
+|`+false+`
+
+|[[application-properties.web.spring.graphql.websocket.connection-init-timeout]]xref:#application-properties.web.spring.graphql.websocket.connection-init-timeout[`+spring.graphql.websocket.connection-init-timeout+`]
+|+++必须收到初始 {@code CONNECTION_INIT} 类型消息的时间。+++
+|`+60s+`
+
+|[[application-properties.web.spring.graphql.websocket.keep-alive]]xref:#application-properties.web.spring.graphql.websocket.keep-alive[`+spring.graphql.websocket.keep-alive+`]
+|+++向客户端发送服务器心跳 ping 之前的最大空闲时间。+++
+|
+
+|[[application-properties.web.spring.graphql.websocket.path]]xref:#application-properties.web.spring.graphql.websocket.path[`+spring.graphql.websocket.path+`]
+|+++GraphQL WebSocket 订阅 endpoint 的路径。+++
+|
+
+|[[application-properties.web.spring.hateoas.use-hal-as-default-json-media-type]]xref:#application-properties.web.spring.hateoas.use-hal-as-default-json-media-type[`+spring.hateoas.use-hal-as-default-json-media-type+`]
+|+++是否应将 application/hal+json 响应发送给接受 application/json 的请求。+++
+|`+true+`
+
+|[[application-properties.web.spring.http.clients.connect-timeout]]xref:#application-properties.web.spring.http.clients.connect-timeout[`+spring.http.clients.connect-timeout+`]
+|+++客户端 HTTP 请求的默认连接超时。+++
+|
+
+|[[application-properties.web.spring.http.clients.cookie-handling]]xref:#application-properties.web.spring.http.clients.cookie-handling[`+spring.http.clients.cookie-handling+`]
+|+++HTTP cookie 的处理方式。+++
+|
+
+|[[application-properties.web.spring.http.clients.imperative.factory]]xref:#application-properties.web.spring.http.clients.imperative.factory[`+spring.http.clients.imperative.factory+`]
+|+++客户端 HTTP 请求使用的默认工厂。+++
+|
+
+|[[application-properties.web.spring.http.clients.reactive.connector]]xref:#application-properties.web.spring.http.clients.reactive.connector[`+spring.http.clients.reactive.connector+`]
+|+++客户端 HTTP 请求使用的默认连接器。+++
+|
+
+|[[application-properties.web.spring.http.clients.read-timeout]]xref:#application-properties.web.spring.http.clients.read-timeout[`+spring.http.clients.read-timeout+`]
+|+++客户端 HTTP 请求的默认读取超时。+++
+|
+
+|[[application-properties.web.spring.http.clients.redirects]]xref:#application-properties.web.spring.http.clients.redirects[`+spring.http.clients.redirects+`]
+|+++HTTP 重定向的处理方式。+++
+|
+
+|[[application-properties.web.spring.http.clients.ssl.bundle]]xref:#application-properties.web.spring.http.clients.ssl.bundle[`+spring.http.clients.ssl.bundle+`]
+|+++要使用的 SSL 捆绑包。+++
+|
+
+|[[application-properties.web.spring.http.codecs.log-request-details]]xref:#application-properties.web.spring.http.codecs.log-request-details[`+spring.http.codecs.log-request-details+`]
+|+++是否在 DEBUG 级别记录表单数据，在 TRACE 级别记录头信息。+++
+|`+false+`
+
+|[[application-properties.web.spring.http.codecs.max-in-memory-size]]xref:#application-properties.web.spring.http.codecs.max-in-memory-size[`+spring.http.codecs.max-in-memory-size+`]
+|+++当输入流需要聚合时，可以缓冲的最大字节数限制。这仅适用于自动配置的 WebFlux 服务器和 WebClient 实例。默认情况下未设置，此时使用各个编解码器的默认值。大多数编解码器默认限制为 256K。+++
+|
+
+|[[application-properties.web.spring.http.codecs.preferred-json-mapper]]xref:#application-properties.web.spring.http.codecs.preferred-json-mapper[`+spring.http.codecs.preferred-json-mapper+`]
+|+++用于 HTTP 编码和解码的首选 JSON 映射器。默认根据环境自动检测。支持的值有 'jackson' 和 'jackson2'（已弃用）。+++
+|`+jackson+`
+
+|[[application-properties.web.spring.http.converters.preferred-json-mapper]]xref:#application-properties.web.spring.http.converters.preferred-json-mapper[`+spring.http.converters.preferred-json-mapper+`]
+|+++用于 HTTP 消息转换的首选 JSON 映射器。默认根据环境自动检测。支持的值有 'jackson'、'jackson2'（已弃用）、'gson' 和 'jsonb'。当存在其他 JSON 映射库时，请使用自定义的 HttpMessageConverters bean 来控制首选的映射器。+++
+|`+jackson+`
+
+|[[application-properties.web.spring.http.converters.string-encoding-charset]]xref:#application-properties.web.spring.http.converters.string-encoding-charset[`+spring.http.converters.string-encoding-charset+`]
+|+++用于字符串转换的字符集。+++
+|`+UTF-8+`
+
+|[[application-properties.web.spring.http.serviceclient]]xref:#application-properties.web.spring.http.serviceclient[`+spring.http.serviceclient.*+`]
+|+++HTTP 服务客户端定义+++
+|
+
+|[[application-properties.web.spring.jersey.application-path]]xref:#application-properties.web.spring.jersey.application-path[`+spring.jersey.application-path+`]
+|+++作为应用程序基础 URI 的路径。如果指定，则覆盖 "@ApplicationPath" 的值。+++
+|
+
+|[[application-properties.web.spring.jersey.filter.order]]xref:#application-properties.web.spring.jersey.filter.order[`+spring.jersey.filter.order+`]
+|+++Jersey 过滤器链顺序。+++
+|`+0+`
+
+|[[application-properties.web.spring.jersey.init]]xref:#application-properties.web.spring.jersey.init[`+spring.jersey.init.*+`]
+|+++通过 servlet 或过滤器传递给 Jersey 的初始化参数。+++
+|
+
+|[[application-properties.web.spring.jersey.servlet.load-on-startup]]xref:#application-properties.web.spring.jersey.servlet.load-on-startup[`+spring.jersey.servlet.load-on-startup+`]
+|+++Jersey servlet 的启动加载优先级。+++
+|`+-1+`
+
+|[[application-properties.web.spring.jersey.type]]xref:#application-properties.web.spring.jersey.type[`+spring.jersey.type+`]
+|+++Jersey 集成类型。+++
+|`+servlet+`
+
+|[[application-properties.web.spring.mvc.apiversion.default]]xref:#application-properties.web.spring.mvc.apiversion.default[`+spring.mvc.apiversion.default+`]
+|+++每个请求应使用的默认版本。+++
+|
+
+|[[application-properties.web.spring.mvc.apiversion.detect-supported]]xref:#application-properties.web.spring.mvc.apiversion.detect-supported[`+spring.mvc.apiversion.detect-supported+`]
+|+++是否应从控制器检测支持的版本。+++
+|
+
+|[[application-properties.web.spring.mvc.apiversion.required]]xref:#application-properties.web.spring.mvc.apiversion.required[`+spring.mvc.apiversion.required+`]
+|+++是否每个请求都需要 API 版本。+++
+|
+
+|[[application-properties.web.spring.mvc.apiversion.supported]]xref:#application-properties.web.spring.mvc.apiversion.supported[`+spring.mvc.apiversion.supported+`]
+|+++支持的版本。+++
+|
+
+|[[application-properties.web.spring.mvc.apiversion.use.header]]xref:#application-properties.web.spring.mvc.apiversion.use.header[`+spring.mvc.apiversion.use.header+`]
+|+++使用指定名称的 HTTP 头来获取版本。+++
+|
+
+|[[application-properties.web.spring.mvc.apiversion.use.media-type-parameter]]xref:#application-properties.web.spring.mvc.apiversion.use.media-type-parameter[`+spring.mvc.apiversion.use.media-type-parameter.*+`]
+|+++使用指定名称的媒体类型参数来获取版本。+++
+|
+
+|[[application-properties.web.spring.mvc.apiversion.use.path-segment]]xref:#application-properties.web.spring.mvc.apiversion.use.path-segment[`+spring.mvc.apiversion.use.path-segment+`]
+|+++使用指定索引的路径段来获取版本。+++
+|
+
+|[[application-properties.web.spring.mvc.apiversion.use.query-parameter]]xref:#application-properties.web.spring.mvc.apiversion.use.query-parameter[`+spring.mvc.apiversion.use.query-parameter+`]
+|+++使用指定名称的查询参数来获取版本。+++
+|
+
+|[[application-properties.web.spring.mvc.async.request-timeout]]xref:#application-properties.web.spring.mvc.async.request-timeout[`+spring.mvc.async.request-timeout+`]
+|+++异步请求处理超时前的时间。如果未设置此值，则使用底层实现的默认超时。+++
+|
+
+|[[application-properties.web.spring.mvc.contentnegotiation.default-content-types]]xref:#application-properties.web.spring.mvc.contentnegotiation.default-content-types[`+spring.mvc.contentnegotiation.default-content-types+`]
+|+++当未请求特定内容类型时使用的默认内容类型列表。+++
+|
+
+|[[application-properties.web.spring.mvc.contentnegotiation.favor-parameter]]xref:#application-properties.web.spring.mvc.contentnegotiation.favor-parameter[`+spring.mvc.contentnegotiation.favor-parameter+`]
+|+++是否应使用请求参数（默认为 "format"）来确定请求的媒体类型。+++
+|`+false+`
+
+|[[application-properties.web.spring.mvc.contentnegotiation.media-types]]xref:#application-properties.web.spring.mvc.contentnegotiation.media-types[`+spring.mvc.contentnegotiation.media-types.*+`]
+|+++将文件扩展名映射到媒体类型以进行内容协商。例如，yml 映射到 text/yaml。+++
+|
+
+|[[application-properties.web.spring.mvc.contentnegotiation.parameter-name]]xref:#application-properties.web.spring.mvc.contentnegotiation.parameter-name[`+spring.mvc.contentnegotiation.parameter-name+`]
+|+++启用 "favor-parameter" 时使用的查询参数名称。+++
+|
+
+|[[application-properties.web.spring.mvc.dispatch-options-request]]xref:#application-properties.web.spring.mvc.dispatch-options-request[`+spring.mvc.dispatch-options-request+`]
+|+++是否将 OPTIONS 请求分派到 FrameworkServlet 的 doService 方法。+++
+|`+true+`
+
+|[[application-properties.web.spring.mvc.dispatch-trace-request]]xref:#application-properties.web.spring.mvc.dispatch-trace-request[`+spring.mvc.dispatch-trace-request+`]
+|+++是否将 TRACE 请求分派到 FrameworkServlet 的 doService 方法。+++
+|`+false+`
+
+|[[application-properties.web.spring.mvc.format.date]]xref:#application-properties.web.spring.mvc.format.date[`+spring.mvc.format.date+`]
+|+++要使用的日期格式，例如 'dd/MM/yyyy'。用于格式化 java.util.Date 和 java.time.LocalDate。+++
+|
+
+|[[application-properties.web.spring.mvc.format.date-time]]xref:#application-properties.web.spring.mvc.format.date-time[`+spring.mvc.format.date-time+`]
+|+++要使用的日期时间格式，例如 'yyyy-MM-dd HH:mm:ss'。用于格式化 java.time 的 LocalDateTime、OffsetDateTime 和 ZonedDateTime。+++
+|
+
+|[[application-properties.web.spring.mvc.format.time]]xref:#application-properties.web.spring.mvc.format.time[`+spring.mvc.format.time+`]
+|+++要使用的时间格式，例如 'HH:mm:ss'。用于格式化 java.time 的 LocalTime 和 OffsetTime。+++
+|
+
+|[[application-properties.web.spring.mvc.formcontent.filter.enabled]]xref:#application-properties.web.spring.mvc.formcontent.filter.enabled[`+spring.mvc.formcontent.filter.enabled+`]
+|+++是否启用 Spring 的 FormContentFilter。+++
+|`+true+`
+
+|[[application-properties.web.spring.mvc.hiddenmethod.filter.enabled]]xref:#application-properties.web.spring.mvc.hiddenmethod.filter.enabled[`+spring.mvc.hiddenmethod.filter.enabled+`]
+|+++是否启用 Spring 的 HiddenHttpMethodFilter。+++
+|`+false+`
+
+|[[application-properties.web.spring.mvc.log-request-details]]xref:#application-properties.web.spring.mvc.log-request-details[`+spring.mvc.log-request-details+`]
+|+++是否允许在 DEBUG 和 TRACE 级别记录（可能敏感的）请求详情。+++
+|`+false+`
+
+|[[application-properties.web.spring.mvc.log-resolved-exception]]xref:#application-properties.web.spring.mvc.log-resolved-exception[`+spring.mvc.log-resolved-exception+`]
+|+++是否启用由 "HandlerExceptionResolver"（不包括 "DefaultHandlerExceptionResolver"）解析的异常的警告日志记录。+++
+|`+false+`
+
+|[[application-properties.web.spring.mvc.message-codes-resolver-format]]xref:#application-properties.web.spring.mvc.message-codes-resolver-format[`+spring.mvc.message-codes-resolver-format+`]
+|+++消息代码的格式化策略。例如 'PREFIX_ERROR_CODE'。+++
+|
+
+|[[application-properties.web.spring.mvc.pathmatch.matching-strategy]]xref:#application-properties.web.spring.mvc.pathmatch.matching-strategy[`+spring.mvc.pathmatch.matching-strategy+`]
+|+++将请求路径与注册映射匹配的策略选择。+++
+|`+path-pattern-parser+`
+
+|[[application-properties.web.spring.mvc.problemdetails.enabled]]xref:#application-properties.web.spring.mvc.problemdetails.enabled[`+spring.mvc.problemdetails.enabled+`]
+|+++是否启用 RFC 9457 问题详情支持。+++
+|`+false+`
+
+|[[application-properties.web.spring.mvc.publish-request-handled-events]]xref:#application-properties.web.spring.mvc.publish-request-handled-events[`+spring.mvc.publish-request-handled-events+`]
+|+++是否在每个请求结束时发布 ServletRequestHandledEvent。+++
+|`+true+`
+
+|[[application-properties.web.spring.mvc.servlet.load-on-startup]]xref:#application-properties.web.spring.mvc.servlet.load-on-startup[`+spring.mvc.servlet.load-on-startup+`]
+|+++Dispatcher servlet 的启动优先级。+++
+|`+-1+`
+
+|[[application-properties.web.spring.mvc.servlet.path]]xref:#application-properties.web.spring.mvc.servlet.path[`+spring.mvc.servlet.path+`]
+|+++Dispatcher servlet 的路径。为此属性设置自定义值与 PathPatternParser 匹配策略不兼容。+++
+|`+/+`
+
+|[[application-properties.web.spring.mvc.static-path-pattern]]xref:#application-properties.web.spring.mvc.static-path-pattern[`+spring.mvc.static-path-pattern+`]
+|+++用于静态资源的路径模式。+++
+|`+/**+`
+
+|[[application-properties.web.spring.mvc.view.prefix]]xref:#application-properties.web.spring.mvc.view.prefix[`+spring.mvc.view.prefix+`]
+|+++Spring MVC 视图前缀。+++
+|
+
+|[[application-properties.web.spring.mvc.view.suffix]]xref:#application-properties.web.spring.mvc.view.suffix[`+spring.mvc.view.suffix+`]
+|+++Spring MVC 视图后缀。+++
+|
+
+|[[application-properties.web.spring.mvc.webjars-path-pattern]]xref:#application-properties.web.spring.mvc.webjars-path-pattern[`+spring.mvc.webjars-path-pattern+`]
+|+++用于 WebJar 资源的路径模式。+++
+|`+/webjars/**+`
+
+|[[application-properties.web.spring.netty.leak-detection]]xref:#application-properties.web.spring.netty.leak-detection[`+spring.netty.leak-detection+`]
+|+++引用计数缓冲区的泄漏检测级别。如果未通过 'ResourceLeakDetector.setLevel' 或 'io.netty.leakDetection.level' 系统属性配置，则默认为 'simple'。+++
+|
+
+|[[application-properties.web.spring.servlet.encoding.charset]]xref:#application-properties.web.spring.servlet.encoding.charset[`+spring.servlet.encoding.charset+`]
+|+++HTTP 请求和响应的字符集。如果未显式设置，则添加到 "Content-Type" 头中。+++
+|`+UTF-8+`
+
+|[[application-properties.web.spring.servlet.encoding.enabled]]xref:#application-properties.web.spring.servlet.encoding.enabled[`+spring.servlet.encoding.enabled+`]
+|+++是否启用 Servlet HTTP 编码支持。+++
+|`+true+`
+
+|[[application-properties.web.spring.servlet.encoding.force]]xref:#application-properties.web.spring.servlet.encoding.force[`+spring.servlet.encoding.force+`]
+|+++是否强制将编码设置为 HTTP 请求和响应上配置的字符集。+++
+|
+
+|[[application-properties.web.spring.servlet.encoding.force-request]]xref:#application-properties.web.spring.servlet.encoding.force-request[`+spring.servlet.encoding.force-request+`]
+|+++是否强制将编码设置为 HTTP 请求上配置的字符集。当未指定 "force" 时，默认为 true。+++
+|
+
+|[[application-properties.web.spring.servlet.encoding.force-response]]xref:#application-properties.web.spring.servlet.encoding.force-response[`+spring.servlet.encoding.force-response+`]
+|+++是否强制将编码设置为 HTTP 响应上配置的字符集。+++
+|
+
+|[[application-properties.web.spring.servlet.multipart.enabled]]xref:#application-properties.web.spring.servlet.multipart.enabled[`+spring.servlet.multipart.enabled+`]
+|+++是否启用对 multipart 上传的支持。+++
+|`+true+`
+
+|[[application-properties.web.spring.servlet.multipart.file-size-threshold]]xref:#application-properties.web.spring.servlet.multipart.file-size-threshold[`+spring.servlet.multipart.file-size-threshold+`]
+|+++文件写入磁盘的阈值。+++
+|`+0B+`
+
+|[[application-properties.web.spring.servlet.multipart.location]]xref:#application-properties.web.spring.servlet.multipart.location[`+spring.servlet.multipart.location+`]
+|+++上传文件的中间位置。+++
+|
+
+|[[application-properties.web.spring.servlet.multipart.max-file-size]]xref:#application-properties.web.spring.servlet.multipart.max-file-size[`+spring.servlet.multipart.max-file-size+`]
+|+++最大文件大小。+++
+|`+1MB+`
+
+|[[application-properties.web.spring.servlet.multipart.max-request-size]]xref:#application-properties.web.spring.servlet.multipart.max-request-size[`+spring.servlet.multipart.max-request-size+`]
+|+++最大请求大小。+++
+|`+10MB+`
+
+|[[application-properties.web.spring.servlet.multipart.resolve-lazily]]xref:#application-properties.web.spring.servlet.multipart.resolve-lazily[`+spring.servlet.multipart.resolve-lazily+`]
+|+++是否在文件或参数访问时延迟解析 multipart 请求。+++
+|`+false+`
+
+|[[application-properties.web.spring.servlet.multipart.strict-servlet-compliance]]xref:#application-properties.web.spring.servlet.multipart.strict-servlet-compliance[`+spring.servlet.multipart.strict-servlet-compliance+`]
+|+++是否严格遵循 Servlet 规范解析 multipart 请求，仅用于 "multipart/form-data" 请求。+++
+|`+false+`
+
+|[[application-properties.web.spring.session.data.redis.cleanup-cron]]xref:#application-properties.web.spring.session.data.redis.cleanup-cron[`+spring.session.data.redis.cleanup-cron+`]
+|+++过期会话清理任务的 Cron 表达式。仅当 repository-type 设置为 indexed 时支持。不支持响应式会话仓库。+++
+|`+0 * * * * *+`
+
+|[[application-properties.web.spring.session.data.redis.configure-action]]xref:#application-properties.web.spring.session.data.redis.configure-action[`+spring.session.data.redis.configure-action+`]
+|+++当没有用户定义的 ConfigureRedisAction 或 ConfigureReactiveRedisAction bean 时应用的配置操作。+++
+|`+notify-keyspace-events+`
+
+|[[application-properties.web.spring.session.data.redis.flush-mode]]xref:#application-properties.web.spring.session.data.redis.flush-mode[`+spring.session.data.redis.flush-mode+`]
+|+++会话刷新模式。决定何时将会话更改写入会话存储。不支持响应式会话仓库。+++
+|`+on-save+`
+
+|[[application-properties.web.spring.session.data.redis.namespace]]xref:#application-properties.web.spring.session.data.redis.namespace[`+spring.session.data.redis.namespace+`]
+|+++用于存储会话的键的命名空间。+++
+|`+spring:session+`
+
+|[[application-properties.web.spring.session.data.redis.repository-type]]xref:#application-properties.web.spring.session.data.redis.repository-type[`+spring.session.data.redis.repository-type+`]
+|+++要配置的 Redis 会话仓库类型。+++
+|`+default+`
+
+|[[application-properties.web.spring.session.data.redis.save-mode]]xref:#application-properties.web.spring.session.data.redis.save-mode[`+spring.session.data.redis.save-mode+`]
+|+++会话保存模式。决定如何跟踪会话更改并将其保存到会话存储。+++
+|`+on-set-attribute+`
+
+|[[application-properties.web.spring.session.jdbc.cleanup-cron]]xref:#application-properties.web.spring.session.jdbc.cleanup-cron[`+spring.session.jdbc.cleanup-cron+`]
+|+++过期会话清理任务的 Cron 表达式。+++
+|`+0 * * * * *+`
+
+|[[application-properties.web.spring.session.jdbc.continue-on-error]]xref:#application-properties.web.spring.session.jdbc.continue-on-error[`+spring.session.jdbc.continue-on-error+`]
+|+++应用模式脚本时发生错误时是否应继续初始化。+++
+|`+true+`
+
+|[[application-properties.web.spring.session.jdbc.flush-mode]]xref:#application-properties.web.spring.session.jdbc.flush-mode[`+spring.session.jdbc.flush-mode+`]
+|+++会话刷新模式。决定何时将会话更改写入会话存储。+++
+|`+on-save+`
+
+|[[application-properties.web.spring.session.jdbc.initialize-schema]]xref:#application-properties.web.spring.session.jdbc.initialize-schema[`+spring.session.jdbc.initialize-schema+`]
+|+++数据库模式初始化模式。+++
+|`+embedded+`
+
+|[[application-properties.web.spring.session.jdbc.platform]]xref:#application-properties.web.spring.session.jdbc.platform[`+spring.session.jdbc.platform+`]
+|+++如果使用了 @@platform@@ 占位符，则在初始化脚本中使用的平台。默认自动检测。+++
+|
+
+|[[application-properties.web.spring.session.jdbc.save-mode]]xref:#application-properties.web.spring.session.jdbc.save-mode[`+spring.session.jdbc.save-mode+`]
+|+++会话保存模式。决定如何跟踪会话更改并将其保存到会话存储。+++
+|`+on-set-attribute+`
+
+|[[application-properties.web.spring.session.jdbc.schema]]xref:#application-properties.web.spring.session.jdbc.schema[`+spring.session.jdbc.schema+`]
+|+++用于初始化数据库模式的 SQL 文件路径。+++
+|
+
+|[[application-properties.web.spring.session.jdbc.table-name]]xref:#application-properties.web.spring.session.jdbc.table-name[`+spring.session.jdbc.table-name+`]
+|+++用于存储会话的数据库表名。+++
+|`+SPRING_SESSION+`
+
+|[[application-properties.web.spring.session.servlet.filter-dispatcher-types]]xref:#application-properties.web.spring.session.servlet.filter-dispatcher-types[`+spring.session.servlet.filter-dispatcher-types+`]
+|+++会话仓库过滤器调度器类型。+++
+|`+[async, error, request]+`
+
+|[[application-properties.web.spring.session.servlet.filter-order]]xref:#application-properties.web.spring.session.servlet.filter-order[`+spring.session.servlet.filter-order+`]
+|+++会话仓库过滤器顺序。+++
+|
+
+|[[application-properties.web.spring.session.timeout]]xref:#application-properties.web.spring.session.timeout[`+spring.session.timeout+`]
+|+++会话超时。如果未指定持续时间后缀，则使用秒。+++
+|
+
+|[[application-properties.web.spring.web.error.include-binding-errors]]xref:#application-properties.web.spring.web.error.include-binding-errors[`+spring.web.error.include-binding-errors+`]
+|+++何时包含 "errors" 属性。+++
+|`+never+`
+
+|[[application-properties.web.spring.web.error.include-exception]]xref:#application-properties.web.spring.web.error.include-exception[`+spring.web.error.include-exception+`]
+|+++包含 "exception" 属性。+++
+|`+false+`
+
+|[[application-properties.web.spring.web.error.include-message]]xref:#application-properties.web.spring.web.error.include-message[`+spring.web.error.include-message+`]
+|+++何时包含 "message" 属性。+++
+|`+never+`
+
+|[[application-properties.web.spring.web.error.include-path]]xref:#application-properties.web.spring.web.error.include-path[`+spring.web.error.include-path+`]
+|+++何时包含 "path" 属性。+++
+|`+always+`
+
+|[[application-properties.web.spring.web.error.include-stacktrace]]xref:#application-properties.web.spring.web.error.include-stacktrace[`+spring.web.error.include-stacktrace+`]
+|+++何时包含 "trace" 属性。+++
+|`+never+`
+
+|[[application-properties.web.spring.web.error.path]]xref:#application-properties.web.spring.web.error.path[`+spring.web.error.path+`]
+|+++错误控制器的路径。+++
+|`+/error+`
+
+|[[application-properties.web.spring.web.error.whitelabel.enabled]]xref:#application-properties.web.spring.web.error.whitelabel.enabled[`+spring.web.error.whitelabel.enabled+`]
+|+++是否启用服务器错误时浏览器中显示的默认错误页面。+++
+|`+true+`
+
+|[[application-properties.web.spring.web.locale]]xref:#application-properties.web.spring.web.locale[`+spring.web.locale+`]
+|+++要使用的区域设置。默认情况下，此区域设置会被 "Accept-Language" 标头覆盖。+++
+|
+
+|[[application-properties.web.spring.web.locale-resolver]]xref:#application-properties.web.spring.web.locale-resolver[`+spring.web.locale-resolver+`]
+|+++定义如何解析区域设置。+++
+|`+accept-header+`
+
+|[[application-properties.web.spring.web.resources.add-mappings]]xref:#application-properties.web.spring.web.resources.add-mappings[`+spring.web.resources.add-mappings+`]
+|+++是否启用默认资源处理。+++
+|`+true+`
+
+|[[application-properties.web.spring.web.resources.cache.cachecontrol.cache-private]]xref:#application-properties.web.spring.web.resources.cache.cachecontrol.cache-private[`+spring.web.resources.cache.cachecontrol.cache-private+`]
+|+++指示响应消息仅供单个用户使用，不得由共享缓存存储。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.cachecontrol.cache-public]]xref:#application-properties.web.spring.web.resources.cache.cachecontrol.cache-public[`+spring.web.resources.cache.cachecontrol.cache-public+`]
+|+++指示任何缓存都可以存储响应。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.cachecontrol.max-age]]xref:#application-properties.web.spring.web.resources.cache.cachecontrol.max-age[`+spring.web.resources.cache.cachecontrol.max-age+`]
+|+++响应应缓存的最长时间，如果未指定持续时间后缀，则以秒为单位。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.cachecontrol.must-revalidate]]xref:#application-properties.web.spring.web.resources.cache.cachecontrol.must-revalidate[`+spring.web.resources.cache.cachecontrol.must-revalidate+`]
+|+++指示一旦响应变得过时，缓存必须在不与服务器重新验证的情况下不得使用该响应。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.cachecontrol.no-cache]]xref:#application-properties.web.spring.web.resources.cache.cachecontrol.no-cache[`+spring.web.resources.cache.cachecontrol.no-cache+`]
+|+++指示缓存的响应仅在与服务器重新验证后才能重用。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.cachecontrol.no-store]]xref:#application-properties.web.spring.web.resources.cache.cachecontrol.no-store[`+spring.web.resources.cache.cachecontrol.no-store+`]
+|+++指示在任何情况下都不缓存响应。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.cachecontrol.no-transform]]xref:#application-properties.web.spring.web.resources.cache.cachecontrol.no-transform[`+spring.web.resources.cache.cachecontrol.no-transform+`]
+|+++指示中介（缓存等）不应转换响应内容。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.cachecontrol.proxy-revalidate]]xref:#application-properties.web.spring.web.resources.cache.cachecontrol.proxy-revalidate[`+spring.web.resources.cache.cachecontrol.proxy-revalidate+`]
+|+++与 "must-revalidate" 指令含义相同，但不适用于私有缓存。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.cachecontrol.s-max-age]]xref:#application-properties.web.spring.web.resources.cache.cachecontrol.s-max-age[`+spring.web.resources.cache.cachecontrol.s-max-age+`]
+|+++共享缓存应缓存响应的最长时间，如果未指定持续时间后缀，则以秒为单位。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.cachecontrol.stale-if-error]]xref:#application-properties.web.spring.web.resources.cache.cachecontrol.stale-if-error[`+spring.web.resources.cache.cachecontrol.stale-if-error+`]
+|+++遇到错误时响应可被使用的最大时间，如果未指定持续时间后缀，则以秒为单位。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.cachecontrol.stale-while-revalidate]]xref:#application-properties.web.spring.web.resources.cache.cachecontrol.stale-while-revalidate[`+spring.web.resources.cache.cachecontrol.stale-while-revalidate+`]
+|+++响应在过时后仍可提供服务的最大时间，如果未指定持续时间后缀，则以秒为单位。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.period]]xref:#application-properties.web.spring.web.resources.cache.period[`+spring.web.resources.cache.period+`]
+|+++资源处理器提供的资源的缓存周期。如果未指定持续时间后缀，则使用秒。可以被 'spring.web.resources.cache.cachecontrol' 属性覆盖。+++
+|
+
+|[[application-properties.web.spring.web.resources.cache.use-last-modified]]xref:#application-properties.web.spring.web.resources.cache.use-last-modified[`+spring.web.resources.cache.use-last-modified+`]
+|+++是否应在 HTTP 缓存标头中使用文件的 "lastModified" 元数据。+++
+|`+true+`
+
+|[[application-properties.web.spring.web.resources.chain.cache]]xref:#application-properties.web.spring.web.resources.chain.cache[`+spring.web.resources.chain.cache+`]
+|+++是否在资源链中启用缓存。+++
+|`+true+`
+
+|[[application-properties.web.spring.web.resources.chain.compressed]]xref:#application-properties.web.spring.web.resources.chain.compressed[`+spring.web.resources.chain.compressed+`]
+|+++是否启用已压缩资源（gzip、brotli）的解析。检查带有 '.gz' 或 '.br' 文件扩展名的资源名称。+++
+|`+false+`
+
+|[[application-properties.web.spring.web.resources.chain.enabled]]xref:#application-properties.web.spring.web.resources.chain.enabled[`+spring.web.resources.chain.enabled+`]
+|+++是否启用 Spring 资源处理链。默认情况下禁用，除非至少启用了一个策略。+++
+|
+
+|[[application-properties.web.spring.web.resources.chain.strategy.content.enabled]]xref:#application-properties.web.spring.web.resources.chain.strategy.content.enabled[`+spring.web.resources.chain.strategy.content.enabled+`]
+|+++是否启用内容版本策略。+++
+|`+false+`
+
+|[[application-properties.web.spring.web.resources.chain.strategy.content.paths]]xref:#application-properties.web.spring.web.resources.chain.strategy.content.paths[`+spring.web.resources.chain.strategy.content.paths+`]
+|+++应用于内容版本策略的模式列表。+++
+|`+[/**]+`
+
+|[[application-properties.web.spring.web.resources.chain.strategy.fixed.enabled]]xref:#application-properties.web.spring.web.resources.chain.strategy.fixed.enabled[`+spring.web.resources.chain.strategy.fixed.enabled+`]
+|+++是否启用固定版本策略。+++
+|`+false+`
+
+|[[application-properties.web.spring.web.resources.chain.strategy.fixed.paths]]xref:#application-properties.web.spring.web.resources.chain.strategy.fixed.paths[`+spring.web.resources.chain.strategy.fixed.paths+`]
+|+++应用于固定版本策略的模式列表。+++
+|`+[/**]+`
+
+|[[application-properties.web.spring.web.resources.chain.strategy.fixed.version]]xref:#application-properties.web.spring.web.resources.chain.strategy.fixed.version[`+spring.web.resources.chain.strategy.fixed.version+`]
+|+++用于固定版本策略的版本字符串。+++
+|
+
+|[[application-properties.web.spring.web.resources.static-locations]]xref:#application-properties.web.spring.web.resources.static-locations[`+spring.web.resources.static-locations+`]
+|+++用于固定版本策略的版本字符串。+++
+|`+[classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/public/]+`
+
+|[[application-properties.web.spring.webflux.apiversion.default]]xref:#application-properties.web.spring.webflux.apiversion.default[`+spring.webflux.apiversion.default+`]
+|+++每个请求应使用的默认版本。+++
+|
+
+|[[application-properties.web.spring.webflux.apiversion.detect-supported]]xref:#application-properties.web.spring.webflux.apiversion.detect-supported[`+spring.webflux.apiversion.detect-supported+`]
+|+++每个请求应使用的默认版本。+++
+|
+
+|[[application-properties.web.spring.webflux.apiversion.required]]xref:#application-properties.web.spring.webflux.apiversion.required[`+spring.webflux.apiversion.required+`]
+|+++是否应从控制器检测支持的版本。+++
+|
+
+|[[application-properties.web.spring.webflux.apiversion.supported]]xref:#application-properties.web.spring.webflux.apiversion.supported[`+spring.webflux.apiversion.supported+`]
+|+++每个请求是否都需要 API 版本。+++
+|
+
+|[[application-properties.web.spring.webflux.apiversion.use.header]]xref:#application-properties.web.spring.webflux.apiversion.use.header[`+spring.webflux.apiversion.use.header+`]
+|+++支持的版本。+++
+|
+
+|[[application-properties.web.spring.webflux.apiversion.use.media-type-parameter]]xref:#application-properties.web.spring.webflux.apiversion.use.media-type-parameter[`+spring.webflux.apiversion.use.media-type-parameter.*+`]
+|+++使用给定名称的 HTTP 标头获取版本。+++
+|
+
+|[[application-properties.web.spring.webflux.apiversion.use.path-segment]]xref:#application-properties.web.spring.webflux.apiversion.use.path-segment[`+spring.webflux.apiversion.use.path-segment+`]
+|+++使用给定名称的媒体类型参数获取版本。+++
+|
+
+|[[application-properties.web.spring.webflux.apiversion.use.query-parameter]]xref:#application-properties.web.spring.webflux.apiversion.use.query-parameter[`+spring.webflux.apiversion.use.query-parameter+`]
+|+++使用给定索引的路径段获取版本。+++
+|
+
+|[[application-properties.web.spring.webflux.base-path]]xref:#application-properties.web.spring.webflux.base-path[`+spring.webflux.base-path+`]
+|+++使用给定名称的查询参数获取版本。+++
+|
+
+|[[application-properties.web.spring.webflux.default-html-escape]]xref:#application-properties.web.spring.webflux.default-html-escape[`+spring.webflux.default-html-escape+`]
+|+++所有 Web 处理程序的基本路径。+++
+|
+
+|[[application-properties.web.spring.webflux.format.date]]xref:#application-properties.web.spring.webflux.format.date[`+spring.webflux.format.date+`]
+|+++是否为 Web 应用程序启用默认 HTML 转义。+++
+|
+
+|[[application-properties.web.spring.webflux.format.date-time]]xref:#application-properties.web.spring.webflux.format.date-time[`+spring.webflux.format.date-time+`]
+|+++要使用的日期格式，例如 'dd/MM/yyyy'。用于格式化 java.util.Date 和 java.time.LocalDate。+++
+|
+
+|[[application-properties.web.spring.webflux.format.time]]xref:#application-properties.web.spring.webflux.format.time[`+spring.webflux.format.time+`]
+|+++要使用的日期时间格式，例如 'yyyy-MM-dd HH:mm:ss'。用于格式化 java.time 的 LocalDateTime、OffsetDateTime 和 ZonedDateTime。+++
+|
+
+|[[application-properties.web.spring.webflux.hiddenmethod.filter.enabled]]xref:#application-properties.web.spring.webflux.hiddenmethod.filter.enabled[`+spring.webflux.hiddenmethod.filter.enabled+`]
+|+++要使用的时间格式，例如 'HH:mm:ss'。用于格式化 java.time 的 LocalTime 和 OffsetTime。+++
+|`+false+`
+
+|[[application-properties.web.spring.webflux.multipart.file-storage-directory]]xref:#application-properties.web.spring.webflux.multipart.file-storage-directory[`+spring.webflux.multipart.file-storage-directory+`]
+|+++用于存储大于 'maxInMemorySize' 的文件部分的目录。默认为系统临时目录下名为 'spring-multipart' 的目录。使用 PartEvent 流支持时忽略。+++
+|
+
+|[[application-properties.web.spring.webflux.multipart.headers-charset]]xref:#application-properties.web.spring.webflux.multipart.headers-charset[`+spring.webflux.multipart.headers-charset+`]
+|+++用于存储大于 'maxInMemorySize' 的文件部分的目录。默认为系统临时目录下名为 'spring-multipart' 的目录。使用 PartEvent 流支持时忽略。+++
+|`+UTF-8+`
+
+|[[application-properties.web.spring.webflux.multipart.max-disk-usage-per-part]]xref:#application-properties.web.spring.webflux.multipart.max-disk-usage-per-part[`+spring.webflux.multipart.max-disk-usage-per-part+`]
+|+++每个部分允许的最大磁盘空间。默认为 -1，表示不限制。+++
+|`+-1B+`
+
+|[[application-properties.web.spring.webflux.multipart.max-headers-size]]xref:#application-properties.web.spring.webflux.multipart.max-headers-size[`+spring.webflux.multipart.max-headers-size+`]
+|+++每个部分的标头部分允许的最大内存量。设置为 -1 表示不限制。+++
+|`+10KB+`
+
+|[[application-properties.web.spring.webflux.multipart.max-in-memory-size]]xref:#application-properties.web.spring.webflux.multipart.max-in-memory-size[`+spring.webflux.multipart.max-in-memory-size+`]
+|+++每个部分在写入磁盘之前允许的最大内存量。设置为 -1 表示将所有内容存储在内存中。+++
+|`+256KB+`
+
+|[[application-properties.web.spring.webflux.multipart.max-parts]]xref:#application-properties.web.spring.webflux.multipart.max-parts[`+spring.webflux.multipart.max-parts+`]
+|+++给定 multipart 请求中允许的最大部分数。默认为 -1，表示不限制。+++
+|`+-1+`
+
+|[[application-properties.web.spring.webflux.problemdetails.enabled]]xref:#application-properties.web.spring.webflux.problemdetails.enabled[`+spring.webflux.problemdetails.enabled+`]
+|+++是否应启用 RFC 9457 Problem Details 支持。+++
+|`+false+`
+
+|[[application-properties.web.spring.webflux.static-path-pattern]]xref:#application-properties.web.spring.webflux.static-path-pattern[`+spring.webflux.static-path-pattern+`]
+|+++用于静态资源的路径模式。+++
+|`+/**+`
+
+|[[application-properties.web.spring.webflux.webjars-path-pattern]]xref:#application-properties.web.spring.webflux.webjars-path-pattern[`+spring.webflux.webjars-path-pattern+`]
+|+++用于 WebJar 资源的路径模式。+++
+|`+/webjars/**+`
+
+|[[application-properties.web.spring.websocket.messaging.preferred-json-mapper]]xref:#application-properties.web.spring.websocket.messaging.preferred-json-mapper[`+spring.websocket.messaging.preferred-json-mapper+`]
+|+++用于 WebSocket 消息传递的首选 JSON 映射器。默认情况下，根据环境自动检测。支持的值是 'jackson' 和 'jackson2'（已弃用）。+++
+|`+jackson+`
+
+|===

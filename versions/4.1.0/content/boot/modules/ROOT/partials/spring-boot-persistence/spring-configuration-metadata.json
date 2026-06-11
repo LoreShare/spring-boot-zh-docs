@@ -1,0 +1,25 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "spring.persistence.exceptiontranslation.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the PersistenceExceptionTranslationPostProcessor.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.dao.exceptiontranslation.enabled",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.persistence.exceptiontranslation.enabled",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

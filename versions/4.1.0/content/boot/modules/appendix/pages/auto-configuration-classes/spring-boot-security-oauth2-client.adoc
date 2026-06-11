@@ -1,0 +1,21 @@
+[[appendix.auto-configuration-classes.spring-boot-security-oauth2-client]]
+= spring-boot-security-oauth2-client
+
+以下 auto-configuration 类来自 `spring-boot-security-oauth2-client` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-security-oauth2-client/src/main/java/org/springframework/boot/security/oauth2/client/autoconfigure/OAuth2ClientAutoConfiguration.java[`OAuth2ClientAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/oauth2/client/autoconfigure/OAuth2ClientAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security-oauth2-client/src/main/java/org/springframework/boot/security/oauth2/client/autoconfigure/servlet/OAuth2ClientWebSecurityAutoConfiguration.java[`OAuth2ClientWebSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/oauth2/client/autoconfigure/servlet/OAuth2ClientWebSecurityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security-oauth2-client/src/main/java/org/springframework/boot/security/oauth2/client/autoconfigure/reactive/ReactiveOAuth2ClientAutoConfiguration.java[`ReactiveOAuth2ClientAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/oauth2/client/autoconfigure/reactive/ReactiveOAuth2ClientAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security-oauth2-client/src/main/java/org/springframework/boot/security/oauth2/client/autoconfigure/reactive/ReactiveOAuth2ClientWebSecurityAutoConfiguration.java[`ReactiveOAuth2ClientWebSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/oauth2/client/autoconfigure/reactive/ReactiveOAuth2ClientWebSecurityAutoConfiguration.html[javadoc]
+|===

@@ -1,0 +1,24 @@
+[[appendix.auto-configuration-classes.spring-boot-servlet]]
+= spring-boot-servlet
+
+以下 auto-configuration 类来自 `spring-boot-servlet` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-servlet/src/main/java/org/springframework/boot/servlet/autoconfigure/HttpEncodingAutoConfiguration.java[`HttpEncodingAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/servlet/autoconfigure/HttpEncodingAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-servlet/src/main/java/org/springframework/boot/servlet/autoconfigure/MultipartAutoConfiguration.java[`MultipartAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/servlet/autoconfigure/MultipartAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-servlet/src/main/java/org/springframework/boot/servlet/autoconfigure/actuate/web/exchanges/ServletHttpExchangesAutoConfiguration.java[`ServletHttpExchangesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/servlet/autoconfigure/actuate/web/exchanges/ServletHttpExchangesAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-servlet/src/main/java/org/springframework/boot/servlet/autoconfigure/actuate/web/ServletManagementContextAutoConfiguration.java[`ServletManagementContextAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/servlet/autoconfigure/actuate/web/ServletManagementContextAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-servlet/src/main/java/org/springframework/boot/servlet/autoconfigure/actuate/web/mappings/ServletMappingsAutoConfiguration.java[`ServletMappingsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/servlet/autoconfigure/actuate/web/mappings/ServletMappingsAutoConfiguration.html[javadoc]
+|===

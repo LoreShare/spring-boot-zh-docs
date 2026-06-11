@@ -1,1 +1,548 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[packaging.repackage-goal]]
+= `spring-boot:repackage`
+
+`org.springframework.boot:spring-boot-maven-plugin:4.1.0`
+
+重新打包现有的 JAR 和 WAR 归档文件，使其可以通过命令行使用 `java -jar` 执行。使用 `layout=NONE` 也可以仅用于打包带有嵌套依赖的 JAR（没有主类，因此不可执行）。
+
+[[packaging.repackage-goal.required-parameters]]
+== 必需参数
+
+[cols="3,2,3"]
+|===
+| 名称 | 类型 | 默认值
+
+| xref:#packaging.repackage-goal.parameter-details.output-directory[outputDirectory]
+| `File`
+| `${project.build.directory}`
+
+|===
+
+[[packaging.repackage-goal.optional-parameters]]
+== 可选参数
+
+[cols="3,2,3"]
+|===
+| 名称 | 类型 | 默认值
+
+| xref:#packaging.repackage-goal.parameter-details.attach[attach]
+| `boolean`
+| `true`
+
+| xref:#packaging.repackage-goal.parameter-details.classifier[classifier]
+| `String`
+|
+
+| xref:#packaging.repackage-goal.parameter-details.exclude-devtools[excludeDevtools]
+| `boolean`
+| `true`
+
+| xref:#packaging.repackage-goal.parameter-details.exclude-docker-compose[excludeDockerCompose]
+| `boolean`
+| `true`
+
+| xref:#packaging.repackage-goal.parameter-details.exclude-group-ids[excludeGroupIds]
+| `String`
+|
+
+| xref:#packaging.repackage-goal.parameter-details.excludes[excludes]
+| `List`
+|
+
+| xref:#packaging.repackage-goal.parameter-details.include-optional[includeOptional]
+| `boolean`
+| `false`
+
+| xref:#packaging.repackage-goal.parameter-details.include-system-scope[includeSystemScope]
+| `boolean`
+| `false`
+
+| xref:#packaging.repackage-goal.parameter-details.include-tools[includeTools]
+| `boolean`
+| `true`
+
+| xref:#packaging.repackage-goal.parameter-details.includes[includes]
+| `List`
+|
+
+| xref:#packaging.repackage-goal.parameter-details.layers[layers]
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/Layers.html[Layers]`
+|
+
+| xref:#packaging.repackage-goal.parameter-details.layout[layout]
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/AbstractPackagerMojo.LayoutType.html[LayoutType]`
+|
+
+| xref:#packaging.repackage-goal.parameter-details.layout-factory[layoutFactory]
+| `link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/loader/tools/LayoutFactory.html[LayoutFactory]`
+|
+
+| xref:#packaging.repackage-goal.parameter-details.main-class[mainClass]
+| `String`
+|
+
+| xref:#packaging.repackage-goal.parameter-details.output-timestamp[outputTimestamp]
+| `String`
+| `${project.build.outputTimestamp}`
+
+| xref:#packaging.repackage-goal.parameter-details.requires-unpack[requiresUnpack]
+| `List`
+|
+
+| xref:#packaging.repackage-goal.parameter-details.skip[skip]
+| `boolean`
+| `false`
+
+|===
+
+[[packaging.repackage-goal.parameter-details]]
+== 参数详情
+
+[[packaging.repackage-goal.parameter-details.attach]]
+=== `attach`
+将重新打包的归档文件附加到本地 Maven 仓库中安装，或部署到远程仓库。如果未配置 classifier，它将替换普通的 jar。如果已配置 `classifier`，使得普通 jar 和重新打包的 jar 不同，则它将与普通 jar 一起附加。当该属性设置为 `false` 时，重新打包的归档文件将不会被安装或部署。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `attach`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `true`
+
+| 用户属性
+|
+
+| 起始版本
+| `1.4.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.classifier]]
+=== `classifier`
+添加到重新打包归档文件的 classifier。如果未指定，主构件将被重新打包的归档文件替换。如果指定了，classifier 还将用于确定要重新打包的源归档文件：如果已存在具有该 classifier 的构件，则将其作为源并替换。如果不存在这样的构件，则使用主构件作为源，并将重新打包的归档文件作为补充构件附加到该 classifier 下。附加构件允许将其与原始构件一起部署，更多详情请参见 https://maven.apache.org/plugins/maven-deploy-plugin/examples/deploying-with-classifiers.html[Maven 文档]。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `classifier`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `1.0.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.exclude-devtools]]
+=== `excludeDevtools`
+从重新打包的归档文件中排除 Spring Boot devtools。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `excludeDevtools`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `true`
+
+| 用户属性
+| ``spring-boot.repackage.excludeDevtools``
+
+| 起始版本
+| `1.3.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.exclude-docker-compose]]
+=== `excludeDockerCompose`
+从重新打包的归档文件中排除 Spring Boot 开发服务。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `excludeDockerCompose`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `true`
+
+| 用户属性
+| ``spring-boot.repackage.excludeDockerCompose``
+
+| 起始版本
+| `3.1.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.exclude-group-ids]]
+=== `excludeGroupIds`
+逗号分隔的 groupId 名称列表，用于排除（精确匹配）。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `excludeGroupIds`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.excludeGroupIds``
+
+| 起始版本
+| `1.1.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.excludes]]
+=== `excludes`
+要排除的构件定义集合。`Exclude` 元素定义了必需的 `groupId` 和 `artifactId` 组件以及可选的 `classifier` 组件。当配置为属性时，值应以逗号分隔，组件以冒号分隔：`groupId:artifactId,groupId:artifactId:classifier`
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `excludes`
+
+| 类型
+| `java.util.List`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.excludes``
+
+| 起始版本
+| `1.1.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.include-optional]]
+=== `includeOptional`
+包含可选依赖。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `includeOptional`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `false`
+
+| 用户属性
+|
+
+| 起始版本
+| `3.5.7`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.include-system-scope]]
+=== `includeSystemScope`
+包含 system 作用域的依赖。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `includeSystemScope`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `false`
+
+| 用户属性
+|
+
+| 起始版本
+| `1.4.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.include-tools]]
+=== `includeTools`
+包含 JAR 工具。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `includeTools`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `true`
+
+| 用户属性
+|
+
+| 起始版本
+| `3.3.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.includes]]
+=== `includes`
+要包含的构件定义集合。`Include` 元素定义了必需的 `groupId` 和 `artifactId` 组件以及可选的 `classifier` 组件。当配置为属性时，值应以逗号分隔，组件以冒号分隔：`groupId:artifactId,groupId:artifactId:classifier`
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `includes`
+
+| 类型
+| `java.util.List`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.includes``
+
+| 起始版本
+| `1.2.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.layers]]
+=== `layers`
+层配置，包含禁用层创建、排除层工具 jar 以及提供自定义层配置文件的选项。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `layers`
+
+| 类型
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/Layers.html[org.springframework.boot.maven.Layers]`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `2.3.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.layout]]
+=== `layout`
+归档文件的类型（对应于依赖在其中的布局方式）。可能的值有 `JAR`、`WAR`、`ZIP`、`DIR`、`NONE`。默认值基于归档文件类型猜测。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `layout`
+
+| 类型
+| `link:https://docs.spring.io/spring-boot/maven-plugin/api/java/org/springframework/boot/maven/AbstractPackagerMojo.LayoutType.html[org.springframework.boot.maven.AbstractPackagerMojo$LayoutType]`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.repackage.layout``
+
+| 起始版本
+| `1.0.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.layout-factory]]
+=== `layoutFactory`
+用于创建可执行归档文件的布局工厂，当未设置显式布局时使用。第三方可以提供替代的布局实现。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `layoutFactory`
+
+| 类型
+| `link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/loader/tools/LayoutFactory.html[org.springframework.boot.loader.tools.LayoutFactory]`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `1.5.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.main-class]]
+=== `mainClass`
+主类的名称。如果未指定，将使用找到的第一个包含 `main` 方法的已编译类。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `mainClass`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `1.0.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.output-directory]]
+=== `outputDirectory`
+包含生成的归档文件的目录。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `outputDirectory`
+
+| 类型
+| `java.io.File`
+
+| 默认值
+| `${project.build.directory}`
+
+| 用户属性
+|
+
+| 起始版本
+| `1.0.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.output-timestamp]]
+=== `outputTimestamp`
+用于可重现输出归档条目的时间戳，格式为 ISO 8601（`yyyy-MM-dd'T'HH:mm:ssXXX`）或表示自纪元以来的秒数的 `int`。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `outputTimestamp`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+| `${project.build.outputTimestamp}`
+
+| 用户属性
+|
+
+| 起始版本
+| `2.3.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.requires-unpack]]
+=== `requiresUnpack`
+必须从 uber jar 中解包才能运行的库列表。将每个库指定为包含 `<dependency>` 和 `<groupId>` 以及 `<artifactId>` 的
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `requiresUnpack`
+
+| 类型
+| `java.util.List`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `1.1.0`
+
+|===
+
+
+[[packaging.repackage-goal.parameter-details.skip]]
+=== `skip`
+Skip the execution.
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `skip`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `false`
+
+| 用户属性
+| ``spring-boot.repackage.skip``
+
+| 起始版本
+| `1.2.0`
+
+|===

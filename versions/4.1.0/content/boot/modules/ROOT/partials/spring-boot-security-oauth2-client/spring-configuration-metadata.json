@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "spring.security.oauth2.client",
+      "type": "org.springframework.boot.security.oauth2.client.autoconfigure.OAuth2ClientProperties",
+      "sourceType": "org.springframework.boot.security.oauth2.client.autoconfigure.OAuth2ClientProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.security.oauth2.client.provider",
+      "type": "java.util.Map<java.lang.String,org.springframework.boot.security.oauth2.client.autoconfigure.OAuth2ClientProperties$Provider>",
+      "description": "OAuth provider details.",
+      "sourceType": "org.springframework.boot.security.oauth2.client.autoconfigure.OAuth2ClientProperties"
+    },
+    {
+      "name": "spring.security.oauth2.client.registration",
+      "type": "java.util.Map<java.lang.String,org.springframework.boot.security.oauth2.client.autoconfigure.OAuth2ClientProperties$Registration>",
+      "description": "OAuth client registrations.",
+      "sourceType": "org.springframework.boot.security.oauth2.client.autoconfigure.OAuth2ClientProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

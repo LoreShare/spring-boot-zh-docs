@@ -1,0 +1,65 @@
+{
+  "groups": [
+    {
+      "name": "spring.security",
+      "type": "org.springframework.boot.security.autoconfigure.SecurityProperties",
+      "sourceType": "org.springframework.boot.security.autoconfigure.SecurityProperties"
+    },
+    {
+      "name": "spring.security.filter",
+      "type": "org.springframework.boot.security.autoconfigure.web.servlet.SecurityFilterProperties",
+      "sourceType": "org.springframework.boot.security.autoconfigure.web.servlet.SecurityFilterProperties"
+    },
+    {
+      "name": "spring.security.user",
+      "type": "org.springframework.boot.security.autoconfigure.SecurityProperties$User",
+      "sourceType": "org.springframework.boot.security.autoconfigure.SecurityProperties",
+      "sourceMethod": "getUser()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.security.filter.dispatcher-types",
+      "type": "java.util.Set<org.springframework.boot.web.servlet.DispatcherType>",
+      "description": "Security filter chain dispatcher types for Servlet-based web applications.",
+      "sourceType": "org.springframework.boot.security.autoconfigure.web.servlet.SecurityFilterProperties",
+      "defaultValue": [
+        "async",
+        "error",
+        "forward",
+        "include",
+        "request"
+      ]
+    },
+    {
+      "name": "spring.security.filter.order",
+      "type": "java.lang.Integer",
+      "description": "Security filter chain order for Servlet-based web applications.",
+      "sourceType": "org.springframework.boot.security.autoconfigure.web.servlet.SecurityFilterProperties",
+      "defaultValue": -100
+    },
+    {
+      "name": "spring.security.user.name",
+      "type": "java.lang.String",
+      "description": "Default user name.",
+      "sourceType": "org.springframework.boot.security.autoconfigure.SecurityProperties$User",
+      "defaultValue": "user"
+    },
+    {
+      "name": "spring.security.user.password",
+      "type": "java.lang.String",
+      "description": "Password for the default user name.",
+      "sourceType": "org.springframework.boot.security.autoconfigure.SecurityProperties$User"
+    },
+    {
+      "name": "spring.security.user.roles",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Granted roles for the default user name.",
+      "sourceType": "org.springframework.boot.security.autoconfigure.SecurityProperties$User"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

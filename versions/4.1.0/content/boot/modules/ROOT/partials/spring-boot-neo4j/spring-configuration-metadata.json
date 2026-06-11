@@ -1,0 +1,155 @@
+{
+  "groups": [
+    {
+      "name": "spring.neo4j",
+      "type": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties"
+    },
+    {
+      "name": "spring.neo4j.authentication",
+      "type": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Authentication",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties",
+      "sourceMethod": "getAuthentication()"
+    },
+    {
+      "name": "spring.neo4j.pool",
+      "type": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Pool",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties",
+      "sourceMethod": "getPool()"
+    },
+    {
+      "name": "spring.neo4j.security",
+      "type": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Security",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties",
+      "sourceMethod": "getSecurity()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.health.neo4j.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Neo4j health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.neo4j.authentication.kerberos-ticket",
+      "type": "java.lang.String",
+      "description": "Kerberos ticket for connecting to the database. Mutual exclusive with a given username.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Authentication"
+    },
+    {
+      "name": "spring.neo4j.authentication.password",
+      "type": "java.lang.String",
+      "description": "Login password of the server.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Authentication"
+    },
+    {
+      "name": "spring.neo4j.authentication.realm",
+      "type": "java.lang.String",
+      "description": "Realm to connect to.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Authentication"
+    },
+    {
+      "name": "spring.neo4j.authentication.username",
+      "type": "java.lang.String",
+      "description": "Login user of the server.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Authentication"
+    },
+    {
+      "name": "spring.neo4j.connection-timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout for borrowing connections from the pool.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.neo4j.max-transaction-retry-time",
+      "type": "java.time.Duration",
+      "description": "Maximum time transactions are allowed to retry.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.neo4j.pool.connection-acquisition-timeout",
+      "type": "java.time.Duration",
+      "description": "Acquisition of new connections will be attempted for at most configured timeout.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Pool",
+      "defaultValue": "60s"
+    },
+    {
+      "name": "spring.neo4j.pool.idle-time-before-connection-test",
+      "type": "java.time.Duration",
+      "description": "Pooled connections that have been idle in the pool for longer than this threshold will be tested before they are used again.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Pool"
+    },
+    {
+      "name": "spring.neo4j.pool.log-leaked-sessions",
+      "type": "java.lang.Boolean",
+      "description": "Whether to log leaked sessions.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Pool",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.neo4j.pool.max-connection-lifetime",
+      "type": "java.time.Duration",
+      "description": "Pooled connections older than this threshold will be closed and removed from the pool.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Pool",
+      "defaultValue": "1h"
+    },
+    {
+      "name": "spring.neo4j.pool.max-connection-pool-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum amount of connections in the connection pool towards a single database.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Pool",
+      "defaultValue": 100
+    },
+    {
+      "name": "spring.neo4j.security.cert-file",
+      "type": "java.io.File",
+      "description": "Path to the file that holds the trusted certificates.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Security"
+    },
+    {
+      "name": "spring.neo4j.security.encrypted",
+      "type": "java.lang.Boolean",
+      "description": "Whether the driver should use encrypted traffic.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Security",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.neo4j.security.hostname-verification-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether hostname verification is required.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Security",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.neo4j.security.trust-strategy",
+      "type": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Security$TrustStrategy",
+      "description": "Trust strategy to use.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties$Security",
+      "defaultValue": "trust-system-ca-signed-certificates"
+    },
+    {
+      "name": "spring.neo4j.uri",
+      "type": "java.net.URI",
+      "description": "URI used by the driver.",
+      "sourceType": "org.springframework.boot.neo4j.autoconfigure.Neo4jProperties",
+      "defaultValue": "bolt:\/\/localhost:7687"
+    },
+    {
+      "name": "spring.neo4j.pool.metrics-enabled",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Use 'management.metrics.enable' to restrict certain metrics.",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,0 +1,24 @@
+[[appendix.auto-configuration-classes.spring-boot-jetty]]
+= spring-boot-jetty
+
+以下 auto-configuration 类来自 `spring-boot-jetty` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-jetty/src/main/java/org/springframework/boot/jetty/autoconfigure/metrics/JettyMetricsAutoConfiguration.java[`JettyMetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/jetty/autoconfigure/metrics/JettyMetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-jetty/src/main/java/org/springframework/boot/jetty/autoconfigure/actuate/web/server/JettyReactiveManagementContextAutoConfiguration.java[`JettyReactiveManagementContextAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/jetty/autoconfigure/actuate/web/server/JettyReactiveManagementContextAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-jetty/src/main/java/org/springframework/boot/jetty/autoconfigure/reactive/JettyReactiveWebServerAutoConfiguration.java[`JettyReactiveWebServerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/jetty/autoconfigure/reactive/JettyReactiveWebServerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-jetty/src/main/java/org/springframework/boot/jetty/autoconfigure/actuate/web/server/JettyServletManagementContextAutoConfiguration.java[`JettyServletManagementContextAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/jetty/autoconfigure/actuate/web/server/JettyServletManagementContextAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-jetty/src/main/java/org/springframework/boot/jetty/autoconfigure/servlet/JettyServletWebServerAutoConfiguration.java[`JettyServletWebServerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/jetty/autoconfigure/servlet/JettyServletWebServerAutoConfiguration.html[javadoc]
+|===

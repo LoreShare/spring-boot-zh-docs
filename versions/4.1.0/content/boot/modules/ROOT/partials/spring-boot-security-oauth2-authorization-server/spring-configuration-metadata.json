@@ -1,0 +1,123 @@
+{
+  "groups": [
+    {
+      "name": "spring.security.oauth2.authorizationserver",
+      "type": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint",
+      "type": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$Endpoint",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties",
+      "sourceMethod": "getEndpoint()"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.oidc",
+      "type": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$OidcEndpoint",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$Endpoint",
+      "sourceMethod": "getOidc()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.security.oauth2.authorizationserver.client",
+      "type": "java.util.Map<java.lang.String,org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$Client>",
+      "description": "Registered clients of the Authorization Server.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.authorization-uri",
+      "type": "java.lang.String",
+      "description": "Authorization Server's OAuth 2.0 Authorization Endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$Endpoint",
+      "defaultValue": "\/oauth2\/authorize"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.device-authorization-uri",
+      "type": "java.lang.String",
+      "description": "Authorization Server's OAuth 2.0 Device Authorization Endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$Endpoint",
+      "defaultValue": "\/oauth2\/device_authorization"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.device-verification-uri",
+      "type": "java.lang.String",
+      "description": "Authorization Server's OAuth 2.0 Device Verification Endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$Endpoint",
+      "defaultValue": "\/oauth2\/device_verification"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.jwk-set-uri",
+      "type": "java.lang.String",
+      "description": "Authorization Server's JWK Set Endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$Endpoint",
+      "defaultValue": "\/oauth2\/jwks"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.oidc.client-registration-uri",
+      "type": "java.lang.String",
+      "description": "Authorization Server's OpenID Connect 1.0 Client Registration Endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$OidcEndpoint",
+      "defaultValue": "\/connect\/register"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.oidc.logout-uri",
+      "type": "java.lang.String",
+      "description": "Authorization Server's OpenID Connect 1.0 Logout Endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$OidcEndpoint",
+      "defaultValue": "\/connect\/logout"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.oidc.user-info-uri",
+      "type": "java.lang.String",
+      "description": "Authorization Server's OpenID Connect 1.0 UserInfo Endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$OidcEndpoint",
+      "defaultValue": "\/userinfo"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.pushed-authorization-request-uri",
+      "type": "java.lang.String",
+      "description": "Authorization Server's OAuth 2.0 Pushed Authorization Request Endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$Endpoint",
+      "defaultValue": "\/oauth2\/par"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.token-introspection-uri",
+      "type": "java.lang.String",
+      "description": "Authorization Server's OAuth 2.0 Token Introspection Endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$Endpoint",
+      "defaultValue": "\/oauth2\/introspect"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.token-revocation-uri",
+      "type": "java.lang.String",
+      "description": "Authorization Server's OAuth 2.0 Token Revocation Endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$Endpoint",
+      "defaultValue": "\/oauth2\/revoke"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.endpoint.token-uri",
+      "type": "java.lang.String",
+      "description": "Authorization Server's OAuth 2.0 Token Endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties$Endpoint",
+      "defaultValue": "\/oauth2\/token"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.issuer",
+      "type": "java.lang.String",
+      "description": "URL of the Authorization Server's Issuer Identifier.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties"
+    },
+    {
+      "name": "spring.security.oauth2.authorizationserver.multiple-issuers-allowed",
+      "type": "java.lang.Boolean",
+      "description": "Whether multiple issuers are allowed per host. Using path components in the URL of the issuer identifier enables supporting multiple issuers per host in a multi-tenant hosting configuration.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.authorization.autoconfigure.servlet.OAuth2AuthorizationServerProperties",
+      "defaultValue": false
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

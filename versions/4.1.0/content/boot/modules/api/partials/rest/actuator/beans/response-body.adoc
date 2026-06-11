@@ -1,0 +1,29 @@
+[source,json,options="nowrap"]
+----
+{
+  "contexts" : {
+    "application" : {
+      "beans" : {
+        "org.springframework.boot.webmvc.autoconfigure.actuate.web.WebMvcEndpointManagementContextConfiguration" : {
+          "aliases" : [ ],
+          "dependencies" : [ ],
+          "scope" : "singleton",
+          "type" : "org.springframework.boot.webmvc.autoconfigure.actuate.web.WebMvcEndpointManagementContextConfiguration"
+        },
+        "org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration" : {
+          "aliases" : [ ],
+          "dependencies" : [ ],
+          "scope" : "singleton",
+          "type" : "org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration"
+        },
+        "org.springframework.boot.webmvc.autoconfigure.DispatcherServletAutoConfiguration" : {
+          "aliases" : [ ],
+          "dependencies" : [ ],
+          "scope" : "singleton",
+          "type" : "org.springframework.boot.webmvc.autoconfigure.DispatcherServletAutoConfiguration"
+        }
+      }
+    }
+  }
+}
+----

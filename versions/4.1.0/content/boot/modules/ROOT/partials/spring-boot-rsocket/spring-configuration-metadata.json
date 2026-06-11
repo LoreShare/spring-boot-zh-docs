@@ -1,0 +1,242 @@
+{
+  "groups": [
+    {
+      "name": "spring.rsocket",
+      "type": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties"
+    },
+    {
+      "name": "spring.rsocket.server",
+      "type": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties",
+      "sourceMethod": "getServer()"
+    },
+    {
+      "name": "spring.rsocket.server.spec",
+      "type": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server$Spec",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server",
+      "sourceMethod": "getSpec()"
+    },
+    {
+      "name": "spring.rsocket.server.ssl",
+      "type": "org.springframework.boot.web.server.Ssl",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server",
+      "sourceMethod": "getSsl()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.rsocket.preferred-mapper",
+      "type": "java.lang.String",
+      "description": "Preferred JSON and CBOR mapper to use. By default, auto-detected according to the environment. Supported values are 'jackson' and 'jackson2' (deprecated).",
+      "defaultValue": "jackson"
+    },
+    {
+      "name": "spring.rsocket.server.address",
+      "type": "java.net.InetAddress",
+      "description": "Network address to which the server should bind.",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server"
+    },
+    {
+      "name": "spring.rsocket.server.fragment-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum transmission unit. Frames larger than the specified value are fragmented.",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server"
+    },
+    {
+      "name": "spring.rsocket.server.mapping-path",
+      "type": "java.lang.String",
+      "description": "Path under which RSocket handles requests (only works with websocket transport).",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server"
+    },
+    {
+      "name": "spring.rsocket.server.port",
+      "type": "java.lang.Integer",
+      "description": "Server port.",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server"
+    },
+    {
+      "name": "spring.rsocket.server.spec.compress",
+      "type": "java.lang.Boolean",
+      "description": "Whether the websocket compression extension is enabled.",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server$Spec",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rsocket.server.spec.handle-ping",
+      "type": "java.lang.Boolean",
+      "description": "Whether to proxy websocket ping frames or respond to them.",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server$Spec",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rsocket.server.spec.max-frame-payload-length",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum allowable frame payload length.",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server$Spec",
+      "defaultValue": "65536B"
+    },
+    {
+      "name": "spring.rsocket.server.spec.protocols",
+      "type": "java.lang.String",
+      "description": "Sub-protocols to use in websocket handshake signature.",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server$Spec"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "Name of a configured SSL bundle.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.certificate",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded SSL certificate file.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.certificate-private-key",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded private key file for the SSL certificate.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.ciphers",
+      "type": "java.lang.String[]",
+      "description": "Supported SSL ciphers.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.client-auth",
+      "type": "org.springframework.boot.web.server.Ssl$ClientAuth",
+      "description": "Client authentication mode. Requires a trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support.",
+      "sourceType": "org.springframework.boot.web.server.Ssl",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rsocket.server.ssl.enabled-protocols",
+      "type": "java.lang.String[]",
+      "description": "Enabled SSL protocols.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.key-alias",
+      "type": "java.lang.String",
+      "description": "Alias that identifies the key in the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.key-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the key in the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.key-store",
+      "type": "java.lang.String",
+      "description": "Path to the key store that holds the SSL certificate (typically a jks file).",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.key-store-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.key-store-provider",
+      "type": "java.lang.String",
+      "description": "Provider for the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.key-store-type",
+      "type": "java.lang.String",
+      "description": "Type of the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.protocol",
+      "type": "java.lang.String",
+      "description": "SSL protocol to use.",
+      "sourceType": "org.springframework.boot.web.server.Ssl",
+      "defaultValue": "TLS"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.server-name-bundles",
+      "type": "java.util.List<org.springframework.boot.web.server.Ssl$ServerNameSslBundle>",
+      "description": "Mapping of host names to SSL bundles for SNI configuration.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.trust-certificate",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded SSL certificate authority file.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.trust-certificate-private-key",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded private key file for the SSL certificate authority.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.trust-store",
+      "type": "java.lang.String",
+      "description": "Trust store that holds SSL certificates.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.trust-store-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.trust-store-provider",
+      "type": "java.lang.String",
+      "description": "Provider for the trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.ssl.trust-store-type",
+      "type": "java.lang.String",
+      "description": "Type of the trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "spring.rsocket.server.transport",
+      "type": "org.springframework.boot.rsocket.server.RSocketServer$Transport",
+      "description": "RSocket transport protocol.",
+      "sourceType": "org.springframework.boot.rsocket.autoconfigure.RSocketProperties$Server",
+      "defaultValue": "tcp"
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.rsocket.preferred-mapper",
+      "values": [
+        {
+          "value": "jackson"
+        },
+        {
+          "value": "jackson2"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

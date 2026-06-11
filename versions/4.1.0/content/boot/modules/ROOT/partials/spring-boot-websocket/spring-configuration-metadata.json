@@ -1,0 +1,32 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "spring.websocket.messaging.preferred-json-mapper",
+      "type": "java.lang.String",
+      "description": "Preferred JSON mapper to use for WebSocket messaging. By default, auto-detected according to the environment. Supported values are 'jackson' and 'jackson2' (deprecated).",
+      "defaultValue": "jackson"
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.websocket.messaging.preferred-json-mapper",
+      "values": [
+        {
+          "value": "jackson"
+        },
+        {
+          "value": "jackson2"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

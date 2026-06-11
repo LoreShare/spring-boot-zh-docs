@@ -1,4 +1,4 @@
-[source,text]
+[source,bash]
 ----
-该请求或响应示例由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+$ curl 'http://localhost:8080/actuator/sessions/4db5efcc-99cb-4d05-a52c-b49acfbb7ea9' -i -X DELETE
 ----

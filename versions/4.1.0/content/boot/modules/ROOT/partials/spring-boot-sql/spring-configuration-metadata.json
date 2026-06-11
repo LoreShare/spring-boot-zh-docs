@@ -1,0 +1,108 @@
+{
+  "groups": [
+    {
+      "name": "spring.sql.init",
+      "type": "org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties",
+      "sourceType": "org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.sql.init.continue-on-error",
+      "type": "java.lang.Boolean",
+      "description": "Whether initialization should continue when an error occurs.",
+      "sourceType": "org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.sql.init.data-locations",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Locations of the data (DML) scripts to apply to the database.",
+      "sourceType": "org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties"
+    },
+    {
+      "name": "spring.sql.init.encoding",
+      "type": "java.nio.charset.Charset",
+      "description": "Encoding of the schema and data scripts.",
+      "sourceType": "org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties"
+    },
+    {
+      "name": "spring.sql.init.mode",
+      "type": "org.springframework.boot.sql.init.DatabaseInitializationMode",
+      "description": "Mode to apply when determining whether initialization should be performed.",
+      "sourceType": "org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties",
+      "defaultValue": "embedded"
+    },
+    {
+      "name": "spring.sql.init.password",
+      "type": "java.lang.String",
+      "description": "Password of the database to use when applying initialization scripts (if different).",
+      "sourceType": "org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties"
+    },
+    {
+      "name": "spring.sql.init.platform",
+      "type": "java.lang.String",
+      "description": "Platform to use in the default schema or data script locations, schema-${platform}.sql and data-${platform}.sql.",
+      "sourceType": "org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties",
+      "defaultValue": "all"
+    },
+    {
+      "name": "spring.sql.init.schema-locations",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Locations of the schema (DDL) scripts to apply to the database.",
+      "sourceType": "org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties"
+    },
+    {
+      "name": "spring.sql.init.separator",
+      "type": "java.lang.String",
+      "description": "Statement separator in the schema and data scripts.",
+      "sourceType": "org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties",
+      "defaultValue": ";"
+    },
+    {
+      "name": "spring.sql.init.username",
+      "type": "java.lang.String",
+      "description": "Username of the database to use when applying initialization scripts (if different).",
+      "sourceType": "org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties"
+    },
+    {
+      "name": "spring.sql.init.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether basic script-based initialization of an SQL database is enabled.",
+      "defaultValue": true,
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.sql.init.mode",
+        "since": "2.5.1"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.sql.init.data-locations",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "java.util.List<org.springframework.core.io.Resource>"
+          }
+        }
+      ]
+    },
+    {
+      "name": "spring.sql.init.schema-locations",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "java.util.List<org.springframework.core.io.Resource>"
+          }
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

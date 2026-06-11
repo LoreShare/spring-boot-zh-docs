@@ -1,1 +1,1667 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.actuator]]
+== Actuator 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.actuator.management.appoptics.metrics.export.api-token]]xref:#application-properties.actuator.management.appoptics.metrics.export.api-token[`+management.appoptics.metrics.export.api-token+`]
+|+++AppOptics API 令牌。+++
+|
+
+|[[application-properties.actuator.management.appoptics.metrics.export.batch-size]]xref:#application-properties.actuator.management.appoptics.metrics.export.batch-size[`+management.appoptics.metrics.export.batch-size+`]
+|+++每个请求用于此后端的测量数。如果发现更多测量，则会发出多个请求。+++
+|`+500+`
+
+|[[application-properties.actuator.management.appoptics.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.appoptics.metrics.export.connect-timeout[`+management.appoptics.metrics.export.connect-timeout+`]
+|+++连接此后端的请求超时时间。+++
+|`+5s+`
+
+|[[application-properties.actuator.management.appoptics.metrics.export.enabled]]xref:#application-properties.actuator.management.appoptics.metrics.export.enabled[`+management.appoptics.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.appoptics.metrics.export.floor-times]]xref:#application-properties.actuator.management.appoptics.metrics.export.floor-times[`+management.appoptics.metrics.export.floor-times+`]
+|+++是否发送向下取整的时间，在从多个主机发送测量值以在给定时间边界上对齐时很有用。+++
+|`+false+`
+
+|[[application-properties.actuator.management.appoptics.metrics.export.host-tag]]xref:#application-properties.actuator.management.appoptics.metrics.export.host-tag[`+management.appoptics.metrics.export.host-tag+`]
+|+++向 AppOptics 发送指标时将映射到 "@host" 的标签。+++
+|`+instance+`
+
+|[[application-properties.actuator.management.appoptics.metrics.export.read-timeout]]xref:#application-properties.actuator.management.appoptics.metrics.export.read-timeout[`+management.appoptics.metrics.export.read-timeout+`]
+|+++读取此后端的请求超时时间。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.appoptics.metrics.export.step]]xref:#application-properties.actuator.management.appoptics.metrics.export.step[`+management.appoptics.metrics.export.step+`]
+|+++要使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.appoptics.metrics.export.uri]]xref:#application-properties.actuator.management.appoptics.metrics.export.uri[`+management.appoptics.metrics.export.uri+`]
+|+++发送指标的 URI。+++
+|`+https://api.appoptics.com/v1/measurements+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.batch-size]]xref:#application-properties.actuator.management.atlas.metrics.export.batch-size[`+management.atlas.metrics.export.batch-size+`]
+|+++每个请求用于此后端的测量数。如果发现更多测量，则会发出多个请求。+++
+|`+10000+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.config-refresh-frequency]]xref:#application-properties.actuator.management.atlas.metrics.export.config-refresh-frequency[`+management.atlas.metrics.export.config-refresh-frequency+`]
+|+++从 LWC 服务刷新配置设置的频率。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.config-time-to-live]]xref:#application-properties.actuator.management.atlas.metrics.export.config-time-to-live[`+management.atlas.metrics.export.config-time-to-live+`]
+|+++来自 LWC 服务的订阅的生存时间。+++
+|`+150s+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.config-uri]]xref:#application-properties.actuator.management.atlas.metrics.export.config-uri[`+management.atlas.metrics.export.config-uri+`]
+|+++用于检索当前订阅的 Atlas LWC endpoint 的 URI。+++
+|`+http://localhost:7101/lwc/api/v1/expressions/local-dev+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.atlas.metrics.export.connect-timeout[`+management.atlas.metrics.export.connect-timeout+`]
+|+++连接此后端的请求超时时间。+++
+|`+1s+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.enabled]]xref:#application-properties.actuator.management.atlas.metrics.export.enabled[`+management.atlas.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.eval-uri]]xref:#application-properties.actuator.management.atlas.metrics.export.eval-uri[`+management.atlas.metrics.export.eval-uri+`]
+|+++用于评估订阅数据的 Atlas LWC endpoint 的 URI。+++
+|`+http://localhost:7101/lwc/api/v1/evaluate+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.lwc-enabled]]xref:#application-properties.actuator.management.atlas.metrics.export.lwc-enabled[`+management.atlas.metrics.export.lwc-enabled+`]
+|+++是否启用向 Atlas LWC 的流式传输。+++
+|`+false+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.lwc-ignore-publish-step]]xref:#application-properties.actuator.management.atlas.metrics.export.lwc-ignore-publish-step[`+management.atlas.metrics.export.lwc-ignore-publish-step+`]
+|+++是否应忽略与 Atlas 发布具有相同步长的表达式以进行流式传输。用于数据发布到 Atlas 同时也从后端发送到流式传输的情况。+++
+|`+true+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.lwc-step]]xref:#application-properties.actuator.management.atlas.metrics.export.lwc-step[`+management.atlas.metrics.export.lwc-step+`]
+|+++用于向 Atlas LWC 流式传输的步长（报告频率）。这是获取按需数据流所支持的最高分辨率。它必须小于或等于 management.metrics.export.atlas.step，并且 management.metrics.export.atlas.step 应为该值的偶数倍。+++
+|`+5s+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.meter-time-to-live]]xref:#application-properties.actuator.management.atlas.metrics.export.meter-time-to-live[`+management.atlas.metrics.export.meter-time-to-live+`]
+|+++没有任何活动的计量器的生存时间。在此时间之后，计量器将被视为过期且不再报告。+++
+|`+15m+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.num-threads]]xref:#application-properties.actuator.management.atlas.metrics.export.num-threads[`+management.atlas.metrics.export.num-threads+`]
+|+++用于指标发布调度器的线程数。+++
+|`+4+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.read-timeout]]xref:#application-properties.actuator.management.atlas.metrics.export.read-timeout[`+management.atlas.metrics.export.read-timeout+`]
+|+++读取此后端的请求超时时间。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.step]]xref:#application-properties.actuator.management.atlas.metrics.export.step[`+management.atlas.metrics.export.step+`]
+|+++要使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.atlas.metrics.export.uri]]xref:#application-properties.actuator.management.atlas.metrics.export.uri[`+management.atlas.metrics.export.uri+`]
+|+++Atlas 服务器的 URI。+++
+|`+http://localhost:7101/api/v1/publish+`
+
+|[[application-properties.actuator.management.auditevents.enabled]]xref:#application-properties.actuator.management.auditevents.enabled[`+management.auditevents.enabled+`]
+|+++是否启用审计事件的存储。+++
+|`+true+`
+
+|[[application-properties.actuator.management.brave.tracing.span-joining-supported]]xref:#application-properties.actuator.management.brave.tracing.span-joining-supported[`+management.brave.tracing.span-joining-supported+`]
+|+++传播类型和追踪后端是否支持在客户端和服务器跨度之间共享跨度 ID。需要 B3 传播和兼容的后端。+++
+|`+false+`
+
+|[[application-properties.actuator.management.cloudfoundry.enabled]]xref:#application-properties.actuator.management.cloudfoundry.enabled[`+management.cloudfoundry.enabled+`]
+|+++是否启用扩展的 Cloud Foundry actuator endpoints。+++
+|`+true+`
+
+|[[application-properties.actuator.management.cloudfoundry.skip-ssl-validation]]xref:#application-properties.actuator.management.cloudfoundry.skip-ssl-validation[`+management.cloudfoundry.skip-ssl-validation+`]
+|+++是否跳过 Cloud Foundry actuator endpoint 安全调用的 SSL 验证。+++
+|`+false+`
+
+|[[application-properties.actuator.management.datadog.metrics.export.api-key]]xref:#application-properties.actuator.management.datadog.metrics.export.api-key[`+management.datadog.metrics.export.api-key+`]
+|+++Datadog API 密钥。+++
+|
+
+|[[application-properties.actuator.management.datadog.metrics.export.application-key]]xref:#application-properties.actuator.management.datadog.metrics.export.application-key[`+management.datadog.metrics.export.application-key+`]
+|+++Datadog 应用程序密钥。并非严格必需，但通过向 Datadog 发送计量器描述、类型和基本单位来改善 Datadog 体验。+++
+|
+
+|[[application-properties.actuator.management.datadog.metrics.export.batch-size]]xref:#application-properties.actuator.management.datadog.metrics.export.batch-size[`+management.datadog.metrics.export.batch-size+`]
+|+++每个请求用于此后端的测量数。如果发现更多测量，则会发出多个请求。+++
+|`+10000+`
+
+|[[application-properties.actuator.management.datadog.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.datadog.metrics.export.connect-timeout[`+management.datadog.metrics.export.connect-timeout+`]
+|+++连接此后端的请求超时时间。+++
+|`+1s+`
+
+|[[application-properties.actuator.management.datadog.metrics.export.descriptions]]xref:#application-properties.actuator.management.datadog.metrics.export.descriptions[`+management.datadog.metrics.export.descriptions+`]
+|+++是否向 Datadog 发布描述元数据。关闭此选项可最小化发送的元数据量。+++
+|`+true+`
+
+|[[application-properties.actuator.management.datadog.metrics.export.enabled]]xref:#application-properties.actuator.management.datadog.metrics.export.enabled[`+management.datadog.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.datadog.metrics.export.host-tag]]xref:#application-properties.actuator.management.datadog.metrics.export.host-tag[`+management.datadog.metrics.export.host-tag+`]
+|+++向 Datadog 发送指标时将映射到 "host" 的标签。+++
+|`+instance+`
+
+|[[application-properties.actuator.management.datadog.metrics.export.read-timeout]]xref:#application-properties.actuator.management.datadog.metrics.export.read-timeout[`+management.datadog.metrics.export.read-timeout+`]
+|+++读取此后端的请求超时时间。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.datadog.metrics.export.step]]xref:#application-properties.actuator.management.datadog.metrics.export.step[`+management.datadog.metrics.export.step+`]
+|+++要使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.datadog.metrics.export.uri]]xref:#application-properties.actuator.management.datadog.metrics.export.uri[`+management.datadog.metrics.export.uri+`]
+|+++用于发送指标的URI。如果需要将指标发布到美国以外的Datadog站点，或通过内部代理路由到Datadog，请设置此项。+++
+|`+https://api.datadoghq.com+`
+
+|[[application-properties.actuator.management.defaults.metrics.export.enabled]]xref:#application-properties.actuator.management.defaults.metrics.export.enabled[`+management.defaults.metrics.export.enabled+`]
+|+++是否启用默认的指标导出器。+++
+|`+true+`
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.api-token]]xref:#application-properties.actuator.management.dynatrace.metrics.export.api-token[`+management.dynatrace.metrics.export.api-token+`]
+|+++Dynatrace身份验证令牌。+++
+|
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.batch-size]]xref:#application-properties.actuator.management.dynatrace.metrics.export.batch-size[`+management.dynatrace.metrics.export.batch-size+`]
+|+++每个请求用于此后端的测量数。如果发现更多测量值，则会发起多个请求。+++
+|`+10000+`
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.dynatrace.metrics.export.connect-timeout[`+management.dynatrace.metrics.export.connect-timeout+`]
+|+++对此后端的请求连接超时时间。+++
+|`+1s+`
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.enabled]]xref:#application-properties.actuator.management.dynatrace.metrics.export.enabled[`+management.dynatrace.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.read-timeout]]xref:#application-properties.actuator.management.dynatrace.metrics.export.read-timeout[`+management.dynatrace.metrics.export.read-timeout+`]
+|+++对此后端的请求读取超时时间。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.step]]xref:#application-properties.actuator.management.dynatrace.metrics.export.step[`+management.dynatrace.metrics.export.step+`]
+|+++步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.uri]]xref:#application-properties.actuator.management.dynatrace.metrics.export.uri[`+management.dynatrace.metrics.export.uri+`]
+|+++用于发送指标的URI。应用于SaaS、自管理实例或通过内部代理路由。+++
+|
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.v2.default-dimensions]]xref:#application-properties.actuator.management.dynatrace.metrics.export.v2.default-dimensions[`+management.dynatrace.metrics.export.v2.default-dimensions.*+`]
+|+++默认维度，以键值对形式添加到所有指标中。如果Micrometer标签使用相同的键，则会被覆盖。+++
+|
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.v2.enrich-with-dynatrace-metadata]]xref:#application-properties.actuator.management.dynatrace.metrics.export.v2.enrich-with-dynatrace-metadata[`+management.dynatrace.metrics.export.v2.enrich-with-dynatrace-metadata+`]
+|+++是否启用Dynatrace元数据导出。+++
+|`+true+`
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.v2.export-meter-metadata]]xref:#application-properties.actuator.management.dynatrace.metrics.export.v2.export-meter-metadata[`+management.dynatrace.metrics.export.v2.export-meter-metadata+`]
+|+++是否将仪表元数据（单位和描述）导出到Dynatrace后端。+++
+|`+true+`
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.v2.metric-key-prefix]]xref:#application-properties.actuator.management.dynatrace.metrics.export.v2.metric-key-prefix[`+management.dynatrace.metrics.export.v2.metric-key-prefix+`]
+|+++添加到所有导出指标的前缀字符串。+++
+|
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.v2.use-dynatrace-summary-instruments]]xref:#application-properties.actuator.management.dynatrace.metrics.export.v2.use-dynatrace-summary-instruments[`+management.dynatrace.metrics.export.v2.use-dynatrace-summary-instruments+`]
+|+++是否回退到内置的micrometer仪器用于Timer和DistributionSummary。+++
+|`+true+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.api-key-credentials]]xref:#application-properties.actuator.management.elastic.metrics.export.api-key-credentials[`+management.elastic.metrics.export.api-key-credentials+`]
+|+++Base64编码的凭据字符串。与用户名和密码互斥。+++
+|
+
+|[[application-properties.actuator.management.elastic.metrics.export.auto-create-index]]xref:#application-properties.actuator.management.elastic.metrics.export.auto-create-index[`+management.elastic.metrics.export.auto-create-index+`]
+|+++是否在索引不存在时自动创建。+++
+|`+true+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.batch-size]]xref:#application-properties.actuator.management.elastic.metrics.export.batch-size[`+management.elastic.metrics.export.batch-size+`]
+|+++每个请求用于此后端的测量数。如果发现更多测量值，则会发起多个请求。+++
+|`+10000+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.elastic.metrics.export.connect-timeout[`+management.elastic.metrics.export.connect-timeout+`]
+|+++对此后端的请求连接超时时间。+++
+|`+1s+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.enable-source]]xref:#application-properties.actuator.management.elastic.metrics.export.enable-source[`+management.elastic.metrics.export.enable-source+`]
+|+++是否在自动创建索引时在默认索引模板中启用_source。+++
+|`+false+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.enabled]]xref:#application-properties.actuator.management.elastic.metrics.export.enabled[`+management.elastic.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.host]]xref:#application-properties.actuator.management.elastic.metrics.export.host[`+management.elastic.metrics.export.host+`]
+|+++导出指标的主机。+++
+|`+http://localhost:9200+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.index]]xref:#application-properties.actuator.management.elastic.metrics.export.index[`+management.elastic.metrics.export.index+`]
+|+++导出指标的索引。+++
+|`+micrometer-metrics+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.index-date-format]]xref:#application-properties.actuator.management.elastic.metrics.export.index-date-format[`+management.elastic.metrics.export.index-date-format+`]
+|+++用于滚动索引的索引日期格式。附加到索引名称后。+++
+|`+yyyy-MM+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.index-date-separator]]xref:#application-properties.actuator.management.elastic.metrics.export.index-date-separator[`+management.elastic.metrics.export.index-date-separator+`]
+|+++用于分隔索引名称和滚动索引日期格式的前缀。+++
+|`+-+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.password]]xref:#application-properties.actuator.management.elastic.metrics.export.password[`+management.elastic.metrics.export.password+`]
+|+++Elastic服务器的登录密码。与api-key-credentials互斥。+++
+|
+
+|[[application-properties.actuator.management.elastic.metrics.export.pipeline]]xref:#application-properties.actuator.management.elastic.metrics.export.pipeline[`+management.elastic.metrics.export.pipeline+`]
+|+++摄取管道名称。默认情况下，事件不进行预处理。+++
+|
+
+|[[application-properties.actuator.management.elastic.metrics.export.read-timeout]]xref:#application-properties.actuator.management.elastic.metrics.export.read-timeout[`+management.elastic.metrics.export.read-timeout+`]
+|+++对此后端的请求读取超时时间。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.step]]xref:#application-properties.actuator.management.elastic.metrics.export.step[`+management.elastic.metrics.export.step+`]
+|+++步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.timestamp-field-name]]xref:#application-properties.actuator.management.elastic.metrics.export.timestamp-field-name[`+management.elastic.metrics.export.timestamp-field-name+`]
+|+++时间戳字段的名称。+++
+|`+@timestamp+`
+
+|[[application-properties.actuator.management.elastic.metrics.export.user-name]]xref:#application-properties.actuator.management.elastic.metrics.export.user-name[`+management.elastic.metrics.export.user-name+`]
+|+++Elastic服务器的登录用户。与api-key-credentials互斥。+++
+|
+
+|[[application-properties.actuator.management.endpoint.auditevents.access]]xref:#application-properties.actuator.management.endpoint.auditevents.access[`+management.endpoint.auditevents.access+`]
+|+++auditevents endpoint的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.auditevents.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.auditevents.cache.time-to-live[`+management.endpoint.auditevents.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.beans.access]]xref:#application-properties.actuator.management.endpoint.beans.access[`+management.endpoint.beans.access+`]
+|+++beans endpoint的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.beans.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.beans.cache.time-to-live[`+management.endpoint.beans.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.caches.access]]xref:#application-properties.actuator.management.endpoint.caches.access[`+management.endpoint.caches.access+`]
+|+++caches endpoint的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.caches.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.caches.cache.time-to-live[`+management.endpoint.caches.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.conditions.access]]xref:#application-properties.actuator.management.endpoint.conditions.access[`+management.endpoint.conditions.access+`]
+|+++conditions endpoint的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.conditions.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.conditions.cache.time-to-live[`+management.endpoint.conditions.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.configprops.access]]xref:#application-properties.actuator.management.endpoint.configprops.access[`+management.endpoint.configprops.access+`]
+|+++configprops endpoint的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.configprops.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.configprops.cache.time-to-live[`+management.endpoint.configprops.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.configprops.roles]]xref:#application-properties.actuator.management.endpoint.configprops.roles[`+management.endpoint.configprops.roles+`]
+|+++用于确定用户是否有权查看未脱敏值的角色。为空时，所有已认证用户均被授权。+++
+|
+
+|[[application-properties.actuator.management.endpoint.configprops.show-values]]xref:#application-properties.actuator.management.endpoint.configprops.show-values[`+management.endpoint.configprops.show-values+`]
+|+++何时显示未脱敏值。+++
+|`+never+`
+
+|[[application-properties.actuator.management.endpoint.env.access]]xref:#application-properties.actuator.management.endpoint.env.access[`+management.endpoint.env.access+`]
+|+++env endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.env.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.env.cache.time-to-live[`+management.endpoint.env.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.env.roles]]xref:#application-properties.actuator.management.endpoint.env.roles[`+management.endpoint.env.roles+`]
+|+++用于确定用户是否有权查看未脱敏值的角色。为空时，所有已认证用户均被授权。+++
+|
+
+|[[application-properties.actuator.management.endpoint.env.show-values]]xref:#application-properties.actuator.management.endpoint.env.show-values[`+management.endpoint.env.show-values+`]
+|+++何时显示未脱敏值。+++
+|`+never+`
+
+|[[application-properties.actuator.management.endpoint.flyway.access]]xref:#application-properties.actuator.management.endpoint.flyway.access[`+management.endpoint.flyway.access+`]
+|+++flyway endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.flyway.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.flyway.cache.time-to-live[`+management.endpoint.flyway.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.health.access]]xref:#application-properties.actuator.management.endpoint.health.access[`+management.endpoint.health.access+`]
+|+++health endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.health.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.health.cache.time-to-live[`+management.endpoint.health.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.health.group]]xref:#application-properties.actuator.management.endpoint.health.group[`+management.endpoint.health.group.*+`]
+|+++Health endpoint 组。+++
+|
+
+|[[application-properties.actuator.management.endpoint.health.logging.slow-indicator-threshold]]xref:#application-properties.actuator.management.endpoint.health.logging.slow-indicator-threshold[`+management.endpoint.health.logging.slow-indicator-threshold+`]
+|+++慢健康指标触发警告的阈值。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.endpoint.health.probes.add-additional-paths]]xref:#application-properties.actuator.management.endpoint.health.probes.add-additional-paths[`+management.endpoint.health.probes.add-additional-paths+`]
+|+++是否在主服务器端口上提供 liveness 和 readiness 健康组。+++
+|`+false+`
+
+|[[application-properties.actuator.management.endpoint.health.probes.enabled]]xref:#application-properties.actuator.management.endpoint.health.probes.enabled[`+management.endpoint.health.probes.enabled+`]
+|+++是否启用 liveness 和 readiness 探针。+++
+|`+true+`
+
+|[[application-properties.actuator.management.endpoint.health.roles]]xref:#application-properties.actuator.management.endpoint.health.roles[`+management.endpoint.health.roles+`]
+|+++用于确定用户是否有权查看详细信息的角色。为空时，所有已认证用户均被授权。+++
+|
+
+|[[application-properties.actuator.management.endpoint.health.show-components]]xref:#application-properties.actuator.management.endpoint.health.show-components[`+management.endpoint.health.show-components+`]
+|+++何时显示组件。如果未指定，将使用 'show-details' 设置。+++
+|
+
+|[[application-properties.actuator.management.endpoint.health.show-details]]xref:#application-properties.actuator.management.endpoint.health.show-details[`+management.endpoint.health.show-details+`]
+|+++何时显示完整的健康详情。+++
+|`+never+`
+
+|[[application-properties.actuator.management.endpoint.health.status.http-mapping]]xref:#application-properties.actuator.management.endpoint.health.status.http-mapping[`+management.endpoint.health.status.http-mapping.*+`]
+|+++健康状态到 HTTP 状态码的映射。默认情况下，已注册的健康状态映射到合理的默认值（例如，UP 映射到 200）。+++
+|
+
+|[[application-properties.actuator.management.endpoint.health.status.order]]xref:#application-properties.actuator.management.endpoint.health.status.order[`+management.endpoint.health.status.order+`]
+|+++按严重程度排序的健康状态列表。+++
+|`+[DOWN, OUT_OF_SERVICE, UP, UNKNOWN]+`
+
+|[[application-properties.actuator.management.endpoint.health.validate-group-membership]]xref:#application-properties.actuator.management.endpoint.health.validate-group-membership[`+management.endpoint.health.validate-group-membership+`]
+|+++是否在启动时验证健康组成员关系。如果某个组包含或排除了不存在的健康贡献者，验证将失败。+++
+|`+true+`
+
+|[[application-properties.actuator.management.endpoint.heapdump.access]]xref:#application-properties.actuator.management.endpoint.heapdump.access[`+management.endpoint.heapdump.access+`]
+|+++heapdump endpoint 的允许访问级别。+++
+|`+none+`
+
+|[[application-properties.actuator.management.endpoint.heapdump.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.heapdump.cache.time-to-live[`+management.endpoint.heapdump.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.httpexchanges.access]]xref:#application-properties.actuator.management.endpoint.httpexchanges.access[`+management.endpoint.httpexchanges.access+`]
+|+++httpexchanges endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.httpexchanges.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.httpexchanges.cache.time-to-live[`+management.endpoint.httpexchanges.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.info.access]]xref:#application-properties.actuator.management.endpoint.info.access[`+management.endpoint.info.access+`]
+|+++info endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.info.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.info.cache.time-to-live[`+management.endpoint.info.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.integrationgraph.access]]xref:#application-properties.actuator.management.endpoint.integrationgraph.access[`+management.endpoint.integrationgraph.access+`]
+|+++integrationgraph endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.integrationgraph.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.integrationgraph.cache.time-to-live[`+management.endpoint.integrationgraph.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.liquibase.access]]xref:#application-properties.actuator.management.endpoint.liquibase.access[`+management.endpoint.liquibase.access+`]
+|+++liquibase endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.liquibase.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.liquibase.cache.time-to-live[`+management.endpoint.liquibase.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.logfile.access]]xref:#application-properties.actuator.management.endpoint.logfile.access[`+management.endpoint.logfile.access+`]
+|+++logfile endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.logfile.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.logfile.cache.time-to-live[`+management.endpoint.logfile.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.logfile.external-file]]xref:#application-properties.actuator.management.endpoint.logfile.external-file[`+management.endpoint.logfile.external-file+`]
+|+++要访问的外部日志文件。当日志文件由输出重定向写入而非日志系统本身时，可使用此选项。+++
+|
+
+|[[application-properties.actuator.management.endpoint.loggers.access]]xref:#application-properties.actuator.management.endpoint.loggers.access[`+management.endpoint.loggers.access+`]
+|+++loggers endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.loggers.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.loggers.cache.time-to-live[`+management.endpoint.loggers.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.mappings.access]]xref:#application-properties.actuator.management.endpoint.mappings.access[`+management.endpoint.mappings.access+`]
+|+++mappings endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.mappings.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.mappings.cache.time-to-live[`+management.endpoint.mappings.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.metrics.access]]xref:#application-properties.actuator.management.endpoint.metrics.access[`+management.endpoint.metrics.access+`]
+|+++metrics endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.metrics.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.metrics.cache.time-to-live[`+management.endpoint.metrics.cache.time-to-live+`]
+|+++响应可缓存的最大时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.prometheus.access]]xref:#application-properties.actuator.management.endpoint.prometheus.access[`+management.endpoint.prometheus.access+`]
+|+++prometheus endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.quartz.access]]xref:#application-properties.actuator.management.endpoint.quartz.access[`+management.endpoint.quartz.access+`]
+|+++quartz endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.quartz.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.quartz.cache.time-to-live[`+management.endpoint.quartz.cache.time-to-live+`]
+|+++响应可缓存的最长时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.quartz.roles]]xref:#application-properties.actuator.management.endpoint.quartz.roles[`+management.endpoint.quartz.roles+`]
+|+++用于确定用户是否有权查看未经净化的作业或触发器值的角色。为空时，所有经过身份验证的用户均被授权。+++
+|
+
+|[[application-properties.actuator.management.endpoint.quartz.show-values]]xref:#application-properties.actuator.management.endpoint.quartz.show-values[`+management.endpoint.quartz.show-values+`]
+|+++何时显示未经净化的作业或触发器值。+++
+|`+never+`
+
+|[[application-properties.actuator.management.endpoint.sbom.access]]xref:#application-properties.actuator.management.endpoint.sbom.access[`+management.endpoint.sbom.access+`]
+|+++sbom endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.sbom.additional]]xref:#application-properties.actuator.management.endpoint.sbom.additional[`+management.endpoint.sbom.additional.*+`]
+|+++额外的 SBOM。+++
+|
+
+|[[application-properties.actuator.management.endpoint.sbom.application.location]]xref:#application-properties.actuator.management.endpoint.sbom.application.location[`+management.endpoint.sbom.application.location+`]
+|+++SBOM 的位置。如果为 null，将自动检测位置。+++
+|
+
+|[[application-properties.actuator.management.endpoint.sbom.application.media-type]]xref:#application-properties.actuator.management.endpoint.sbom.application.media-type[`+management.endpoint.sbom.application.media-type+`]
+|+++SBOM 的媒体类型。如果为 null，将自动检测媒体类型。+++
+|
+
+|[[application-properties.actuator.management.endpoint.sbom.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.sbom.cache.time-to-live[`+management.endpoint.sbom.cache.time-to-live+`]
+|+++响应可缓存的最长时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.scheduledtasks.access]]xref:#application-properties.actuator.management.endpoint.scheduledtasks.access[`+management.endpoint.scheduledtasks.access+`]
+|+++scheduledtasks endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.scheduledtasks.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.scheduledtasks.cache.time-to-live[`+management.endpoint.scheduledtasks.cache.time-to-live+`]
+|+++响应可缓存的最长时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.sessions.access]]xref:#application-properties.actuator.management.endpoint.sessions.access[`+management.endpoint.sessions.access+`]
+|+++sessions endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.shutdown.access]]xref:#application-properties.actuator.management.endpoint.shutdown.access[`+management.endpoint.shutdown.access+`]
+|+++shutdown endpoint 的允许访问级别。+++
+|`+none+`
+
+|[[application-properties.actuator.management.endpoint.startup.access]]xref:#application-properties.actuator.management.endpoint.startup.access[`+management.endpoint.startup.access+`]
+|+++startup endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.startup.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.startup.cache.time-to-live[`+management.endpoint.startup.cache.time-to-live+`]
+|+++响应可缓存的最长时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoint.threaddump.access]]xref:#application-properties.actuator.management.endpoint.threaddump.access[`+management.endpoint.threaddump.access+`]
+|+++threaddump endpoint 的允许访问级别。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoint.threaddump.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.threaddump.cache.time-to-live[`+management.endpoint.threaddump.cache.time-to-live+`]
+|+++响应可缓存的最长时间。+++
+|`+0ms+`
+
+|[[application-properties.actuator.management.endpoints.access.default]]xref:#application-properties.actuator.management.endpoints.access.default[`+management.endpoints.access.default+`]
+|+++所有 endpoints 的默认访问级别。+++
+|
+
+|[[application-properties.actuator.management.endpoints.access.max-permitted]]xref:#application-properties.actuator.management.endpoints.access.max-permitted[`+management.endpoints.access.max-permitted+`]
+|+++允许的最大 endpoint 访问级别。限制 endpoint 的单独访问级别 (management.endpoint.&lt;id&gt;.access) 和默认访问级别 (management.endpoints.access.default)。+++
+|`+unrestricted+`
+
+|[[application-properties.actuator.management.endpoints.jackson.isolated-json-mapper]]xref:#application-properties.actuator.management.endpoints.jackson.isolated-json-mapper[`+management.endpoints.jackson.isolated-json-mapper+`]
+|+++是否使用隔离的 JsonMapper 来序列化 endpoint JSON。+++
+|`+true+`
+
+|[[application-properties.actuator.management.endpoints.jmx.domain]]xref:#application-properties.actuator.management.endpoints.jmx.domain[`+management.endpoints.jmx.domain+`]
+|+++Endpoints JMX 域名。如果设置了 'spring.jmx.default-domain'，则回退到该值。+++
+|`+org.springframework.boot+`
+
+|[[application-properties.actuator.management.endpoints.jmx.exposure.exclude]]xref:#application-properties.actuator.management.endpoints.jmx.exposure.exclude[`+management.endpoints.jmx.exposure.exclude+`]
+|+++应排除的端点 ID，或 '*' 表示全部。+++
+|
+
+|[[application-properties.actuator.management.endpoints.jmx.exposure.include]]xref:#application-properties.actuator.management.endpoints.jmx.exposure.include[`+management.endpoints.jmx.exposure.include+`]
+|+++应包含的端点 ID，或 '*' 表示全部。+++
+|`+health+`
+
+|[[application-properties.actuator.management.endpoints.jmx.static-names]]xref:#application-properties.actuator.management.endpoints.jmx.static-names[`+management.endpoints.jmx.static-names+`]
+|+++要附加到表示端点的所有 MBean 的 ObjectName 上的额外静态属性。+++
+|
+
+|[[application-properties.actuator.management.endpoints.migrate-legacy-ids]]xref:#application-properties.actuator.management.endpoints.migrate-legacy-ids[`+management.endpoints.migrate-legacy-ids+`]
+|+++是否透明地迁移旧版 endpoint ID。+++
+|`+false+`
+
+|[[application-properties.actuator.management.endpoints.web.base-path]]xref:#application-properties.actuator.management.endpoints.web.base-path[`+management.endpoints.web.base-path+`]
+|+++Web endpoints 的基础路径。当管理服务器共享主服务器端口时，相对于 servlet 上下文路径 (server.servlet.context-path) 或 WebFlux 基础路径 (spring.webflux.base-path)。当配置了单独的管理服务器端口 (management.server.port) 时，相对于管理服务器基础路径 (management.server.base-path)。+++
+|`+/actuator+`
+
+|[[application-properties.actuator.management.endpoints.web.cors.allow-credentials]]xref:#application-properties.actuator.management.endpoints.web.cors.allow-credentials[`+management.endpoints.web.cors.allow-credentials+`]
+|+++是否支持凭据。未设置时，不支持凭据。+++
+|
+
+|[[application-properties.actuator.management.endpoints.web.cors.allowed-headers]]xref:#application-properties.actuator.management.endpoints.web.cors.allowed-headers[`+management.endpoints.web.cors.allowed-headers+`]
+|+++允许在请求中包含的标头列表。'*' 允许所有标头。+++
+|
+
+|[[application-properties.actuator.management.endpoints.web.cors.allowed-methods]]xref:#application-properties.actuator.management.endpoints.web.cors.allowed-methods[`+management.endpoints.web.cors.allowed-methods+`]
+|+++允许的方法列表。'*' 允许所有方法。未设置时，默认为 GET。+++
+|
+
+|[[application-properties.actuator.management.endpoints.web.cors.allowed-origin-patterns]]xref:#application-properties.actuator.management.endpoints.web.cors.allowed-origin-patterns[`+management.endpoints.web.cors.allowed-origin-patterns+`]
+|+++允许的来源模式列表。与仅支持 '*' 的允许来源不同，来源模式更灵活（例如 'https://*.example.com'），并且可以在允许凭据时使用。当未设置允许的来源模式或允许的来源时，CORS 支持被禁用。+++
+|
+
+|[[application-properties.actuator.management.endpoints.web.cors.allowed-origins]]xref:#application-properties.actuator.management.endpoints.web.cors.allowed-origins[`+management.endpoints.web.cors.allowed-origins+`]
+|+++允许的来源列表。'*' 允许所有来源。当允许凭据时，不能使用 '*'，而应配置来源模式。当未设置允许的来源或允许的来源模式时，CORS 支持被禁用。+++
+|
+
+|[[application-properties.actuator.management.endpoints.web.cors.exposed-headers]]xref:#application-properties.actuator.management.endpoints.web.cors.exposed-headers[`+management.endpoints.web.cors.exposed-headers+`]
+|+++要在响应中包含的标头列表。+++
+|
+
+|[[application-properties.actuator.management.endpoints.web.cors.max-age]]xref:#application-properties.actuator.management.endpoints.web.cors.max-age[`+management.endpoints.web.cors.max-age+`]
+|+++预检请求的响应可以被客户端缓存多长时间。如果未指定持续时间后缀，则使用秒。+++
+|`+1800s+`
+
+|[[application-properties.actuator.management.endpoints.web.discovery.enabled]]xref:#application-properties.actuator.management.endpoints.web.discovery.enabled[`+management.endpoints.web.discovery.enabled+`]
+|+++是否启用发现页面。+++
+|`+true+`
+
+|[[application-properties.actuator.management.endpoints.web.exposure.exclude]]xref:#application-properties.actuator.management.endpoints.web.exposure.exclude[`+management.endpoints.web.exposure.exclude+`]
+|+++应排除的端点 ID，或 '*' 表示全部。+++
+|
+
+|[[application-properties.actuator.management.endpoints.web.exposure.include]]xref:#application-properties.actuator.management.endpoints.web.exposure.include[`+management.endpoints.web.exposure.include+`]
+|+++应包含的端点 ID，或 '*' 表示全部。+++
+|`+[health]+`
+
+|[[application-properties.actuator.management.endpoints.web.path-mapping]]xref:#application-properties.actuator.management.endpoints.web.path-mapping[`+management.endpoints.web.path-mapping.*+`]
+|+++endpoint ID 与应暴露它们的路径之间的映射。+++
+|
+
+|[[application-properties.actuator.management.ganglia.metrics.export.addressing-mode]]xref:#application-properties.actuator.management.ganglia.metrics.export.addressing-mode[`+management.ganglia.metrics.export.addressing-mode+`]
+|+++UDP 寻址模式，单播或多播。+++
+|`+multicast+`
+
+|[[application-properties.actuator.management.ganglia.metrics.export.duration-units]]xref:#application-properties.actuator.management.ganglia.metrics.export.duration-units[`+management.ganglia.metrics.export.duration-units+`]
+|+++用于报告持续时间的基本时间单位。+++
+|`+milliseconds+`
+
+|[[application-properties.actuator.management.ganglia.metrics.export.enabled]]xref:#application-properties.actuator.management.ganglia.metrics.export.enabled[`+management.ganglia.metrics.export.enabled+`]
+|+++是否启用向 Ganglia 导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.ganglia.metrics.export.host]]xref:#application-properties.actuator.management.ganglia.metrics.export.host[`+management.ganglia.metrics.export.host+`]
+|+++接收导出指标的 Ganglia 服务器主机。+++
+|`+localhost+`
+
+|[[application-properties.actuator.management.ganglia.metrics.export.port]]xref:#application-properties.actuator.management.ganglia.metrics.export.port[`+management.ganglia.metrics.export.port+`]
+|+++接收导出指标的 Ganglia 服务器端口。+++
+|`+8649+`
+
+|[[application-properties.actuator.management.ganglia.metrics.export.step]]xref:#application-properties.actuator.management.ganglia.metrics.export.step[`+management.ganglia.metrics.export.step+`]
+|+++使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.ganglia.metrics.export.time-to-live]]xref:#application-properties.actuator.management.ganglia.metrics.export.time-to-live[`+management.ganglia.metrics.export.time-to-live+`]
+|+++Ganglia 上指标的生存时间。将多播生存时间设置为比主机之间的跳数（路由器）大 1。+++
+|`+1+`
+
+|[[application-properties.actuator.management.graphite.metrics.export.duration-units]]xref:#application-properties.actuator.management.graphite.metrics.export.duration-units[`+management.graphite.metrics.export.duration-units+`]
+|+++用于报告持续时间的基本时间单位。+++
+|`+milliseconds+`
+
+|[[application-properties.actuator.management.graphite.metrics.export.enabled]]xref:#application-properties.actuator.management.graphite.metrics.export.enabled[`+management.graphite.metrics.export.enabled+`]
+|+++是否启用向 Graphite 导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.graphite.metrics.export.graphite-tags-enabled]]xref:#application-properties.actuator.management.graphite.metrics.export.graphite-tags-enabled[`+management.graphite.metrics.export.graphite-tags-enabled+`]
+|+++是否使用 Graphite 标签，而不是分层命名约定。默认启用，除非设置了 "tagsAsPrefix"。+++
+|
+
+|[[application-properties.actuator.management.graphite.metrics.export.host]]xref:#application-properties.actuator.management.graphite.metrics.export.host[`+management.graphite.metrics.export.host+`]
+|+++接收导出指标的 Graphite 服务器主机。+++
+|`+localhost+`
+
+|[[application-properties.actuator.management.graphite.metrics.export.port]]xref:#application-properties.actuator.management.graphite.metrics.export.port[`+management.graphite.metrics.export.port+`]
+|+++接收导出指标的 Graphite 服务器端口。+++
+|`+2004+`
+
+|[[application-properties.actuator.management.graphite.metrics.export.protocol]]xref:#application-properties.actuator.management.graphite.metrics.export.protocol[`+management.graphite.metrics.export.protocol+`]
+|+++向 Graphite 发送数据时使用的协议。+++
+|`+pickled+`
+
+|[[application-properties.actuator.management.graphite.metrics.export.rate-units]]xref:#application-properties.actuator.management.graphite.metrics.export.rate-units[`+management.graphite.metrics.export.rate-units+`]
+|+++用于报告速率的基本时间单位。+++
+|`+seconds+`
+
+|[[application-properties.actuator.management.graphite.metrics.export.step]]xref:#application-properties.actuator.management.graphite.metrics.export.step[`+management.graphite.metrics.export.step+`]
+|+++使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.graphite.metrics.export.tags-as-prefix]]xref:#application-properties.actuator.management.graphite.metrics.export.tags-as-prefix[`+management.graphite.metrics.export.tags-as-prefix+`]
+|+++对于分层命名约定，将指定的标签键转换为指标前缀的一部分。如果 "graphiteTagsEnabled" 为 true，则忽略。+++
+|`+[]+`
+
+|[[application-properties.actuator.management.health.cassandra.enabled]]xref:#application-properties.actuator.management.health.cassandra.enabled[`+management.health.cassandra.enabled+`]
+|+++是否启用 Cassandra 健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.couchbase.enabled]]xref:#application-properties.actuator.management.health.couchbase.enabled[`+management.health.couchbase.enabled+`]
+|+++是否启用 Couchbase 健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.db.enabled]]xref:#application-properties.actuator.management.health.db.enabled[`+management.health.db.enabled+`]
+|+++是否启用数据库健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.db.ignore-routing-data-sources]]xref:#application-properties.actuator.management.health.db.ignore-routing-data-sources[`+management.health.db.ignore-routing-data-sources+`]
+|+++创建数据库健康指示器时是否忽略 AbstractRoutingDataSources。+++
+|`+false+`
+
+|[[application-properties.actuator.management.health.defaults.enabled]]xref:#application-properties.actuator.management.health.defaults.enabled[`+management.health.defaults.enabled+`]
+|+++是否启用默认健康指示器。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.diskspace.enabled]]xref:#application-properties.actuator.management.health.diskspace.enabled[`+management.health.diskspace.enabled+`]
+|+++是否启用磁盘空间健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.diskspace.path]]xref:#application-properties.actuator.management.health.diskspace.path[`+management.health.diskspace.path+`]
+|+++用于计算可用磁盘空间的路径。+++
+|
+
+|[[application-properties.actuator.management.health.diskspace.threshold]]xref:#application-properties.actuator.management.health.diskspace.threshold[`+management.health.diskspace.threshold+`]
+|+++应可用的最小磁盘空间。+++
+|`+10MB+`
+
+|[[application-properties.actuator.management.health.elasticsearch.enabled]]xref:#application-properties.actuator.management.health.elasticsearch.enabled[`+management.health.elasticsearch.enabled+`]
+|+++是否启用 Elasticsearch 健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.jms.enabled]]xref:#application-properties.actuator.management.health.jms.enabled[`+management.health.jms.enabled+`]
+|+++是否启用 JMS 健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.ldap.enabled]]xref:#application-properties.actuator.management.health.ldap.enabled[`+management.health.ldap.enabled+`]
+|+++是否启用 LDAP 健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.livenessstate.enabled]]xref:#application-properties.actuator.management.health.livenessstate.enabled[`+management.health.livenessstate.enabled+`]
+|+++是否启用存活状态健康检查。+++
+|`+false+`
+
+|[[application-properties.actuator.management.health.mail.enabled]]xref:#application-properties.actuator.management.health.mail.enabled[`+management.health.mail.enabled+`]
+|+++是否启用邮件健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.mongodb.enabled]]xref:#application-properties.actuator.management.health.mongodb.enabled[`+management.health.mongodb.enabled+`]
+|+++是否启用 MongoDB 健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.neo4j.enabled]]xref:#application-properties.actuator.management.health.neo4j.enabled[`+management.health.neo4j.enabled+`]
+|+++是否启用 Neo4j 健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.ping.enabled]]xref:#application-properties.actuator.management.health.ping.enabled[`+management.health.ping.enabled+`]
+|+++是否启用 ping 健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.rabbit.enabled]]xref:#application-properties.actuator.management.health.rabbit.enabled[`+management.health.rabbit.enabled+`]
+|+++是否启用 RabbitMQ 健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.readinessstate.enabled]]xref:#application-properties.actuator.management.health.readinessstate.enabled[`+management.health.readinessstate.enabled+`]
+|+++是否启用就绪状态健康检查。+++
+|`+false+`
+
+|[[application-properties.actuator.management.health.redis.enabled]]xref:#application-properties.actuator.management.health.redis.enabled[`+management.health.redis.enabled+`]
+|+++是否启用 Redis 健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.health.ssl.certificate-validity-warning-threshold]]xref:#application-properties.actuator.management.health.ssl.certificate-validity-warning-threshold[`+management.health.ssl.certificate-validity-warning-threshold+`]
+|+++如果 SSL 证书将在该阈值定义的时间范围内失效，则应触发警告。+++
+|`+14d+`
+
+|[[application-properties.actuator.management.health.ssl.enabled]]xref:#application-properties.actuator.management.health.ssl.enabled[`+management.health.ssl.enabled+`]
+|+++是否启用 SSL 证书健康检查。+++
+|`+true+`
+
+|[[application-properties.actuator.management.httpexchanges.recording.enabled]]xref:#application-properties.actuator.management.httpexchanges.recording.enabled[`+management.httpexchanges.recording.enabled+`]
+|+++是否启用 HTTP 请求-响应交换记录。+++
+|`+true+`
+
+|[[application-properties.actuator.management.httpexchanges.recording.include]]xref:#application-properties.actuator.management.httpexchanges.recording.include[`+management.httpexchanges.recording.include+`]
+|+++交换记录中包含的项目。默认为请求头（不包括 Authorization 和 Cookie）、响应头（不包括 Set-Cookie）和耗时。+++
+|`+[time-taken, request-headers, response-headers]+`
+
+|[[application-properties.actuator.management.humio.metrics.export.api-token]]xref:#application-properties.actuator.management.humio.metrics.export.api-token[`+management.humio.metrics.export.api-token+`]
+|+++Humio API 令牌。+++
+|
+
+|[[application-properties.actuator.management.humio.metrics.export.batch-size]]xref:#application-properties.actuator.management.humio.metrics.export.batch-size[`+management.humio.metrics.export.batch-size+`]
+|+++此后端每次请求使用的测量数。如果发现更多测量值，则会发出多个请求。+++
+|`+10000+`
+
+|[[application-properties.actuator.management.humio.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.humio.metrics.export.connect-timeout[`+management.humio.metrics.export.connect-timeout+`]
+|+++对此后端请求的连接超时。+++
+|`+5s+`
+
+|[[application-properties.actuator.management.humio.metrics.export.enabled]]xref:#application-properties.actuator.management.humio.metrics.export.enabled[`+management.humio.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.humio.metrics.export.read-timeout]]xref:#application-properties.actuator.management.humio.metrics.export.read-timeout[`+management.humio.metrics.export.read-timeout+`]
+|+++对此后端请求的读取超时。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.humio.metrics.export.step]]xref:#application-properties.actuator.management.humio.metrics.export.step[`+management.humio.metrics.export.step+`]
+|+++使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.humio.metrics.export.tags]]xref:#application-properties.actuator.management.humio.metrics.export.tags[`+management.humio.metrics.export.tags.*+`]
+|+++描述指标存储数据源的 Humio 标签。Humio 标签与 Micrometer 的标签是不同的概念。Micrometer 的标签用于沿维度边界划分指标。+++
+|
+
+|[[application-properties.actuator.management.humio.metrics.export.uri]]xref:#application-properties.actuator.management.humio.metrics.export.uri[`+management.humio.metrics.export.uri+`]
+|+++要使用的 InfluxDB API 版本。除非配置了组织，否则默认为 'v1'。如果配置了组织，则默认为 'v2'。+++
+|`+https://cloud.humio.com+`
+
+|[[application-properties.actuator.management.influx.metrics.export.api-version]]xref:#application-properties.actuator.management.influx.metrics.export.api-version[`+management.influx.metrics.export.api-version+`]
+|+++要使用的 InfluxDB API 版本。除非配置了组织，否则默认为 'v1'。如果配置了组织，则默认为 'v2'。+++
+|
+
+|[[application-properties.actuator.management.influx.metrics.export.auto-create-db]]xref:#application-properties.actuator.management.influx.metrics.export.auto-create-db[`+management.influx.metrics.export.auto-create-db+`]
+|+++是否在尝试向 InfluxDB 发布指标之前，如果数据库不存在则创建它。仅适用于 InfluxDB v1。+++
+|`+true+`
+
+|[[application-properties.actuator.management.influx.metrics.export.batch-size]]xref:#application-properties.actuator.management.influx.metrics.export.batch-size[`+management.influx.metrics.export.batch-size+`]
+|+++此后端每次请求使用的测量数。如果发现更多测量，则会发出多个请求。+++
+|`+10000+`
+
+|[[application-properties.actuator.management.influx.metrics.export.bucket]]xref:#application-properties.actuator.management.influx.metrics.export.bucket[`+management.influx.metrics.export.bucket+`]
+|+++指标的存储桶。使用存储桶名称或 ID。如果未设置，则默认为 db 属性的值。仅适用于 InfluxDB v2。+++
+|
+
+|[[application-properties.actuator.management.influx.metrics.export.compressed]]xref:#application-properties.actuator.management.influx.metrics.export.compressed[`+management.influx.metrics.export.compressed+`]
+|+++是否启用对发布到 InfluxDB 的指标批次进行 GZIP 压缩。+++
+|`+true+`
+
+|[[application-properties.actuator.management.influx.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.influx.metrics.export.connect-timeout[`+management.influx.metrics.export.connect-timeout+`]
+|+++对此后端的请求的连接超时时间。+++
+|`+1s+`
+
+|[[application-properties.actuator.management.influx.metrics.export.consistency]]xref:#application-properties.actuator.management.influx.metrics.export.consistency[`+management.influx.metrics.export.consistency+`]
+|+++每个点的写入一致性。+++
+|`+one+`
+
+|[[application-properties.actuator.management.influx.metrics.export.db]]xref:#application-properties.actuator.management.influx.metrics.export.db[`+management.influx.metrics.export.db+`]
+|+++要发送指标的数据库。仅适用于 InfluxDB v1。+++
+|`+mydb+`
+
+|[[application-properties.actuator.management.influx.metrics.export.enabled]]xref:#application-properties.actuator.management.influx.metrics.export.enabled[`+management.influx.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.influx.metrics.export.org]]xref:#application-properties.actuator.management.influx.metrics.export.org[`+management.influx.metrics.export.org+`]
+|+++要写入指标的组织。仅适用于 InfluxDB v2。+++
+|
+
+|[[application-properties.actuator.management.influx.metrics.export.password]]xref:#application-properties.actuator.management.influx.metrics.export.password[`+management.influx.metrics.export.password+`]
+|+++InfluxDB 服务器的登录密码。仅适用于 InfluxDB v1。+++
+|
+
+|[[application-properties.actuator.management.influx.metrics.export.read-timeout]]xref:#application-properties.actuator.management.influx.metrics.export.read-timeout[`+management.influx.metrics.export.read-timeout+`]
+|+++对此后端的请求的读取超时时间。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.influx.metrics.export.retention-duration]]xref:#application-properties.actuator.management.influx.metrics.export.retention-duration[`+management.influx.metrics.export.retention-duration+`]
+|+++InfluxDB 应在当前数据库中保留数据的时间段。例如 7d，有关持续时间格式的更多详细信息，请参阅 InfluxDB 文档。仅适用于 InfluxDB v1。+++
+|
+
+|[[application-properties.actuator.management.influx.metrics.export.retention-policy]]xref:#application-properties.actuator.management.influx.metrics.export.retention-policy[`+management.influx.metrics.export.retention-policy+`]
+|+++要使用的保留策略（如果未指定，InfluxDB 将写入 DEFAULT 保留策略）。仅适用于 InfluxDB v1。+++
+|
+
+|[[application-properties.actuator.management.influx.metrics.export.retention-replication-factor]]xref:#application-properties.actuator.management.influx.metrics.export.retention-replication-factor[`+management.influx.metrics.export.retention-replication-factor+`]
+|+++数据在集群中存储的副本数。对于单节点实例，必须为 1。仅适用于 InfluxDB v1。+++
+|
+
+|[[application-properties.actuator.management.influx.metrics.export.retention-shard-duration]]xref:#application-properties.actuator.management.influx.metrics.export.retention-shard-duration[`+management.influx.metrics.export.retention-shard-duration+`]
+|+++分片组覆盖的时间范围。例如 2w，有关持续时间格式的更多详细信息，请参阅 InfluxDB 文档。仅适用于 InfluxDB v1。+++
+|
+
+|[[application-properties.actuator.management.influx.metrics.export.step]]xref:#application-properties.actuator.management.influx.metrics.export.step[`+management.influx.metrics.export.step+`]
+|+++要使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.influx.metrics.export.token]]xref:#application-properties.actuator.management.influx.metrics.export.token[`+management.influx.metrics.export.token+`]
+|+++调用 InfluxDB 后端时使用的身份验证令牌。对于 InfluxDB v1，使用 Bearer 方案。对于 v2，使用 Token 方案。+++
+|
+
+|[[application-properties.actuator.management.influx.metrics.export.uri]]xref:#application-properties.actuator.management.influx.metrics.export.uri[`+management.influx.metrics.export.uri+`]
+|+++InfluxDB 服务器的 URI。+++
+|`+http://localhost:8086+`
+
+|[[application-properties.actuator.management.influx.metrics.export.user-name]]xref:#application-properties.actuator.management.influx.metrics.export.user-name[`+management.influx.metrics.export.user-name+`]
+|+++InfluxDB 服务器的登录用户。仅适用于 InfluxDB v1。+++
+|
+
+|[[application-properties.actuator.management.info.build.enabled]]xref:#application-properties.actuator.management.info.build.enabled[`+management.info.build.enabled+`]
+|+++是否启用构建信息。+++
+|`+true+`
+
+|[[application-properties.actuator.management.info.defaults.enabled]]xref:#application-properties.actuator.management.info.defaults.enabled[`+management.info.defaults.enabled+`]
+|+++是否启用默认信息贡献者。+++
+|`+true+`
+
+|[[application-properties.actuator.management.info.env.enabled]]xref:#application-properties.actuator.management.info.env.enabled[`+management.info.env.enabled+`]
+|+++是否启用环境信息。+++
+|`+false+`
+
+|[[application-properties.actuator.management.info.git.enabled]]xref:#application-properties.actuator.management.info.git.enabled[`+management.info.git.enabled+`]
+|+++是否启用 Git 信息。+++
+|`+true+`
+
+|[[application-properties.actuator.management.info.git.mode]]xref:#application-properties.actuator.management.info.git.mode[`+management.info.git.mode+`]
+|+++用于公开 Git 信息的模式。+++
+|`+simple+`
+
+|[[application-properties.actuator.management.info.java.enabled]]xref:#application-properties.actuator.management.info.java.enabled[`+management.info.java.enabled+`]
+|+++是否启用 Java 信息。+++
+|`+false+`
+
+|[[application-properties.actuator.management.info.os.enabled]]xref:#application-properties.actuator.management.info.os.enabled[`+management.info.os.enabled+`]
+|+++是否启用操作系统信息。+++
+|`+false+`
+
+|[[application-properties.actuator.management.info.process.enabled]]xref:#application-properties.actuator.management.info.process.enabled[`+management.info.process.enabled+`]
+|+++是否启用进程信息。+++
+|`+false+`
+
+|[[application-properties.actuator.management.info.ssl.enabled]]xref:#application-properties.actuator.management.info.ssl.enabled[`+management.info.ssl.enabled+`]
+|+++是否启用 SSL 证书信息。+++
+|`+false+`
+
+|[[application-properties.actuator.management.jmx.metrics.export.domain]]xref:#application-properties.actuator.management.jmx.metrics.export.domain[`+management.jmx.metrics.export.domain+`]
+|+++Metrics JMX 域名。+++
+|`+metrics+`
+
+|[[application-properties.actuator.management.jmx.metrics.export.enabled]]xref:#application-properties.actuator.management.jmx.metrics.export.enabled[`+management.jmx.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.jmx.metrics.export.step]]xref:#application-properties.actuator.management.jmx.metrics.export.step[`+management.jmx.metrics.export.step+`]
+|+++要使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.kairos.metrics.export.batch-size]]xref:#application-properties.actuator.management.kairos.metrics.export.batch-size[`+management.kairos.metrics.export.batch-size+`]
+|+++此后端每次请求使用的测量数。如果发现更多测量，则会发出多个请求。+++
+|`+10000+`
+
+|[[application-properties.actuator.management.kairos.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.kairos.metrics.export.connect-timeout[`+management.kairos.metrics.export.connect-timeout+`]
+|+++对此后端的请求的连接超时时间。+++
+|`+1s+`
+
+|[[application-properties.actuator.management.kairos.metrics.export.enabled]]xref:#application-properties.actuator.management.kairos.metrics.export.enabled[`+management.kairos.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.kairos.metrics.export.password]]xref:#application-properties.actuator.management.kairos.metrics.export.password[`+management.kairos.metrics.export.password+`]
+|+++KairosDB 服务器的登录密码。+++
+|
+
+|[[application-properties.actuator.management.kairos.metrics.export.read-timeout]]xref:#application-properties.actuator.management.kairos.metrics.export.read-timeout[`+management.kairos.metrics.export.read-timeout+`]
+|+++对此后端的请求的读取超时时间。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.kairos.metrics.export.step]]xref:#application-properties.actuator.management.kairos.metrics.export.step[`+management.kairos.metrics.export.step+`]
+|+++要使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.kairos.metrics.export.uri]]xref:#application-properties.actuator.management.kairos.metrics.export.uri[`+management.kairos.metrics.export.uri+`]
+|+++KairosDB 服务器的 URI。+++
+|`+http://localhost:8080/api/v1/datapoints+`
+
+|[[application-properties.actuator.management.kairos.metrics.export.user-name]]xref:#application-properties.actuator.management.kairos.metrics.export.user-name[`+management.kairos.metrics.export.user-name+`]
+|+++KairosDB 服务器的登录用户。+++
+|
+
+|[[application-properties.actuator.management.logging.export.enabled]]xref:#application-properties.actuator.management.logging.export.enabled[`+management.logging.export.enabled+`]
+|+++是否启用日志的 auto-configuration 以导出日志。+++
+|`+true+`
+
+|[[application-properties.actuator.management.logging.export.otlp.enabled]]xref:#application-properties.actuator.management.logging.export.otlp.enabled[`+management.logging.export.otlp.enabled+`]
+|+++是否启用日志的 auto-configuration 以通过 OTLP 导出日志。+++
+|`+true+`
+
+|[[application-properties.actuator.management.metrics.data.repository.autotime.enabled]]xref:#application-properties.actuator.management.metrics.data.repository.autotime.enabled[`+management.metrics.data.repository.autotime.enabled+`]
+|+++是否启用自动计时。+++
+|`+true+`
+
+|[[application-properties.actuator.management.metrics.data.repository.autotime.percentiles]]xref:#application-properties.actuator.management.metrics.data.repository.autotime.percentiles[`+management.metrics.data.repository.autotime.percentiles+`]
+|+++应发布额外时间序列的百分位数。+++
+|
+
+|[[application-properties.actuator.management.metrics.data.repository.autotime.percentiles-histogram]]xref:#application-properties.actuator.management.metrics.data.repository.autotime.percentiles-histogram[`+management.metrics.data.repository.autotime.percentiles-histogram+`]
+|+++是否发布百分位直方图。+++
+|`+false+`
+
+|[[application-properties.actuator.management.metrics.data.repository.metric-name]]xref:#application-properties.actuator.management.metrics.data.repository.metric-name[`+management.metrics.data.repository.metric-name+`]
+|+++发送请求的指标名称。+++
+|`+spring.data.repository.invocations+`
+
+|[[application-properties.actuator.management.metrics.distribution.buffer-length]]xref:#application-properties.actuator.management.metrics.distribution.buffer-length[`+management.metrics.distribution.buffer-length.*+`]
+|+++对于以指定名称开头的仪表ID，在环形缓冲区中保留的直方图数量。最长匹配优先，键`all`也可用于配置所有仪表。+++
+|
+
+|[[application-properties.actuator.management.metrics.distribution.expiry]]xref:#application-properties.actuator.management.metrics.distribution.expiry[`+management.metrics.distribution.expiry.*+`]
+|+++对于以指定名称开头的仪表ID，样本累积到衰减分布统计信息后，在重置和轮换前的最大时间量。最长匹配优先，键`all`也可用于配置所有仪表。+++
+|
+
+|[[application-properties.actuator.management.metrics.distribution.maximum-expected-value]]xref:#application-properties.actuator.management.metrics.distribution.maximum-expected-value[`+management.metrics.distribution.maximum-expected-value.*+`]
+|+++以指定名称开头的仪表ID预期观察到的最大值。最长匹配优先。值可以指定为double类型，对于计时器和长任务计时器仪表，也可以指定为Duration值，未指定单位时默认为ms。+++
+|
+
+|[[application-properties.actuator.management.metrics.distribution.minimum-expected-value]]xref:#application-properties.actuator.management.metrics.distribution.minimum-expected-value[`+management.metrics.distribution.minimum-expected-value.*+`]
+|+++以指定名称开头的仪表ID预期观察到的最小值。最长匹配优先。值可以指定为double类型，对于计时器和长任务计时器仪表，也可以指定为Duration值，未指定单位时默认为ms。+++
+|
+
+|[[application-properties.actuator.management.metrics.distribution.percentiles]]xref:#application-properties.actuator.management.metrics.distribution.percentiles[`+management.metrics.distribution.percentiles.*+`]
+|+++对于以指定名称开头的仪表ID，要发送到后端的特定计算出的不可聚合百分位数。最长匹配优先，键'all'也可用于配置所有仪表。+++
+|
+
+|[[application-properties.actuator.management.metrics.distribution.percentiles-histogram]]xref:#application-properties.actuator.management.metrics.distribution.percentiles-histogram[`+management.metrics.distribution.percentiles-histogram.*+`]
+|+++以指定名称开头的仪表ID是否应发布百分位直方图。对于支持基于直方图的可聚合百分位数计算的监控系统，可设置为true。对于其他系统，此设置无效。最长匹配优先，键'all'也可用于配置所有仪表。+++
+|
+
+|[[application-properties.actuator.management.metrics.distribution.slo]]xref:#application-properties.actuator.management.metrics.distribution.slo[`+management.metrics.distribution.slo.*+`]
+|+++对于以指定名称开头的仪表ID，特定的服务级别目标边界。最长匹配优先。将为每个指定的边界发布计数器。值可以指定为double类型，对于计时器和长任务计时器仪表，也可以指定为Duration值，未指定单位时默认为ms。+++
+|
+
+|[[application-properties.actuator.management.metrics.enable]]xref:#application-properties.actuator.management.metrics.enable[`+management.metrics.enable.*+`]
+|+++以指定名称开头的仪表ID是否应启用。最长匹配优先，键'all'也可用于配置所有仪表。+++
+|
+
+|[[application-properties.actuator.management.metrics.mongodb.command.enabled]]xref:#application-properties.actuator.management.metrics.mongodb.command.enabled[`+management.metrics.mongodb.command.enabled+`]
+|+++是否启用Mongo客户端命令指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.metrics.mongodb.connectionpool.enabled]]xref:#application-properties.actuator.management.metrics.mongodb.connectionpool.enabled[`+management.metrics.mongodb.connectionpool.enabled+`]
+|+++是否启用Mongo连接池指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.metrics.observations.ignored-meters]]xref:#application-properties.actuator.management.metrics.observations.ignored-meters[`+management.metrics.observations.ignored-meters+`]
+|+++记录观测时应忽略的仪表。+++
+|
+
+|[[application-properties.actuator.management.metrics.system.diskspace.paths]]xref:#application-properties.actuator.management.metrics.system.diskspace.paths[`+management.metrics.system.diskspace.paths+`]
+|+++要报告磁盘指标的路径列表。+++
+|`+[.]+`
+
+|[[application-properties.actuator.management.metrics.tags]]xref:#application-properties.actuator.management.metrics.tags[`+management.metrics.tags.*+`]
+|+++应用于每个仪表的通用标签。+++
+|
+
+|[[application-properties.actuator.management.metrics.use-global-registry]]xref:#application-properties.actuator.management.metrics.use-global-registry[`+management.metrics.use-global-registry+`]
+|+++自动配置的MeterRegistry实现是否应绑定到Metrics上的全局静态注册表。对于测试，请设置为'false'以最大化测试独立性。+++
+|`+true+`
+
+|[[application-properties.actuator.management.metrics.web.client.max-uri-tags]]xref:#application-properties.actuator.management.metrics.web.client.max-uri-tags[`+management.metrics.web.client.max-uri-tags+`]
+|+++允许的唯一URI标签值最大数量。达到最大标签值数量后，具有额外标签值的指标将被过滤器拒绝。+++
+|`+100+`
+
+|[[application-properties.actuator.management.metrics.web.server.max-uri-tags]]xref:#application-properties.actuator.management.metrics.web.server.max-uri-tags[`+management.metrics.web.server.max-uri-tags+`]
+|+++允许的唯一URI标签值最大数量。达到最大标签值数量后，具有额外标签值的指标将被过滤器拒绝。+++
+|`+100+`
+
+|[[application-properties.actuator.management.newrelic.metrics.export.account-id]]xref:#application-properties.actuator.management.newrelic.metrics.export.account-id[`+management.newrelic.metrics.export.account-id+`]
+|+++New Relic账户ID。+++
+|
+
+|[[application-properties.actuator.management.newrelic.metrics.export.api-key]]xref:#application-properties.actuator.management.newrelic.metrics.export.api-key[`+management.newrelic.metrics.export.api-key+`]
+|+++New Relic API密钥。+++
+|
+
+|[[application-properties.actuator.management.newrelic.metrics.export.batch-size]]xref:#application-properties.actuator.management.newrelic.metrics.export.batch-size[`+management.newrelic.metrics.export.batch-size+`]
+|+++此后端每次请求的测量数量。如果发现更多测量，则会发出多个请求。+++
+|`+10000+`
+
+|[[application-properties.actuator.management.newrelic.metrics.export.client-provider-type]]xref:#application-properties.actuator.management.newrelic.metrics.export.client-provider-type[`+management.newrelic.metrics.export.client-provider-type+`]
+|+++要使用的客户端提供程序类型。+++
+|`+insights-api+`
+
+|[[application-properties.actuator.management.newrelic.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.newrelic.metrics.export.connect-timeout[`+management.newrelic.metrics.export.connect-timeout+`]
+|+++对此后端请求的连接超时。+++
+|`+1s+`
+
+|[[application-properties.actuator.management.newrelic.metrics.export.enabled]]xref:#application-properties.actuator.management.newrelic.metrics.export.enabled[`+management.newrelic.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.newrelic.metrics.export.event-type]]xref:#application-properties.actuator.management.newrelic.metrics.export.event-type[`+management.newrelic.metrics.export.event-type+`]
+|+++应发布的事件类型。如果'meter-name-event-type-enabled'设置为'true'，则忽略此属性。+++
+|`+SpringBootSample+`
+
+|[[application-properties.actuator.management.newrelic.metrics.export.meter-name-event-type-enabled]]xref:#application-properties.actuator.management.newrelic.metrics.export.meter-name-event-type-enabled[`+management.newrelic.metrics.export.meter-name-event-type-enabled+`]
+|+++是否将仪表名称作为事件类型发送，而不是使用'event-type'配置属性值。如果未遵循New Relic指南或需要与先前Spring Boot版本一致的事件类型，可设置为'true'。+++
+|`+false+`
+
+|[[application-properties.actuator.management.newrelic.metrics.export.read-timeout]]xref:#application-properties.actuator.management.newrelic.metrics.export.read-timeout[`+management.newrelic.metrics.export.read-timeout+`]
+|+++对此后端请求的读取超时。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.newrelic.metrics.export.step]]xref:#application-properties.actuator.management.newrelic.metrics.export.step[`+management.newrelic.metrics.export.step+`]
+|+++要使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.newrelic.metrics.export.uri]]xref:#application-properties.actuator.management.newrelic.metrics.export.uri[`+management.newrelic.metrics.export.uri+`]
+|+++用于发送指标的URI。+++
+|`+https://insights-collector.newrelic.com+`
+
+|[[application-properties.actuator.management.observations.annotations.enabled]]xref:#application-properties.actuator.management.observations.annotations.enabled[`+management.observations.annotations.enabled+`]
+|+++是否启用Micrometer auto-configuration的annotations。+++
+|`+false+`
+
+|[[application-properties.actuator.management.observations.enable]]xref:#application-properties.actuator.management.observations.enable[`+management.observations.enable.*+`]
+|+++以指定名称开头的观测是否应启用。最长匹配优先，键'all'也可用于配置所有观测。+++
+|
+
+|[[application-properties.actuator.management.observations.http.client.requests.name]]xref:#application-properties.actuator.management.observations.http.client.requests.name[`+management.observations.http.client.requests.name+`]
+|+++客户端请求的观测名称。+++
+|`+http.client.requests+`
+
+|[[application-properties.actuator.management.observations.http.server.requests.name]]xref:#application-properties.actuator.management.observations.http.server.requests.name[`+management.observations.http.server.requests.name+`]
+|+++服务器请求的观测名称。+++
+|`+http.server.requests+`
+
+|[[application-properties.actuator.management.observations.key-values]]xref:#application-properties.actuator.management.observations.key-values[`+management.observations.key-values.*+`]
+|+++应用于每个观测的通用键值对。+++
+|
+
+|[[application-properties.actuator.management.observations.r2dbc.include-parameter-values]]xref:#application-properties.actuator.management.observations.r2dbc.include-parameter-values[`+management.observations.r2dbc.include-parameter-values+`]
+|+++是否标记实际的查询参数值。+++
+|`+false+`
+
+|[[application-properties.actuator.management.opentelemetry.enabled]]xref:#application-properties.actuator.management.opentelemetry.enabled[`+management.opentelemetry.enabled+`]
+|+++是否启用 OpenTelemetry。如果禁用 OpenTelemetry，则仅配置传播器。指标、追踪和日志将使用无操作实现。+++
+|`+true+`
+
+|[[application-properties.actuator.management.opentelemetry.logging.export.max-batch-size]]xref:#application-properties.actuator.management.opentelemetry.logging.export.max-batch-size[`+management.opentelemetry.logging.export.max-batch-size+`]
+|+++每次导出的最大批次大小。必须小于或等于 'maxQueueSize'。+++
+|`+512+`
+
+|[[application-properties.actuator.management.opentelemetry.logging.export.max-queue-size]]xref:#application-properties.actuator.management.opentelemetry.logging.export.max-queue-size[`+management.opentelemetry.logging.export.max-queue-size+`]
+|+++队列中在丢弃前保留的最大日志数量。+++
+|`+2048+`
+
+|[[application-properties.actuator.management.opentelemetry.logging.export.otlp.compression]]xref:#application-properties.actuator.management.opentelemetry.logging.export.otlp.compression[`+management.opentelemetry.logging.export.otlp.compression+`]
+|+++用于压缩负载的方法。+++
+|`+none+`
+
+|[[application-properties.actuator.management.opentelemetry.logging.export.otlp.connect-timeout]]xref:#application-properties.actuator.management.opentelemetry.logging.export.otlp.connect-timeout[`+management.opentelemetry.logging.export.otlp.connect-timeout+`]
+|+++OTel 收集器连接的连接超时时间。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.opentelemetry.logging.export.otlp.endpoint]]xref:#application-properties.actuator.management.opentelemetry.logging.export.otlp.endpoint[`+management.opentelemetry.logging.export.otlp.endpoint+`]
+|+++OTel 收集器 HTTP API 的 URL。+++
+|
+
+|[[application-properties.actuator.management.opentelemetry.logging.export.otlp.headers]]xref:#application-properties.actuator.management.opentelemetry.logging.export.otlp.headers[`+management.opentelemetry.logging.export.otlp.headers.*+`]
+|+++要传递给收集器的自定义 HTTP 头，例如认证头。+++
+|
+
+|[[application-properties.actuator.management.opentelemetry.logging.export.otlp.ssl.bundle]]xref:#application-properties.actuator.management.opentelemetry.logging.export.otlp.ssl.bundle[`+management.opentelemetry.logging.export.otlp.ssl.bundle+`]
+|+++SSL 包名称。+++
+|
+
+|[[application-properties.actuator.management.opentelemetry.logging.export.otlp.timeout]]xref:#application-properties.actuator.management.opentelemetry.logging.export.otlp.timeout[`+management.opentelemetry.logging.export.otlp.timeout+`]
+|+++OTel 收集器处理导出的数据批次的调用超时时间。此超时涵盖整个调用：DNS 解析、连接、写入请求体、服务器处理以及读取响应体。如果调用需要重定向或重试，所有操作必须在一个超时期限内完成。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.opentelemetry.logging.export.otlp.transport]]xref:#application-properties.actuator.management.opentelemetry.logging.export.otlp.transport[`+management.opentelemetry.logging.export.otlp.transport+`]
+|+++用于发送日志的传输方式。+++
+|`+http+`
+
+|[[application-properties.actuator.management.opentelemetry.logging.export.schedule-delay]]xref:#application-properties.actuator.management.opentelemetry.logging.export.schedule-delay[`+management.opentelemetry.logging.export.schedule-delay+`]
+|+++两次连续导出之间的延迟间隔。+++
+|`+1s+`
+
+|[[application-properties.actuator.management.opentelemetry.logging.export.timeout]]xref:#application-properties.actuator.management.opentelemetry.logging.export.timeout[`+management.opentelemetry.logging.export.timeout+`]
+|+++导出在被取消前允许运行的最长时间。+++
+|`+30s+`
+
+|[[application-properties.actuator.management.opentelemetry.logging.limits.max-attribute-value-length]]xref:#application-properties.actuator.management.opentelemetry.logging.limits.max-attribute-value-length[`+management.opentelemetry.logging.limits.max-attribute-value-length+`]
+|+++字符串属性值的最大字符数。+++
+|
+
+|[[application-properties.actuator.management.opentelemetry.logging.limits.max-attributes]]xref:#application-properties.actuator.management.opentelemetry.logging.limits.max-attributes[`+management.opentelemetry.logging.limits.max-attributes+`]
+|+++每条日志记录的最大属性数。+++
+|`+128+`
+
+|[[application-properties.actuator.management.opentelemetry.map-environment-variables]]xref:#application-properties.actuator.management.opentelemetry.map-environment-variables[`+management.opentelemetry.map-environment-variables+`]
+|+++是否将 OpenTelemetry SDK 环境变量映射到 Spring Boot 配置属性。+++
+|`+true+`
+
+|[[application-properties.actuator.management.opentelemetry.resource-attributes]]xref:#application-properties.actuator.management.opentelemetry.resource-attributes[`+management.opentelemetry.resource-attributes.*+`]
+|+++资源属性。+++
+|
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.include-unsampled]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.include-unsampled[`+management.opentelemetry.tracing.export.include-unsampled+`]
+|+++是否导出未采样的 span。+++
+|`+false+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.max-batch-size]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.max-batch-size[`+management.opentelemetry.tracing.export.max-batch-size+`]
+|+++每次导出的最大批次大小。必须小于或等于 'maxQueueSize'。+++
+|`+512+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.max-queue-size]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.max-queue-size[`+management.opentelemetry.tracing.export.max-queue-size+`]
+|+++队列中在丢弃前保留的最大 span 数量。+++
+|`+2048+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.otlp.compression]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.otlp.compression[`+management.opentelemetry.tracing.export.otlp.compression+`]
+|+++用于压缩负载的方法。+++
+|`+none+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.otlp.connect-timeout]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.otlp.connect-timeout[`+management.opentelemetry.tracing.export.otlp.connect-timeout+`]
+|+++OTel 收集器连接的连接超时时间。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.otlp.endpoint]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.otlp.endpoint[`+management.opentelemetry.tracing.export.otlp.endpoint+`]
+|+++OTel 收集器 HTTP API 的 URL。+++
+|
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.otlp.headers]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.otlp.headers[`+management.opentelemetry.tracing.export.otlp.headers.*+`]
+|+++要传递给收集器的自定义 HTTP 头，例如认证头。+++
+|
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.otlp.ssl.bundle]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.otlp.ssl.bundle[`+management.opentelemetry.tracing.export.otlp.ssl.bundle+`]
+|+++SSL 包名称。+++
+|
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.otlp.timeout]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.otlp.timeout[`+management.opentelemetry.tracing.export.otlp.timeout+`]
+|+++OTel 收集器处理导出的数据批次的调用超时时间。此超时涵盖整个调用：DNS 解析、连接、写入请求体、服务器处理以及读取响应体。如果调用需要重定向或重试，所有操作必须在一个超时期限内完成。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.otlp.transport]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.otlp.transport[`+management.opentelemetry.tracing.export.otlp.transport+`]
+|+++用于发送 span 的传输方式。+++
+|`+http+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.schedule-delay]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.schedule-delay[`+management.opentelemetry.tracing.export.schedule-delay+`]
+|+++两次连续导出之间的延迟间隔。+++
+|`+5s+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.export.timeout]]xref:#application-properties.actuator.management.opentelemetry.tracing.export.timeout[`+management.opentelemetry.tracing.export.timeout+`]
+|+++导出在被取消前允许运行的最长时间。+++
+|`+30s+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.limits.max-attribute-value-length]]xref:#application-properties.actuator.management.opentelemetry.tracing.limits.max-attribute-value-length[`+management.opentelemetry.tracing.limits.max-attribute-value-length+`]
+|+++字符串属性值的最大字符数。+++
+|
+
+|[[application-properties.actuator.management.opentelemetry.tracing.limits.max-attributes]]xref:#application-properties.actuator.management.opentelemetry.tracing.limits.max-attributes[`+management.opentelemetry.tracing.limits.max-attributes+`]
+|+++每个 span 的最大属性数。+++
+|`+128+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.limits.max-attributes-per-event]]xref:#application-properties.actuator.management.opentelemetry.tracing.limits.max-attributes-per-event[`+management.opentelemetry.tracing.limits.max-attributes-per-event+`]
+|+++每个事件的最大属性数。+++
+|`+128+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.limits.max-attributes-per-link]]xref:#application-properties.actuator.management.opentelemetry.tracing.limits.max-attributes-per-link[`+management.opentelemetry.tracing.limits.max-attributes-per-link+`]
+|+++每个链接的最大属性数。+++
+|`+128+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.limits.max-events]]xref:#application-properties.actuator.management.opentelemetry.tracing.limits.max-events[`+management.opentelemetry.tracing.limits.max-events+`]
+|+++每个 span 的最大事件数。+++
+|`+128+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.limits.max-links]]xref:#application-properties.actuator.management.opentelemetry.tracing.limits.max-links[`+management.opentelemetry.tracing.limits.max-links+`]
+|+++每个跨度（span）的最大链接数。+++
+|`+128+`
+
+|[[application-properties.actuator.management.opentelemetry.tracing.sampler]]xref:#application-properties.actuator.management.opentelemetry.tracing.sampler[`+management.opentelemetry.tracing.sampler+`]
+|+++使用的采样器。+++
+|`+parent-based-trace-id-ratio+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.aggregation-temporality]]xref:#application-properties.actuator.management.otlp.metrics.export.aggregation-temporality[`+management.otlp.metrics.export.aggregation-temporality+`]
+|+++总和的聚合时间性。它定义了加法值的表达方式。此设置取决于您使用的后端，有些仅支持一种时间性。+++
+|`+cumulative+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.base-time-unit]]xref:#application-properties.actuator.management.otlp.metrics.export.base-time-unit[`+management.otlp.metrics.export.base-time-unit+`]
+|+++导出指标的时间单位。+++
+|`+milliseconds+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.batch-size]]xref:#application-properties.actuator.management.otlp.metrics.export.batch-size[`+management.otlp.metrics.export.batch-size+`]
+|+++每次请求用于此后端的测量数。如果发现更多测量，则会发出多个请求。+++
+|`+10000+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.compression-mode]]xref:#application-properties.actuator.management.otlp.metrics.export.compression-mode[`+management.otlp.metrics.export.compression-mode+`]
+|+++导出指标时使用的压缩模式。+++
+|`+none+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.otlp.metrics.export.connect-timeout[`+management.otlp.metrics.export.connect-timeout+`]
+|+++对此后端请求的连接超时。+++
+|`+1s+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.enabled]]xref:#application-properties.actuator.management.otlp.metrics.export.enabled[`+management.otlp.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.headers]]xref:#application-properties.actuator.management.otlp.metrics.export.headers[`+management.otlp.metrics.export.headers.*+`]
+|+++导出指标的标头。+++
+|
+
+|[[application-properties.actuator.management.otlp.metrics.export.histogram-flavor]]xref:#application-properties.actuator.management.otlp.metrics.export.histogram-flavor[`+management.otlp.metrics.export.histogram-flavor+`]
+|+++启用直方图发布时的默认直方图类型。+++
+|`+explicit-bucket-histogram+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.max-bucket-count]]xref:#application-properties.actuator.management.otlp.metrics.export.max-bucket-count[`+management.otlp.metrics.export.max-bucket-count+`]
+|+++如果配置，用于指数直方图的默认最大桶数。这对显式桶直方图没有影响。+++
+|`+160+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.max-scale]]xref:#application-properties.actuator.management.otlp.metrics.export.max-scale[`+management.otlp.metrics.export.max-scale+`]
+|+++如果配置，用于指数直方图的最大比例。+++
+|`+20+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.meter]]xref:#application-properties.actuator.management.otlp.metrics.export.meter[`+management.otlp.metrics.export.meter.*+`]
+|+++可用于覆盖默认值的每米属性。+++
+|
+
+|[[application-properties.actuator.management.otlp.metrics.export.publish-max-gauge-for-histograms]]xref:#application-properties.actuator.management.otlp.metrics.export.publish-max-gauge-for-histograms[`+management.otlp.metrics.export.publish-max-gauge-for-histograms+`]
+|+++是否发布单独的仪表用于基于直方图的仪表的最大值。+++
+|
+
+|[[application-properties.actuator.management.otlp.metrics.export.read-timeout]]xref:#application-properties.actuator.management.otlp.metrics.export.read-timeout[`+management.otlp.metrics.export.read-timeout+`]
+|+++对此后端请求的读取超时。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.ssl.bundle]]xref:#application-properties.actuator.management.otlp.metrics.export.ssl.bundle[`+management.otlp.metrics.export.ssl.bundle+`]
+|+++SSL 包名称。+++
+|
+
+|[[application-properties.actuator.management.otlp.metrics.export.step]]xref:#application-properties.actuator.management.otlp.metrics.export.step[`+management.otlp.metrics.export.step+`]
+|+++使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.otlp.metrics.export.url]]xref:#application-properties.actuator.management.otlp.metrics.export.url[`+management.otlp.metrics.export.url+`]
+|+++OTLP 服务器的 URI。+++
+|
+
+|[[application-properties.actuator.management.prometheus.metrics.export.descriptions]]xref:#application-properties.actuator.management.prometheus.metrics.export.descriptions[`+management.prometheus.metrics.export.descriptions+`]
+|+++是否启用将描述作为抓取负载的一部分发布到 Prometheus。关闭此选项可最小化每次抓取发送的数据量。+++
+|`+true+`
+
+|[[application-properties.actuator.management.prometheus.metrics.export.enabled]]xref:#application-properties.actuator.management.prometheus.metrics.export.enabled[`+management.prometheus.metrics.export.enabled+`]
+|+++是否启用向此后端导出指标。+++
+|`+true+`
+
+|[[application-properties.actuator.management.prometheus.metrics.export.properties]]xref:#application-properties.actuator.management.prometheus.metrics.export.properties[`+management.prometheus.metrics.export.properties.*+`]
+|+++传递给 Prometheus 客户端的附加属性。+++
+|
+
+|[[application-properties.actuator.management.prometheus.metrics.export.pushgateway.address]]xref:#application-properties.actuator.management.prometheus.metrics.export.pushgateway.address[`+management.prometheus.metrics.export.pushgateway.address+`]
+|+++Pushgateway 的地址（host:port）。+++
+|`+localhost:9091+`
+
+|[[application-properties.actuator.management.prometheus.metrics.export.pushgateway.enabled]]xref:#application-properties.actuator.management.prometheus.metrics.export.pushgateway.enabled[`+management.prometheus.metrics.export.pushgateway.enabled+`]
+|+++启用通过 Prometheus Pushgateway 发布。+++
+|`+false+`
+
+|[[application-properties.actuator.management.prometheus.metrics.export.pushgateway.format]]xref:#application-properties.actuator.management.prometheus.metrics.export.pushgateway.format[`+management.prometheus.metrics.export.pushgateway.format+`]
+|+++推送指标时使用的格式。+++
+|`+protobuf+`
+
+|[[application-properties.actuator.management.prometheus.metrics.export.pushgateway.grouping-key]]xref:#application-properties.actuator.management.prometheus.metrics.export.pushgateway.grouping-key[`+management.prometheus.metrics.export.pushgateway.grouping-key.*+`]
+|+++推送指标的分组键。+++
+|
+
+|[[application-properties.actuator.management.prometheus.metrics.export.pushgateway.job]]xref:#application-properties.actuator.management.prometheus.metrics.export.pushgateway.job[`+management.prometheus.metrics.export.pushgateway.job+`]
+|+++此应用程序实例的作业标识符。+++
+|
+
+|[[application-properties.actuator.management.prometheus.metrics.export.pushgateway.password]]xref:#application-properties.actuator.management.prometheus.metrics.export.pushgateway.password[`+management.prometheus.metrics.export.pushgateway.password+`]
+|+++Prometheus Pushgateway 的登录密码。+++
+|
+
+|[[application-properties.actuator.management.prometheus.metrics.export.pushgateway.push-rate]]xref:#application-properties.actuator.management.prometheus.metrics.export.pushgateway.push-rate[`+management.prometheus.metrics.export.pushgateway.push-rate+`]
+|+++推送指标的频率。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.prometheus.metrics.export.pushgateway.scheme]]xref:#application-properties.actuator.management.prometheus.metrics.export.pushgateway.scheme[`+management.prometheus.metrics.export.pushgateway.scheme+`]
+|+++推送指标时使用的方案。+++
+|`+http+`
+
+|[[application-properties.actuator.management.prometheus.metrics.export.pushgateway.shutdown-operation]]xref:#application-properties.actuator.management.prometheus.metrics.export.pushgateway.shutdown-operation[`+management.prometheus.metrics.export.pushgateway.shutdown-operation+`]
+|+++关闭时应执行的操作。+++
+|`+none+`
+
+|[[application-properties.actuator.management.prometheus.metrics.export.pushgateway.token]]xref:#application-properties.actuator.management.prometheus.metrics.export.pushgateway.token[`+management.prometheus.metrics.export.pushgateway.token+`]
+|+++用于 Prometheus Pushgateway 身份验证的令牌。+++
+|
+
+|[[application-properties.actuator.management.prometheus.metrics.export.pushgateway.username]]xref:#application-properties.actuator.management.prometheus.metrics.export.pushgateway.username[`+management.prometheus.metrics.export.pushgateway.username+`]
+|+++Prometheus Pushgateway 的登录用户。+++
+|
+
+|[[application-properties.actuator.management.prometheus.metrics.export.step]]xref:#application-properties.actuator.management.prometheus.metrics.export.step[`+management.prometheus.metrics.export.step+`]
+|+++使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.server.add-application-context-header]]xref:#application-properties.actuator.management.server.add-application-context-header[`+management.server.add-application-context-header+`]
+|+++在每个响应中添加“X-Application-Context”HTTP 标头。+++
+|`+false+`
+
+|[[application-properties.actuator.management.server.address]]xref:#application-properties.actuator.management.server.address[`+management.server.address+`]
+|+++管理 endpoints 应绑定的网络地址。需要自定义 management.server.port。+++
+|
+
+|[[application-properties.actuator.management.server.base-path]]xref:#application-properties.actuator.management.server.base-path[`+management.server.base-path+`]
+|+++管理 endpoint 基础路径（例如，'/management'）。需要自定义 management.server.port。+++
+|
+
+|[[application-properties.actuator.management.server.jetty.accesslog.prefix]]xref:#application-properties.actuator.management.server.jetty.accesslog.prefix[`+management.server.jetty.accesslog.prefix+`]
+|+++管理日志文件名前缀。+++
+|`+management_+`
+
+|[[application-properties.actuator.management.server.port]]xref:#application-properties.actuator.management.server.port[`+management.server.port+`]
+|+++管理 endpoint HTTP 端口（默认使用与应用程序相同的端口）。配置不同的端口以使用特定于管理的 SSL。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.bundle]]xref:#application-properties.actuator.management.server.ssl.bundle[`+management.server.ssl.bundle+`]
+|+++已配置 SSL 包的名称。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.certificate]]xref:#application-properties.actuator.management.server.ssl.certificate[`+management.server.ssl.certificate+`]
+|+++PEM 编码的 SSL 证书文件的路径。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.certificate-private-key]]xref:#application-properties.actuator.management.server.ssl.certificate-private-key[`+management.server.ssl.certificate-private-key+`]
+|+++SSL 证书的 PEM 编码私钥文件的路径。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.ciphers]]xref:#application-properties.actuator.management.server.ssl.ciphers[`+management.server.ssl.ciphers+`]
+|+++支持的 SSL 密码套件。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.client-auth]]xref:#application-properties.actuator.management.server.ssl.client-auth[`+management.server.ssl.client-auth+`]
+|+++客户端认证模式。需要信任库。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.enabled]]xref:#application-properties.actuator.management.server.ssl.enabled[`+management.server.ssl.enabled+`]
+|+++是否启用 SSL 支持。+++
+|`+true+`
+
+|[[application-properties.actuator.management.server.ssl.enabled-protocols]]xref:#application-properties.actuator.management.server.ssl.enabled-protocols[`+management.server.ssl.enabled-protocols+`]
+|+++启用的 SSL 协议。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.key-alias]]xref:#application-properties.actuator.management.server.ssl.key-alias[`+management.server.ssl.key-alias+`]
+|+++标识密钥库中密钥的别名。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.key-password]]xref:#application-properties.actuator.management.server.ssl.key-password[`+management.server.ssl.key-password+`]
+|+++用于访问密钥库中密钥的密码。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.key-store]]xref:#application-properties.actuator.management.server.ssl.key-store[`+management.server.ssl.key-store+`]
+|+++持有 SSL 证书的密钥库路径（通常为 jks 文件）。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.key-store-password]]xref:#application-properties.actuator.management.server.ssl.key-store-password[`+management.server.ssl.key-store-password+`]
+|+++用于访问密钥库的密码。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.key-store-provider]]xref:#application-properties.actuator.management.server.ssl.key-store-provider[`+management.server.ssl.key-store-provider+`]
+|+++密钥库的提供者。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.key-store-type]]xref:#application-properties.actuator.management.server.ssl.key-store-type[`+management.server.ssl.key-store-type+`]
+|+++密钥库的类型。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.protocol]]xref:#application-properties.actuator.management.server.ssl.protocol[`+management.server.ssl.protocol+`]
+|+++要使用的 SSL 协议。+++
+|`+TLS+`
+
+|[[application-properties.actuator.management.server.ssl.server-name-bundles]]xref:#application-properties.actuator.management.server.ssl.server-name-bundles[`+management.server.ssl.server-name-bundles+`]
+|+++用于 SNI 配置的主机名到 SSL 包的映射。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.trust-certificate]]xref:#application-properties.actuator.management.server.ssl.trust-certificate[`+management.server.ssl.trust-certificate+`]
+|+++PEM 编码的 SSL 证书颁发机构文件路径。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.trust-certificate-private-key]]xref:#application-properties.actuator.management.server.ssl.trust-certificate-private-key[`+management.server.ssl.trust-certificate-private-key+`]
+|+++PEM 编码的 SSL 证书颁发机构私钥文件路径。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.trust-store]]xref:#application-properties.actuator.management.server.ssl.trust-store[`+management.server.ssl.trust-store+`]
+|+++持有 SSL 证书的信任库。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.trust-store-password]]xref:#application-properties.actuator.management.server.ssl.trust-store-password[`+management.server.ssl.trust-store-password+`]
+|+++用于访问信任库的密码。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.trust-store-provider]]xref:#application-properties.actuator.management.server.ssl.trust-store-provider[`+management.server.ssl.trust-store-provider+`]
+|+++信任库的提供者。+++
+|
+
+|[[application-properties.actuator.management.server.ssl.trust-store-type]]xref:#application-properties.actuator.management.server.ssl.trust-store-type[`+management.server.ssl.trust-store-type+`]
+|+++信任库的类型。+++
+|
+
+|[[application-properties.actuator.management.server.tomcat.accesslog.prefix]]xref:#application-properties.actuator.management.server.tomcat.accesslog.prefix[`+management.server.tomcat.accesslog.prefix+`]
+|+++管理日志文件名前缀。+++
+|`+management_+`
+
+|[[application-properties.actuator.management.simple.metrics.export.enabled]]xref:#application-properties.actuator.management.simple.metrics.export.enabled[`+management.simple.metrics.export.enabled+`]
+|+++是否启用向此后端的指标导出。+++
+|`+true+`
+
+|[[application-properties.actuator.management.simple.metrics.export.mode]]xref:#application-properties.actuator.management.simple.metrics.export.mode[`+management.simple.metrics.export.mode+`]
+|+++计数模式。+++
+|`+cumulative+`
+
+|[[application-properties.actuator.management.simple.metrics.export.step]]xref:#application-properties.actuator.management.simple.metrics.export.step[`+management.simple.metrics.export.step+`]
+|+++要使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.stackdriver.metrics.export.auto-create-metric-descriptors]]xref:#application-properties.actuator.management.stackdriver.metrics.export.auto-create-metric-descriptors[`+management.stackdriver.metrics.export.auto-create-metric-descriptors+`]
+|+++是否应在写入时间序列之前尝试创建指标描述符。+++
+|`+true+`
+
+|[[application-properties.actuator.management.stackdriver.metrics.export.batch-size]]xref:#application-properties.actuator.management.stackdriver.metrics.export.batch-size[`+management.stackdriver.metrics.export.batch-size+`]
+|+++每个请求用于此后端的测量数。如果发现更多测量值，则会发出多个请求。+++
+|`+10000+`
+
+|[[application-properties.actuator.management.stackdriver.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.stackdriver.metrics.export.connect-timeout[`+management.stackdriver.metrics.export.connect-timeout+`]
+|+++对此后端的请求连接超时。+++
+|`+1s+`
+
+|[[application-properties.actuator.management.stackdriver.metrics.export.enabled]]xref:#application-properties.actuator.management.stackdriver.metrics.export.enabled[`+management.stackdriver.metrics.export.enabled+`]
+|+++是否启用向此后端的指标导出。+++
+|`+true+`
+
+|[[application-properties.actuator.management.stackdriver.metrics.export.metric-type-prefix]]xref:#application-properties.actuator.management.stackdriver.metrics.export.metric-type-prefix[`+management.stackdriver.metrics.export.metric-type-prefix+`]
+|+++指标类型前缀。有效前缀在 Google Cloud 文档中描述（https://cloud.google.com/monitoring/custom-metrics#identifier）。+++
+|`+custom.googleapis.com/+`
+
+|[[application-properties.actuator.management.stackdriver.metrics.export.project-id]]xref:#application-properties.actuator.management.stackdriver.metrics.export.project-id[`+management.stackdriver.metrics.export.project-id+`]
+|+++要监控的 Google Cloud 项目标识符。+++
+|
+
+|[[application-properties.actuator.management.stackdriver.metrics.export.read-timeout]]xref:#application-properties.actuator.management.stackdriver.metrics.export.read-timeout[`+management.stackdriver.metrics.export.read-timeout+`]
+|+++对此后端的请求读取超时。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.stackdriver.metrics.export.resource-labels]]xref:#application-properties.actuator.management.stackdriver.metrics.export.resource-labels[`+management.stackdriver.metrics.export.resource-labels.*+`]
+|+++受监控资源的标签。+++
+|
+
+|[[application-properties.actuator.management.stackdriver.metrics.export.resource-type]]xref:#application-properties.actuator.management.stackdriver.metrics.export.resource-type[`+management.stackdriver.metrics.export.resource-type+`]
+|+++受监控资源类型。+++
+|`+global+`
+
+|[[application-properties.actuator.management.stackdriver.metrics.export.step]]xref:#application-properties.actuator.management.stackdriver.metrics.export.step[`+management.stackdriver.metrics.export.step+`]
+|+++要使用的步长（即报告频率）。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.stackdriver.metrics.export.use-semantic-metric-types]]xref:#application-properties.actuator.management.stackdriver.metrics.export.use-semantic-metric-types[`+management.stackdriver.metrics.export.use-semantic-metric-types+`]
+|+++是否使用语义正确的指标类型。当为 false 时，计数器指标作为 GAUGE MetricKind 发布。当为 true 时，计数器指标作为 CUMULATIVE MetricKind 发布。+++
+|`+false+`
+
+|[[application-properties.actuator.management.statsd.metrics.export.buffered]]xref:#application-properties.actuator.management.statsd.metrics.export.buffered[`+management.statsd.metrics.export.buffered+`]
+|+++在发送到 StatsD 服务器之前是否应缓冲测量值。+++
+|`+true+`
+
+|[[application-properties.actuator.management.statsd.metrics.export.enabled]]xref:#application-properties.actuator.management.statsd.metrics.export.enabled[`+management.statsd.metrics.export.enabled+`]
+|+++是否启用向 StatsD 的指标导出。+++
+|`+true+`
+
+|[[application-properties.actuator.management.statsd.metrics.export.flavor]]xref:#application-properties.actuator.management.statsd.metrics.export.flavor[`+management.statsd.metrics.export.flavor+`]
+|+++要使用的 StatsD 线路协议。+++
+|`+datadog+`
+
+|[[application-properties.actuator.management.statsd.metrics.export.host]]xref:#application-properties.actuator.management.statsd.metrics.export.host[`+management.statsd.metrics.export.host+`]
+|+++接收导出指标的 StatsD 服务器主机。+++
+|`+localhost+`
+
+|[[application-properties.actuator.management.statsd.metrics.export.max-packet-length]]xref:#application-properties.actuator.management.statsd.metrics.export.max-packet-length[`+management.statsd.metrics.export.max-packet-length+`]
+|+++单个负载的总长度应保持在网络的 MTU 内。+++
+|`+1400+`
+
+|[[application-properties.actuator.management.statsd.metrics.export.polling-frequency]]xref:#application-properties.actuator.management.statsd.metrics.export.polling-frequency[`+management.statsd.metrics.export.polling-frequency+`]
+|+++轮询 gauges 的频率。当轮询 gauge 时，其值被重新计算，如果值已更改（或 publishUnchangedMeters 为 true），则将其发送到 StatsD 服务器。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.statsd.metrics.export.port]]xref:#application-properties.actuator.management.statsd.metrics.export.port[`+management.statsd.metrics.export.port+`]
+|+++接收导出指标的 StatsD 服务器端口。+++
+|`+8125+`
+
+|[[application-properties.actuator.management.statsd.metrics.export.protocol]]xref:#application-properties.actuator.management.statsd.metrics.export.protocol[`+management.statsd.metrics.export.protocol+`]
+|+++接收导出指标的 StatsD 服务器协议。+++
+|`+udp+`
+
+|[[application-properties.actuator.management.statsd.metrics.export.publish-unchanged-meters]]xref:#application-properties.actuator.management.statsd.metrics.export.publish-unchanged-meters[`+management.statsd.metrics.export.publish-unchanged-meters+`]
+|+++是否向 StatsD 服务器发送未更改的仪表。+++
+|`+true+`
+
+|[[application-properties.actuator.management.statsd.metrics.export.step]]xref:#application-properties.actuator.management.statsd.metrics.export.step[`+management.statsd.metrics.export.step+`]
+|+++计算窗口统计量（如最大值）时使用的步长。为充分利用这些统计量，请将步长间隔设置为接近您的抓取间隔。+++
+|`+1m+`
+
+|[[application-properties.actuator.management.tracing.baggage.correlation.enabled]]xref:#application-properties.actuator.management.tracing.baggage.correlation.enabled[`+management.tracing.baggage.correlation.enabled+`]
+|+++是否启用 baggage 上下文与日志上下文的关联。+++
+|`+true+`
+
+|[[application-properties.actuator.management.tracing.baggage.correlation.fields]]xref:#application-properties.actuator.management.tracing.baggage.correlation.fields[`+management.tracing.baggage.correlation.fields+`]
+|+++应与日志上下文关联的字段列表。这意味着这些字段最终会成为键值对，例如在 MDC 中。+++
+|
+
+|[[application-properties.actuator.management.tracing.baggage.enabled]]xref:#application-properties.actuator.management.tracing.baggage.enabled[`+management.tracing.baggage.enabled+`]
+|+++是否启用 Micrometer Tracing baggage 传播。+++
+|`+true+`
+
+|[[application-properties.actuator.management.tracing.baggage.local-fields]]xref:#application-properties.actuator.management.tracing.baggage.local-fields[`+management.tracing.baggage.local-fields+`]
+|+++应在 JVM 进程内可访问但不应通过网络传播的字段列表。OpenTelemetry 不支持本地字段。+++
+|
+
+|[[application-properties.actuator.management.tracing.baggage.remote-fields]]xref:#application-properties.actuator.management.tracing.baggage.remote-fields[`+management.tracing.baggage.remote-fields+`]
+|+++在进程内和网络上引用方式相同的字段列表。例如，字段 "x-vcap-request-id" 将原样设置，包括前缀。+++
+|
+
+|[[application-properties.actuator.management.tracing.baggage.tag-fields]]xref:#application-properties.actuator.management.tracing.baggage.tag-fields[`+management.tracing.baggage.tag-fields+`]
+|+++应自动成为标签的字段列表。+++
+|
+
+|[[application-properties.actuator.management.tracing.exemplars.include]]xref:#application-properties.actuator.management.tracing.exemplars.include[`+management.tracing.exemplars.include+`]
+|+++作为示例包含的追踪。使用 Prometheus 时不支持 'all'。+++
+|`+sampled-traces+`
+
+|[[application-properties.actuator.management.tracing.export.enabled]]xref:#application-properties.actuator.management.tracing.export.enabled[`+management.tracing.export.enabled+`]
+|+++是否启用追踪的 auto-configuration 以导出和传播追踪。+++
+|`+true+`
+
+|[[application-properties.actuator.management.tracing.export.otlp.enabled]]xref:#application-properties.actuator.management.tracing.export.otlp.enabled[`+management.tracing.export.otlp.enabled+`]
+|+++是否启用追踪的 auto-configuration 以导出 OTLP 追踪。+++
+|`+true+`
+
+|[[application-properties.actuator.management.tracing.export.zipkin.connect-timeout]]xref:#application-properties.actuator.management.tracing.export.zipkin.connect-timeout[`+management.tracing.export.zipkin.connect-timeout+`]
+|+++Zipkin 请求的连接超时。+++
+|`+1s+`
+
+|[[application-properties.actuator.management.tracing.export.zipkin.enabled]]xref:#application-properties.actuator.management.tracing.export.zipkin.enabled[`+management.tracing.export.zipkin.enabled+`]
+|+++是否启用追踪的 auto-configuration 以导出 Zipkin 追踪。+++
+|`+true+`
+
+|[[application-properties.actuator.management.tracing.export.zipkin.encoding]]xref:#application-properties.actuator.management.tracing.export.zipkin.encoding[`+management.tracing.export.zipkin.encoding+`]
+|+++如何对发送到 Zipkin API 的 POST 主体进行编码。+++
+|`+json+`
+
+|[[application-properties.actuator.management.tracing.export.zipkin.endpoint]]xref:#application-properties.actuator.management.tracing.export.zipkin.endpoint[`+management.tracing.export.zipkin.endpoint+`]
+|+++Zipkin API 的 URL。+++
+|`+http://localhost:9411/api/v2/spans+`
+
+|[[application-properties.actuator.management.tracing.export.zipkin.read-timeout]]xref:#application-properties.actuator.management.tracing.export.zipkin.read-timeout[`+management.tracing.export.zipkin.read-timeout+`]
+|+++Zipkin 请求的读取超时。+++
+|`+10s+`
+
+|[[application-properties.actuator.management.tracing.propagation.consume]]xref:#application-properties.actuator.management.tracing.propagation.consume[`+management.tracing.propagation.consume+`]
+|+++应用程序消费的追踪上下文传播类型。+++
+|`+[W3C, B3, B3_MULTI]+`
+
+|[[application-properties.actuator.management.tracing.propagation.produce]]xref:#application-properties.actuator.management.tracing.propagation.produce[`+management.tracing.propagation.produce+`]
+|+++应用程序生成的追踪上下文传播类型。+++
+|`+[W3C]+`
+
+|[[application-properties.actuator.management.tracing.propagation.type]]xref:#application-properties.actuator.management.tracing.propagation.type[`+management.tracing.propagation.type+`]
+|+++应用程序消费和生成的追踪上下文传播类型。设置此属性将覆盖更细粒度的传播类型属性。+++
+|
+
+|[[application-properties.actuator.management.tracing.sampling.probability]]xref:#application-properties.actuator.management.tracing.sampling.probability[`+management.tracing.sampling.probability+`]
+|+++追踪被采样的概率，范围从 0.0 到 1.0。+++
+|`+0.1+`
+
+|===

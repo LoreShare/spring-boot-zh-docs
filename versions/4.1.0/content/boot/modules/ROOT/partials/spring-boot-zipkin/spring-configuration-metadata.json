@@ -1,0 +1,79 @@
+{
+  "groups": [
+    {
+      "name": "management.tracing.export.zipkin",
+      "type": "org.springframework.boot.zipkin.autoconfigure.ZipkinProperties",
+      "sourceType": "org.springframework.boot.zipkin.autoconfigure.ZipkinProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.tracing.export.zipkin.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Connection timeout for requests to Zipkin.",
+      "sourceType": "org.springframework.boot.zipkin.autoconfigure.ZipkinProperties",
+      "defaultValue": "1s"
+    },
+    {
+      "name": "management.tracing.export.zipkin.encoding",
+      "type": "org.springframework.boot.zipkin.autoconfigure.ZipkinProperties$Encoding",
+      "description": "How to encode the POST body to the Zipkin API.",
+      "sourceType": "org.springframework.boot.zipkin.autoconfigure.ZipkinProperties",
+      "defaultValue": "json"
+    },
+    {
+      "name": "management.tracing.export.zipkin.endpoint",
+      "type": "java.lang.String",
+      "description": "URL to the Zipkin API.",
+      "sourceType": "org.springframework.boot.zipkin.autoconfigure.ZipkinProperties",
+      "defaultValue": "http:\/\/localhost:9411\/api\/v2\/spans"
+    },
+    {
+      "name": "management.tracing.export.zipkin.read-timeout",
+      "type": "java.time.Duration",
+      "description": "Read timeout for requests to Zipkin.",
+      "sourceType": "org.springframework.boot.zipkin.autoconfigure.ZipkinProperties",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "management.zipkin.tracing.connect-timeout",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.tracing.export.zipkin.connect-timeout",
+        "since": "3.2.0"
+      }
+    },
+    {
+      "name": "management.zipkin.tracing.encoding",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.tracing.export.zipkin.encoding",
+        "since": "3.2.0"
+      }
+    },
+    {
+      "name": "management.zipkin.tracing.endpoint",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.tracing.export.zipkin.endpoint",
+        "since": "3.2.0"
+      }
+    },
+    {
+      "name": "management.zipkin.tracing.read-timeout",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.tracing.export.zipkin.read-timeout",
+        "since": "3.2.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

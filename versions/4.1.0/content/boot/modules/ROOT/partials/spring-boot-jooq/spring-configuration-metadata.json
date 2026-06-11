@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "spring.jooq",
+      "type": "org.springframework.boot.jooq.autoconfigure.JooqProperties",
+      "sourceType": "org.springframework.boot.jooq.autoconfigure.JooqProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.jooq.config",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the jOOQ config file.",
+      "sourceType": "org.springframework.boot.jooq.autoconfigure.JooqProperties"
+    },
+    {
+      "name": "spring.jooq.sql-dialect",
+      "type": "org.jooq.SQLDialect",
+      "description": "SQL dialect to use. Auto-detected by default.",
+      "sourceType": "org.springframework.boot.jooq.autoconfigure.JooqProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

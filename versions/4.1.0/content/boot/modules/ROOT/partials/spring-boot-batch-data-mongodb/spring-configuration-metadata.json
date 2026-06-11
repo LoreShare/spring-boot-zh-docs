@@ -1,0 +1,48 @@
+{
+  "groups": [
+    {
+      "name": "spring.batch.data.mongodb",
+      "type": "org.springframework.boot.batch.mongodb.autoconfigure.BatchDataMongoProperties",
+      "sourceType": "org.springframework.boot.batch.mongodb.autoconfigure.BatchDataMongoProperties"
+    },
+    {
+      "name": "spring.batch.data.mongodb.schema",
+      "type": "org.springframework.boot.batch.mongodb.autoconfigure.BatchDataMongoProperties$Schema",
+      "sourceType": "org.springframework.boot.batch.mongodb.autoconfigure.BatchDataMongoProperties",
+      "sourceMethod": "getSchema()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.batch.data.mongodb.isolation-level-for-create",
+      "type": "org.springframework.transaction.annotation.Isolation",
+      "description": "Transaction isolation level to use when creating job metadata for new jobs.",
+      "sourceType": "org.springframework.boot.batch.mongodb.autoconfigure.BatchDataMongoProperties"
+    },
+    {
+      "name": "spring.batch.data.mongodb.schema.initialize",
+      "type": "java.lang.Boolean",
+      "description": "Whether to initialize the Spring Batch job repository schema in MongoDB.",
+      "sourceType": "org.springframework.boot.batch.mongodb.autoconfigure.BatchDataMongoProperties$Schema",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.batch.data.mongodb.schema.location",
+      "type": "java.lang.String",
+      "description": "Path to the newline-delimited JSON script used to create the Spring Batch job repository collections and indexes in MongoDB.",
+      "sourceType": "org.springframework.boot.batch.mongodb.autoconfigure.BatchDataMongoProperties$Schema",
+      "defaultValue": "org\/springframework\/batch\/core\/schema-mongodb.jsonl"
+    },
+    {
+      "name": "spring.batch.data.mongodb.validate-transaction-state",
+      "type": "java.lang.Boolean",
+      "description": "Whether to validate the transaction state.",
+      "sourceType": "org.springframework.boot.batch.mongodb.autoconfigure.BatchDataMongoProperties",
+      "defaultValue": true
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

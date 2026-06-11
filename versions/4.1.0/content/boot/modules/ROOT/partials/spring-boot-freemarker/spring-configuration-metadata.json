@@ -1,0 +1,135 @@
+{
+  "groups": [
+    {
+      "name": "spring.freemarker",
+      "type": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.freemarker.allow-request-override",
+      "type": "java.lang.Boolean",
+      "description": "Whether HttpServletRequest attributes are allowed to override (hide) controller generated model attributes of the same name. Only supported with Spring MVC.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.freemarker.allow-session-override",
+      "type": "java.lang.Boolean",
+      "description": "Whether HttpSession attributes are allowed to override (hide) controller generated model attributes of the same name. Only supported with Spring MVC.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.freemarker.cache",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable template caching. Only supported with Spring MVC.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.freemarker.charset",
+      "type": "java.nio.charset.Charset",
+      "description": "Template encoding.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.freemarker.check-template-location",
+      "type": "java.lang.Boolean",
+      "description": "Whether to check that the templates location exists.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.freemarker.content-type",
+      "type": "org.springframework.util.MimeType",
+      "description": "Content-Type value. Only supported with Spring MVC.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": "text\/html"
+    },
+    {
+      "name": "spring.freemarker.expose-request-attributes",
+      "type": "java.lang.Boolean",
+      "description": "Whether all request attributes should be added to the model prior to merging with the template. Only supported with Spring MVC.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.freemarker.expose-session-attributes",
+      "type": "java.lang.Boolean",
+      "description": "Whether all HttpSession attributes should be added to the model prior to merging with the template. Only supported with Spring MVC.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.freemarker.expose-spring-macro-helpers",
+      "type": "java.lang.Boolean",
+      "description": "Whether to expose a RequestContext for use by Spring's macro library, under the name \"springMacroRequestContext\". Only supported with Spring MVC.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.freemarker.prefer-file-system-access",
+      "type": "java.lang.Boolean",
+      "description": "Whether to prefer file system access for template loading to enable hot detection of template changes. When a template path is detected as a directory, templates are loaded from the directory only and other matching classpath locations will not be considered.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.freemarker.prefix",
+      "type": "java.lang.String",
+      "description": "Prefix that gets prepended to view names when building a URL.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": ""
+    },
+    {
+      "name": "spring.freemarker.request-context-attribute",
+      "type": "java.lang.String",
+      "description": "Name of the RequestContext attribute for all views.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties"
+    },
+    {
+      "name": "spring.freemarker.settings",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Well-known FreeMarker keys which are passed to FreeMarker's Configuration.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties"
+    },
+    {
+      "name": "spring.freemarker.suffix",
+      "type": "java.lang.String",
+      "description": "Suffix that gets appended to view names when building a URL.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": ".ftlh"
+    },
+    {
+      "name": "spring.freemarker.template-loader-path",
+      "type": "java.lang.String[]",
+      "description": "List of template paths.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties",
+      "defaultValue": [
+        "classpath:\/templates\/"
+      ]
+    },
+    {
+      "name": "spring.freemarker.view-names",
+      "type": "java.lang.String[]",
+      "description": "View names that can be resolved.",
+      "sourceType": "org.springframework.boot.freemarker.autoconfigure.FreeMarkerProperties"
+    },
+    {
+      "name": "spring.freemarker.enabled",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "No longer required. To use FreeMarker without auto-configuration, depend directly on FreeMarker instead of spring-boot-freemarker.",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

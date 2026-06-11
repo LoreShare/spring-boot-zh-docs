@@ -1,0 +1,36 @@
+[[appendix.auto-configuration-classes.spring-boot-webflux]]
+= spring-boot-webflux
+
+以下 auto-configuration 类来自 `spring-boot-webflux` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-webflux/src/main/java/org/springframework/boot/webflux/autoconfigure/error/ErrorWebFluxAutoConfiguration.java[`ErrorWebFluxAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webflux/autoconfigure/error/ErrorWebFluxAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webflux/src/main/java/org/springframework/boot/webflux/autoconfigure/HttpHandlerAutoConfiguration.java[`HttpHandlerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webflux/autoconfigure/HttpHandlerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webflux/src/main/java/org/springframework/boot/webflux/autoconfigure/ReactiveMultipartAutoConfiguration.java[`ReactiveMultipartAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webflux/autoconfigure/ReactiveMultipartAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webflux/src/main/java/org/springframework/boot/webflux/autoconfigure/WebFluxAutoConfiguration.java[`WebFluxAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webflux/autoconfigure/WebFluxAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webflux/src/main/java/org/springframework/boot/webflux/autoconfigure/actuate/endpoint/web/WebFluxHealthEndpointExtensionAutoConfiguration.java[`WebFluxHealthEndpointExtensionAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webflux/autoconfigure/actuate/endpoint/web/WebFluxHealthEndpointExtensionAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webflux/src/main/java/org/springframework/boot/webflux/autoconfigure/actuate/web/exchanges/WebFluxHttpExchangesAutoConfiguration.java[`WebFluxHttpExchangesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webflux/autoconfigure/actuate/web/exchanges/WebFluxHttpExchangesAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webflux/src/main/java/org/springframework/boot/webflux/autoconfigure/actuate/web/mappings/WebFluxMappingsAutoConfiguration.java[`WebFluxMappingsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webflux/autoconfigure/actuate/web/mappings/WebFluxMappingsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webflux/src/main/java/org/springframework/boot/webflux/autoconfigure/WebFluxObservationAutoConfiguration.java[`WebFluxObservationAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webflux/autoconfigure/WebFluxObservationAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webflux/src/main/java/org/springframework/boot/webflux/autoconfigure/WebSessionIdResolverAutoConfiguration.java[`WebSessionIdResolverAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webflux/autoconfigure/WebSessionIdResolverAutoConfiguration.html[javadoc]
+|===

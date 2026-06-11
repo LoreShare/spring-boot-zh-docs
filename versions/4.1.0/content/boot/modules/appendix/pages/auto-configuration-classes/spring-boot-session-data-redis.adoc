@@ -1,0 +1,12 @@
+[[appendix.auto-configuration-classes.spring-boot-session-data-redis]]
+= spring-boot-session-data-redis
+
+以下 auto-configuration 类来自 `spring-boot-session-data-redis` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-session-data-redis/src/main/java/org/springframework/boot/session/data/redis/autoconfigure/SessionDataRedisAutoConfiguration.java[`SessionDataRedisAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/session/data/redis/autoconfigure/SessionDataRedisAutoConfiguration.html[javadoc]
+|===

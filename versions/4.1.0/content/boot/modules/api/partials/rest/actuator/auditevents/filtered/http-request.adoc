@@ -1,0 +1,6 @@
+[source,http,options="nowrap"]
+----
+GET /actuator/auditevents?principal=alice&after=2017-11-07T09%3A37Z&type=logout HTTP/1.1
+Host: localhost:8080
+
+----

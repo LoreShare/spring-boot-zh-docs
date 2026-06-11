@@ -1,0 +1,11 @@
+[source,json,options="nowrap"]
+----
+{
+  "jobs" : {
+    "groups" : [ "samples", "tests" ]
+  },
+  "triggers" : {
+    "groups" : [ "samples", "DEFAULT" ]
+  }
+}
+----

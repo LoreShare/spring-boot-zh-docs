@@ -1,1 +1,71 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.deprecated-application-properties.json]]
+== 已弃用的 JSON 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.json.spring.gson.lenient]]xref:#application-properties.json.spring.gson.lenient[`+spring.gson.lenient+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.json.spring.gson.strictness[`+spring.gson.strictness+`] 替代
+|
+
+|[[application-properties.json.spring.jackson2.constructor-detector]]xref:#application-properties.json.spring.jackson2.constructor-detector[`+spring.jackson2.constructor-detector+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|`+default+`
+
+|[[application-properties.json.spring.jackson2.datatype.enum]]xref:#application-properties.json.spring.jackson2.datatype.enum[`+spring.jackson2.datatype.enum.*+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.datatype.json-node]]xref:#application-properties.json.spring.jackson2.datatype.json-node[`+spring.jackson2.datatype.json-node.*+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.date-format]]xref:#application-properties.json.spring.jackson2.date-format[`+spring.jackson2.date-format+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.default-leniency]]xref:#application-properties.json.spring.jackson2.default-leniency[`+spring.jackson2.default-leniency+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.default-property-inclusion]]xref:#application-properties.json.spring.jackson2.default-property-inclusion[`+spring.jackson2.default-property-inclusion+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.deserialization]]xref:#application-properties.json.spring.jackson2.deserialization[`+spring.jackson2.deserialization.*+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.generator]]xref:#application-properties.json.spring.jackson2.generator[`+spring.jackson2.generator.*+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.locale]]xref:#application-properties.json.spring.jackson2.locale[`+spring.jackson2.locale+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.mapper]]xref:#application-properties.json.spring.jackson2.mapper[`+spring.jackson2.mapper.*+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.parser]]xref:#application-properties.json.spring.jackson2.parser[`+spring.jackson2.parser.*+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.property-naming-strategy]]xref:#application-properties.json.spring.jackson2.property-naming-strategy[`+spring.jackson2.property-naming-strategy+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.serialization]]xref:#application-properties.json.spring.jackson2.serialization[`+spring.jackson2.serialization.*+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.time-zone]]xref:#application-properties.json.spring.jackson2.time-zone[`+spring.jackson2.time-zone+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|[[application-properties.json.spring.jackson2.visibility]]xref:#application-properties.json.spring.jackson2.visibility[`+spring.jackson2.visibility.*+`]
+|+++已弃用，推荐使用 Jackson 3+++
+|
+
+|===

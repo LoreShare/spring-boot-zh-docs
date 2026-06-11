@@ -1,0 +1,15 @@
+[[appendix.auto-configuration-classes.spring-boot-security-oauth2-authorization-server]]
+= spring-boot-security-oauth2-authorization-server
+
+以下 auto-configuration 类来自 `spring-boot-security-oauth2-authorization-server` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-security-oauth2-authorization-server/src/main/java/org/springframework/boot/security/oauth2/server/authorization/autoconfigure/servlet/OAuth2AuthorizationServerAutoConfiguration.java[`OAuth2AuthorizationServerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/oauth2/server/authorization/autoconfigure/servlet/OAuth2AuthorizationServerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security-oauth2-authorization-server/src/main/java/org/springframework/boot/security/oauth2/server/authorization/autoconfigure/servlet/OAuth2AuthorizationServerJwtAutoConfiguration.java[`OAuth2AuthorizationServerJwtAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/oauth2/server/authorization/autoconfigure/servlet/OAuth2AuthorizationServerJwtAutoConfiguration.html[javadoc]
+|===

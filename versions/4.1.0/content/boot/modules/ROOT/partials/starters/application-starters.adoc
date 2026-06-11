@@ -1,3 +1,492 @@
 |===
-1+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+| 名称 | 描述
+
+| [[spring-boot-starter]]`spring-boot-starter`
+| 核心 starter，包括 auto-configuration 支持、日志和 YAML
+
+| [[spring-boot-starter-activemq]]`spring-boot-starter-activemq`
+| 用于使用 Apache ActiveMQ 和 JMS 的 starter
+
+| [[spring-boot-starter-activemq-test]]`spring-boot-starter-activemq-test`
+| 用于测试 Apache ActiveMQ 和 JMS 的 starter
+
+| [[spring-boot-starter-actuator-test]]`spring-boot-starter-actuator-test`
+| 用于测试 Spring Boot 的 Actuator 的 starter，该模块提供生产就绪功能以帮助您监控和管理应用程序
+
+| [[spring-boot-starter-amqp]]`spring-boot-starter-amqp`
+| 用于使用 Spring AMQP 和 Rabbit MQ 的 starter
+
+| [[spring-boot-starter-amqp-test]]`spring-boot-starter-amqp-test`
+| 用于测试 Spring AMQP 和 Rabbit MQ 的 starter
+
+| [[spring-boot-starter-artemis]]`spring-boot-starter-artemis`
+| 用于使用 Apache Artemis 和 JMS 的 starter
+
+| [[spring-boot-starter-artemis-test]]`spring-boot-starter-artemis-test`
+| 用于测试 Apache Artemis 和 JMS 的 starter
+
+| [[spring-boot-starter-aspectj]]`spring-boot-starter-aspectj`
+| 用于使用 AspectJ 进行面向切面编程的 starter
+
+| [[spring-boot-starter-aspectj-test]]`spring-boot-starter-aspectj-test`
+| 用于测试 AspectJ 面向切面编程的 starter
+
+| [[spring-boot-starter-batch]]`spring-boot-starter-batch`
+| 用于使用 Spring Batch 的 starter
+
+| [[spring-boot-starter-batch-data-mongodb]]`spring-boot-starter-batch-data-mongodb`
+| 用于使用 Spring Batch 与 Data MongoDB 的 starter
+
+| [[spring-boot-starter-batch-data-mongodb-test]]`spring-boot-starter-batch-data-mongodb-test`
+| 用于测试使用 Spring Batch 与 Data MongoDB 的 starter
+
+| [[spring-boot-starter-batch-jdbc]]`spring-boot-starter-batch-jdbc`
+| 用于使用 Spring Batch 与 JDBC 的 starter
+
+| [[spring-boot-starter-batch-jdbc-test]]`spring-boot-starter-batch-jdbc-test`
+| 用于测试使用 Spring Batch 与 JDBC 的 starter
+
+| [[spring-boot-starter-batch-test]]`spring-boot-starter-batch-test`
+| 用于测试使用 Spring Batch 的 starter
+
+| [[spring-boot-starter-cache]]`spring-boot-starter-cache`
+| 用于使用 Spring 缓存支持的 starter
+
+| [[spring-boot-starter-cache-test]]`spring-boot-starter-cache-test`
+| 用于测试 Spring 缓存支持的 starter
+
+| [[spring-boot-starter-cassandra]]`spring-boot-starter-cassandra`
+| 用于使用 Cassandra 分布式数据库的 starter
+
+| [[spring-boot-starter-cassandra-test]]`spring-boot-starter-cassandra-test`
+| 用于测试 Cassandra 分布式数据库的 starter
+
+| [[spring-boot-starter-classic]]`spring-boot-starter-classic`
+| 核心经典 starter，包括完整的 auto-configuration 支持、日志和 YAML
+
+| [[spring-boot-starter-cloudfoundry]]`spring-boot-starter-cloudfoundry`
+| 用于使用 Cloud Foundry 的 starter
+
+| [[spring-boot-starter-cloudfoundry-test]]`spring-boot-starter-cloudfoundry-test`
+| 用于测试 Cloud Foundry 的 starter
+
+| [[spring-boot-starter-couchbase]]`spring-boot-starter-couchbase`
+| 用于使用 Couchbase 文档型数据库的 starter
+
+| [[spring-boot-starter-couchbase-test]]`spring-boot-starter-couchbase-test`
+| 用于测试 Couchbase 文档型数据库的 starter
+
+| [[spring-boot-starter-data-cassandra]]`spring-boot-starter-data-cassandra`
+| 用于使用 Cassandra 分布式数据库和 Spring Data Cassandra 的 starter
+
+| [[spring-boot-starter-data-cassandra-reactive]]`spring-boot-starter-data-cassandra-reactive`
+| 用于使用 Cassandra 分布式数据库和 Spring Data Cassandra Reactive 的 starter
+
+| [[spring-boot-starter-data-cassandra-reactive-test]]`spring-boot-starter-data-cassandra-reactive-test`
+| 用于测试 Cassandra 分布式数据库和 Spring Data Cassandra Reactive 的 starter
+
+| [[spring-boot-starter-data-cassandra-test]]`spring-boot-starter-data-cassandra-test`
+| 用于测试 Cassandra 分布式数据库和 Spring Data Cassandra 的 starter
+
+| [[spring-boot-starter-data-couchbase]]`spring-boot-starter-data-couchbase`
+| 用于使用 Couchbase 文档型数据库和 Spring Data Couchbase 的 starter
+
+| [[spring-boot-starter-data-couchbase-reactive]]`spring-boot-starter-data-couchbase-reactive`
+| 用于使用 Couchbase 文档型数据库和 Spring Data Couchbase Reactive 的 starter
+
+| [[spring-boot-starter-data-couchbase-reactive-test]]`spring-boot-starter-data-couchbase-reactive-test`
+| 用于测试 Couchbase 文档型数据库和 Spring Data Couchbase Reactive 的 starter
+
+| [[spring-boot-starter-data-couchbase-test]]`spring-boot-starter-data-couchbase-test`
+| 用于测试 Couchbase 文档型数据库和 Spring Data Couchbase 的 starter
+
+| [[spring-boot-starter-data-elasticsearch]]`spring-boot-starter-data-elasticsearch`
+| 用于使用 Elasticsearch 搜索和分析引擎以及 Spring Data Elasticsearch 的 starter
+
+| [[spring-boot-starter-data-elasticsearch-test]]`spring-boot-starter-data-elasticsearch-test`
+| 用于测试 Elasticsearch 搜索和分析引擎以及 Spring Data Elasticsearch 的 starter
+
+| [[spring-boot-starter-data-jdbc]]`spring-boot-starter-data-jdbc`
+| 用于使用 Spring Data JDBC 的 starter
+
+| [[spring-boot-starter-data-jdbc-test]]`spring-boot-starter-data-jdbc-test`
+| 用于测试 Spring Data JDBC 的 starter
+
+| [[spring-boot-starter-data-jpa]]`spring-boot-starter-data-jpa`
+| 用于使用 Spring Data JPA 与 Hibernate 的 starter
+
+| [[spring-boot-starter-data-jpa-test]]`spring-boot-starter-data-jpa-test`
+| 用于测试 Spring Data JPA 与 Hibernate 的 starter
+
+| [[spring-boot-starter-data-ldap]]`spring-boot-starter-data-ldap`
+| 用于使用 Spring Data LDAP 的 starter
+
+| [[spring-boot-starter-data-ldap-test]]`spring-boot-starter-data-ldap-test`
+| 用于测试 Spring Data LDAP 的 starter
+
+| [[spring-boot-starter-data-mongodb]]`spring-boot-starter-data-mongodb`
+| 用于使用 MongoDB 文档型数据库和 Spring Data MongoDB 的 starter
+
+| [[spring-boot-starter-data-mongodb-reactive]]`spring-boot-starter-data-mongodb-reactive`
+| 用于使用 MongoDB 文档型数据库和 Spring Data MongoDB Reactive 的 starter
+
+| [[spring-boot-starter-data-mongodb-reactive-test]]`spring-boot-starter-data-mongodb-reactive-test`
+| 用于使用 MongoDB 文档型数据库和 Spring Data MongoDB Reactive 的 starter
+
+| [[spring-boot-starter-data-mongodb-test]]`spring-boot-starter-data-mongodb-test`
+| 用于测试 MongoDB 文档型数据库和 Spring Data MongoDB 的 starter
+
+| [[spring-boot-starter-data-neo4j]]`spring-boot-starter-data-neo4j`
+| 用于使用 Neo4j 图数据库和 Spring Data Neo4j 的 starter
+
+| [[spring-boot-starter-data-neo4j-test]]`spring-boot-starter-data-neo4j-test`
+| 用于测试 Neo4j 图数据库和 Spring Data Neo4j 的 starter
+
+| [[spring-boot-starter-data-r2dbc]]`spring-boot-starter-data-r2dbc`
+| 用于使用 Spring Data R2DBC 的 starter
+
+| [[spring-boot-starter-data-r2dbc-test]]`spring-boot-starter-data-r2dbc-test`
+| 用于测试 Spring Data R2DBC 的 starter
+
+| [[spring-boot-starter-data-redis]]`spring-boot-starter-data-redis`
+| 用于使用 Redis 键值数据存储与 Spring Data Redis 和 Lettuce 客户端的 starter
+
+| [[spring-boot-starter-data-redis-reactive]]`spring-boot-starter-data-redis-reactive`
+| 用于使用 Redis 键值数据存储与 Spring Data Redis reactive 和 Lettuce 客户端的 starter
+
+| [[spring-boot-starter-data-redis-reactive-test]]`spring-boot-starter-data-redis-reactive-test`
+| 用于测试 Redis 键值数据存储与 Spring Data Redis reactive 和 Lettuce 客户端的 starter
+
+| [[spring-boot-starter-data-redis-test]]`spring-boot-starter-data-redis-test`
+| 用于测试 Redis 键值数据存储与 Spring Data Redis 和 Lettuce 客户端的 starter
+
+| [[spring-boot-starter-data-rest]]`spring-boot-starter-data-rest`
+| 用于使用通过 REST 暴露的 Spring Data 仓库，基于 Spring Data REST 和 Spring MVC 的 starter
+
+| [[spring-boot-starter-data-rest-test]]`spring-boot-starter-data-rest-test`
+| 用于测试通过 REST 暴露的 Spring Data 仓库，基于 Spring Data REST 和 Spring MVC 的 starter
+
+| [[spring-boot-starter-elasticsearch]]`spring-boot-starter-elasticsearch`
+| 用于使用 Elasticsearch 搜索和分析引擎的 starter
+
+| [[spring-boot-starter-elasticsearch-test]]`spring-boot-starter-elasticsearch-test`
+| 用于测试 Elasticsearch 搜索和分析引擎的 starter
+
+| [[spring-boot-starter-flyway]]`spring-boot-starter-flyway`
+| 用于使用 Flyway 数据库迁移的 starter
+
+| [[spring-boot-starter-flyway-test]]`spring-boot-starter-flyway-test`
+| 用于测试 Flyway 数据库迁移的 starter
+
+| [[spring-boot-starter-freemarker]]`spring-boot-starter-freemarker`
+| 用于使用 FreeMarker 的 starter
+
+| [[spring-boot-starter-freemarker-test]]`spring-boot-starter-freemarker-test`
+| 用于测试 FreeMarker 的 starter
+
+| [[spring-boot-starter-graphql]]`spring-boot-starter-graphql`
+| 使用 Spring GraphQL 的 starter
+
+| [[spring-boot-starter-graphql-test]]`spring-boot-starter-graphql-test`
+| 用于测试 Spring GraphQL 的 starter
+
+| [[spring-boot-starter-groovy-templates]]`spring-boot-starter-groovy-templates`
+| 用于使用 Groovy 模板的 starter
+
+| [[spring-boot-starter-groovy-templates-test]]`spring-boot-starter-groovy-templates-test`
+| 用于测试 Groovy 模板的 starter
+
+| [[spring-boot-starter-grpc-client]]`spring-boot-starter-grpc-client`
+| 用于使用 Spring gRPC 客户端的 starter
+
+| [[spring-boot-starter-grpc-client-test]]`spring-boot-starter-grpc-client-test`
+| 用于测试 gRPC 客户端的 starter
+
+| [[spring-boot-starter-grpc-server]]`spring-boot-starter-grpc-server`
+| 用于使用 Spring gRPC 服务器的 starter
+
+| [[spring-boot-starter-grpc-server-test]]`spring-boot-starter-grpc-server-test`
+| 用于测试 gRPC 服务器的 starter
+
+| [[spring-boot-starter-gson]]`spring-boot-starter-gson`
+| 用于使用 GSON 的 starter
+
+| [[spring-boot-starter-gson-test]]`spring-boot-starter-gson-test`
+| 用于测试 GSON 的 starter
+
+| [[spring-boot-starter-hateoas]]`spring-boot-starter-hateoas`
+| 用于使用 Spring HATEOS 构建基于超媒体的 RESTful Spring MVC Web 应用程序的 starter
+
+| [[spring-boot-starter-hateoas-test]]`spring-boot-starter-hateoas-test`
+| 用于测试 Spring HATEOS 构建基于超媒体的 RESTful Spring MVC Web 应用程序的 starter
+
+| [[spring-boot-starter-hazelcast]]`spring-boot-starter-hazelcast`
+| 用于使用 Hazelcast 的 starter
+
+| [[spring-boot-starter-hazelcast-test]]`spring-boot-starter-hazelcast-test`
+| 用于测试 Hazelcast 的 starter
+
+| [[spring-boot-starter-integration]]`spring-boot-starter-integration`
+| 用于使用 Spring Integration 的 starter
+
+| [[spring-boot-starter-integration-test]]`spring-boot-starter-integration-test`
+| 用于测试 Spring Integration 的 starter
+
+| [[spring-boot-starter-jackson]]`spring-boot-starter-jackson`
+| 用于使用 Jackson 的 starter
+
+| [[spring-boot-starter-jackson-test]]`spring-boot-starter-jackson-test`
+| 用于测试 Jackson 的 starter
+
+| [[spring-boot-starter-jdbc]]`spring-boot-starter-jdbc`
+| 用于使用 JDBC 与 HikariCP 连接池的 starter
+
+| [[spring-boot-starter-jdbc-test]]`spring-boot-starter-jdbc-test`
+| 用于测试 JDBC 与 HikariCP 连接池的 starter
+
+| [[spring-boot-starter-jersey]]`spring-boot-starter-jersey`
+| 用于使用 JAX-RS 和 Jersey 的 starter
+
+| [[spring-boot-starter-jersey-test]]`spring-boot-starter-jersey-test`
+| 用于测试 JAX-RS 和 Jersey 的 starter
+
+| [[spring-boot-starter-jetty]]`spring-boot-starter-jetty`
+| 用于使用 Jetty 作为嵌入式 Servlet 容器的 starter
+
+| [[spring-boot-starter-jms]]`spring-boot-starter-jms`
+| 用于使用 JMS 的 starter
+
+| [[spring-boot-starter-jms-test]]`spring-boot-starter-jms-test`
+| 用于测试 JMS 的 starter
+
+| [[spring-boot-starter-jooq]]`spring-boot-starter-jooq`
+| 用于使用 jOOQ 通过 JDBC 访问 SQL 数据库的 starter
+
+| [[spring-boot-starter-jooq-test]]`spring-boot-starter-jooq-test`
+| 用于测试 jOOQ 通过 JDBC 访问 SQL 数据库的 starter
+
+| [[spring-boot-starter-json]]`spring-boot-starter-json`
+| 用于读写 JSON 的 starter
+
+| [[spring-boot-starter-jsonb]]`spring-boot-starter-jsonb`
+| 用于使用 JSON-B 的 starter
+
+| [[spring-boot-starter-jsonb-test]]`spring-boot-starter-jsonb-test`
+| 用于测试 JSON-B 的 starter
+
+| [[spring-boot-starter-kafka]]`spring-boot-starter-kafka`
+| 用于使用 Apache Kafka 的 Starter
+
+| [[spring-boot-starter-kafka-test]]`spring-boot-starter-kafka-test`
+| 用于测试 Apache Kafka 的 Starter
+
+| [[spring-boot-starter-kotlinx-serialization-json]]`spring-boot-starter-kotlinx-serialization-json`
+| 用于使用 Kotlinx Serialization JSON 的 Starter
+
+| [[spring-boot-starter-kotlinx-serialization-json-test]]`spring-boot-starter-kotlinx-serialization-json-test`
+| 用于测试 Kotlinx Serialization JSON 的 Starter
+
+| [[spring-boot-starter-ldap]]`spring-boot-starter-ldap`
+| 用于使用 LDAP 的 Starter
+
+| [[spring-boot-starter-ldap-test]]`spring-boot-starter-ldap-test`
+| 用于测试 LDAP 的 Starter
+
+| [[spring-boot-starter-liquibase]]`spring-boot-starter-liquibase`
+| 用于使用 Liquibase 数据库迁移的 Starter
+
+| [[spring-boot-starter-liquibase-test]]`spring-boot-starter-liquibase-test`
+| 用于测试 Liquibase 数据库迁移的 Starter
+
+| [[spring-boot-starter-mail]]`spring-boot-starter-mail`
+| 用于使用 Java Mail 和 Spring Framework 邮件发送支持的 Starter
+
+| [[spring-boot-starter-mail-test]]`spring-boot-starter-mail-test`
+| 用于测试 Java Mail 和 Spring Framework 邮件发送支持的 Starter
+
+| [[spring-boot-starter-micrometer-metrics]]`spring-boot-starter-micrometer-metrics`
+| 用于使用 Micrometer Metrics 的 Starter
+
+| [[spring-boot-starter-micrometer-metrics-test]]`spring-boot-starter-micrometer-metrics-test`
+| 用于测试 Micrometer Metrics 的 Starter
+
+| [[spring-boot-starter-mongodb]]`spring-boot-starter-mongodb`
+| 用于使用 MongoDB 文档型数据库的 Starter
+
+| [[spring-boot-starter-mongodb-test]]`spring-boot-starter-mongodb-test`
+| 用于测试 MongoDB 文档型数据库的 Starter
+
+| [[spring-boot-starter-mustache]]`spring-boot-starter-mustache`
+| 用于使用 Mustache 的 Starter
+
+| [[spring-boot-starter-mustache-test]]`spring-boot-starter-mustache-test`
+| 用于测试 Mustache 的 Starter
+
+| [[spring-boot-starter-neo4j]]`spring-boot-starter-neo4j`
+| 用于使用 Neo4j 图数据库的 Starter
+
+| [[spring-boot-starter-neo4j-test]]`spring-boot-starter-neo4j-test`
+| 用于测试 Neo4j 图数据库的 Starter
+
+| [[spring-boot-starter-oauth2-authorization-server]]`spring-boot-starter-oauth2-authorization-server`
+| 用于使用 Spring Authorization Server 功能的 Starter（已弃用，推荐使用 xref:#spring-boot-starter-security-oauth2-authorization-server[`spring-boot-starter-security-oauth2-authorization-server`]）
+
+| [[spring-boot-starter-oauth2-client]]`spring-boot-starter-oauth2-client`
+| 用于使用 Spring Security 的 OAuth2/OpenID Connect 客户端功能的 Starter（已弃用，推荐使用 xref:#spring-boot-starter-security-oauth2-client[`spring-boot-starter-security-oauth2-client`]）
+
+| [[spring-boot-starter-oauth2-resource-server]]`spring-boot-starter-oauth2-resource-server`
+| 用于使用 Spring Security 的 OAuth2 资源服务器功能的 Starter（已弃用，推荐使用 xref:#spring-boot-starter-security-oauth2-resource-server[`spring-boot-starter-security-oauth2-resource-server`]）
+
+| [[spring-boot-starter-opentelemetry]]`spring-boot-starter-opentelemetry`
+| 用于使用 OpenTelemetry 的 Starter
+
+| [[spring-boot-starter-opentelemetry-test]]`spring-boot-starter-opentelemetry-test`
+| 用于测试 OpenTelemetry 的 Starter
+
+| [[spring-boot-starter-pulsar]]`spring-boot-starter-pulsar`
+| 用于使用 Spring for Apache Pulsar 的 Starter
+
+| [[spring-boot-starter-pulsar-test]]`spring-boot-starter-pulsar-test`
+| 用于测试 Spring for Apache Pulsar 的 Starter
+
+| [[spring-boot-starter-quartz]]`spring-boot-starter-quartz`
+| 用于使用 Quartz 调度器的 Starter
+
+| [[spring-boot-starter-quartz-test]]`spring-boot-starter-quartz-test`
+| 用于测试 Quartz 调度器的 Starter
+
+| [[spring-boot-starter-r2dbc]]`spring-boot-starter-r2dbc`
+| 用于使用 R2DBC 的 Starter
+
+| [[spring-boot-starter-r2dbc-test]]`spring-boot-starter-r2dbc-test`
+| 用于测试 R2DBC 的 Starter
+
+| [[spring-boot-starter-reactor-netty]]`spring-boot-starter-reactor-netty`
+| 用于 Reactor Netty 的 Starter
+
+| [[spring-boot-starter-restclient]]`spring-boot-starter-restclient`
+| 使用 Spring 的阻塞式 HTTP 客户端（RestClient、RestTemplate 和 HTTP Service Clients）的 Starter
+
+| [[spring-boot-starter-restclient-test]]`spring-boot-starter-restclient-test`
+| 用于测试 Spring 的阻塞式 HTTP 客户端（RestClient、RestTemplate 和 HTTP Service Clients）的 Starter
+
+| [[spring-boot-starter-rsocket]]`spring-boot-starter-rsocket`
+| 用于使用 RSocket 的 Starter
+
+| [[spring-boot-starter-rsocket-test]]`spring-boot-starter-rsocket-test`
+| 用于测试 RSocket 的 Starter
+
+| [[spring-boot-starter-security]]`spring-boot-starter-security`
+| 用于使用 Spring Security 的 Starter
+
+| [[spring-boot-starter-security-oauth2-authorization-server]]`spring-boot-starter-security-oauth2-authorization-server`
+| 用于使用 Spring Authorization Server 功能的 Starter
+
+| [[spring-boot-starter-security-oauth2-authorization-server-test]]`spring-boot-starter-security-oauth2-authorization-server-test`
+| 用于测试 Spring Authorization Server 功能的 Starter
+
+| [[spring-boot-starter-security-oauth2-client]]`spring-boot-starter-security-oauth2-client`
+| 用于使用 Spring Security 的 OAuth2/OpenID Connect 客户端功能的 Starter
+
+| [[spring-boot-starter-security-oauth2-client-test]]`spring-boot-starter-security-oauth2-client-test`
+| 用于测试 Spring Security 的 OAuth2/OpenID Connect 客户端功能的 Starter
+
+| [[spring-boot-starter-security-oauth2-resource-server]]`spring-boot-starter-security-oauth2-resource-server`
+| 用于使用 Spring Security 的 OAuth2 资源服务器功能的 Starter
+
+| [[spring-boot-starter-security-oauth2-resource-server-test]]`spring-boot-starter-security-oauth2-resource-server-test`
+| 用于测试 Spring Security 的 OAuth2 资源服务器功能的 Starter
+
+| [[spring-boot-starter-security-saml2]]`spring-boot-starter-security-saml2`
+| 用于使用 Spring Security 与 SAML2 的 Starter
+
+| [[spring-boot-starter-security-saml2-test]]`spring-boot-starter-security-saml2-test`
+| 用于测试 Spring Security 与 SAML2 的 Starter
+
+| [[spring-boot-starter-security-test]]`spring-boot-starter-security-test`
+| 用于测试 Spring Security 的 Starter
+
+| [[spring-boot-starter-sendgrid]]`spring-boot-starter-sendgrid`
+| 用于使用 Spring Session 与 Sendgrid 的 Starter
+
+| [[spring-boot-starter-sendgrid-test]]`spring-boot-starter-sendgrid-test`
+| 用于测试 Spring Session 与 Sendgrid 的 Starter
+
+| [[spring-boot-starter-session-data-redis]]`spring-boot-starter-session-data-redis`
+| 用于使用 Spring Session 与 Spring Data Redis 的 Starter
+
+| [[spring-boot-starter-session-data-redis-test]]`spring-boot-starter-session-data-redis-test`
+| 用于测试 Spring Session 与 Spring Data Redis 的 Starter
+
+| [[spring-boot-starter-session-jdbc]]`spring-boot-starter-session-jdbc`
+| 用于使用 Spring Session 与 JDBC 的 Starter
+
+| [[spring-boot-starter-session-jdbc-test]]`spring-boot-starter-session-jdbc-test`
+| 用于测试 Spring Session 与 JDBC 的 Starter
+
+| [[spring-boot-starter-test]]`spring-boot-starter-test`
+| 用于测试 Spring Boot 应用程序的 Starter，包含 JUnit Jupiter、Hamcrest 和 Mockito 等库
+
+| [[spring-boot-starter-test-classic]]`spring-boot-starter-test-classic`
+| 经典的 starter，用于测试 Spring Boot 应用程序，包含 JUnit Jupiter、Hamcrest 和 Mockito 等库
+
+| [[spring-boot-starter-thymeleaf]]`spring-boot-starter-thymeleaf`
+| 用于使用 Thymeleaf 的 Starter
+
+| [[spring-boot-starter-thymeleaf-test]]`spring-boot-starter-thymeleaf-test`
+| 用于测试 Thymeleaf 的 Starter
+
+| [[spring-boot-starter-tomcat]]`spring-boot-starter-tomcat`
+| 用于使用 Tomcat 作为嵌入式 Servlet 容器的 Starter
+
+| [[spring-boot-starter-validation]]`spring-boot-starter-validation`
+| 用于使用 Java Bean Validation 与 Hibernate Validator 的 Starter
+
+| [[spring-boot-starter-validation-test]]`spring-boot-starter-validation-test`
+| 用于测试 Java Bean Validation 与 Hibernate Validator 的 Starter
+
+| [[spring-boot-starter-web]]`spring-boot-starter-web`
+| 用于构建 Web（包括 RESTful）应用程序的 Starter，使用 Spring MVC。默认使用 Tomcat 作为嵌入式容器（已弃用，推荐使用 xref:#spring-boot-starter-webmvc[`spring-boot-starter-webmvc`]）
+
+| [[spring-boot-starter-web-server-test]]`spring-boot-starter-web-server-test`
+| 用于测试 Spring Web Server 的 Starter
+
+| [[spring-boot-starter-web-services]]`spring-boot-starter-web-services`
+| 用于使用 Spring Web Services 的 Starter（已弃用，推荐使用 xref:#spring-boot-starter-webservices[`spring-boot-starter-webservices`]）
+
+| [[spring-boot-starter-webclient]]`spring-boot-starter-webclient`
+| 使用 Spring 的响应式 HTTP 客户端（WebClient 和 HTTP Service Clients）的 Starter
+
+| [[spring-boot-starter-webclient-test]]`spring-boot-starter-webclient-test`
+| 用于测试 Spring 的响应式 HTTP 客户端（WebClient 和 HTTP Service Clients）的 Starter
+
+| [[spring-boot-starter-webflux]]`spring-boot-starter-webflux`
+| 用于使用 WebFlux 和 Reactor Netty 的 Starter
+
+| [[spring-boot-starter-webflux-test]]`spring-boot-starter-webflux-test`
+| 用于测试 WebFlux 和 Reactor Netty 的 Starter
+
+| [[spring-boot-starter-webmvc]]`spring-boot-starter-webmvc`
+| 用于使用 Spring MVC 和 Tomcat 的 Starter
+
+| [[spring-boot-starter-webmvc-test]]`spring-boot-starter-webmvc-test`
+| 用于测试 Spring MVC 和 Tomcat 的 Starter
+
+| [[spring-boot-starter-webservices]]`spring-boot-starter-webservices`
+| 用于使用 Spring Web Services 的 Starter
+
+| [[spring-boot-starter-webservices-test]]`spring-boot-starter-webservices-test`
+| 用于测试 Spring Web Services 的 Starter
+
+| [[spring-boot-starter-websocket]]`spring-boot-starter-websocket`
+| 用于使用 Spring MVC WebSocket 支持的 Starter
+
+| [[spring-boot-starter-websocket-test]]`spring-boot-starter-websocket-test`
+| 用于测试 Spring MVC WebSocket 支持的 Starter
+
+| [[spring-boot-starter-zipkin]]`spring-boot-starter-zipkin`
+| 用于使用 Zipkin 的 Starter
+
+| [[spring-boot-starter-zipkin-test]]`spring-boot-starter-zipkin-test`
+| 用于测试 Zipkin 的 Starter
 |===

@@ -1,0 +1,55 @@
+{
+  "groups": [
+    {
+      "name": "spring.h2.console",
+      "type": "org.springframework.boot.h2console.autoconfigure.H2ConsoleProperties",
+      "sourceType": "org.springframework.boot.h2console.autoconfigure.H2ConsoleProperties"
+    },
+    {
+      "name": "spring.h2.console.settings",
+      "type": "org.springframework.boot.h2console.autoconfigure.H2ConsoleProperties$Settings",
+      "sourceType": "org.springframework.boot.h2console.autoconfigure.H2ConsoleProperties",
+      "sourceMethod": "getSettings()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.h2.console.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the console.",
+      "sourceType": "org.springframework.boot.h2console.autoconfigure.H2ConsoleProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.h2.console.path",
+      "type": "java.lang.String",
+      "description": "Path at which the console is available.",
+      "sourceType": "org.springframework.boot.h2console.autoconfigure.H2ConsoleProperties",
+      "defaultValue": "\/h2-console"
+    },
+    {
+      "name": "spring.h2.console.settings.trace",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable trace output.",
+      "sourceType": "org.springframework.boot.h2console.autoconfigure.H2ConsoleProperties$Settings",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.h2.console.settings.web-admin-password",
+      "type": "java.lang.String",
+      "description": "Password to access preferences and tools of H2 Console.",
+      "sourceType": "org.springframework.boot.h2console.autoconfigure.H2ConsoleProperties$Settings"
+    },
+    {
+      "name": "spring.h2.console.settings.web-allow-others",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable remote access.",
+      "sourceType": "org.springframework.boot.h2console.autoconfigure.H2ConsoleProperties$Settings",
+      "defaultValue": false
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

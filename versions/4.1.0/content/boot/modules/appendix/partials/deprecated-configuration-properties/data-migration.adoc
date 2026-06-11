@@ -1,1 +1,11 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.deprecated-application-properties.data-migration]]
+== 已废弃的数据迁移属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.data-migration.spring.sql.init.enabled]]xref:#application-properties.data-migration.spring.sql.init.enabled[`+spring.sql.init.enabled+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.data-migration.spring.sql.init.mode[`+spring.sql.init.mode+`] 替代
+|`+true+`
+
+|===

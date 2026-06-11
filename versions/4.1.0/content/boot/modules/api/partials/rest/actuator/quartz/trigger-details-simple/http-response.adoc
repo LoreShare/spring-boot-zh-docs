@@ -1,4 +1,27 @@
-[source,text]
+[source,http,options="nowrap"]
 ----
-该请求或响应示例由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+HTTP/1.1 200 OK
+Content-Type: application/vnd.spring-boot.actuator.v3+json
+Content-Length: 524
+
+{
+  "group" : "samples",
+  "name" : "example",
+  "description" : "Example trigger",
+  "state" : "NORMAL",
+  "type" : "simple",
+  "calendarName" : "bankHolidays",
+  "startTime" : "2020-11-30T17:00:00.000Z",
+  "endTime" : "2020-12-30T03:00:00.000Z",
+  "previousFireTime" : "2020-12-04T03:00:00.000Z",
+  "nextFireTime" : "2020-12-07T03:00:00.000Z",
+  "priority" : 7,
+  "finalFireTime" : "2020-12-29T17:00:00.000Z",
+  "data" : { },
+  "simple" : {
+    "interval" : 86400000,
+    "repeatCount" : -1,
+    "timesTriggered" : 0
+  }
+}
 ----

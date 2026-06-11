@@ -1,0 +1,27 @@
+[[appendix.auto-configuration-classes.spring-boot-data-redis]]
+= spring-boot-data-redis
+
+以下 auto-configuration 类来自 `spring-boot-data-redis` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-data-redis/src/main/java/org/springframework/boot/data/redis/autoconfigure/DataRedisAutoConfiguration.java[`DataRedisAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/redis/autoconfigure/DataRedisAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-redis/src/main/java/org/springframework/boot/data/redis/autoconfigure/health/DataRedisHealthContributorAutoConfiguration.java[`DataRedisHealthContributorAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/redis/autoconfigure/health/DataRedisHealthContributorAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-redis/src/main/java/org/springframework/boot/data/redis/autoconfigure/DataRedisReactiveAutoConfiguration.java[`DataRedisReactiveAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/redis/autoconfigure/DataRedisReactiveAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-redis/src/main/java/org/springframework/boot/data/redis/autoconfigure/health/DataRedisReactiveHealthContributorAutoConfiguration.java[`DataRedisReactiveHealthContributorAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/redis/autoconfigure/health/DataRedisReactiveHealthContributorAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-redis/src/main/java/org/springframework/boot/data/redis/autoconfigure/DataRedisRepositoriesAutoConfiguration.java[`DataRedisRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/redis/autoconfigure/DataRedisRepositoriesAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-redis/src/main/java/org/springframework/boot/data/redis/autoconfigure/observation/LettuceObservationAutoConfiguration.java[`LettuceObservationAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/redis/autoconfigure/observation/LettuceObservationAutoConfiguration.html[javadoc]
+|===

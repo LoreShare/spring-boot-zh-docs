@@ -1,0 +1,9 @@
+[source,json,options="nowrap"]
+----
+{
+  "className" : "org.springframework.scheduling.quartz.DelegatingJob",
+  "group" : "samples",
+  "name" : "jobOne",
+  "triggerTime" : "2026-06-10T16:30:21.515159472Z"
+}
+----

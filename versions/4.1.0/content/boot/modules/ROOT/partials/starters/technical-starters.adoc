@@ -1,3 +1,21 @@
 |===
-1+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+| 名称 | 描述
+
+| [[spring-boot-starter-jetty-runtime]]`spring-boot-starter-jetty-runtime`
+| Jetty 运行时的 Starter
+
+| [[spring-boot-starter-log4j2]]`spring-boot-starter-log4j2`
+| 使用 Log4j2 的 Starter
+
+| [[spring-boot-starter-logback]]`spring-boot-starter-logback`
+| 使用 Logback 进行日志记录的 Starter
+
+| [[spring-boot-starter-logging]]`spring-boot-starter-logging`
+| 默认日志记录的 Starter
+
+| [[spring-boot-starter-restdocs]]`spring-boot-starter-restdocs`
+| 使用 Spring REST Docs 的 Starter
+
+| [[spring-boot-starter-tomcat-runtime]]`spring-boot-starter-tomcat-runtime`
+| Tomcat 运行时的 Starter
 |===

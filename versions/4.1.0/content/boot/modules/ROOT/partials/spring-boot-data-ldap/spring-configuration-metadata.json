@@ -1,0 +1,15 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "spring.data.ldap.repositories.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable LDAP repositories.",
+      "defaultValue": true
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

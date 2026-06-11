@@ -1,0 +1,27 @@
+[[appendix.auto-configuration-classes.spring-boot-webmvc]]
+= spring-boot-webmvc
+
+以下 auto-configuration 类来自 `spring-boot-webmvc` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-webmvc/src/main/java/org/springframework/boot/webmvc/autoconfigure/DispatcherServletAutoConfiguration.java[`DispatcherServletAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webmvc/autoconfigure/DispatcherServletAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webmvc/src/main/java/org/springframework/boot/webmvc/autoconfigure/error/ErrorMvcAutoConfiguration.java[`ErrorMvcAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webmvc/autoconfigure/error/ErrorMvcAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webmvc/src/main/java/org/springframework/boot/webmvc/autoconfigure/WebMvcAutoConfiguration.java[`WebMvcAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webmvc/autoconfigure/WebMvcAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webmvc/src/main/java/org/springframework/boot/webmvc/autoconfigure/actuate/endpoint/web/WebMvcHealthEndpointExtensionAutoConfiguration.java[`WebMvcHealthEndpointExtensionAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webmvc/autoconfigure/actuate/endpoint/web/WebMvcHealthEndpointExtensionAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webmvc/src/main/java/org/springframework/boot/webmvc/autoconfigure/actuate/web/mappings/WebMvcMappingsAutoConfiguration.java[`WebMvcMappingsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webmvc/autoconfigure/actuate/web/mappings/WebMvcMappingsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webmvc/src/main/java/org/springframework/boot/webmvc/autoconfigure/WebMvcObservationAutoConfiguration.java[`WebMvcObservationAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webmvc/autoconfigure/WebMvcObservationAutoConfiguration.html[javadoc]
+|===

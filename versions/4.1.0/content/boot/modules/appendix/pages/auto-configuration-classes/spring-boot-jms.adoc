@@ -1,0 +1,18 @@
+[[appendix.auto-configuration-classes.spring-boot-jms]]
+= spring-boot-jms
+
+以下 auto-configuration 类来自 `spring-boot-jms` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-jms/src/main/java/org/springframework/boot/jms/autoconfigure/JmsAutoConfiguration.java[`JmsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/jms/autoconfigure/JmsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-jms/src/main/java/org/springframework/boot/jms/autoconfigure/health/JmsHealthContributorAutoConfiguration.java[`JmsHealthContributorAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/jms/autoconfigure/health/JmsHealthContributorAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-jms/src/main/java/org/springframework/boot/jms/autoconfigure/JndiConnectionFactoryAutoConfiguration.java[`JndiConnectionFactoryAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/jms/autoconfigure/JndiConnectionFactoryAutoConfiguration.html[javadoc]
+|===

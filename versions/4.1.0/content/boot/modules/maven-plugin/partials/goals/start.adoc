@@ -1,1 +1,664 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[integration-tests.start-goal]]
+= `spring-boot:start`
+
+`org.springframework.boot:spring-boot-maven-plugin:4.1.0`
+
+启动一个 Spring 应用程序。与 `run` 目标不同，此目标不会阻塞，并允许其他目标对应用程序进行操作。此目标通常用于集成测试场景，即在测试套件之前启动应用程序，并在测试套件之后停止。
+
+[[integration-tests.start-goal.required-parameters]]
+== 必需参数
+
+[cols="3,2,3"]
+|===
+| 名称 | 类型 | 默认值
+
+| xref:#integration-tests.start-goal.parameter-details.classes-directory[classesDirectory]
+| `File`
+| `${project.build.outputDirectory}`
+
+|===
+
+[[integration-tests.start-goal.optional-parameters]]
+== 可选参数
+
+[cols="3,2,3"]
+|===
+| 名称 | 类型 | 默认值
+
+| xref:#integration-tests.start-goal.parameter-details.add-resources[addResources]
+| `boolean`
+| `false`
+
+| xref:#integration-tests.start-goal.parameter-details.additional-classpath-elements[additionalClasspathElements]
+| `String[]`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.agents[agents]
+| `File[]`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.arguments[arguments]
+| `String[]`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.commandline-arguments[commandlineArguments]
+| `String`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.environment-variables[environmentVariables]
+| `Map`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.exclude-group-ids[excludeGroupIds]
+| `String`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.excludes[excludes]
+| `List`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.includes[includes]
+| `List`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.jmx-name[jmxName]
+| `String`
+| `org.springframework.boot:type=Admin,name=SpringApplication`
+
+| xref:#integration-tests.start-goal.parameter-details.jmx-port[jmxPort]
+| `int`
+| `9001`
+
+| xref:#integration-tests.start-goal.parameter-details.jvm-arguments[jvmArguments]
+| `String`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.main-class[mainClass]
+| `String`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.max-attempts[maxAttempts]
+| `int`
+| `60`
+
+| xref:#integration-tests.start-goal.parameter-details.noverify[noverify]
+| `boolean`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.profiles[profiles]
+| `String[]`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.skip[skip]
+| `boolean`
+| `false`
+
+| xref:#integration-tests.start-goal.parameter-details.system-property-variables[systemPropertyVariables]
+| `Map`
+|
+
+| xref:#integration-tests.start-goal.parameter-details.use-test-classpath[useTestClasspath]
+| `boolean`
+| `false`
+
+| xref:#integration-tests.start-goal.parameter-details.wait[wait]
+| `long`
+| `500`
+
+| xref:#integration-tests.start-goal.parameter-details.working-directory[workingDirectory]
+| `File`
+|
+
+|===
+
+[[integration-tests.start-goal.parameter-details]]
+== 参数详情
+
+[[integration-tests.start-goal.parameter-details.add-resources]]
+=== `addResources`
+将 Maven 资源直接添加到 classpath，这允许资源的实时就地编辑。重复的资源会从 `target/classes` 中移除，以防止在调用 `ClassLoader.getResources()` 时出现两次。请考虑将 `spring-boot-devtools` 添加到您的项目中，因为它提供了此功能以及更多功能。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `addResources`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `false`
+
+| 用户属性
+| ``spring-boot.run.addResources``
+
+| 起始版本
+| `1.0.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.additional-classpath-elements]]
+=== `additionalClasspathElements`
+应添加到 classpath 的额外 classpath 元素。元素可以是包含类和资源的目录，也可以是 JAR 文件。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `additionalClasspathElements`
+
+| 类型
+| `java.lang.String[]`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.run.additional-classpath-elements``
+
+| 起始版本
+| `3.2.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.agents]]
+=== `agents`
+代理 JAR 的路径。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `agents`
+
+| 类型
+| `java.io.File[]`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.run.agents``
+
+| 起始版本
+| `2.2.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.arguments]]
+=== `arguments`
+应传递给应用程序的参数。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `arguments`
+
+| 类型
+| `java.lang.String[]`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `1.0.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.classes-directory]]
+=== `classesDirectory`
+包含用于运行应用程序的类和资源文件的目录。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `classesDirectory`
+
+| 类型
+| `java.io.File`
+
+| 默认值
+| `${project.build.outputDirectory}`
+
+| 用户属性
+|
+
+| 起始版本
+| `1.0.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.commandline-arguments]]
+=== `commandlineArguments`
+应从命令行传递给应用程序的参数。使用空格分隔多个参数，并确保将多个值用引号括起来。指定时，优先于 `#arguments`。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `commandlineArguments`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.run.arguments``
+
+| 起始版本
+| `2.2.3`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.environment-variables]]
+=== `environmentVariables`
+应与用于运行应用程序的派生进程关联的环境变量列表。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `environmentVariables`
+
+| 类型
+| `java.util.Map`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `2.1.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.exclude-group-ids]]
+=== `excludeGroupIds`
+要排除的 groupId 名称的逗号分隔列表（精确匹配）。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `excludeGroupIds`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.excludeGroupIds``
+
+| 起始版本
+| `1.1.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.excludes]]
+=== `excludes`
+要排除的工件定义集合。`Exclude` 元素定义了必填的 `groupId` 和 `artifactId` 组件以及可选的 `classifier` 组件。当配置为属性时，值应为逗号分隔，组件之间用冒号分隔：`groupId:artifactId,groupId:artifactId:classifier`
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `excludes`
+
+| 类型
+| `java.util.List`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.excludes``
+
+| 起始版本
+| `1.1.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.includes]]
+=== `includes`
+要包含的工件定义集合。`Include` 元素定义了必填的 `groupId` 和 `artifactId` 组件以及可选的 `classifier` 组件。当配置为属性时，值应为逗号分隔，组件之间用冒号分隔：`groupId:artifactId,groupId:artifactId:classifier`
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `includes`
+
+| 类型
+| `java.util.List`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.includes``
+
+| 起始版本
+| `1.2.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.jmx-name]]
+=== `jmxName`
+自动部署的管理 Spring 应用程序生命周期的 MBean 的 JMX 名称。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `jmxName`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+| `org.springframework.boot:type=Admin,name=SpringApplication`
+
+| 用户属性
+|
+
+| 起始版本
+|
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.jmx-port]]
+=== `jmxPort`
+用于暴露平台 MBeanServer 的端口。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `jmxPort`
+
+| 类型
+| `int`
+
+| 默认值
+| `9001`
+
+| 用户属性
+|
+
+| 起始版本
+|
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.jvm-arguments]]
+=== `jvmArguments`
+应与用于运行应用程序的派生进程关联的 JVM 参数。在命令行中，请确保将多个值用引号括起来。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `jvmArguments`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.run.jvmArguments``
+
+| 起始版本
+| `1.1.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.main-class]]
+=== `mainClass`
+主类的名称。如果未指定，将使用找到的第一个包含 'main' 方法的已编译类。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `mainClass`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.run.main-class``
+
+| 起始版本
+| `1.0.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.max-attempts]]
+=== `maxAttempts`
+检查 Spring 应用程序是否就绪的最大尝试次数。与 "wait" 参数结合使用，可提供全局超时值（默认 30 秒）。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `maxAttempts`
+
+| 类型
+| `int`
+
+| 默认值
+| `60`
+
+| 用户属性
+| ``spring-boot.start.maxAttempts``
+
+| 起始版本
+|
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.noverify]]
+=== `noverify`
+表示代理需要 -noverify 的标志。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `noverify`
+
+| 类型
+| `boolean`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.run.noverify``
+
+| 起始版本
+| `1.0.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.profiles]]
+=== `profiles`
+要激活的 Spring profiles。指定 'spring.profiles.active' 参数的便捷快捷方式。在命令行中，使用逗号分隔多个 profiles。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `profiles`
+
+| 类型
+| `java.lang.String[]`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.run.profiles``
+
+| 起始版本
+| `1.3.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.skip]]
+=== `skip`
+跳过执行。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `skip`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `false`
+
+| 用户属性
+| ``spring-boot.run.skip``
+
+| 起始版本
+| `1.3.2`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.system-property-variables]]
+=== `systemPropertyVariables`
+要传递给进程的 JVM 系统属性列表。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `systemPropertyVariables`
+
+| 类型
+| `java.util.Map`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+| `2.1.0`
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.use-test-classpath]]
+=== `useTestClasspath`
+运行时是否包含测试 classpath 的标志。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `useTestClasspath`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `false`
+
+| 用户属性
+| ``spring-boot.run.useTestClasspath``
+
+| 起始版本
+|
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.wait]]
+=== `wait`
+每次检查 Spring 应用程序是否就绪之间等待的毫秒数。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `wait`
+
+| 类型
+| `long`
+
+| 默认值
+| `500`
+
+| 用户属性
+| ``spring-boot.start.wait``
+
+| 起始版本
+|
+
+|===
+
+
+[[integration-tests.start-goal.parameter-details.working-directory]]
+=== `workingDirectory`
+应用程序的当前工作目录。如果未指定，将使用 basedir。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `workingDirectory`
+
+| 类型
+| `java.io.File`
+
+| 默认值
+|
+
+| 用户属性
+| ``spring-boot.run.workingDirectory``
+
+| 起始版本
+| `1.5.0`
+
+|===

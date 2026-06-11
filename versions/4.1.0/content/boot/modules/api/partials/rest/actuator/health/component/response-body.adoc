@@ -1,0 +1,10 @@
+[source,json,options="nowrap"]
+----
+{
+  "details" : {
+    "database" : "H2",
+    "validationQuery" : "isValid()"
+  },
+  "status" : "UP"
+}
+----

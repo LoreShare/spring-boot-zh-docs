@@ -1,1 +1,15 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.deprecated-application-properties.devtools]]
+== 已弃用的 Devtools 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.devtools.spring.devtools.livereload.enabled]]xref:#application-properties.devtools.spring.devtools.livereload.enabled[`+spring.devtools.livereload.enabled+`]
+|+++已弃用，无替代+++
+|`+false+`
+
+|[[application-properties.devtools.spring.devtools.livereload.port]]xref:#application-properties.devtools.spring.devtools.livereload.port[`+spring.devtools.livereload.port+`]
+|+++已弃用，无替代+++
+|`+35729+`
+
+|===

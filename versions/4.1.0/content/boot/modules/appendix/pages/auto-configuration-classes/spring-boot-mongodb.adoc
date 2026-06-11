@@ -1,0 +1,24 @@
+[[appendix.auto-configuration-classes.spring-boot-mongodb]]
+= spring-boot-mongodb
+
+以下 auto-configuration 类来自 `spring-boot-mongodb` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-mongodb/src/main/java/org/springframework/boot/mongodb/autoconfigure/MongoAutoConfiguration.java[`MongoAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/mongodb/autoconfigure/MongoAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-mongodb/src/main/java/org/springframework/boot/mongodb/autoconfigure/health/MongoHealthContributorAutoConfiguration.java[`MongoHealthContributorAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/mongodb/autoconfigure/health/MongoHealthContributorAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-mongodb/src/main/java/org/springframework/boot/mongodb/autoconfigure/metrics/MongoMetricsAutoConfiguration.java[`MongoMetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/mongodb/autoconfigure/metrics/MongoMetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-mongodb/src/main/java/org/springframework/boot/mongodb/autoconfigure/MongoReactiveAutoConfiguration.java[`MongoReactiveAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/mongodb/autoconfigure/MongoReactiveAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-mongodb/src/main/java/org/springframework/boot/mongodb/autoconfigure/health/MongoReactiveHealthContributorAutoConfiguration.java[`MongoReactiveHealthContributorAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/mongodb/autoconfigure/health/MongoReactiveHealthContributorAutoConfiguration.html[javadoc]
+|===

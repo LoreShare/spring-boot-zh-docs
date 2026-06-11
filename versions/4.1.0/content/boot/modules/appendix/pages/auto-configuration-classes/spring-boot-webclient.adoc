@@ -1,0 +1,18 @@
+[[appendix.auto-configuration-classes.spring-boot-webclient]]
+= spring-boot-webclient
+
+以下 auto-configuration 类来自 `spring-boot-webclient` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-webclient/src/main/java/org/springframework/boot/webclient/autoconfigure/service/ReactiveHttpServiceClientAutoConfiguration.java[`ReactiveHttpServiceClientAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webclient/autoconfigure/service/ReactiveHttpServiceClientAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webclient/src/main/java/org/springframework/boot/webclient/autoconfigure/WebClientAutoConfiguration.java[`WebClientAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webclient/autoconfigure/WebClientAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webclient/src/main/java/org/springframework/boot/webclient/autoconfigure/WebClientObservationAutoConfiguration.java[`WebClientObservationAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webclient/autoconfigure/WebClientObservationAutoConfiguration.html[javadoc]
+|===

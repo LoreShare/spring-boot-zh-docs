@@ -1,0 +1,41 @@
+[source,json,options="nowrap"]
+----
+{
+  "contentDescriptor" : {
+    "providerVersion" : "7.1.0",
+    "providerFormatVersion" : 1.2,
+    "provider" : "spring-integration"
+  },
+  "links" : [ {
+    "from" : 2,
+    "to" : 3,
+    "type" : "input"
+  } ],
+  "nodes" : [ {
+    "nodeId" : 1,
+    "name" : "nullChannel",
+    "componentType" : "null-channel",
+    "integrationPatternCategory" : "messaging_channel",
+    "integrationPatternType" : "null_channel",
+    "observed" : false,
+    "properties" : { }
+  }, {
+    "nodeId" : 2,
+    "name" : "errorChannel",
+    "componentType" : "publish-subscribe-channel",
+    "integrationPatternCategory" : "messaging_channel",
+    "integrationPatternType" : "publish_subscribe_channel",
+    "observed" : false,
+    "properties" : { }
+  }, {
+    "nodeId" : 3,
+    "name" : "errorLogger",
+    "input" : "errorChannel",
+    "componentType" : "logging-channel-adapter",
+    "integrationPatternCategory" : "messaging_endpoint",
+    "integrationPatternType" : "outbound_channel_adapter",
+    "observed" : false,
+    "properties" : { }
+  } ]
+}
+----

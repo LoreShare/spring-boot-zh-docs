@@ -1,0 +1,263 @@
+{
+  "groups": [
+    {
+      "name": "spring.webflux",
+      "type": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties"
+    },
+    {
+      "name": "spring.webflux.apiversion",
+      "type": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Apiversion",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties",
+      "sourceMethod": "getApiversion()"
+    },
+    {
+      "name": "spring.webflux.apiversion.use",
+      "type": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Apiversion$Use",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Apiversion",
+      "sourceMethod": "getUse()"
+    },
+    {
+      "name": "spring.webflux.format",
+      "type": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Format",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties",
+      "sourceMethod": "getFormat()"
+    },
+    {
+      "name": "spring.webflux.multipart",
+      "type": "org.springframework.boot.webflux.autoconfigure.ReactiveMultipartProperties",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.ReactiveMultipartProperties"
+    },
+    {
+      "name": "spring.webflux.problemdetails",
+      "type": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Problemdetails",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties",
+      "sourceMethod": "getProblemdetails()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.webflux.apiversion.default",
+      "type": "java.lang.String",
+      "description": "Default version that should be used for each request.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Apiversion"
+    },
+    {
+      "name": "spring.webflux.apiversion.detect-supported",
+      "type": "java.lang.Boolean",
+      "description": "Whether supported versions should be detected from controllers.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Apiversion"
+    },
+    {
+      "name": "spring.webflux.apiversion.required",
+      "type": "java.lang.Boolean",
+      "description": "Whether the API version is required with each request.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Apiversion"
+    },
+    {
+      "name": "spring.webflux.apiversion.supported",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Supported versions.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Apiversion"
+    },
+    {
+      "name": "spring.webflux.apiversion.use.header",
+      "type": "java.lang.String",
+      "description": "Use the HTTP header with the given name to obtain the version.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Apiversion$Use"
+    },
+    {
+      "name": "spring.webflux.apiversion.use.media-type-parameter",
+      "type": "java.util.Map<org.springframework.http.MediaType,java.lang.String>",
+      "description": "Use the media type parameter with the given name to obtain the version.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Apiversion$Use"
+    },
+    {
+      "name": "spring.webflux.apiversion.use.path-segment",
+      "type": "java.lang.Integer",
+      "description": "Use the path segment at the given index to obtain the version.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Apiversion$Use"
+    },
+    {
+      "name": "spring.webflux.apiversion.use.query-parameter",
+      "type": "java.lang.String",
+      "description": "Use the query parameter with the given name to obtain the version.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Apiversion$Use"
+    },
+    {
+      "name": "spring.webflux.base-path",
+      "type": "java.lang.String",
+      "description": "Base path for all web handlers.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties"
+    },
+    {
+      "name": "spring.webflux.default-html-escape",
+      "type": "java.lang.Boolean",
+      "description": "Whether default HTML escaping is enabled for the web application.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties"
+    },
+    {
+      "name": "spring.webflux.format.date",
+      "type": "java.lang.String",
+      "description": "Date format to use, for example 'dd\/MM\/yyyy'. Used for formatting of java.util.Date and java.time.LocalDate.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Format"
+    },
+    {
+      "name": "spring.webflux.format.date-time",
+      "type": "java.lang.String",
+      "description": "Date-time format to use, for example 'yyyy-MM-dd HH:mm:ss'. Used for formatting of java.time's LocalDateTime, OffsetDateTime, and ZonedDateTime.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Format"
+    },
+    {
+      "name": "spring.webflux.format.time",
+      "type": "java.lang.String",
+      "description": "Time format to use, for example 'HH:mm:ss'. Used for formatting of java.time's LocalTime and OffsetTime.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Format"
+    },
+    {
+      "name": "spring.webflux.hiddenmethod.filter.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Spring's HiddenHttpMethodFilter.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.webflux.multipart.file-storage-directory",
+      "type": "java.lang.String",
+      "description": "Directory used to store file parts larger than 'maxInMemorySize'. Default is a directory named 'spring-multipart' created under the system temporary directory. Ignored when using the PartEvent streaming support.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.ReactiveMultipartProperties"
+    },
+    {
+      "name": "spring.webflux.multipart.headers-charset",
+      "type": "java.nio.charset.Charset",
+      "description": "Character set used to decode headers.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.ReactiveMultipartProperties",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.webflux.multipart.max-disk-usage-per-part",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum amount of disk space allowed per part. Default is -1 which enforces no limits.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.ReactiveMultipartProperties",
+      "defaultValue": "-1B"
+    },
+    {
+      "name": "spring.webflux.multipart.max-headers-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum amount of memory allowed per headers section of each part. Set to -1 to enforce no limits.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.ReactiveMultipartProperties",
+      "defaultValue": "10KB"
+    },
+    {
+      "name": "spring.webflux.multipart.max-in-memory-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum amount of memory allowed per part before it's written to disk. Set to -1 to store all contents in memory.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.ReactiveMultipartProperties",
+      "defaultValue": "256KB"
+    },
+    {
+      "name": "spring.webflux.multipart.max-parts",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of parts allowed in a given multipart request. Default is -1 which enforces no limits.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.ReactiveMultipartProperties",
+      "defaultValue": -1
+    },
+    {
+      "name": "spring.webflux.problemdetails.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether RFC 9457 Problem Details support should be enabled.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties$Problemdetails",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.webflux.static-path-pattern",
+      "type": "java.lang.String",
+      "description": "Path pattern used for static resources.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties",
+      "defaultValue": "\/**"
+    },
+    {
+      "name": "spring.webflux.webjars-path-pattern",
+      "type": "java.lang.String",
+      "description": "Path pattern used for WebJar assets.",
+      "sourceType": "org.springframework.boot.webflux.autoconfigure.WebFluxProperties",
+      "defaultValue": "\/webjars\/**"
+    },
+    {
+      "name": "spring.webflux.multipart.streaming",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Replaced by the PartEventHttpMessageReader and the PartEvent API.",
+        "since": "3.0.0"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.webflux.format.date",
+      "values": [
+        {
+          "value": "dd\/MM\/yyyy",
+          "description": "Example date format. Any format supported by DateTimeFormatter.parse can be used."
+        },
+        {
+          "value": "iso",
+          "description": "ISO-8601 extended local date format."
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    },
+    {
+      "name": "spring.webflux.format.date-time",
+      "values": [
+        {
+          "value": "yyyy-MM-dd HH:mm:ss",
+          "description": "Example date-time format. Any format supported by DateTimeFormatter.parse can be used."
+        },
+        {
+          "value": "iso",
+          "description": "ISO-8601 extended local date-time format."
+        },
+        {
+          "value": "iso-offset",
+          "description": "ISO offset date-time format."
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    },
+    {
+      "name": "spring.webflux.format.time",
+      "values": [
+        {
+          "value": "HH:mm:ss",
+          "description": "Example time format. Any format supported by DateTimeFormatter.parse can be used."
+        },
+        {
+          "value": "iso",
+          "description": "ISO-8601 extended local time format."
+        },
+        {
+          "value": "iso-offset",
+          "description": "ISO offset time format."
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

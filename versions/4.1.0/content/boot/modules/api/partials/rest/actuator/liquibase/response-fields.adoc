@@ -1,3 +1,68 @@
 |===
-3+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+|Path|Type|Description
+
+|`+contexts+`
+|`+Object+`
+|按 id 索引的应用程序上下文
+
+|`+contexts.*.liquibaseBeans.*.changeSets+`
+|`+Array+`
+|Liquibase beans 所做的变更集，按 bean 名称索引。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].author+`
+|`+String+`
+|变更集的作者。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].changeLog+`
+|`+String+`
+|包含变更集的变更日志。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].comments+`
+|`+String+`
+|变更集的注释。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].contexts+`
+|`+Array+`
+|变更集的上下文。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].dateExecuted+`
+|`+String+`
+|变更集执行时的时间戳。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].deploymentId+`
+|`+String+`
+|运行变更集的部署的 ID。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].description+`
+|`+String+`
+|变更集的描述。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].execType+`
+|`+String+`
+|变更集的执行类型（`EXECUTED`、`FAILED`、`SKIPPED`、`RERAN`、`MARK_RAN`）。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].id+`
+|`+String+`
+|变更集的 ID。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].labels+`
+|`+Array+`
+|与变更集关联的标签。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].checksum+`
+|`+String+`
+|变更集的校验和。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].orderExecuted+`
+|`+Number+`
+|变更集执行的顺序。
+
+|`+contexts.*.liquibaseBeans.*.changeSets[].tag+`
+|`+String+`
+|与变更集关联的标签（如果有）。
+
+|`+contexts.*.parentId+`
+|`+String+`
+|父应用程序上下文的 ID（如果有）。
+
 |===

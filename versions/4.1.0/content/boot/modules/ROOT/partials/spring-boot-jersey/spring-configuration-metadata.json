@@ -1,0 +1,60 @@
+{
+  "groups": [
+    {
+      "name": "spring.jersey",
+      "type": "org.springframework.boot.jersey.autoconfigure.JerseyProperties",
+      "sourceType": "org.springframework.boot.jersey.autoconfigure.JerseyProperties"
+    },
+    {
+      "name": "spring.jersey.filter",
+      "type": "org.springframework.boot.jersey.autoconfigure.JerseyProperties$Filter",
+      "sourceType": "org.springframework.boot.jersey.autoconfigure.JerseyProperties",
+      "sourceMethod": "getFilter()"
+    },
+    {
+      "name": "spring.jersey.servlet",
+      "type": "org.springframework.boot.jersey.autoconfigure.JerseyProperties$Servlet",
+      "sourceType": "org.springframework.boot.jersey.autoconfigure.JerseyProperties",
+      "sourceMethod": "getServlet()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.jersey.application-path",
+      "type": "java.lang.String",
+      "description": "Path that serves as the base URI for the application. If specified, overrides the value of \"@ApplicationPath\".",
+      "sourceType": "org.springframework.boot.jersey.autoconfigure.JerseyProperties"
+    },
+    {
+      "name": "spring.jersey.filter.order",
+      "type": "java.lang.Integer",
+      "description": "Jersey filter chain order.",
+      "sourceType": "org.springframework.boot.jersey.autoconfigure.JerseyProperties$Filter",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.jersey.init",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Init parameters to pass to Jersey through the servlet or filter.",
+      "sourceType": "org.springframework.boot.jersey.autoconfigure.JerseyProperties"
+    },
+    {
+      "name": "spring.jersey.servlet.load-on-startup",
+      "type": "java.lang.Integer",
+      "description": "Load on startup priority of the Jersey servlet.",
+      "sourceType": "org.springframework.boot.jersey.autoconfigure.JerseyProperties$Servlet",
+      "defaultValue": -1
+    },
+    {
+      "name": "spring.jersey.type",
+      "type": "org.springframework.boot.jersey.autoconfigure.JerseyProperties$Type",
+      "description": "Jersey integration type.",
+      "sourceType": "org.springframework.boot.jersey.autoconfigure.JerseyProperties",
+      "defaultValue": "servlet"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,1 +1,235 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.json]]
+== JSON 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.json.spring.gson.date-format]]xref:#application-properties.json.spring.gson.date-format[`+spring.gson.date-format+`]
+|+++序列化 Date 对象时使用的格式。+++
+|
+
+|[[application-properties.json.spring.gson.disable-html-escaping]]xref:#application-properties.json.spring.gson.disable-html-escaping[`+spring.gson.disable-html-escaping+`]
+|+++是否禁用对 HTML 字符（如 '&lt;'、'&gt;' 等）的转义。+++
+|
+
+|[[application-properties.json.spring.gson.disable-inner-class-serialization]]xref:#application-properties.json.spring.gson.disable-inner-class-serialization[`+spring.gson.disable-inner-class-serialization+`]
+|+++是否在序列化时排除内部类。+++
+|
+
+|[[application-properties.json.spring.gson.enable-complex-map-key-serialization]]xref:#application-properties.json.spring.gson.enable-complex-map-key-serialization[`+spring.gson.enable-complex-map-key-serialization+`]
+|+++是否启用复杂映射键（即非基本类型）的序列化。+++
+|
+
+|[[application-properties.json.spring.gson.exclude-fields-without-expose-annotation]]xref:#application-properties.json.spring.gson.exclude-fields-without-expose-annotation[`+spring.gson.exclude-fields-without-expose-annotation+`]
+|+++是否排除所有没有“Expose”annotation的字段，使其不参与序列化或反序列化。+++
+|
+
+|[[application-properties.json.spring.gson.field-naming-policy]]xref:#application-properties.json.spring.gson.field-naming-policy[`+spring.gson.field-naming-policy+`]
+|+++在序列化和反序列化期间应用于对象字段的命名策略。+++
+|
+
+|[[application-properties.json.spring.gson.generate-non-executable-json]]xref:#application-properties.json.spring.gson.generate-non-executable-json[`+spring.gson.generate-non-executable-json+`]
+|+++是否通过向输出添加一些特殊文本前缀来生成不可执行的 JSON。+++
+|
+
+|[[application-properties.json.spring.gson.long-serialization-policy]]xref:#application-properties.json.spring.gson.long-serialization-policy[`+spring.gson.long-serialization-policy+`]
+|+++Long 和 long 类型的序列化策略。+++
+|
+
+|[[application-properties.json.spring.gson.pretty-printing]]xref:#application-properties.json.spring.gson.pretty-printing[`+spring.gson.pretty-printing+`]
+|+++是否输出适合页面美观打印的序列化 JSON。+++
+|
+
+|[[application-properties.json.spring.gson.serialize-nulls]]xref:#application-properties.json.spring.gson.serialize-nulls[`+spring.gson.serialize-nulls+`]
+|+++是否序列化 null 字段。+++
+|
+
+|[[application-properties.json.spring.gson.strictness]]xref:#application-properties.json.spring.gson.strictness[`+spring.gson.strictness+`]
+|+++设置读写 JSON 时对 RFC 8259 规范的严格程度。+++
+|
+
+|[[application-properties.json.spring.jackson.cbor.read]]xref:#application-properties.json.spring.jackson.cbor.read[`+spring.jackson.cbor.read.*+`]
+|+++特定于 CBOR 的 Jackson 开关 token 读取器特性。+++
+|
+
+|[[application-properties.json.spring.jackson.cbor.write]]xref:#application-properties.json.spring.jackson.cbor.write[`+spring.jackson.cbor.write.*+`]
+|+++特定于 CBOR 的 Jackson 开关 token 写入器特性。+++
+|
+
+|[[application-properties.json.spring.jackson.constructor-detector]]xref:#application-properties.json.spring.jackson.constructor-detector[`+spring.jackson.constructor-detector+`]
+|+++用于自动检测构造函数的策略，特别是单参数构造函数的行为。+++
+|`+default+`
+
+|[[application-properties.json.spring.jackson.datatype.datetime]]xref:#application-properties.json.spring.jackson.datatype.datetime[`+spring.jackson.datatype.datetime.*+`]
+|+++用于 DateTimes 的 Jackson 开关特性。+++
+|
+
+|[[application-properties.json.spring.jackson.datatype.enum]]xref:#application-properties.json.spring.jackson.datatype.enum[`+spring.jackson.datatype.enum.*+`]
+|+++用于枚举的 Jackson 开关特性。+++
+|
+
+|[[application-properties.json.spring.jackson.datatype.json-node]]xref:#application-properties.json.spring.jackson.datatype.json-node[`+spring.jackson.datatype.json-node.*+`]
+|+++用于 JsonNodes 的 Jackson 开关特性。+++
+|
+
+|[[application-properties.json.spring.jackson.date-format]]xref:#application-properties.json.spring.jackson.date-format[`+spring.jackson.date-format+`]
+|+++日期格式字符串或完全限定的日期格式类名。例如 'yyyy-MM-dd HH:mm:ss'。+++
+|
+
+|[[application-properties.json.spring.jackson.default-leniency]]xref:#application-properties.json.spring.jackson.default-leniency[`+spring.jackson.default-leniency+`]
+|+++全局默认的宽松设置（如果有）。+++
+|
+
+|[[application-properties.json.spring.jackson.default-property-inclusion]]xref:#application-properties.json.spring.jackson.default-property-inclusion[`+spring.jackson.default-property-inclusion+`]
+|+++控制序列化期间属性的包含。配置为 Jackson 的 JsonInclude.Include 枚举中的值之一。+++
+|
+
+|[[application-properties.json.spring.jackson.deserialization]]xref:#application-properties.json.spring.jackson.deserialization[`+spring.jackson.deserialization.*+`]
+|+++影响 Java 对象反序列化方式的 Jackson 开关特性。+++
+|
+
+|[[application-properties.json.spring.jackson.factory.constraints.read.max-document-length]]xref:#application-properties.json.spring.jackson.factory.constraints.read.max-document-length[`+spring.jackson.factory.constraints.read.max-document-length+`]
+|+++允许的最大文档长度。小于或等于零的值表示接受任何长度。+++
+|`+-1+`
+
+|[[application-properties.json.spring.jackson.factory.constraints.read.max-name-length]]xref:#application-properties.json.spring.jackson.factory.constraints.read.max-name-length[`+spring.jackson.factory.constraints.read.max-name-length+`]
+|+++最大名称长度。+++
+|`+50000+`
+
+|[[application-properties.json.spring.jackson.factory.constraints.read.max-nesting-depth]]xref:#application-properties.json.spring.jackson.factory.constraints.read.max-nesting-depth[`+spring.jackson.factory.constraints.read.max-nesting-depth+`]
+|+++最大嵌套深度。深度是尚未关闭的对象和数组的计数。+++
+|`+500+`
+
+|[[application-properties.json.spring.jackson.factory.constraints.read.max-number-length]]xref:#application-properties.json.spring.jackson.factory.constraints.read.max-number-length[`+spring.jackson.factory.constraints.read.max-number-length+`]
+|+++最大数字长度。+++
+|`+1000+`
+
+|[[application-properties.json.spring.jackson.factory.constraints.read.max-string-length]]xref:#application-properties.json.spring.jackson.factory.constraints.read.max-string-length[`+spring.jackson.factory.constraints.read.max-string-length+`]
+|+++最大字符串长度。+++
+|`+100000000+`
+
+|[[application-properties.json.spring.jackson.factory.constraints.read.max-token-count]]xref:#application-properties.json.spring.jackson.factory.constraints.read.max-token-count[`+spring.jackson.factory.constraints.read.max-token-count+`]
+|+++允许的最大 token 数量。小于或等于零的值表示接受任何数量。+++
+|`+-1+`
+
+|[[application-properties.json.spring.jackson.factory.constraints.write.max-nesting-depth]]xref:#application-properties.json.spring.jackson.factory.constraints.write.max-nesting-depth[`+spring.jackson.factory.constraints.write.max-nesting-depth+`]
+|+++最大嵌套深度。深度是尚未关闭的对象和数组的计数。+++
+|`+500+`
+
+|[[application-properties.json.spring.jackson.find-and-add-modules]]xref:#application-properties.json.spring.jackson.find-and-add-modules[`+spring.jackson.find-and-add-modules+`]
+|+++是否使用 MapperBuilder.findAndAddModules(ClassLoader) 查找模块并将其添加到自动配置的 JsonMapper.Builder 中。+++
+|`+true+`
+
+|[[application-properties.json.spring.jackson.json.read]]xref:#application-properties.json.spring.jackson.json.read[`+spring.jackson.json.read.*+`]
+|+++特定于 JSON 的 Jackson 开关 token 读取器特性。+++
+|
+
+|[[application-properties.json.spring.jackson.json.write]]xref:#application-properties.json.spring.jackson.json.write[`+spring.jackson.json.write.*+`]
+|+++特定于 JSON 的 Jackson 开关 token 写入器特性。+++
+|
+
+|[[application-properties.json.spring.jackson.locale]]xref:#application-properties.json.spring.jackson.locale[`+spring.jackson.locale+`]
+|+++用于格式化的区域设置。+++
+|
+
+|[[application-properties.json.spring.jackson.mapper]]xref:#application-properties.json.spring.jackson.mapper[`+spring.jackson.mapper.*+`]
+|+++Jackson 通用开关特性。+++
+|
+
+|[[application-properties.json.spring.jackson.property-naming-strategy]]xref:#application-properties.json.spring.jackson.property-naming-strategy[`+spring.jackson.property-naming-strategy+`]
+|+++Jackson 的 PropertyNamingStrategies 中的常量之一。也可以是 PropertyNamingStrategy 实现的完全限定类名。+++
+|
+
+|[[application-properties.json.spring.jackson.read]]xref:#application-properties.json.spring.jackson.read[`+spring.jackson.read.*+`]
+|+++多种格式通用的 Jackson 开关 token 读取器特性。+++
+|
+
+|[[application-properties.json.spring.jackson.serialization]]xref:#application-properties.json.spring.jackson.serialization[`+spring.jackson.serialization.*+`]
+|+++影响 Java 对象序列化方式的 Jackson 开关特性。+++
+|
+
+|[[application-properties.json.spring.jackson.time-zone]]xref:#application-properties.json.spring.jackson.time-zone[`+spring.jackson.time-zone+`]
+|+++格式化日期时使用的时区。例如 "America/Los_Angeles" 或 "GMT+10"。+++
+|
+
+|[[application-properties.json.spring.jackson.use-jackson2-defaults]]xref:#application-properties.json.spring.jackson.use-jackson2-defaults[`+spring.jackson.use-jackson2-defaults+`]
+|+++是否使用与 Spring Boot 先前用于 Jackson 2 相同的默认值来配置 Jackson 3。+++
+|`+false+`
+
+|[[application-properties.json.spring.jackson.visibility]]xref:#application-properties.json.spring.jackson.visibility[`+spring.jackson.visibility.*+`]
+|+++可用于限制自动检测哪些方法（和字段）的 Jackson 可见性阈值。+++
+|
+
+|[[application-properties.json.spring.jackson.write]]xref:#application-properties.json.spring.jackson.write[`+spring.jackson.write.*+`]
+|+++多种格式通用的 Jackson 开关 token 写入器特性。+++
+|
+
+|[[application-properties.json.spring.jackson.xml.read]]xref:#application-properties.json.spring.jackson.xml.read[`+spring.jackson.xml.read.*+`]
+|+++特定于 XML 的 Jackson 开关 token 读取器特性。+++
+|
+
+|[[application-properties.json.spring.jackson.xml.write]]xref:#application-properties.json.spring.jackson.xml.write[`+spring.jackson.xml.write.*+`]
+|+++特定于 XML 的 Jackson 开关 token 写入器特性。+++
+|
+
+|[[application-properties.json.spring.kotlinx.serialization.json.allow-comments]]xref:#application-properties.json.spring.kotlinx.serialization.json.allow-comments[`+spring.kotlinx.serialization.json.allow-comments+`]
+|+++是否允许解析器接受 JSON 输入中的 C/Java 风格注释。+++
+|`+false+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.allow-special-floating-point-values]]xref:#application-properties.json.spring.kotlinx.serialization.json.allow-special-floating-point-values[`+spring.kotlinx.serialization.json.allow-special-floating-point-values+`]
+|+++是否移除对特殊浮点值（如 'NaN' 和 'Infinity'）的 JSON 规范限制，并允许它们作为不带引号的浮点字面量进行序列化和反序列化。+++
+|`+false+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.allow-structured-map-keys]]xref:#application-properties.json.spring.kotlinx.serialization.json.allow-structured-map-keys[`+spring.kotlinx.serialization.json.allow-structured-map-keys+`]
+|+++是否允许通过将映射的序列化形式从 JSON 对象（键值对）更改为扁平数组（如 [k1, v1, k2, v2]）来将结构化对象序列化为映射键。+++
+|`+false+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.allow-trailing-comma]]xref:#application-properties.json.spring.kotlinx.serialization.json.allow-trailing-comma[`+spring.kotlinx.serialization.json.allow-trailing-comma+`]
+|+++是否允许解析器接受 JSON 对象和数组中的尾随逗号。+++
+|`+false+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.class-discriminator]]xref:#application-properties.json.spring.kotlinx.serialization.json.class-discriminator[`+spring.kotlinx.serialization.json.class-discriminator+`]
+|+++用于多态序列化的类描述符属性的名称。+++
+|`+type+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.class-discriminator-mode]]xref:#application-properties.json.spring.kotlinx.serialization.json.class-discriminator-mode[`+spring.kotlinx.serialization.json.class-discriminator-mode+`]
+|+++定义哪些类和对象应在输出中添加类鉴别器。+++
+|`+polymorphic+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.coerce-input-values]]xref:#application-properties.json.spring.kotlinx.serialization.json.coerce-input-values[`+spring.kotlinx.serialization.json.coerce-input-values+`]
+|+++是否强制转换不正确的 JSON 值。+++
+|`+false+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.decode-enums-case-insensitive]]xref:#application-properties.json.spring.kotlinx.serialization.json.decode-enums-case-insensitive[`+spring.kotlinx.serialization.json.decode-enums-case-insensitive+`]
+|+++是否以不区分大小写的方式解码枚举值。+++
+|`+false+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.encode-defaults]]xref:#application-properties.json.spring.kotlinx.serialization.json.encode-defaults[`+spring.kotlinx.serialization.json.encode-defaults+`]
+|+++是否应编码 Kotlin 属性的默认值。+++
+|`+false+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.explicit-nulls]]xref:#application-properties.json.spring.kotlinx.serialization.json.explicit-nulls[`+spring.kotlinx.serialization.json.explicit-nulls+`]
+|+++是否应为可空属性编码 null 值，并且在解码时 JSON 对象中必须存在 null 值。+++
+|`+true+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.ignore-unknown-keys]]xref:#application-properties.json.spring.kotlinx.serialization.json.ignore-unknown-keys[`+spring.kotlinx.serialization.json.ignore-unknown-keys+`]
+|+++是否应忽略输入 JSON 中遇到的未知属性，而不是抛出 SerializationException。+++
+|`+false+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.lenient]]xref:#application-properties.json.spring.kotlinx.serialization.json.lenient[`+spring.kotlinx.serialization.json.lenient+`]
+|+++解析器是否应以宽松模式运行，移除 JSON 规范限制（RFC-4627），并对格式错误的输入更加宽容。+++
+|`+false+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.naming-strategy]]xref:#application-properties.json.spring.kotlinx.serialization.json.naming-strategy[`+spring.kotlinx.serialization.json.naming-strategy+`]
+|+++指定应用于所有类属性的序列化和反序列化的 JsonNamingStrategy。+++
+|
+
+|[[application-properties.json.spring.kotlinx.serialization.json.pretty-print]]xref:#application-properties.json.spring.kotlinx.serialization.json.pretty-print[`+spring.kotlinx.serialization.json.pretty-print+`]
+|+++生成的 JSON 是否应进行美化打印。+++
+|`+false+`
+
+|[[application-properties.json.spring.kotlinx.serialization.json.use-alternative-names]]xref:#application-properties.json.spring.kotlinx.serialization.json.use-alternative-names[`+spring.kotlinx.serialization.json.use-alternative-names+`]
+|+++Json 实例是否使用 JsonNames annotation。+++
+|`+true+`
+
+|===

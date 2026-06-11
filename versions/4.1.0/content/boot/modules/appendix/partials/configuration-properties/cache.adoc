@@ -1,1 +1,55 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.cache]]
+== 缓存属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.cache.spring.cache.cache-names]]xref:#application-properties.cache.spring.cache.cache-names[`+spring.cache.cache-names+`]
+|+++如果底层缓存管理器支持，则要创建的缓存名称列表。通常，这会禁用动态创建额外缓存的能力。+++
+|
+
+|[[application-properties.cache.spring.cache.caffeine.spec]]xref:#application-properties.cache.spring.cache.caffeine.spec[`+spring.cache.caffeine.spec+`]
+|+++用于创建缓存的规范。有关规范格式的更多详细信息，请参阅 CaffeineSpec。+++
+|
+
+|[[application-properties.cache.spring.cache.couchbase.expiration]]xref:#application-properties.cache.spring.cache.couchbase.expiration[`+spring.cache.couchbase.expiration+`]
+|+++条目过期时间。默认情况下条目永不过期。请注意，此值最终会转换为秒。+++
+|
+
+|[[application-properties.cache.spring.cache.infinispan.config]]xref:#application-properties.cache.spring.cache.infinispan.config[`+spring.cache.infinispan.config+`]
+|+++用于初始化 Infinispan 的配置文件位置。+++
+|
+
+|[[application-properties.cache.spring.cache.jcache.config]]xref:#application-properties.cache.spring.cache.jcache.config[`+spring.cache.jcache.config+`]
+|+++用于初始化缓存管理器的配置文件位置。配置文件取决于底层缓存实现。+++
+|
+
+|[[application-properties.cache.spring.cache.jcache.provider]]xref:#application-properties.cache.spring.cache.jcache.provider[`+spring.cache.jcache.provider+`]
+|+++用于获取 JSR-107 兼容缓存管理器的 CachingProvider 实现的全限定名。仅当 classpath 上有多个 JSR-107 实现时才需要。+++
+|
+
+|[[application-properties.cache.spring.cache.redis.cache-null-values]]xref:#application-properties.cache.spring.cache.redis.cache-null-values[`+spring.cache.redis.cache-null-values+`]
+|+++允许缓存空值。+++
+|`+true+`
+
+|[[application-properties.cache.spring.cache.redis.enable-statistics]]xref:#application-properties.cache.spring.cache.redis.enable-statistics[`+spring.cache.redis.enable-statistics+`]
+|+++是否启用缓存统计。+++
+|`+false+`
+
+|[[application-properties.cache.spring.cache.redis.key-prefix]]xref:#application-properties.cache.spring.cache.redis.key-prefix[`+spring.cache.redis.key-prefix+`]
+|+++键前缀。+++
+|
+
+|[[application-properties.cache.spring.cache.redis.time-to-live]]xref:#application-properties.cache.spring.cache.redis.time-to-live[`+spring.cache.redis.time-to-live+`]
+|+++条目过期时间。默认情况下条目永不过期。+++
+|
+
+|[[application-properties.cache.spring.cache.redis.use-key-prefix]]xref:#application-properties.cache.spring.cache.redis.use-key-prefix[`+spring.cache.redis.use-key-prefix+`]
+|+++写入 Redis 时是否使用键前缀。+++
+|`+true+`
+
+|[[application-properties.cache.spring.cache.type]]xref:#application-properties.cache.spring.cache.type[`+spring.cache.type+`]
+|+++缓存类型。默认情况下，根据环境自动检测。+++
+|
+
+|===

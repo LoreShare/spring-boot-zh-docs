@@ -1,0 +1,45 @@
+{
+  "groups": [
+    {
+      "name": "spring.grpc.client",
+      "type": "org.springframework.boot.grpc.client.autoconfigure.GrpcClientProperties",
+      "sourceType": "org.springframework.boot.grpc.client.autoconfigure.GrpcClientProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.grpc.client.channel",
+      "type": "java.util.Map<java.lang.String,org.springframework.boot.grpc.client.autoconfigure.GrpcClientProperties$Channel>",
+      "description": "Map of channels configured by name.",
+      "sourceType": "org.springframework.boot.grpc.client.autoconfigure.GrpcClientProperties"
+    },
+    {
+      "name": "spring.grpc.client.channelfactory.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable gRPC channel factory bean auto-configuration.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.grpc.client.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable gRPC client auto-configuration.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.grpc.client.inprocess.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to configure the in-process channel factory.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.grpc.client.observation.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Observations on the client.",
+      "defaultValue": true
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

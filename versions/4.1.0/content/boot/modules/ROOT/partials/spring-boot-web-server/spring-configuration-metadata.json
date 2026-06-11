@@ -1,0 +1,685 @@
+{
+  "groups": [
+    {
+      "name": "server",
+      "type": "org.springframework.boot.web.server.autoconfigure.ServerProperties",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties"
+    },
+    {
+      "name": "server.compression",
+      "type": "org.springframework.boot.web.server.Compression",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties",
+      "sourceMethod": "getCompression()"
+    },
+    {
+      "name": "server.http2",
+      "type": "org.springframework.boot.web.server.Http2",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties",
+      "sourceMethod": "getHttp2()"
+    },
+    {
+      "name": "server.reactive",
+      "type": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Reactive",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties",
+      "sourceMethod": "getReactive()"
+    },
+    {
+      "name": "server.reactive.session",
+      "type": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Reactive$Session",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Reactive",
+      "sourceMethod": "getSession()"
+    },
+    {
+      "name": "server.reactive.session.cookie",
+      "type": "org.springframework.boot.web.server.Cookie",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Reactive$Session",
+      "sourceMethod": "getCookie()"
+    },
+    {
+      "name": "server.servlet",
+      "type": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Servlet",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties",
+      "sourceMethod": "getServlet()"
+    },
+    {
+      "name": "server.servlet.encoding",
+      "type": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Encoding",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Servlet",
+      "sourceMethod": "getEncoding()"
+    },
+    {
+      "name": "server.servlet.jsp",
+      "type": "org.springframework.boot.web.server.servlet.Jsp",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Servlet",
+      "sourceMethod": "getJsp()"
+    },
+    {
+      "name": "server.servlet.session",
+      "type": "org.springframework.boot.web.server.servlet.Session",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Servlet",
+      "sourceMethod": "getSession()"
+    },
+    {
+      "name": "server.servlet.session.cookie",
+      "type": "org.springframework.boot.web.server.Cookie",
+      "sourceType": "org.springframework.boot.web.server.servlet.Session",
+      "sourceMethod": "getCookie()"
+    },
+    {
+      "name": "server.ssl",
+      "type": "org.springframework.boot.web.server.Ssl",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties",
+      "sourceMethod": "getSsl()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "server.address",
+      "type": "java.net.InetAddress",
+      "description": "Network address to which the server should bind.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties"
+    },
+    {
+      "name": "server.compression.additional-mime-types",
+      "type": "java.lang.String[]",
+      "description": "Comma-separated list of additional MIME types that should be compressed.",
+      "sourceType": "org.springframework.boot.web.server.Compression",
+      "defaultValue": []
+    },
+    {
+      "name": "server.compression.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether response compression is enabled.",
+      "sourceType": "org.springframework.boot.web.server.Compression",
+      "defaultValue": false
+    },
+    {
+      "name": "server.compression.excluded-user-agents",
+      "type": "java.lang.String[]",
+      "description": "Comma-separated list of user agents for which responses should not be compressed.",
+      "sourceType": "org.springframework.boot.web.server.Compression"
+    },
+    {
+      "name": "server.compression.mime-types",
+      "type": "java.lang.String[]",
+      "description": "Comma-separated list of MIME types that should be compressed.",
+      "sourceType": "org.springframework.boot.web.server.Compression",
+      "defaultValue": [
+        "text\/html",
+        "text\/xml",
+        "text\/plain",
+        "text\/css",
+        "text\/javascript",
+        "application\/javascript",
+        "application\/json",
+        "application\/xml"
+      ]
+    },
+    {
+      "name": "server.compression.min-response-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Minimum \"Content-Length\" value that is required for compression to be performed.",
+      "sourceType": "org.springframework.boot.web.server.Compression",
+      "defaultValue": "2KB"
+    },
+    {
+      "name": "server.forward-headers-strategy",
+      "type": "org.springframework.boot.web.server.autoconfigure.ServerProperties$ForwardHeadersStrategy",
+      "description": "Strategy for handling X-Forwarded-* headers.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties"
+    },
+    {
+      "name": "server.http2.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable HTTP\/2 support, if the current environment supports it.",
+      "sourceType": "org.springframework.boot.web.server.Http2",
+      "defaultValue": false
+    },
+    {
+      "name": "server.max-http-request-header-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum size of the HTTP request header. Refer to the documentation for your chosen embedded server for details of exactly how this limit is applied. For example, Netty applies the limit separately to each individual header in the request whereas Tomcat applies the limit to the combined size of the request line and all of the header names and values in the request.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties",
+      "defaultValue": "8KB"
+    },
+    {
+      "name": "server.port",
+      "type": "java.lang.Integer",
+      "description": "Server HTTP port.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties",
+      "defaultValue": 8080
+    },
+    {
+      "name": "server.reactive.session.cookie.domain",
+      "type": "java.lang.String",
+      "description": "Domain for the cookie.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.reactive.session.cookie.http-only",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use \"HttpOnly\" cookies for the cookie.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.reactive.session.cookie.max-age",
+      "type": "java.time.Duration",
+      "description": "Maximum age of the cookie. If a duration suffix is not specified, seconds will be used. A positive value indicates when the cookie expires relative to the current time. A value of 0 means the cookie should expire immediately. A negative value means no \"Max-Age\".",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.reactive.session.cookie.name",
+      "type": "java.lang.String",
+      "description": "Name for the cookie.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.reactive.session.cookie.partitioned",
+      "type": "java.lang.Boolean",
+      "description": "Whether the generated cookie carries the Partitioned attribute.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.reactive.session.cookie.path",
+      "type": "java.lang.String",
+      "description": "Path of the cookie.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.reactive.session.cookie.same-site",
+      "type": "org.springframework.boot.web.server.Cookie$SameSite",
+      "description": "SameSite setting for the cookie.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.reactive.session.cookie.secure",
+      "type": "java.lang.Boolean",
+      "description": "Whether to always mark the cookie as secure.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.reactive.session.max-sessions",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of sessions that can be stored.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Reactive$Session",
+      "defaultValue": 10000
+    },
+    {
+      "name": "server.reactive.session.timeout",
+      "type": "java.time.Duration",
+      "description": "Session timeout. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Reactive$Session",
+      "defaultValue": "30m"
+    },
+    {
+      "name": "server.server-header",
+      "type": "java.lang.String",
+      "description": "Value to use for the Server response header (if empty, no header is sent).",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties"
+    },
+    {
+      "name": "server.servlet.application-display-name",
+      "type": "java.lang.String",
+      "description": "Display name of the application.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Servlet",
+      "defaultValue": "application"
+    },
+    {
+      "name": "server.servlet.context-parameters",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Servlet context init parameters.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Servlet"
+    },
+    {
+      "name": "server.servlet.context-path",
+      "type": "java.lang.String",
+      "description": "Context path of the application.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Servlet"
+    },
+    {
+      "name": "server.servlet.encoding.mapping",
+      "type": "java.util.Map<java.util.Locale,java.nio.charset.Charset>",
+      "description": "Mapping of locale to charset for response encoding.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Encoding"
+    },
+    {
+      "name": "server.servlet.jsp.class-name",
+      "type": "java.lang.String",
+      "description": "Class name of the servlet to use for JSPs. If registered is true and this class\n\t * is on the classpath then it will be registered.",
+      "sourceType": "org.springframework.boot.web.server.servlet.Jsp",
+      "defaultValue": "org.apache.jasper.servlet.JspServlet"
+    },
+    {
+      "name": "server.servlet.jsp.init-parameters",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Init parameters used to configure the JSP servlet.",
+      "sourceType": "org.springframework.boot.web.server.servlet.Jsp"
+    },
+    {
+      "name": "server.servlet.jsp.registered",
+      "type": "java.lang.Boolean",
+      "description": "Whether the JSP servlet is registered.",
+      "sourceType": "org.springframework.boot.web.server.servlet.Jsp",
+      "defaultValue": true
+    },
+    {
+      "name": "server.servlet.register-default-servlet",
+      "type": "java.lang.Boolean",
+      "description": "Whether to register the default Servlet with the container.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties$Servlet",
+      "defaultValue": false
+    },
+    {
+      "name": "server.servlet.session.cookie.domain",
+      "type": "java.lang.String",
+      "description": "Domain for the cookie.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.servlet.session.cookie.http-only",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use \"HttpOnly\" cookies for the cookie.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.servlet.session.cookie.max-age",
+      "type": "java.time.Duration",
+      "description": "Maximum age of the cookie. If a duration suffix is not specified, seconds will be used. A positive value indicates when the cookie expires relative to the current time. A value of 0 means the cookie should expire immediately. A negative value means no \"Max-Age\".",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.servlet.session.cookie.name",
+      "type": "java.lang.String",
+      "description": "Name for the cookie.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.servlet.session.cookie.partitioned",
+      "type": "java.lang.Boolean",
+      "description": "Whether the generated cookie carries the Partitioned attribute.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.servlet.session.cookie.path",
+      "type": "java.lang.String",
+      "description": "Path of the cookie.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.servlet.session.cookie.same-site",
+      "type": "org.springframework.boot.web.server.Cookie$SameSite",
+      "description": "SameSite setting for the cookie.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.servlet.session.cookie.secure",
+      "type": "java.lang.Boolean",
+      "description": "Whether to always mark the cookie as secure.",
+      "sourceType": "org.springframework.boot.web.server.Cookie"
+    },
+    {
+      "name": "server.servlet.session.persistent",
+      "type": "java.lang.Boolean",
+      "description": "Whether to persist session data between restarts.",
+      "sourceType": "org.springframework.boot.web.server.servlet.Session",
+      "defaultValue": false
+    },
+    {
+      "name": "server.servlet.session.store-dir",
+      "type": "java.io.File",
+      "description": "Directory used to store session data.",
+      "sourceType": "org.springframework.boot.web.server.servlet.Session"
+    },
+    {
+      "name": "server.servlet.session.timeout",
+      "type": "java.time.Duration",
+      "description": "Session timeout. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.web.server.servlet.Session",
+      "defaultValue": "30m"
+    },
+    {
+      "name": "server.servlet.session.tracking-modes",
+      "type": "java.util.Set<org.springframework.boot.web.server.servlet.Session$SessionTrackingMode>",
+      "description": "Session tracking modes.",
+      "sourceType": "org.springframework.boot.web.server.servlet.Session"
+    },
+    {
+      "name": "server.shutdown",
+      "type": "org.springframework.boot.web.server.Shutdown",
+      "description": "Type of shutdown that the server will support.",
+      "sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties",
+      "defaultValue": "graceful"
+    },
+    {
+      "name": "server.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "Name of a configured SSL bundle.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.certificate",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded SSL certificate file.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.certificate-private-key",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded private key file for the SSL certificate.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.ciphers",
+      "type": "java.lang.String[]",
+      "description": "Supported SSL ciphers.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.client-auth",
+      "type": "org.springframework.boot.web.server.Ssl$ClientAuth",
+      "description": "Client authentication mode. Requires a trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support.",
+      "sourceType": "org.springframework.boot.web.server.Ssl",
+      "defaultValue": true
+    },
+    {
+      "name": "server.ssl.enabled-protocols",
+      "type": "java.lang.String[]",
+      "description": "Enabled SSL protocols.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.key-alias",
+      "type": "java.lang.String",
+      "description": "Alias that identifies the key in the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.key-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the key in the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.key-store",
+      "type": "java.lang.String",
+      "description": "Path to the key store that holds the SSL certificate (typically a jks file).",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.key-store-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.key-store-provider",
+      "type": "java.lang.String",
+      "description": "Provider for the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.key-store-type",
+      "type": "java.lang.String",
+      "description": "Type of the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.protocol",
+      "type": "java.lang.String",
+      "description": "SSL protocol to use.",
+      "sourceType": "org.springframework.boot.web.server.Ssl",
+      "defaultValue": "TLS"
+    },
+    {
+      "name": "server.ssl.server-name-bundles",
+      "type": "java.util.List<org.springframework.boot.web.server.Ssl$ServerNameSslBundle>",
+      "description": "Mapping of host names to SSL bundles for SNI configuration.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.trust-certificate",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded SSL certificate authority file.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.trust-certificate-private-key",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded private key file for the SSL certificate authority.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.trust-store",
+      "type": "java.lang.String",
+      "description": "Trust store that holds SSL certificates.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.trust-store-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.trust-store-provider",
+      "type": "java.lang.String",
+      "description": "Provider for the trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.ssl.trust-store-type",
+      "type": "java.lang.String",
+      "description": "Type of the trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "server.connection-timeout",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Each server behaves differently. Use server specific properties instead.",
+        "since": "2.1.0"
+      }
+    },
+    {
+      "name": "server.error.include-binding-errors",
+      "description": "When to include \"errors\" attribute.",
+      "defaultValue": "never",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.error.include-binding-errors",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.error.include-exception",
+      "description": "Include the \"exception\" attribute.",
+      "defaultValue": false,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.error.include-exception",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.error.include-message",
+      "description": "When to include the \"message\" attribute.",
+      "defaultValue": "never",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.error.include-message",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.error.include-path",
+      "description": "When to include the \"path\" attribute.",
+      "defaultValue": "always",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.error.include-path",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.error.include-stacktrace",
+      "description": "When to include the \"trace\" attribute.",
+      "defaultValue": "never",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.error.include-stacktrace",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.error.path",
+      "description": "Path of the error controller",
+      "defaultValue": "\/error",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.error.path",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.error.whitelabel.enabled",
+      "description": "Whether to enable the default error page displayed in browsers in case of a server error.",
+      "defaultValue": true,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.web.error.whitelabel.enabled",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.max-http-header-size",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.max-http-request-header-size",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "server.max-http-post-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum size in bytes of the HTTP post content.",
+      "defaultValue": 0,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Use dedicated property for each container.",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "server.servlet.encoding.charset",
+      "type": "java.nio.charset.Charset",
+      "description": "Charset of HTTP requests and responses. Added to the Content-Type header if not set explicitly.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.servlet.encoding.charset",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.servlet.encoding.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable http encoding support.",
+      "defaultValue": true,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.servlet.encoding.enabled",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.servlet.encoding.force",
+      "type": "java.lang.Boolean",
+      "description": "Whether to force the encoding to the configured charset on HTTP requests and responses.",
+      "defaultValue": false,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.servlet.encoding.force",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.servlet.encoding.force-request",
+      "type": "java.lang.Boolean",
+      "description": "Whether to force the encoding to the configured charset on HTTP requests. Defaults to true when force has not been specified.",
+      "defaultValue": true,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.servlet.encoding.force-request",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.servlet.encoding.force-response",
+      "type": "java.lang.Boolean",
+      "description": "Whether to force the encoding to the configured charset on HTTP responses.",
+      "defaultValue": false,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.servlet.encoding.force-response",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "server.servlet.path",
+      "type": "java.lang.String",
+      "description": "Path of the main dispatcher servlet.",
+      "defaultValue": "\/",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.mvc.servlet.path",
+        "since": "2.1.0"
+      }
+    },
+    {
+      "name": "server.servlet.session.cookie.comment",
+      "description": "Comment for the cookie.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.1.0"
+      }
+    },
+    {
+      "name": "server.use-forward-headers",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Replaced to support additional strategies.",
+        "replacement": "server.forward-headers-strategy",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,1 +1,19 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.deprecated-application-properties.core]]
+== 已弃用的核心属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.core.spring.main.show-banner]]xref:#application-properties.core.spring.main.show-banner[`+spring.main.show-banner+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.core.spring.main.banner-mode[`+spring.main.banner-mode+`] 替代
+|`+true+`
+
+|[[application-properties.core.spring.main.web-environment]]xref:#application-properties.core.spring.main.web-environment[`+spring.main.web-environment+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.core.spring.main.web-application-type[`+spring.main.web-application-type+`] 替代
+|
+
+|[[application-properties.core.spring.reactor.stacktrace-mode.enabled]]xref:#application-properties.core.spring.reactor.stacktrace-mode.enabled[`+spring.reactor.stacktrace-mode.enabled+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.core.spring.reactor.debug-agent.enabled[`+spring.reactor.debug-agent.enabled+`] 替代
+|`+false+`
+
+|===

@@ -1,0 +1,12 @@
+[[appendix.auto-configuration-classes.spring-boot-netty]]
+= spring-boot-netty
+
+以下 auto-configuration 类来自 `spring-boot-netty` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-netty/src/main/java/org/springframework/boot/netty/autoconfigure/NettyAutoConfiguration.java[`NettyAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/netty/autoconfigure/NettyAutoConfiguration.html[javadoc]
+|===

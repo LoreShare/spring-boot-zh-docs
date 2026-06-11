@@ -1,0 +1,1353 @@
+{
+  "groups": [
+    {
+      "name": "management.health.db",
+      "type": "org.springframework.boot.jdbc.autoconfigure.health.DataSourceHealthIndicatorProperties",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.health.DataSourceHealthIndicatorProperties"
+    },
+    {
+      "name": "spring.datasource",
+      "type": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties"
+    },
+    {
+      "name": "spring.datasource.dbcp2",
+      "type": "org.apache.commons.dbcp2.BasicDataSource",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceConfiguration$Dbcp2",
+      "sourceMethod": "dataSource(org.springframework.boot.jdbc.autoconfigure.DataSourceProperties,org.springframework.boot.jdbc.autoconfigure.JdbcConnectionDetails)"
+    },
+    {
+      "name": "spring.datasource.hikari",
+      "type": "com.zaxxer.hikari.HikariDataSource",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceConfiguration$Hikari",
+      "sourceMethod": "dataSource(org.springframework.boot.jdbc.autoconfigure.DataSourceProperties,org.springframework.boot.jdbc.autoconfigure.JdbcConnectionDetails,org.springframework.core.env.Environment)"
+    },
+    {
+      "name": "spring.datasource.hikari.health-check-registry",
+      "type": "java.lang.Object",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource",
+      "sourceMethod": "getHealthCheckRegistry()"
+    },
+    {
+      "name": "spring.datasource.hikari.metric-registry",
+      "type": "java.lang.Object",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource",
+      "sourceMethod": "getMetricRegistry()"
+    },
+    {
+      "name": "spring.datasource.oracleucp",
+      "type": "oracle.ucp.jdbc.PoolDataSourceImpl",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceConfiguration$OracleUcp",
+      "sourceMethod": "dataSource(org.springframework.boot.jdbc.autoconfigure.DataSourceProperties,org.springframework.boot.jdbc.autoconfigure.JdbcConnectionDetails)"
+    },
+    {
+      "name": "spring.datasource.tomcat",
+      "type": "org.apache.tomcat.jdbc.pool.DataSource",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceConfiguration$Tomcat",
+      "sourceMethod": "dataSource(org.springframework.boot.jdbc.autoconfigure.DataSourceProperties,org.springframework.boot.jdbc.autoconfigure.JdbcConnectionDetails)"
+    },
+    {
+      "name": "spring.datasource.tomcat.data-source",
+      "type": "java.lang.Object",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource",
+      "sourceMethod": "getDataSource()"
+    },
+    {
+      "name": "spring.datasource.xa",
+      "type": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties$Xa",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties",
+      "sourceMethod": "getXa()"
+    },
+    {
+      "name": "spring.jdbc",
+      "type": "org.springframework.boot.jdbc.autoconfigure.JdbcProperties",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.JdbcProperties"
+    },
+    {
+      "name": "spring.jdbc.template",
+      "type": "org.springframework.boot.jdbc.autoconfigure.JdbcProperties$Template",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.JdbcProperties",
+      "sourceMethod": "getTemplate()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.health.db.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable database health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.health.db.ignore-routing-data-sources",
+      "type": "java.lang.Boolean",
+      "description": "Whether to ignore AbstractRoutingDataSources when creating database health indicators.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.health.DataSourceHealthIndicatorProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.datasource.connection-fetch",
+      "type": "java.lang.String",
+      "description": "Whether the auto-configured DataSource should be wrapped in a proxy that fetches JDBC connections as late as possible.",
+      "defaultValue": "eager"
+    },
+    {
+      "name": "spring.datasource.dbcp2.abandoned-usage-tracking",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.access-to-underlying-connection-allowed",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.auto-commit-on-return",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.cache-state",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.clear-statement-pool-on-return",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.connection-factory-class-name",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.connection-init-sqls",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.default-auto-commit",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.default-catalog",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.default-read-only",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.default-schema",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.default-transaction-isolation",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.disconnection-ignore-sql-codes",
+      "type": "java.util.Set<java.lang.String>",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.disconnection-sql-codes",
+      "type": "java.util.Set<java.lang.String>",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.duration-between-eviction-runs",
+      "type": "java.time.Duration",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.eviction-policy-class-name",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.fast-fail-validation",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.initial-size",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.jmx-name",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.lifo",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.log-abandoned",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.log-expired-connections",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.login-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.max-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.max-open-prepared-statements",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.max-total",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.min-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.num-tests-per-eviction-run",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.password",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.pool-prepared-statements",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.remove-abandoned-on-borrow",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.remove-abandoned-on-maintenance",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.rollback-on-return",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.test-on-borrow",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.test-on-create",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.test-on-return",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.test-while-idle",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.url",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.username",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.dbcp2.validation-query",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource"
+    },
+    {
+      "name": "spring.datasource.driver-class-name",
+      "type": "java.lang.String",
+      "description": "Fully qualified name of the JDBC driver. Auto-detected based on the URL by default.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties"
+    },
+    {
+      "name": "spring.datasource.embedded-database-connection",
+      "type": "org.springframework.boot.jdbc.EmbeddedDatabaseConnection",
+      "description": "Connection details for an embedded database. Defaults to the most suitable embedded database that is available on the classpath.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties"
+    },
+    {
+      "name": "spring.datasource.generate-unique-name",
+      "type": "java.lang.Boolean",
+      "description": "Whether to generate a random datasource name.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.datasource.hikari.allow-pool-suspension",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.auto-commit",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.catalog",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.connection-init-sql",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.connection-test-query",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.connection-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.credentials-provider-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.data-source-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.data-source-j-n-d-i",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.data-source-properties",
+      "type": "java.util.Properties",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.exception-override-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.health-check-properties",
+      "type": "java.util.Properties",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.idle-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.initialization-fail-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.isolate-internal-queries",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.jdbc-url",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.keepalive-time",
+      "type": "java.lang.Long",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.leak-detection-threshold",
+      "type": "java.lang.Long",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.login-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.max-lifetime",
+      "type": "java.lang.Long",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.maximum-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.minimum-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.password",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.pool-name",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.read-only",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.register-mbeans",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.schema",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.transaction-isolation",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.username",
+      "type": "java.lang.String",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.hikari.validation-timeout",
+      "type": "java.lang.Long",
+      "sourceType": "com.zaxxer.hikari.HikariDataSource"
+    },
+    {
+      "name": "spring.datasource.jndi-name",
+      "type": "java.lang.String",
+      "description": "JNDI location of the datasource. Class, url, username and password are ignored when set.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties"
+    },
+    {
+      "name": "spring.datasource.name",
+      "type": "java.lang.String",
+      "description": "Datasource name to use if \"generate-unique-name\" is false. Defaults to \"testdb\" when using an embedded database, otherwise null.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties"
+    },
+    {
+      "name": "spring.datasource.oracleucp.abandoned-connection-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.commit-on-connection-return",
+      "type": "java.lang.Boolean",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-affinity-callback",
+      "type": "oracle.ucp.ConnectionAffinityCallback",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-creation-consumer",
+      "type": "java.util.function.Consumer<oracle.ucp.ConnectionCreationInformation>",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-factory-class-name",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-factory-properties",
+      "type": "java.util.Properties",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-harvest-max-count",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-harvest-trigger-count",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-initialization-callback",
+      "type": "oracle.ucp.jdbc.ConnectionInitializationCallback",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-labeling-callback",
+      "type": "oracle.ucp.ConnectionLabelingCallback",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-labeling-high-cost",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-pool-name",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-properties",
+      "type": "java.util.Properties",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-repurpose-threshold",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-validation-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-wait-duration",
+      "type": "java.time.Duration",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-wait-timeout-while-service-down",
+      "type": "java.lang.Long",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.create-connection-in-borrow-thread",
+      "type": "java.lang.Boolean",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.data-source-name",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.database-name",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.description",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.fast-connection-failover-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.high-cost-connection-reuse-threshold",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.inactive-connection-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.initial-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.login-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.max-connection-reuse-count",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.max-connection-reuse-time",
+      "type": "java.lang.Long",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.max-connections-per-shard",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.max-idle-time",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.max-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.max-statements",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.min-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.min-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.network-protocol",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.o-n-s-configuration",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.password",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.pdb-roles",
+      "type": "java.util.Properties",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.port-number",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.property-cycle",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.query-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.read-only-instance-allowed",
+      "type": "java.lang.Boolean",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.s-q-l-for-validate-connection",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.seconds-to-trust-idle-connection",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.server-name",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.sharding-mode",
+      "type": "java.lang.Boolean",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.time-to-live-connection-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.timeout-check-interval",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.u-r-l",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.user",
+      "type": "java.lang.String",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.oracleucp.validate-connection-on-borrow",
+      "type": "java.lang.Boolean",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "name": "spring.datasource.password",
+      "type": "java.lang.String",
+      "description": "Login password of the database.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties"
+    },
+    {
+      "name": "spring.datasource.tomcat.abandon-when-percentage-full",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.access-to-underlying-connection-allowed",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.alternate-username-allowed",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.commit-on-return",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.connection-properties",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.data-source-j-n-d-i",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.db-properties",
+      "type": "java.util.Properties",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.default-auto-commit",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.default-catalog",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.default-read-only",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.default-transaction-isolation",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.fair-queue",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.ignore-exception-on-pre-load",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.init-s-q-l",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.initial-size",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.jdbc-interceptors",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.jmx-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.log-abandoned",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.log-validation-errors",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.login-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.max-active",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.max-age",
+      "type": "java.lang.Long",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.max-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.max-wait",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.min-evictable-idle-time-millis",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.min-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.name",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.num-tests-per-eviction-run",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.password",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.propagate-interrupt-state",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.remove-abandoned",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.remove-abandoned-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.rollback-on-return",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.suspect-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.test-on-borrow",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.test-on-connect",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.test-on-return",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.test-while-idle",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.time-between-eviction-runs-millis",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.url",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.use-disposable-connection-facade",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.use-equals",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.use-lock",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.use-statement-facade",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.username",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.validation-interval",
+      "type": "java.lang.Long",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.validation-query",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.validation-query-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.tomcat.validator-class-name",
+      "type": "java.lang.String",
+      "sourceType": "org.apache.tomcat.jdbc.pool.DataSource"
+    },
+    {
+      "name": "spring.datasource.type",
+      "type": "java.lang.Class<? extends javax.sql.DataSource>",
+      "description": "Fully qualified name of the DataSource implementation to use. By default, a connection pool implementation is auto-detected from the classpath.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties"
+    },
+    {
+      "name": "spring.datasource.url",
+      "type": "java.lang.String",
+      "description": "JDBC URL of the database.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties"
+    },
+    {
+      "name": "spring.datasource.username",
+      "type": "java.lang.String",
+      "description": "Login username of the database.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties"
+    },
+    {
+      "name": "spring.datasource.xa.data-source-class-name",
+      "type": "java.lang.String",
+      "description": "XA datasource fully qualified name.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties$Xa"
+    },
+    {
+      "name": "spring.datasource.xa.properties",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Properties to pass to the XA data source.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.DataSourceProperties$Xa"
+    },
+    {
+      "name": "spring.jdbc.template.fetch-size",
+      "type": "java.lang.Integer",
+      "description": "Number of rows that should be fetched from the database when more rows are needed. Use -1 to use the JDBC driver's default configuration.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.JdbcProperties$Template",
+      "defaultValue": -1
+    },
+    {
+      "name": "spring.jdbc.template.ignore-warnings",
+      "type": "java.lang.Boolean",
+      "description": "Whether to ignore JDBC statement warnings (SQLWarning). When set to false, throw an SQLWarningException instead.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.JdbcProperties$Template",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.jdbc.template.max-rows",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of rows. Use -1 to use the JDBC driver's default configuration.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.JdbcProperties$Template",
+      "defaultValue": -1
+    },
+    {
+      "name": "spring.jdbc.template.query-timeout",
+      "type": "java.time.Duration",
+      "description": "Query timeout. Default is to use the JDBC driver's default configuration. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.JdbcProperties$Template"
+    },
+    {
+      "name": "spring.jdbc.template.results-map-case-insensitive",
+      "type": "java.lang.Boolean",
+      "description": "Whether execution of a CallableStatement will return the results in a Map that uses case-insensitive names for the parameters.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.JdbcProperties$Template",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.jdbc.template.skip-results-processing",
+      "type": "java.lang.Boolean",
+      "description": "Whether results processing should be skipped. Can be used to optimize callable statement processing when we know that no results are being passed back.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.JdbcProperties$Template",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.jdbc.template.skip-undeclared-results",
+      "type": "java.lang.Boolean",
+      "description": "Whether undeclared results should be skipped.",
+      "sourceType": "org.springframework.boot.jdbc.autoconfigure.JdbcProperties$Template",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.datasource.continue-on-error",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.sql.init.continue-on-error",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.datasource.data",
+      "type": "java.util.List<java.lang.String>",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.sql.init.data-locations",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.datasource.data-password",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.sql.init.password",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.datasource.data-username",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.sql.init.username",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.datasource.dbcp2.default-query-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "spring.datasource.dbcp2.enable-auto-commit-on-return",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "spring.datasource.dbcp2.max-conn-lifetime-millis",
+      "type": "java.lang.Long",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "spring.datasource.dbcp2.max-wait-millis",
+      "type": "java.lang.Long",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "spring.datasource.dbcp2.min-evictable-idle-time-millis",
+      "type": "java.lang.Long",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "spring.datasource.dbcp2.remove-abandoned-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "spring.datasource.dbcp2.soft-min-evictable-idle-time-millis",
+      "type": "java.lang.Long",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "spring.datasource.dbcp2.time-between-eviction-runs-millis",
+      "type": "java.lang.Long",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "spring.datasource.dbcp2.validation-query-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "org.apache.commons.dbcp2.BasicDataSource",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "spring.datasource.initialization-mode",
+      "type": "org.springframework.boot.sql.init.DatabaseInitializationMode",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.sql.init.mode",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.datasource.jmx-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable JMX support (if provided by the underlying pool).",
+      "defaultValue": false,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.datasource.tomcat.jmx-enabled",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "spring.datasource.oracleucp.connection-wait-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "oracle.ucp.jdbc.PoolDataSourceImpl",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "spring.datasource.platform",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.sql.init.platform",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.datasource.schema",
+      "type": "java.util.List<java.lang.String>",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.sql.init.schema-locations",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.datasource.schema-password",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.sql.init.password",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.datasource.schema-username",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.sql.init.username",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.datasource.separator",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.sql.init.separator",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.datasource.sql-script-encoding",
+      "type": "java.nio.charset.Charset",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.sql.init.encoding",
+        "since": "2.5.0"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.datasource.connection-fetch",
+      "values": [
+        {
+          "value": "eager",
+          "description": "Fetch JDBC connections directly."
+        },
+        {
+          "value": "lazy",
+          "description": "Fetch JDBC connections as late as possible, or not at all if no statement is executed."
+        }
+      ]
+    },
+    {
+      "name": "spring.datasource.data",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "java.util.List<org.springframework.core.io.Resource>"
+          }
+        }
+      ]
+    },
+    {
+      "name": "spring.datasource.driver-class-name",
+      "providers": [
+        {
+          "name": "class-reference",
+          "parameters": {
+            "target": "java.sql.Driver"
+          }
+        }
+      ]
+    },
+    {
+      "name": "spring.datasource.schema",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "java.util.List<org.springframework.core.io.Resource>"
+          }
+        }
+      ]
+    },
+    {
+      "name": "spring.datasource.xa.data-source-class-name",
+      "providers": [
+        {
+          "name": "class-reference",
+          "parameters": {
+            "target": "javax.sql.XADataSource"
+          }
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": [
+      {
+        "name": "spring.datasource.dbcp2.driver"
+      },
+      {
+        "name": "spring.datasource.hikari.credentials"
+      },
+      {
+        "name": "spring.datasource.hikari.credentials-provider"
+      },
+      {
+        "name": "spring.datasource.hikari.exception-override"
+      },
+      {
+        "name": "spring.datasource.hikari.metrics-tracker-factory"
+      },
+      {
+        "name": "spring.datasource.hikari.scheduled-executor"
+      },
+      {
+        "name": "spring.datasource.oracleucp.connection-wait-duration-in-millis"
+      },
+      {
+        "name": "spring.datasource.oracleucp.hostname-resolver"
+      }
+    ]
+  }
+}

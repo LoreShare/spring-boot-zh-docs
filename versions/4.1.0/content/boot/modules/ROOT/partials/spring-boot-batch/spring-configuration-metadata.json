@@ -1,0 +1,34 @@
+{
+  "groups": [
+    {
+      "name": "spring.batch",
+      "type": "org.springframework.boot.batch.autoconfigure.BatchProperties",
+      "sourceType": "org.springframework.boot.batch.autoconfigure.BatchProperties"
+    },
+    {
+      "name": "spring.batch.job",
+      "type": "org.springframework.boot.batch.autoconfigure.BatchProperties$Job",
+      "sourceType": "org.springframework.boot.batch.autoconfigure.BatchProperties",
+      "sourceMethod": "getJob()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.batch.job.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to execute a Spring Batch job on startup. When multiple jobs are present in the context, set spring.batch.job.name to identify the job to execute.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.batch.job.name",
+      "type": "java.lang.String",
+      "description": "Job name to execute on startup. Must be specified if multiple Jobs are found in the context.",
+      "sourceType": "org.springframework.boot.batch.autoconfigure.BatchProperties$Job",
+      "defaultValue": ""
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

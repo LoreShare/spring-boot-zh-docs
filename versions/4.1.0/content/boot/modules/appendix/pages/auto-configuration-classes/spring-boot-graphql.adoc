@@ -1,0 +1,45 @@
+[[appendix.auto-configuration-classes.spring-boot-graphql]]
+= spring-boot-graphql
+
+以下 auto-configuration 类来自 `spring-boot-graphql` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/GraphQlAutoConfiguration.java[`GraphQlAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/GraphQlAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/observation/GraphQlObservationAutoConfiguration.java[`GraphQlObservationAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/observation/GraphQlObservationAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/data/GraphQlQueryByExampleAutoConfiguration.java[`GraphQlQueryByExampleAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/data/GraphQlQueryByExampleAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/data/GraphQlQuerydslAutoConfiguration.java[`GraphQlQuerydslAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/data/GraphQlQuerydslAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/rsocket/GraphQlRSocketAutoConfiguration.java[`GraphQlRSocketAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/rsocket/GraphQlRSocketAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/data/GraphQlReactiveQueryByExampleAutoConfiguration.java[`GraphQlReactiveQueryByExampleAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/data/GraphQlReactiveQueryByExampleAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/data/GraphQlReactiveQuerydslAutoConfiguration.java[`GraphQlReactiveQuerydslAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/data/GraphQlReactiveQuerydslAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/reactive/GraphQlWebFluxAutoConfiguration.java[`GraphQlWebFluxAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/reactive/GraphQlWebFluxAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/security/GraphQlWebFluxSecurityAutoConfiguration.java[`GraphQlWebFluxSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/security/GraphQlWebFluxSecurityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/servlet/GraphQlWebMvcAutoConfiguration.java[`GraphQlWebMvcAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/servlet/GraphQlWebMvcAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/security/GraphQlWebMvcSecurityAutoConfiguration.java[`GraphQlWebMvcSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/security/GraphQlWebMvcSecurityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-graphql/src/main/java/org/springframework/boot/graphql/autoconfigure/rsocket/RSocketGraphQlClientAutoConfiguration.java[`RSocketGraphQlClientAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/graphql/autoconfigure/rsocket/RSocketGraphQlClientAutoConfiguration.html[javadoc]
+|===

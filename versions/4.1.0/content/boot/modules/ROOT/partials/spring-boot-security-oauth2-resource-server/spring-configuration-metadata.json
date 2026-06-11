@@ -1,0 +1,116 @@
+{
+  "groups": [
+    {
+      "name": "spring.security.oauth2.resourceserver",
+      "type": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt",
+      "type": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Jwt",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties",
+      "sourceMethod": "getJwt()"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.opaquetoken",
+      "type": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Opaquetoken",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties",
+      "sourceMethod": "getOpaquetoken()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt.audiences",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Identifies the recipients that the JWT is intended for.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Jwt"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt.authorities-claim-delimiter",
+      "type": "java.lang.String",
+      "description": "Regex to use for splitting the value of the authorities claim into authorities.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Jwt"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt.authorities-claim-expressions",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of expressions to use to extract authorities from a JWT. Mutually exclusive with 'spring.security.oauth2.resourceserver.jwt.authorities-claim-name' and 'spring.security.oauth2.resourceserver.jwt.authorities-claim-delimiter'.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Jwt"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt.authorities-claim-name",
+      "type": "java.lang.String",
+      "description": "Name of token claim to use for mapping authorities from JWT.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Jwt"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt.authority-prefix",
+      "type": "java.lang.String",
+      "description": "Prefix to use for authorities mapped from JWT.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Jwt"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt.issuer-uri",
+      "type": "java.lang.String",
+      "description": "URI that can either be an OpenID Connect discovery endpoint or an OAuth 2.0 Authorization Server Metadata endpoint defined by RFC 8414.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Jwt"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt.jwk-set-uri",
+      "type": "java.lang.String",
+      "description": "JSON Web Key URI to use to verify the JWT token.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Jwt"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt.jws-algorithms",
+      "type": "java.util.List<java.lang.String>",
+      "description": "JSON Web Algorithms used for verifying the digital signatures.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Jwt",
+      "defaultValue": "RS256"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt.principal-claim-name",
+      "type": "java.lang.String",
+      "description": "JWT principal claim name.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Jwt"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt.public-key-location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the file containing the public key used to verify a JWT.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Jwt"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.opaquetoken.client-id",
+      "type": "java.lang.String",
+      "description": "Client id used to authenticate with the token introspection endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Opaquetoken"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.opaquetoken.client-secret",
+      "type": "java.lang.String",
+      "description": "Client secret used to authenticate with the token introspection endpoint.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Opaquetoken"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.opaquetoken.introspection-uri",
+      "type": "java.lang.String",
+      "description": "OAuth 2.0 endpoint through which token introspection is accomplished.",
+      "sourceType": "org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerProperties$Opaquetoken"
+    },
+    {
+      "name": "spring.security.oauth2.resourceserver.jwt.jws-algorithm",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.security.oauth2.resourceserver.jwt.jws-algorithms",
+        "since": "3.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

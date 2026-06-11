@@ -1,0 +1,101 @@
+{
+  "groups": [
+    {
+      "name": "spring.batch.jdbc",
+      "type": "org.springframework.boot.batch.jdbc.autoconfigure.BatchJdbcProperties",
+      "sourceType": "org.springframework.boot.batch.jdbc.autoconfigure.BatchJdbcProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.batch.jdbc.continue-on-error",
+      "type": "java.lang.Boolean",
+      "description": "Whether initialization should continue when an error occurs when applying a schema script.",
+      "sourceType": "org.springframework.boot.batch.jdbc.autoconfigure.BatchJdbcProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.batch.jdbc.initialize-schema",
+      "type": "org.springframework.boot.sql.init.DatabaseInitializationMode",
+      "description": "Database schema initialization mode.",
+      "sourceType": "org.springframework.boot.batch.jdbc.autoconfigure.BatchJdbcProperties",
+      "defaultValue": "embedded"
+    },
+    {
+      "name": "spring.batch.jdbc.isolation-level-for-create",
+      "type": "org.springframework.transaction.annotation.Isolation",
+      "description": "Transaction isolation level to use when creating job meta-data for new jobs.",
+      "sourceType": "org.springframework.boot.batch.jdbc.autoconfigure.BatchJdbcProperties"
+    },
+    {
+      "name": "spring.batch.jdbc.platform",
+      "type": "java.lang.String",
+      "description": "Platform to use in initialization scripts if the @@platform@@ placeholder is used. Auto-detected by default.",
+      "sourceType": "org.springframework.boot.batch.jdbc.autoconfigure.BatchJdbcProperties"
+    },
+    {
+      "name": "spring.batch.jdbc.schema",
+      "type": "java.lang.String",
+      "description": "Path to the SQL file to use to initialize the database schema.",
+      "sourceType": "org.springframework.boot.batch.jdbc.autoconfigure.BatchJdbcProperties"
+    },
+    {
+      "name": "spring.batch.jdbc.table-prefix",
+      "type": "java.lang.String",
+      "description": "Table prefix for all the batch meta-data tables.",
+      "sourceType": "org.springframework.boot.batch.jdbc.autoconfigure.BatchJdbcProperties"
+    },
+    {
+      "name": "spring.batch.jdbc.validate-transaction-state",
+      "type": "java.lang.Boolean",
+      "description": "Whether to validate the transaction state.",
+      "sourceType": "org.springframework.boot.batch.jdbc.autoconfigure.BatchJdbcProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.batch.initialize-schema",
+      "type": "org.springframework.boot.sql.init.DatabaseInitializationMode",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.batch.jdbc.initialize-schema",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.batch.initializer.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Create the required batch tables on startup if necessary. Enabled automatically\n if no custom table prefix is set or if a custom schema is configured.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.batch.jdbc.initialize-schema",
+        "since": "2.0.0"
+      }
+    },
+    {
+      "name": "spring.batch.schema",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.batch.jdbc.schema",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.batch.table-prefix",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.batch.jdbc.table-prefix",
+        "since": "2.5.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

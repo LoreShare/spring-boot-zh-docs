@@ -1,0 +1,759 @@
+{
+  "groups": [
+    {
+      "name": "spring.rabbitmq",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties"
+    },
+    {
+      "name": "spring.rabbitmq.cache",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Cache",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "sourceMethod": "getCache()"
+    },
+    {
+      "name": "spring.rabbitmq.cache.channel",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Cache$Channel",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Cache",
+      "sourceMethod": "getChannel()"
+    },
+    {
+      "name": "spring.rabbitmq.cache.connection",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Cache$Connection",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Cache",
+      "sourceMethod": "getConnection()"
+    },
+    {
+      "name": "spring.rabbitmq.listener",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Listener",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "sourceMethod": "getListener()"
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Listener",
+      "sourceMethod": "getDirect()"
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.retry",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer",
+      "sourceMethod": "getRetry()"
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Listener",
+      "sourceMethod": "getSimple()"
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.retry",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer",
+      "sourceMethod": "getRetry()"
+    },
+    {
+      "name": "spring.rabbitmq.listener.stream",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$StreamContainer",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Listener",
+      "sourceMethod": "getStream()"
+    },
+    {
+      "name": "spring.rabbitmq.ssl",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "sourceMethod": "getSsl()"
+    },
+    {
+      "name": "spring.rabbitmq.stream",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Stream",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "sourceMethod": "getStream()"
+    },
+    {
+      "name": "spring.rabbitmq.stream.ssl",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Stream$Ssl",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Stream",
+      "sourceMethod": "getSsl()"
+    },
+    {
+      "name": "spring.rabbitmq.template",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Template",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "sourceMethod": "getTemplate()"
+    },
+    {
+      "name": "spring.rabbitmq.template.retry",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Retry",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Template",
+      "sourceMethod": "getRetry()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.health.rabbit.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable RabbitMQ health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rabbitmq.address-shuffle-mode",
+      "type": "org.springframework.amqp.rabbit.connection.AbstractConnectionFactory$AddressShuffleMode",
+      "description": "Mode used to shuffle configured addresses.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "defaultValue": "none"
+    },
+    {
+      "name": "spring.rabbitmq.addresses",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of addresses to which the client should connect. When set, the host and port are ignored.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties"
+    },
+    {
+      "name": "spring.rabbitmq.cache.channel.checkout-timeout",
+      "type": "java.time.Duration",
+      "description": "Duration to wait to obtain a channel if the cache size has been reached. If 0, always create a new channel.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Cache$Channel"
+    },
+    {
+      "name": "spring.rabbitmq.cache.channel.size",
+      "type": "java.lang.Integer",
+      "description": "Number of channels to retain in the cache. When \"check-timeout\" > 0, max channels per connection.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Cache$Channel"
+    },
+    {
+      "name": "spring.rabbitmq.cache.connection.mode",
+      "type": "org.springframework.amqp.rabbit.connection.CachingConnectionFactory$CacheMode",
+      "description": "Connection factory cache mode.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Cache$Connection",
+      "defaultValue": "channel"
+    },
+    {
+      "name": "spring.rabbitmq.cache.connection.size",
+      "type": "java.lang.Integer",
+      "description": "Number of connections to cache. Only applies when mode is CONNECTION.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Cache$Connection"
+    },
+    {
+      "name": "spring.rabbitmq.channel-rpc-timeout",
+      "type": "java.time.Duration",
+      "description": "Continuation timeout for RPC calls in channels. Set it to zero to wait forever.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "defaultValue": "10m"
+    },
+    {
+      "name": "spring.rabbitmq.connection-timeout",
+      "type": "java.time.Duration",
+      "description": "Connection timeout. Set it to zero to wait forever.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties"
+    },
+    {
+      "name": "spring.rabbitmq.dynamic",
+      "type": "java.lang.Boolean",
+      "description": "Whether to create an AmqpAdmin bean.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rabbitmq.host",
+      "type": "java.lang.String",
+      "description": "RabbitMQ host. Ignored if an address is set.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "defaultValue": "localhost"
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.acknowledge-mode",
+      "type": "org.springframework.amqp.core.AcknowledgeMode",
+      "description": "Acknowledge mode of container.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.auto-startup",
+      "type": "java.lang.Boolean",
+      "description": "Whether to start the container automatically on startup.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.consumers-per-queue",
+      "type": "java.lang.Integer",
+      "description": "Number of consumers per queue.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.de-batching-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether the container should present batched messages as discrete messages or call the listener with the batch.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.default-requeue-rejected",
+      "type": "java.lang.Boolean",
+      "description": "Whether rejected deliveries are re-queued by default.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.force-stop",
+      "type": "java.lang.Boolean",
+      "description": "Whether the container (when stopped) should stop immediately after processing the current message or stop after processing all pre-fetched messages.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.idle-event-interval",
+      "type": "java.time.Duration",
+      "description": "How often idle container events should be published.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.missing-queues-fatal",
+      "type": "java.lang.Boolean",
+      "description": "Whether to fail if the queues declared by the container are not available on the broker.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.observation-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable observation.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.prefetch",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of unacknowledged messages that can be outstanding at each consumer.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$DirectContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.retry.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether publishing retries are enabled.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.retry.initial-interval",
+      "type": "java.time.Duration",
+      "description": "Duration between the first and second attempt to deliver a message.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": "1000ms"
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.retry.max-interval",
+      "type": "java.time.Duration",
+      "description": "Maximum duration between attempts.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": "10000ms"
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.retry.max-retries",
+      "type": "java.lang.Long",
+      "description": "Maximum number of retry attempts to deliver a message.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": 3
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.retry.multiplier",
+      "type": "java.lang.Double",
+      "description": "Multiplier to apply to the previous retry interval.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": 1
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.retry.stateless",
+      "type": "java.lang.Boolean",
+      "description": "Whether retries are stateless or stateful.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.acknowledge-mode",
+      "type": "org.springframework.amqp.core.AcknowledgeMode",
+      "description": "Acknowledge mode of container.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.auto-startup",
+      "type": "java.lang.Boolean",
+      "description": "Whether to start the container automatically on startup.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.batch-size",
+      "type": "java.lang.Integer",
+      "description": "Batch size, expressed as the number of physical messages, to be used by the container.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.concurrency",
+      "type": "java.lang.Integer",
+      "description": "Minimum number of listener invoker threads.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.consumer-batch-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether the container creates a batch of messages based on the 'receive-timeout' and 'batch-size'. Coerces 'de-batching-enabled' to true to include the contents of a producer created batch in the batch as discrete records.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.de-batching-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether the container should present batched messages as discrete messages or call the listener with the batch.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.default-requeue-rejected",
+      "type": "java.lang.Boolean",
+      "description": "Whether rejected deliveries are re-queued by default.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.force-stop",
+      "type": "java.lang.Boolean",
+      "description": "Whether the container (when stopped) should stop immediately after processing the current message or stop after processing all pre-fetched messages.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.idle-event-interval",
+      "type": "java.time.Duration",
+      "description": "How often idle container events should be published.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.max-concurrency",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of listener invoker threads.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.missing-queues-fatal",
+      "type": "java.lang.Boolean",
+      "description": "Whether to fail if the queues declared by the container are not available on the broker and\/or whether to stop the container if one or more queues are deleted at runtime.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.observation-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable observation.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.prefetch",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of unacknowledged messages that can be outstanding at each consumer.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$SimpleContainer"
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.retry.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether publishing retries are enabled.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.retry.initial-interval",
+      "type": "java.time.Duration",
+      "description": "Duration between the first and second attempt to deliver a message.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": "1000ms"
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.retry.max-interval",
+      "type": "java.time.Duration",
+      "description": "Maximum duration between attempts.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": "10000ms"
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.retry.max-retries",
+      "type": "java.lang.Long",
+      "description": "Maximum number of retry attempts to deliver a message.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": 3
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.retry.multiplier",
+      "type": "java.lang.Double",
+      "description": "Multiplier to apply to the previous retry interval.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": 1
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.retry.stateless",
+      "type": "java.lang.Boolean",
+      "description": "Whether retries are stateless or stateful.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ListenerRetry",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rabbitmq.listener.stream.native-listener",
+      "type": "java.lang.Boolean",
+      "description": "Whether the container will support listeners that consume native stream messages instead of Spring AMQP messages.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$StreamContainer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.listener.stream.observation-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable observation.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$StreamContainer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.listener.type",
+      "type": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$ContainerType",
+      "description": "Listener container type.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Listener",
+      "defaultValue": "simple"
+    },
+    {
+      "name": "spring.rabbitmq.max-inbound-message-body-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum size of the body of inbound (received) messages.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "defaultValue": "64MB"
+    },
+    {
+      "name": "spring.rabbitmq.password",
+      "type": "java.lang.String",
+      "description": "Login to authenticate against the broker.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "defaultValue": "guest"
+    },
+    {
+      "name": "spring.rabbitmq.port",
+      "type": "java.lang.Integer",
+      "description": "RabbitMQ port. Ignored if an address is set. Default to 5672, or 5671 if SSL is enabled.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties"
+    },
+    {
+      "name": "spring.rabbitmq.publisher-confirm-type",
+      "type": "org.springframework.amqp.rabbit.connection.CachingConnectionFactory$ConfirmType",
+      "description": "Type of publisher confirms to use.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties"
+    },
+    {
+      "name": "spring.rabbitmq.publisher-returns",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable publisher returns.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.requested-channel-max",
+      "type": "java.lang.Integer",
+      "description": "Number of channels per connection requested by the client. Use 0 for unlimited.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "defaultValue": 2047
+    },
+    {
+      "name": "spring.rabbitmq.requested-heartbeat",
+      "type": "java.time.Duration",
+      "description": "Requested heartbeat timeout; zero for none. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.algorithm",
+      "type": "java.lang.String",
+      "description": "SSL algorithm to use. By default, configured by the Rabbit client library.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle name.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support. Determined automatically if an address is provided with the protocol (amqp:\/\/ vs. amqps:\/\/).",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.key-store",
+      "type": "java.lang.String",
+      "description": "Path to the key store that holds the SSL certificate.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.key-store-algorithm",
+      "type": "java.lang.String",
+      "description": "Key store algorithm.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl",
+      "defaultValue": "SunX509"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.key-store-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the key store.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.key-store-type",
+      "type": "java.lang.String",
+      "description": "Key store type.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl",
+      "defaultValue": "PKCS12"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.trust-store",
+      "type": "java.lang.String",
+      "description": "Trust store that holds SSL certificates.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.trust-store-algorithm",
+      "type": "java.lang.String",
+      "description": "Trust store algorithm.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl",
+      "defaultValue": "SunX509"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.trust-store-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the trust store.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.trust-store-type",
+      "type": "java.lang.String",
+      "description": "Trust store type.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl",
+      "defaultValue": "JKS"
+    },
+    {
+      "name": "spring.rabbitmq.ssl.validate-server-certificate",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable server side certificate validation.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rabbitmq.ssl.verify-hostname",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable hostname verification.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Ssl",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.rabbitmq.stream.host",
+      "type": "java.lang.String",
+      "description": "Host of a RabbitMQ instance with the Stream plugin enabled.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Stream",
+      "defaultValue": "localhost"
+    },
+    {
+      "name": "spring.rabbitmq.stream.name",
+      "type": "java.lang.String",
+      "description": "Name of the stream.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Stream"
+    },
+    {
+      "name": "spring.rabbitmq.stream.password",
+      "type": "java.lang.String",
+      "description": "Login password to authenticate to the broker. When not set spring.rabbitmq.password is used.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Stream"
+    },
+    {
+      "name": "spring.rabbitmq.stream.port",
+      "type": "java.lang.Integer",
+      "description": "Stream port of a RabbitMQ instance with the Stream plugin enabled.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Stream"
+    },
+    {
+      "name": "spring.rabbitmq.stream.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle name.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Stream$Ssl"
+    },
+    {
+      "name": "spring.rabbitmq.stream.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support. Enabled automatically if \"bundle\" is provided.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Stream$Ssl"
+    },
+    {
+      "name": "spring.rabbitmq.stream.username",
+      "type": "java.lang.String",
+      "description": "Login user to authenticate to the broker. When not set, spring.rabbitmq.username is used.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Stream"
+    },
+    {
+      "name": "spring.rabbitmq.stream.virtual-host",
+      "type": "java.lang.String",
+      "description": "Virtual host of a RabbitMQ instance with the Stream plugin enabled. When not set, spring.rabbitmq.virtual-host is used.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Stream"
+    },
+    {
+      "name": "spring.rabbitmq.template.allowed-list-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Simple patterns for allowable packages\/classes for deserialization.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Template"
+    },
+    {
+      "name": "spring.rabbitmq.template.default-receive-queue",
+      "type": "java.lang.String",
+      "description": "Name of the default queue to receive messages from when none is specified explicitly.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Template"
+    },
+    {
+      "name": "spring.rabbitmq.template.exchange",
+      "type": "java.lang.String",
+      "description": "Name of the default exchange to use for send operations.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Template",
+      "defaultValue": ""
+    },
+    {
+      "name": "spring.rabbitmq.template.mandatory",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable mandatory messages.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Template"
+    },
+    {
+      "name": "spring.rabbitmq.template.observation-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable observation.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Template",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.template.receive-timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout for receive() operations.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Template"
+    },
+    {
+      "name": "spring.rabbitmq.template.reply-timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout for sendAndReceive() operations.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Template"
+    },
+    {
+      "name": "spring.rabbitmq.template.retry.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether publishing retries are enabled.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Retry",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.rabbitmq.template.retry.initial-interval",
+      "type": "java.time.Duration",
+      "description": "Duration between the first and second attempt to deliver a message.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Retry",
+      "defaultValue": "1000ms"
+    },
+    {
+      "name": "spring.rabbitmq.template.retry.max-interval",
+      "type": "java.time.Duration",
+      "description": "Maximum duration between attempts.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Retry",
+      "defaultValue": "10000ms"
+    },
+    {
+      "name": "spring.rabbitmq.template.retry.max-retries",
+      "type": "java.lang.Long",
+      "description": "Maximum number of retry attempts to deliver a message.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Retry",
+      "defaultValue": 3
+    },
+    {
+      "name": "spring.rabbitmq.template.retry.multiplier",
+      "type": "java.lang.Double",
+      "description": "Multiplier to apply to the previous retry interval.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Retry",
+      "defaultValue": 1
+    },
+    {
+      "name": "spring.rabbitmq.template.routing-key",
+      "type": "java.lang.String",
+      "description": "Value of a default routing key to use for send operations.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties$Template",
+      "defaultValue": ""
+    },
+    {
+      "name": "spring.rabbitmq.username",
+      "type": "java.lang.String",
+      "description": "Login user to authenticate to the broker.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties",
+      "defaultValue": "guest"
+    },
+    {
+      "name": "spring.rabbitmq.virtual-host",
+      "type": "java.lang.String",
+      "description": "Virtual host to use when connecting to the broker.",
+      "sourceType": "org.springframework.boot.amqp.autoconfigure.RabbitProperties"
+    },
+    {
+      "name": "spring.rabbitmq.listener.direct.retry.max-attempts",
+      "type": "java.lang.Long",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.rabbitmq.listener.direct.retry.max-retries",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.retry.max-attempts",
+      "type": "java.lang.Long",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.rabbitmq.listener.simple.retry.max-retries",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.rabbitmq.listener.simple.transaction-size",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "spring.rabbitmq.publisher-confirms",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "spring.rabbitmq.template.queue",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.rabbitmq.template.default-receive-queue",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "spring.rabbitmq.template.retry.max-attempts",
+      "type": "java.lang.Long",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.rabbitmq.template.retry.max-retries",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

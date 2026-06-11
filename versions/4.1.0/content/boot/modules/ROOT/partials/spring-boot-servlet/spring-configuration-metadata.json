@@ -1,0 +1,181 @@
+{
+  "groups": [
+    {
+      "name": "spring.servlet.encoding",
+      "type": "org.springframework.boot.servlet.autoconfigure.ServletEncodingProperties",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.ServletEncodingProperties"
+    },
+    {
+      "name": "spring.servlet.multipart",
+      "type": "org.springframework.boot.servlet.autoconfigure.MultipartProperties",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.MultipartProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.servlet.encoding.charset",
+      "type": "java.nio.charset.Charset",
+      "description": "Charset of HTTP requests and responses. Added to the \"Content-Type\" header if not set explicitly.",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.ServletEncodingProperties",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.servlet.encoding.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Servlet HTTP encoding support.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.servlet.encoding.force",
+      "type": "java.lang.Boolean",
+      "description": "Whether to force the encoding to the configured charset on HTTP requests and responses.",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.ServletEncodingProperties"
+    },
+    {
+      "name": "spring.servlet.encoding.force-request",
+      "type": "java.lang.Boolean",
+      "description": "Whether to force the encoding to the configured charset on HTTP requests. Defaults to true when \"force\" has not been specified.",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.ServletEncodingProperties"
+    },
+    {
+      "name": "spring.servlet.encoding.force-response",
+      "type": "java.lang.Boolean",
+      "description": "Whether to force the encoding to the configured charset on HTTP responses.",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.ServletEncodingProperties"
+    },
+    {
+      "name": "spring.servlet.multipart.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable support of multipart uploads.",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.MultipartProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.servlet.multipart.file-size-threshold",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Threshold after which files are written to disk.",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.MultipartProperties",
+      "defaultValue": "0B"
+    },
+    {
+      "name": "spring.servlet.multipart.location",
+      "type": "java.lang.String",
+      "description": "Intermediate location of uploaded files.",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.MultipartProperties"
+    },
+    {
+      "name": "spring.servlet.multipart.max-file-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Max file size.",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.MultipartProperties",
+      "defaultValue": "1MB"
+    },
+    {
+      "name": "spring.servlet.multipart.max-request-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Max request size.",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.MultipartProperties",
+      "defaultValue": "10MB"
+    },
+    {
+      "name": "spring.servlet.multipart.resolve-lazily",
+      "type": "java.lang.Boolean",
+      "description": "Whether to resolve the multipart request lazily at the time of file or parameter access.",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.MultipartProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.servlet.multipart.strict-servlet-compliance",
+      "type": "java.lang.Boolean",
+      "description": "Whether to resolve the multipart request strictly complying with the Servlet specification, only to be used for \"multipart\/form-data\" requests.",
+      "sourceType": "org.springframework.boot.servlet.autoconfigure.MultipartProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.http.encoding.charset",
+      "type": "java.nio.charset.Charset",
+      "description": "Charset of HTTP requests and responses. Added to the Content-Type header if not set explicitly.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.servlet.encoding.charset",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.http.encoding.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable http encoding support.",
+      "defaultValue": true,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.servlet.encoding.enabled",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.http.encoding.force",
+      "type": "java.lang.Boolean",
+      "description": "Whether to force the encoding to the configured charset on HTTP requests and responses.",
+      "defaultValue": false,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.servlet.encoding.force",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.http.encoding.force-request",
+      "type": "java.lang.Boolean",
+      "description": "Whether to force the encoding to the configured charset on HTTP requests. Defaults to true when force has not been specified.",
+      "defaultValue": true,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.servlet.encoding.force-request",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.http.encoding.force-response",
+      "type": "java.lang.Boolean",
+      "description": "Whether to force the encoding to the configured charset on HTTP responses.",
+      "defaultValue": false,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.servlet.encoding.force-response",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.http.encoding.mapping",
+      "type": "java.util.Map<java.util.Locale,java.nio.charset.Charset>",
+      "description": "Locale in which to encode mapping.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.servlet.encoding.mapping",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.http.log-request-details",
+      "type": "java.lang.Boolean",
+      "description": "Whether logging of (potentially sensitive) request details at DEBUG and TRACE level is allowed.",
+      "defaultValue": false,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.mvc.log-request-details",
+        "since": "2.3.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

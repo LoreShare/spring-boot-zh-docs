@@ -1,0 +1,104 @@
+{
+  "groups": [
+    {
+      "name": "spring.mail",
+      "type": "org.springframework.boot.mail.autoconfigure.MailProperties",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties"
+    },
+    {
+      "name": "spring.mail.ssl",
+      "type": "org.springframework.boot.mail.autoconfigure.MailProperties$Ssl",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties",
+      "sourceMethod": "getSsl()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.health.mail.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Mail health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.mail.default-encoding",
+      "type": "java.nio.charset.Charset",
+      "description": "Default MimeMessage encoding.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.mail.host",
+      "type": "java.lang.String",
+      "description": "SMTP server host. For instance, 'smtp.example.com'.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties"
+    },
+    {
+      "name": "spring.mail.jndi-name",
+      "type": "java.lang.String",
+      "description": "Session JNDI name. When set, takes precedence over other Session settings.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties"
+    },
+    {
+      "name": "spring.mail.password",
+      "type": "java.lang.String",
+      "description": "Login password of the SMTP server.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties"
+    },
+    {
+      "name": "spring.mail.port",
+      "type": "java.lang.Integer",
+      "description": "SMTP server port.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties"
+    },
+    {
+      "name": "spring.mail.properties",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Additional JavaMail Session properties.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties"
+    },
+    {
+      "name": "spring.mail.protocol",
+      "type": "java.lang.String",
+      "description": "Protocol used by the SMTP server.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties",
+      "defaultValue": "smtp"
+    },
+    {
+      "name": "spring.mail.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle name. If set, 'mail.(protocol).ssl.socketFactory' property is set to an SSLSocketFactory obtained from the corresponding SSL bundle. <p> Note that the STARTTLS command can use the corresponding SSLSocketFactory, even if the 'mail.(protocol).ssl.enable' property is not set.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties$Ssl"
+    },
+    {
+      "name": "spring.mail.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support. If enabled, 'mail.(protocol).ssl.enable' property is set to 'true'.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties$Ssl",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.mail.ssl.verify-hostname",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable hostname verification.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties$Ssl",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.mail.test-connection",
+      "type": "java.lang.Boolean",
+      "description": "Whether to test that the mail server is available on startup.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailSenderValidatorAutoConfiguration",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.mail.username",
+      "type": "java.lang.String",
+      "description": "Login user of the SMTP server.",
+      "sourceType": "org.springframework.boot.mail.autoconfigure.MailProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

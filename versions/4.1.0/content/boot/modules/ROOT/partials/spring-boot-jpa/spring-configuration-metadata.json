@@ -1,0 +1,67 @@
+{
+  "groups": [
+    {
+      "name": "spring.jpa",
+      "type": "org.springframework.boot.jpa.autoconfigure.JpaProperties",
+      "sourceType": "org.springframework.boot.jpa.autoconfigure.JpaProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.jpa.bootstrap",
+      "type": "org.springframework.boot.jpa.autoconfigure.JpaProperties$Bootstrap",
+      "description": "Bootstrap method to use.",
+      "sourceType": "org.springframework.boot.jpa.autoconfigure.JpaProperties",
+      "defaultValue": "default"
+    },
+    {
+      "name": "spring.jpa.database",
+      "type": "org.springframework.orm.jpa.vendor.Database",
+      "description": "Target database to operate on, auto-detected by default. Can be alternatively set using the \"databasePlatform\" property.",
+      "sourceType": "org.springframework.boot.jpa.autoconfigure.JpaProperties"
+    },
+    {
+      "name": "spring.jpa.database-platform",
+      "type": "java.lang.String",
+      "description": "Name of the target database to operate on, auto-detected by default. Can be alternatively set using the \"Database\" enum.",
+      "sourceType": "org.springframework.boot.jpa.autoconfigure.JpaProperties"
+    },
+    {
+      "name": "spring.jpa.generate-ddl",
+      "type": "java.lang.Boolean",
+      "description": "Whether to initialize the schema on startup.",
+      "sourceType": "org.springframework.boot.jpa.autoconfigure.JpaProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.jpa.mapping-resources",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Mapping resources (equivalent to \"mapping-file\" entries in persistence.xml).",
+      "sourceType": "org.springframework.boot.jpa.autoconfigure.JpaProperties"
+    },
+    {
+      "name": "spring.jpa.open-in-view",
+      "type": "java.lang.Boolean",
+      "description": "Register OpenEntityManagerInViewInterceptor. Binds a JPA EntityManager to the thread for the entire processing of the request.",
+      "sourceType": "org.springframework.boot.jpa.autoconfigure.JpaProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.jpa.properties",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Additional native properties to set on the JPA provider.",
+      "sourceType": "org.springframework.boot.jpa.autoconfigure.JpaProperties"
+    },
+    {
+      "name": "spring.jpa.show-sql",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable logging of SQL statements.",
+      "sourceType": "org.springframework.boot.jpa.autoconfigure.JpaProperties",
+      "defaultValue": false
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

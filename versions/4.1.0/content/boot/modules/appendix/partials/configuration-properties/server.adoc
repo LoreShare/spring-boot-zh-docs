@@ -1,1 +1,572 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.server]]
+== 服务器属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.server.server.address]]xref:#application-properties.server.server.address[`+server.address+`]
+|+++服务器应绑定的网络地址。+++
+|
+
+|[[application-properties.server.server.compression.additional-mime-types]]xref:#application-properties.server.server.compression.additional-mime-types[`+server.compression.additional-mime-types+`]
+|+++应压缩的额外 MIME 类型列表，以逗号分隔。+++
+|`+[]+`
+
+|[[application-properties.server.server.compression.enabled]]xref:#application-properties.server.server.compression.enabled[`+server.compression.enabled+`]
+|+++是否启用响应压缩。+++
+|`+false+`
+
+|[[application-properties.server.server.compression.excluded-user-agents]]xref:#application-properties.server.server.compression.excluded-user-agents[`+server.compression.excluded-user-agents+`]
+|+++不应压缩响应的用户代理列表，以逗号分隔。+++
+|
+
+|[[application-properties.server.server.compression.mime-types]]xref:#application-properties.server.server.compression.mime-types[`+server.compression.mime-types+`]
+|+++应压缩的 MIME 类型列表，以逗号分隔。+++
+|`+[text/html, text/xml, text/plain, text/css, text/javascript, application/javascript, application/json, application/xml]+`
+
+|[[application-properties.server.server.compression.min-response-size]]xref:#application-properties.server.server.compression.min-response-size[`+server.compression.min-response-size+`]
+|+++执行压缩所需的最小“Content-Length”值。+++
+|`+2KB+`
+
+|[[application-properties.server.server.forward-headers-strategy]]xref:#application-properties.server.server.forward-headers-strategy[`+server.forward-headers-strategy+`]
+|+++处理 X-Forwarded-* 头的策略。+++
+|
+
+|[[application-properties.server.server.http2.enabled]]xref:#application-properties.server.server.http2.enabled[`+server.http2.enabled+`]
+|+++如果当前环境支持，是否启用 HTTP/2 支持。+++
+|`+false+`
+
+|[[application-properties.server.server.jetty.accesslog.append]]xref:#application-properties.server.server.jetty.accesslog.append[`+server.jetty.accesslog.append+`]
+|+++追加到日志。+++
+|`+false+`
+
+|[[application-properties.server.server.jetty.accesslog.custom-format]]xref:#application-properties.server.server.jetty.accesslog.custom-format[`+server.jetty.accesslog.custom-format+`]
+|+++自定义日志格式，参见 org.eclipse.jetty.server.CustomRequestLog。如果定义，则覆盖“format”配置键。+++
+|
+
+|[[application-properties.server.server.jetty.accesslog.enabled]]xref:#application-properties.server.server.jetty.accesslog.enabled[`+server.jetty.accesslog.enabled+`]
+|+++启用访问日志。+++
+|`+false+`
+
+|[[application-properties.server.server.jetty.accesslog.file-date-format]]xref:#application-properties.server.server.jetty.accesslog.file-date-format[`+server.jetty.accesslog.file-date-format+`]
+|+++日志文件名中的日期格式。+++
+|
+
+|[[application-properties.server.server.jetty.accesslog.filename]]xref:#application-properties.server.server.jetty.accesslog.filename[`+server.jetty.accesslog.filename+`]
+|+++日志文件名。如果未指定，日志重定向到“System.err”。+++
+|
+
+|[[application-properties.server.server.jetty.accesslog.format]]xref:#application-properties.server.server.jetty.accesslog.format[`+server.jetty.accesslog.format+`]
+|+++日志格式。+++
+|
+
+|[[application-properties.server.server.jetty.accesslog.ignore-paths]]xref:#application-properties.server.server.jetty.accesslog.ignore-paths[`+server.jetty.accesslog.ignore-paths+`]
+|+++不应记录的请求路径。+++
+|
+
+|[[application-properties.server.server.jetty.accesslog.retention-period]]xref:#application-properties.server.server.jetty.accesslog.retention-period[`+server.jetty.accesslog.retention-period+`]
+|+++轮转日志文件删除前的天数。+++
+|`+31+`
+
+|[[application-properties.server.server.jetty.connection-idle-timeout]]xref:#application-properties.server.server.jetty.connection-idle-timeout[`+server.jetty.connection-idle-timeout+`]
+|+++连接在关闭前可以空闲的时间。+++
+|
+
+|[[application-properties.server.server.jetty.max-connections]]xref:#application-properties.server.server.jetty.max-connections[`+server.jetty.max-connections+`]
+|+++服务器在任何给定时间接受和处理的最大连接数。+++
+|`+-1+`
+
+|[[application-properties.server.server.jetty.max-form-keys]]xref:#application-properties.server.server.jetty.max-form-keys[`+server.jetty.max-form-keys+`]
+|+++最大表单键数。+++
+|`+1000+`
+
+|[[application-properties.server.server.jetty.max-http-form-post-size]]xref:#application-properties.server.server.jetty.max-http-form-post-size[`+server.jetty.max-http-form-post-size+`]
+|+++任何 HTTP POST 请求中表单内容的最大大小。+++
+|`+200000B+`
+
+|[[application-properties.server.server.jetty.max-http-response-header-size]]xref:#application-properties.server.server.jetty.max-http-response-header-size[`+server.jetty.max-http-response-header-size+`]
+|+++HTTP 响应头的最大大小。+++
+|`+16KB+`
+
+|[[application-properties.server.server.jetty.threads.acceptors]]xref:#application-properties.server.server.jetty.threads.acceptors[`+server.jetty.threads.acceptors+`]
+|+++要使用的 acceptor 线程数。当值为 -1（默认值）时，acceptor 数量由运行环境决定。+++
+|`+-1+`
+
+|[[application-properties.server.server.jetty.threads.idle-timeout]]xref:#application-properties.server.server.jetty.threads.idle-timeout[`+server.jetty.threads.idle-timeout+`]
+|+++最大线程空闲时间。+++
+|`+60000ms+`
+
+|[[application-properties.server.server.jetty.threads.max]]xref:#application-properties.server.server.jetty.threads.max[`+server.jetty.threads.max+`]
+|+++最大线程数。+++
+|`+200+`
+
+|[[application-properties.server.server.jetty.threads.max-queue-capacity]]xref:#application-properties.server.server.jetty.threads.max-queue-capacity[`+server.jetty.threads.max-queue-capacity+`]
+|+++线程池后备队列的最大容量。默认值根据线程配置计算得出。+++
+|
+
+|[[application-properties.server.server.jetty.threads.min]]xref:#application-properties.server.server.jetty.threads.min[`+server.jetty.threads.min+`]
+|+++最小线程数。如果启用了虚拟线程，则此设置无效。+++
+|`+8+`
+
+|[[application-properties.server.server.jetty.threads.selectors]]xref:#application-properties.server.server.jetty.threads.selectors[`+server.jetty.threads.selectors+`]
+|+++要使用的 selector 线程数。当值为 -1（默认值）时，selector 数量由运行环境决定。+++
+|`+-1+`
+
+|[[application-properties.server.server.max-http-request-header-size]]xref:#application-properties.server.server.max-http-request-header-size[`+server.max-http-request-header-size+`]
+|+++HTTP 请求头的最大大小。有关此限制具体如何应用的详细信息，请参阅所选嵌入式服务器的文档。例如，Netty 对请求中的每个单独头部分别应用限制，而 Tomcat 则对请求行和请求中所有头部名称和值的组合大小应用限制。+++
+|`+8KB+`
+
+|[[application-properties.server.server.netty.connection-timeout]]xref:#application-properties.server.server.netty.connection-timeout[`+server.netty.connection-timeout+`]
+|+++Netty 通道的连接超时。+++
+|
+
+|[[application-properties.server.server.netty.h2c-max-content-length]]xref:#application-properties.server.server.netty.h2c-max-content-length[`+server.netty.h2c-max-content-length+`]
+|+++H2C 升级请求的最大内容长度。+++
+|`+0B+`
+
+|[[application-properties.server.server.netty.idle-timeout]]xref:#application-properties.server.server.netty.idle-timeout[`+server.netty.idle-timeout+`]
+|+++Netty 通道的空闲超时。如果未指定，则使用无限超时。+++
+|
+
+|[[application-properties.server.server.netty.initial-buffer-size]]xref:#application-properties.server.server.netty.initial-buffer-size[`+server.netty.initial-buffer-size+`]
+|+++HTTP 请求解码的初始缓冲区大小。+++
+|`+128B+`
+
+|[[application-properties.server.server.netty.max-initial-line-length]]xref:#application-properties.server.server.netty.max-initial-line-length[`+server.netty.max-initial-line-length+`]
+|+++HTTP 请求初始行可解码的最大长度。+++
+|`+4KB+`
+
+|[[application-properties.server.server.netty.max-keep-alive-requests]]xref:#application-properties.server.server.netty.max-keep-alive-requests[`+server.netty.max-keep-alive-requests+`]
+|+++每个连接可发出的最大请求数。默认情况下，一个连接可服务无限数量的请求。+++
+|
+
+|[[application-properties.server.server.netty.validate-headers]]xref:#application-properties.server.server.netty.validate-headers[`+server.netty.validate-headers+`]
+|+++解码请求时是否验证头部。+++
+|`+true+`
+
+|[[application-properties.server.server.port]]xref:#application-properties.server.server.port[`+server.port+`]
+|+++服务器 HTTP 端口。+++
+|`+8080+`
+
+|[[application-properties.server.server.reactive.session.cookie.domain]]xref:#application-properties.server.server.reactive.session.cookie.domain[`+server.reactive.session.cookie.domain+`]
+|+++Cookie 的域。+++
+|
+
+|[[application-properties.server.server.reactive.session.cookie.http-only]]xref:#application-properties.server.server.reactive.session.cookie.http-only[`+server.reactive.session.cookie.http-only+`]
+|+++是否对 Cookie 使用“HttpOnly”。+++
+|
+
+|[[application-properties.server.server.reactive.session.cookie.max-age]]xref:#application-properties.server.server.reactive.session.cookie.max-age[`+server.reactive.session.cookie.max-age+`]
+|+++Cookie 的最大年龄。如果未指定持续时间后缀，则使用秒。正值表示 Cookie 相对于当前时间的过期时间。0 表示 Cookie 应立即过期。负值表示没有“Max-Age”。+++
+|
+
+|[[application-properties.server.server.reactive.session.cookie.name]]xref:#application-properties.server.server.reactive.session.cookie.name[`+server.reactive.session.cookie.name+`]
+|+++Cookie 的名称。+++
+|
+
+|[[application-properties.server.server.reactive.session.cookie.partitioned]]xref:#application-properties.server.server.reactive.session.cookie.partitioned[`+server.reactive.session.cookie.partitioned+`]
+|+++生成的 Cookie 是否携带 Partitioned 属性。+++
+|
+
+|[[application-properties.server.server.reactive.session.cookie.path]]xref:#application-properties.server.server.reactive.session.cookie.path[`+server.reactive.session.cookie.path+`]
+|+++Cookie 的路径。+++
+|
+
+|[[application-properties.server.server.reactive.session.cookie.same-site]]xref:#application-properties.server.server.reactive.session.cookie.same-site[`+server.reactive.session.cookie.same-site+`]
+|+++Cookie 的 SameSite 设置。+++
+|
+
+|[[application-properties.server.server.reactive.session.cookie.secure]]xref:#application-properties.server.server.reactive.session.cookie.secure[`+server.reactive.session.cookie.secure+`]
+|+++是否始终将 Cookie 标记为安全。+++
+|
+
+|[[application-properties.server.server.reactive.session.max-sessions]]xref:#application-properties.server.server.reactive.session.max-sessions[`+server.reactive.session.max-sessions+`]
+|+++可存储的最大会话数。+++
+|`+10000+`
+
+|[[application-properties.server.server.reactive.session.timeout]]xref:#application-properties.server.server.reactive.session.timeout[`+server.reactive.session.timeout+`]
+|+++会话超时时间。如果未指定持续时间后缀，则使用秒。+++
+|`+30m+`
+
+|[[application-properties.server.server.server-header]]xref:#application-properties.server.server.server-header[`+server.server-header+`]
+|+++用于服务器响应头的值（如果为空，则不发送任何头）。+++
+|
+
+|[[application-properties.server.server.servlet.application-display-name]]xref:#application-properties.server.server.servlet.application-display-name[`+server.servlet.application-display-name+`]
+|+++应用程序的显示名称。+++
+|`+application+`
+
+|[[application-properties.server.server.servlet.context-parameters]]xref:#application-properties.server.server.servlet.context-parameters[`+server.servlet.context-parameters.*+`]
+|+++Servlet 上下文初始化参数。+++
+|
+
+|[[application-properties.server.server.servlet.context-path]]xref:#application-properties.server.server.servlet.context-path[`+server.servlet.context-path+`]
+|+++应用程序的上下文路径。+++
+|
+
+|[[application-properties.server.server.servlet.encoding.mapping]]xref:#application-properties.server.server.servlet.encoding.mapping[`+server.servlet.encoding.mapping.*+`]
+|+++区域设置到响应编码字符集的映射。+++
+|
+
+|[[application-properties.server.server.servlet.jsp.class-name]]xref:#application-properties.server.server.servlet.jsp.class-name[`+server.servlet.jsp.class-name+`]
+|用于 JSP 的 Servlet 类名。如果 registered 为 true 且此类在 classpath 上，则将其注册。
+	 * is on the classpath then it will be registered.+++
+|`+org.apache.jasper.servlet.JspServlet+`
+
+|[[application-properties.server.server.servlet.jsp.init-parameters]]xref:#application-properties.server.server.servlet.jsp.init-parameters[`+server.servlet.jsp.init-parameters.*+`]
+|+++用于配置 JSP Servlet 的初始化参数。+++
+|
+
+|[[application-properties.server.server.servlet.jsp.registered]]xref:#application-properties.server.server.servlet.jsp.registered[`+server.servlet.jsp.registered+`]
+|+++是否注册 JSP Servlet。+++
+|`+true+`
+
+|[[application-properties.server.server.servlet.register-default-servlet]]xref:#application-properties.server.server.servlet.register-default-servlet[`+server.servlet.register-default-servlet+`]
+|+++是否向容器注册默认 Servlet。+++
+|`+false+`
+
+|[[application-properties.server.server.servlet.session.cookie.domain]]xref:#application-properties.server.server.servlet.session.cookie.domain[`+server.servlet.session.cookie.domain+`]
+|+++Cookie 的域。+++
+|
+
+|[[application-properties.server.server.servlet.session.cookie.http-only]]xref:#application-properties.server.server.servlet.session.cookie.http-only[`+server.servlet.session.cookie.http-only+`]
+|+++是否对 Cookie 使用“HttpOnly”属性。+++
+|
+
+|[[application-properties.server.server.servlet.session.cookie.max-age]]xref:#application-properties.server.server.servlet.session.cookie.max-age[`+server.servlet.session.cookie.max-age+`]
+|+++Cookie 的最大存活时间。如果未指定持续时间后缀，则使用秒。正值表示 Cookie 相对于当前时间的过期时间。0 表示 Cookie 应立即过期。负值表示没有“Max-Age”。+++
+|
+
+|[[application-properties.server.server.servlet.session.cookie.name]]xref:#application-properties.server.server.servlet.session.cookie.name[`+server.servlet.session.cookie.name+`]
+|+++Cookie 的名称。+++
+|
+
+|[[application-properties.server.server.servlet.session.cookie.partitioned]]xref:#application-properties.server.server.servlet.session.cookie.partitioned[`+server.servlet.session.cookie.partitioned+`]
+|+++生成的 Cookie 是否携带 Partitioned 属性。+++
+|
+
+|[[application-properties.server.server.servlet.session.cookie.path]]xref:#application-properties.server.server.servlet.session.cookie.path[`+server.servlet.session.cookie.path+`]
+|+++Cookie 的路径。+++
+|
+
+|[[application-properties.server.server.servlet.session.cookie.same-site]]xref:#application-properties.server.server.servlet.session.cookie.same-site[`+server.servlet.session.cookie.same-site+`]
+|+++Cookie 的 SameSite 设置。+++
+|
+
+|[[application-properties.server.server.servlet.session.cookie.secure]]xref:#application-properties.server.server.servlet.session.cookie.secure[`+server.servlet.session.cookie.secure+`]
+|+++是否始终将 Cookie 标记为安全。+++
+|
+
+|[[application-properties.server.server.servlet.session.persistent]]xref:#application-properties.server.server.servlet.session.persistent[`+server.servlet.session.persistent+`]
+|+++是否在重启之间持久化会话数据。+++
+|`+false+`
+
+|[[application-properties.server.server.servlet.session.store-dir]]xref:#application-properties.server.server.servlet.session.store-dir[`+server.servlet.session.store-dir+`]
+|+++用于存储会话数据的目录。+++
+|
+
+|[[application-properties.server.server.servlet.session.timeout]]xref:#application-properties.server.server.servlet.session.timeout[`+server.servlet.session.timeout+`]
+|+++会话超时时间。如果未指定持续时间后缀，则使用秒。+++
+|`+30m+`
+
+|[[application-properties.server.server.servlet.session.tracking-modes]]xref:#application-properties.server.server.servlet.session.tracking-modes[`+server.servlet.session.tracking-modes+`]
+|+++会话跟踪模式。+++
+|
+
+|[[application-properties.server.server.shutdown]]xref:#application-properties.server.server.shutdown[`+server.shutdown+`]
+|+++服务器将支持的关闭类型。+++
+|`+graceful+`
+
+|[[application-properties.server.server.ssl.bundle]]xref:#application-properties.server.server.ssl.bundle[`+server.ssl.bundle+`]
+|+++已配置的 SSL 包名称。+++
+|
+
+|[[application-properties.server.server.ssl.certificate]]xref:#application-properties.server.server.ssl.certificate[`+server.ssl.certificate+`]
+|+++PEM 编码的 SSL 证书文件路径。+++
+|
+
+|[[application-properties.server.server.ssl.certificate-private-key]]xref:#application-properties.server.server.ssl.certificate-private-key[`+server.ssl.certificate-private-key+`]
+|+++SSL 证书的 PEM 编码私钥文件路径。+++
+|
+
+|[[application-properties.server.server.ssl.ciphers]]xref:#application-properties.server.server.ssl.ciphers[`+server.ssl.ciphers+`]
+|+++支持的 SSL 加密套件。+++
+|
+
+|[[application-properties.server.server.ssl.client-auth]]xref:#application-properties.server.server.ssl.client-auth[`+server.ssl.client-auth+`]
+|+++客户端认证模式。需要信任库。+++
+|
+
+|[[application-properties.server.server.ssl.enabled]]xref:#application-properties.server.server.ssl.enabled[`+server.ssl.enabled+`]
+|+++是否启用 SSL 支持。+++
+|`+true+`
+
+|[[application-properties.server.server.ssl.enabled-protocols]]xref:#application-properties.server.server.ssl.enabled-protocols[`+server.ssl.enabled-protocols+`]
+|+++启用的 SSL 协议。+++
+|
+
+|[[application-properties.server.server.ssl.key-alias]]xref:#application-properties.server.server.ssl.key-alias[`+server.ssl.key-alias+`]
+|+++标识密钥库中密钥的别名。+++
+|
+
+|[[application-properties.server.server.ssl.key-password]]xref:#application-properties.server.server.ssl.key-password[`+server.ssl.key-password+`]
+|+++用于访问密钥库中密钥的密码。+++
+|
+
+|[[application-properties.server.server.ssl.key-store]]xref:#application-properties.server.server.ssl.key-store[`+server.ssl.key-store+`]
+|+++持有 SSL 证书的密钥库路径（通常为 jks 文件）。+++
+|
+
+|[[application-properties.server.server.ssl.key-store-password]]xref:#application-properties.server.server.ssl.key-store-password[`+server.ssl.key-store-password+`]
+|+++用于访问密钥库的密码。+++
+|
+
+|[[application-properties.server.server.ssl.key-store-provider]]xref:#application-properties.server.server.ssl.key-store-provider[`+server.ssl.key-store-provider+`]
+|+++密钥库的提供者。+++
+|
+
+|[[application-properties.server.server.ssl.key-store-type]]xref:#application-properties.server.server.ssl.key-store-type[`+server.ssl.key-store-type+`]
+|+++密钥库的类型。+++
+|
+
+|[[application-properties.server.server.ssl.protocol]]xref:#application-properties.server.server.ssl.protocol[`+server.ssl.protocol+`]
+|+++要使用的 SSL 协议。+++
+|`+TLS+`
+
+|[[application-properties.server.server.ssl.server-name-bundles]]xref:#application-properties.server.server.ssl.server-name-bundles[`+server.ssl.server-name-bundles+`]
+|+++用于 SNI 配置的主机名到 SSL 包的映射。+++
+|
+
+|[[application-properties.server.server.ssl.trust-certificate]]xref:#application-properties.server.server.ssl.trust-certificate[`+server.ssl.trust-certificate+`]
+|+++PEM 编码的 SSL 证书颁发机构文件路径。+++
+|
+
+|[[application-properties.server.server.ssl.trust-certificate-private-key]]xref:#application-properties.server.server.ssl.trust-certificate-private-key[`+server.ssl.trust-certificate-private-key+`]
+|+++SSL 证书颁发机构的 PEM 编码私钥文件路径。+++
+|
+
+|[[application-properties.server.server.ssl.trust-store]]xref:#application-properties.server.server.ssl.trust-store[`+server.ssl.trust-store+`]
+|+++持有 SSL 证书的信任库。+++
+|
+
+|[[application-properties.server.server.ssl.trust-store-password]]xref:#application-properties.server.server.ssl.trust-store-password[`+server.ssl.trust-store-password+`]
+|+++用于访问信任库的密码。+++
+|
+
+|[[application-properties.server.server.ssl.trust-store-provider]]xref:#application-properties.server.server.ssl.trust-store-provider[`+server.ssl.trust-store-provider+`]
+|+++信任库的提供者。+++
+|
+
+|[[application-properties.server.server.ssl.trust-store-type]]xref:#application-properties.server.server.ssl.trust-store-type[`+server.ssl.trust-store-type+`]
+|+++信任库的类型。+++
+|
+
+|[[application-properties.server.server.tomcat.accept-count]]xref:#application-properties.server.server.tomcat.accept-count[`+server.tomcat.accept-count+`]
+|+++当所有可能的请求处理线程都在使用时，传入连接请求的最大队列长度。+++
+|`+100+`
+
+|[[application-properties.server.server.tomcat.accesslog.buffered]]xref:#application-properties.server.server.tomcat.accesslog.buffered[`+server.tomcat.accesslog.buffered+`]
+|+++是否缓冲输出，使其仅定期刷新。+++
+|`+true+`
+
+|[[application-properties.server.server.tomcat.accesslog.check-exists]]xref:#application-properties.server.server.tomcat.accesslog.check-exists[`+server.tomcat.accesslog.check-exists+`]
+|+++是否检查日志文件是否存在，以便在外部进程重命名后重新创建。+++
+|`+false+`
+
+|[[application-properties.server.server.tomcat.accesslog.condition-if]]xref:#application-properties.server.server.tomcat.accesslog.condition-if[`+server.tomcat.accesslog.condition-if+`]
+|+++是否仅在“ServletRequest.getAttribute(conditionIf)”不返回 null 时启用请求日志记录。+++
+|
+
+|[[application-properties.server.server.tomcat.accesslog.condition-unless]]xref:#application-properties.server.server.tomcat.accesslog.condition-unless[`+server.tomcat.accesslog.condition-unless+`]
+|+++是否仅在“ServletRequest.getAttribute(conditionUnless)”返回 null 时启用请求日志记录。+++
+|
+
+|[[application-properties.server.server.tomcat.accesslog.directory]]xref:#application-properties.server.server.tomcat.accesslog.directory[`+server.tomcat.accesslog.directory+`]
+|+++创建日志文件的目录。可以是绝对路径或相对于 Tomcat 基础目录的路径。+++
+|`+logs+`
+
+|[[application-properties.server.server.tomcat.accesslog.enabled]]xref:#application-properties.server.server.tomcat.accesslog.enabled[`+server.tomcat.accesslog.enabled+`]
+|+++启用访问日志。+++
+|`+false+`
+
+|[[application-properties.server.server.tomcat.accesslog.encoding]]xref:#application-properties.server.server.tomcat.accesslog.encoding[`+server.tomcat.accesslog.encoding+`]
+|+++日志文件使用的字符集。默认为系统默认字符集。+++
+|
+
+|[[application-properties.server.server.tomcat.accesslog.file-date-format]]xref:#application-properties.server.server.tomcat.accesslog.file-date-format[`+server.tomcat.accesslog.file-date-format+`]
+|+++日志文件名中的日期格式。+++
+|`+.yyyy-MM-dd+`
+
+|[[application-properties.server.server.tomcat.accesslog.ipv6-canonical]]xref:#application-properties.server.server.tomcat.accesslog.ipv6-canonical[`+server.tomcat.accesslog.ipv6-canonical+`]
+|+++是否使用 RFC 5952 定义的 IPv6 规范表示格式。+++
+|`+false+`
+
+|[[application-properties.server.server.tomcat.accesslog.locale]]xref:#application-properties.server.server.tomcat.accesslog.locale[`+server.tomcat.accesslog.locale+`]
+|+++用于格式化日志条目时间戳和日志文件名后缀的区域设置。默认为 Java 进程的默认区域设置。+++
+|
+
+|[[application-properties.server.server.tomcat.accesslog.max-days]]xref:#application-properties.server.server.tomcat.accesslog.max-days[`+server.tomcat.accesslog.max-days+`]
+|+++访问日志文件在删除前保留的天数。+++
+|`+-1+`
+
+|[[application-properties.server.server.tomcat.accesslog.pattern]]xref:#application-properties.server.server.tomcat.accesslog.pattern[`+server.tomcat.accesslog.pattern+`]
+|+++访问日志的格式模式。+++
+|`+common+`
+
+|[[application-properties.server.server.tomcat.accesslog.prefix]]xref:#application-properties.server.server.tomcat.accesslog.prefix[`+server.tomcat.accesslog.prefix+`]
+|+++日志文件名前缀。+++
+|`+access_log+`
+
+|[[application-properties.server.server.tomcat.accesslog.rename-on-rotate]]xref:#application-properties.server.server.tomcat.accesslog.rename-on-rotate[`+server.tomcat.accesslog.rename-on-rotate+`]
+|+++是否将日期戳的包含推迟到轮转时。+++
+|`+false+`
+
+|[[application-properties.server.server.tomcat.accesslog.request-attributes-enabled]]xref:#application-properties.server.server.tomcat.accesslog.request-attributes-enabled[`+server.tomcat.accesslog.request-attributes-enabled+`]
+|+++为请求设置 IP 地址、主机名、协议和端口的请求属性。+++
+|`+false+`
+
+|[[application-properties.server.server.tomcat.accesslog.rotate]]xref:#application-properties.server.server.tomcat.accesslog.rotate[`+server.tomcat.accesslog.rotate+`]
+|+++是否启用访问日志轮转。+++
+|`+true+`
+
+|[[application-properties.server.server.tomcat.accesslog.suffix]]xref:#application-properties.server.server.tomcat.accesslog.suffix[`+server.tomcat.accesslog.suffix+`]
+|+++日志文件名后缀。+++
+|`+.log+`
+
+|[[application-properties.server.server.tomcat.additional-tld-skip-patterns]]xref:#application-properties.server.server.tomcat.additional-tld-skip-patterns[`+server.tomcat.additional-tld-skip-patterns+`]
+|+++用于 TLD 扫描时忽略的额外 JAR 匹配模式列表。模式中可以使用特殊字符 '?' 和 '*' 分别匹配一个字符和零个或多个字符。+++
+|
+
+|[[application-properties.server.server.tomcat.background-processor-delay]]xref:#application-properties.server.server.tomcat.background-processor-delay[`+server.tomcat.background-processor-delay+`]
+|+++调用 backgroundProcess 方法之间的延迟。如果未指定持续时间后缀，则使用秒。+++
+|`+10s+`
+
+|[[application-properties.server.server.tomcat.basedir]]xref:#application-properties.server.server.tomcat.basedir[`+server.tomcat.basedir+`]
+|+++Tomcat 基础目录。如果未指定，则使用临时目录。+++
+|
+
+|[[application-properties.server.server.tomcat.connection-timeout]]xref:#application-properties.server.server.tomcat.connection-timeout[`+server.tomcat.connection-timeout+`]
+|+++连接器在接受连接后等待请求 URI 行出现的时间。+++
+|
+
+|[[application-properties.server.server.tomcat.keep-alive-timeout]]xref:#application-properties.server.server.tomcat.keep-alive-timeout[`+server.tomcat.keep-alive-timeout+`]
+|+++在连接关闭前等待另一个 HTTP 请求的时间。未设置时使用 connectionTimeout。设置为 -1 时表示无超时。+++
+|
+
+|[[application-properties.server.server.tomcat.max-connections]]xref:#application-properties.server.server.tomcat.max-connections[`+server.tomcat.max-connections+`]
+|+++服务器在任何给定时间接受和处理的最大连接数。达到限制后，操作系统可能仍会根据“acceptCount”属性接受连接。+++
+|`+8192+`
+
+|[[application-properties.server.server.tomcat.max-http-form-post-size]]xref:#application-properties.server.server.tomcat.max-http-form-post-size[`+server.tomcat.max-http-form-post-size+`]
+|+++任何 HTTP POST 请求中表单内容的最大大小。+++
+|`+2MB+`
+
+|[[application-properties.server.server.tomcat.max-http-response-header-size]]xref:#application-properties.server.server.tomcat.max-http-response-header-size[`+server.tomcat.max-http-response-header-size+`]
+|+++HTTP 响应头的最大大小。+++
+|`+8KB+`
+
+|[[application-properties.server.server.tomcat.max-keep-alive-requests]]xref:#application-properties.server.server.tomcat.max-keep-alive-requests[`+server.tomcat.max-keep-alive-requests+`]
+|+++连接关闭前允许的最大 HTTP 管道请求数。设置为 0 或 1 时，禁用 keep-alive 和管道。设置为 -1 时，允许无限数量的管道或 keep-alive 请求。+++
+|`+100+`
+
+|[[application-properties.server.server.tomcat.max-parameter-count]]xref:#application-properties.server.server.tomcat.max-parameter-count[`+server.tomcat.max-parameter-count+`]
+|+++容器自动解析的最大参数数量（GET 加 POST）。小于 0 表示无限制。+++
+|`+1000+`
+
+|[[application-properties.server.server.tomcat.max-part-count]]xref:#application-properties.server.server.tomcat.max-part-count[`+server.tomcat.max-part-count+`]
+|+++multipart/form-data 请求中允许的最大部件总数。超过此限制的请求将被拒绝。小于 0 表示无限制。+++
+|`+50+`
+
+|[[application-properties.server.server.tomcat.max-part-header-size]]xref:#application-properties.server.server.tomcat.max-part-header-size[`+server.tomcat.max-part-header-size+`]
+|+++multipart/form-data 请求中每个部件头的最大大小。超过此限制的请求将被拒绝。小于 0 表示无限制。+++
+|`+512B+`
+
+|[[application-properties.server.server.tomcat.max-swallow-size]]xref:#application-properties.server.server.tomcat.max-swallow-size[`+server.tomcat.max-swallow-size+`]
+|+++要吞没的请求体最大量。+++
+|`+2MB+`
+
+|[[application-properties.server.server.tomcat.mbeanregistry.enabled]]xref:#application-properties.server.server.tomcat.mbeanregistry.enabled[`+server.tomcat.mbeanregistry.enabled+`]
+|+++是否启用 Tomcat 的 MBean 注册表。+++
+|`+false+`
+
+|[[application-properties.server.server.tomcat.processor-cache]]xref:#application-properties.server.server.tomcat.processor-cache[`+server.tomcat.processor-cache+`]
+|+++缓存中保留的最大空闲处理器数，这些处理器可被后续请求重用。设置为 -1 时，缓存无限制，理论最大大小等于最大连接数。+++
+|`+200+`
+
+|[[application-properties.server.server.tomcat.redirect-context-root]]xref:#application-properties.server.server.tomcat.redirect-context-root[`+server.tomcat.redirect-context-root+`]
+|+++是否应将上下文根的请求通过追加 / 重定向到路径。当使用代理终止 SSL 时，此属性应设置为 false。+++
+|`+true+`
+
+|[[application-properties.server.server.tomcat.relaxed-path-chars]]xref:#application-properties.server.server.tomcat.relaxed-path-chars[`+server.tomcat.relaxed-path-chars+`]
+|+++URI 路径中允许的额外未编码字符列表。仅允许 "&lt; &gt; [ \ ] ^ ` { \| }"。+++
+|
+
+|[[application-properties.server.server.tomcat.relaxed-query-chars]]xref:#application-properties.server.server.tomcat.relaxed-query-chars[`+server.tomcat.relaxed-query-chars+`]
+|+++URI 查询字符串中允许的额外未编码字符列表。仅允许 "&lt; &gt; [ \ ] ^ ` { \| }"。+++
+|
+
+|[[application-properties.server.server.tomcat.remoteip.host-header]]xref:#application-properties.server.server.tomcat.remoteip.host-header[`+server.tomcat.remoteip.host-header+`]
+|+++从中提取远程主机的 HTTP 头名称。+++
+|`+X-Forwarded-Host+`
+
+|[[application-properties.server.server.tomcat.remoteip.internal-proxies]]xref:#application-properties.server.server.tomcat.remoteip.internal-proxies[`+server.tomcat.remoteip.internal-proxies+`]
+|+++受信任的内部代理。可以设置为 CIDR 的逗号分隔列表或正则表达式。+++
+|`+192.168.0.0/16, 172.16.0.0/12, 169.254.0.0/16, fc00::/7, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, fe80::/10, ::1/128+`
+
+|[[application-properties.server.server.tomcat.remoteip.port-header]]xref:#application-properties.server.server.tomcat.remoteip.port-header[`+server.tomcat.remoteip.port-header+`]
+|+++用于覆盖原始端口值的 HTTP 头名称。+++
+|`+X-Forwarded-Port+`
+
+|[[application-properties.server.server.tomcat.remoteip.protocol-header]]xref:#application-properties.server.server.tomcat.remoteip.protocol-header[`+server.tomcat.remoteip.protocol-header+`]
+|+++保存传入协议的头，通常命名为 "X-Forwarded-Proto"。+++
+|
+
+|[[application-properties.server.server.tomcat.remoteip.protocol-header-https-value]]xref:#application-properties.server.server.tomcat.remoteip.protocol-header-https-value[`+server.tomcat.remoteip.protocol-header-https-value+`]
+|+++指示传入请求是否使用 SSL 的协议头值。+++
+|`+https+`
+
+|[[application-properties.server.server.tomcat.remoteip.remote-ip-header]]xref:#application-properties.server.server.tomcat.remoteip.remote-ip-header[`+server.tomcat.remoteip.remote-ip-header+`]
+|+++从中提取远程 IP 的 HTTP 头名称。例如 'X-FORWARDED-FOR'。+++
+|
+
+|[[application-properties.server.server.tomcat.remoteip.trusted-proxies]]xref:#application-properties.server.server.tomcat.remoteip.trusted-proxies[`+server.tomcat.remoteip.trusted-proxies+`]
+|+++定义出现在 "remote-ip-header" 头中的受信任代理的正则表达式。+++
+|
+
+|[[application-properties.server.server.tomcat.resource.allow-caching]]xref:#application-properties.server.server.tomcat.resource.allow-caching[`+server.tomcat.resource.allow-caching+`]
+|+++是否允许此 Web 应用程序的静态资源缓存。+++
+|`+true+`
+
+|[[application-properties.server.server.tomcat.resource.cache-max-size]]xref:#application-properties.server.server.tomcat.resource.cache-max-size[`+server.tomcat.resource.cache-max-size+`]
+|+++静态资源缓存的最大大小。+++
+|`+10MB+`
+
+|[[application-properties.server.server.tomcat.resource.cache-ttl]]xref:#application-properties.server.server.tomcat.resource.cache-ttl[`+server.tomcat.resource.cache-ttl+`]
+|+++静态资源缓存的生存时间。+++
+|`+5s+`
+
+|[[application-properties.server.server.tomcat.threads.max]]xref:#application-properties.server.server.tomcat.threads.max[`+server.tomcat.threads.max+`]
+|+++工作线程的最大数量。如果启用了虚拟线程，此设置无效。+++
+|`+200+`
+
+|[[application-properties.server.server.tomcat.threads.max-queue-capacity]]xref:#application-properties.server.server.tomcat.threads.max-queue-capacity[`+server.tomcat.threads.max-queue-capacity+`]
+|+++线程池后备队列的最大容量。此设置仅在值大于 0 时生效。+++
+|`+2147483647+`
+
+|[[application-properties.server.server.tomcat.threads.min-spare]]xref:#application-properties.server.server.tomcat.threads.min-spare[`+server.tomcat.threads.min-spare+`]
+|+++工作线程的最小数量。如果启用了虚拟线程，此设置无效。+++
+|`+10+`
+
+|[[application-properties.server.server.tomcat.uri-encoding]]xref:#application-properties.server.server.tomcat.uri-encoding[`+server.tomcat.uri-encoding+`]
+|+++用于解码 URI 的字符编码。+++
+|`+UTF-8+`
+
+|[[application-properties.server.server.tomcat.use-apr]]xref:#application-properties.server.server.tomcat.use-apr[`+server.tomcat.use-apr+`]
+|+++是否使用 APR。+++
+|`+never+`
+
+|[[application-properties.server.server.tomcat.use-relative-redirects]]xref:#application-properties.server.server.tomcat.use-relative-redirects[`+server.tomcat.use-relative-redirects+`]
+|+++是否通过调用 sendRedirect 生成的 HTTP 1.1 及更高版本的 location 头使用相对或绝对重定向。+++
+|`+false+`
+
+|===

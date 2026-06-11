@@ -1,0 +1,172 @@
+{
+  "groups": [
+    {
+      "name": "spring.thymeleaf",
+      "type": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties"
+    },
+    {
+      "name": "spring.thymeleaf.reactive",
+      "type": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties$Reactive",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "sourceMethod": "getReactive()"
+    },
+    {
+      "name": "spring.thymeleaf.servlet",
+      "type": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties$Servlet",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "sourceMethod": "getServlet()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.thymeleaf.cache",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable template caching.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.thymeleaf.check-template",
+      "type": "java.lang.Boolean",
+      "description": "Whether to check that the template exists before rendering it.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.thymeleaf.check-template-location",
+      "type": "java.lang.Boolean",
+      "description": "Whether to check that the templates location exists.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.thymeleaf.enable-spring-el-compiler",
+      "type": "java.lang.Boolean",
+      "description": "Enable the SpringEL compiler in SpringEL expressions.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.thymeleaf.encoding",
+      "type": "java.nio.charset.Charset",
+      "description": "Template files encoding.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.thymeleaf.excluded-view-names",
+      "type": "java.lang.String[]",
+      "description": "List of view names (patterns allowed) that should be excluded from resolution.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties"
+    },
+    {
+      "name": "spring.thymeleaf.mode",
+      "type": "java.lang.String",
+      "description": "Template mode to be applied to templates. See also Thymeleaf's TemplateMode enum.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "defaultValue": "HTML"
+    },
+    {
+      "name": "spring.thymeleaf.prefix",
+      "type": "java.lang.String",
+      "description": "Prefix that gets prepended to view names when building a URL.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "defaultValue": "classpath:\/templates\/"
+    },
+    {
+      "name": "spring.thymeleaf.reactive.chunked-mode-view-names",
+      "type": "java.lang.String[]",
+      "description": "Comma-separated list of view names (patterns allowed) that should be the only ones executed in CHUNKED mode when a max chunk size is set.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties$Reactive"
+    },
+    {
+      "name": "spring.thymeleaf.reactive.full-mode-view-names",
+      "type": "java.lang.String[]",
+      "description": "Comma-separated list of view names (patterns allowed) that should be executed in FULL mode even if a max chunk size is set.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties$Reactive"
+    },
+    {
+      "name": "spring.thymeleaf.reactive.max-chunk-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum size of data buffers used for writing to the response. Templates will execute in CHUNKED mode by default if this is set.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties$Reactive",
+      "defaultValue": "0B"
+    },
+    {
+      "name": "spring.thymeleaf.reactive.media-types",
+      "type": "java.util.List<org.springframework.http.MediaType>",
+      "description": "Media types supported by the view technology.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties$Reactive",
+      "defaultValue": [
+        "text\/html",
+        "application\/xhtml+xml",
+        "application\/xml",
+        "text\/xml",
+        "application\/rss+xml",
+        "application\/atom+xml",
+        "application\/javascript",
+        "application\/ecmascript",
+        "text\/javascript",
+        "text\/ecmascript",
+        "application\/json",
+        "text\/css",
+        "text\/plain",
+        "text\/event-stream"
+      ]
+    },
+    {
+      "name": "spring.thymeleaf.render-hidden-markers-before-checkboxes",
+      "type": "java.lang.Boolean",
+      "description": "Whether hidden form inputs acting as markers for checkboxes should be rendered before the checkbox element itself.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.thymeleaf.servlet.content-type",
+      "type": "org.springframework.util.MimeType",
+      "description": "Content-Type value written to HTTP responses.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties$Servlet",
+      "defaultValue": "text\/html"
+    },
+    {
+      "name": "spring.thymeleaf.servlet.produce-partial-output-while-processing",
+      "type": "java.lang.Boolean",
+      "description": "Whether Thymeleaf should start writing partial output as soon as possible or buffer until template processing is finished.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties$Servlet",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.thymeleaf.suffix",
+      "type": "java.lang.String",
+      "description": "Suffix that gets appended to view names when building a URL.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties",
+      "defaultValue": ".html"
+    },
+    {
+      "name": "spring.thymeleaf.template-resolver-order",
+      "type": "java.lang.Integer",
+      "description": "Order of the template resolver in the chain. By default, the template resolver is first in the chain. Order start at 1 and should only be set if you have defined additional \"TemplateResolver\" beans.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties"
+    },
+    {
+      "name": "spring.thymeleaf.view-names",
+      "type": "java.lang.String[]",
+      "description": "List of view names (patterns allowed) that can be resolved.",
+      "sourceType": "org.springframework.boot.thymeleaf.autoconfigure.ThymeleafProperties"
+    },
+    {
+      "name": "spring.thymeleaf.enabled",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "No longer required. To use Thymeleaf without auto-configuration, depend directly on Thymeleaf instead of spring-boot-thymeleaf.",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

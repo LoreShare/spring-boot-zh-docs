@@ -1,0 +1,42 @@
+[source,json,options="nowrap"]
+----
+{
+  "components" : {
+    "broker" : {
+      "components" : {
+        "us1" : {
+          "details" : {
+            "version" : "1.0.2"
+          },
+          "status" : "UP"
+        },
+        "us2" : {
+          "details" : {
+            "version" : "1.0.4"
+          },
+          "status" : "UP"
+        }
+      },
+      "status" : "UP"
+    },
+    "db" : {
+      "details" : {
+        "database" : "H2",
+        "validationQuery" : "isValid()"
+      },
+      "status" : "UP"
+    },
+    "diskSpace" : {
+      "details" : {
+        "total" : 154894188544,
+        "free" : 120158146560,
+        "threshold" : 10485760,
+        "path" : "/home/runner/work/spring-boot/spring-boot/documentation/spring-boot-actuator-docs/.",
+        "exists" : true
+      },
+      "status" : "UP"
+    }
+  },
+  "status" : "UP"
+}
+----

@@ -1,1 +1,138 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[help.help-goal]]
+= `spring-boot:help`
+
+`org.springframework.boot:spring-boot-maven-plugin:4.1.0`
+
+显示 spring-boot-maven-plugin 的帮助信息。调用 `mvn spring-boot:help -Ddetail=true -Dgoal=<goal-name>` 可查看参数详情。
+
+
+[[help.help-goal.optional-parameters]]
+== 可选参数
+
+[cols="3,2,3"]
+|===
+| 名称 | 类型 | 默认值
+
+| xref:#help.help-goal.parameter-details.detail[detail]
+| `boolean`
+| `false`
+
+| xref:#help.help-goal.parameter-details.goal[goal]
+| `String`
+|
+
+| xref:#help.help-goal.parameter-details.indent-size[indentSize]
+| `int`
+| `2`
+
+| xref:#help.help-goal.parameter-details.line-length[lineLength]
+| `int`
+| `80`
+
+|===
+
+
+
+[[help.help-goal.parameter-details]]
+== 参数详情
+
+
+
+[[help.help-goal.parameter-details.detail]]
+=== `detail`
+如果 `true`，则显示每个目标的所有可设置属性。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `detail`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `false`
+
+| 用户属性
+| ``detail``
+
+| 起始版本
+|
+
+|===
+
+
+[[help.help-goal.parameter-details.goal]]
+=== `goal`
+要显示帮助的目标名称。如果未指定，将显示所有目标。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `goal`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+|
+
+| 用户属性
+| ``goal``
+
+| 起始版本
+|
+
+|===
+
+
+[[help.help-goal.parameter-details.indent-size]]
+=== `indentSize`
+每个缩进级别的空格数，应为正数。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `indentSize`
+
+| 类型
+| `int`
+
+| 默认值
+| `2`
+
+| 用户属性
+| ``indentSize``
+
+| 起始版本
+|
+
+|===
+
+
+[[help.help-goal.parameter-details.line-length]]
+=== `lineLength`
+显示行的最大长度，应为正数。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `lineLength`
+
+| 类型
+| `int`
+
+| 默认值
+| `80`
+
+| 用户属性
+| ``lineLength``
+
+| 起始版本
+|
+
+|===

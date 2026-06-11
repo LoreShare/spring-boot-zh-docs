@@ -1,0 +1,21 @@
+[[appendix.auto-configuration-classes.spring-boot-rsocket]]
+= spring-boot-rsocket
+
+以下 auto-configuration 类来自 `spring-boot-rsocket` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-rsocket/src/main/java/org/springframework/boot/rsocket/autoconfigure/RSocketMessagingAutoConfiguration.java[`RSocketMessagingAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/rsocket/autoconfigure/RSocketMessagingAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-rsocket/src/main/java/org/springframework/boot/rsocket/autoconfigure/RSocketRequesterAutoConfiguration.java[`RSocketRequesterAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/rsocket/autoconfigure/RSocketRequesterAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-rsocket/src/main/java/org/springframework/boot/rsocket/autoconfigure/RSocketServerAutoConfiguration.java[`RSocketServerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/rsocket/autoconfigure/RSocketServerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-rsocket/src/main/java/org/springframework/boot/rsocket/autoconfigure/RSocketStrategiesAutoConfiguration.java[`RSocketStrategiesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/rsocket/autoconfigure/RSocketStrategiesAutoConfiguration.html[javadoc]
+|===

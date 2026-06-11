@@ -1,0 +1,220 @@
+{
+  "groups": [
+    {
+      "name": "management.endpoint.health",
+      "type": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthEndpointProperties",
+      "sourceType": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthEndpointProperties"
+    },
+    {
+      "name": "management.endpoint.health.logging",
+      "type": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthEndpointProperties$Logging",
+      "sourceType": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthEndpointProperties",
+      "sourceMethod": "getLogging()"
+    },
+    {
+      "name": "management.endpoint.health.status",
+      "type": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthProperties$Status",
+      "sourceType": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthEndpointProperties",
+      "sourceMethod": "getStatus()"
+    },
+    {
+      "name": "management.health.diskspace",
+      "type": "org.springframework.boot.health.autoconfigure.application.DiskSpaceHealthIndicatorProperties",
+      "sourceType": "org.springframework.boot.health.autoconfigure.application.DiskSpaceHealthIndicatorProperties"
+    },
+    {
+      "name": "management.health.ssl",
+      "type": "org.springframework.boot.health.autoconfigure.application.SslHealthIndicatorProperties",
+      "sourceType": "org.springframework.boot.health.autoconfigure.application.SslHealthIndicatorProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.endpoint.health.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the health endpoint.",
+      "sourceType": "org.springframework.boot.health.actuate.endpoint.HealthEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.health.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.health.actuate.endpoint.HealthEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.health.group",
+      "type": "java.util.Map<java.lang.String,org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthEndpointProperties$Group>",
+      "description": "Health endpoint groups.",
+      "sourceType": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthEndpointProperties"
+    },
+    {
+      "name": "management.endpoint.health.logging.slow-indicator-threshold",
+      "type": "java.time.Duration",
+      "description": "Threshold after which a warning will be logged for slow health indicators.",
+      "sourceType": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthEndpointProperties$Logging",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "management.endpoint.health.probes.add-additional-paths",
+      "type": "java.lang.Boolean",
+      "description": "Whether to make the liveness and readiness health groups available on the main server port.",
+      "defaultValue": false
+    },
+    {
+      "name": "management.endpoint.health.probes.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable liveness and readiness probes.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.endpoint.health.roles",
+      "type": "java.util.Set<java.lang.String>",
+      "description": "Roles used to determine whether a user is authorized to be shown details. When empty, all authenticated users are authorized.",
+      "sourceType": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthEndpointProperties"
+    },
+    {
+      "name": "management.endpoint.health.show-components",
+      "type": "org.springframework.boot.actuate.endpoint.Show",
+      "description": "When to show components. If not specified the 'show-details' setting will be used.",
+      "sourceType": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthEndpointProperties"
+    },
+    {
+      "name": "management.endpoint.health.show-details",
+      "type": "org.springframework.boot.actuate.endpoint.Show",
+      "description": "When to show full health details.",
+      "sourceType": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthEndpointProperties",
+      "defaultValue": "never"
+    },
+    {
+      "name": "management.endpoint.health.status.http-mapping",
+      "type": "java.util.Map<java.lang.String,java.lang.Integer>",
+      "description": "Mapping of health statuses to HTTP status codes. By default, registered health statuses map to sensible defaults (for example, UP maps to 200).",
+      "sourceType": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthProperties$Status"
+    },
+    {
+      "name": "management.endpoint.health.status.order",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of health statuses in order of severity.",
+      "sourceType": "org.springframework.boot.health.autoconfigure.actuate.endpoint.HealthProperties$Status",
+      "defaultValue": [
+        "DOWN",
+        "OUT_OF_SERVICE",
+        "UP",
+        "UNKNOWN"
+      ]
+    },
+    {
+      "name": "management.endpoint.health.validate-group-membership",
+      "type": "java.lang.Boolean",
+      "description": "Whether to validate health group membership on startup. Validation fails if a group includes or excludes a health contributor that does not exist.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.health.defaults.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable default health indicators.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.health.diskspace.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable disk space health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.health.diskspace.path",
+      "type": "java.io.File",
+      "description": "Path used to compute the available disk space.",
+      "sourceType": "org.springframework.boot.health.autoconfigure.application.DiskSpaceHealthIndicatorProperties"
+    },
+    {
+      "name": "management.health.diskspace.threshold",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Minimum disk space that should be available.",
+      "sourceType": "org.springframework.boot.health.autoconfigure.application.DiskSpaceHealthIndicatorProperties",
+      "defaultValue": "10MB"
+    },
+    {
+      "name": "management.health.livenessstate.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable liveness state health check.",
+      "defaultValue": false
+    },
+    {
+      "name": "management.health.ping.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable ping health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.health.readinessstate.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable readiness state health check.",
+      "defaultValue": false
+    },
+    {
+      "name": "management.health.ssl.certificate-validity-warning-threshold",
+      "type": "java.time.Duration",
+      "description": "If an SSL Certificate will be invalid within the time span defined by this threshold, it should trigger a warning.",
+      "sourceType": "org.springframework.boot.health.autoconfigure.application.SslHealthIndicatorProperties",
+      "defaultValue": "14d"
+    },
+    {
+      "name": "management.health.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL certificate health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.health.influxdb.enabled",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "InfluxDB support has been removed.",
+        "since": "3.2.0"
+      }
+    },
+    {
+      "name": "management.health.probes.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable liveness and readiness probes.",
+      "defaultValue": false,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.endpoint.health.probes.enabled",
+        "since": "2.3.2"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "management.health.status.order",
+      "values": [
+        {
+          "value": "UNKNOWN"
+        },
+        {
+          "value": "UP"
+        },
+        {
+          "value": "DOWN"
+        },
+        {
+          "value": "OUT_OF_SERVICE"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

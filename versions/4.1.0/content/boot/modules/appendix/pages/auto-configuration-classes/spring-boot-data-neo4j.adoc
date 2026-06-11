@@ -1,0 +1,21 @@
+[[appendix.auto-configuration-classes.spring-boot-data-neo4j]]
+= spring-boot-data-neo4j
+
+以下 auto-configuration 类来自 `spring-boot-data-neo4j` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-data-neo4j/src/main/java/org/springframework/boot/data/neo4j/autoconfigure/DataNeo4jAutoConfiguration.java[`DataNeo4jAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/neo4j/autoconfigure/DataNeo4jAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-neo4j/src/main/java/org/springframework/boot/data/neo4j/autoconfigure/DataNeo4jReactiveAutoConfiguration.java[`DataNeo4jReactiveAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/neo4j/autoconfigure/DataNeo4jReactiveAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-neo4j/src/main/java/org/springframework/boot/data/neo4j/autoconfigure/DataNeo4jReactiveRepositoriesAutoConfiguration.java[`DataNeo4jReactiveRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/neo4j/autoconfigure/DataNeo4jReactiveRepositoriesAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-neo4j/src/main/java/org/springframework/boot/data/neo4j/autoconfigure/DataNeo4jRepositoriesAutoConfiguration.java[`DataNeo4jRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/neo4j/autoconfigure/DataNeo4jRepositoriesAutoConfiguration.html[javadoc]
+|===

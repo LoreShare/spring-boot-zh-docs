@@ -1,4 +1,230 @@
-[source,text]
+[source,http,options="nowrap"]
 ----
-该请求或响应示例由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+HTTP/1.1 200 OK
+Content-Type: application/vnd.spring-boot.actuator.v3+json
+Content-Length: 6878
+
+{
+  "contexts" : {
+    "application" : {
+      "beans" : {
+        "spring.web-org.springframework.boot.autoconfigure.web.WebProperties" : {
+          "inputs" : {
+            "error" : {
+              "includeBindingErrors" : { },
+              "includeException" : { },
+              "includeMessage" : { },
+              "includePath" : { },
+              "includeStacktrace" : { },
+              "path" : { },
+              "whitelabel" : {
+                "enabled" : { }
+              }
+            },
+            "localeResolver" : { },
+            "resources" : {
+              "addMappings" : { },
+              "cache" : {
+                "cachecontrol" : { },
+                "useLastModified" : { }
+              },
+              "chain" : {
+                "cache" : { },
+                "compressed" : { },
+                "strategy" : {
+                  "content" : {
+                    "enabled" : { },
+                    "paths" : [ { } ]
+                  },
+                  "fixed" : {
+                    "enabled" : { },
+                    "paths" : [ { } ]
+                  }
+                }
+              },
+              "staticLocations" : [ { }, { }, { }, { } ]
+            }
+          },
+          "prefix" : "spring.web",
+          "properties" : {
+            "error" : {
+              "includeBindingErrors" : "NEVER",
+              "includeException" : false,
+              "includeMessage" : "NEVER",
+              "includePath" : "ALWAYS",
+              "includeStacktrace" : "NEVER",
+              "path" : "/error",
+              "whitelabel" : {
+                "enabled" : true
+              }
+            },
+            "localeResolver" : "ACCEPT_HEADER",
+            "resources" : {
+              "addMappings" : true,
+              "cache" : {
+                "cachecontrol" : { },
+                "useLastModified" : true
+              },
+              "chain" : {
+                "cache" : true,
+                "compressed" : false,
+                "strategy" : {
+                  "content" : {
+                    "enabled" : false,
+                    "paths" : [ "/**" ]
+                  },
+                  "fixed" : {
+                    "enabled" : false,
+                    "paths" : [ "/**" ]
+                  }
+                }
+              },
+              "staticLocations" : [ "classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/" ]
+            }
+          }
+        },
+        "spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties" : {
+          "inputs" : {
+            "findAndAddModules" : { },
+            "serialization" : { },
+            "factory" : {
+              "constraints" : {
+                "read" : {
+                  "maxDocumentLength" : { },
+                  "maxNameLength" : { },
+                  "maxNestingDepth" : { },
+                  "maxNumberLength" : { },
+                  "maxStringLength" : { },
+                  "maxTokenCount" : { }
+                },
+                "write" : {
+                  "maxNestingDepth" : { }
+                }
+              }
+            },
+            "read" : { },
+            "visibility" : { },
+            "constructorDetector" : { },
+            "datatype" : {
+              "datetime" : { },
+              "enum" : { },
+              "jsonNode" : { }
+            },
+            "deserialization" : { },
+            "json" : {
+              "read" : { },
+              "write" : { }
+            },
+            "mapper" : { },
+            "write" : { },
+            "useJackson2Defaults" : { }
+          },
+          "prefix" : "spring.jackson",
+          "properties" : {
+            "findAndAddModules" : true,
+            "serialization" : { },
+            "factory" : {
+              "constraints" : {
+                "read" : {
+                  "maxDocumentLength" : -1,
+                  "maxNameLength" : 50000,
+                  "maxNestingDepth" : 500,
+                  "maxNumberLength" : 1000,
+                  "maxStringLength" : 100000000,
+                  "maxTokenCount" : -1
+                },
+                "write" : {
+                  "maxNestingDepth" : 500
+                }
+              }
+            },
+            "read" : { },
+            "visibility" : { },
+            "constructorDetector" : "DEFAULT",
+            "datatype" : {
+              "datetime" : { },
+              "enum" : { },
+              "jsonNode" : { }
+            },
+            "deserialization" : { },
+            "json" : {
+              "read" : { },
+              "write" : { }
+            },
+            "mapper" : { },
+            "write" : { },
+            "useJackson2Defaults" : false
+          }
+        },
+        "spring.mvc-org.springframework.boot.webmvc.autoconfigure.WebMvcProperties" : {
+          "inputs" : {
+            "contentnegotiation" : {
+              "defaultContentTypes" : [ ],
+              "favorParameter" : { },
+              "mediaTypes" : { }
+            },
+            "servlet" : {
+              "loadOnStartup" : { },
+              "path" : { }
+            },
+            "format" : { },
+            "staticPathPattern" : { },
+            "apiversion" : {
+              "use" : {
+                "mediaTypeParameter" : { }
+              }
+            },
+            "dispatchOptionsRequest" : { },
+            "dispatchTraceRequest" : { },
+            "problemdetails" : {
+              "enabled" : { }
+            },
+            "logResolvedException" : { },
+            "async" : { },
+            "webjarsPathPattern" : { },
+            "view" : { },
+            "publishRequestHandledEvents" : { },
+            "logRequestDetails" : { },
+            "pathmatch" : {
+              "matchingStrategy" : { }
+            }
+          },
+          "prefix" : "spring.mvc",
+          "properties" : {
+            "contentnegotiation" : {
+              "defaultContentTypes" : [ ],
+              "favorParameter" : false,
+              "mediaTypes" : { }
+            },
+            "servlet" : {
+              "loadOnStartup" : -1,
+              "path" : "/"
+            },
+            "format" : { },
+            "staticPathPattern" : "/**",
+            "apiversion" : {
+              "use" : {
+                "mediaTypeParameter" : { }
+              }
+            },
+            "dispatchOptionsRequest" : true,
+            "dispatchTraceRequest" : false,
+            "problemdetails" : {
+              "enabled" : false
+            },
+            "logResolvedException" : false,
+            "async" : { },
+            "webjarsPathPattern" : "/webjars/**",
+            "view" : { },
+            "publishRequestHandledEvents" : true,
+            "logRequestDetails" : false,
+            "pathmatch" : {
+              "matchingStrategy" : "PATH_PATTERN_PARSER"
+            }
+          }
+        }
+      }
+    }
+  }
+}
 ----

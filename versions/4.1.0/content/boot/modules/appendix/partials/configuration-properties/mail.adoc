@@ -1,1 +1,67 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.mail]]
+== 邮件属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.mail.spring.mail.default-encoding]]xref:#application-properties.mail.spring.mail.default-encoding[`+spring.mail.default-encoding+`]
+|+++默认的 MimeMessage 编码。+++
+|`+UTF-8+`
+
+|[[application-properties.mail.spring.mail.host]]xref:#application-properties.mail.spring.mail.host[`+spring.mail.host+`]
+|+++SMTP 服务器主机。例如 'smtp.example.com'。+++
+|
+
+|[[application-properties.mail.spring.mail.jndi-name]]xref:#application-properties.mail.spring.mail.jndi-name[`+spring.mail.jndi-name+`]
+|+++Session JNDI 名称。设置后，优先于其他 Session 设置。+++
+|
+
+|[[application-properties.mail.spring.mail.password]]xref:#application-properties.mail.spring.mail.password[`+spring.mail.password+`]
+|+++SMTP 服务器的登录密码。+++
+|
+
+|[[application-properties.mail.spring.mail.port]]xref:#application-properties.mail.spring.mail.port[`+spring.mail.port+`]
+|+++SMTP 服务器端口。+++
+|
+
+|[[application-properties.mail.spring.mail.properties]]xref:#application-properties.mail.spring.mail.properties[`+spring.mail.properties.*+`]
+|+++额外的 JavaMail Session 属性。+++
+|
+
+|[[application-properties.mail.spring.mail.protocol]]xref:#application-properties.mail.spring.mail.protocol[`+spring.mail.protocol+`]
+|+++SMTP 服务器使用的协议。+++
+|`+smtp+`
+
+|[[application-properties.mail.spring.mail.ssl.bundle]]xref:#application-properties.mail.spring.mail.ssl.bundle[`+spring.mail.ssl.bundle+`]
+|+++SSL 包名称。如果设置，'mail.(protocol).ssl.socketFactory' 属性将设置为从相应 SSL 包获取的 SSLSocketFactory。&lt;p&gt; 请注意，即使未设置 'mail.(protocol).ssl.enable' 属性，STARTTLS 命令也可以使用相应的 SSLSocketFactory。+++
+|
+
+|[[application-properties.mail.spring.mail.ssl.enabled]]xref:#application-properties.mail.spring.mail.ssl.enabled[`+spring.mail.ssl.enabled+`]
+|+++是否启用 SSL 支持。如果启用，'mail.(protocol).ssl.enable' 属性将设置为 'true'。+++
+|`+false+`
+
+|[[application-properties.mail.spring.mail.ssl.verify-hostname]]xref:#application-properties.mail.spring.mail.ssl.verify-hostname[`+spring.mail.ssl.verify-hostname+`]
+|+++是否启用主机名验证。+++
+|`+true+`
+
+|[[application-properties.mail.spring.mail.test-connection]]xref:#application-properties.mail.spring.mail.test-connection[`+spring.mail.test-connection+`]
+|+++是否在启动时测试邮件服务器可用。+++
+|`+false+`
+
+|[[application-properties.mail.spring.mail.username]]xref:#application-properties.mail.spring.mail.username[`+spring.mail.username+`]
+|+++SMTP 服务器的登录用户。+++
+|
+
+|[[application-properties.mail.spring.sendgrid.api-key]]xref:#application-properties.mail.spring.sendgrid.api-key[`+spring.sendgrid.api-key+`]
+|+++SendGrid API 密钥。+++
+|
+
+|[[application-properties.mail.spring.sendgrid.proxy.host]]xref:#application-properties.mail.spring.sendgrid.proxy.host[`+spring.sendgrid.proxy.host+`]
+|+++SendGrid 代理主机。+++
+|
+
+|[[application-properties.mail.spring.sendgrid.proxy.port]]xref:#application-properties.mail.spring.sendgrid.proxy.port[`+spring.sendgrid.proxy.port+`]
+|+++SendGrid 代理端口。+++
+|
+
+|===

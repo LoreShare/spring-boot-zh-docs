@@ -1,0 +1,131 @@
+{
+  "groups": [
+    {
+      "name": "spring.mustache",
+      "type": "org.springframework.boot.mustache.autoconfigure.MustacheProperties",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties"
+    },
+    {
+      "name": "spring.mustache.reactive",
+      "type": "org.springframework.boot.mustache.autoconfigure.MustacheProperties$Reactive",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties",
+      "sourceMethod": "getReactive()"
+    },
+    {
+      "name": "spring.mustache.servlet",
+      "type": "org.springframework.boot.mustache.autoconfigure.MustacheProperties$Servlet",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties",
+      "sourceMethod": "getServlet()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.mustache.charset",
+      "type": "java.nio.charset.Charset",
+      "description": "Template encoding.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.mustache.check-template-location",
+      "type": "java.lang.Boolean",
+      "description": "Whether to check that the templates location exists.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.mustache.prefix",
+      "type": "java.lang.String",
+      "description": "Prefix to apply to template names.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties",
+      "defaultValue": "classpath:\/templates\/"
+    },
+    {
+      "name": "spring.mustache.reactive.media-types",
+      "type": "java.util.List<org.springframework.http.MediaType>",
+      "description": "Media types supported by Mustache views.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties$Reactive",
+      "defaultValue": "text\/html;charset=UTF-8"
+    },
+    {
+      "name": "spring.mustache.request-context-attribute",
+      "type": "java.lang.String",
+      "description": "Name of the RequestContext attribute for all views.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties"
+    },
+    {
+      "name": "spring.mustache.servlet.allow-request-override",
+      "type": "java.lang.Boolean",
+      "description": "Whether HttpServletRequest attributes are allowed to override (hide) controller generated model attributes of the same name.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties$Servlet",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.mustache.servlet.allow-session-override",
+      "type": "java.lang.Boolean",
+      "description": "Whether HttpSession attributes are allowed to override (hide) controller generated model attributes of the same name.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties$Servlet",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.mustache.servlet.cache",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable template caching.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties$Servlet",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.mustache.servlet.content-type",
+      "type": "org.springframework.util.MimeType",
+      "description": "Content-Type value.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties$Servlet"
+    },
+    {
+      "name": "spring.mustache.servlet.expose-request-attributes",
+      "type": "java.lang.Boolean",
+      "description": "Whether all request attributes should be added to the model prior to merging with the template.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties$Servlet",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.mustache.servlet.expose-session-attributes",
+      "type": "java.lang.Boolean",
+      "description": "Whether all HttpSession attributes should be added to the model prior to merging with the template.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties$Servlet",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.mustache.servlet.expose-spring-macro-helpers",
+      "type": "java.lang.Boolean",
+      "description": "Whether to expose a RequestContext for use by Spring's macro library, under the name \"springMacroRequestContext\".",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties$Servlet",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.mustache.suffix",
+      "type": "java.lang.String",
+      "description": "Suffix to apply to template names.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties",
+      "defaultValue": ".mustache"
+    },
+    {
+      "name": "spring.mustache.view-names",
+      "type": "java.lang.String[]",
+      "description": "View names that can be resolved.",
+      "sourceType": "org.springframework.boot.mustache.autoconfigure.MustacheProperties"
+    },
+    {
+      "name": "spring.mustache.enabled",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "No longer required. To use Mustache without auto-configuration, depend directly on Mustache instead of spring-boot-mustache.",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,0 +1,30 @@
+[[appendix.auto-configuration-classes.spring-boot-health]]
+= spring-boot-health
+
+以下 auto-configuration 类来自 `spring-boot-health` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-health/src/main/java/org/springframework/boot/health/autoconfigure/application/AvailabilityHealthContributorAutoConfiguration.java[`AvailabilityHealthContributorAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/health/autoconfigure/application/AvailabilityHealthContributorAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-health/src/main/java/org/springframework/boot/health/autoconfigure/actuate/endpoint/AvailabilityProbesAutoConfiguration.java[`AvailabilityProbesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/health/autoconfigure/actuate/endpoint/AvailabilityProbesAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-health/src/main/java/org/springframework/boot/health/autoconfigure/application/DiskSpaceHealthContributorAutoConfiguration.java[`DiskSpaceHealthContributorAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/health/autoconfigure/application/DiskSpaceHealthContributorAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-health/src/main/java/org/springframework/boot/health/autoconfigure/contributor/HealthContributorAutoConfiguration.java[`HealthContributorAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/health/autoconfigure/contributor/HealthContributorAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-health/src/main/java/org/springframework/boot/health/autoconfigure/registry/HealthContributorRegistryAutoConfiguration.java[`HealthContributorRegistryAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/health/autoconfigure/registry/HealthContributorRegistryAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-health/src/main/java/org/springframework/boot/health/autoconfigure/actuate/endpoint/HealthEndpointAutoConfiguration.java[`HealthEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/health/autoconfigure/actuate/endpoint/HealthEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-health/src/main/java/org/springframework/boot/health/autoconfigure/application/SslHealthContributorAutoConfiguration.java[`SslHealthContributorAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/health/autoconfigure/application/SslHealthContributorAutoConfiguration.html[javadoc]
+|===

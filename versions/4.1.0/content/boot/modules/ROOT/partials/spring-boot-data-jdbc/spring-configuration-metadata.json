@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "spring.data.jdbc",
+      "type": "org.springframework.boot.data.jdbc.autoconfigure.DataJdbcProperties",
+      "sourceType": "org.springframework.boot.data.jdbc.autoconfigure.DataJdbcProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.data.jdbc.dialect",
+      "type": "org.springframework.boot.data.jdbc.autoconfigure.DataJdbcDatabaseDialect",
+      "description": "Dialect to use. By default, the dialect is determined by inspecting the database connection.",
+      "sourceType": "org.springframework.boot.data.jdbc.autoconfigure.DataJdbcProperties"
+    },
+    {
+      "name": "spring.data.jdbc.repositories.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable JDBC repositories.",
+      "defaultValue": true
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

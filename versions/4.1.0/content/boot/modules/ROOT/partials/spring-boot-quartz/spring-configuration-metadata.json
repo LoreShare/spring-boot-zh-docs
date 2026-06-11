@@ -1,0 +1,136 @@
+{
+  "groups": [
+    {
+      "name": "management.endpoint.quartz",
+      "type": "org.springframework.boot.quartz.autoconfigure.QuartzEndpointProperties",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzEndpointProperties"
+    },
+    {
+      "name": "spring.quartz",
+      "type": "org.springframework.boot.quartz.autoconfigure.QuartzProperties",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzProperties"
+    },
+    {
+      "name": "spring.quartz.jdbc",
+      "type": "org.springframework.boot.quartz.autoconfigure.QuartzJdbcProperties",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzJdbcProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.endpoint.quartz.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the quartz endpoint.",
+      "sourceType": "org.springframework.boot.quartz.actuate.endpoint.QuartzEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.quartz.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.quartz.actuate.endpoint.QuartzEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.quartz.roles",
+      "type": "java.util.Set<java.lang.String>",
+      "description": "Roles used to determine whether a user is authorized to be shown unsanitized job or trigger values. When empty, all authenticated users are authorized.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzEndpointProperties"
+    },
+    {
+      "name": "management.endpoint.quartz.show-values",
+      "type": "org.springframework.boot.actuate.endpoint.Show",
+      "description": "When to show unsanitized job or trigger values.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzEndpointProperties",
+      "defaultValue": "never"
+    },
+    {
+      "name": "spring.quartz.auto-startup",
+      "type": "java.lang.Boolean",
+      "description": "Whether to automatically start the scheduler after initialization.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.quartz.jdbc.comment-prefix",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Prefixes for single-line comments in SQL initialization scripts.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzJdbcProperties",
+      "defaultValue": [
+        "#",
+        "--"
+      ]
+    },
+    {
+      "name": "spring.quartz.jdbc.continue-on-error",
+      "type": "java.lang.Boolean",
+      "description": "Whether initialization should continue when an error occurs when applying a schema script.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzJdbcProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.quartz.jdbc.initialize-schema",
+      "type": "org.springframework.boot.sql.init.DatabaseInitializationMode",
+      "description": "Database schema initialization mode.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzJdbcProperties",
+      "defaultValue": "embedded"
+    },
+    {
+      "name": "spring.quartz.jdbc.platform",
+      "type": "java.lang.String",
+      "description": "Platform to use in initialization scripts if the @@platform@@ placeholder is used. Auto-detected by default.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzJdbcProperties"
+    },
+    {
+      "name": "spring.quartz.jdbc.schema",
+      "type": "java.lang.String",
+      "description": "Path to the SQL file to use to initialize the database schema.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzJdbcProperties"
+    },
+    {
+      "name": "spring.quartz.job-store-type",
+      "type": "org.springframework.boot.quartz.autoconfigure.JobStoreType",
+      "description": "Quartz job store type.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzProperties",
+      "defaultValue": "memory"
+    },
+    {
+      "name": "spring.quartz.overwrite-existing-jobs",
+      "type": "java.lang.Boolean",
+      "description": "Whether configured jobs should overwrite existing job definitions.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.quartz.properties",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Additional Quartz Scheduler properties.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzProperties"
+    },
+    {
+      "name": "spring.quartz.scheduler-name",
+      "type": "java.lang.String",
+      "description": "Name of the scheduler.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzProperties",
+      "defaultValue": "quartzScheduler"
+    },
+    {
+      "name": "spring.quartz.startup-delay",
+      "type": "java.time.Duration",
+      "description": "Delay after which the scheduler is started once initialization completes. Setting this property makes sense if no jobs should be run before the entire application has started up.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzProperties",
+      "defaultValue": "0s"
+    },
+    {
+      "name": "spring.quartz.wait-for-jobs-to-complete-on-shutdown",
+      "type": "java.lang.Boolean",
+      "description": "Whether to wait for running jobs to complete on shutdown.",
+      "sourceType": "org.springframework.boot.quartz.autoconfigure.QuartzProperties",
+      "defaultValue": false
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

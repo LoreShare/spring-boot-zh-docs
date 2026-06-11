@@ -1,0 +1,21 @@
+[[appendix.auto-configuration-classes.spring-boot-micrometer-tracing]]
+= spring-boot-micrometer-tracing
+
+以下 auto-configuration 类来自 `spring-boot-micrometer-tracing` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-micrometer-tracing/src/main/java/org/springframework/boot/micrometer/tracing/autoconfigure/MicrometerTracingAutoConfiguration.java[`MicrometerTracingAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/tracing/autoconfigure/MicrometerTracingAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-tracing/src/main/java/org/springframework/boot/micrometer/tracing/autoconfigure/NoopTracerAutoConfiguration.java[`NoopTracerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/tracing/autoconfigure/NoopTracerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-tracing/src/main/java/org/springframework/boot/micrometer/tracing/autoconfigure/otlp/OtlpExemplarsAutoConfiguration.java[`OtlpExemplarsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/tracing/autoconfigure/otlp/OtlpExemplarsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-tracing/src/main/java/org/springframework/boot/micrometer/tracing/autoconfigure/prometheus/PrometheusExemplarsAutoConfiguration.java[`PrometheusExemplarsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/tracing/autoconfigure/prometheus/PrometheusExemplarsAutoConfiguration.html[javadoc]
+|===

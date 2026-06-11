@@ -1,0 +1,90 @@
+{
+  "groups": [
+    {
+      "name": "spring.gson",
+      "type": "org.springframework.boot.gson.autoconfigure.GsonProperties",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.gson.date-format",
+      "type": "java.lang.String",
+      "description": "Format to use when serializing Date objects.",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    },
+    {
+      "name": "spring.gson.disable-html-escaping",
+      "type": "java.lang.Boolean",
+      "description": "Whether to disable the escaping of HTML characters such as '<', '>', etc.",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    },
+    {
+      "name": "spring.gson.disable-inner-class-serialization",
+      "type": "java.lang.Boolean",
+      "description": "Whether to exclude inner classes during serialization.",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    },
+    {
+      "name": "spring.gson.enable-complex-map-key-serialization",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable serialization of complex map keys (i.e. non-primitives).",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    },
+    {
+      "name": "spring.gson.exclude-fields-without-expose-annotation",
+      "type": "java.lang.Boolean",
+      "description": "Whether to exclude all fields from consideration for serialization or deserialization that do not have the \"Expose\" annotation.",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    },
+    {
+      "name": "spring.gson.field-naming-policy",
+      "type": "com.google.gson.FieldNamingPolicy",
+      "description": "Naming policy that should be applied to an object's field during serialization and deserialization.",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    },
+    {
+      "name": "spring.gson.generate-non-executable-json",
+      "type": "java.lang.Boolean",
+      "description": "Whether to generate non-executable JSON by prefixing the output with some special text.",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    },
+    {
+      "name": "spring.gson.long-serialization-policy",
+      "type": "com.google.gson.LongSerializationPolicy",
+      "description": "Serialization policy for Long and long types.",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    },
+    {
+      "name": "spring.gson.pretty-printing",
+      "type": "java.lang.Boolean",
+      "description": "Whether to output serialized JSON that fits in a page for pretty printing.",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    },
+    {
+      "name": "spring.gson.serialize-nulls",
+      "type": "java.lang.Boolean",
+      "description": "Whether to serialize null fields.",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    },
+    {
+      "name": "spring.gson.strictness",
+      "type": "org.springframework.boot.gson.autoconfigure.GsonProperties$Strictness",
+      "description": "Sets how strictly the RFC 8259 specification will be enforced when reading and writing JSON.",
+      "sourceType": "org.springframework.boot.gson.autoconfigure.GsonProperties"
+    },
+    {
+      "name": "spring.gson.lenient",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.gson.strictness",
+        "since": "3.4.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

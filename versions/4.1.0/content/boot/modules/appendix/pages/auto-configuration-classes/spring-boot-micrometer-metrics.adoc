@@ -1,0 +1,93 @@
+[[appendix.auto-configuration-classes.spring-boot-micrometer-metrics]]
+= spring-boot-micrometer-metrics
+
+以下 auto-configuration 类来自 `spring-boot-micrometer-metrics` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/appoptics/AppOpticsMetricsExportAutoConfiguration.java[`AppOpticsMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/appoptics/AppOpticsMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/atlas/AtlasMetricsExportAutoConfiguration.java[`AtlasMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/atlas/AtlasMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/CompositeMeterRegistryAutoConfiguration.java[`CompositeMeterRegistryAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/CompositeMeterRegistryAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/datadog/DatadogMetricsExportAutoConfiguration.java[`DatadogMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/datadog/DatadogMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/dynatrace/DynatraceMetricsExportAutoConfiguration.java[`DynatraceMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/dynatrace/DynatraceMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/elastic/ElasticMetricsExportAutoConfiguration.java[`ElasticMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/elastic/ElasticMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/ganglia/GangliaMetricsExportAutoConfiguration.java[`GangliaMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/ganglia/GangliaMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/graphite/GraphiteMetricsExportAutoConfiguration.java[`GraphiteMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/graphite/GraphiteMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/humio/HumioMetricsExportAutoConfiguration.java[`HumioMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/humio/HumioMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/influx/InfluxMetricsExportAutoConfiguration.java[`InfluxMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/influx/InfluxMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/jmx/JmxMetricsExportAutoConfiguration.java[`JmxMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/jmx/JmxMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/jvm/JvmMetricsAutoConfiguration.java[`JvmMetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/jvm/JvmMetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/kairos/KairosMetricsExportAutoConfiguration.java[`KairosMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/kairos/KairosMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/logging/log4j2/Log4J2MetricsAutoConfiguration.java[`Log4J2MetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/logging/log4j2/Log4J2MetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/logging/logback/LogbackMetricsAutoConfiguration.java[`LogbackMetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/logging/logback/LogbackMetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/MetricsAspectsAutoConfiguration.java[`MetricsAspectsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/MetricsAspectsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/MetricsAutoConfiguration.java[`MetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/MetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/MetricsEndpointAutoConfiguration.java[`MetricsEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/MetricsEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/newrelic/NewRelicMetricsExportAutoConfiguration.java[`NewRelicMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/newrelic/NewRelicMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/otlp/OtlpMetricsExportAutoConfiguration.java[`OtlpMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/otlp/OtlpMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/prometheus/PrometheusMetricsExportAutoConfiguration.java[`PrometheusMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/prometheus/PrometheusMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/simple/SimpleMetricsExportAutoConfiguration.java[`SimpleMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/simple/SimpleMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/ssl/SslMetricsAutoConfiguration.java[`SslMetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/ssl/SslMetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/stackdriver/StackdriverMetricsExportAutoConfiguration.java[`StackdriverMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/stackdriver/StackdriverMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/startup/StartupTimeMetricsListenerAutoConfiguration.java[`StartupTimeMetricsListenerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/startup/StartupTimeMetricsListenerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/statsd/StatsdMetricsExportAutoConfiguration.java[`StatsdMetricsExportAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/export/statsd/StatsdMetricsExportAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/system/SystemMetricsAutoConfiguration.java[`SystemMetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/system/SystemMetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-micrometer-metrics/src/main/java/org/springframework/boot/micrometer/metrics/autoconfigure/task/TaskExecutorMetricsAutoConfiguration.java[`TaskExecutorMetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/micrometer/metrics/autoconfigure/task/TaskExecutorMetricsAutoConfiguration.html[javadoc]
+|===

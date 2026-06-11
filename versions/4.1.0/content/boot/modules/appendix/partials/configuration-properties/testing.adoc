@@ -1,1 +1,79 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.testing]]
+== 测试属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.testing.spring.test.database.replace]]xref:#application-properties.testing.spring.test.database.replace[`+spring.test.database.replace+`]
+|+++要替换的现有 DataSource 的类型。+++
+|`+any+`
+
+|[[application-properties.testing.spring.test.jsontesters.enabled]]xref:#application-properties.testing.spring.test.jsontesters.enabled[`+spring.test.jsontesters.enabled+`]
+|+++是否启用 JSON 测试器的 auto-configuration。+++
+|`+true+`
+
+|[[application-properties.testing.spring.test.metrics.export]]xref:#application-properties.testing.spring.test.metrics.export[`+spring.test.metrics.export+`]
+|+++是否应在测试中自动配置指标导出。+++
+|`+false+`
+
+|[[application-properties.testing.spring.test.mockmvc.add-filters]]xref:#application-properties.testing.spring.test.mockmvc.add-filters[`+spring.test.mockmvc.add-filters+`]
+|+++是否添加 servlet 过滤器。+++
+|`+true+`
+
+|[[application-properties.testing.spring.test.mockmvc.htmlunit.url]]xref:#application-properties.testing.spring.test.mockmvc.htmlunit.url[`+spring.test.mockmvc.htmlunit.url+`]
+|+++HtmlUnit 展开相对路径时使用的 URL。+++
+|`+http://localhost+`
+
+|[[application-properties.testing.spring.test.mockmvc.htmlunit.webclient.enabled]]xref:#application-properties.testing.spring.test.mockmvc.htmlunit.webclient.enabled[`+spring.test.mockmvc.htmlunit.webclient.enabled+`]
+|+++当 HTMLUnit 的 WebClient 在 classpath 上时，是否应自动配置它。+++
+|`+true+`
+
+|[[application-properties.testing.spring.test.mockmvc.htmlunit.webdriver.enabled]]xref:#application-properties.testing.spring.test.mockmvc.htmlunit.webdriver.enabled[`+spring.test.mockmvc.htmlunit.webdriver.enabled+`]
+|+++当 Selenium 的 WebDriver 在 classpath 上时，是否应自动配置它。+++
+|`+true+`
+
+|[[application-properties.testing.spring.test.mockmvc.print]]xref:#application-properties.testing.spring.test.mockmvc.print[`+spring.test.mockmvc.print+`]
+|+++MVC 打印选项。+++
+|`+default+`
+
+|[[application-properties.testing.spring.test.mockmvc.print-only-on-failure]]xref:#application-properties.testing.spring.test.mockmvc.print-only-on-failure[`+spring.test.mockmvc.print-only-on-failure+`]
+|+++是否仅打印失败的交换。+++
+|`+true+`
+
+|[[application-properties.testing.spring.test.print-condition-evaluation-report]]xref:#application-properties.testing.spring.test.print-condition-evaluation-report[`+spring.test.print-condition-evaluation-report+`]
+|+++当 ApplicationContext 启动失败时，是否应打印条件评估报告。+++
+|`+true+`
+
+|[[application-properties.testing.spring.test.restclient.mockrestserviceserver.enabled]]xref:#application-properties.testing.spring.test.restclient.mockrestserviceserver.enabled[`+spring.test.restclient.mockrestserviceserver.enabled+`]
+|+++是否应自动配置 MockRestServiceServer。+++
+|`+true+`
+
+|[[application-properties.testing.spring.test.restdocs.uri-host]]xref:#application-properties.testing.spring.test.restdocs.uri-host[`+spring.test.restdocs.uri-host+`]
+|+++要使用的 URI 主机。+++
+|
+
+|[[application-properties.testing.spring.test.restdocs.uri-port]]xref:#application-properties.testing.spring.test.restdocs.uri-port[`+spring.test.restdocs.uri-port+`]
+|+++要使用的 URI 端口。+++
+|
+
+|[[application-properties.testing.spring.test.restdocs.uri-scheme]]xref:#application-properties.testing.spring.test.restdocs.uri-scheme[`+spring.test.restdocs.uri-scheme+`]
+|+++要使用的 URI 方案（例如 http）。+++
+|
+
+|[[application-properties.testing.spring.test.tracing.export]]xref:#application-properties.testing.spring.test.tracing.export[`+spring.test.tracing.export+`]
+|+++是否应在测试中自动配置跟踪导出。+++
+|`+false+`
+
+|[[application-properties.testing.spring.test.webservice.client.mockserver.enabled]]xref:#application-properties.testing.spring.test.webservice.client.mockserver.enabled[`+spring.test.webservice.client.mockserver.enabled+`]
+|+++是否应自动配置 MockWebServiceServer。+++
+|`+true+`
+
+|[[application-properties.testing.spring.test.webservice.client.register-web-service-template]]xref:#application-properties.testing.spring.test.webservice.client.register-web-service-template[`+spring.test.webservice.client.register-web-service-template+`]
+|+++是否应注册 WebServiceTemplate bean。+++
+|`+false+`
+
+|[[application-properties.testing.spring.test.webtestclient.timeout]]xref:#application-properties.testing.spring.test.webtestclient.timeout[`+spring.test.webtestclient.timeout+`]
+|+++等待响应的最长时间。+++
+|`+5s+`
+
+|===

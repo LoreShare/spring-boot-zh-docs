@@ -1,0 +1,24 @@
+[[appendix.auto-configuration-classes.spring-boot-restclient]]
+= spring-boot-restclient
+
+以下 auto-configuration 类来自 `spring-boot-restclient` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-restclient/src/main/java/org/springframework/boot/restclient/autoconfigure/service/HttpServiceClientAutoConfiguration.java[`HttpServiceClientAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/restclient/autoconfigure/service/HttpServiceClientAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-restclient/src/main/java/org/springframework/boot/restclient/autoconfigure/RestClientAutoConfiguration.java[`RestClientAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/restclient/autoconfigure/RestClientAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-restclient/src/main/java/org/springframework/boot/restclient/autoconfigure/RestClientObservationAutoConfiguration.java[`RestClientObservationAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/restclient/autoconfigure/RestClientObservationAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-restclient/src/main/java/org/springframework/boot/restclient/autoconfigure/RestTemplateAutoConfiguration.java[`RestTemplateAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/restclient/autoconfigure/RestTemplateAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-restclient/src/main/java/org/springframework/boot/restclient/autoconfigure/RestTemplateObservationAutoConfiguration.java[`RestTemplateObservationAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/restclient/autoconfigure/RestTemplateObservationAutoConfiguration.html[javadoc]
+|===

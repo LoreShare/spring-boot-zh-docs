@@ -1,0 +1,56 @@
+{
+  "groups": [
+    {
+      "name": "management.endpoint.sessions",
+      "type": "org.springframework.boot.session.actuate.endpoint.SessionsEndpoint",
+      "sourceType": "org.springframework.boot.session.actuate.endpoint.SessionsEndpoint"
+    },
+    {
+      "name": "spring.session",
+      "type": "org.springframework.boot.session.autoconfigure.SessionProperties",
+      "sourceType": "org.springframework.boot.session.autoconfigure.SessionProperties"
+    },
+    {
+      "name": "spring.session.servlet",
+      "type": "org.springframework.boot.session.autoconfigure.SessionProperties$Servlet",
+      "sourceType": "org.springframework.boot.session.autoconfigure.SessionProperties",
+      "sourceMethod": "getServlet()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.endpoint.sessions.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the sessions endpoint.",
+      "sourceType": "org.springframework.boot.session.actuate.endpoint.SessionsEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "spring.session.servlet.filter-dispatcher-types",
+      "type": "java.util.Set<org.springframework.boot.web.servlet.DispatcherType>",
+      "description": "Session repository filter dispatcher types.",
+      "sourceType": "org.springframework.boot.session.autoconfigure.SessionProperties$Servlet",
+      "defaultValue": [
+        "async",
+        "error",
+        "request"
+      ]
+    },
+    {
+      "name": "spring.session.servlet.filter-order",
+      "type": "java.lang.Integer",
+      "description": "Session repository filter order.",
+      "sourceType": "org.springframework.boot.session.autoconfigure.SessionProperties$Servlet"
+    },
+    {
+      "name": "spring.session.timeout",
+      "type": "java.time.Duration",
+      "description": "Session timeout. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.session.autoconfigure.SessionProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

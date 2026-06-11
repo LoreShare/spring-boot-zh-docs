@@ -1,0 +1,25 @@
+[source,json,options="nowrap"]
+----
+{
+  "contexts" : {
+    "application" : {
+      "flywayBeans" : {
+        "flyway" : {
+          "migrations" : [ {
+            "checksum" : -156244537,
+            "description" : "init",
+            "executionTime" : 12,
+            "installedBy" : "SA",
+            "installedOn" : "2026-06-10T16:30:10.822Z",
+            "installedRank" : 1,
+            "script" : "V1__init.sql",
+            "state" : "SUCCESS",
+            "type" : "SQL",
+            "version" : "1"
+          } ]
+        }
+      }
+    }
+  }
+}
+----

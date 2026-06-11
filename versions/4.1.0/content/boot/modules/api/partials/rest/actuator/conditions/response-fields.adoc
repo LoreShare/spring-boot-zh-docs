@@ -1,3 +1,55 @@
 |===
-3+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+|路径|类型|描述
+
+|`+contexts+`
+|`+Object+`
+|按 id 键控的应用程序上下文。
+
+|`+contexts.*.positiveMatches+`
+|`+Object+`
+|条件被匹配的类和方法。
+
+|`+contexts.*.positiveMatches.*.[].condition+`
+|`+String+`
+|条件的名称。
+
+|`+contexts.*.positiveMatches.*.[].message+`
+|`+String+`
+|条件被匹配的原因详情。
+
+|`+contexts.*.negativeMatches+`
+|`+Object+`
+|条件未被匹配的类和方法。
+
+|`+contexts.*.negativeMatches.*.notMatched+`
+|`+Array+`
+|被匹配的条件。
+
+|`+contexts.*.negativeMatches.*.notMatched.[].condition+`
+|`+String+`
+|条件的名称。
+
+|`+contexts.*.negativeMatches.*.notMatched.[].message+`
+|`+String+`
+|条件未被匹配的原因详情。
+
+|`+contexts.*.negativeMatches.*.matched+`
+|`+Array+`
+|被匹配的条件。
+
+|`+contexts.*.negativeMatches.*.matched.[].condition+`
+|`+String+`
+|条件的名称。
+
+|`+contexts.*.negativeMatches.*.matched.[].message+`
+|`+String+`
+|条件被匹配的原因详情。
+
+|`+contexts.*.unconditionalClasses+`
+|`+Array+`
+|无条件 auto-configuration 类的名称（如果有）。
+
+|`+contexts.*.parentId+`
+|`+String+`
+|父应用程序上下文的 id（如果有）。
 |===

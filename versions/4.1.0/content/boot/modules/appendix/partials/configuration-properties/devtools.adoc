@@ -1,1 +1,67 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.devtools]]
+== Devtools 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.devtools.spring.devtools.add-properties]]xref:#application-properties.devtools.spring.devtools.add-properties[`+spring.devtools.add-properties+`]
+|+++是否启用开发属性默认值。+++
+|`+true+`
+
+|[[application-properties.devtools.spring.devtools.remote.context-path]]xref:#application-properties.devtools.spring.devtools.remote.context-path[`+spring.devtools.remote.context-path+`]
+|+++用于处理远程连接的上下文路径。+++
+|`+/.~~spring-boot!~+`
+
+|[[application-properties.devtools.spring.devtools.remote.proxy.host]]xref:#application-properties.devtools.spring.devtools.remote.proxy.host[`+spring.devtools.remote.proxy.host+`]
+|+++用于连接远程应用程序的代理主机。+++
+|
+
+|[[application-properties.devtools.spring.devtools.remote.proxy.port]]xref:#application-properties.devtools.spring.devtools.remote.proxy.port[`+spring.devtools.remote.proxy.port+`]
+|+++用于连接远程应用程序的代理端口。+++
+|
+
+|[[application-properties.devtools.spring.devtools.remote.restart.enabled]]xref:#application-properties.devtools.spring.devtools.remote.restart.enabled[`+spring.devtools.remote.restart.enabled+`]
+|+++是否启用远程重启。+++
+|`+true+`
+
+|[[application-properties.devtools.spring.devtools.remote.secret]]xref:#application-properties.devtools.spring.devtools.remote.secret[`+spring.devtools.remote.secret+`]
+|+++建立连接所需的共享密钥（启用远程支持必需）。+++
+|
+
+|[[application-properties.devtools.spring.devtools.remote.secret-header-name]]xref:#application-properties.devtools.spring.devtools.remote.secret-header-name[`+spring.devtools.remote.secret-header-name+`]
+|+++用于传输共享密钥的 HTTP 头。+++
+|`+X-AUTH-TOKEN+`
+
+|[[application-properties.devtools.spring.devtools.restart.additional-exclude]]xref:#application-properties.devtools.spring.devtools.restart.additional-exclude[`+spring.devtools.restart.additional-exclude+`]
+|+++应排除在触发完全重启之外的附加模式。+++
+|
+
+|[[application-properties.devtools.spring.devtools.restart.additional-paths]]xref:#application-properties.devtools.spring.devtools.restart.additional-paths[`+spring.devtools.restart.additional-paths+`]
+|+++要监视更改的附加路径。+++
+|
+
+|[[application-properties.devtools.spring.devtools.restart.enabled]]xref:#application-properties.devtools.spring.devtools.restart.enabled[`+spring.devtools.restart.enabled+`]
+|+++是否启用自动重启。+++
+|`+true+`
+
+|[[application-properties.devtools.spring.devtools.restart.exclude]]xref:#application-properties.devtools.spring.devtools.restart.exclude[`+spring.devtools.restart.exclude+`]
+|+++应排除在触发完全重启之外的模式。+++
+|`+META-INF/maven/**,META-INF/resources/**,resources/**,static/**,public/**,templates/**,**/*Test.class,**/*Tests.class,git.properties,META-INF/build-info.properties+`
+
+|[[application-properties.devtools.spring.devtools.restart.log-condition-evaluation-delta]]xref:#application-properties.devtools.spring.devtools.restart.log-condition-evaluation-delta[`+spring.devtools.restart.log-condition-evaluation-delta+`]
+|+++是否在重启时记录条件评估差异。+++
+|`+true+`
+
+|[[application-properties.devtools.spring.devtools.restart.poll-interval]]xref:#application-properties.devtools.spring.devtools.restart.poll-interval[`+spring.devtools.restart.poll-interval+`]
+|+++轮询 classpath 更改之间的等待时间。+++
+|`+1s+`
+
+|[[application-properties.devtools.spring.devtools.restart.quiet-period]]xref:#application-properties.devtools.spring.devtools.restart.quiet-period[`+spring.devtools.restart.quiet-period+`]
+|+++触发重启前所需的无任何 classpath 更改的静默时间。+++
+|`+400ms+`
+
+|[[application-properties.devtools.spring.devtools.restart.trigger-file]]xref:#application-properties.devtools.spring.devtools.restart.trigger-file[`+spring.devtools.restart.trigger-file+`]
+|+++特定文件的名称，当该文件发生更改时触发重启检查。必须是出现在 classpath 上的简单文件名（不含任何路径）。如果未指定，任何 classpath 文件更改都会触发重启。+++
+|
+
+|===

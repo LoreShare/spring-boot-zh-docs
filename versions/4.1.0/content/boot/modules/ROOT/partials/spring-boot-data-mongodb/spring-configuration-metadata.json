@@ -1,0 +1,101 @@
+{
+  "groups": [
+    {
+      "name": "spring.data.mongodb",
+      "type": "org.springframework.boot.data.mongodb.autoconfigure.DataMongoProperties",
+      "sourceType": "org.springframework.boot.data.mongodb.autoconfigure.DataMongoProperties"
+    },
+    {
+      "name": "spring.data.mongodb.gridfs",
+      "type": "org.springframework.boot.data.mongodb.autoconfigure.DataMongoProperties$Gridfs",
+      "sourceType": "org.springframework.boot.data.mongodb.autoconfigure.DataMongoProperties",
+      "sourceMethod": "getGridfs()"
+    },
+    {
+      "name": "spring.data.mongodb.representation",
+      "type": "org.springframework.boot.data.mongodb.autoconfigure.DataMongoProperties$Representation",
+      "sourceType": "org.springframework.boot.data.mongodb.autoconfigure.DataMongoProperties",
+      "sourceMethod": "getRepresentation()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.health.mongodb.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable MongoDB health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.data.mongodb.auto-index-creation",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable auto-index creation.",
+      "sourceType": "org.springframework.boot.data.mongodb.autoconfigure.DataMongoProperties"
+    },
+    {
+      "name": "spring.data.mongodb.field-naming-strategy",
+      "type": "java.lang.Class<?>",
+      "description": "Fully qualified name of the FieldNamingStrategy to use.",
+      "sourceType": "org.springframework.boot.data.mongodb.autoconfigure.DataMongoProperties"
+    },
+    {
+      "name": "spring.data.mongodb.gridfs.bucket",
+      "type": "java.lang.String",
+      "description": "GridFS bucket name.",
+      "sourceType": "org.springframework.boot.data.mongodb.autoconfigure.DataMongoProperties$Gridfs"
+    },
+    {
+      "name": "spring.data.mongodb.gridfs.database",
+      "type": "java.lang.String",
+      "description": "GridFS database name.",
+      "sourceType": "org.springframework.boot.data.mongodb.autoconfigure.DataMongoProperties$Gridfs"
+    },
+    {
+      "name": "spring.data.mongodb.repositories.type",
+      "type": "org.springframework.boot.autoconfigure.data.RepositoryType",
+      "description": "Type of Mongo repositories to enable.",
+      "defaultValue": "auto"
+    },
+    {
+      "name": "spring.data.mongodb.representation.big-decimal",
+      "type": "org.springframework.data.mongodb.core.convert.MongoCustomConversions$BigDecimalRepresentation",
+      "description": "Representation to use when converting a BigDecimal.",
+      "sourceType": "org.springframework.boot.data.mongodb.autoconfigure.DataMongoProperties$Representation",
+      "defaultValue": "unspecified"
+    },
+    {
+      "name": "management.health.mongo.enabled",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.health.mongodb.enabled",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.data.mongodb.grid-fs-database",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.mongodb.gridfs.database",
+        "since": "2.4.0"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.data.mongodb.field-naming-strategy",
+      "providers": [
+        {
+          "name": "class-reference",
+          "parameters": {
+            "target": "org.springframework.data.mapping.model.FieldNamingStrategy"
+          }
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

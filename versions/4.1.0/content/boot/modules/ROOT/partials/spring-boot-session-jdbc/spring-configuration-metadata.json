@@ -1,0 +1,69 @@
+{
+  "groups": [
+    {
+      "name": "spring.session.jdbc",
+      "type": "org.springframework.boot.session.jdbc.autoconfigure.JdbcSessionProperties",
+      "sourceType": "org.springframework.boot.session.jdbc.autoconfigure.JdbcSessionProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.session.jdbc.cleanup-cron",
+      "type": "java.lang.String",
+      "description": "Cron expression for expired session cleanup job.",
+      "sourceType": "org.springframework.boot.session.jdbc.autoconfigure.JdbcSessionProperties",
+      "defaultValue": "0 * * * * *"
+    },
+    {
+      "name": "spring.session.jdbc.continue-on-error",
+      "type": "java.lang.Boolean",
+      "description": "Whether initialization should continue when an error occurs when applying a schema script.",
+      "sourceType": "org.springframework.boot.session.jdbc.autoconfigure.JdbcSessionProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.session.jdbc.flush-mode",
+      "type": "org.springframework.session.FlushMode",
+      "description": "Sessions flush mode. Determines when session changes are written to the session store.",
+      "sourceType": "org.springframework.boot.session.jdbc.autoconfigure.JdbcSessionProperties",
+      "defaultValue": "on-save"
+    },
+    {
+      "name": "spring.session.jdbc.initialize-schema",
+      "type": "org.springframework.boot.sql.init.DatabaseInitializationMode",
+      "description": "Database schema initialization mode.",
+      "sourceType": "org.springframework.boot.session.jdbc.autoconfigure.JdbcSessionProperties",
+      "defaultValue": "embedded"
+    },
+    {
+      "name": "spring.session.jdbc.platform",
+      "type": "java.lang.String",
+      "description": "Platform to use in initialization scripts if the @@platform@@ placeholder is used. Auto-detected by default.",
+      "sourceType": "org.springframework.boot.session.jdbc.autoconfigure.JdbcSessionProperties"
+    },
+    {
+      "name": "spring.session.jdbc.save-mode",
+      "type": "org.springframework.session.SaveMode",
+      "description": "Sessions save mode. Determines how session changes are tracked and saved to the session store.",
+      "sourceType": "org.springframework.boot.session.jdbc.autoconfigure.JdbcSessionProperties",
+      "defaultValue": "on-set-attribute"
+    },
+    {
+      "name": "spring.session.jdbc.schema",
+      "type": "java.lang.String",
+      "description": "Path to the SQL file to use to initialize the database schema.",
+      "sourceType": "org.springframework.boot.session.jdbc.autoconfigure.JdbcSessionProperties"
+    },
+    {
+      "name": "spring.session.jdbc.table-name",
+      "type": "java.lang.String",
+      "description": "Name of the database table used to store sessions.",
+      "sourceType": "org.springframework.boot.session.jdbc.autoconfigure.JdbcSessionProperties",
+      "defaultValue": "SPRING_SESSION"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

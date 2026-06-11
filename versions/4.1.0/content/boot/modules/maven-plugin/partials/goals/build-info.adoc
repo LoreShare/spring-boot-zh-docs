@@ -1,1 +1,162 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[build-info.build-info-goal]]
+= `spring-boot:build-info`
+
+`org.springframework.boot:spring-boot-maven-plugin:4.1.0`
+
+基于当前 `MavenProject` 的内容生成 `build-info.properties` 文件。
+
+[[build-info.build-info-goal.optional-parameters]]
+== 可选参数
+
+[cols="3,2,3"]
+|===
+| 名称 | 类型 | 默认值
+
+| xref:#build-info.build-info-goal.parameter-details.additional-properties[additionalProperties]
+| `Map`
+|
+
+| xref:#build-info.build-info-goal.parameter-details.exclude-info-properties[excludeInfoProperties]
+| `List`
+|
+
+| xref:#build-info.build-info-goal.parameter-details.output-file[outputFile]
+| `File`
+| `${project.build.outputDirectory}/META-INF/build-info.properties`
+
+| xref:#build-info.build-info-goal.parameter-details.skip[skip]
+| `boolean`
+| `false`
+
+| xref:#build-info.build-info-goal.parameter-details.time[time]
+| `String`
+| `${project.build.outputTimestamp}`
+
+|===
+
+[[build-info.build-info-goal.parameter-details]]
+== 参数详情
+
+[[build-info.build-info-goal.parameter-details.additional-properties]]
+=== `additionalProperties`
+要存储在 `build-info.properties` 文件中的附加属性。每个条目在生成的 `build-info.properties` 中都以 `build.` 为前缀。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `additionalProperties`
+
+| 类型
+| `java.util.Map`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+|
+
+|===
+
+
+[[build-info.build-info-goal.parameter-details.exclude-info-properties]]
+=== `excludeInfoProperties`
+应从 `build-info.properties` 文件中排除的属性。可用于排除标准的 `group`、`artifact`、`name`、`version` 或 `time` 属性，以及来自 `additionalProperties` 的项。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `excludeInfoProperties`
+
+| 类型
+| `java.util.List`
+
+| 默认值
+|
+
+| 用户属性
+|
+
+| 起始版本
+|
+
+|===
+
+
+[[build-info.build-info-goal.parameter-details.output-file]]
+=== `outputFile`
+生成的 `build-info.properties` 文件的位置。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `outputFile`
+
+| 类型
+| `java.io.File`
+
+| 默认值
+| `${project.build.outputDirectory}/META-INF/build-info.properties`
+
+| 用户属性
+|
+
+| 起始版本
+|
+
+|===
+
+
+[[build-info.build-info-goal.parameter-details.skip]]
+=== `skip`
+跳过执行。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `skip`
+
+| 类型
+| `boolean`
+
+| 默认值
+| `false`
+
+| 用户属性
+| ``spring-boot.build-info.skip``
+
+| 起始版本
+| `3.1.0`
+
+|===
+
+
+[[build-info.build-info-goal.parameter-details.time]]
+=== `time`
+用于 `build.time` 属性的值，格式适合 `Instant#parse(CharSequence)`。默认为 `project.build.outputTimestamp` 或 `session.request.startTime`（如果前者未设置）。要完全禁用 `build.time` 属性，请使用 `'off'` 或将其添加到 `excludeInfoProperties`。
+
+[cols="10h,90"]
+|===
+
+| 名称
+| `time`
+
+| 类型
+| `java.lang.String`
+
+| 默认值
+| `${project.build.outputTimestamp}`
+
+| 用户属性
+|
+
+| 起始版本
+| `2.2.0`
+
+|===

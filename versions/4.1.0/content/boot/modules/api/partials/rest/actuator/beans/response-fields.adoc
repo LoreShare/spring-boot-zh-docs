@@ -1,3 +1,36 @@
 |===
-3+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+|Path|Type|Description
+
+|`+contexts+`
+|`+Object+`
+|按 id 键控的应用程序上下文。
+
+|`+contexts.*.parentId+`
+|`+String+`
+|父应用程序上下文的 id（如果有）。
+
+|`+contexts.*.beans+`
+|`+Object+`
+|按名称键控的应用程序上下文中的 bean。
+
+|`+contexts.*.beans.*.aliases+`
+|`+Array+`
+|任何别名的名称。
+
+|`+contexts.*.beans.*.scope+`
+|`+String+`
+|bean 的作用域。
+
+|`+contexts.*.beans.*.type+`
+|`+String+`
+|bean 的完全限定类型。
+
+|`+contexts.*.beans.*.resource+`
+|`+String+`
+|定义 bean 的资源（如果有）。
+
+|`+contexts.*.beans.*.dependencies+`
+|`+Array+`
+|任何依赖项的名称。
+
 |===

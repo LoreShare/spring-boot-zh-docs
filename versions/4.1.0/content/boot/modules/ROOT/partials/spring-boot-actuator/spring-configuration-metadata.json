@@ -1,0 +1,318 @@
+{
+  "groups": [
+    {
+      "name": "management.endpoint.auditevents",
+      "type": "org.springframework.boot.actuate.audit.AuditEventsEndpoint",
+      "sourceType": "org.springframework.boot.actuate.audit.AuditEventsEndpoint"
+    },
+    {
+      "name": "management.endpoint.beans",
+      "type": "org.springframework.boot.actuate.beans.BeansEndpoint",
+      "sourceType": "org.springframework.boot.actuate.beans.BeansEndpoint"
+    },
+    {
+      "name": "management.endpoint.configprops",
+      "type": "org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint",
+      "sourceType": "org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint"
+    },
+    {
+      "name": "management.endpoint.env",
+      "type": "org.springframework.boot.actuate.env.EnvironmentEndpoint",
+      "sourceType": "org.springframework.boot.actuate.env.EnvironmentEndpoint"
+    },
+    {
+      "name": "management.endpoint.heapdump",
+      "type": "org.springframework.boot.actuate.management.HeapDumpWebEndpoint",
+      "sourceType": "org.springframework.boot.actuate.management.HeapDumpWebEndpoint"
+    },
+    {
+      "name": "management.endpoint.httpexchanges",
+      "type": "org.springframework.boot.actuate.web.exchanges.HttpExchangesEndpoint",
+      "sourceType": "org.springframework.boot.actuate.web.exchanges.HttpExchangesEndpoint"
+    },
+    {
+      "name": "management.endpoint.info",
+      "type": "org.springframework.boot.actuate.info.InfoEndpoint",
+      "sourceType": "org.springframework.boot.actuate.info.InfoEndpoint"
+    },
+    {
+      "name": "management.endpoint.logfile",
+      "type": "org.springframework.boot.actuate.logging.LogFileWebEndpoint",
+      "sourceType": "org.springframework.boot.actuate.logging.LogFileWebEndpoint"
+    },
+    {
+      "name": "management.endpoint.loggers",
+      "type": "org.springframework.boot.actuate.logging.LoggersEndpoint",
+      "sourceType": "org.springframework.boot.actuate.logging.LoggersEndpoint"
+    },
+    {
+      "name": "management.endpoint.mappings",
+      "type": "org.springframework.boot.actuate.web.mappings.MappingsEndpoint",
+      "sourceType": "org.springframework.boot.actuate.web.mappings.MappingsEndpoint"
+    },
+    {
+      "name": "management.endpoint.sbom",
+      "type": "org.springframework.boot.actuate.sbom.SbomProperties",
+      "sourceType": "org.springframework.boot.actuate.sbom.SbomProperties"
+    },
+    {
+      "name": "management.endpoint.sbom.application",
+      "type": "org.springframework.boot.actuate.sbom.SbomProperties$Sbom",
+      "sourceType": "org.springframework.boot.actuate.sbom.SbomProperties",
+      "sourceMethod": "getApplication()"
+    },
+    {
+      "name": "management.endpoint.scheduledtasks",
+      "type": "org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint",
+      "sourceType": "org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint"
+    },
+    {
+      "name": "management.endpoint.shutdown",
+      "type": "org.springframework.boot.actuate.context.ShutdownEndpoint",
+      "sourceType": "org.springframework.boot.actuate.context.ShutdownEndpoint"
+    },
+    {
+      "name": "management.endpoint.startup",
+      "type": "org.springframework.boot.actuate.startup.StartupEndpoint",
+      "sourceType": "org.springframework.boot.actuate.startup.StartupEndpoint"
+    },
+    {
+      "name": "management.endpoint.threaddump",
+      "type": "org.springframework.boot.actuate.management.ThreadDumpEndpoint",
+      "sourceType": "org.springframework.boot.actuate.management.ThreadDumpEndpoint"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.endpoint.auditevents.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the auditevents endpoint.",
+      "sourceType": "org.springframework.boot.actuate.audit.AuditEventsEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.auditevents.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.audit.AuditEventsEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.beans.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the beans endpoint.",
+      "sourceType": "org.springframework.boot.actuate.beans.BeansEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.beans.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.beans.BeansEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.configprops.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the configprops endpoint.",
+      "sourceType": "org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.configprops.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.env.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the env endpoint.",
+      "sourceType": "org.springframework.boot.actuate.env.EnvironmentEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.env.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.env.EnvironmentEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.heapdump.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the heapdump endpoint.",
+      "sourceType": "org.springframework.boot.actuate.management.HeapDumpWebEndpoint",
+      "defaultValue": "none"
+    },
+    {
+      "name": "management.endpoint.heapdump.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.management.HeapDumpWebEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.httpexchanges.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the httpexchanges endpoint.",
+      "sourceType": "org.springframework.boot.actuate.web.exchanges.HttpExchangesEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.httpexchanges.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.web.exchanges.HttpExchangesEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.info.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the info endpoint.",
+      "sourceType": "org.springframework.boot.actuate.info.InfoEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.info.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.info.InfoEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.logfile.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the logfile endpoint.",
+      "sourceType": "org.springframework.boot.actuate.logging.LogFileWebEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.logfile.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.logging.LogFileWebEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.loggers.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the loggers endpoint.",
+      "sourceType": "org.springframework.boot.actuate.logging.LoggersEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.loggers.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.logging.LoggersEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.mappings.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the mappings endpoint.",
+      "sourceType": "org.springframework.boot.actuate.web.mappings.MappingsEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.mappings.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.web.mappings.MappingsEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.sbom.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the sbom endpoint.",
+      "sourceType": "org.springframework.boot.actuate.sbom.SbomEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.sbom.additional",
+      "type": "java.util.Map<java.lang.String,org.springframework.boot.actuate.sbom.SbomProperties$Sbom>",
+      "description": "Additional SBOMs.",
+      "sourceType": "org.springframework.boot.actuate.sbom.SbomProperties"
+    },
+    {
+      "name": "management.endpoint.sbom.application.location",
+      "type": "java.lang.String",
+      "description": "Location to the SBOM. If null, the location will be auto-detected.",
+      "sourceType": "org.springframework.boot.actuate.sbom.SbomProperties$Sbom"
+    },
+    {
+      "name": "management.endpoint.sbom.application.media-type",
+      "type": "org.springframework.util.MimeType",
+      "description": "Media type of the SBOM. If null, the media type will be auto-detected.",
+      "sourceType": "org.springframework.boot.actuate.sbom.SbomProperties$Sbom"
+    },
+    {
+      "name": "management.endpoint.sbom.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.sbom.SbomEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.scheduledtasks.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the scheduledtasks endpoint.",
+      "sourceType": "org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.scheduledtasks.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.shutdown.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the shutdown endpoint.",
+      "sourceType": "org.springframework.boot.actuate.context.ShutdownEndpoint",
+      "defaultValue": "none"
+    },
+    {
+      "name": "management.endpoint.startup.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the startup endpoint.",
+      "sourceType": "org.springframework.boot.actuate.startup.StartupEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.startup.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.startup.StartupEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.threaddump.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the threaddump endpoint.",
+      "sourceType": "org.springframework.boot.actuate.management.ThreadDumpEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.threaddump.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.management.ThreadDumpEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoints.migrate-legacy-ids",
+      "type": "java.lang.Boolean",
+      "description": "Whether to transparently migrate legacy endpoint IDs.",
+      "defaultValue": false
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

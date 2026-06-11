@@ -1,0 +1,12 @@
+[[appendix.auto-configuration-classes.spring-boot-validation]]
+= spring-boot-validation
+
+以下 auto-configuration 类来自 `spring-boot-validation` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-validation/src/main/java/org/springframework/boot/validation/autoconfigure/ValidationAutoConfiguration.java[`ValidationAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/validation/autoconfigure/ValidationAutoConfiguration.html[javadoc]
+|===

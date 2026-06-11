@@ -1,0 +1,62 @@
+{
+  "groups": [
+    {
+      "name": "spring.data.couchbase",
+      "type": "org.springframework.boot.data.couchbase.autoconfigure.DataCouchbaseProperties",
+      "sourceType": "org.springframework.boot.data.couchbase.autoconfigure.DataCouchbaseProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.data.couchbase.auto-index",
+      "type": "java.lang.Boolean",
+      "description": "Automatically create views and indexes. Use the meta-data provided by \"@ViewIndexed\", \"@N1qlPrimaryIndexed\" and \"@N1qlSecondaryIndexed\".",
+      "sourceType": "org.springframework.boot.data.couchbase.autoconfigure.DataCouchbaseProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.data.couchbase.bucket-name",
+      "type": "java.lang.String",
+      "description": "Name of the bucket to connect to.",
+      "sourceType": "org.springframework.boot.data.couchbase.autoconfigure.DataCouchbaseProperties"
+    },
+    {
+      "name": "spring.data.couchbase.field-naming-strategy",
+      "type": "java.lang.Class<?>",
+      "description": "Fully qualified name of the FieldNamingStrategy to use.",
+      "sourceType": "org.springframework.boot.data.couchbase.autoconfigure.DataCouchbaseProperties"
+    },
+    {
+      "name": "spring.data.couchbase.repositories.type",
+      "type": "org.springframework.boot.autoconfigure.data.RepositoryType",
+      "description": "Type of Couchbase repositories to enable.",
+      "defaultValue": "auto"
+    },
+    {
+      "name": "spring.data.couchbase.scope-name",
+      "type": "java.lang.String",
+      "description": "Name of the scope used for all collection access.",
+      "sourceType": "org.springframework.boot.data.couchbase.autoconfigure.DataCouchbaseProperties"
+    },
+    {
+      "name": "spring.data.couchbase.type-key",
+      "type": "java.lang.String",
+      "description": "Name of the field that stores the type information for complex types when using \"MappingCouchbaseConverter\".",
+      "sourceType": "org.springframework.boot.data.couchbase.autoconfigure.DataCouchbaseProperties",
+      "defaultValue": "_class"
+    },
+    {
+      "name": "spring.data.couchbase.consistency",
+      "type": "org.springframework.data.couchbase.core.query.Consistency",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

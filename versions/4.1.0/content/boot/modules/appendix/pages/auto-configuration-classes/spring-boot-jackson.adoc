@@ -1,0 +1,12 @@
+[[appendix.auto-configuration-classes.spring-boot-jackson]]
+= spring-boot-jackson
+
+以下 auto-configuration 类来自 `spring-boot-jackson` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-jackson/src/main/java/org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.java[`JacksonAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.html[javadoc]
+|===

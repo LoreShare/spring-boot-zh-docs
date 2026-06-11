@@ -1,0 +1,36 @@
+[[appendix.auto-configuration-classes.spring-boot-security]]
+= spring-boot-security
+
+以下 auto-configuration 类来自 `spring-boot-security` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-security/src/main/java/org/springframework/boot/security/autoconfigure/actuate/web/servlet/ManagementWebSecurityAutoConfiguration.java[`ManagementWebSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/autoconfigure/actuate/web/servlet/ManagementWebSecurityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security/src/main/java/org/springframework/boot/security/autoconfigure/rsocket/RSocketSecurityAutoConfiguration.java[`RSocketSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/autoconfigure/rsocket/RSocketSecurityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security/src/main/java/org/springframework/boot/security/autoconfigure/actuate/web/reactive/ReactiveManagementWebSecurityAutoConfiguration.java[`ReactiveManagementWebSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/autoconfigure/actuate/web/reactive/ReactiveManagementWebSecurityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security/src/main/java/org/springframework/boot/security/autoconfigure/ReactiveUserDetailsServiceAutoConfiguration.java[`ReactiveUserDetailsServiceAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/autoconfigure/ReactiveUserDetailsServiceAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security/src/main/java/org/springframework/boot/security/autoconfigure/web/reactive/ReactiveWebSecurityAutoConfiguration.java[`ReactiveWebSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/autoconfigure/web/reactive/ReactiveWebSecurityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security/src/main/java/org/springframework/boot/security/autoconfigure/SecurityAutoConfiguration.java[`SecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/autoconfigure/SecurityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security/src/main/java/org/springframework/boot/security/autoconfigure/web/servlet/SecurityFilterAutoConfiguration.java[`SecurityFilterAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/autoconfigure/web/servlet/SecurityFilterAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security/src/main/java/org/springframework/boot/security/autoconfigure/web/servlet/ServletWebSecurityAutoConfiguration.java[`ServletWebSecurityAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/autoconfigure/web/servlet/ServletWebSecurityAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-security/src/main/java/org/springframework/boot/security/autoconfigure/UserDetailsServiceAutoConfiguration.java[`UserDetailsServiceAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/autoconfigure/UserDetailsServiceAutoConfiguration.html[javadoc]
+|===

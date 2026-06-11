@@ -1,0 +1,331 @@
+{
+  "groups": [
+    {
+      "name": "spring.graphql",
+      "type": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties"
+    },
+    {
+      "name": "spring.graphql.cors",
+      "type": "org.springframework.boot.graphql.autoconfigure.GraphQlCorsProperties",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlCorsProperties"
+    },
+    {
+      "name": "spring.graphql.graphiql",
+      "type": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Graphiql",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties",
+      "sourceMethod": "getGraphiql()"
+    },
+    {
+      "name": "spring.graphql.http",
+      "type": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Http",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties",
+      "sourceMethod": "getHttp()"
+    },
+    {
+      "name": "spring.graphql.http.sse",
+      "type": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Sse",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Http",
+      "sourceMethod": "getSse()"
+    },
+    {
+      "name": "spring.graphql.rsocket",
+      "type": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Rsocket",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties",
+      "sourceMethod": "getRsocket()"
+    },
+    {
+      "name": "spring.graphql.schema",
+      "type": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties",
+      "sourceMethod": "getSchema()"
+    },
+    {
+      "name": "spring.graphql.schema.inspection",
+      "type": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema$Inspection",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema",
+      "sourceMethod": "getInspection()"
+    },
+    {
+      "name": "spring.graphql.schema.introspection",
+      "type": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema$Introspection",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema",
+      "sourceMethod": "getIntrospection()"
+    },
+    {
+      "name": "spring.graphql.schema.printer",
+      "type": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema$Printer",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema",
+      "sourceMethod": "getPrinter()"
+    },
+    {
+      "name": "spring.graphql.websocket",
+      "type": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Websocket",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties",
+      "sourceMethod": "getWebsocket()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.graphql.cors.allow-credentials",
+      "type": "java.lang.Boolean",
+      "description": "Whether credentials are supported. When not set, credentials are not supported.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlCorsProperties"
+    },
+    {
+      "name": "spring.graphql.cors.allowed-headers",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of HTTP headers to allow in a request. '*' allows all headers.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlCorsProperties"
+    },
+    {
+      "name": "spring.graphql.cors.allowed-methods",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of HTTP methods to allow. '*' allows all methods. When not set, defaults to GET.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlCorsProperties"
+    },
+    {
+      "name": "spring.graphql.cors.allowed-origin-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of origin patterns to allow. Unlike allowed origins which only support '*', origin patterns are more flexible, e.g. 'https:\/\/*.example.com', and can be used with allow-credentials. When neither allowed origins nor allowed origin patterns are set, cross-origin requests are effectively disabled.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlCorsProperties"
+    },
+    {
+      "name": "spring.graphql.cors.allowed-origins",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of origins to allow with '*' allowing all origins. When allow-credentials is enabled, '*' cannot be used, and setting origin patterns should be considered instead. When neither allowed origins nor allowed origin patterns are set, cross-origin requests are effectively disabled.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlCorsProperties"
+    },
+    {
+      "name": "spring.graphql.cors.exposed-headers",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of headers to include in a response.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlCorsProperties"
+    },
+    {
+      "name": "spring.graphql.cors.max-age",
+      "type": "java.time.Duration",
+      "description": "How long the response from a pre-flight request can be cached by clients. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlCorsProperties",
+      "defaultValue": "1800s"
+    },
+    {
+      "name": "spring.graphql.graphiql.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether the default GraphiQL UI is enabled.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Graphiql",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.graphql.graphiql.path",
+      "type": "java.lang.String",
+      "description": "Path to the GraphiQL UI endpoint.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Graphiql",
+      "defaultValue": "\/graphiql"
+    },
+    {
+      "name": "spring.graphql.http.path",
+      "type": "java.lang.String",
+      "description": "Path at which to expose a GraphQL request HTTP endpoint.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Http",
+      "defaultValue": "\/graphql"
+    },
+    {
+      "name": "spring.graphql.http.sse.keep-alive",
+      "type": "java.time.Duration",
+      "description": "How frequently keep-alive messages should be sent.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Sse"
+    },
+    {
+      "name": "spring.graphql.http.sse.timeout",
+      "type": "java.time.Duration",
+      "description": "Time required for concurrent handling to complete.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Sse"
+    },
+    {
+      "name": "spring.graphql.rsocket.mapping",
+      "type": "java.lang.String",
+      "description": "Mapping of the RSocket message handler.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Rsocket"
+    },
+    {
+      "name": "spring.graphql.rsocket.preferred-json-mapper",
+      "type": "java.lang.String",
+      "description": "Preferred JSON mapper to use. By default, auto-detected according to the environment. Supported values are 'jackson' and 'jackson2' (deprecated).",
+      "defaultValue": "jackson"
+    },
+    {
+      "name": "spring.graphql.schema.additional-files",
+      "type": "org.springframework.core.io.Resource[]",
+      "description": "Locations of additional, individual schema files to parse.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema",
+      "defaultValue": []
+    },
+    {
+      "name": "spring.graphql.schema.file-extensions",
+      "type": "java.lang.String[]",
+      "description": "File extensions for GraphQL schema files.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema",
+      "defaultValue": ".graphqls,.gqls"
+    },
+    {
+      "name": "spring.graphql.schema.inspection.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether schema should be compared to the application to detect missing mappings.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema$Inspection",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.graphql.schema.introspection.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether field introspection should be enabled at the schema level.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema$Introspection",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.graphql.schema.locations",
+      "type": "java.lang.String[]",
+      "description": "Locations of GraphQL schema files.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema",
+      "defaultValue": "classpath:graphql\/**\/"
+    },
+    {
+      "name": "spring.graphql.schema.printer.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether the endpoint that prints the schema is enabled. Schema is available under spring.graphql.http.path + \"\/schema\".",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Schema$Printer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.graphql.websocket.connection-init-timeout",
+      "type": "java.time.Duration",
+      "description": "Time within which the initial {@code CONNECTION_INIT} type message must be received.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Websocket",
+      "defaultValue": "60s"
+    },
+    {
+      "name": "spring.graphql.websocket.keep-alive",
+      "type": "java.time.Duration",
+      "description": "Maximum idle period before a server keep-alive ping is sent to client.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Websocket"
+    },
+    {
+      "name": "spring.graphql.websocket.path",
+      "type": "java.lang.String",
+      "description": "Path of the GraphQL WebSocket subscription endpoint.",
+      "sourceType": "org.springframework.boot.graphql.autoconfigure.GraphQlProperties$Websocket"
+    },
+    {
+      "name": "management.metrics.graphql.autotime.enabled",
+      "description": "Whether to automatically time web client requests.",
+      "defaultValue": true,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Requests are timed automatically.",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "management.metrics.graphql.autotime.percentiles",
+      "description": "Computed non-aggregable percentiles to publish.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Should be configured globally via management.metrics.distribution.percentiles.",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "management.metrics.graphql.autotime.percentiles-histogram",
+      "description": "Whether percentile histograms should be published.",
+      "defaultValue": false,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Should be configured globally via management.metrics.distribution.percentiles-histogram.",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.graphql.path",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.graphql.http.path",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.graphql.sse.timeout",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.graphql.http.sse.timeout",
+        "since": "3.5.0"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.graphql.cors.allowed-headers",
+      "values": [
+        {
+          "value": "*"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    },
+    {
+      "name": "spring.graphql.cors.allowed-methods",
+      "values": [
+        {
+          "value": "*"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    },
+    {
+      "name": "spring.graphql.cors.allowed-origins",
+      "values": [
+        {
+          "value": "*"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    },
+    {
+      "name": "spring.graphql.rsocket.preferred-json-mapper",
+      "values": [
+        {
+          "value": "jackson"
+        },
+        {
+          "value": "jackson2"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

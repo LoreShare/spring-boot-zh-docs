@@ -1,0 +1,117 @@
+{
+  "groups": [
+    {
+      "name": "spring.session.data.redis",
+      "type": "org.springframework.boot.session.data.redis.autoconfigure.SessionDataRedisProperties",
+      "sourceType": "org.springframework.boot.session.data.redis.autoconfigure.SessionDataRedisProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.session.data.redis.cleanup-cron",
+      "type": "java.lang.String",
+      "description": "Cron expression for expired session cleanup job. Only supported when repository-type is set to indexed. Not supported with a reactive session repository.",
+      "sourceType": "org.springframework.boot.session.data.redis.autoconfigure.SessionDataRedisProperties",
+      "defaultValue": "0 * * * * *"
+    },
+    {
+      "name": "spring.session.data.redis.configure-action",
+      "type": "org.springframework.boot.session.data.redis.autoconfigure.SessionDataRedisProperties$ConfigureAction",
+      "description": "The configure action to apply when no user-defined ConfigureRedisAction or ConfigureReactiveRedisAction bean is present.",
+      "sourceType": "org.springframework.boot.session.data.redis.autoconfigure.SessionDataRedisProperties",
+      "defaultValue": "notify-keyspace-events"
+    },
+    {
+      "name": "spring.session.data.redis.flush-mode",
+      "type": "org.springframework.session.FlushMode",
+      "description": "Sessions flush mode. Determines when session changes are written to the session store. Not supported with a reactive session repository.",
+      "sourceType": "org.springframework.boot.session.data.redis.autoconfigure.SessionDataRedisProperties",
+      "defaultValue": "on-save"
+    },
+    {
+      "name": "spring.session.data.redis.namespace",
+      "type": "java.lang.String",
+      "description": "Namespace for keys used to store sessions.",
+      "sourceType": "org.springframework.boot.session.data.redis.autoconfigure.SessionDataRedisProperties",
+      "defaultValue": "spring:session"
+    },
+    {
+      "name": "spring.session.data.redis.repository-type",
+      "type": "org.springframework.boot.session.data.redis.autoconfigure.SessionDataRedisProperties$RepositoryType",
+      "description": "Type of Redis session repository to configure.",
+      "sourceType": "org.springframework.boot.session.data.redis.autoconfigure.SessionDataRedisProperties",
+      "defaultValue": "default"
+    },
+    {
+      "name": "spring.session.data.redis.save-mode",
+      "type": "org.springframework.session.SaveMode",
+      "description": "Sessions save mode. Determines how session changes are tracked and saved to the session store.",
+      "sourceType": "org.springframework.boot.session.data.redis.autoconfigure.SessionDataRedisProperties",
+      "defaultValue": "on-set-attribute"
+    },
+    {
+      "name": "spring.session.redis.cleanup-cron",
+      "description": "Cron expression for expired session cleanup job. Only supported when repository-type is set to indexed. Not supported with a reactive session repository.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.session.data.redis.cleanup-cron",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.session.redis.configure-action",
+      "description": "The configure action to apply when no user-defined ConfigureRedisAction or ConfigureReactiveRedisAction bean is present.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.session.data.redis.configure-action",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.session.redis.flush-mode",
+      "description": "Sessions flush mode. Determines when session changes are written to the session store. Not supported with a reactive session repository.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.session.data.redis.flush-mode",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.session.redis.namespace",
+      "description": "Namespace for keys used to store sessions.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.session.data.redis.namespace",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.session.redis.repository-type",
+      "description": "Type of Redis session repository to configure.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.session.data.redis.repository-type",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.session.redis.save-mode",
+      "description": "Sessions save mode. Determines how session changes are tracked and saved to the session store.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.session.data.redis.save-mode",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

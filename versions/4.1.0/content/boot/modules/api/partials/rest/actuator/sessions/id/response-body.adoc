@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"attributeNames":[],"creationTime":"2026-06-10T11:30:23.696319338Z","expired":false,"id":"4db5efcc-99cb-4d05-a52c-b49acfbb7ea9","lastAccessedTime":"2026-06-10T16:29:46.696321712Z","maxInactiveInterval":1800}
+----

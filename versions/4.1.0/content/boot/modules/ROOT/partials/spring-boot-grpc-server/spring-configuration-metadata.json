@@ -1,0 +1,331 @@
+{
+  "groups": [
+    {
+      "name": "spring.grpc.server",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties"
+    },
+    {
+      "name": "spring.grpc.server.health",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties"
+    },
+    {
+      "name": "spring.grpc.server.health.schedule",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties$Schedule",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties",
+      "sourceMethod": "getSchedule()"
+    },
+    {
+      "name": "spring.grpc.server.health.services",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties$Services",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties",
+      "sourceMethod": "getServices()"
+    },
+    {
+      "name": "spring.grpc.server.health.status",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties$Status",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties",
+      "sourceMethod": "getStatus()"
+    },
+    {
+      "name": "spring.grpc.server.inbound",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Inbound",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties",
+      "sourceMethod": "getInbound()"
+    },
+    {
+      "name": "spring.grpc.server.inbound.message",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Inbound$Message",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Inbound",
+      "sourceMethod": "getMessage()"
+    },
+    {
+      "name": "spring.grpc.server.inbound.metadata",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Inbound$Metadata",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Inbound",
+      "sourceMethod": "getMetadata()"
+    },
+    {
+      "name": "spring.grpc.server.inprocess",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Inprocess",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties",
+      "sourceMethod": "getInprocess()"
+    },
+    {
+      "name": "spring.grpc.server.keepalive",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties",
+      "sourceMethod": "getKeepalive()"
+    },
+    {
+      "name": "spring.grpc.server.keepalive.connection",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive$Connection",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive",
+      "sourceMethod": "getConnection()"
+    },
+    {
+      "name": "spring.grpc.server.keepalive.permit",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive$Permit",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive",
+      "sourceMethod": "getPermit()"
+    },
+    {
+      "name": "spring.grpc.server.netty",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Netty",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties",
+      "sourceMethod": "getNetty()"
+    },
+    {
+      "name": "spring.grpc.server.servlet",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Servlet",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties",
+      "sourceMethod": "getServlet()"
+    },
+    {
+      "name": "spring.grpc.server.shutdown",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Shutdown",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties",
+      "sourceMethod": "getShutdown()"
+    },
+    {
+      "name": "spring.grpc.server.ssl",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Ssl",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties",
+      "sourceMethod": "getSsl()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.grpc.server.address",
+      "type": "java.net.InetAddress",
+      "description": "Network address to which the gRPC server should bind.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties"
+    },
+    {
+      "name": "spring.grpc.server.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable gRPC server auto-configuration.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.grpc.server.factory.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable gRPC server factory bean auto-configuration.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.grpc.server.health.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to auto-configure the Health feature on the gRPC server.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties"
+    },
+    {
+      "name": "spring.grpc.server.health.include-overall-health",
+      "type": "java.lang.Boolean",
+      "description": "Whether to include the overall server health.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.grpc.server.health.schedule.delay",
+      "type": "java.time.Duration",
+      "description": "Initial delay before updating the health status the very first time. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties$Schedule",
+      "defaultValue": "5s"
+    },
+    {
+      "name": "spring.grpc.server.health.schedule.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to schedule updates to gRPC server health based on application health.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties$Schedule",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.grpc.server.health.schedule.period",
+      "type": "java.time.Duration",
+      "description": "How often to update the health status. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties$Schedule",
+      "defaultValue": "5s"
+    },
+    {
+      "name": "spring.grpc.server.health.service",
+      "type": "java.util.Map<java.lang.String,org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties$Service>",
+      "description": "Service-specific health reporting.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties"
+    },
+    {
+      "name": "spring.grpc.server.health.services.validate-membership",
+      "type": "java.lang.Boolean",
+      "description": "Whether to validate health membership for services on startup. Validation fails if a service includes or excludes a health contributor that does not exist.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties$Services",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.grpc.server.health.status.mapping",
+      "type": "java.util.Map<java.lang.String,io.grpc.health.v1.HealthCheckResponse$ServingStatus>",
+      "description": "Mapping of health statuses to gRPC service status. By default, registered health statuses map to sensible defaults (for example, UP maps to SERVING).",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties$Status"
+    },
+    {
+      "name": "spring.grpc.server.health.status.order",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of health statuses in order of severity.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.health.GrpcServerHealthProperties$Status"
+    },
+    {
+      "name": "spring.grpc.server.inbound.message.max-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum message size allowed to be received by the server. If a data size suffix is not specified, bytes will be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Inbound$Message",
+      "defaultValue": "4194304B"
+    },
+    {
+      "name": "spring.grpc.server.inbound.metadata.max-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum metadata size allowed to be received by the server. If a data size suffix is not specified, bytes will be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Inbound$Metadata",
+      "defaultValue": "8192B"
+    },
+    {
+      "name": "spring.grpc.server.inprocess.name",
+      "type": "java.lang.String",
+      "description": "Name of the in-process server or null to not start the in-process server.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Inprocess"
+    },
+    {
+      "name": "spring.grpc.server.keepalive.connection.grace-period",
+      "type": "java.time.Duration",
+      "description": "Maximum time for graceful connection termination. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive$Connection",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.grpc.server.keepalive.connection.max-age",
+      "type": "java.time.Duration",
+      "description": "Maximum time a connection may exist before being gracefully terminated (infinite if not specified). If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive$Connection"
+    },
+    {
+      "name": "spring.grpc.server.keepalive.connection.max-idle-time",
+      "type": "java.time.Duration",
+      "description": "Maximum time a connection can remain idle before being gracefully terminated (infinite if not specified). If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive$Connection"
+    },
+    {
+      "name": "spring.grpc.server.keepalive.permit.time",
+      "type": "java.time.Duration",
+      "description": "Maximum keep-alive time clients are permitted to configure. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive$Permit",
+      "defaultValue": "5m"
+    },
+    {
+      "name": "spring.grpc.server.keepalive.permit.without-calls",
+      "type": "java.lang.Boolean",
+      "description": "Whether clients are permitted to send keep alive pings when there are no outstanding RPCs on the connection.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive$Permit",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.grpc.server.keepalive.time",
+      "type": "java.time.Duration",
+      "description": "Duration without read activity before sending a keep alive ping. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive",
+      "defaultValue": "2h"
+    },
+    {
+      "name": "spring.grpc.server.keepalive.timeout",
+      "type": "java.time.Duration",
+      "description": "Maximum time to wait for read activity after sending a keep alive ping. If the sender does not receive an acknowledgment within this time, it will close the connection. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Keepalive",
+      "defaultValue": "20s"
+    },
+    {
+      "name": "spring.grpc.server.netty.domain-socket-path",
+      "type": "java.lang.String",
+      "description": "Path of the domain socket that should be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Netty"
+    },
+    {
+      "name": "spring.grpc.server.netty.transport",
+      "type": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Netty$Transport",
+      "description": "Transport mechanism used for Netty and Netty Shaded servers. If not specified, the appropriate transport will be picked based on the 'domain-socket-path' or 'address\/port'.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Netty"
+    },
+    {
+      "name": "spring.grpc.server.observation.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Observations on the server.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.grpc.server.port",
+      "type": "java.lang.Integer",
+      "description": "Port on which the gRPC server should listen. Use '0' to bind to a dynamic port.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties"
+    },
+    {
+      "name": "spring.grpc.server.reflection.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Reflection on the gRPC server.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.grpc.server.security.csrf.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable CSRF protection.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.grpc.server.servlet.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use a servlet server in a servlet-based web application. When the value is false, a native gRPC server will be created as long as one is available, and it will listen on its own port. Should only be needed if the GrpcServlet is on the classpath.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Servlet",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.grpc.server.servlet.validate-http2",
+      "type": "java.lang.Boolean",
+      "description": "Whether to validate that HTTP\/2 is enabled. Validation may need to be skipped if your servlet container is not configured using properties.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Servlet",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.grpc.server.shutdown.grace-period",
+      "type": "java.time.Duration",
+      "description": "Maximum time to wait for the server to gracefully shutdown. When the value is negative, the server waits forever. When the value is 0, the server will force shutdown immediately. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Shutdown",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.grpc.server.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle name.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Ssl"
+    },
+    {
+      "name": "spring.grpc.server.ssl.client-auth",
+      "type": "io.grpc.TlsServerCredentials$ClientAuth",
+      "description": "Client authentication mode.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Ssl",
+      "defaultValue": "none"
+    },
+    {
+      "name": "spring.grpc.server.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Ssl"
+    },
+    {
+      "name": "spring.grpc.server.ssl.secure",
+      "type": "java.lang.Boolean",
+      "description": "Whether client authentication is secure (that is certificates are checked). Do not set this to false in production.",
+      "sourceType": "org.springframework.boot.grpc.server.autoconfigure.GrpcServerProperties$Ssl",
+      "defaultValue": true
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

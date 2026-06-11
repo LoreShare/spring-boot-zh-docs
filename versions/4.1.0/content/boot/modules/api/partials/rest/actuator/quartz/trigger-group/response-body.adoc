@@ -1,0 +1,51 @@
+[source,json,options="nowrap"]
+----
+{
+  "group" : "tests",
+  "paused" : false,
+  "triggers" : {
+    "calendarInterval" : {
+      "once-a-week" : {
+        "previousFireTime" : "2020-12-02T14:00:00.000Z",
+        "nextFireTime" : "2020-12-08T14:00:00.000Z",
+        "priority" : 5,
+        "interval" : 604800000,
+        "timeZone" : "Etc/UTC"
+      }
+    },
+    "cron" : {
+      "3am-week" : {
+        "previousFireTime" : "2020-12-04T03:00:00.000Z",
+        "nextFireTime" : "2020-12-07T03:00:00.000Z",
+        "priority" : 3,
+        "expression" : "0 0 3 ? * 1,2,3,4,5",
+        "timeZone" : "Europe/Paris"
+      }
+    },
+    "custom" : {
+      "once-a-year-custom" : {
+        "previousFireTime" : "2020-07-14T16:00:00.000Z",
+        "nextFireTime" : "2021-07-14T16:00:00.000Z",
+        "priority" : 10,
+        "trigger" : "com.example.CustomTrigger@fdsfsd"
+      }
+    },
+    "dailyTimeInterval" : {
+      "tue-thu" : {
+        "priority" : 5,
+        "interval" : 3600000,
+        "daysOfWeek" : [ 3, 5 ],
+        "startTimeOfDay" : "09:00:00",
+        "endTimeOfDay" : "18:00:00"
+      }
+    },
+    "simple" : {
+      "every-day" : {
+        "nextFireTime" : "2020-12-04T12:00:00.000Z",
+        "priority" : 7,
+        "interval" : 86400000
+      }
+    }
+  }
+}
+----

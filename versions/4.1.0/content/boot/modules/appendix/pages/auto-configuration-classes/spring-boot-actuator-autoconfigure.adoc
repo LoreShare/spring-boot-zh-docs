@@ -1,0 +1,81 @@
+[[appendix.auto-configuration-classes.spring-boot-actuator-autoconfigure]]
+= spring-boot-actuator-autoconfigure
+
+以下 auto-configuration 类来自 `spring-boot-actuator-autoconfigure` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/audit/AuditAutoConfiguration.java[`AuditAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/audit/AuditAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/audit/AuditEventsEndpointAutoConfiguration.java[`AuditEventsEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/audit/AuditEventsEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/beans/BeansEndpointAutoConfiguration.java[`BeansEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/beans/BeansEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/condition/ConditionsReportEndpointAutoConfiguration.java[`ConditionsReportEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/condition/ConditionsReportEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/context/properties/ConfigurationPropertiesReportEndpointAutoConfiguration.java[`ConfigurationPropertiesReportEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/context/properties/ConfigurationPropertiesReportEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/endpoint/EndpointAutoConfiguration.java[`EndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/endpoint/EndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/env/EnvironmentEndpointAutoConfiguration.java[`EnvironmentEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/env/EnvironmentEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/management/HeapDumpWebEndpointAutoConfiguration.java[`HeapDumpWebEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/management/HeapDumpWebEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/web/exchanges/HttpExchangesEndpointAutoConfiguration.java[`HttpExchangesEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/web/exchanges/HttpExchangesEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/info/InfoContributorAutoConfiguration.java[`InfoContributorAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/info/InfoContributorAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/info/InfoEndpointAutoConfiguration.java[`InfoEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/info/InfoEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/endpoint/jackson/Jackson2EndpointAutoConfiguration.java[`Jackson2EndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/endpoint/jackson/Jackson2EndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/endpoint/jackson/JacksonEndpointAutoConfiguration.java[`JacksonEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/endpoint/jackson/JacksonEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/endpoint/jmx/JmxEndpointAutoConfiguration.java[`JmxEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/endpoint/jmx/JmxEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/logging/LogFileWebEndpointAutoConfiguration.java[`LogFileWebEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/logging/LogFileWebEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/logging/LoggersEndpointAutoConfiguration.java[`LoggersEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/logging/LoggersEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/web/server/ManagementContextAutoConfiguration.java[`ManagementContextAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/web/server/ManagementContextAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/web/mappings/MappingsEndpointAutoConfiguration.java[`MappingsEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/web/mappings/MappingsEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/sbom/SbomEndpointAutoConfiguration.java[`SbomEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/sbom/SbomEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/scheduling/ScheduledTasksEndpointAutoConfiguration.java[`ScheduledTasksEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/scheduling/ScheduledTasksEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/context/ShutdownEndpointAutoConfiguration.java[`ShutdownEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/context/ShutdownEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/startup/StartupEndpointAutoConfiguration.java[`StartupEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/startup/StartupEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/management/ThreadDumpEndpointAutoConfiguration.java[`ThreadDumpEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/management/ThreadDumpEndpointAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-actuator-autoconfigure/src/main/java/org/springframework/boot/actuate/autoconfigure/endpoint/web/WebEndpointAutoConfiguration.java[`WebEndpointAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/actuate/autoconfigure/endpoint/web/WebEndpointAutoConfiguration.html[javadoc]
+|===

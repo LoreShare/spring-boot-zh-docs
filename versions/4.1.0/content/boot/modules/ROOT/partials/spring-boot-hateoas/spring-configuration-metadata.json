@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "spring.hateoas",
+      "type": "org.springframework.boot.hateoas.autoconfigure.HateoasProperties",
+      "sourceType": "org.springframework.boot.hateoas.autoconfigure.HateoasProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.hateoas.use-hal-as-default-json-media-type",
+      "type": "java.lang.Boolean",
+      "description": "Whether application\/hal+json responses should be sent to requests that accept application\/json.",
+      "sourceType": "org.springframework.boot.hateoas.autoconfigure.HateoasProperties",
+      "defaultValue": true
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

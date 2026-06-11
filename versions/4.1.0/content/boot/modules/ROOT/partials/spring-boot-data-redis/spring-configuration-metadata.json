@@ -1,0 +1,755 @@
+{
+  "groups": [
+    {
+      "name": "spring.data.redis",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties"
+    },
+    {
+      "name": "spring.data.redis.cluster",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Cluster",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "sourceMethod": "getCluster()"
+    },
+    {
+      "name": "spring.data.redis.jedis",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Jedis",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "sourceMethod": "getJedis()"
+    },
+    {
+      "name": "spring.data.redis.jedis.pool",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Jedis",
+      "sourceMethod": "getPool()"
+    },
+    {
+      "name": "spring.data.redis.lettuce",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Lettuce",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "sourceMethod": "getLettuce()"
+    },
+    {
+      "name": "spring.data.redis.lettuce.cluster",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Lettuce$Cluster",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Lettuce",
+      "sourceMethod": "getCluster()"
+    },
+    {
+      "name": "spring.data.redis.lettuce.cluster.refresh",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Lettuce$Cluster$Refresh",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Lettuce$Cluster",
+      "sourceMethod": "getRefresh()"
+    },
+    {
+      "name": "spring.data.redis.lettuce.pool",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Lettuce",
+      "sourceMethod": "getPool()"
+    },
+    {
+      "name": "spring.data.redis.listener",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Listener",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "sourceMethod": "getListener()"
+    },
+    {
+      "name": "spring.data.redis.listener.recovery",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Recovery",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Listener",
+      "sourceMethod": "getRecovery()"
+    },
+    {
+      "name": "spring.data.redis.masterreplica",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Masterreplica",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "sourceMethod": "getMasterreplica()"
+    },
+    {
+      "name": "spring.data.redis.sentinel",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Sentinel",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "sourceMethod": "getSentinel()"
+    },
+    {
+      "name": "spring.data.redis.ssl",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Ssl",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "sourceMethod": "getSsl()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.health.redis.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Redis health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.data.redis.client-name",
+      "type": "java.lang.String",
+      "description": "Client name to be set on connections with CLIENT SETNAME.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties"
+    },
+    {
+      "name": "spring.data.redis.client-type",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$ClientType",
+      "description": "Type of client to use. By default, auto-detected according to the classpath.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties"
+    },
+    {
+      "name": "spring.data.redis.cluster.max-redirects",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of redirects to follow when executing commands across the cluster.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Cluster"
+    },
+    {
+      "name": "spring.data.redis.cluster.nodes",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of \"host:port\" pairs to bootstrap from. This represents an \"initial\" list of cluster nodes and is required to have at least one entry.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Cluster"
+    },
+    {
+      "name": "spring.data.redis.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Connection timeout.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties"
+    },
+    {
+      "name": "spring.data.redis.database",
+      "type": "java.lang.Integer",
+      "description": "Database index used by the connection factory.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.data.redis.host",
+      "type": "java.lang.String",
+      "description": "Redis server host.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "defaultValue": "localhost"
+    },
+    {
+      "name": "spring.data.redis.jedis.pool.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the pool. Enabled automatically if \"commons-pool2\" is available. With Jedis, pooling is implicitly enabled in sentinel mode and this setting only applies to single node setup.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool"
+    },
+    {
+      "name": "spring.data.redis.jedis.pool.max-active",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of connections that can be allocated by the pool at a given time. Use a negative value for no limit.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool",
+      "defaultValue": 8
+    },
+    {
+      "name": "spring.data.redis.jedis.pool.max-idle",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of \"idle\" connections in the pool. Use a negative value to indicate an unlimited number of idle connections.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool",
+      "defaultValue": 8
+    },
+    {
+      "name": "spring.data.redis.jedis.pool.max-wait",
+      "type": "java.time.Duration",
+      "description": "Maximum amount of time a connection allocation should block before throwing an exception when the pool is exhausted. Use a negative value to block indefinitely.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool",
+      "defaultValue": "-1ms"
+    },
+    {
+      "name": "spring.data.redis.jedis.pool.min-idle",
+      "type": "java.lang.Integer",
+      "description": "Target for the minimum number of idle connections to maintain in the pool. This setting only has an effect if both it and time between eviction runs are positive.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.data.redis.jedis.pool.time-between-eviction-runs",
+      "type": "java.time.Duration",
+      "description": "Time between runs of the idle object evictor thread. When positive, the idle object evictor thread starts, otherwise no idle object eviction is performed.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool"
+    },
+    {
+      "name": "spring.data.redis.lettuce.cluster.refresh.dynamic-refresh-sources",
+      "type": "java.lang.Boolean",
+      "description": "Whether to discover and query all cluster nodes for obtaining the cluster topology. When set to false, only the initial seed nodes are used as sources for topology discovery.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Lettuce$Cluster$Refresh",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.data.redis.lettuce.cluster.refresh.period",
+      "type": "java.time.Duration",
+      "description": "Cluster topology refresh period.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Lettuce$Cluster$Refresh"
+    },
+    {
+      "name": "spring.data.redis.lettuce.pool.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the pool. Enabled automatically if \"commons-pool2\" is available. With Jedis, pooling is implicitly enabled in sentinel mode and this setting only applies to single node setup.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool"
+    },
+    {
+      "name": "spring.data.redis.lettuce.pool.max-active",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of connections that can be allocated by the pool at a given time. Use a negative value for no limit.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool",
+      "defaultValue": 8
+    },
+    {
+      "name": "spring.data.redis.lettuce.pool.max-idle",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of \"idle\" connections in the pool. Use a negative value to indicate an unlimited number of idle connections.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool",
+      "defaultValue": 8
+    },
+    {
+      "name": "spring.data.redis.lettuce.pool.max-wait",
+      "type": "java.time.Duration",
+      "description": "Maximum amount of time a connection allocation should block before throwing an exception when the pool is exhausted. Use a negative value to block indefinitely.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool",
+      "defaultValue": "-1ms"
+    },
+    {
+      "name": "spring.data.redis.lettuce.pool.min-idle",
+      "type": "java.lang.Integer",
+      "description": "Target for the minimum number of idle connections to maintain in the pool. This setting only has an effect if both it and time between eviction runs are positive.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.data.redis.lettuce.pool.time-between-eviction-runs",
+      "type": "java.time.Duration",
+      "description": "Time between runs of the idle object evictor thread. When positive, the idle object evictor thread starts, otherwise no idle object eviction is performed.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Pool"
+    },
+    {
+      "name": "spring.data.redis.lettuce.read-from",
+      "type": "java.lang.String",
+      "description": "Defines from which Redis nodes data is read.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Lettuce"
+    },
+    {
+      "name": "spring.data.redis.lettuce.shutdown-timeout",
+      "type": "java.time.Duration",
+      "description": "Shutdown timeout.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Lettuce",
+      "defaultValue": "100ms"
+    },
+    {
+      "name": "spring.data.redis.listener.auto-startup",
+      "type": "java.lang.Boolean",
+      "description": "Whether to start the container automatically on startup.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Listener",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.data.redis.listener.recovery.delay",
+      "type": "java.time.Duration",
+      "description": "Base delay for a recovery attempt. Can be combined with a \"multiplier\" to use an exponential back off strategy.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Recovery",
+      "defaultValue": "5s"
+    },
+    {
+      "name": "spring.data.redis.listener.recovery.jitter",
+      "type": "java.time.Duration",
+      "description": "Jitter value for the base retry attempt, randomly subtracted or added to the calculated delay, resulting in a value between 'delay - jitter' and 'delay + jitter' but never below the base delay or above the max delay.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Recovery",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.data.redis.listener.recovery.max-delay",
+      "type": "java.time.Duration",
+      "description": "Maximum delay for any retry attempt, limiting how far jitter and the multiplier can increase the delay.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Recovery",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.data.redis.listener.recovery.max-retries",
+      "type": "java.lang.Long",
+      "description": "Maximum number of recovery attempts.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Recovery"
+    },
+    {
+      "name": "spring.data.redis.listener.recovery.multiplier",
+      "type": "java.lang.Double",
+      "description": "Multiplier for a delay for the next retry attempt, applied to the previous delay, starting with the initial delay as well as to the applicable jitter for each attempt. Fixed delay by default.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Recovery",
+      "defaultValue": 1
+    },
+    {
+      "name": "spring.data.redis.listener.subscription-registration-timeout",
+      "type": "java.time.Duration",
+      "description": "Maximum amount of time to wait for the subscription to become active.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Listener",
+      "defaultValue": "2s"
+    },
+    {
+      "name": "spring.data.redis.masterreplica.nodes",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Static list of \"host:port\" pairs to use, at least one entry is required.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Masterreplica"
+    },
+    {
+      "name": "spring.data.redis.password",
+      "type": "java.lang.String",
+      "description": "Login password of the redis server.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties"
+    },
+    {
+      "name": "spring.data.redis.port",
+      "type": "java.lang.Integer",
+      "description": "Redis server port.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "defaultValue": 6379
+    },
+    {
+      "name": "spring.data.redis.repositories.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Redis repositories.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.data.redis.sentinel.master",
+      "type": "java.lang.String",
+      "description": "Name of the Redis server.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Sentinel"
+    },
+    {
+      "name": "spring.data.redis.sentinel.nodes",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of \"host:port\" pairs.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Sentinel"
+    },
+    {
+      "name": "spring.data.redis.sentinel.password",
+      "type": "java.lang.String",
+      "description": "Password for authenticating with sentinel(s).",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Sentinel"
+    },
+    {
+      "name": "spring.data.redis.sentinel.username",
+      "type": "java.lang.String",
+      "description": "Login username for authenticating with sentinel(s).",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Sentinel"
+    },
+    {
+      "name": "spring.data.redis.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle name.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Ssl"
+    },
+    {
+      "name": "spring.data.redis.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support. Enabled automatically if \"bundle\" is provided unless specified otherwise.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$Ssl"
+    },
+    {
+      "name": "spring.data.redis.timeout",
+      "type": "java.time.Duration",
+      "description": "Read timeout.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties"
+    },
+    {
+      "name": "spring.data.redis.url",
+      "type": "java.lang.String",
+      "description": "Connection URL. Overrides host, port, username, password, and database. Example: redis:\/\/user:password@example.com:6379\/8",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties"
+    },
+    {
+      "name": "spring.data.redis.username",
+      "type": "java.lang.String",
+      "description": "Login username of the redis server.",
+      "sourceType": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties"
+    },
+    {
+      "name": "spring.data.redis.lettuce.cluster.refresh.adaptive",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "All adaptive triggers are enabled by default.",
+        "since": "4.1.0"
+      }
+    },
+    {
+      "name": "spring.data.redis.ssl",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.ssl.enabled",
+        "since": "3.1.0"
+      }
+    },
+    {
+      "name": "spring.redis.client-name",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.client-name",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.client-type",
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties$ClientType",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.client-type",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.cluster.max-redirects",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.cluster.max-redirects",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.cluster.nodes",
+      "type": "java.util.List<java.lang.String>",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.cluster.nodes",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.connect-timeout",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.connect-timeout",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.database",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.database",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.host",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.host",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.jedis.pool.enabled",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.jedis.pool.max-active",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.jedis.pool.max-idle",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.jedis.pool.max-wait",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.jedis.pool.min-idle",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.jedis.pool.time-between-eviction-runs",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.lettuce.cluster.refresh.adaptive",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.lettuce.cluster.refresh.adaptive",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.lettuce.cluster.refresh.dynamic-refresh-sources",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.lettuce.cluster.refresh.dynamic-refresh-sources",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.lettuce.cluster.refresh.period",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.lettuce.cluster.refresh.period",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.lettuce.pool.enabled",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.lettuce.pool.max-active",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.lettuce.pool.max-idle",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.lettuce.pool.max-wait",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.lettuce.pool.min-idle",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.lettuce.pool.time-between-eviction-runs",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.lettuce.shutdown-timeout",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.lettuce.shutdown-timeout",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.password",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.password",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.port",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.port",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.sentinel.master",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.sentinel.master",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.sentinel.nodes",
+      "type": "java.util.List<java.lang.String>",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.sentinel.nodes",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.sentinel.password",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.sentinel.password",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.sentinel.username",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.sentinel.username",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.ssl",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.ssl",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.timeout",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.timeout",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.url",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.url",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "spring.redis.username",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.redis.username",
+        "since": "3.0.0"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.data.redis.lettuce.read-from",
+      "values": [
+        {
+          "value": "any",
+          "description": "Read from any node."
+        },
+        {
+          "value": "any-replica",
+          "description": "Read from any replica node."
+        },
+        {
+          "value": "lowest-latency",
+          "description": "Read from the node with the lowest latency during topology discovery."
+        },
+        {
+          "value": "regex:",
+          "description": "Read from any node that has RedisURI matching with the given pattern."
+        },
+        {
+          "value": "replica",
+          "description": "Read from the replica only."
+        },
+        {
+          "value": "replica-preferred",
+          "description": "Read preferred from replica and fall back to upstream if no replica is available."
+        },
+        {
+          "value": "subnet:",
+          "description": "Read from any node in the subnets."
+        },
+        {
+          "value": "upstream",
+          "description": "Read from the upstream only."
+        },
+        {
+          "value": "upstream-preferred",
+          "description": "Read preferred from the upstream and fall back to a replica if the upstream is not available."
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

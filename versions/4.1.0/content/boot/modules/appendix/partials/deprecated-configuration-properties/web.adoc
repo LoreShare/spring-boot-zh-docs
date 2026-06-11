@@ -1,1 +1,47 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.deprecated-application-properties.web]]
+== 已弃用的 Web 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.web.spring.http.client.connect-timeout]]xref:#application-properties.web.spring.http.client.connect-timeout[`+spring.http.client.connect-timeout+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.web.spring.http.clients.connect-timeout[`+spring.http.clients.connect-timeout+`] 替代
+|
+
+|[[application-properties.web.spring.http.client.factory]]xref:#application-properties.web.spring.http.client.factory[`+spring.http.client.factory+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.web.spring.http.clients.imperative.factory[`+spring.http.clients.imperative.factory+`] 替代
+|
+
+|[[application-properties.web.spring.http.client.read-timeout]]xref:#application-properties.web.spring.http.client.read-timeout[`+spring.http.client.read-timeout+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.web.spring.http.clients.read-timeout[`+spring.http.clients.read-timeout+`] 替代
+|
+
+|[[application-properties.web.spring.http.client.redirects]]xref:#application-properties.web.spring.http.client.redirects[`+spring.http.client.redirects+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.web.spring.http.clients.redirects[`+spring.http.clients.redirects+`] 替代
+|
+
+|[[application-properties.web.spring.http.client.ssl.bundle]]xref:#application-properties.web.spring.http.client.ssl.bundle[`+spring.http.client.ssl.bundle+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.web.spring.http.clients.ssl.bundle[`+spring.http.clients.ssl.bundle+`] 替代
+|
+
+|[[application-properties.web.spring.http.reactiveclient.connect-timeout]]xref:#application-properties.web.spring.http.reactiveclient.connect-timeout[`+spring.http.reactiveclient.connect-timeout+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.web.spring.http.clients.connect-timeout[`+spring.http.clients.connect-timeout+`] 替代
+|
+
+|[[application-properties.web.spring.http.reactiveclient.connector]]xref:#application-properties.web.spring.http.reactiveclient.connector[`+spring.http.reactiveclient.connector+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.web.spring.http.clients.reactive.connector[`+spring.http.clients.reactive.connector+`] 替代
+|
+
+|[[application-properties.web.spring.http.reactiveclient.read-timeout]]xref:#application-properties.web.spring.http.reactiveclient.read-timeout[`+spring.http.reactiveclient.read-timeout+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.web.spring.http.clients.read-timeout[`+spring.http.clients.read-timeout+`] 替代
+|
+
+|[[application-properties.web.spring.http.reactiveclient.redirects]]xref:#application-properties.web.spring.http.reactiveclient.redirects[`+spring.http.reactiveclient.redirects+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.web.spring.http.clients.redirects[`+spring.http.clients.redirects+`] 替代
+|
+
+|[[application-properties.web.spring.http.reactiveclient.ssl.bundle]]xref:#application-properties.web.spring.http.reactiveclient.ssl.bundle[`+spring.http.reactiveclient.ssl.bundle+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.web.spring.http.clients.ssl.bundle[`+spring.http.clients.ssl.bundle+`] 替代
+|
+
+|===

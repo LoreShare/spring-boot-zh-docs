@@ -1,3 +1,76 @@
 |===
-3+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+|Path|Type|Description
+
+|`+group+`
+|`+String+`
+|组的名称。
+
+|`+name+`
+|`+String+`
+|触发器的名称。
+
+|`+description+`
+|`+String+`
+|触发器的描述（如果有）。
+
+|`+state+`
+|`+String+`
+|触发器的状态（`NONE`、`NORMAL`、`PAUSED`、`COMPLETE`、`ERROR`、`BLOCKED`）。
+
+|`+type+`
+|`+String+`
+|触发器的类型（`calendarInterval`、`cron`、`custom`、`dailyTimeInterval`、`simple`）。决定包含类型特定细节的对象的键。
+
+|`+calendarName+`
+|`+String+`
+|与此触发器关联的日历名称（如果有）。
+
+|`+startTime+`
+|`+String+`
+|触发器生效的时间（如果有）。
+
+|`+endTime+`
+|`+String+`
+|触发器停止重复的时间（无论是否有剩余重复次数）（如果有）。
+
+|`+previousFireTime+`
+|`+String+`
+|触发器上次触发的时间（如果有）。
+
+|`+nextFireTime+`
+|`+String+`
+|触发器计划下次触发的时间（如果有）。
+
+|`+priority+`
+|`+Number+`
+|当两个触发器具有相同的计划触发时间时使用的优先级。
+
+|`+finalFireTime+`
+|`+String+`
+|触发器最后一次触发的时间（如果有）。
+
+|`+data+`
+|`+Object+`
+|按名称键控的作业数据映射（如果有）。
+
+|`+calendarInterval+`
+|`+Object+`
+|日历时间间隔触发器详情（如果有）。当 `type` 为 `calendarInterval` 时存在。
+
+|`+custom+`
+|`+Object+`
+|自定义触发器详情（如果有）。当 `type` 为 `custom` 时存在。
+
+|`+cron+`
+|`+Object+`
+|Cron 触发器详情（如果有）。当 `type` 为 `cron` 时存在。
+
+|`+dailyTimeInterval+`
+|`+Object+`
+|每日时间间隔触发器详情（如果有）。当 `type` 为 `dailyTimeInterval` 时存在。
+
+|`+simple+`
+|`+Object+`
+|简单触发器详情（如果有）。当 `type` 为 `simple` 时存在。
+
 |===

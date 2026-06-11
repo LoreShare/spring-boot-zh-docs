@@ -1,0 +1,149 @@
+{
+  "groups": [
+    {
+      "name": "management.observations.r2dbc",
+      "type": "org.springframework.boot.r2dbc.autoconfigure.observation.R2dbcObservationProperties",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.observation.R2dbcObservationProperties"
+    },
+    {
+      "name": "spring.r2dbc",
+      "type": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties"
+    },
+    {
+      "name": "spring.r2dbc.pool",
+      "type": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties",
+      "sourceMethod": "getPool()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.observations.r2dbc.include-parameter-values",
+      "type": "java.lang.Boolean",
+      "description": "Whether to tag actual query parameter values.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.observation.R2dbcObservationProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.r2dbc.generate-unique-name",
+      "type": "java.lang.Boolean",
+      "description": "Whether to generate a random database name. Ignore any configured name when enabled.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.r2dbc.name",
+      "type": "java.lang.String",
+      "description": "Database name. Set if no name is specified in the url. Default to \"testdb\" when using an embedded database.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties"
+    },
+    {
+      "name": "spring.r2dbc.password",
+      "type": "java.lang.String",
+      "description": "Login password of the database. Set if no password is specified in the url.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties"
+    },
+    {
+      "name": "spring.r2dbc.pool.acquire-retry",
+      "type": "java.lang.Integer",
+      "description": "Number of acquire retries if the first acquire attempt fails.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool",
+      "defaultValue": 1
+    },
+    {
+      "name": "spring.r2dbc.pool.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether pooling is enabled. Requires r2dbc-pool.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.r2dbc.pool.initial-size",
+      "type": "java.lang.Integer",
+      "description": "Initial connection pool size.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool",
+      "defaultValue": 10
+    },
+    {
+      "name": "spring.r2dbc.pool.max-acquire-time",
+      "type": "java.time.Duration",
+      "description": "Maximum time to acquire a connection from the pool. By default, wait indefinitely.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool"
+    },
+    {
+      "name": "spring.r2dbc.pool.max-create-connection-time",
+      "type": "java.time.Duration",
+      "description": "Maximum time to wait to create a new connection. By default, wait indefinitely.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool"
+    },
+    {
+      "name": "spring.r2dbc.pool.max-idle-time",
+      "type": "java.time.Duration",
+      "description": "Maximum amount of time that a connection is allowed to sit idle in the pool.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool",
+      "defaultValue": "30m"
+    },
+    {
+      "name": "spring.r2dbc.pool.max-life-time",
+      "type": "java.time.Duration",
+      "description": "Maximum lifetime of a connection in the pool. By default, connections have an infinite lifetime.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool"
+    },
+    {
+      "name": "spring.r2dbc.pool.max-size",
+      "type": "java.lang.Integer",
+      "description": "Maximal connection pool size.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool",
+      "defaultValue": 10
+    },
+    {
+      "name": "spring.r2dbc.pool.max-validation-time",
+      "type": "java.time.Duration",
+      "description": "Maximum time to validate a connection from the pool. By default, wait indefinitely.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool"
+    },
+    {
+      "name": "spring.r2dbc.pool.min-idle",
+      "type": "java.lang.Integer",
+      "description": "Minimal number of idle connections.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.r2dbc.pool.validation-depth",
+      "type": "io.r2dbc.spi.ValidationDepth",
+      "description": "Validation depth.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool",
+      "defaultValue": "local"
+    },
+    {
+      "name": "spring.r2dbc.pool.validation-query",
+      "type": "java.lang.String",
+      "description": "Validation query.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties$Pool"
+    },
+    {
+      "name": "spring.r2dbc.properties",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Additional R2DBC options.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties"
+    },
+    {
+      "name": "spring.r2dbc.url",
+      "type": "java.lang.String",
+      "description": "R2DBC URL of the database. database name, username, password and pooling options specified in the url take precedence over individual options.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties"
+    },
+    {
+      "name": "spring.r2dbc.username",
+      "type": "java.lang.String",
+      "description": "Login username of the database. Set if no username is specified in the url.",
+      "sourceType": "org.springframework.boot.r2dbc.autoconfigure.R2dbcProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

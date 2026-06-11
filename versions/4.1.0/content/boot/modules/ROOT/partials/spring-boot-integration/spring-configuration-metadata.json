@@ -1,0 +1,247 @@
+{
+  "groups": [
+    {
+      "name": "management.endpoint.integrationgraph",
+      "type": "org.springframework.boot.integration.actuate.endpoint.IntegrationGraphEndpoint",
+      "sourceType": "org.springframework.boot.integration.actuate.endpoint.IntegrationGraphEndpoint"
+    },
+    {
+      "name": "spring.integration",
+      "type": "org.springframework.boot.integration.autoconfigure.IntegrationProperties",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties"
+    },
+    {
+      "name": "spring.integration.channel",
+      "type": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Channel",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties",
+      "sourceMethod": "getChannel()"
+    },
+    {
+      "name": "spring.integration.endpoint",
+      "type": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Endpoint",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties",
+      "sourceMethod": "getEndpoint()"
+    },
+    {
+      "name": "spring.integration.error",
+      "type": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Error",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties",
+      "sourceMethod": "getError()"
+    },
+    {
+      "name": "spring.integration.jdbc",
+      "type": "org.springframework.boot.integration.autoconfigure.IntegrationJdbcProperties",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationJdbcProperties"
+    },
+    {
+      "name": "spring.integration.management",
+      "type": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Management",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties",
+      "sourceMethod": "getManagement()"
+    },
+    {
+      "name": "spring.integration.poller",
+      "type": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Poller",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties",
+      "sourceMethod": "getPoller()"
+    },
+    {
+      "name": "spring.integration.rsocket",
+      "type": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$RSocket",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties",
+      "sourceMethod": "getRsocket()"
+    },
+    {
+      "name": "spring.integration.rsocket.client",
+      "type": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$RSocket$Client",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$RSocket",
+      "sourceMethod": "getClient()"
+    },
+    {
+      "name": "spring.integration.rsocket.server",
+      "type": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$RSocket$Server",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$RSocket",
+      "sourceMethod": "getServer()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.endpoint.integrationgraph.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the integrationgraph endpoint.",
+      "sourceType": "org.springframework.boot.integration.actuate.endpoint.IntegrationGraphEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.integrationgraph.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.integration.actuate.endpoint.IntegrationGraphEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "spring.integration.channel.auto-create",
+      "type": "java.lang.Boolean",
+      "description": "Whether to create input channels if necessary.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Channel",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.integration.channel.max-broadcast-subscribers",
+      "type": "java.lang.Integer",
+      "description": "Default number of subscribers allowed on, for example, a 'PublishSubscribeChannel'.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Channel"
+    },
+    {
+      "name": "spring.integration.channel.max-unicast-subscribers",
+      "type": "java.lang.Integer",
+      "description": "Default number of subscribers allowed on, for example, a 'DirectChannel'.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Channel"
+    },
+    {
+      "name": "spring.integration.endpoint.default-timeout",
+      "type": "java.time.Duration",
+      "description": "Default timeout for blocking operations such as sending or receiving messages.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Endpoint",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.integration.endpoint.no-auto-startup",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of endpoint bean names patterns that should not be started automatically during application startup.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Endpoint"
+    },
+    {
+      "name": "spring.integration.endpoint.read-only-headers",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of message header names that should not be populated into Message instances during a header copying operation.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Endpoint"
+    },
+    {
+      "name": "spring.integration.endpoint.throw-exception-on-late-reply",
+      "type": "java.lang.Boolean",
+      "description": "Whether to throw an exception when a reply is not expected anymore by a gateway.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Endpoint",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.integration.error.ignore-failures",
+      "type": "java.lang.Boolean",
+      "description": "Whether to ignore failures for one or more of the handlers of the global 'errorChannel'.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Error",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.integration.error.require-subscribers",
+      "type": "java.lang.Boolean",
+      "description": "Whether to not silently ignore messages on the global 'errorChannel' when there are no subscribers.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Error",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.integration.jdbc.continue-on-error",
+      "type": "java.lang.Boolean",
+      "description": "Whether initialization should continue when an error occurs when applying a schema script.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationJdbcProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.integration.jdbc.initialize-schema",
+      "type": "org.springframework.boot.sql.init.DatabaseInitializationMode",
+      "description": "Database schema initialization mode.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationJdbcProperties",
+      "defaultValue": "embedded"
+    },
+    {
+      "name": "spring.integration.jdbc.platform",
+      "type": "java.lang.String",
+      "description": "Platform to use in initialization scripts if the @@platform@@ placeholder is used. Auto-detected by default.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationJdbcProperties"
+    },
+    {
+      "name": "spring.integration.jdbc.schema",
+      "type": "java.lang.String",
+      "description": "Path to the SQL file to use to initialize the database schema.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationJdbcProperties"
+    },
+    {
+      "name": "spring.integration.management.default-logging-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether Spring Integration components should perform logging in the main message flow. When disabled, such logging will be skipped without checking the logging level. When enabled, such logging is controlled as normal by the logging system's log level configuration.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Management",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.integration.management.observation-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of simple patterns to match against the names of Spring Integration components. When matched, observation instrumentation will be performed for the component. Please refer to the javadoc of the smartMatch method of Spring Integration's PatternMatchUtils for details of the pattern syntax.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Management"
+    },
+    {
+      "name": "spring.integration.poller.cron",
+      "type": "java.lang.String",
+      "description": "Cron expression for polling. Mutually exclusive with 'fixedDelay' and 'fixedRate'.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Poller"
+    },
+    {
+      "name": "spring.integration.poller.fixed-delay",
+      "type": "java.time.Duration",
+      "description": "Polling delay period. Mutually exclusive with 'cron' and 'fixedRate'.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Poller"
+    },
+    {
+      "name": "spring.integration.poller.fixed-rate",
+      "type": "java.time.Duration",
+      "description": "Polling rate period. Mutually exclusive with 'fixedDelay' and 'cron'.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Poller"
+    },
+    {
+      "name": "spring.integration.poller.initial-delay",
+      "type": "java.time.Duration",
+      "description": "Polling initial delay. Applied for 'fixedDelay' and 'fixedRate'; ignored for 'cron'.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Poller"
+    },
+    {
+      "name": "spring.integration.poller.max-messages-per-poll",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of messages to poll per polling cycle.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Poller"
+    },
+    {
+      "name": "spring.integration.poller.receive-timeout",
+      "type": "java.time.Duration",
+      "description": "How long to wait for messages on poll.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$Poller",
+      "defaultValue": "1s"
+    },
+    {
+      "name": "spring.integration.rsocket.client.host",
+      "type": "java.lang.String",
+      "description": "TCP RSocket server host to connect to.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$RSocket$Client"
+    },
+    {
+      "name": "spring.integration.rsocket.client.port",
+      "type": "java.lang.Integer",
+      "description": "TCP RSocket server port to connect to.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$RSocket$Client"
+    },
+    {
+      "name": "spring.integration.rsocket.client.uri",
+      "type": "java.net.URI",
+      "description": "WebSocket RSocket server uri to connect to.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$RSocket$Client"
+    },
+    {
+      "name": "spring.integration.rsocket.server.message-mapping-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to handle message mapping for RSocket through Spring Integration.",
+      "sourceType": "org.springframework.boot.integration.autoconfigure.IntegrationProperties$RSocket$Server",
+      "defaultValue": false
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,3 +1,20 @@
 |===
-3+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+|Path|Type|Description
+
+|`+simple+`
+|`+Object+`
+|Simple 触发器特定详情。
+
+|`+simple.interval+`
+|`+Number+`
+|两次执行之间的间隔，单位为毫秒。
+
+|`+simple.repeatCount+`
+|`+Number+`
+|触发器应重复的次数，或 -1 表示无限重复。
+
+|`+simple.timesTriggered+`
+|`+Number+`
+|触发器已触发的次数。
+
 |===

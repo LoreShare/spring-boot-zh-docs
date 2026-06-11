@@ -1,0 +1,21 @@
+[[appendix.auto-configuration-classes.spring-boot-devtools]]
+= spring-boot-devtools
+
+以下 auto-configuration 类来自 `spring-boot-devtools` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/autoconfigure/DevToolsDataSourceAutoConfiguration.java[`DevToolsDataSourceAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/devtools/autoconfigure/DevToolsDataSourceAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/autoconfigure/DevToolsR2dbcAutoConfiguration.java[`DevToolsR2dbcAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/devtools/autoconfigure/DevToolsR2dbcAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/autoconfigure/LocalDevToolsAutoConfiguration.java[`LocalDevToolsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/devtools/autoconfigure/LocalDevToolsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/autoconfigure/RemoteDevToolsAutoConfiguration.java[`RemoteDevToolsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/devtools/autoconfigure/RemoteDevToolsAutoConfiguration.html[javadoc]
+|===

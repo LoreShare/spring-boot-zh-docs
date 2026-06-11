@@ -1,0 +1,12 @@
+[[appendix.auto-configuration-classes.spring-boot-sendgrid]]
+= spring-boot-sendgrid
+
+以下 auto-configuration 类来自 `spring-boot-sendgrid` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-sendgrid/src/main/java/org/springframework/boot/sendgrid/autoconfigure/SendGridAutoConfiguration.java[`SendGridAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/sendgrid/autoconfigure/SendGridAutoConfiguration.html[javadoc]
+|===

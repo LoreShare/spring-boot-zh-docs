@@ -1,3 +1,28 @@
 |===
-3+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+|Path|Type|Description
+
+|`+contexts+`
+|`+Object+`
+|按 id 键控的应用程序上下文。
+
+|`+contexts.*.beans.*+`
+|`+Object+`
+|`@ConfigurationProperties` 按 bean 名称键控的 beans。
+
+|`+contexts.*.beans.*.prefix+`
+|`+String+`
+|应用于 bean 属性名称的前缀。
+
+|`+contexts.*.beans.*.properties+`
+|`+Object+`
+|bean 的属性，以名称-值对形式呈现。
+
+|`+contexts.*.beans.*.inputs+`
+|`+Object+`
+|绑定到此 bean 时使用的配置属性的来源和值。
+
+|`+contexts.*.parentId+`
+|`+String+`
+|父应用程序上下文的 id（如果有）。
+
 |===

@@ -1,0 +1,46 @@
+{
+  "groups": [
+    {
+      "name": "management.brave.tracing",
+      "type": "org.springframework.boot.micrometer.tracing.brave.autoconfigure.BraveTracingProperties",
+      "sourceType": "org.springframework.boot.micrometer.tracing.brave.autoconfigure.BraveTracingProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.brave.tracing.span-joining-supported",
+      "type": "java.lang.Boolean",
+      "description": "Whether the propagation type and tracing backend support sharing the span ID between client and server spans. Requires B3 propagation and a compatible backend.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.brave.autoconfigure.BraveTracingProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "management.tracing.export.zipkin.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether auto-configuration of tracing is enabled to export Zipkin traces.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.tracing.brave.span-joining-supported",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.brave.tracing.span-joining-supported",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.zipkin.tracing.export.enabled",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.tracing.export.zipkin.enabled",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

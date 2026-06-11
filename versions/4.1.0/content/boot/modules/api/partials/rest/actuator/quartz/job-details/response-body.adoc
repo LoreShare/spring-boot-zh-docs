@@ -1,0 +1,27 @@
+[source,json,options="nowrap"]
+----
+{
+  "className" : "org.springframework.scheduling.quartz.DelegatingJob",
+  "data" : {
+    "password" : "secret",
+    "user" : "admin"
+  },
+  "description" : "A sample job",
+  "durable" : false,
+  "group" : "samples",
+  "name" : "jobOne",
+  "requestRecovery" : false,
+  "triggers" : [ {
+    "group" : "samples",
+    "name" : "every-day",
+    "previousFireTime" : "2020-12-04T03:00:00.000Z",
+    "nextFireTime" : "2020-12-04T12:00:00.000Z",
+    "priority" : 7
+  }, {
+    "group" : "samples",
+    "name" : "3am-weekdays",
+    "nextFireTime" : "2020-12-07T03:00:00.000Z",
+    "priority" : 3
+  } ]
+}
+----

@@ -1,0 +1,238 @@
+{
+  "groups": [
+    {
+      "name": "spring.elasticsearch",
+      "type": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties"
+    },
+    {
+      "name": "spring.elasticsearch.restclient",
+      "type": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties$Restclient",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties",
+      "sourceMethod": "getRestclient()"
+    },
+    {
+      "name": "spring.elasticsearch.restclient.sniffer",
+      "type": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties$Restclient$Sniffer",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties$Restclient",
+      "sourceMethod": "getSniffer()"
+    },
+    {
+      "name": "spring.elasticsearch.restclient.ssl",
+      "type": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties$Restclient$Ssl",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties$Restclient",
+      "sourceMethod": "getSsl()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.health.elasticsearch.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Elasticsearch health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.elasticsearch.api-key",
+      "type": "java.lang.String",
+      "description": "API key for authentication with Elasticsearch.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties"
+    },
+    {
+      "name": "spring.elasticsearch.connection-timeout",
+      "type": "java.time.Duration",
+      "description": "Connection timeout used when communicating with Elasticsearch.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties",
+      "defaultValue": "1s"
+    },
+    {
+      "name": "spring.elasticsearch.password",
+      "type": "java.lang.String",
+      "description": "Password for authentication with Elasticsearch.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties"
+    },
+    {
+      "name": "spring.elasticsearch.path-prefix",
+      "type": "java.lang.String",
+      "description": "Prefix added to the path of every request sent to Elasticsearch.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties"
+    },
+    {
+      "name": "spring.elasticsearch.restclient.sniffer.delay-after-failure",
+      "type": "java.time.Duration",
+      "description": "Delay of a sniff execution scheduled after a failure.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties$Restclient$Sniffer",
+      "defaultValue": "1m"
+    },
+    {
+      "name": "spring.elasticsearch.restclient.sniffer.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether the sniffer is enabled.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties$Restclient$Sniffer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.elasticsearch.restclient.sniffer.interval",
+      "type": "java.time.Duration",
+      "description": "Interval between consecutive ordinary sniff executions.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties$Restclient$Sniffer",
+      "defaultValue": "5m"
+    },
+    {
+      "name": "spring.elasticsearch.restclient.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle name.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties$Restclient$Ssl"
+    },
+    {
+      "name": "spring.elasticsearch.restclient.ssl.verify-hostname",
+      "type": "java.lang.Boolean",
+      "description": "Whether to perform hostname verification.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties$Restclient$Ssl",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.elasticsearch.socket-keep-alive",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable socket keep alive between client and Elasticsearch.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.elasticsearch.socket-timeout",
+      "type": "java.time.Duration",
+      "description": "Socket timeout used when communicating with Elasticsearch.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.elasticsearch.uris",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of the Elasticsearch instances to use.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties",
+      "defaultValue": [
+        "http:\/\/localhost:9200"
+      ]
+    },
+    {
+      "name": "spring.elasticsearch.username",
+      "type": "java.lang.String",
+      "description": "Username for authentication with Elasticsearch.",
+      "sourceType": "org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchProperties"
+    },
+    {
+      "name": "management.health.elasticsearch.indices",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Comma-separated index names.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "management.health.elasticsearch.response-timeout",
+      "type": "java.time.Duration",
+      "description": "Time to wait for a response from the cluster.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.2.0"
+      }
+    },
+    {
+      "name": "spring.elasticsearch.jest.connection-timeout",
+      "type": "java.time.Duration",
+      "description": "Connection timeout.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.elasticsearch.jest.multi-threaded",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable connection requests from multiple execution threads.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.elasticsearch.jest.password",
+      "type": "java.lang.String",
+      "description": "Login password.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.elasticsearch.jest.proxy.host",
+      "type": "java.lang.String",
+      "description": "Proxy host the HTTP client should use.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.elasticsearch.jest.proxy.port",
+      "type": "java.lang.Integer",
+      "description": "Proxy port the HTTP client should use.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.elasticsearch.jest.read-timeout",
+      "type": "java.time.Duration",
+      "description": "Read timeout.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.elasticsearch.jest.uris",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Comma-separated list of the Elasticsearch instances to use.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.elasticsearch.jest.username",
+      "type": "java.lang.String",
+      "description": "Login username.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.elasticsearch.webclient.max-in-memory-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Limit on the number of bytes that can be buffered whenever the input stream needs to be aggregated.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Reactive Elasticsearch client no longer uses WebClient.",
+        "since": "3.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

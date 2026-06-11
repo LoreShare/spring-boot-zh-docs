@@ -1,0 +1,39 @@
+{
+  "groups": [
+    {
+      "name": "spring.sendgrid",
+      "type": "org.springframework.boot.sendgrid.autoconfigure.SendGridProperties",
+      "sourceType": "org.springframework.boot.sendgrid.autoconfigure.SendGridProperties"
+    },
+    {
+      "name": "spring.sendgrid.proxy",
+      "type": "org.springframework.boot.sendgrid.autoconfigure.SendGridProperties$Proxy",
+      "sourceType": "org.springframework.boot.sendgrid.autoconfigure.SendGridProperties",
+      "sourceMethod": "getProxy()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.sendgrid.api-key",
+      "type": "java.lang.String",
+      "description": "SendGrid API key.",
+      "sourceType": "org.springframework.boot.sendgrid.autoconfigure.SendGridProperties"
+    },
+    {
+      "name": "spring.sendgrid.proxy.host",
+      "type": "java.lang.String",
+      "description": "SendGrid proxy host.",
+      "sourceType": "org.springframework.boot.sendgrid.autoconfigure.SendGridProperties$Proxy"
+    },
+    {
+      "name": "spring.sendgrid.proxy.port",
+      "type": "java.lang.Integer",
+      "description": "SendGrid proxy port.",
+      "sourceType": "org.springframework.boot.sendgrid.autoconfigure.SendGridProperties$Proxy"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

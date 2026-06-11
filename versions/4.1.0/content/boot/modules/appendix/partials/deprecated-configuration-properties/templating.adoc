@@ -1,1 +1,55 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.deprecated-application-properties.templating]]
+== 已弃用的模板属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.templating.spring.groovy.template.configuration.auto-escape]]xref:#application-properties.templating.spring.groovy.template.configuration.auto-escape[`+spring.groovy.template.configuration.auto-escape+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.auto-escape[`+spring.groovy.template.auto-escape+`] 替代
+|
+
+|[[application-properties.templating.spring.groovy.template.configuration.auto-indent]]xref:#application-properties.templating.spring.groovy.template.configuration.auto-indent[`+spring.groovy.template.configuration.auto-indent+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.auto-indent[`+spring.groovy.template.auto-indent+`] 替代
+|
+
+|[[application-properties.templating.spring.groovy.template.configuration.auto-indent-string]]xref:#application-properties.templating.spring.groovy.template.configuration.auto-indent-string[`+spring.groovy.template.configuration.auto-indent-string+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.auto-indent-string[`+spring.groovy.template.auto-indent-string+`] 替代
+|
+
+|[[application-properties.templating.spring.groovy.template.configuration.auto-new-line]]xref:#application-properties.templating.spring.groovy.template.configuration.auto-new-line[`+spring.groovy.template.configuration.auto-new-line+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.auto-new-line[`+spring.groovy.template.auto-new-line+`] 替代
+|
+
+|[[application-properties.templating.spring.groovy.template.configuration.base-template-class]]xref:#application-properties.templating.spring.groovy.template.configuration.base-template-class[`+spring.groovy.template.configuration.base-template-class+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.base-template-class[`+spring.groovy.template.base-template-class+`] 替代
+|
+
+|[[application-properties.templating.spring.groovy.template.configuration.cache-templates]]xref:#application-properties.templating.spring.groovy.template.configuration.cache-templates[`+spring.groovy.template.configuration.cache-templates+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.cache[`+spring.groovy.template.cache+`] 替代
+|
+
+|[[application-properties.templating.spring.groovy.template.configuration.declaration-encoding]]xref:#application-properties.templating.spring.groovy.template.configuration.declaration-encoding[`+spring.groovy.template.configuration.declaration-encoding+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.declaration-encoding[`+spring.groovy.template.declaration-encoding+`] 替代
+|
+
+|[[application-properties.templating.spring.groovy.template.configuration.expand-empty-elements]]xref:#application-properties.templating.spring.groovy.template.configuration.expand-empty-elements[`+spring.groovy.template.configuration.expand-empty-elements+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.expand-empty-elements[`+spring.groovy.template.expand-empty-elements+`] 替代
+|
+
+|[[application-properties.templating.spring.groovy.template.configuration.locale]]xref:#application-properties.templating.spring.groovy.template.configuration.locale[`+spring.groovy.template.configuration.locale+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.locale[`+spring.groovy.template.locale+`] 替代
+|
+
+|[[application-properties.templating.spring.groovy.template.configuration.new-line-string]]xref:#application-properties.templating.spring.groovy.template.configuration.new-line-string[`+spring.groovy.template.configuration.new-line-string+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.new-line-string[`+spring.groovy.template.new-line-string+`] 替代
+|
+
+|[[application-properties.templating.spring.groovy.template.configuration.resource-loader-path]]xref:#application-properties.templating.spring.groovy.template.configuration.resource-loader-path[`+spring.groovy.template.configuration.resource-loader-path+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.resource-loader-path[`+spring.groovy.template.resource-loader-path+`] 替代
+|
+
+|[[application-properties.templating.spring.groovy.template.configuration.use-double-quotes]]xref:#application-properties.templating.spring.groovy.template.configuration.use-double-quotes[`+spring.groovy.template.configuration.use-double-quotes+`]
+|已被 xref:appendix:application-properties/index.adoc#application-properties.templating.spring.groovy.template.use-double-quotes[`+spring.groovy.template.use-double-quotes+`] 替代
+|
+
+|===

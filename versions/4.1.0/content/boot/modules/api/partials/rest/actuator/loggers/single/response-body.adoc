@@ -1,0 +1,7 @@
+[source,json,options="nowrap"]
+----
+{
+  "configuredLevel" : "INFO",
+  "effectiveLevel" : "INFO"
+}
+----

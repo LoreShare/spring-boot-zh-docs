@@ -1,0 +1,167 @@
+[[appendix.application-properties.grpc]]
+== gRPC 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.grpc.spring.grpc.client.channel]]xref:#application-properties.grpc.spring.grpc.client.channel[`+spring.grpc.client.channel.*+`]
+|+++按名称配置的通道映射。+++
+|
+
+|[[application-properties.grpc.spring.grpc.client.channelfactory.enabled]]xref:#application-properties.grpc.spring.grpc.client.channelfactory.enabled[`+spring.grpc.client.channelfactory.enabled+`]
+|+++是否启用 gRPC 通道工厂 bean auto-configuration。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.client.enabled]]xref:#application-properties.grpc.spring.grpc.client.enabled[`+spring.grpc.client.enabled+`]
+|+++是否启用 gRPC 客户端 auto-configuration。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.client.inprocess.enabled]]xref:#application-properties.grpc.spring.grpc.client.inprocess.enabled[`+spring.grpc.client.inprocess.enabled+`]
+|+++是否配置进程内通道工厂。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.client.observation.enabled]]xref:#application-properties.grpc.spring.grpc.client.observation.enabled[`+spring.grpc.client.observation.enabled+`]
+|+++是否在客户端启用观测。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.server.address]]xref:#application-properties.grpc.spring.grpc.server.address[`+spring.grpc.server.address+`]
+|+++gRPC 服务器应绑定的网络地址。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.enabled]]xref:#application-properties.grpc.spring.grpc.server.enabled[`+spring.grpc.server.enabled+`]
+|+++是否启用 gRPC 服务器 auto-configuration。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.server.factory.enabled]]xref:#application-properties.grpc.spring.grpc.server.factory.enabled[`+spring.grpc.server.factory.enabled+`]
+|+++是否启用 gRPC 服务器工厂 bean auto-configuration。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.server.health.enabled]]xref:#application-properties.grpc.spring.grpc.server.health.enabled[`+spring.grpc.server.health.enabled+`]
+|+++是否在 gRPC 服务器上自动配置健康特性。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.health.include-overall-health]]xref:#application-properties.grpc.spring.grpc.server.health.include-overall-health[`+spring.grpc.server.health.include-overall-health+`]
+|+++是否包含整体服务器健康状态。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.server.health.schedule.delay]]xref:#application-properties.grpc.spring.grpc.server.health.schedule.delay[`+spring.grpc.server.health.schedule.delay+`]
+|+++首次更新健康状态前的初始延迟。如果未指定持续时间后缀，则使用秒。+++
+|`+5s+`
+
+|[[application-properties.grpc.spring.grpc.server.health.schedule.enabled]]xref:#application-properties.grpc.spring.grpc.server.health.schedule.enabled[`+spring.grpc.server.health.schedule.enabled+`]
+|+++是否根据应用程序健康状态调度 gRPC 服务器健康状态的更新。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.server.health.schedule.period]]xref:#application-properties.grpc.spring.grpc.server.health.schedule.period[`+spring.grpc.server.health.schedule.period+`]
+|+++更新健康状态的频率。如果未指定持续时间后缀，则使用秒。+++
+|`+5s+`
+
+|[[application-properties.grpc.spring.grpc.server.health.service]]xref:#application-properties.grpc.spring.grpc.server.health.service[`+spring.grpc.server.health.service.*+`]
+|+++特定服务的健康报告。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.health.services.validate-membership]]xref:#application-properties.grpc.spring.grpc.server.health.services.validate-membership[`+spring.grpc.server.health.services.validate-membership+`]
+|+++是否在启动时验证服务的健康成员资格。如果某个服务包含或排除了不存在的健康贡献者，则验证失败。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.server.health.status.mapping]]xref:#application-properties.grpc.spring.grpc.server.health.status.mapping[`+spring.grpc.server.health.status.mapping.*+`]
+|+++健康状态到 gRPC 服务状态的映射。默认情况下，注册的健康状态映射到合理的默认值（例如，UP 映射到 SERVING）。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.health.status.order]]xref:#application-properties.grpc.spring.grpc.server.health.status.order[`+spring.grpc.server.health.status.order+`]
+|+++按严重程度排序的健康状态列表。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.inbound.message.max-size]]xref:#application-properties.grpc.spring.grpc.server.inbound.message.max-size[`+spring.grpc.server.inbound.message.max-size+`]
+|+++服务器允许接收的最大消息大小。如果未指定数据大小后缀，则使用字节。+++
+|`+4194304B+`
+
+|[[application-properties.grpc.spring.grpc.server.inbound.metadata.max-size]]xref:#application-properties.grpc.spring.grpc.server.inbound.metadata.max-size[`+spring.grpc.server.inbound.metadata.max-size+`]
+|+++服务器允许接收的最大元数据大小。如果未指定数据大小后缀，则使用字节。+++
+|`+8192B+`
+
+|[[application-properties.grpc.spring.grpc.server.inprocess.name]]xref:#application-properties.grpc.spring.grpc.server.inprocess.name[`+spring.grpc.server.inprocess.name+`]
+|+++进程内服务器的名称，如果为 null 则不启动进程内服务器。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.keepalive.connection.grace-period]]xref:#application-properties.grpc.spring.grpc.server.keepalive.connection.grace-period[`+spring.grpc.server.keepalive.connection.grace-period+`]
+|+++优雅关闭连接的最大时间。如果未指定持续时间后缀，则使用秒。+++
+|`+30s+`
+
+|[[application-properties.grpc.spring.grpc.server.keepalive.connection.max-age]]xref:#application-properties.grpc.spring.grpc.server.keepalive.connection.max-age[`+spring.grpc.server.keepalive.connection.max-age+`]
+|+++连接在被优雅终止前可以存在的最大时间（如果未指定则为无限）。如果未指定持续时间后缀，则使用秒。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.keepalive.connection.max-idle-time]]xref:#application-properties.grpc.spring.grpc.server.keepalive.connection.max-idle-time[`+spring.grpc.server.keepalive.connection.max-idle-time+`]
+|+++连接在空闲状态下可以保持的最大时间，之后将被优雅终止（如果未指定则为无限）。如果未指定持续时间后缀，则使用秒。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.keepalive.permit.time]]xref:#application-properties.grpc.spring.grpc.server.keepalive.permit.time[`+spring.grpc.server.keepalive.permit.time+`]
+|+++客户端允许配置的最大保活时间。如果未指定持续时间后缀，则使用秒。+++
+|`+5m+`
+
+|[[application-properties.grpc.spring.grpc.server.keepalive.permit.without-calls]]xref:#application-properties.grpc.spring.grpc.server.keepalive.permit.without-calls[`+spring.grpc.server.keepalive.permit.without-calls+`]
+|+++是否允许客户端在连接上没有未完成的 RPC 时发送保活 ping。+++
+|`+false+`
+
+|[[application-properties.grpc.spring.grpc.server.keepalive.time]]xref:#application-properties.grpc.spring.grpc.server.keepalive.time[`+spring.grpc.server.keepalive.time+`]
+|+++发送保活 ping 之前无读取活动的持续时间。如果未指定持续时间后缀，则使用秒。+++
+|`+2h+`
+
+|[[application-properties.grpc.spring.grpc.server.keepalive.timeout]]xref:#application-properties.grpc.spring.grpc.server.keepalive.timeout[`+spring.grpc.server.keepalive.timeout+`]
+|+++发送保活 ping 后等待读取活动的最大时间。如果发送方在此时间内未收到确认，将关闭连接。如果未指定持续时间后缀，则使用秒。+++
+|`+20s+`
+
+|[[application-properties.grpc.spring.grpc.server.netty.domain-socket-path]]xref:#application-properties.grpc.spring.grpc.server.netty.domain-socket-path[`+spring.grpc.server.netty.domain-socket-path+`]
+|+++应使用的域套接字路径。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.netty.transport]]xref:#application-properties.grpc.spring.grpc.server.netty.transport[`+spring.grpc.server.netty.transport+`]
+|+++用于 Netty 和 Netty Shaded 服务器的传输机制。如果未指定，将根据 'domain-socket-path' 或 'address/port' 选择适当的传输。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.observation.enabled]]xref:#application-properties.grpc.spring.grpc.server.observation.enabled[`+spring.grpc.server.observation.enabled+`]
+|+++是否在服务器端启用观测。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.server.port]]xref:#application-properties.grpc.spring.grpc.server.port[`+spring.grpc.server.port+`]
+|+++gRPC 服务器应监听的端口。使用 '0' 绑定到动态端口。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.reflection.enabled]]xref:#application-properties.grpc.spring.grpc.server.reflection.enabled[`+spring.grpc.server.reflection.enabled+`]
+|+++是否在 gRPC 服务器上启用反射。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.server.security.csrf.enabled]]xref:#application-properties.grpc.spring.grpc.server.security.csrf.enabled[`+spring.grpc.server.security.csrf.enabled+`]
+|+++是否启用 CSRF 保护。+++
+|`+false+`
+
+|[[application-properties.grpc.spring.grpc.server.servlet.enabled]]xref:#application-properties.grpc.spring.grpc.server.servlet.enabled[`+spring.grpc.server.servlet.enabled+`]
+|+++是否在基于 servlet 的 Web 应用程序中使用 servlet 服务器。当值为 false 时，只要可用，就会创建一个原生 gRPC 服务器，并在其自己的端口上监听。仅在 GrpcServlet 位于 classpath 上时才需要。+++
+|`+false+`
+
+|[[application-properties.grpc.spring.grpc.server.servlet.validate-http2]]xref:#application-properties.grpc.spring.grpc.server.servlet.validate-http2[`+spring.grpc.server.servlet.validate-http2+`]
+|+++是否验证 HTTP/2 已启用。如果您的 servlet 容器未通过属性配置，则可能需要跳过验证。+++
+|`+true+`
+
+|[[application-properties.grpc.spring.grpc.server.shutdown.grace-period]]xref:#application-properties.grpc.spring.grpc.server.shutdown.grace-period[`+spring.grpc.server.shutdown.grace-period+`]
+|+++等待服务器优雅关闭的最大时间。当值为负数时，服务器永远等待。当值为 0 时，服务器将立即强制关闭。如果未指定持续时间后缀，则使用秒。+++
+|`+30s+`
+
+|[[application-properties.grpc.spring.grpc.server.ssl.bundle]]xref:#application-properties.grpc.spring.grpc.server.ssl.bundle[`+spring.grpc.server.ssl.bundle+`]
+|+++SSL 捆绑包名称。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.ssl.client-auth]]xref:#application-properties.grpc.spring.grpc.server.ssl.client-auth[`+spring.grpc.server.ssl.client-auth+`]
+|+++客户端认证模式。+++
+|`+none+`
+
+|[[application-properties.grpc.spring.grpc.server.ssl.enabled]]xref:#application-properties.grpc.spring.grpc.server.ssl.enabled[`+spring.grpc.server.ssl.enabled+`]
+|+++是否启用 SSL 支持。+++
+|
+
+|[[application-properties.grpc.spring.grpc.server.ssl.secure]]xref:#application-properties.grpc.spring.grpc.server.ssl.secure[`+spring.grpc.server.ssl.secure+`]
+|+++客户端身份验证是否安全（即检查证书）。请勿在生产环境中将其设置为 false。+++
+|`+true+`
+
+|===

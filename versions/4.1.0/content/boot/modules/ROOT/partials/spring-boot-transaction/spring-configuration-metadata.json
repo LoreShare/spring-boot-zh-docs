@@ -1,0 +1,33 @@
+{
+  "groups": [
+    {
+      "name": "spring.transaction",
+      "type": "org.springframework.boot.transaction.autoconfigure.TransactionProperties",
+      "sourceType": "org.springframework.boot.transaction.autoconfigure.TransactionProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.jta.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable JTA support.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.transaction.default-timeout",
+      "type": "java.time.Duration",
+      "description": "Default transaction timeout. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.transaction.autoconfigure.TransactionProperties"
+    },
+    {
+      "name": "spring.transaction.rollback-on-commit-failure",
+      "type": "java.lang.Boolean",
+      "description": "Whether to roll back on commit failures.",
+      "sourceType": "org.springframework.boot.transaction.autoconfigure.TransactionProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

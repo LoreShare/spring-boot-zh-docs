@@ -1,0 +1,21 @@
+[[appendix.auto-configuration-classes.spring-boot-data-mongodb]]
+= spring-boot-data-mongodb
+
+以下 auto-configuration 类来自 `spring-boot-data-mongodb` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-data-mongodb/src/main/java/org/springframework/boot/data/mongodb/autoconfigure/DataMongoAutoConfiguration.java[`DataMongoAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/mongodb/autoconfigure/DataMongoAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-mongodb/src/main/java/org/springframework/boot/data/mongodb/autoconfigure/DataMongoReactiveAutoConfiguration.java[`DataMongoReactiveAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/mongodb/autoconfigure/DataMongoReactiveAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-mongodb/src/main/java/org/springframework/boot/data/mongodb/autoconfigure/DataMongoReactiveRepositoriesAutoConfiguration.java[`DataMongoReactiveRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/mongodb/autoconfigure/DataMongoReactiveRepositoriesAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-mongodb/src/main/java/org/springframework/boot/data/mongodb/autoconfigure/DataMongoRepositoriesAutoConfiguration.java[`DataMongoRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/mongodb/autoconfigure/DataMongoRepositoriesAutoConfiguration.html[javadoc]
+|===

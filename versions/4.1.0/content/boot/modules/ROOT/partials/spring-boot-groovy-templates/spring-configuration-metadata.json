@@ -1,0 +1,294 @@
+{
+  "groups": [
+    {
+      "name": "spring.groovy.template",
+      "type": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.groovy.template.allow-request-override",
+      "type": "java.lang.Boolean",
+      "description": "Whether HttpServletRequest attributes are allowed to override (hide) controller generated model attributes of the same name.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.groovy.template.allow-session-override",
+      "type": "java.lang.Boolean",
+      "description": "Whether HttpSession attributes are allowed to override (hide) controller generated model attributes of the same name.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.groovy.template.auto-escape",
+      "type": "java.lang.Boolean",
+      "description": "Whether models that are assignable to CharSequence are escaped automatically.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.groovy.template.auto-indent",
+      "type": "java.lang.Boolean",
+      "description": "Whether indents are rendered automatically.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.groovy.template.auto-indent-string",
+      "type": "java.lang.String",
+      "description": "String used for auto-indents.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties"
+    },
+    {
+      "name": "spring.groovy.template.auto-new-line",
+      "type": "java.lang.Boolean",
+      "description": "Whether new lines are rendered automatically.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.groovy.template.base-template-class",
+      "type": "java.lang.Class<? extends groovy.text.markup.BaseTemplate>",
+      "description": "Template base class.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties"
+    },
+    {
+      "name": "spring.groovy.template.cache",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable template caching.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.groovy.template.charset",
+      "type": "java.nio.charset.Charset",
+      "description": "Template encoding.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.groovy.template.check-template-location",
+      "type": "java.lang.Boolean",
+      "description": "Whether to check that the templates location exists.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.groovy.template.content-type",
+      "type": "org.springframework.util.MimeType",
+      "description": "Content-Type value.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": "text\/html"
+    },
+    {
+      "name": "spring.groovy.template.declaration-encoding",
+      "type": "java.lang.String",
+      "description": "Encoding used to write the declaration heading.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties"
+    },
+    {
+      "name": "spring.groovy.template.expand-empty-elements",
+      "type": "java.lang.Boolean",
+      "description": "Whether elements without a body should be written expanded (&lt;br&gt;&lt;\/br&gt;) or not (&lt;br\/&gt;).",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.groovy.template.expose-request-attributes",
+      "type": "java.lang.Boolean",
+      "description": "Whether all request attributes should be added to the model prior to merging with the template.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.groovy.template.expose-session-attributes",
+      "type": "java.lang.Boolean",
+      "description": "Whether all HttpSession attributes should be added to the model prior to merging with the template.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.groovy.template.expose-spring-macro-helpers",
+      "type": "java.lang.Boolean",
+      "description": "Whether to expose a RequestContext for use by Spring's macro library, under the name \"springMacroRequestContext\".",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.groovy.template.locale",
+      "type": "java.util.Locale",
+      "description": "Default locale for template resolution.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties"
+    },
+    {
+      "name": "spring.groovy.template.new-line-string",
+      "type": "java.lang.String",
+      "description": "String used to write a new line. Defaults to the system's line separator.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties"
+    },
+    {
+      "name": "spring.groovy.template.prefix",
+      "type": "java.lang.String",
+      "description": "Prefix that gets prepended to view names when building a URL.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": ""
+    },
+    {
+      "name": "spring.groovy.template.request-context-attribute",
+      "type": "java.lang.String",
+      "description": "Name of the RequestContext attribute for all views.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": "spring"
+    },
+    {
+      "name": "spring.groovy.template.resource-loader-path",
+      "type": "java.lang.String",
+      "description": "Template path.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": "classpath:\/templates\/"
+    },
+    {
+      "name": "spring.groovy.template.suffix",
+      "type": "java.lang.String",
+      "description": "Suffix that gets appended to view names when building a URL.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": ".tpl"
+    },
+    {
+      "name": "spring.groovy.template.use-double-quotes",
+      "type": "java.lang.Boolean",
+      "description": "Whether attributes should use double quotes.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.groovy.template.view-names",
+      "type": "java.lang.String[]",
+      "description": "View names that can be resolved.",
+      "sourceType": "org.springframework.boot.groovy.template.autoconfigure.GroovyTemplateProperties"
+    },
+    {
+      "name": "spring.groovy.template.configuration.auto-escape",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.auto-escape",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.configuration.auto-indent",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.auto-indent",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.configuration.auto-indent-string",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.auto-indent-string",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.configuration.auto-new-line",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.auto-new-line",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.configuration.base-template-class",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.base-template-class",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.configuration.cache-templates",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.cache",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.configuration.declaration-encoding",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.declaration-encoding",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.configuration.expand-empty-elements",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.expand-empty-elements",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.configuration.locale",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.locale",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.configuration.new-line-string",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.new-line-string",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.configuration.resource-loader-path",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.resource-loader-path",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.configuration.use-double-quotes",
+      "deprecated": true,
+      "deprecation": {
+        "level": "warning",
+        "replacement": "spring.groovy.template.use-double-quotes",
+        "since": "3.5.0"
+      }
+    },
+    {
+      "name": "spring.groovy.template.enabled",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "No longer required. To use Groovy Templates without auto-configuration, depend directly on Groovy Templates instead of spring-boot-groovy-templates.",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

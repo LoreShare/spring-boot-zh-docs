@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "spring.reactor",
+      "type": "org.springframework.boot.reactor.autoconfigure.ReactorProperties",
+      "sourceType": "org.springframework.boot.reactor.autoconfigure.ReactorProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.reactor.context-propagation",
+      "type": "org.springframework.boot.reactor.autoconfigure.ReactorProperties$ContextPropagationMode",
+      "description": "Context Propagation support mode for Reactor operators.",
+      "sourceType": "org.springframework.boot.reactor.autoconfigure.ReactorProperties",
+      "defaultValue": "limited"
+    },
+    {
+      "name": "spring.reactor.stacktrace-mode.enabled",
+      "description": "Whether Reactor should collect stacktrace information at runtime.",
+      "defaultValue": false,
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.reactor.debug-agent.enabled",
+        "since": "2.2.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

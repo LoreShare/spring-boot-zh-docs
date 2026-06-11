@@ -1,1 +1,19 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.transaction]]
+== 事务属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.transaction.spring.jta.enabled]]xref:#application-properties.transaction.spring.jta.enabled[`+spring.jta.enabled+`]
+|+++是否启用 JTA 支持。+++
+|`+true+`
+
+|[[application-properties.transaction.spring.transaction.default-timeout]]xref:#application-properties.transaction.spring.transaction.default-timeout[`+spring.transaction.default-timeout+`]
+|+++默认事务超时时间。如果未指定持续时间后缀，则使用秒。+++
+|
+
+|[[application-properties.transaction.spring.transaction.rollback-on-commit-failure]]xref:#application-properties.transaction.spring.transaction.rollback-on-commit-failure[`+spring.transaction.rollback-on-commit-failure+`]
+|+++是否在提交失败时回滚。+++
+|
+
+|===

@@ -1,0 +1,458 @@
+{
+  "groups": [
+    {
+      "name": "management.endpoint.flyway",
+      "type": "org.springframework.boot.flyway.actuate.endpoint.FlywayEndpoint",
+      "sourceType": "org.springframework.boot.flyway.actuate.endpoint.FlywayEndpoint"
+    },
+    {
+      "name": "spring.flyway",
+      "type": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.oracle",
+      "type": "org.springframework.boot.flyway.autoconfigure.FlywayProperties$Oracle",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "sourceMethod": "getOracle()"
+    },
+    {
+      "name": "spring.flyway.postgresql",
+      "type": "org.springframework.boot.flyway.autoconfigure.FlywayProperties$Postgresql",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "sourceMethod": "getPostgresql()"
+    },
+    {
+      "name": "spring.flyway.sqlserver",
+      "type": "org.springframework.boot.flyway.autoconfigure.FlywayProperties$Sqlserver",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "sourceMethod": "getSqlserver()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.endpoint.flyway.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the flyway endpoint.",
+      "sourceType": "org.springframework.boot.flyway.actuate.endpoint.FlywayEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.flyway.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.flyway.actuate.endpoint.FlywayEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "spring.flyway.baseline-description",
+      "type": "java.lang.String",
+      "description": "Description to tag an existing schema with when applying a baseline.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "<< Flyway Baseline >>"
+    },
+    {
+      "name": "spring.flyway.baseline-on-migrate",
+      "type": "java.lang.Boolean",
+      "description": "Whether to automatically call baseline when migrating a non-empty schema.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.flyway.baseline-version",
+      "type": "java.lang.String",
+      "description": "Version to tag an existing schema with when executing baseline.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "1"
+    },
+    {
+      "name": "spring.flyway.batch",
+      "type": "java.lang.Boolean",
+      "description": "Whether to batch SQL statements when executing them.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.callback-locations",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Locations of callbacks. Can contain the special \"{vendor}\" placeholder to use vendor-specific callbacks. Unprefixed locations or locations starting with \"classpath:\" point to a package on the classpath and may contain both SQL and Java-based callbacks. Locations starting with \"filesystem:\" point to a directory on the filesystem, may only contain SQL callbacks.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.clean-disabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to disable cleaning of the database.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.flyway.community-db-support-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable community database support.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.connect-retries",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of retries when attempting to connect to the database.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.flyway.connect-retries-interval",
+      "type": "java.time.Duration",
+      "description": "Maximum time between retries when attempting to connect to the database. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "120s"
+    },
+    {
+      "name": "spring.flyway.create-schemas",
+      "type": "java.lang.Boolean",
+      "description": "Whether Flyway should attempt to create the schemas specified in the schemas property.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.flyway.default-schema",
+      "type": "java.lang.String",
+      "description": "Default schema name managed by Flyway (case-sensitive).",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.detect-encoding",
+      "type": "java.lang.Boolean",
+      "description": "Whether to attempt to automatically detect SQL migration file encoding.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.driver-class-name",
+      "type": "java.lang.String",
+      "description": "Fully qualified name of the JDBC driver. Auto-detected based on the URL by default.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.dry-run-output",
+      "type": "java.io.File",
+      "description": "File to which the SQL statements of a migration dry run should be output. Requires Flyway Teams.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable flyway.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.flyway.encoding",
+      "type": "java.nio.charset.Charset",
+      "description": "Encoding of SQL migrations.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.flyway.error-overrides",
+      "type": "java.lang.String[]",
+      "description": "Rules for the built-in error handling to override specific SQL states and error codes. Requires Flyway Teams.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.execute-in-transaction",
+      "type": "java.lang.Boolean",
+      "description": "Whether Flyway should execute SQL within a transaction.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.flyway.fail-on-missing-locations",
+      "type": "java.lang.Boolean",
+      "description": "Whether to fail if a location of migration scripts doesn't exist.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.flyway.group",
+      "type": "java.lang.Boolean",
+      "description": "Whether to group all pending migrations together in the same transaction when applying them.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.flyway.ignore-migration-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of patterns that identify migrations to ignore when performing validation.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "*:future"
+    },
+    {
+      "name": "spring.flyway.init-sqls",
+      "type": "java.util.List<java.lang.String>",
+      "description": "SQL statements to execute to initialize a connection immediately after obtaining it.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.installed-by",
+      "type": "java.lang.String",
+      "description": "Username recorded in the schema history table as having applied the migration.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.jdbc-properties",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Properties to pass to the JDBC driver.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.kerberos-config-file",
+      "type": "java.lang.String",
+      "description": "Path of the Kerberos config file. Requires Flyway Teams.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.locations",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Locations of migrations scripts. Can contain the special \"{vendor}\" placeholder to use vendor-specific locations.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.lock-retry-count",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of retries when trying to obtain a lock.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": 50
+    },
+    {
+      "name": "spring.flyway.loggers",
+      "type": "java.lang.String[]",
+      "description": "Loggers Flyway should use.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": [
+        "slf4j"
+      ]
+    },
+    {
+      "name": "spring.flyway.mixed",
+      "type": "java.lang.Boolean",
+      "description": "Whether to allow mixing transactional and non-transactional statements within the same migration.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.flyway.oracle.kerberos-cache-file",
+      "type": "java.lang.String",
+      "description": "Path of the Oracle Kerberos cache file. Requires Flyway Teams.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties$Oracle"
+    },
+    {
+      "name": "spring.flyway.oracle.sqlplus",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable support for Oracle SQL*Plus commands. Requires Flyway Teams.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties$Oracle"
+    },
+    {
+      "name": "spring.flyway.oracle.sqlplus-warn",
+      "type": "java.lang.Boolean",
+      "description": "Whether to issue a warning rather than an error when a not-yet-supported Oracle SQL*Plus statement is encountered. Requires Flyway Teams.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties$Oracle"
+    },
+    {
+      "name": "spring.flyway.oracle.wallet-location",
+      "type": "java.lang.String",
+      "description": "Location of the Oracle Wallet, used to sign in to the database automatically. Requires Flyway Teams.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties$Oracle"
+    },
+    {
+      "name": "spring.flyway.out-of-order",
+      "type": "java.lang.Boolean",
+      "description": "Whether to allow migrations to be run out of order.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.flyway.output-query-results",
+      "type": "java.lang.Boolean",
+      "description": "Whether Flyway should output a table with the results of queries when executing migrations.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.password",
+      "type": "java.lang.String",
+      "description": "Login password of the database to migrate.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.placeholder-prefix",
+      "type": "java.lang.String",
+      "description": "Prefix of placeholders in migration scripts.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "${"
+    },
+    {
+      "name": "spring.flyway.placeholder-replacement",
+      "type": "java.lang.Boolean",
+      "description": "Perform placeholder replacement in migration scripts.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.flyway.placeholder-separator",
+      "type": "java.lang.String",
+      "description": "Separator of default placeholders.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": ":"
+    },
+    {
+      "name": "spring.flyway.placeholder-suffix",
+      "type": "java.lang.String",
+      "description": "Suffix of placeholders in migration scripts.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "}"
+    },
+    {
+      "name": "spring.flyway.placeholders",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Placeholders and their replacements to apply to sql migration scripts.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.postgresql.transactional-lock",
+      "type": "java.lang.Boolean",
+      "description": "Whether transactional advisory locks should be used. If set to false, session-level locks are used instead.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties$Postgresql"
+    },
+    {
+      "name": "spring.flyway.powershell-executable",
+      "type": "java.lang.String",
+      "description": "PowerShell executable to use for running PowerShell scripts. Default to \"powershell\" on Windows, \"pwsh\" on other platforms.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.repeatable-sql-migration-prefix",
+      "type": "java.lang.String",
+      "description": "File name prefix for repeatable SQL migrations.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "R"
+    },
+    {
+      "name": "spring.flyway.schemas",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Scheme names managed by Flyway (case-sensitive).",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.script-placeholder-prefix",
+      "type": "java.lang.String",
+      "description": "Prefix of placeholders in migration scripts.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "FP__"
+    },
+    {
+      "name": "spring.flyway.script-placeholder-suffix",
+      "type": "java.lang.String",
+      "description": "Suffix of placeholders in migration scripts.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "__"
+    },
+    {
+      "name": "spring.flyway.skip-default-callbacks",
+      "type": "java.lang.Boolean",
+      "description": "Whether to skip default callbacks. If true, only custom callbacks are used.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.flyway.skip-default-resolvers",
+      "type": "java.lang.Boolean",
+      "description": "Whether to skip default resolvers. If true, only custom resolvers are used.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.flyway.skip-executing-migrations",
+      "type": "java.lang.Boolean",
+      "description": "Whether Flyway should skip executing the contents of the migrations and only update the schema history table.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.sql-migration-prefix",
+      "type": "java.lang.String",
+      "description": "File name prefix for SQL migrations.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "V"
+    },
+    {
+      "name": "spring.flyway.sql-migration-separator",
+      "type": "java.lang.String",
+      "description": "File name separator for SQL migrations.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "__"
+    },
+    {
+      "name": "spring.flyway.sql-migration-suffixes",
+      "type": "java.util.List<java.lang.String>",
+      "description": "File name suffix for SQL migrations.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.sqlserver.kerberos-login-file",
+      "type": "java.lang.String",
+      "description": "Path to the SQL Server Kerberos login file. Requires Flyway Teams.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties$Sqlserver"
+    },
+    {
+      "name": "spring.flyway.stream",
+      "type": "java.lang.Boolean",
+      "description": "Whether to stream SQL migrations when executing them.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.table",
+      "type": "java.lang.String",
+      "description": "Name of the schema history table that will be used by Flyway.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "flyway_schema_history"
+    },
+    {
+      "name": "spring.flyway.tablespace",
+      "type": "java.lang.String",
+      "description": "Tablespace in which the schema history table is created. Ignored when using a database that does not support tablespaces. Defaults to the default tablespace of the connection used by Flyway.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.target",
+      "type": "java.lang.String",
+      "description": "Target version up to which migrations should be considered.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": "latest"
+    },
+    {
+      "name": "spring.flyway.url",
+      "type": "java.lang.String",
+      "description": "JDBC url of the database to migrate. If not set, the primary configured data source is used.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.user",
+      "type": "java.lang.String",
+      "description": "Login user of the database to migrate.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties"
+    },
+    {
+      "name": "spring.flyway.validate-migration-naming",
+      "type": "java.lang.Boolean",
+      "description": "Whether to validate migrations and callbacks whose scripts do not obey the correct naming convention.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.flyway.validate-on-migrate",
+      "type": "java.lang.Boolean",
+      "description": "Whether to automatically call validate when performing a migration.",
+      "sourceType": "org.springframework.boot.flyway.autoconfigure.FlywayProperties",
+      "defaultValue": true
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

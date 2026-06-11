@@ -1,0 +1,12 @@
+[[appendix.auto-configuration-classes.spring-boot-kotlinx-serialization-json]]
+= spring-boot-kotlinx-serialization-json
+
+以下 auto-configuration 类来自 `spring-boot-kotlinx-serialization-json` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-kotlinx-serialization-json/src/main/java/org/springframework/boot/kotlinx/serialization/json/autoconfigure/KotlinxSerializationJsonAutoConfiguration.java[`KotlinxSerializationJsonAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/kotlinx/serialization/json/autoconfigure/KotlinxSerializationJsonAutoConfiguration.html[javadoc]
+|===

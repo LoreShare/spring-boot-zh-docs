@@ -1,0 +1,14 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/vnd.spring-boot.actuator.v3+json
+Content-Length: 127
+
+{
+  "events" : [ {
+    "principal" : "alice",
+    "timestamp" : "2026-06-10T16:30:04.518486532Z",
+    "type" : "logout"
+  } ]
+}
+----

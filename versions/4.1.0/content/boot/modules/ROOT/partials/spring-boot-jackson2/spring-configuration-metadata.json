@@ -1,0 +1,187 @@
+{
+  "groups": [
+    {
+      "name": "spring.jackson2",
+      "type": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties"
+    },
+    {
+      "name": "spring.jackson2.datatype",
+      "type": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties$Datatype",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "sourceMethod": "getDatatype()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.jackson2.constructor-detector",
+      "type": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties$ConstructorDetectorStrategy",
+      "description": "Strategy to use to auto-detect constructor, and in particular behavior with single-argument constructors.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "defaultValue": "default",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.datatype.enum",
+      "type": "java.util.Map<com.fasterxml.jackson.databind.cfg.EnumFeature,java.lang.Boolean>",
+      "description": "Jackson on\/off features for enums.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties$Datatype",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.datatype.json-node",
+      "type": "java.util.Map<com.fasterxml.jackson.databind.cfg.JsonNodeFeature,java.lang.Boolean>",
+      "description": "Jackson on\/off features for JsonNodes.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties$Datatype",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.date-format",
+      "type": "java.lang.String",
+      "description": "Date format string or a fully-qualified date format class name. For instance, 'yyyy-MM-dd HH:mm:ss'.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.default-leniency",
+      "type": "java.lang.Boolean",
+      "description": "Global default setting (if any) for leniency.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.default-property-inclusion",
+      "type": "com.fasterxml.jackson.annotation.JsonInclude$Include",
+      "description": "Controls the inclusion of properties during serialization. Configured with one of the values in Jackson's JsonInclude.Include enumeration.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.deserialization",
+      "type": "java.util.Map<com.fasterxml.jackson.databind.DeserializationFeature,java.lang.Boolean>",
+      "description": "Jackson on\/off features that affect the way Java objects are deserialized.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.generator",
+      "type": "java.util.Map<com.fasterxml.jackson.core.JsonGenerator$Feature,java.lang.Boolean>",
+      "description": "Jackson on\/off features for generators.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.locale",
+      "type": "java.util.Locale",
+      "description": "Locale used for formatting.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.mapper",
+      "type": "java.util.Map<com.fasterxml.jackson.databind.MapperFeature,java.lang.Boolean>",
+      "description": "Jackson general purpose on\/off features.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.parser",
+      "type": "java.util.Map<com.fasterxml.jackson.core.JsonParser$Feature,java.lang.Boolean>",
+      "description": "Jackson on\/off features for parsers.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.property-naming-strategy",
+      "type": "java.lang.String",
+      "description": "One of the constants on Jackson's PropertyNamingStrategies. Can also be a fully-qualified class name of a PropertyNamingStrategy implementation.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.serialization",
+      "type": "java.util.Map<com.fasterxml.jackson.databind.SerializationFeature,java.lang.Boolean>",
+      "description": "Jackson on\/off features that affect the way Java objects are serialized.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.time-zone",
+      "type": "java.util.TimeZone",
+      "description": "Time zone used when formatting dates. For instance, \"America\/Los_Angeles\" or \"GMT+10\".",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.jackson2.visibility",
+      "type": "java.util.Map<com.fasterxml.jackson.annotation.PropertyAccessor,com.fasterxml.jackson.annotation.JsonAutoDetect$Visibility>",
+      "description": "Jackson visibility thresholds that can be used to limit which methods (and fields) are auto-detected.",
+      "sourceType": "org.springframework.boot.jackson2.autoconfigure.Jackson2Properties",
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Deprecated in favor of Jackson 3",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

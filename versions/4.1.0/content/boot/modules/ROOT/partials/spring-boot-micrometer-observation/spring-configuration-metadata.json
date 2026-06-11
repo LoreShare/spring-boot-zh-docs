@@ -1,0 +1,77 @@
+{
+  "groups": [
+    {
+      "name": "management.observations",
+      "type": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties",
+      "sourceType": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties"
+    },
+    {
+      "name": "management.observations.http",
+      "type": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties$Http",
+      "sourceType": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties",
+      "sourceMethod": "getHttp()"
+    },
+    {
+      "name": "management.observations.http.client",
+      "type": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties$Http$Client",
+      "sourceType": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties$Http",
+      "sourceMethod": "getClient()"
+    },
+    {
+      "name": "management.observations.http.client.requests",
+      "type": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties$Http$Client$ClientRequests",
+      "sourceType": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties$Http$Client",
+      "sourceMethod": "getRequests()"
+    },
+    {
+      "name": "management.observations.http.server",
+      "type": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties$Http$Server",
+      "sourceType": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties$Http",
+      "sourceMethod": "getServer()"
+    },
+    {
+      "name": "management.observations.http.server.requests",
+      "type": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties$Http$Server$ServerRequests",
+      "sourceType": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties$Http$Server",
+      "sourceMethod": "getRequests()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.observations.annotations.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether auto-configuration of Micrometer annotations is enabled.",
+      "defaultValue": false
+    },
+    {
+      "name": "management.observations.enable",
+      "type": "java.util.Map<java.lang.String,java.lang.Boolean>",
+      "description": "Whether observations starting with the specified name should be enabled. The longest match wins, the key 'all' can also be used to configure all observations.",
+      "sourceType": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties"
+    },
+    {
+      "name": "management.observations.http.client.requests.name",
+      "type": "java.lang.String",
+      "description": "Name of the observation for client requests.",
+      "sourceType": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties$Http$Client$ClientRequests",
+      "defaultValue": "http.client.requests"
+    },
+    {
+      "name": "management.observations.http.server.requests.name",
+      "type": "java.lang.String",
+      "description": "Name of the observation for server requests.",
+      "sourceType": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties$Http$Server$ServerRequests",
+      "defaultValue": "http.server.requests"
+    },
+    {
+      "name": "management.observations.key-values",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Common key-values that are applied to every observation.",
+      "sourceType": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

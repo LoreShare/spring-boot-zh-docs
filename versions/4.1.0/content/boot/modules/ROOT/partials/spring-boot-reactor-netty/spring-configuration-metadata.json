@@ -1,0 +1,81 @@
+{
+  "groups": [
+    {
+      "name": "server.netty",
+      "type": "org.springframework.boot.reactor.netty.autoconfigure.NettyServerProperties",
+      "sourceType": "org.springframework.boot.reactor.netty.autoconfigure.NettyServerProperties"
+    },
+    {
+      "name": "spring.reactor.netty",
+      "type": "org.springframework.boot.reactor.netty.autoconfigure.ReactorNettyProperties",
+      "sourceType": "org.springframework.boot.reactor.netty.autoconfigure.ReactorNettyProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "server.netty.connection-timeout",
+      "type": "java.time.Duration",
+      "description": "Connection timeout of the Netty channel.",
+      "sourceType": "org.springframework.boot.reactor.netty.autoconfigure.NettyServerProperties"
+    },
+    {
+      "name": "server.netty.h2c-max-content-length",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum content length of an H2C upgrade request.",
+      "sourceType": "org.springframework.boot.reactor.netty.autoconfigure.NettyServerProperties",
+      "defaultValue": "0B"
+    },
+    {
+      "name": "server.netty.idle-timeout",
+      "type": "java.time.Duration",
+      "description": "Idle timeout of the Netty channel. When not specified, an infinite timeout is used.",
+      "sourceType": "org.springframework.boot.reactor.netty.autoconfigure.NettyServerProperties"
+    },
+    {
+      "name": "server.netty.initial-buffer-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Initial buffer size for HTTP request decoding.",
+      "sourceType": "org.springframework.boot.reactor.netty.autoconfigure.NettyServerProperties",
+      "defaultValue": "128B"
+    },
+    {
+      "name": "server.netty.max-initial-line-length",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum length that can be decoded for an HTTP request's initial line.",
+      "sourceType": "org.springframework.boot.reactor.netty.autoconfigure.NettyServerProperties",
+      "defaultValue": "4KB"
+    },
+    {
+      "name": "server.netty.max-keep-alive-requests",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of requests that can be made per connection. By default, a connection serves unlimited number of requests.",
+      "sourceType": "org.springframework.boot.reactor.netty.autoconfigure.NettyServerProperties"
+    },
+    {
+      "name": "server.netty.validate-headers",
+      "type": "java.lang.Boolean",
+      "description": "Whether to validate headers when decoding requests.",
+      "sourceType": "org.springframework.boot.reactor.netty.autoconfigure.NettyServerProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.reactor.netty.shutdown-quiet-period",
+      "type": "java.time.Duration",
+      "description": "Amount of time to wait before shutting down resources.",
+      "sourceType": "org.springframework.boot.reactor.netty.autoconfigure.ReactorNettyProperties"
+    },
+    {
+      "name": "server.netty.max-chunk-size",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Deprecated for removal in Reactor Netty.",
+        "since": "3.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

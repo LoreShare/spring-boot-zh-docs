@@ -1,0 +1,88 @@
+{
+  "groups": [
+    {
+      "name": "spring.data.rest",
+      "type": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.data.rest.base-path",
+      "type": "java.lang.String",
+      "description": "Base path to be used by Spring Data REST to expose repository resources.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    },
+    {
+      "name": "spring.data.rest.default-media-type",
+      "type": "org.springframework.http.MediaType",
+      "description": "Content type to use as a default when none is specified.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    },
+    {
+      "name": "spring.data.rest.default-page-size",
+      "type": "java.lang.Integer",
+      "description": "Default size of pages.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    },
+    {
+      "name": "spring.data.rest.detection-strategy",
+      "type": "org.springframework.data.rest.core.mapping.RepositoryDetectionStrategy$RepositoryDetectionStrategies",
+      "description": "Strategy to use to determine which repositories get exposed.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties",
+      "defaultValue": "default"
+    },
+    {
+      "name": "spring.data.rest.enable-enum-translation",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable enum value translation through the Spring Data REST default resource bundle.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    },
+    {
+      "name": "spring.data.rest.limit-param-name",
+      "type": "java.lang.String",
+      "description": "Name of the URL query string parameter that indicates how many results to return at once.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    },
+    {
+      "name": "spring.data.rest.max-page-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum size of pages.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    },
+    {
+      "name": "spring.data.rest.page-param-name",
+      "type": "java.lang.String",
+      "description": "Name of the URL query string parameter that indicates what page to return.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    },
+    {
+      "name": "spring.data.rest.return-body-on-create",
+      "type": "java.lang.Boolean",
+      "description": "Whether to return a response body after creating an entity.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    },
+    {
+      "name": "spring.data.rest.return-body-on-delete",
+      "type": "java.lang.Boolean",
+      "description": "Whether to return a response body after deleting an entity.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    },
+    {
+      "name": "spring.data.rest.return-body-on-update",
+      "type": "java.lang.Boolean",
+      "description": "Whether to return a response body after updating an entity.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    },
+    {
+      "name": "spring.data.rest.sort-param-name",
+      "type": "java.lang.String",
+      "description": "Name of the URL query string parameter that indicates what direction to sort results.",
+      "sourceType": "org.springframework.boot.data.rest.autoconfigure.DataRestProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,4 +1,54 @@
-[source,text]
+[source,http,options="nowrap"]
 ----
-该请求或响应示例由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+HTTP/1.1 200 OK
+Content-Type: application/openmetrics-text;version=1.0.0;charset=utf-8
+Content-Length: 3089
+
+# TYPE jvm_buffer_count_buffers gauge
+# HELP jvm_buffer_count_buffers An estimate of the number of buffers in the pool
+jvm_buffer_count_buffers{id="direct"} 2.0
+jvm_buffer_count_buffers{id="mapped"} 0.0
+jvm_buffer_count_buffers{id="mapped - 'non-volatile memory'"} 0.0
+# TYPE jvm_buffer_memory_used_bytes gauge
+# HELP jvm_buffer_memory_used_bytes An estimate of the memory that the Java virtual machine is using for this buffer pool
+jvm_buffer_memory_used_bytes{id="direct"} 36864.0
+jvm_buffer_memory_used_bytes{id="mapped"} 0.0
+jvm_buffer_memory_used_bytes{id="mapped - 'non-volatile memory'"} 0.0
+# TYPE jvm_buffer_total_capacity_bytes gauge
+# HELP jvm_buffer_total_capacity_bytes An estimate of the total capacity of the buffers in this pool
+jvm_buffer_total_capacity_bytes{id="direct"} 36864.0
+jvm_buffer_total_capacity_bytes{id="mapped"} 0.0
+jvm_buffer_total_capacity_bytes{id="mapped - 'non-volatile memory'"} 0.0
+# TYPE jvm_memory_committed_bytes gauge
+# HELP jvm_memory_committed_bytes The amount of memory in bytes that is committed for the Java virtual machine to use
+jvm_memory_committed_bytes{area="heap",id="G1 Eden Space"} 6.815744E7
+jvm_memory_committed_bytes{area="heap",id="G1 Old Gen"} 8.388608E7
+jvm_memory_committed_bytes{area="heap",id="G1 Survivor Space"} 7340032.0
+jvm_memory_committed_bytes{area="nonheap",id="CodeHeap 'non-nmethods'"} 2555904.0
+jvm_memory_committed_bytes{area="nonheap",id="CodeHeap 'non-profiled nmethods'"} 4718592.0
+jvm_memory_committed_bytes{area="nonheap",id="CodeHeap 'profiled nmethods'"} 1.8939904E7
+jvm_memory_committed_bytes{area="nonheap",id="Compressed Class Space"} 1.114112E7
+jvm_memory_committed_bytes{area="nonheap",id="Metaspace"} 7.7529088E7
+# TYPE jvm_memory_max_bytes gauge
+# HELP jvm_memory_max_bytes The maximum amount of memory in bytes that can be used for memory management
+jvm_memory_max_bytes{area="heap",id="G1 Eden Space"} -1.0
+jvm_memory_max_bytes{area="heap",id="G1 Old Gen"} 1.610612736E9
+jvm_memory_max_bytes{area="heap",id="G1 Survivor Space"} -1.0
+jvm_memory_max_bytes{area="nonheap",id="CodeHeap 'non-nmethods'"} 5836800.0
+jvm_memory_max_bytes{area="nonheap",id="CodeHeap 'non-profiled nmethods'"} 1.22912768E8
+jvm_memory_max_bytes{area="nonheap",id="CodeHeap 'profiled nmethods'"} 1.22912768E8
+jvm_memory_max_bytes{area="nonheap",id="Compressed Class Space"} 1.073741824E9
+jvm_memory_max_bytes{area="nonheap",id="Metaspace"} -1.0
+# TYPE jvm_memory_used_bytes gauge
+# HELP jvm_memory_used_bytes The amount of used memory
+jvm_memory_used_bytes{area="heap",id="G1 Eden Space"} 7340032.0
+jvm_memory_used_bytes{area="heap",id="G1 Old Gen"} 6.4487424E7
+jvm_memory_used_bytes{area="heap",id="G1 Survivor Space"} 6681232.0
+jvm_memory_used_bytes{area="nonheap",id="CodeHeap 'non-nmethods'"} 1856512.0
+jvm_memory_used_bytes{area="nonheap",id="CodeHeap 'non-profiled nmethods'"} 4691712.0
+jvm_memory_used_bytes{area="nonheap",id="CodeHeap 'profiled nmethods'"} 1.8894848E7
+jvm_memory_used_bytes{area="nonheap",id="Compressed Class Space"} 1.080524E7
+jvm_memory_used_bytes{area="nonheap",id="Metaspace"} 7.6779952E7
+# EOF
+
 ----

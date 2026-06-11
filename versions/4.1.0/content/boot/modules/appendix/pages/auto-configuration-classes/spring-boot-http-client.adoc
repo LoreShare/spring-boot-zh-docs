@@ -1,0 +1,24 @@
+[[appendix.auto-configuration-classes.spring-boot-http-client]]
+= spring-boot-http-client
+
+以下 auto-configuration 类来自 `spring-boot-http-client` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-http-client/src/main/java/org/springframework/boot/http/client/autoconfigure/HttpClientAutoConfiguration.java[`HttpClientAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/http/client/autoconfigure/HttpClientAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-http-client/src/main/java/org/springframework/boot/http/client/autoconfigure/metrics/HttpClientMetricsAutoConfiguration.java[`HttpClientMetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/http/client/autoconfigure/metrics/HttpClientMetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-http-client/src/main/java/org/springframework/boot/http/client/autoconfigure/service/HttpServiceClientPropertiesAutoConfiguration.java[`HttpServiceClientPropertiesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/http/client/autoconfigure/service/HttpServiceClientPropertiesAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-http-client/src/main/java/org/springframework/boot/http/client/autoconfigure/imperative/ImperativeHttpClientAutoConfiguration.java[`ImperativeHttpClientAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/http/client/autoconfigure/imperative/ImperativeHttpClientAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-http-client/src/main/java/org/springframework/boot/http/client/autoconfigure/reactive/ReactiveHttpClientAutoConfiguration.java[`ReactiveHttpClientAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/http/client/autoconfigure/reactive/ReactiveHttpClientAutoConfiguration.html[javadoc]
+|===

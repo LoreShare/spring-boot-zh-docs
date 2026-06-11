@@ -1,1 +1,15 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.testcontainers]]
+== Testcontainers 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.testcontainers.spring.testcontainers.beans.startup]]xref:#application-properties.testcontainers.spring.testcontainers.beans.startup[`+spring.testcontainers.beans.startup+`]
+|+++Testcontainers 启动模式。+++
+|`+sequential+`
+
+|[[application-properties.testcontainers.spring.testcontainers.dynamic-property-registry-injection]]xref:#application-properties.testcontainers.spring.testcontainers.dynamic-property-registry-injection[`+spring.testcontainers.dynamic-property-registry-injection+`]
+|+++如何处理将 DynamicPropertyRegistry 注入到 @Bean 方法中。+++
+|`+fail+`
+
+|===

@@ -1,0 +1,84 @@
+[source,json,options="nowrap"]
+----
+{
+  "contexts" : {
+    "application" : {
+      "beans" : {
+        "spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties" : {
+          "inputs" : {
+            "findAndAddModules" : { },
+            "serialization" : { },
+            "factory" : {
+              "constraints" : {
+                "read" : {
+                  "maxDocumentLength" : { },
+                  "maxNameLength" : { },
+                  "maxNestingDepth" : { },
+                  "maxNumberLength" : { },
+                  "maxStringLength" : { },
+                  "maxTokenCount" : { }
+                },
+                "write" : {
+                  "maxNestingDepth" : { }
+                }
+              }
+            },
+            "read" : { },
+            "visibility" : { },
+            "constructorDetector" : { },
+            "datatype" : {
+              "datetime" : { },
+              "enum" : { },
+              "jsonNode" : { }
+            },
+            "deserialization" : { },
+            "json" : {
+              "read" : { },
+              "write" : { }
+            },
+            "mapper" : { },
+            "write" : { },
+            "useJackson2Defaults" : { }
+          },
+          "prefix" : "spring.jackson",
+          "properties" : {
+            "findAndAddModules" : true,
+            "serialization" : { },
+            "factory" : {
+              "constraints" : {
+                "read" : {
+                  "maxDocumentLength" : -1,
+                  "maxNameLength" : 50000,
+                  "maxNestingDepth" : 500,
+                  "maxNumberLength" : 1000,
+                  "maxStringLength" : 100000000,
+                  "maxTokenCount" : -1
+                },
+                "write" : {
+                  "maxNestingDepth" : 500
+                }
+              }
+            },
+            "read" : { },
+            "visibility" : { },
+            "constructorDetector" : "DEFAULT",
+            "datatype" : {
+              "datetime" : { },
+              "enum" : { },
+              "jsonNode" : { }
+            },
+            "deserialization" : { },
+            "json" : {
+              "read" : { },
+              "write" : { }
+            },
+            "mapper" : { },
+            "write" : { },
+            "useJackson2Defaults" : false
+          }
+        }
+      }
+    }
+  }
+}
+----

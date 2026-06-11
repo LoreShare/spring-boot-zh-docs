@@ -1,3 +1,43 @@
 |===
-3+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+|Path|Type|Description
+
+|`+property+`
+|`+Object+`
+|环境中的属性（如果找到）。
+
+|`+property.source+`
+|`+String+`
+|属性来源的名称。
+
+|`+property.value+`
+|`+String+`
+|属性的值。
+
+|`+activeProfiles+`
+|`+Array+`
+|活跃的 profiles 的名称（如果有）。
+
+|`+defaultProfiles+`
+|`+Array+`
+|默认的 profiles 的名称（如果有）。
+
+|`+propertySources+`
+|`+Array+`
+|按优先级排序的属性来源。
+
+|`+propertySources.[].name+`
+|`+String+`
+|属性来源的名称。
+
+|`+propertySources.[].property+`
+|`+Object+`
+|属性来源中的属性（如果有）。
+
+|`+propertySources.[].property.value+`
+|`+Varies+`
+|属性的值。
+
+|`+propertySources.[].property.origin+`
+|`+String+`
+|属性的来源（如果有）。
 |===

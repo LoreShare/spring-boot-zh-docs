@@ -1,1 +1,27 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.deprecated-application-properties.actuator]]
+== 已弃用的 Actuator 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.v1.device-id]]xref:#application-properties.actuator.management.dynatrace.metrics.export.v1.device-id[`+management.dynatrace.metrics.export.v1.device-id+`]
+|+++Dynatrace V1 API 已弃用，请改用 V2 API。+++
+|
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.v1.group]]xref:#application-properties.actuator.management.dynatrace.metrics.export.v1.group[`+management.dynatrace.metrics.export.v1.group+`]
+|+++Dynatrace V1 API 已弃用，请改用 V2 API。+++
+|
+
+|[[application-properties.actuator.management.dynatrace.metrics.export.v1.technology-type]]xref:#application-properties.actuator.management.dynatrace.metrics.export.v1.technology-type[`+management.dynatrace.metrics.export.v1.technology-type+`]
+|+++Dynatrace V1 API 已弃用，请改用 V2 API。+++
+|`+java+`
+
+|[[application-properties.actuator.management.endpoints.enabled-by-default]]xref:#application-properties.actuator.management.endpoints.enabled-by-default[`+management.endpoints.enabled-by-default+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.actuator.management.endpoints.access.default[`+management.endpoints.access.default+`] 替代
+|
+
+|[[application-properties.actuator.management.endpoints.jackson2.isolated-object-mapper]]xref:#application-properties.actuator.management.endpoints.jackson2.isolated-object-mapper[`+management.endpoints.jackson2.isolated-object-mapper+`]
+|+++推荐使用 Jackson 3。+++
+|`+true+`
+
+|===

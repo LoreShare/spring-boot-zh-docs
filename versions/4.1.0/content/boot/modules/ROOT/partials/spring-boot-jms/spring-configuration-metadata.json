@@ -1,0 +1,258 @@
+{
+  "groups": [
+    {
+      "name": "spring.jms",
+      "type": "org.springframework.boot.jms.autoconfigure.JmsProperties",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties"
+    },
+    {
+      "name": "spring.jms.cache",
+      "type": "org.springframework.boot.jms.autoconfigure.JmsProperties$Cache",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties",
+      "sourceMethod": "getCache()"
+    },
+    {
+      "name": "spring.jms.listener",
+      "type": "org.springframework.boot.jms.autoconfigure.JmsProperties$Listener",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties",
+      "sourceMethod": "getListener()"
+    },
+    {
+      "name": "spring.jms.listener.session",
+      "type": "org.springframework.boot.jms.autoconfigure.JmsProperties$Listener$Session",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Listener",
+      "sourceMethod": "getSession()"
+    },
+    {
+      "name": "spring.jms.template",
+      "type": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties",
+      "sourceMethod": "getTemplate()"
+    },
+    {
+      "name": "spring.jms.template.session",
+      "type": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template$Session",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template",
+      "sourceMethod": "getSession()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.health.jms.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable JMS health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.jms.cache.consumers",
+      "type": "java.lang.Boolean",
+      "description": "Whether to cache message consumers.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Cache",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.jms.cache.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to cache sessions.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Cache",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.jms.cache.producers",
+      "type": "java.lang.Boolean",
+      "description": "Whether to cache message producers.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Cache",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.jms.cache.session-cache-size",
+      "type": "java.lang.Integer",
+      "description": "Size of the session cache (per JMS Session type).",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Cache",
+      "defaultValue": 1
+    },
+    {
+      "name": "spring.jms.client-id",
+      "type": "java.lang.String",
+      "description": "Client id of the connection.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties"
+    },
+    {
+      "name": "spring.jms.jndi-name",
+      "type": "java.lang.String",
+      "description": "Connection factory JNDI name. When set, takes precedence to others connection factory auto-configurations.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties"
+    },
+    {
+      "name": "spring.jms.listener.auto-startup",
+      "type": "java.lang.Boolean",
+      "description": "Start the container automatically on startup.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Listener",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.jms.listener.max-concurrency",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of concurrent consumers.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Listener"
+    },
+    {
+      "name": "spring.jms.listener.max-messages-per-task",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of messages to process in one task. By default, unlimited unless a SchedulingTaskExecutor is configured on the listener (10 messages), as it indicates a preference for short-lived tasks.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Listener"
+    },
+    {
+      "name": "spring.jms.listener.min-concurrency",
+      "type": "java.lang.Integer",
+      "description": "Minimum number of concurrent consumers. When max-concurrency is not specified the minimum will also be used as the maximum.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Listener"
+    },
+    {
+      "name": "spring.jms.listener.receive-timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout to use for receive calls. Use -1 for a no-wait receive or 0 for no timeout at all. The latter is only feasible if not running within a transaction manager and is generally discouraged since it prevents clean shutdown.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Listener",
+      "defaultValue": "1s"
+    },
+    {
+      "name": "spring.jms.listener.session.acknowledge-mode",
+      "type": "org.springframework.boot.jms.autoconfigure.AcknowledgeMode",
+      "description": "Acknowledge mode of the listener container.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Listener$Session",
+      "defaultValue": "auto"
+    },
+    {
+      "name": "spring.jms.listener.session.transacted",
+      "type": "java.lang.Boolean",
+      "description": "Whether the listener container should use transacted JMS sessions. Defaults to false in the presence of a JtaTransactionManager and true otherwise.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Listener$Session"
+    },
+    {
+      "name": "spring.jms.pub-sub-domain",
+      "type": "java.lang.Boolean",
+      "description": "Whether the default destination type is topic.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.jms.subscription-durable",
+      "type": "java.lang.Boolean",
+      "description": "Whether the subscription is durable.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.jms.template.default-destination",
+      "type": "java.lang.String",
+      "description": "Default destination to use on send and receive operations that do not have a destination parameter.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template"
+    },
+    {
+      "name": "spring.jms.template.delivery-delay",
+      "type": "java.time.Duration",
+      "description": "Delivery delay to use for send calls.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template"
+    },
+    {
+      "name": "spring.jms.template.delivery-mode",
+      "type": "org.springframework.boot.jms.autoconfigure.JmsProperties$DeliveryMode",
+      "description": "Delivery mode. Enables QoS (Quality of Service) when set.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template"
+    },
+    {
+      "name": "spring.jms.template.priority",
+      "type": "java.lang.Integer",
+      "description": "Priority of a message when sending. Enables QoS (Quality of Service) when set.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template"
+    },
+    {
+      "name": "spring.jms.template.qos-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable explicit QoS (Quality of Service) when sending a message. When enabled, the delivery mode, priority and time-to-live properties will be used when sending a message. QoS is automatically enabled when at least one of those settings is customized.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template"
+    },
+    {
+      "name": "spring.jms.template.receive-timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout to use for receive calls.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template"
+    },
+    {
+      "name": "spring.jms.template.session.acknowledge-mode",
+      "type": "org.springframework.boot.jms.autoconfigure.AcknowledgeMode",
+      "description": "Acknowledge mode used when creating sessions.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template$Session",
+      "defaultValue": "auto"
+    },
+    {
+      "name": "spring.jms.template.session.transacted",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use transacted sessions.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template$Session",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.jms.template.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Time-to-live of a message when sending. Enables QoS (Quality of Service) when set.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsProperties$Template"
+    },
+    {
+      "name": "spring.jms.listener.acknowledge-mode",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.jms.listener.session.acknowledge-mode",
+        "since": "3.2.0"
+      }
+    },
+    {
+      "name": "spring.jms.listener.concurrency",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.jms.listener.min-concurrency",
+        "since": "3.2.0"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.jms.listener.session.acknowledge-mode",
+      "values": [
+        {
+          "value": "auto",
+          "description": "Messages sent or received from the session are automatically acknowledged. This is the simplest mode and enables once-only message delivery guarantee."
+        },
+        {
+          "value": "client",
+          "description": "Messages are acknowledged once the message listener implementation has called \"jakarta.jms.Message#acknowledge()\". This mode gives the application (rather than the JMS provider) complete control over message acknowledgement."
+        },
+        {
+          "value": "dups_ok",
+          "description": "Similar to auto acknowledgment except that said acknowledgment is lazy. As a consequence, the messages might be delivered more than once. This mode enables at-least-once message delivery guarantee."
+        }
+      ]
+    },
+    {
+      "name": "spring.jms.template.session.acknowledge-mode",
+      "values": [
+        {
+          "value": "auto",
+          "description": "Messages sent or received from the session are automatically acknowledged. This is the simplest mode and enables once-only message delivery guarantee."
+        },
+        {
+          "value": "client",
+          "description": "Messages are acknowledged once the message listener implementation has called \"jakarta.jms.Message#acknowledge()\". This mode gives the application (rather than the JMS provider) complete control over message acknowledgement."
+        },
+        {
+          "value": "dups_ok",
+          "description": "Similar to auto acknowledgment except that said acknowledgment is lazy. As a consequence, the messages might be delivered more than once. This mode enables at-least-once message delivery guarantee."
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

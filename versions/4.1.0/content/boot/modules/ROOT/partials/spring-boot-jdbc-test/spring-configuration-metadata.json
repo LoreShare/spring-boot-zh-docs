@@ -1,0 +1,15 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "spring.test.database.replace",
+      "type": "org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase$Replace",
+      "description": "Type of existing DataSource to replace.",
+      "defaultValue": "any"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

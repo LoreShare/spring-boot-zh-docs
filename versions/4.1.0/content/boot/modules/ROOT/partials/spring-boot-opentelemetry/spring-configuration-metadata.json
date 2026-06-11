@@ -1,0 +1,234 @@
+{
+  "groups": [
+    {
+      "name": "management.opentelemetry",
+      "type": "org.springframework.boot.opentelemetry.autoconfigure.OpenTelemetryProperties",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.OpenTelemetryProperties"
+    },
+    {
+      "name": "management.opentelemetry.logging",
+      "type": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties"
+    },
+    {
+      "name": "management.opentelemetry.logging.export",
+      "type": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties$Export",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties",
+      "sourceMethod": "getExport()"
+    },
+    {
+      "name": "management.opentelemetry.logging.export.otlp",
+      "type": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties"
+    },
+    {
+      "name": "management.opentelemetry.logging.export.otlp.ssl",
+      "type": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties$Ssl",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties",
+      "sourceMethod": "getSsl()"
+    },
+    {
+      "name": "management.opentelemetry.logging.limits",
+      "type": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties$Limits",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties",
+      "sourceMethod": "getLimits()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.logging.export.otlp.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether auto-configuration of logging is enabled to export logs over OTLP.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.opentelemetry.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether OpenTelemetry should be enabled. If OpenTelemetry is disabled, only propagators are configured. Metrics, traces, and logging will use no-op implementations.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.OpenTelemetryProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "management.opentelemetry.logging.export.max-batch-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum batch size for each export. This must be less than or equal to 'maxQueueSize'.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties$Export",
+      "defaultValue": 512
+    },
+    {
+      "name": "management.opentelemetry.logging.export.max-queue-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of logs that are kept in the queue before they will be dropped.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties$Export",
+      "defaultValue": 2048
+    },
+    {
+      "name": "management.opentelemetry.logging.export.otlp.compression",
+      "type": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties$Compression",
+      "description": "Method used to compress the payload.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties",
+      "defaultValue": "none"
+    },
+    {
+      "name": "management.opentelemetry.logging.export.otlp.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Connect timeout for the OTel collector connection.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "management.opentelemetry.logging.export.otlp.endpoint",
+      "type": "java.lang.String",
+      "description": "URL to the OTel collector's HTTP API.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties"
+    },
+    {
+      "name": "management.opentelemetry.logging.export.otlp.headers",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Custom HTTP headers you want to pass to the collector, for example auth headers.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties"
+    },
+    {
+      "name": "management.opentelemetry.logging.export.otlp.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle name.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties$Ssl"
+    },
+    {
+      "name": "management.opentelemetry.logging.export.otlp.timeout",
+      "type": "java.time.Duration",
+      "description": "Call timeout for the OTel Collector to process an exported batch of data. This timeout spans the entire call: resolving DNS, connecting, writing the request body, server processing, and reading the response body. If the call requires redirects or retries all must complete within one timeout period.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "management.opentelemetry.logging.export.otlp.transport",
+      "type": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.Transport",
+      "description": "Transport used to send the logs.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties",
+      "defaultValue": "http"
+    },
+    {
+      "name": "management.opentelemetry.logging.export.schedule-delay",
+      "type": "java.time.Duration",
+      "description": "The delay interval between two consecutive exports.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties$Export",
+      "defaultValue": "1s"
+    },
+    {
+      "name": "management.opentelemetry.logging.export.timeout",
+      "type": "java.time.Duration",
+      "description": "Maximum time an export will be allowed to run before being cancelled.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties$Export",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "management.opentelemetry.logging.limits.max-attribute-value-length",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of characters for string attribute values.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties$Limits"
+    },
+    {
+      "name": "management.opentelemetry.logging.limits.max-attributes",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of attributes per log record.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingProperties$Limits",
+      "defaultValue": 128
+    },
+    {
+      "name": "management.opentelemetry.map-environment-variables",
+      "type": "java.lang.Boolean",
+      "description": "Whether to map OpenTelemetry SDK environment variables to Spring Boot configuration properties.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.opentelemetry.resource-attributes",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Resource attributes.",
+      "sourceType": "org.springframework.boot.opentelemetry.autoconfigure.OpenTelemetryProperties"
+    },
+    {
+      "name": "management.otlp.logging.compression",
+      "type": "org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingProperties$Compression",
+      "description": "Method used to compress the payload.",
+      "defaultValue": "none",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.logging.export.otlp.compression",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.logging.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Connect timeout for the OTel collector connection.",
+      "defaultValue": "10s",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.logging.export.otlp.connect-timeout",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.logging.endpoint",
+      "type": "java.lang.String",
+      "description": "URL to the OTel collector's HTTP API.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.logging.export.otlp.endpoint",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.logging.export.enabled",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.logging.export.otlp.enabled",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.logging.headers",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Custom HTTP headers you want to pass to the collector, for example auth headers.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.logging.export.otlp.headers",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.logging.timeout",
+      "type": "java.time.Duration",
+      "description": "Call timeout for the OTel Collector to process an exported batch of data. This timeout spans the entire call: resolving DNS, connecting, writing the request body, server processing, and reading the response body. If the call requires redirects or retries all must complete within one timeout period.",
+      "defaultValue": "10s",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.logging.export.otlp.timeout",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.otlp.logging.transport",
+      "type": "org.springframework.boot.opentelemetry.actuate.autoconfigure.logging.Transport",
+      "description": "Transport used to send the logs.",
+      "defaultValue": "http",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.opentelemetry.logging.export.otlp.transport",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

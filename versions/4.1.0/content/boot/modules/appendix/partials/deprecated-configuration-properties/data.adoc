@@ -1,1 +1,25 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.deprecated-application-properties.data]]
+== 已弃用的数据属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.data.spring.datasource.dbcp2]]xref:#application-properties.data.spring.datasource.dbcp2[`+spring.datasource.dbcp2.default-query-timeout+` +
+`+spring.datasource.dbcp2.enable-auto-commit-on-return+` +
+`+spring.datasource.dbcp2.max-conn-lifetime-millis+` +
+`+spring.datasource.dbcp2.max-wait-millis+` +
+`+spring.datasource.dbcp2.min-evictable-idle-time-millis+` +
+`+spring.datasource.dbcp2.remove-abandoned-timeout+` +
+`+spring.datasource.dbcp2.soft-min-evictable-idle-time-millis+` +
+`+spring.datasource.dbcp2.time-between-eviction-runs-millis+` +
+`+spring.datasource.dbcp2.validation-query-timeout+` +
+]
+|++++++
+|
+
+|[[application-properties.data.spring.datasource.oracleucp]]xref:#application-properties.data.spring.datasource.oracleucp[`+spring.datasource.oracleucp.connection-wait-timeout+` +
+]
+|++++++
+|
+
+|===

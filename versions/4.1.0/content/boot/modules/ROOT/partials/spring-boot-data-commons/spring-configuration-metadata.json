@@ -1,0 +1,134 @@
+{
+  "groups": [
+    {
+      "name": "management.metrics.data",
+      "type": "org.springframework.boot.data.autoconfigure.metrics.DataMetricsProperties",
+      "sourceType": "org.springframework.boot.data.autoconfigure.metrics.DataMetricsProperties"
+    },
+    {
+      "name": "management.metrics.data.repository",
+      "type": "org.springframework.boot.data.autoconfigure.metrics.DataMetricsProperties$Repository",
+      "sourceType": "org.springframework.boot.data.autoconfigure.metrics.DataMetricsProperties",
+      "sourceMethod": "getRepository()"
+    },
+    {
+      "name": "management.metrics.data.repository.autotime",
+      "type": "org.springframework.boot.data.autoconfigure.metrics.DataMetricsProperties$Repository$Autotime",
+      "sourceType": "org.springframework.boot.data.autoconfigure.metrics.DataMetricsProperties$Repository",
+      "sourceMethod": "getAutotime()"
+    },
+    {
+      "name": "spring.data.web",
+      "type": "org.springframework.boot.data.autoconfigure.web.DataWebProperties",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties"
+    },
+    {
+      "name": "spring.data.web.pageable",
+      "type": "org.springframework.boot.data.autoconfigure.web.DataWebProperties$Pageable",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties",
+      "sourceMethod": "getPageable()"
+    },
+    {
+      "name": "spring.data.web.sort",
+      "type": "org.springframework.boot.data.autoconfigure.web.DataWebProperties$Sort",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties",
+      "sourceMethod": "getSort()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.metrics.data.repository.autotime.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable auto-timing.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.metrics.DataMetricsProperties$Repository$Autotime",
+      "defaultValue": true
+    },
+    {
+      "name": "management.metrics.data.repository.autotime.percentiles",
+      "type": "java.lang.Double[]",
+      "description": "Percentiles for which additional time series should be published.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.metrics.DataMetricsProperties$Repository$Autotime"
+    },
+    {
+      "name": "management.metrics.data.repository.autotime.percentiles-histogram",
+      "type": "java.lang.Boolean",
+      "description": "Whether to publish percentile histograms.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.metrics.DataMetricsProperties$Repository$Autotime",
+      "defaultValue": false
+    },
+    {
+      "name": "management.metrics.data.repository.metric-name",
+      "type": "java.lang.String",
+      "description": "Name of the metric for sent requests.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.metrics.DataMetricsProperties$Repository",
+      "defaultValue": "spring.data.repository.invocations"
+    },
+    {
+      "name": "spring.data.web.pageable.default-page-size",
+      "type": "java.lang.Integer",
+      "description": "Default page size.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties$Pageable",
+      "defaultValue": 20
+    },
+    {
+      "name": "spring.data.web.pageable.max-page-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum page size to be accepted.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties$Pageable",
+      "defaultValue": 2000
+    },
+    {
+      "name": "spring.data.web.pageable.one-indexed-parameters",
+      "type": "java.lang.Boolean",
+      "description": "Whether to expose and assume 1-based page number indexes. Defaults to \"false\", meaning a page number of 0 in the request equals the first page.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties$Pageable",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.data.web.pageable.page-parameter",
+      "type": "java.lang.String",
+      "description": "Page index parameter name.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties$Pageable",
+      "defaultValue": "page"
+    },
+    {
+      "name": "spring.data.web.pageable.prefix",
+      "type": "java.lang.String",
+      "description": "General prefix to be prepended to the page number and page size parameters.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties$Pageable",
+      "defaultValue": ""
+    },
+    {
+      "name": "spring.data.web.pageable.qualifier-delimiter",
+      "type": "java.lang.String",
+      "description": "Delimiter to be used between the qualifier and the actual page number and size properties.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties$Pageable",
+      "defaultValue": "_"
+    },
+    {
+      "name": "spring.data.web.pageable.serialization-mode",
+      "type": "org.springframework.data.web.config.EnableSpringDataWebSupport$PageSerializationMode",
+      "description": "Configures how to render Spring Data Pageable instances.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties$Pageable",
+      "defaultValue": "direct"
+    },
+    {
+      "name": "spring.data.web.pageable.size-parameter",
+      "type": "java.lang.String",
+      "description": "Page size parameter name.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties$Pageable",
+      "defaultValue": "size"
+    },
+    {
+      "name": "spring.data.web.sort.sort-parameter",
+      "type": "java.lang.String",
+      "description": "Sort parameter name.",
+      "sourceType": "org.springframework.boot.data.autoconfigure.web.DataWebProperties$Sort",
+      "defaultValue": "sort"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

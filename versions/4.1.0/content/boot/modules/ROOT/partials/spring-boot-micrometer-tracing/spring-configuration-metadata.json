@@ -1,0 +1,138 @@
+{
+  "groups": [
+    {
+      "name": "management.tracing",
+      "type": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties"
+    },
+    {
+      "name": "management.tracing.baggage",
+      "type": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Baggage",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties",
+      "sourceMethod": "getBaggage()"
+    },
+    {
+      "name": "management.tracing.baggage.correlation",
+      "type": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Baggage$Correlation",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Baggage",
+      "sourceMethod": "getCorrelation()"
+    },
+    {
+      "name": "management.tracing.exemplars",
+      "type": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Exemplars",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties",
+      "sourceMethod": "getExemplars()"
+    },
+    {
+      "name": "management.tracing.propagation",
+      "type": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Propagation",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties",
+      "sourceMethod": "getPropagation()"
+    },
+    {
+      "name": "management.tracing.sampling",
+      "type": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Sampling",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties",
+      "sourceMethod": "getSampling()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.tracing.baggage.correlation.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable correlation of the baggage context with logging contexts.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Baggage$Correlation",
+      "defaultValue": true
+    },
+    {
+      "name": "management.tracing.baggage.correlation.fields",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of fields that should be correlated with the logging context. That means that these fields would end up as key-value pairs in e.g. MDC.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Baggage$Correlation"
+    },
+    {
+      "name": "management.tracing.baggage.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Micrometer Tracing baggage propagation.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Baggage",
+      "defaultValue": true
+    },
+    {
+      "name": "management.tracing.baggage.local-fields",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of fields that should be accessible within the JVM process but not propagated over the wire. Local fields are not supported with OpenTelemetry.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Baggage"
+    },
+    {
+      "name": "management.tracing.baggage.remote-fields",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of fields that are referenced the same in-process as it is on the wire. For example, the field \"x-vcap-request-id\" would be set as-is including the prefix.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Baggage"
+    },
+    {
+      "name": "management.tracing.baggage.tag-fields",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of fields that should automatically become tags.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Baggage"
+    },
+    {
+      "name": "management.tracing.exemplars.include",
+      "type": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Exemplars$Include",
+      "description": "Traces to include as exemplars. 'all' is not supported when using Prometheus.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Exemplars",
+      "defaultValue": "sampled-traces"
+    },
+    {
+      "name": "management.tracing.export.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether auto-configuration of tracing is enabled to export and propagate traces.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.tracing.propagation.consume",
+      "type": "java.util.List<org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Propagation$PropagationType>",
+      "description": "Tracing context propagation types consumed by the application.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Propagation",
+      "defaultValue": [
+        "W3C",
+        "B3",
+        "B3_MULTI"
+      ]
+    },
+    {
+      "name": "management.tracing.propagation.produce",
+      "type": "java.util.List<org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Propagation$PropagationType>",
+      "description": "Tracing context propagation types produced by the application.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Propagation",
+      "defaultValue": [
+        "W3C"
+      ]
+    },
+    {
+      "name": "management.tracing.propagation.type",
+      "type": "java.util.List<org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Propagation$PropagationType>",
+      "description": "Tracing context propagation types produced and consumed by the application. Setting this property overrides the more fine-grained propagation type properties.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Propagation"
+    },
+    {
+      "name": "management.tracing.sampling.probability",
+      "type": "java.lang.Float",
+      "description": "Probability in the range from 0.0 to 1.0 that a trace will be sampled.",
+      "sourceType": "org.springframework.boot.micrometer.tracing.autoconfigure.TracingProperties$Sampling",
+      "defaultValue": 0.1
+    },
+    {
+      "name": "management.tracing.enabled",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.tracing.export.enabled",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,0 +1,547 @@
+{
+  "groups": [
+    {
+      "name": "spring.pulsar",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties"
+    },
+    {
+      "name": "spring.pulsar.admin",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Admin",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties",
+      "sourceMethod": "getAdmin()"
+    },
+    {
+      "name": "spring.pulsar.admin.authentication",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Authentication",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Admin",
+      "sourceMethod": "getAuthentication()"
+    },
+    {
+      "name": "spring.pulsar.client",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Client",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties",
+      "sourceMethod": "getClient()"
+    },
+    {
+      "name": "spring.pulsar.client.authentication",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Authentication",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Client",
+      "sourceMethod": "getAuthentication()"
+    },
+    {
+      "name": "spring.pulsar.client.failover",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Failover",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Client",
+      "sourceMethod": "getFailover()"
+    },
+    {
+      "name": "spring.pulsar.client.threads",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Threads",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Client",
+      "sourceMethod": "getThreads()"
+    },
+    {
+      "name": "spring.pulsar.consumer",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties",
+      "sourceMethod": "getConsumer()"
+    },
+    {
+      "name": "spring.pulsar.consumer.dead-letter-policy",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer$DeadLetterPolicy",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer",
+      "sourceMethod": "getDeadLetterPolicy()"
+    },
+    {
+      "name": "spring.pulsar.consumer.subscription",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer$Subscription",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer",
+      "sourceMethod": "getSubscription()"
+    },
+    {
+      "name": "spring.pulsar.defaults",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Defaults",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties",
+      "sourceMethod": "getDefaults()"
+    },
+    {
+      "name": "spring.pulsar.defaults.topic",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Defaults$Topic",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Defaults",
+      "sourceMethod": "getTopic()"
+    },
+    {
+      "name": "spring.pulsar.function",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Function",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties",
+      "sourceMethod": "getFunction()"
+    },
+    {
+      "name": "spring.pulsar.listener",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Listener",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties",
+      "sourceMethod": "getListener()"
+    },
+    {
+      "name": "spring.pulsar.producer",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties",
+      "sourceMethod": "getProducer()"
+    },
+    {
+      "name": "spring.pulsar.producer.cache",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer$Cache",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer",
+      "sourceMethod": "getCache()"
+    },
+    {
+      "name": "spring.pulsar.reader",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Reader",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties",
+      "sourceMethod": "getReader()"
+    },
+    {
+      "name": "spring.pulsar.template",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Template",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties",
+      "sourceMethod": "getTemplate()"
+    },
+    {
+      "name": "spring.pulsar.transaction",
+      "type": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Transaction",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties",
+      "sourceMethod": "getTransaction()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.pulsar.admin.authentication.param",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Authentication parameter(s) as a map of parameter names to parameter values.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Authentication"
+    },
+    {
+      "name": "spring.pulsar.admin.authentication.plugin-class-name",
+      "type": "java.lang.String",
+      "description": "Fully qualified class name of the authentication plugin.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Authentication"
+    },
+    {
+      "name": "spring.pulsar.admin.connection-timeout",
+      "type": "java.time.Duration",
+      "description": "Duration to wait for a connection to server to be established.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Admin",
+      "defaultValue": "1m"
+    },
+    {
+      "name": "spring.pulsar.admin.read-timeout",
+      "type": "java.time.Duration",
+      "description": "Server response read time out for any request.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Admin",
+      "defaultValue": "1m"
+    },
+    {
+      "name": "spring.pulsar.admin.request-timeout",
+      "type": "java.time.Duration",
+      "description": "Server request time out for any request.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Admin",
+      "defaultValue": "5m"
+    },
+    {
+      "name": "spring.pulsar.admin.service-url",
+      "type": "java.lang.String",
+      "description": "Pulsar web URL for the admin endpoint in the format '(http|https):\/\/host:port'.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Admin",
+      "defaultValue": "http:\/\/localhost:8080"
+    },
+    {
+      "name": "spring.pulsar.client.authentication.param",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Authentication parameter(s) as a map of parameter names to parameter values.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Authentication"
+    },
+    {
+      "name": "spring.pulsar.client.authentication.plugin-class-name",
+      "type": "java.lang.String",
+      "description": "Fully qualified class name of the authentication plugin.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Authentication"
+    },
+    {
+      "name": "spring.pulsar.client.connection-timeout",
+      "type": "java.time.Duration",
+      "description": "Duration to wait for a connection to a broker to be established.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Client",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "spring.pulsar.client.failover.backup-clusters",
+      "type": "java.util.List<org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Failover$BackupCluster>",
+      "description": "List of backup clusters. The backup cluster is chosen in the sequence of the given list. If all backup clusters are available, the Pulsar client chooses the first backup cluster.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Failover"
+    },
+    {
+      "name": "spring.pulsar.client.failover.check-interval",
+      "type": "java.time.Duration",
+      "description": "Frequency of performing a probe task.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Failover"
+    },
+    {
+      "name": "spring.pulsar.client.failover.delay",
+      "type": "java.time.Duration",
+      "description": "Delay before the Pulsar client switches from the primary cluster to the backup cluster.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Failover"
+    },
+    {
+      "name": "spring.pulsar.client.failover.policy",
+      "type": "org.apache.pulsar.client.api.AutoClusterFailoverBuilder$FailoverPolicy",
+      "description": "Cluster failover policy.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Failover",
+      "defaultValue": "order"
+    },
+    {
+      "name": "spring.pulsar.client.failover.switch-back-delay",
+      "type": "java.time.Duration",
+      "description": "Delay before the Pulsar client switches from the backup cluster to the primary cluster.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Failover"
+    },
+    {
+      "name": "spring.pulsar.client.lookup-timeout",
+      "type": "java.time.Duration",
+      "description": "Client lookup timeout.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Client"
+    },
+    {
+      "name": "spring.pulsar.client.operation-timeout",
+      "type": "java.time.Duration",
+      "description": "Client operation timeout.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Client",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.pulsar.client.service-url",
+      "type": "java.lang.String",
+      "description": "Pulsar service URL in the format '(pulsar|pulsar+ssl):\/\/host:port'.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Client",
+      "defaultValue": "pulsar:\/\/localhost:6650"
+    },
+    {
+      "name": "spring.pulsar.client.threads.io",
+      "type": "java.lang.Integer",
+      "description": "Number of threads to be used for handling connections to brokers.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Threads"
+    },
+    {
+      "name": "spring.pulsar.client.threads.listener",
+      "type": "java.lang.Integer",
+      "description": "Number of threads to be used for message listeners.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Threads"
+    },
+    {
+      "name": "spring.pulsar.consumer.dead-letter-policy.dead-letter-topic",
+      "type": "java.lang.String",
+      "description": "Name of the dead topic where the failing messages will be sent.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer$DeadLetterPolicy"
+    },
+    {
+      "name": "spring.pulsar.consumer.dead-letter-policy.initial-subscription-name",
+      "type": "java.lang.String",
+      "description": "Name of the initial subscription of the dead letter topic. When not set, the initial subscription will not be created. However, when the property is set then the broker's 'allowAutoSubscriptionCreation' must be enabled or the DLQ producer will fail.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer$DeadLetterPolicy"
+    },
+    {
+      "name": "spring.pulsar.consumer.dead-letter-policy.max-redeliver-count",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of times that a message will be redelivered before being sent to the dead letter queue.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer$DeadLetterPolicy",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.pulsar.consumer.dead-letter-policy.retry-letter-topic",
+      "type": "java.lang.String",
+      "description": "Name of the retry topic where the failing messages will be sent.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer$DeadLetterPolicy"
+    },
+    {
+      "name": "spring.pulsar.consumer.name",
+      "type": "java.lang.String",
+      "description": "Consumer name to identify a particular consumer from the topic stats.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer"
+    },
+    {
+      "name": "spring.pulsar.consumer.priority-level",
+      "type": "java.lang.Integer",
+      "description": "Priority level for shared subscription consumers.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.pulsar.consumer.read-compacted",
+      "type": "java.lang.Boolean",
+      "description": "Whether to read messages from the compacted topic rather than the full message backlog.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.pulsar.consumer.retry-enable",
+      "type": "java.lang.Boolean",
+      "description": "Whether to auto retry messages.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.pulsar.consumer.subscription.initial-position",
+      "type": "org.apache.pulsar.client.api.SubscriptionInitialPosition",
+      "description": "Position where to initialize a newly created subscription.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer$Subscription",
+      "defaultValue": "latest"
+    },
+    {
+      "name": "spring.pulsar.consumer.subscription.mode",
+      "type": "org.apache.pulsar.client.api.SubscriptionMode",
+      "description": "Subscription mode to be used when subscribing to the topic.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer$Subscription",
+      "defaultValue": "durable"
+    },
+    {
+      "name": "spring.pulsar.consumer.subscription.name",
+      "type": "java.lang.String",
+      "description": "Subscription name for the consumer.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer$Subscription"
+    },
+    {
+      "name": "spring.pulsar.consumer.subscription.topics-mode",
+      "type": "org.apache.pulsar.client.api.RegexSubscriptionMode",
+      "description": "Determines which type of topics (persistent, non-persistent, or all) the consumer should be subscribed to when using pattern subscriptions.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer$Subscription",
+      "defaultValue": "persistentonly"
+    },
+    {
+      "name": "spring.pulsar.consumer.subscription.type",
+      "type": "org.apache.pulsar.client.api.SubscriptionType",
+      "description": "Subscription type to be used when subscribing to a topic.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer$Subscription",
+      "defaultValue": "exclusive"
+    },
+    {
+      "name": "spring.pulsar.consumer.topics",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Topics the consumer subscribes to.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer"
+    },
+    {
+      "name": "spring.pulsar.consumer.topics-pattern",
+      "type": "java.util.regex.Pattern",
+      "description": "Pattern for topics the consumer subscribes to.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Consumer"
+    },
+    {
+      "name": "spring.pulsar.defaults.topic.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable default tenant and namespace support for topics.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.pulsar.defaults.topic.namespace",
+      "type": "java.lang.String",
+      "description": "Default namespace to use when producing or consuming messages against a non-fully-qualified topic URL.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Defaults$Topic",
+      "defaultValue": "default"
+    },
+    {
+      "name": "spring.pulsar.defaults.topic.tenant",
+      "type": "java.lang.String",
+      "description": "Default tenant to use when producing or consuming messages against a non-fully-qualified topic URL.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Defaults$Topic",
+      "defaultValue": "public"
+    },
+    {
+      "name": "spring.pulsar.defaults.type-mappings",
+      "type": "java.util.List<org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Defaults$TypeMapping>",
+      "description": "List of mappings from message type to topic name and schema info to use as a defaults when a topic name and\/or schema is not explicitly specified when producing or consuming messages of the mapped type.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Defaults"
+    },
+    {
+      "name": "spring.pulsar.function.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable function support.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.pulsar.function.fail-fast",
+      "type": "java.lang.Boolean",
+      "description": "Whether to stop processing further function creates\/updates when a failure occurs.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Function",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.pulsar.function.propagate-failures",
+      "type": "java.lang.Boolean",
+      "description": "Whether to throw an exception if any failure is encountered during server startup while creating\/updating functions.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Function",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.pulsar.function.propagate-stop-failures",
+      "type": "java.lang.Boolean",
+      "description": "Whether to throw an exception if any failure is encountered during server shutdown while enforcing stop policy on functions.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Function",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.pulsar.listener.concurrency",
+      "type": "java.lang.Integer",
+      "description": "Number of threads used by listener container.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Listener"
+    },
+    {
+      "name": "spring.pulsar.listener.observation-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to record observations for when the Observations API is available and the client supports it.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Listener",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.pulsar.listener.schema-type",
+      "type": "org.apache.pulsar.common.schema.SchemaType",
+      "description": "SchemaType of the consumed messages.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Listener"
+    },
+    {
+      "name": "spring.pulsar.producer.access-mode",
+      "type": "org.apache.pulsar.client.api.ProducerAccessMode",
+      "description": "Type of access to the topic the producer requires.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer",
+      "defaultValue": "shared"
+    },
+    {
+      "name": "spring.pulsar.producer.batching-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to automatically batch messages.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.pulsar.producer.cache.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable caching in the PulsarProducerFactory.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.pulsar.producer.cache.expire-after-access",
+      "type": "java.time.Duration",
+      "description": "Time period to expire unused entries in the cache.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer$Cache",
+      "defaultValue": "1m"
+    },
+    {
+      "name": "spring.pulsar.producer.cache.initial-capacity",
+      "type": "java.lang.Integer",
+      "description": "Initial size of cache.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer$Cache",
+      "defaultValue": 50
+    },
+    {
+      "name": "spring.pulsar.producer.cache.maximum-size",
+      "type": "java.lang.Long",
+      "description": "Maximum size of cache (entries).",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer$Cache",
+      "defaultValue": 1000
+    },
+    {
+      "name": "spring.pulsar.producer.chunking-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to split large-size messages into multiple chunks.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.pulsar.producer.compression-type",
+      "type": "org.apache.pulsar.client.api.CompressionType",
+      "description": "Message compression type.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer"
+    },
+    {
+      "name": "spring.pulsar.producer.hashing-scheme",
+      "type": "org.apache.pulsar.client.api.HashingScheme",
+      "description": "Message hashing scheme to choose the partition to which the message is published.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer",
+      "defaultValue": "javastringhash"
+    },
+    {
+      "name": "spring.pulsar.producer.message-routing-mode",
+      "type": "org.apache.pulsar.client.api.MessageRoutingMode",
+      "description": "Message routing mode for a partitioned producer.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer",
+      "defaultValue": "roundrobinpartition"
+    },
+    {
+      "name": "spring.pulsar.producer.name",
+      "type": "java.lang.String",
+      "description": "Name for the producer. If not assigned, a unique name is generated.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer"
+    },
+    {
+      "name": "spring.pulsar.producer.send-timeout",
+      "type": "java.time.Duration",
+      "description": "Time before a message has to be acknowledged by the broker.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.pulsar.producer.topic-name",
+      "type": "java.lang.String",
+      "description": "Topic the producer will publish to.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Producer"
+    },
+    {
+      "name": "spring.pulsar.reader.name",
+      "type": "java.lang.String",
+      "description": "Reader name.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Reader"
+    },
+    {
+      "name": "spring.pulsar.reader.read-compacted",
+      "type": "java.lang.Boolean",
+      "description": "Whether to read messages from a compacted topic rather than a full message backlog of a topic.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Reader",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.pulsar.reader.subscription-name",
+      "type": "java.lang.String",
+      "description": "Subscription name.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Reader"
+    },
+    {
+      "name": "spring.pulsar.reader.subscription-role-prefix",
+      "type": "java.lang.String",
+      "description": "Prefix of subscription role.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Reader"
+    },
+    {
+      "name": "spring.pulsar.reader.topics",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Topics the reader subscribes to.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Reader"
+    },
+    {
+      "name": "spring.pulsar.template.observations-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to record observations for when the Observations API is available.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Template",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.pulsar.transaction.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether transaction support is enabled.",
+      "sourceType": "org.springframework.boot.pulsar.autoconfigure.PulsarProperties$Transaction",
+      "defaultValue": false
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

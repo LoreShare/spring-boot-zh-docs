@@ -1,0 +1,12 @@
+[[appendix.auto-configuration-classes.spring-boot-security-saml2]]
+= spring-boot-security-saml2
+
+以下 auto-configuration 类来自 `spring-boot-security-saml2` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-security-saml2/src/main/java/org/springframework/boot/security/saml2/autoconfigure/Saml2RelyingPartyAutoConfiguration.java[`Saml2RelyingPartyAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/security/saml2/autoconfigure/Saml2RelyingPartyAutoConfiguration.html[javadoc]
+|===

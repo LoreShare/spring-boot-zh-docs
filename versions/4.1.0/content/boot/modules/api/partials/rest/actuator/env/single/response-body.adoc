@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"activeProfiles":[],"defaultProfiles":["default"],"property":{"source":"Config resource 'class path resource [org/springframework/boot/actuate/docs/env/application.properties]' via location 'classpath:/org/springframework/boot/actuate/docs/env/'","value":"1000"},"propertySources":[{"name":"servletContextInitParams"},{"name":"systemProperties"},{"name":"systemEnvironment"},{"name":"Config resource 'class path resource [org/springframework/boot/actuate/docs/env/application.properties]' via location 'classpath:/org/springframework/boot/actuate/docs/env/'","property":{"origin":"class path resource [org/springframework/boot/actuate/docs/env/application.properties] - 1:29","value":"1000"}},{"name":"applicationInfo"}]}
+----

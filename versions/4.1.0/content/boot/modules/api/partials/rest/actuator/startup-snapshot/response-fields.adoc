@@ -1,0 +1,52 @@
+|===
+|路径|类型|描述
+
+|`+springBootVersion+`
+|`+String+`
+|此应用程序的 Spring Boot 版本。
+
+|`+timeline.startTime+`
+|`+String+`
+|应用程序的启动时间。
+
+|`+timeline.events+`
+|`+Array+`
+|到目前为止，在应用程序启动过程中收集的步骤数组。
+
+|`+timeline.events.[].startTime+`
+|`+String+`
+|此事件开始的时间戳。
+
+|`+timeline.events.[].endTime+`
+|`+String+`
+|此事件结束的时间戳。
+
+|`+timeline.events.[].duration+`
+|`+String+`
+|此事件的精确持续时间。
+
+|`+timeline.events.[].startupStep.name+`
+|`+String+`
+|StartupStep 的名称。
+
+|`+timeline.events.[].startupStep.id+`
+|`+Number+`
+|此 StartupStep 的 ID。
+
+|`+timeline.events.[].startupStep.parentId+`
+|`+Number+`
+|此 StartupStep 的父 ID。
+
+|`+timeline.events.[].startupStep.tags+`
+|`+Array+`
+|包含附加步骤信息的键/值对数组。
+
+|`+timeline.events.[].startupStep.tags[].key+`
+|`+String+`
+|StartupStep 标签的键。
+
+|`+timeline.events.[].startupStep.tags[].value+`
+|`+String+`
+|StartupStep 标签的值。
+
+|===

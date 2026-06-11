@@ -1,0 +1,12 @@
+[[appendix.auto-configuration-classes.spring-boot-mustache]]
+= spring-boot-mustache
+
+以下 auto-configuration 类来自 `spring-boot-mustache` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-mustache/src/main/java/org/springframework/boot/mustache/autoconfigure/MustacheAutoConfiguration.java[`MustacheAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/mustache/autoconfigure/MustacheAutoConfiguration.html[javadoc]
+|===

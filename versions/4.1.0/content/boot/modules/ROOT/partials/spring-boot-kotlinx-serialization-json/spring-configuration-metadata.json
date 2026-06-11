@@ -1,0 +1,119 @@
+{
+  "groups": [
+    {
+      "name": "spring.kotlinx.serialization.json",
+      "type": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.kotlinx.serialization.json.allow-comments",
+      "type": "java.lang.Boolean",
+      "description": "Whether to allow parser to accept C\/Java-style comments in JSON input.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.allow-special-floating-point-values",
+      "type": "java.lang.Boolean",
+      "description": "Whether to remove the JSON specification restriction on special floating-point values such as 'NaN' and 'Infinity' and allow their serialization and deserialization as float literals without quotes.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.allow-structured-map-keys",
+      "type": "java.lang.Boolean",
+      "description": "Whether to allow structured objects to be serialized as map keys by changing the serialized form of the map from JSON object (key-value pairs) to flat array like [k1, v1, k2, v2].",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.allow-trailing-comma",
+      "type": "java.lang.Boolean",
+      "description": "Whether to allow parser to accept trailing commas in JSON objects and arrays.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.class-discriminator",
+      "type": "java.lang.String",
+      "description": "Name of the class descriptor property for polymorphic serialization.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": "type"
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.class-discriminator-mode",
+      "type": "kotlinx.serialization.json.ClassDiscriminatorMode",
+      "description": "Defines which classes and objects should have class discriminator added to the output.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": "polymorphic"
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.coerce-input-values",
+      "type": "java.lang.Boolean",
+      "description": "Whether to coerce incorrect JSON values.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.decode-enums-case-insensitive",
+      "type": "java.lang.Boolean",
+      "description": "Whether enum values are decoded in a case-insensitive manner.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.encode-defaults",
+      "type": "java.lang.Boolean",
+      "description": "Whether default values of Kotlin properties should be encoded.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.explicit-nulls",
+      "type": "java.lang.Boolean",
+      "description": "Whether null values should be encoded for nullable properties and must be present in JSON object during decoding.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.ignore-unknown-keys",
+      "type": "java.lang.Boolean",
+      "description": "Whether encounters of unknown properties in the input JSON should be ignored instead of throwing SerializationException.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.lenient",
+      "type": "java.lang.Boolean",
+      "description": "Whether parser should operate in lenient mode, removing the JSON specification restriction (RFC-4627) and being more liberal to malformed input.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.naming-strategy",
+      "type": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties$JsonNamingStrategy",
+      "description": "Specifies JsonNamingStrategy that should be used for all properties in classes for serialization and deserialization.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties"
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.pretty-print",
+      "type": "java.lang.Boolean",
+      "description": "Whether resulting JSON should be pretty-printed.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.kotlinx.serialization.json.use-alternative-names",
+      "type": "java.lang.Boolean",
+      "description": "Whether Json instance makes use of JsonNames annotation.",
+      "sourceType": "org.springframework.boot.kotlinx.serialization.json.autoconfigure.KotlinxSerializationJsonProperties",
+      "defaultValue": true
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

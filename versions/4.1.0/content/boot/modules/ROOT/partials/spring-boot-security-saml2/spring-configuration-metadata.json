@@ -1,0 +1,21 @@
+{
+  "groups": [
+    {
+      "name": "spring.security.saml2.relyingparty",
+      "type": "org.springframework.boot.security.saml2.autoconfigure.Saml2RelyingPartyProperties",
+      "sourceType": "org.springframework.boot.security.saml2.autoconfigure.Saml2RelyingPartyProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.security.saml2.relyingparty.registration",
+      "type": "java.util.Map<java.lang.String,org.springframework.boot.security.saml2.autoconfigure.Saml2RelyingPartyProperties$Registration>",
+      "description": "SAML2 relying party registrations.",
+      "sourceType": "org.springframework.boot.security.saml2.autoconfigure.Saml2RelyingPartyProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

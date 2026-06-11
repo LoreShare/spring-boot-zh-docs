@@ -1,1 +1,295 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.templating]]
+== 模板属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.templating.spring.freemarker.allow-request-override]]xref:#application-properties.templating.spring.freemarker.allow-request-override[`+spring.freemarker.allow-request-override+`]
+|+++是否允许 HttpServletRequest 属性覆盖（隐藏）控制器生成的同名模型属性。仅支持 Spring MVC。+++
+|`+false+`
+
+|[[application-properties.templating.spring.freemarker.allow-session-override]]xref:#application-properties.templating.spring.freemarker.allow-session-override[`+spring.freemarker.allow-session-override+`]
+|+++是否允许 HttpSession 属性覆盖（隐藏）控制器生成的同名模型属性。仅支持 Spring MVC。+++
+|`+false+`
+
+|[[application-properties.templating.spring.freemarker.cache]]xref:#application-properties.templating.spring.freemarker.cache[`+spring.freemarker.cache+`]
+|+++是否启用模板缓存。仅支持 Spring MVC。+++
+|`+false+`
+
+|[[application-properties.templating.spring.freemarker.charset]]xref:#application-properties.templating.spring.freemarker.charset[`+spring.freemarker.charset+`]
+|+++模板编码。+++
+|`+UTF-8+`
+
+|[[application-properties.templating.spring.freemarker.check-template-location]]xref:#application-properties.templating.spring.freemarker.check-template-location[`+spring.freemarker.check-template-location+`]
+|+++是否检查模板位置是否存在。+++
+|`+true+`
+
+|[[application-properties.templating.spring.freemarker.content-type]]xref:#application-properties.templating.spring.freemarker.content-type[`+spring.freemarker.content-type+`]
+|+++Content-Type 值。仅支持 Spring MVC。+++
+|`+text/html+`
+
+|[[application-properties.templating.spring.freemarker.expose-request-attributes]]xref:#application-properties.templating.spring.freemarker.expose-request-attributes[`+spring.freemarker.expose-request-attributes+`]
+|+++是否在合并模板之前将所有请求属性添加到模型中。仅支持 Spring MVC。+++
+|`+false+`
+
+|[[application-properties.templating.spring.freemarker.expose-session-attributes]]xref:#application-properties.templating.spring.freemarker.expose-session-attributes[`+spring.freemarker.expose-session-attributes+`]
+|+++是否在合并模板之前将所有 HttpSession 属性添加到模型中。仅支持 Spring MVC。+++
+|`+false+`
+
+|[[application-properties.templating.spring.freemarker.expose-spring-macro-helpers]]xref:#application-properties.templating.spring.freemarker.expose-spring-macro-helpers[`+spring.freemarker.expose-spring-macro-helpers+`]
+|+++是否暴露一个名为 "springMacroRequestContext" 的 RequestContext 供 Spring 的宏库使用。仅支持 Spring MVC。+++
+|`+true+`
+
+|[[application-properties.templating.spring.freemarker.prefer-file-system-access]]xref:#application-properties.templating.spring.freemarker.prefer-file-system-access[`+spring.freemarker.prefer-file-system-access+`]
+|+++是否优先使用文件系统访问模板加载，以启用模板更改的热检测。当模板路径被检测为目录时，仅从该目录加载模板，其他匹配的 classpath 位置将不被考虑。+++
+|`+false+`
+
+|[[application-properties.templating.spring.freemarker.prefix]]xref:#application-properties.templating.spring.freemarker.prefix[`+spring.freemarker.prefix+`]
+|+++构建 URL 时添加到视图名称的前缀。+++
+|
+
+|[[application-properties.templating.spring.freemarker.request-context-attribute]]xref:#application-properties.templating.spring.freemarker.request-context-attribute[`+spring.freemarker.request-context-attribute+`]
+|+++所有视图的 RequestContext 属性名称。+++
+|
+
+|[[application-properties.templating.spring.freemarker.settings]]xref:#application-properties.templating.spring.freemarker.settings[`+spring.freemarker.settings.*+`]
+|+++传递给 FreeMarker Configuration 的知名 FreeMarker 键。+++
+|
+
+|[[application-properties.templating.spring.freemarker.suffix]]xref:#application-properties.templating.spring.freemarker.suffix[`+spring.freemarker.suffix+`]
+|+++构建 URL 时附加到视图名称的后缀。+++
+|`+.ftlh+`
+
+|[[application-properties.templating.spring.freemarker.template-loader-path]]xref:#application-properties.templating.spring.freemarker.template-loader-path[`+spring.freemarker.template-loader-path+`]
+|+++模板路径列表。+++
+|`+[classpath:/templates/]+`
+
+|[[application-properties.templating.spring.freemarker.view-names]]xref:#application-properties.templating.spring.freemarker.view-names[`+spring.freemarker.view-names+`]
+|+++可解析的视图名称。+++
+|
+
+|[[application-properties.templating.spring.groovy.template.allow-request-override]]xref:#application-properties.templating.spring.groovy.template.allow-request-override[`+spring.groovy.template.allow-request-override+`]
+|+++是否允许 HttpServletRequest 属性覆盖（隐藏）控制器生成的同名模型属性。+++
+|`+false+`
+
+|[[application-properties.templating.spring.groovy.template.allow-session-override]]xref:#application-properties.templating.spring.groovy.template.allow-session-override[`+spring.groovy.template.allow-session-override+`]
+|+++是否允许 HttpSession 属性覆盖（隐藏）控制器生成的同名模型属性。+++
+|`+false+`
+
+|[[application-properties.templating.spring.groovy.template.auto-escape]]xref:#application-properties.templating.spring.groovy.template.auto-escape[`+spring.groovy.template.auto-escape+`]
+|+++是否自动转义可赋值给 CharSequence 的模型。+++
+|`+false+`
+
+|[[application-properties.templating.spring.groovy.template.auto-indent]]xref:#application-properties.templating.spring.groovy.template.auto-indent[`+spring.groovy.template.auto-indent+`]
+|+++是否自动渲染缩进。+++
+|`+false+`
+
+|[[application-properties.templating.spring.groovy.template.auto-indent-string]]xref:#application-properties.templating.spring.groovy.template.auto-indent-string[`+spring.groovy.template.auto-indent-string+`]
+|+++用于自动缩进的字符串。+++
+|
+
+|[[application-properties.templating.spring.groovy.template.auto-new-line]]xref:#application-properties.templating.spring.groovy.template.auto-new-line[`+spring.groovy.template.auto-new-line+`]
+|+++是否自动渲染新行。+++
+|`+false+`
+
+|[[application-properties.templating.spring.groovy.template.base-template-class]]xref:#application-properties.templating.spring.groovy.template.base-template-class[`+spring.groovy.template.base-template-class+`]
+|+++模板基类。+++
+|
+
+|[[application-properties.templating.spring.groovy.template.cache]]xref:#application-properties.templating.spring.groovy.template.cache[`+spring.groovy.template.cache+`]
+|+++是否启用模板缓存。+++
+|`+false+`
+
+|[[application-properties.templating.spring.groovy.template.charset]]xref:#application-properties.templating.spring.groovy.template.charset[`+spring.groovy.template.charset+`]
+|+++模板编码。+++
+|`+UTF-8+`
+
+|[[application-properties.templating.spring.groovy.template.check-template-location]]xref:#application-properties.templating.spring.groovy.template.check-template-location[`+spring.groovy.template.check-template-location+`]
+|+++是否检查模板位置是否存在。+++
+|`+true+`
+
+|[[application-properties.templating.spring.groovy.template.content-type]]xref:#application-properties.templating.spring.groovy.template.content-type[`+spring.groovy.template.content-type+`]
+|+++Content-Type 值。+++
+|`+text/html+`
+
+|[[application-properties.templating.spring.groovy.template.declaration-encoding]]xref:#application-properties.templating.spring.groovy.template.declaration-encoding[`+spring.groovy.template.declaration-encoding+`]
+|+++用于编写声明标题的编码。+++
+|
+
+|[[application-properties.templating.spring.groovy.template.expand-empty-elements]]xref:#application-properties.templating.spring.groovy.template.expand-empty-elements[`+spring.groovy.template.expand-empty-elements+`]
+|+++没有正文的元素是否应展开写入（&lt;br&gt;&lt;/br&gt;）还是不展开（&lt;br/&gt;）。+++
+|`+false+`
+
+|[[application-properties.templating.spring.groovy.template.expose-request-attributes]]xref:#application-properties.templating.spring.groovy.template.expose-request-attributes[`+spring.groovy.template.expose-request-attributes+`]
+|+++是否在合并模板之前将所有请求属性添加到模型中。+++
+|`+false+`
+
+|[[application-properties.templating.spring.groovy.template.expose-session-attributes]]xref:#application-properties.templating.spring.groovy.template.expose-session-attributes[`+spring.groovy.template.expose-session-attributes+`]
+|+++是否在合并模板之前将所有 HttpSession 属性添加到模型中。+++
+|`+false+`
+
+|[[application-properties.templating.spring.groovy.template.expose-spring-macro-helpers]]xref:#application-properties.templating.spring.groovy.template.expose-spring-macro-helpers[`+spring.groovy.template.expose-spring-macro-helpers+`]
+|+++是否暴露一个名为 "springMacroRequestContext" 的 RequestContext 供 Spring 的宏库使用。+++
+|`+true+`
+
+|[[application-properties.templating.spring.groovy.template.locale]]xref:#application-properties.templating.spring.groovy.template.locale[`+spring.groovy.template.locale+`]
+|+++模板解析的默认区域设置。+++
+|
+
+|[[application-properties.templating.spring.groovy.template.new-line-string]]xref:#application-properties.templating.spring.groovy.template.new-line-string[`+spring.groovy.template.new-line-string+`]
+|+++用于写入新行的字符串。默认为系统的行分隔符。+++
+|
+
+|[[application-properties.templating.spring.groovy.template.prefix]]xref:#application-properties.templating.spring.groovy.template.prefix[`+spring.groovy.template.prefix+`]
+|+++构建 URL 时添加到视图名称的前缀。+++
+|
+
+|[[application-properties.templating.spring.groovy.template.request-context-attribute]]xref:#application-properties.templating.spring.groovy.template.request-context-attribute[`+spring.groovy.template.request-context-attribute+`]
+|+++所有视图的 RequestContext 属性名称。+++
+|`+spring+`
+
+|[[application-properties.templating.spring.groovy.template.resource-loader-path]]xref:#application-properties.templating.spring.groovy.template.resource-loader-path[`+spring.groovy.template.resource-loader-path+`]
+|+++模板路径。+++
+|`+classpath:/templates/+`
+
+|[[application-properties.templating.spring.groovy.template.suffix]]xref:#application-properties.templating.spring.groovy.template.suffix[`+spring.groovy.template.suffix+`]
+|+++构建 URL 时附加到视图名称的后缀。+++
+|`+.tpl+`
+
+|[[application-properties.templating.spring.groovy.template.use-double-quotes]]xref:#application-properties.templating.spring.groovy.template.use-double-quotes[`+spring.groovy.template.use-double-quotes+`]
+|+++属性是否应使用双引号。+++
+|`+false+`
+
+|[[application-properties.templating.spring.groovy.template.view-names]]xref:#application-properties.templating.spring.groovy.template.view-names[`+spring.groovy.template.view-names+`]
+|+++可解析的视图名称。+++
+|
+
+|[[application-properties.templating.spring.mustache.charset]]xref:#application-properties.templating.spring.mustache.charset[`+spring.mustache.charset+`]
+|+++模板编码。+++
+|`+UTF-8+`
+
+|[[application-properties.templating.spring.mustache.check-template-location]]xref:#application-properties.templating.spring.mustache.check-template-location[`+spring.mustache.check-template-location+`]
+|+++是否检查模板位置是否存在。+++
+|`+true+`
+
+|[[application-properties.templating.spring.mustache.prefix]]xref:#application-properties.templating.spring.mustache.prefix[`+spring.mustache.prefix+`]
+|+++应用于模板名称的前缀。+++
+|`+classpath:/templates/+`
+
+|[[application-properties.templating.spring.mustache.reactive.media-types]]xref:#application-properties.templating.spring.mustache.reactive.media-types[`+spring.mustache.reactive.media-types+`]
+|+++Mustache 视图支持的媒体类型。+++
+|`+text/html;charset=UTF-8+`
+
+|[[application-properties.templating.spring.mustache.request-context-attribute]]xref:#application-properties.templating.spring.mustache.request-context-attribute[`+spring.mustache.request-context-attribute+`]
+|+++所有视图的 RequestContext 属性名称。+++
+|
+
+|[[application-properties.templating.spring.mustache.servlet.allow-request-override]]xref:#application-properties.templating.spring.mustache.servlet.allow-request-override[`+spring.mustache.servlet.allow-request-override+`]
+|+++是否允许 HttpServletRequest 属性覆盖（隐藏）控制器生成的同名模型属性。+++
+|`+false+`
+
+|[[application-properties.templating.spring.mustache.servlet.allow-session-override]]xref:#application-properties.templating.spring.mustache.servlet.allow-session-override[`+spring.mustache.servlet.allow-session-override+`]
+|+++是否允许 HttpSession 属性覆盖（隐藏）控制器生成的同名模型属性。+++
+|`+false+`
+
+|[[application-properties.templating.spring.mustache.servlet.cache]]xref:#application-properties.templating.spring.mustache.servlet.cache[`+spring.mustache.servlet.cache+`]
+|+++是否启用模板缓存。+++
+|`+false+`
+
+|[[application-properties.templating.spring.mustache.servlet.content-type]]xref:#application-properties.templating.spring.mustache.servlet.content-type[`+spring.mustache.servlet.content-type+`]
+|+++Content-Type 值。+++
+|
+
+|[[application-properties.templating.spring.mustache.servlet.expose-request-attributes]]xref:#application-properties.templating.spring.mustache.servlet.expose-request-attributes[`+spring.mustache.servlet.expose-request-attributes+`]
+|+++是否在合并模板之前将所有请求属性添加到模型中。+++
+|`+false+`
+
+|[[application-properties.templating.spring.mustache.servlet.expose-session-attributes]]xref:#application-properties.templating.spring.mustache.servlet.expose-session-attributes[`+spring.mustache.servlet.expose-session-attributes+`]
+|+++是否在合并模板之前将所有 HttpSession 属性添加到模型中。+++
+|`+false+`
+
+|[[application-properties.templating.spring.mustache.servlet.expose-spring-macro-helpers]]xref:#application-properties.templating.spring.mustache.servlet.expose-spring-macro-helpers[`+spring.mustache.servlet.expose-spring-macro-helpers+`]
+|+++是否暴露一个 RequestContext 供 Spring 的宏库使用，名称为 "springMacroRequestContext"。+++
+|`+true+`
+
+|[[application-properties.templating.spring.mustache.suffix]]xref:#application-properties.templating.spring.mustache.suffix[`+spring.mustache.suffix+`]
+|+++应用于模板名称的后缀。+++
+|`+.mustache+`
+
+|[[application-properties.templating.spring.mustache.view-names]]xref:#application-properties.templating.spring.mustache.view-names[`+spring.mustache.view-names+`]
+|+++可以解析的视图名称。+++
+|
+
+|[[application-properties.templating.spring.thymeleaf.cache]]xref:#application-properties.templating.spring.thymeleaf.cache[`+spring.thymeleaf.cache+`]
+|+++是否启用模板缓存。+++
+|`+true+`
+
+|[[application-properties.templating.spring.thymeleaf.check-template]]xref:#application-properties.templating.spring.thymeleaf.check-template[`+spring.thymeleaf.check-template+`]
+|+++是否在渲染模板之前检查模板是否存在。+++
+|`+true+`
+
+|[[application-properties.templating.spring.thymeleaf.check-template-location]]xref:#application-properties.templating.spring.thymeleaf.check-template-location[`+spring.thymeleaf.check-template-location+`]
+|+++是否检查模板位置是否存在。+++
+|`+true+`
+
+|[[application-properties.templating.spring.thymeleaf.enable-spring-el-compiler]]xref:#application-properties.templating.spring.thymeleaf.enable-spring-el-compiler[`+spring.thymeleaf.enable-spring-el-compiler+`]
+|+++在 SpringEL 表达式中启用 SpringEL 编译器。+++
+|`+false+`
+
+|[[application-properties.templating.spring.thymeleaf.encoding]]xref:#application-properties.templating.spring.thymeleaf.encoding[`+spring.thymeleaf.encoding+`]
+|+++模板文件编码。+++
+|`+UTF-8+`
+
+|[[application-properties.templating.spring.thymeleaf.excluded-view-names]]xref:#application-properties.templating.spring.thymeleaf.excluded-view-names[`+spring.thymeleaf.excluded-view-names+`]
+|+++应从解析中排除的视图名称列表（允许模式）。+++
+|
+
+|[[application-properties.templating.spring.thymeleaf.mode]]xref:#application-properties.templating.spring.thymeleaf.mode[`+spring.thymeleaf.mode+`]
+|+++应用于模板的模板模式。另请参阅 Thymeleaf 的 TemplateMode 枚举。+++
+|`+HTML+`
+
+|[[application-properties.templating.spring.thymeleaf.prefix]]xref:#application-properties.templating.spring.thymeleaf.prefix[`+spring.thymeleaf.prefix+`]
+|+++构建 URL 时添加到视图名称的前缀。+++
+|`+classpath:/templates/+`
+
+|[[application-properties.templating.spring.thymeleaf.reactive.chunked-mode-view-names]]xref:#application-properties.templating.spring.thymeleaf.reactive.chunked-mode-view-names[`+spring.thymeleaf.reactive.chunked-mode-view-names+`]
+|+++逗号分隔的视图名称列表（允许模式），这些视图应在设置了最大块大小时以 CHUNKED 模式执行。+++
+|
+
+|[[application-properties.templating.spring.thymeleaf.reactive.full-mode-view-names]]xref:#application-properties.templating.spring.thymeleaf.reactive.full-mode-view-names[`+spring.thymeleaf.reactive.full-mode-view-names+`]
+|+++逗号分隔的视图名称列表（允许模式），这些视图即使设置了最大块大小也应以 FULL 模式执行。+++
+|
+
+|[[application-properties.templating.spring.thymeleaf.reactive.max-chunk-size]]xref:#application-properties.templating.spring.thymeleaf.reactive.max-chunk-size[`+spring.thymeleaf.reactive.max-chunk-size+`]
+|+++用于写入响应的数据缓冲区的最大大小。如果设置了此值，模板默认将以 CHUNKED 模式执行。+++
+|`+0B+`
+
+|[[application-properties.templating.spring.thymeleaf.reactive.media-types]]xref:#application-properties.templating.spring.thymeleaf.reactive.media-types[`+spring.thymeleaf.reactive.media-types+`]
+|+++视图技术支持的媒体类型。+++
+|`+[text/html, application/xhtml+xml, application/xml, text/xml, application/rss+xml, application/atom+xml, application/javascript, application/ecmascript, text/javascript, text/ecmascript, application/json, text/css, text/plain, text/event-stream]+`
+
+|[[application-properties.templating.spring.thymeleaf.render-hidden-markers-before-checkboxes]]xref:#application-properties.templating.spring.thymeleaf.render-hidden-markers-before-checkboxes[`+spring.thymeleaf.render-hidden-markers-before-checkboxes+`]
+|+++是否应在复选框元素本身之前渲染作为复选框标记的隐藏表单输入。+++
+|`+false+`
+
+|[[application-properties.templating.spring.thymeleaf.servlet.content-type]]xref:#application-properties.templating.spring.thymeleaf.servlet.content-type[`+spring.thymeleaf.servlet.content-type+`]
+|+++写入 HTTP 响应的 Content-Type 值。+++
+|`+text/html+`
+
+|[[application-properties.templating.spring.thymeleaf.servlet.produce-partial-output-while-processing]]xref:#application-properties.templating.spring.thymeleaf.servlet.produce-partial-output-while-processing[`+spring.thymeleaf.servlet.produce-partial-output-while-processing+`]
+|+++Thymeleaf 是否应尽快开始写入部分输出，还是缓冲直到模板处理完成。+++
+|`+true+`
+
+|[[application-properties.templating.spring.thymeleaf.suffix]]xref:#application-properties.templating.spring.thymeleaf.suffix[`+spring.thymeleaf.suffix+`]
+|+++构建 URL 时附加到视图名称的后缀。+++
+|`+.html+`
+
+|[[application-properties.templating.spring.thymeleaf.template-resolver-order]]xref:#application-properties.templating.spring.thymeleaf.template-resolver-order[`+spring.thymeleaf.template-resolver-order+`]
+|+++模板解析器在链中的顺序。默认情况下，模板解析器是链中的第一个。顺序从 1 开始，仅当您定义了额外的 "TemplateResolver" beans 时才应设置。+++
+|
+
+|[[application-properties.templating.spring.thymeleaf.view-names]]xref:#application-properties.templating.spring.thymeleaf.view-names[`+spring.thymeleaf.view-names+`]
+|+++可以解析的视图名称列表（允许模式）。+++
+|
+
+|===

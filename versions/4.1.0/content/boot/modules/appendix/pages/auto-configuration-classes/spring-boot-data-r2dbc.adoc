@@ -1,0 +1,15 @@
+[[appendix.auto-configuration-classes.spring-boot-data-r2dbc]]
+= spring-boot-data-r2dbc
+
+以下 auto-configuration 类来自 `spring-boot-data-r2dbc` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-data-r2dbc/src/main/java/org/springframework/boot/data/r2dbc/autoconfigure/DataR2dbcAutoConfiguration.java[`DataR2dbcAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/r2dbc/autoconfigure/DataR2dbcAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-r2dbc/src/main/java/org/springframework/boot/data/r2dbc/autoconfigure/DataR2dbcRepositoriesAutoConfiguration.java[`DataR2dbcRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/r2dbc/autoconfigure/DataR2dbcRepositoriesAutoConfiguration.html[javadoc]
+|===

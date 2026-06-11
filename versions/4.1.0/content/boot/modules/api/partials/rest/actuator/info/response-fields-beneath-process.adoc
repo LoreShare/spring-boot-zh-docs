@@ -1,3 +1,119 @@
 |===
-3+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+|Path|Type|Description
+
+|`+pid+`
+|`+Number+`
+|进程 ID。
+
+|`+parentPid+`
+|`+Number+`
+|父进程 ID（或 -1）。
+
+|`+owner+`
+|`+String+`
+|进程所有者。
+
+|`+uptime+`
+|`+String+`
+|进程运行时间（如果可用）。
+
+|`+startTime+`
+|`+String+`
+|进程启动时间（如果可用）。
+
+|`+currentTime+`
+|`+String+`
+|进程已知的当前时间。
+
+|`+timezone+`
+|`+String+`
+|进程时区。
+
+|`+locale+`
+|`+String+`
+|进程区域设置。
+
+|`+workingDirectory+`
+|`+String+`
+|进程的工作目录。
+
+|`+cpus+`
+|`+Number+`
+|进程可用的 CPU 数量。
+
+|`+memory+`
+|`+Object+`
+|内存信息。
+
+|`+memory.heap+`
+|`+Object+`
+|堆内存。
+
+|`+memory.heap.init+`
+|`+Number+`
+|JVM 初始请求的字节数。
+
+|`+memory.heap.used+`
+|`+Number+`
+|当前使用的字节数。
+
+|`+memory.heap.committed+`
+|`+Number+`
+|为 JVM 使用而提交的字节数。
+
+|`+memory.heap.max+`
+|`+Number+`
+|JVM 可使用的最大字节数（或 -1）。
+
+|`+memory.nonHeap+`
+|`+Object+`
+|非堆内存。
+
+|`+memory.nonHeap.init+`
+|`+Number+`
+|JVM 初始请求的字节数。
+
+|`+memory.nonHeap.used+`
+|`+Number+`
+|当前使用的字节数。
+
+|`+memory.nonHeap.committed+`
+|`+Number+`
+|为 JVM 使用而提交的字节数。
+
+|`+memory.nonHeap.max+`
+|`+Number+`
+|JVM 可使用的最大字节数（或 -1）。
+
+|`+memory.garbageCollectors+`
+|`+Array+`
+|垃圾收集器的详细信息。
+
+|`+memory.garbageCollectors[].name+`
+|`+String+`
+|垃圾收集器的名称。
+
+|`+memory.garbageCollectors[].collectionCount+`
+|`+Number+`
+|已发生的收集总次数。
+
+|`+virtualThreads+`
+|`+Object+`
+|虚拟线程信息（如果 VirtualThreadSchedulerMXBean 可用）
+
+|`+virtualThreads.mounted+`
+|`+Number+`
+|调度程序当前挂载的虚拟线程数的估计值。
+
+|`+virtualThreads.queued+`
+|`+Number+`
+|排队等待调度程序启动或继续执行的虚拟线程数的估计值。
+
+|`+virtualThreads.parallelism+`
+|`+Number+`
+|调度程序的目标并行度。
+
+|`+virtualThreads.poolSize+`
+|`+Number+`
+|调度程序已启动但尚未终止的平台线程的当前数量。
 |===

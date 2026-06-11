@@ -1,0 +1,115 @@
+{
+  "groups": [
+    {
+      "name": "spring.data.neo4j",
+      "type": "org.springframework.boot.data.neo4j.autoconfigure.DataNeo4jProperties",
+      "sourceType": "org.springframework.boot.data.neo4j.autoconfigure.DataNeo4jProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.data.neo4j.database",
+      "type": "java.lang.String",
+      "description": "Database name to use. By default, the server decides the default database to use.",
+      "sourceType": "org.springframework.boot.data.neo4j.autoconfigure.DataNeo4jProperties"
+    },
+    {
+      "name": "spring.data.neo4j.repositories.type",
+      "type": "org.springframework.boot.autoconfigure.data.RepositoryType",
+      "description": "Type of Neo4j repositories to enable.",
+      "defaultValue": "auto"
+    },
+    {
+      "name": "spring.data.neo4j.auto-index",
+      "description": "Auto index mode.",
+      "defaultValue": "none",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Automatic index creation is no longer supported.",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.data.neo4j.embedded.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable embedded mode if the embedded driver is available.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Embedded mode is no longer supported, please use Testcontainers instead.",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.data.neo4j.open-in-view",
+      "type": "java.lang.Boolean",
+      "description": "Register OpenSessionInViewInterceptor that binds a Neo4j Session to the thread for the entire processing of the request.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.data.neo4j.password",
+      "type": "java.lang.String",
+      "description": "Login password of the server.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.neo4j.authentication.password",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.data.neo4j.repositories.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Neo4j repositories.",
+      "defaultValue": true,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.data.neo4j.repositories.type",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.data.neo4j.uri",
+      "type": "java.lang.String",
+      "description": "URI used by the driver. Auto-detected by default.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.neo4j.uri",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.data.neo4j.use-native-types",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use Neo4j native types wherever possible.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Native type support is now built-in.",
+        "since": "2.4.0"
+      }
+    },
+    {
+      "name": "spring.data.neo4j.username",
+      "type": "java.lang.String",
+      "description": "Login user of the server.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.neo4j.authentication.username",
+        "since": "2.4.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,0 +1,10 @@
+[source,json,options="nowrap"]
+----
+{
+  "events" : [ {
+    "principal" : "alice",
+    "timestamp" : "2026-06-10T16:30:04.518486532Z",
+    "type" : "logout"
+  } ]
+}
+----

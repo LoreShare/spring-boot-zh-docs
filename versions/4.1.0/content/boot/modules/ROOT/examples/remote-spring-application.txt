@@ -1,1 +1,12 @@
-该示例输出由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+  .   ____          _                                              __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _          ___               _      \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` |        | _ \___ _ __  ___| |_ ___ \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| []::::::[]   / -_) '  \/ _ \  _/ -_) ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, |        |_|_\___|_|_|_\___/\__\___|/ / / /
+ =========|_|==============|___/===================================/_/_/_/
+ :: Spring Boot Remote ::  (v4.1.0)
+
+2026-06-12T00:30:52.250+08:00  INFO 89126 --- [           main] o.s.b.devtools.RemoteSpringApplication   : Starting RemoteSpringApplication v4.1.0 using Java 25.0.1 with PID 89126 (/Users/myuser/.m2/repository/org/springframework/boot/spring-boot-devtools/4.1.0/spring-boot-devtools-4.1.0.jar started by myuser in /opt/apps/)
+2026-06-12T00:30:52.251+08:00  INFO 89126 --- [           main] o.s.b.devtools.RemoteSpringApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-06-12T00:30:52.388+08:00  INFO 89126 --- [           main] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-06-12T00:30:52.402+08:00  INFO 89126 --- [           main] o.s.b.devtools.RemoteSpringApplication   : Started RemoteSpringApplication in 0.323 seconds (process running for 0.484)

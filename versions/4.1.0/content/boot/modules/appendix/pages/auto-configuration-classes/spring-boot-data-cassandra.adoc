@@ -1,0 +1,21 @@
+[[appendix.auto-configuration-classes.spring-boot-data-cassandra]]
+= spring-boot-data-cassandra
+
+以下 auto-configuration 类来自 `spring-boot-data-cassandra` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-data-cassandra/src/main/java/org/springframework/boot/data/cassandra/autoconfigure/DataCassandraAutoConfiguration.java[`DataCassandraAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/cassandra/autoconfigure/DataCassandraAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-cassandra/src/main/java/org/springframework/boot/data/cassandra/autoconfigure/DataCassandraReactiveAutoConfiguration.java[`DataCassandraReactiveAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/cassandra/autoconfigure/DataCassandraReactiveAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-cassandra/src/main/java/org/springframework/boot/data/cassandra/autoconfigure/DataCassandraReactiveRepositoriesAutoConfiguration.java[`DataCassandraReactiveRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/cassandra/autoconfigure/DataCassandraReactiveRepositoriesAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-cassandra/src/main/java/org/springframework/boot/data/cassandra/autoconfigure/DataCassandraRepositoriesAutoConfiguration.java[`DataCassandraRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/cassandra/autoconfigure/DataCassandraRepositoriesAutoConfiguration.html[javadoc]
+|===

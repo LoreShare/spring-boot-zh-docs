@@ -1,0 +1,4 @@
+[source,octet-stream,options="nowrap"]
+----
+<<binary content>>
+----

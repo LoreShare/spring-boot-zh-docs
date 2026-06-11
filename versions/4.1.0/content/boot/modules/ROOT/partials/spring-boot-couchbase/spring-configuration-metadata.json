@@ -1,0 +1,377 @@
+{
+  "groups": [
+    {
+      "name": "spring.couchbase",
+      "type": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties"
+    },
+    {
+      "name": "spring.couchbase.authentication",
+      "type": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Authentication",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties",
+      "sourceMethod": "getAuthentication()"
+    },
+    {
+      "name": "spring.couchbase.authentication.jks",
+      "type": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Authentication$Jks",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Authentication",
+      "sourceMethod": "getJks()"
+    },
+    {
+      "name": "spring.couchbase.authentication.pem",
+      "type": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Authentication$Pem",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Authentication",
+      "sourceMethod": "getPem()"
+    },
+    {
+      "name": "spring.couchbase.env",
+      "type": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Env",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties",
+      "sourceMethod": "getEnv()"
+    },
+    {
+      "name": "spring.couchbase.env.io",
+      "type": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Io",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Env",
+      "sourceMethod": "getIo()"
+    },
+    {
+      "name": "spring.couchbase.env.ssl",
+      "type": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Ssl",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Env",
+      "sourceMethod": "getSsl()"
+    },
+    {
+      "name": "spring.couchbase.env.timeouts",
+      "type": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Timeouts",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Env",
+      "sourceMethod": "getTimeouts()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.health.couchbase.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Couchbase health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.couchbase.authentication.jks.location",
+      "type": "java.lang.String",
+      "description": "Java KeyStore location for certificate-based cluster authentication.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Authentication$Jks"
+    },
+    {
+      "name": "spring.couchbase.authentication.jks.password",
+      "type": "java.lang.String",
+      "description": "Java KeyStore password for certificate-based cluster authentication.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Authentication$Jks"
+    },
+    {
+      "name": "spring.couchbase.authentication.pem.certificates",
+      "type": "java.lang.String",
+      "description": "PEM-formatted certificates for certificate-based cluster authentication.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Authentication$Pem"
+    },
+    {
+      "name": "spring.couchbase.authentication.pem.private-key",
+      "type": "java.lang.String",
+      "description": "PEM-formatted private key for certificate-based cluster authentication.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Authentication$Pem"
+    },
+    {
+      "name": "spring.couchbase.authentication.pem.private-key-password",
+      "type": "java.lang.String",
+      "description": "Private key password for certificate-based cluster authentication.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Authentication$Pem"
+    },
+    {
+      "name": "spring.couchbase.connection-string",
+      "type": "java.lang.String",
+      "description": "Connection string used to locate the Couchbase cluster.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties"
+    },
+    {
+      "name": "spring.couchbase.env.io.idle-http-connection-timeout",
+      "type": "java.time.Duration",
+      "description": "Length of time an HTTP connection may remain idle before it is closed and removed from the pool.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Io",
+      "defaultValue": "1s"
+    },
+    {
+      "name": "spring.couchbase.env.io.max-endpoints",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of sockets per node.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Io",
+      "defaultValue": 12
+    },
+    {
+      "name": "spring.couchbase.env.io.min-endpoints",
+      "type": "java.lang.Integer",
+      "description": "Minimum number of sockets per node.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Io",
+      "defaultValue": 1
+    },
+    {
+      "name": "spring.couchbase.env.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle name.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Ssl"
+    },
+    {
+      "name": "spring.couchbase.env.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support. Enabled automatically if a \"bundle\" is provided unless specified otherwise.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Ssl"
+    },
+    {
+      "name": "spring.couchbase.env.timeouts.analytics",
+      "type": "java.time.Duration",
+      "description": "Timeout for the analytics service.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Timeouts",
+      "defaultValue": "75s"
+    },
+    {
+      "name": "spring.couchbase.env.timeouts.connect",
+      "type": "java.time.Duration",
+      "description": "Bucket connect timeout.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Timeouts",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "spring.couchbase.env.timeouts.disconnect",
+      "type": "java.time.Duration",
+      "description": "Bucket disconnect timeout.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Timeouts",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "spring.couchbase.env.timeouts.key-value",
+      "type": "java.time.Duration",
+      "description": "Timeout for operations on a specific key-value.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Timeouts",
+      "defaultValue": "2500ms"
+    },
+    {
+      "name": "spring.couchbase.env.timeouts.key-value-durable",
+      "type": "java.time.Duration",
+      "description": "Timeout for operations on a specific key-value with a durability level.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Timeouts",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "spring.couchbase.env.timeouts.management",
+      "type": "java.time.Duration",
+      "description": "Timeout for the management operations.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Timeouts",
+      "defaultValue": "75s"
+    },
+    {
+      "name": "spring.couchbase.env.timeouts.query",
+      "type": "java.time.Duration",
+      "description": "N1QL query operations timeout.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Timeouts",
+      "defaultValue": "75s"
+    },
+    {
+      "name": "spring.couchbase.env.timeouts.search",
+      "type": "java.time.Duration",
+      "description": "Timeout for the search service.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Timeouts",
+      "defaultValue": "75s"
+    },
+    {
+      "name": "spring.couchbase.env.timeouts.view",
+      "type": "java.time.Duration",
+      "description": "Regular and geospatial view operations timeout.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties$Timeouts",
+      "defaultValue": "75s"
+    },
+    {
+      "name": "spring.couchbase.password",
+      "type": "java.lang.String",
+      "description": "Cluster password.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties"
+    },
+    {
+      "name": "spring.couchbase.username",
+      "type": "java.lang.String",
+      "description": "Cluster username.",
+      "sourceType": "org.springframework.boot.couchbase.autoconfigure.CouchbaseProperties"
+    },
+    {
+      "name": "management.health.couchbase.timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout for getting the Bucket information from the server.",
+      "defaultValue": "1000ms",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.0.6"
+      }
+    },
+    {
+      "name": "spring.couchbase.bootstrap-hosts",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Couchbase nodes (host or IP address) to bootstrap from.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.couchbase.connection-string",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.bucket.name",
+      "type": "java.lang.String",
+      "description": "Name of the bucket to connect to.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "A bucket is no longer auto-configured.",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.bucket.password",
+      "type": "java.lang.String",
+      "description": "Password of the bucket.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "A bucket is no longer auto-configured.",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.bootstrap.http-direct-port",
+      "type": "java.lang.Integer",
+      "description": "Port for the HTTP bootstrap.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.bootstrap.http-ssl-port",
+      "type": "java.lang.Integer",
+      "description": "Port for the HTTPS bootstrap.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.endpoints.key-value",
+      "type": "java.lang.Integer",
+      "description": "Number of sockets per node against the key\/value service.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.endpoints.query",
+      "type": "java.lang.Integer",
+      "description": "Number of sockets per node against the query (N1QL) service.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.endpoints.queryservice.max-endpoints",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of sockets per node.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.couchbase.env.io.max-endpoints",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.endpoints.queryservice.min-endpoints",
+      "type": "java.lang.Integer",
+      "description": "Minimum number of sockets per node.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.couchbase.env.io.min-endpoints",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.endpoints.view",
+      "type": "java.lang.Integer",
+      "description": "Number of sockets per node against the view service.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.1.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.endpoints.viewservice.max-endpoints",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of sockets per node.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.couchbase.env.io.max-endpoints",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.endpoints.viewservice.min-endpoints",
+      "type": "java.lang.Integer",
+      "description": "Minimum number of sockets per node.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.couchbase.env.io.min-endpoints",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.ssl.key-store",
+      "type": "java.lang.String",
+      "description": "Path to the JVM key store that holds the certificates.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.couchbase.env.ssl.bundle",
+        "since": "3.1.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.ssl.key-store-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the key store.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.couchbase.env.ssl.bundle",
+        "since": "3.1.0"
+      }
+    },
+    {
+      "name": "spring.couchbase.env.timeouts.socket-connect",
+      "type": "java.time.Duration",
+      "description": "Socket connect connections timeout.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.3.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

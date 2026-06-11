@@ -1,0 +1,15 @@
+[[appendix.auto-configuration-classes.spring-boot-data-commons]]
+= spring-boot-data-commons
+
+以下 auto-configuration 类来自 `spring-boot-data-commons` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-data-commons/src/main/java/org/springframework/boot/data/autoconfigure/metrics/DataRepositoryMetricsAutoConfiguration.java[`DataRepositoryMetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/autoconfigure/metrics/DataRepositoryMetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-commons/src/main/java/org/springframework/boot/data/autoconfigure/web/DataWebAutoConfiguration.java[`DataWebAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/autoconfigure/web/DataWebAutoConfiguration.html[javadoc]
+|===

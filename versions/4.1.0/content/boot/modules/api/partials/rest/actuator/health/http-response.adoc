@@ -1,4 +1,46 @@
-[source,text]
+[source,http,options="nowrap"]
 ----
-该请求或响应示例由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 808
+
+{
+  "components" : {
+    "broker" : {
+      "components" : {
+        "us1" : {
+          "details" : {
+            "version" : "1.0.2"
+          },
+          "status" : "UP"
+        },
+        "us2" : {
+          "details" : {
+            "version" : "1.0.4"
+          },
+          "status" : "UP"
+        }
+      },
+      "status" : "UP"
+    },
+    "db" : {
+      "details" : {
+        "database" : "H2",
+        "validationQuery" : "isValid()"
+      },
+      "status" : "UP"
+    },
+    "diskSpace" : {
+      "details" : {
+        "total" : 154894188544,
+        "free" : 120158146560,
+        "threshold" : 10485760,
+        "path" : "/home/runner/work/spring-boot/spring-boot/documentation/spring-boot-actuator-docs/.",
+        "exists" : true
+      },
+      "status" : "UP"
+    }
+  },
+  "status" : "UP"
+}
 ----

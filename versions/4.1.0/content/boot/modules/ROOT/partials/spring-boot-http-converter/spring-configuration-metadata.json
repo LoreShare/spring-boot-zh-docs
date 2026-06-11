@@ -1,0 +1,51 @@
+{
+  "groups": [
+    {
+      "name": "spring.http.converters",
+      "type": "org.springframework.boot.http.converter.autoconfigure.HttpMessageConvertersProperties",
+      "sourceType": "org.springframework.boot.http.converter.autoconfigure.HttpMessageConvertersProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.http.converters.preferred-json-mapper",
+      "type": "java.lang.String",
+      "description": "Preferred JSON mapper to use for HTTP message conversion. By default, auto-detected according to the environment. Supported values are 'jackson', 'jackson2' (deprecated), 'gson' and 'jsonb'. When other JSON mapping libraries are present, use a custom HttpMessageConverters bean to control the preferred mapper.",
+      "defaultValue": "jackson"
+    },
+    {
+      "name": "spring.http.converters.string-encoding-charset",
+      "type": "java.nio.charset.Charset",
+      "description": "Charset to use for String conversion.",
+      "sourceType": "org.springframework.boot.http.converter.autoconfigure.HttpMessageConvertersProperties",
+      "defaultValue": "UTF-8"
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.http.converters.preferred-json-mapper",
+      "values": [
+        {
+          "value": "gson"
+        },
+        {
+          "value": "jackson"
+        },
+        {
+          "value": "jackson2"
+        },
+        {
+          "value": "jsonb"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

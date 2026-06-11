@@ -1,1 +1,1208 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.data]]
+== 数据属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.data.spring.cassandra.compression]]xref:#application-properties.data.spring.cassandra.compression[`+spring.cassandra.compression+`]
+|+++Cassandra 二进制协议支持的压缩。+++
+|`+none+`
+
+|[[application-properties.data.spring.cassandra.config]]xref:#application-properties.data.spring.cassandra.config[`+spring.cassandra.config+`]
+|+++要使用的配置文件位置。+++
+|
+
+|[[application-properties.data.spring.cassandra.connection.connect-timeout]]xref:#application-properties.data.spring.cassandra.connection.connect-timeout[`+spring.cassandra.connection.connect-timeout+`]
+|+++建立驱动程序连接时使用的超时时间。+++
+|`+5s+`
+
+|[[application-properties.data.spring.cassandra.connection.init-query-timeout]]xref:#application-properties.data.spring.cassandra.connection.init-query-timeout[`+spring.cassandra.connection.init-query-timeout+`]
+|+++用于初始化过程中（连接打开后立即执行）的内部查询的超时时间。+++
+|`+5s+`
+
+|[[application-properties.data.spring.cassandra.contact-points]]xref:#application-properties.data.spring.cassandra.contact-points[`+spring.cassandra.contact-points+`]
+|+++集群节点地址，格式为 'host:port'，或简单的 'host' 以使用配置的端口。+++
+|`+[127.0.0.1:9042]+`
+
+|[[application-properties.data.spring.cassandra.controlconnection.timeout]]xref:#application-properties.data.spring.cassandra.controlconnection.timeout[`+spring.cassandra.controlconnection.timeout+`]
+|+++控制查询的超时时间。+++
+|`+5s+`
+
+|[[application-properties.data.spring.cassandra.keyspace-name]]xref:#application-properties.data.spring.cassandra.keyspace-name[`+spring.cassandra.keyspace-name+`]
+|+++要使用的键空间名称。+++
+|
+
+|[[application-properties.data.spring.cassandra.local-datacenter]]xref:#application-properties.data.spring.cassandra.local-datacenter[`+spring.cassandra.local-datacenter+`]
+|+++被视为“本地”的数据中心。联系点应来自此数据中心。+++
+|
+
+|[[application-properties.data.spring.cassandra.password]]xref:#application-properties.data.spring.cassandra.password[`+spring.cassandra.password+`]
+|+++服务器的登录密码。+++
+|
+
+|[[application-properties.data.spring.cassandra.pool.heartbeat-interval]]xref:#application-properties.data.spring.cassandra.pool.heartbeat-interval[`+spring.cassandra.pool.heartbeat-interval+`]
+|+++心跳间隔，在此间隔后会在空闲连接上发送消息以确保连接仍然存活。+++
+|`+30s+`
+
+|[[application-properties.data.spring.cassandra.pool.idle-timeout]]xref:#application-properties.data.spring.cassandra.pool.idle-timeout[`+spring.cassandra.pool.idle-timeout+`]
+|+++空闲超时时间，超过此时间空闲连接将被移除。+++
+|`+5s+`
+
+|[[application-properties.data.spring.cassandra.port]]xref:#application-properties.data.spring.cassandra.port[`+spring.cassandra.port+`]
+|+++如果联系点未指定端口，则使用的端口。+++
+|`+9042+`
+
+|[[application-properties.data.spring.cassandra.request.consistency]]xref:#application-properties.data.spring.cassandra.request.consistency[`+spring.cassandra.request.consistency+`]
+|+++查询的一致性级别。+++
+|
+
+|[[application-properties.data.spring.cassandra.request.page-size]]xref:#application-properties.data.spring.cassandra.request.page-size[`+spring.cassandra.request.page-size+`]
+|+++单次网络往返中同时检索的行数。+++
+|`+5000+`
+
+|[[application-properties.data.spring.cassandra.request.serial-consistency]]xref:#application-properties.data.spring.cassandra.request.serial-consistency[`+spring.cassandra.request.serial-consistency+`]
+|+++查询的序列一致性级别。+++
+|
+
+|[[application-properties.data.spring.cassandra.request.throttler.drain-interval]]xref:#application-properties.data.spring.cassandra.request.throttler.drain-interval[`+spring.cassandra.request.throttler.drain-interval+`]
+|+++节流器尝试出队请求的频率。设置足够高，使每次尝试处理队列中的多个条目，但不要过多延迟请求。+++
+|
+
+|[[application-properties.data.spring.cassandra.request.throttler.max-concurrent-requests]]xref:#application-properties.data.spring.cassandra.request.throttler.max-concurrent-requests[`+spring.cassandra.request.throttler.max-concurrent-requests+`]
+|+++允许并行执行的最大请求数。+++
+|
+
+|[[application-properties.data.spring.cassandra.request.throttler.max-queue-size]]xref:#application-properties.data.spring.cassandra.request.throttler.max-queue-size[`+spring.cassandra.request.throttler.max-queue-size+`]
+|+++超过节流阈值时可以排队的最大请求数。+++
+|
+
+|[[application-properties.data.spring.cassandra.request.throttler.max-requests-per-second]]xref:#application-properties.data.spring.cassandra.request.throttler.max-requests-per-second[`+spring.cassandra.request.throttler.max-requests-per-second+`]
+|+++允许的最大请求速率。+++
+|
+
+|[[application-properties.data.spring.cassandra.request.throttler.type]]xref:#application-properties.data.spring.cassandra.request.throttler.type[`+spring.cassandra.request.throttler.type+`]
+|+++请求节流类型。+++
+|`+none+`
+
+|[[application-properties.data.spring.cassandra.request.timeout]]xref:#application-properties.data.spring.cassandra.request.timeout[`+spring.cassandra.request.timeout+`]
+|+++驱动程序等待请求完成的时间。+++
+|`+2s+`
+
+|[[application-properties.data.spring.cassandra.schema-action]]xref:#application-properties.data.spring.cassandra.schema-action[`+spring.cassandra.schema-action+`]
+|+++启动时执行的模式操作。+++
+|`+none+`
+
+|[[application-properties.data.spring.cassandra.session-name]]xref:#application-properties.data.spring.cassandra.session-name[`+spring.cassandra.session-name+`]
+|+++Cassandra 会话的名称。+++
+|
+
+|[[application-properties.data.spring.cassandra.ssl.bundle]]xref:#application-properties.data.spring.cassandra.ssl.bundle[`+spring.cassandra.ssl.bundle+`]
+|+++SSL 包名称。+++
+|
+
+|[[application-properties.data.spring.cassandra.ssl.enabled]]xref:#application-properties.data.spring.cassandra.ssl.enabled[`+spring.cassandra.ssl.enabled+`]
+|+++是否启用 SSL 支持。+++
+|
+
+|[[application-properties.data.spring.cassandra.ssl.verify-hostname]]xref:#application-properties.data.spring.cassandra.ssl.verify-hostname[`+spring.cassandra.ssl.verify-hostname+`]
+|+++是否执行主机名验证。+++
+|`+true+`
+
+|[[application-properties.data.spring.cassandra.username]]xref:#application-properties.data.spring.cassandra.username[`+spring.cassandra.username+`]
+|+++服务器的登录用户。+++
+|
+
+|[[application-properties.data.spring.couchbase.authentication.jks.location]]xref:#application-properties.data.spring.couchbase.authentication.jks.location[`+spring.couchbase.authentication.jks.location+`]
+|+++用于基于证书的集群认证的 Java KeyStore 位置。+++
+|
+
+|[[application-properties.data.spring.couchbase.authentication.jks.password]]xref:#application-properties.data.spring.couchbase.authentication.jks.password[`+spring.couchbase.authentication.jks.password+`]
+|+++用于基于证书的集群认证的 Java KeyStore 密码。+++
+|
+
+|[[application-properties.data.spring.couchbase.authentication.pem.certificates]]xref:#application-properties.data.spring.couchbase.authentication.pem.certificates[`+spring.couchbase.authentication.pem.certificates+`]
+|+++用于基于证书的集群认证的 PEM 格式证书。+++
+|
+
+|[[application-properties.data.spring.couchbase.authentication.pem.private-key]]xref:#application-properties.data.spring.couchbase.authentication.pem.private-key[`+spring.couchbase.authentication.pem.private-key+`]
+|+++用于基于证书的集群认证的 PEM 格式私钥。+++
+|
+
+|[[application-properties.data.spring.couchbase.authentication.pem.private-key-password]]xref:#application-properties.data.spring.couchbase.authentication.pem.private-key-password[`+spring.couchbase.authentication.pem.private-key-password+`]
+|+++用于基于证书的集群认证的私钥密码。+++
+|
+
+|[[application-properties.data.spring.couchbase.connection-string]]xref:#application-properties.data.spring.couchbase.connection-string[`+spring.couchbase.connection-string+`]
+|+++用于定位 Couchbase 集群的连接字符串。+++
+|
+
+|[[application-properties.data.spring.couchbase.env.io.idle-http-connection-timeout]]xref:#application-properties.data.spring.couchbase.env.io.idle-http-connection-timeout[`+spring.couchbase.env.io.idle-http-connection-timeout+`]
+|+++HTTP 连接在关闭并从池中移除之前可以保持空闲的时间长度。+++
+|`+1s+`
+
+|[[application-properties.data.spring.couchbase.env.io.max-endpoints]]xref:#application-properties.data.spring.couchbase.env.io.max-endpoints[`+spring.couchbase.env.io.max-endpoints+`]
+|+++每个节点的最大套接字数。+++
+|`+12+`
+
+|[[application-properties.data.spring.couchbase.env.io.min-endpoints]]xref:#application-properties.data.spring.couchbase.env.io.min-endpoints[`+spring.couchbase.env.io.min-endpoints+`]
+|+++每个节点的最小套接字数。+++
+|`+1+`
+
+|[[application-properties.data.spring.couchbase.env.ssl.bundle]]xref:#application-properties.data.spring.couchbase.env.ssl.bundle[`+spring.couchbase.env.ssl.bundle+`]
+|+++SSL 包名称。+++
+|
+
+|[[application-properties.data.spring.couchbase.env.ssl.enabled]]xref:#application-properties.data.spring.couchbase.env.ssl.enabled[`+spring.couchbase.env.ssl.enabled+`]
+|+++是否启用 SSL 支持。如果提供了“bundle”，则自动启用，除非另有指定。+++
+|
+
+|[[application-properties.data.spring.couchbase.env.timeouts.analytics]]xref:#application-properties.data.spring.couchbase.env.timeouts.analytics[`+spring.couchbase.env.timeouts.analytics+`]
+|+++分析服务的超时时间。+++
+|`+75s+`
+
+|[[application-properties.data.spring.couchbase.env.timeouts.connect]]xref:#application-properties.data.spring.couchbase.env.timeouts.connect[`+spring.couchbase.env.timeouts.connect+`]
+|+++Bucket 连接超时时间。+++
+|`+10s+`
+
+|[[application-properties.data.spring.couchbase.env.timeouts.disconnect]]xref:#application-properties.data.spring.couchbase.env.timeouts.disconnect[`+spring.couchbase.env.timeouts.disconnect+`]
+|+++Bucket 断开超时时间。+++
+|`+10s+`
+
+|[[application-properties.data.spring.couchbase.env.timeouts.key-value]]xref:#application-properties.data.spring.couchbase.env.timeouts.key-value[`+spring.couchbase.env.timeouts.key-value+`]
+|+++特定键值操作的超时时间。+++
+|`+2500ms+`
+
+|[[application-properties.data.spring.couchbase.env.timeouts.key-value-durable]]xref:#application-properties.data.spring.couchbase.env.timeouts.key-value-durable[`+spring.couchbase.env.timeouts.key-value-durable+`]
+|+++具有持久性级别的特定键值操作的超时时间。+++
+|`+10s+`
+
+|[[application-properties.data.spring.couchbase.env.timeouts.management]]xref:#application-properties.data.spring.couchbase.env.timeouts.management[`+spring.couchbase.env.timeouts.management+`]
+|+++管理操作的超时时间。+++
+|`+75s+`
+
+|[[application-properties.data.spring.couchbase.env.timeouts.query]]xref:#application-properties.data.spring.couchbase.env.timeouts.query[`+spring.couchbase.env.timeouts.query+`]
+|+++N1QL 查询操作的超时时间。+++
+|`+75s+`
+
+|[[application-properties.data.spring.couchbase.env.timeouts.search]]xref:#application-properties.data.spring.couchbase.env.timeouts.search[`+spring.couchbase.env.timeouts.search+`]
+|+++搜索服务的超时时间。+++
+|`+75s+`
+
+|[[application-properties.data.spring.couchbase.env.timeouts.view]]xref:#application-properties.data.spring.couchbase.env.timeouts.view[`+spring.couchbase.env.timeouts.view+`]
+|+++常规和地理空间视图操作超时。+++
+|`+75s+`
+
+|[[application-properties.data.spring.couchbase.password]]xref:#application-properties.data.spring.couchbase.password[`+spring.couchbase.password+`]
+|+++集群密码。+++
+|
+
+|[[application-properties.data.spring.couchbase.username]]xref:#application-properties.data.spring.couchbase.username[`+spring.couchbase.username+`]
+|+++集群用户名。+++
+|
+
+|[[application-properties.data.spring.data.cassandra.repositories.type]]xref:#application-properties.data.spring.data.cassandra.repositories.type[`+spring.data.cassandra.repositories.type+`]
+|+++要启用的 Cassandra 仓库类型。+++
+|`+auto+`
+
+|[[application-properties.data.spring.data.couchbase.auto-index]]xref:#application-properties.data.spring.data.couchbase.auto-index[`+spring.data.couchbase.auto-index+`]
+|+++自动创建视图和索引。使用 "@ViewIndexed"、"@N1qlPrimaryIndexed" 和 "@N1qlSecondaryIndexed" 提供的元数据。+++
+|`+false+`
+
+|[[application-properties.data.spring.data.couchbase.bucket-name]]xref:#application-properties.data.spring.data.couchbase.bucket-name[`+spring.data.couchbase.bucket-name+`]
+|+++要连接的桶的名称。+++
+|
+
+|[[application-properties.data.spring.data.couchbase.field-naming-strategy]]xref:#application-properties.data.spring.data.couchbase.field-naming-strategy[`+spring.data.couchbase.field-naming-strategy+`]
+|+++要使用的 FieldNamingStrategy 的全限定名。+++
+|
+
+|[[application-properties.data.spring.data.couchbase.repositories.type]]xref:#application-properties.data.spring.data.couchbase.repositories.type[`+spring.data.couchbase.repositories.type+`]
+|+++要启用的 Couchbase 仓库类型。+++
+|`+auto+`
+
+|[[application-properties.data.spring.data.couchbase.scope-name]]xref:#application-properties.data.spring.data.couchbase.scope-name[`+spring.data.couchbase.scope-name+`]
+|+++用于所有集合访问的作用域名称。+++
+|
+
+|[[application-properties.data.spring.data.couchbase.type-key]]xref:#application-properties.data.spring.data.couchbase.type-key[`+spring.data.couchbase.type-key+`]
+|+++使用 "MappingCouchbaseConverter" 时，存储复杂类型类型信息的字段名称。+++
+|`+_class+`
+
+|[[application-properties.data.spring.data.elasticsearch.repositories.enabled]]xref:#application-properties.data.spring.data.elasticsearch.repositories.enabled[`+spring.data.elasticsearch.repositories.enabled+`]
+|+++是否启用 Elasticsearch 仓库。+++
+|`+true+`
+
+|[[application-properties.data.spring.data.jdbc.dialect]]xref:#application-properties.data.spring.data.jdbc.dialect[`+spring.data.jdbc.dialect+`]
+|+++要使用的方言。默认情况下，通过检查数据库连接来确定方言。+++
+|
+
+|[[application-properties.data.spring.data.jdbc.repositories.enabled]]xref:#application-properties.data.spring.data.jdbc.repositories.enabled[`+spring.data.jdbc.repositories.enabled+`]
+|+++是否启用 JDBC 仓库。+++
+|`+true+`
+
+|[[application-properties.data.spring.data.jpa.repositories.bootstrap-mode]]xref:#application-properties.data.spring.data.jpa.repositories.bootstrap-mode[`+spring.data.jpa.repositories.bootstrap-mode+`]
+|+++JPA 仓库的引导模式。+++
+|`+default+`
+
+|[[application-properties.data.spring.data.jpa.repositories.enabled]]xref:#application-properties.data.spring.data.jpa.repositories.enabled[`+spring.data.jpa.repositories.enabled+`]
+|+++是否启用 JPA 仓库。+++
+|`+true+`
+
+|[[application-properties.data.spring.data.ldap.repositories.enabled]]xref:#application-properties.data.spring.data.ldap.repositories.enabled[`+spring.data.ldap.repositories.enabled+`]
+|+++是否启用 LDAP 仓库。+++
+|`+true+`
+
+|[[application-properties.data.spring.data.mongodb.auto-index-creation]]xref:#application-properties.data.spring.data.mongodb.auto-index-creation[`+spring.data.mongodb.auto-index-creation+`]
+|+++是否启用自动索引创建。+++
+|
+
+|[[application-properties.data.spring.data.mongodb.field-naming-strategy]]xref:#application-properties.data.spring.data.mongodb.field-naming-strategy[`+spring.data.mongodb.field-naming-strategy+`]
+|+++要使用的 FieldNamingStrategy 的全限定名。+++
+|
+
+|[[application-properties.data.spring.data.mongodb.gridfs.bucket]]xref:#application-properties.data.spring.data.mongodb.gridfs.bucket[`+spring.data.mongodb.gridfs.bucket+`]
+|+++GridFS 桶名称。+++
+|
+
+|[[application-properties.data.spring.data.mongodb.gridfs.database]]xref:#application-properties.data.spring.data.mongodb.gridfs.database[`+spring.data.mongodb.gridfs.database+`]
+|+++GridFS 数据库名称。+++
+|
+
+|[[application-properties.data.spring.data.mongodb.repositories.type]]xref:#application-properties.data.spring.data.mongodb.repositories.type[`+spring.data.mongodb.repositories.type+`]
+|+++要启用的 Mongo 仓库类型。+++
+|`+auto+`
+
+|[[application-properties.data.spring.data.mongodb.representation.big-decimal]]xref:#application-properties.data.spring.data.mongodb.representation.big-decimal[`+spring.data.mongodb.representation.big-decimal+`]
+|+++转换 BigDecimal 时使用的表示形式。+++
+|`+unspecified+`
+
+|[[application-properties.data.spring.data.neo4j.database]]xref:#application-properties.data.spring.data.neo4j.database[`+spring.data.neo4j.database+`]
+|+++要使用的数据库名称。默认情况下，服务器决定要使用的默认数据库。+++
+|
+
+|[[application-properties.data.spring.data.neo4j.repositories.type]]xref:#application-properties.data.spring.data.neo4j.repositories.type[`+spring.data.neo4j.repositories.type+`]
+|+++要启用的 Neo4j 仓库类型。+++
+|`+auto+`
+
+|[[application-properties.data.spring.data.r2dbc.repositories.enabled]]xref:#application-properties.data.spring.data.r2dbc.repositories.enabled[`+spring.data.r2dbc.repositories.enabled+`]
+|+++是否启用 R2DBC 仓库。+++
+|`+true+`
+
+|[[application-properties.data.spring.data.redis.client-name]]xref:#application-properties.data.spring.data.redis.client-name[`+spring.data.redis.client-name+`]
+|+++通过 CLIENT SETNAME 在连接上设置的客户端名称。+++
+|
+
+|[[application-properties.data.spring.data.redis.client-type]]xref:#application-properties.data.spring.data.redis.client-type[`+spring.data.redis.client-type+`]
+|+++要使用的客户端类型。默认情况下，根据 classpath 自动检测。+++
+|
+
+|[[application-properties.data.spring.data.redis.cluster.max-redirects]]xref:#application-properties.data.spring.data.redis.cluster.max-redirects[`+spring.data.redis.cluster.max-redirects+`]
+|+++跨集群执行命令时允许的最大重定向次数。+++
+|
+
+|[[application-properties.data.spring.data.redis.cluster.nodes]]xref:#application-properties.data.spring.data.redis.cluster.nodes[`+spring.data.redis.cluster.nodes+`]
+|+++用于引导的 "host:port" 对列表。这表示集群节点的“初始”列表，并且至少需要一个条目。+++
+|
+
+|[[application-properties.data.spring.data.redis.connect-timeout]]xref:#application-properties.data.spring.data.redis.connect-timeout[`+spring.data.redis.connect-timeout+`]
+|+++连接超时。+++
+|
+
+|[[application-properties.data.spring.data.redis.database]]xref:#application-properties.data.spring.data.redis.database[`+spring.data.redis.database+`]
+|+++连接工厂使用的数据库索引。+++
+|`+0+`
+
+|[[application-properties.data.spring.data.redis.host]]xref:#application-properties.data.spring.data.redis.host[`+spring.data.redis.host+`]
+|+++Redis 服务器主机。+++
+|`+localhost+`
+
+|[[application-properties.data.spring.data.redis.jedis.pool.enabled]]xref:#application-properties.data.spring.data.redis.jedis.pool.enabled[`+spring.data.redis.jedis.pool.enabled+`]
+|+++是否启用连接池。如果 "commons-pool2" 可用，则自动启用。使用 Jedis 时，在哨兵模式下隐式启用连接池，此设置仅适用于单节点设置。+++
+|
+
+|[[application-properties.data.spring.data.redis.jedis.pool.max-active]]xref:#application-properties.data.spring.data.redis.jedis.pool.max-active[`+spring.data.redis.jedis.pool.max-active+`]
+|+++连接池在给定时间可以分配的最大连接数。使用负值表示无限制。+++
+|`+8+`
+
+|[[application-properties.data.spring.data.redis.jedis.pool.max-idle]]xref:#application-properties.data.spring.data.redis.jedis.pool.max-idle[`+spring.data.redis.jedis.pool.max-idle+`]
+|+++连接池中最大“空闲”连接数。使用负值表示无限数量的空闲连接。+++
+|`+8+`
+
+|[[application-properties.data.spring.data.redis.jedis.pool.max-wait]]xref:#application-properties.data.spring.data.redis.jedis.pool.max-wait[`+spring.data.redis.jedis.pool.max-wait+`]
+|+++当连接池耗尽时，连接分配在抛出异常之前应阻塞的最长时间。使用负值表示无限期阻塞。+++
+|`+-1ms+`
+
+|[[application-properties.data.spring.data.redis.jedis.pool.min-idle]]xref:#application-properties.data.spring.data.redis.jedis.pool.min-idle[`+spring.data.redis.jedis.pool.min-idle+`]
+|+++连接池中要维持的最小空闲连接数目标。仅当此设置和逐出运行间隔都为正数时，此设置才有效。+++
+|`+0+`
+
+|[[application-properties.data.spring.data.redis.jedis.pool.time-between-eviction-runs]]xref:#application-properties.data.spring.data.redis.jedis.pool.time-between-eviction-runs[`+spring.data.redis.jedis.pool.time-between-eviction-runs+`]
+|+++空闲对象逐出线程运行间隔。当为正数时，启动空闲对象逐出线程，否则不执行空闲对象逐出。+++
+|
+
+|[[application-properties.data.spring.data.redis.lettuce.cluster.refresh.dynamic-refresh-sources]]xref:#application-properties.data.spring.data.redis.lettuce.cluster.refresh.dynamic-refresh-sources[`+spring.data.redis.lettuce.cluster.refresh.dynamic-refresh-sources+`]
+|+++是否发现并查询所有集群节点以获取集群拓扑。设置为 false 时，仅使用初始种子节点作为拓扑发现源。+++
+|`+true+`
+
+|[[application-properties.data.spring.data.redis.lettuce.cluster.refresh.period]]xref:#application-properties.data.spring.data.redis.lettuce.cluster.refresh.period[`+spring.data.redis.lettuce.cluster.refresh.period+`]
+|+++集群拓扑刷新周期。+++
+|
+
+|[[application-properties.data.spring.data.redis.lettuce.pool.enabled]]xref:#application-properties.data.spring.data.redis.lettuce.pool.enabled[`+spring.data.redis.lettuce.pool.enabled+`]
+|+++是否启用连接池。如果 "commons-pool2" 可用，则自动启用。使用 Jedis 时，在哨兵模式下隐式启用连接池，此设置仅适用于单节点设置。+++
+|
+
+|[[application-properties.data.spring.data.redis.lettuce.pool.max-active]]xref:#application-properties.data.spring.data.redis.lettuce.pool.max-active[`+spring.data.redis.lettuce.pool.max-active+`]
+|+++连接池在给定时间可以分配的最大连接数。使用负值表示无限制。+++
+|`+8+`
+
+|[[application-properties.data.spring.data.redis.lettuce.pool.max-idle]]xref:#application-properties.data.spring.data.redis.lettuce.pool.max-idle[`+spring.data.redis.lettuce.pool.max-idle+`]
+|+++连接池中最大“空闲”连接数。使用负值表示无限数量的空闲连接。+++
+|`+8+`
+
+|[[application-properties.data.spring.data.redis.lettuce.pool.max-wait]]xref:#application-properties.data.spring.data.redis.lettuce.pool.max-wait[`+spring.data.redis.lettuce.pool.max-wait+`]
+|+++当连接池耗尽时，连接分配在抛出异常前应阻塞的最大时间量。使用负值表示无限期阻塞。+++
+|`+-1ms+`
+
+|[[application-properties.data.spring.data.redis.lettuce.pool.min-idle]]xref:#application-properties.data.spring.data.redis.lettuce.pool.min-idle[`+spring.data.redis.lettuce.pool.min-idle+`]
+|+++池中维护的最小空闲连接数目标。此设置仅在同时设置了该值和驱逐运行间隔为正数时生效。+++
+|`+0+`
+
+|[[application-properties.data.spring.data.redis.lettuce.pool.time-between-eviction-runs]]xref:#application-properties.data.spring.data.redis.lettuce.pool.time-between-eviction-runs[`+spring.data.redis.lettuce.pool.time-between-eviction-runs+`]
+|+++空闲对象驱逐线程两次运行之间的时间间隔。当为正数时，空闲对象驱逐线程启动，否则不执行空闲对象驱逐。+++
+|
+
+|[[application-properties.data.spring.data.redis.lettuce.read-from]]xref:#application-properties.data.spring.data.redis.lettuce.read-from[`+spring.data.redis.lettuce.read-from+`]
+|+++定义从哪些 Redis 节点读取数据。+++
+|
+
+|[[application-properties.data.spring.data.redis.lettuce.shutdown-timeout]]xref:#application-properties.data.spring.data.redis.lettuce.shutdown-timeout[`+spring.data.redis.lettuce.shutdown-timeout+`]
+|+++关闭超时时间。+++
+|`+100ms+`
+
+|[[application-properties.data.spring.data.redis.listener.auto-startup]]xref:#application-properties.data.spring.data.redis.listener.auto-startup[`+spring.data.redis.listener.auto-startup+`]
+|+++是否在启动时自动启动容器。+++
+|`+true+`
+
+|[[application-properties.data.spring.data.redis.listener.recovery.delay]]xref:#application-properties.data.spring.data.redis.listener.recovery.delay[`+spring.data.redis.listener.recovery.delay+`]
+|+++恢复尝试的基本延迟。可与“乘数”结合使用，实现指数退避策略。+++
+|`+5s+`
+
+|[[application-properties.data.spring.data.redis.listener.recovery.jitter]]xref:#application-properties.data.spring.data.redis.listener.recovery.jitter[`+spring.data.redis.listener.recovery.jitter+`]
+|+++基本重试尝试的抖动值，随机从计算出的延迟中减去或加上，结果值介于 'delay - jitter' 和 'delay + jitter' 之间，但绝不会低于基本延迟或高于最大延迟。+++
+|`+0+`
+
+|[[application-properties.data.spring.data.redis.listener.recovery.max-delay]]xref:#application-properties.data.spring.data.redis.listener.recovery.max-delay[`+spring.data.redis.listener.recovery.max-delay+`]
+|+++任何重试尝试的最大延迟，限制抖动和乘数可以增加延迟的程度。+++
+|`+30s+`
+
+|[[application-properties.data.spring.data.redis.listener.recovery.max-retries]]xref:#application-properties.data.spring.data.redis.listener.recovery.max-retries[`+spring.data.redis.listener.recovery.max-retries+`]
+|+++最大恢复尝试次数。+++
+|
+
+|[[application-properties.data.spring.data.redis.listener.recovery.multiplier]]xref:#application-properties.data.spring.data.redis.listener.recovery.multiplier[`+spring.data.redis.listener.recovery.multiplier+`]
+|+++下一次重试尝试的延迟乘数，应用于前一次延迟，从初始延迟开始，也适用于每次尝试的相应抖动。默认固定延迟。+++
+|`+1+`
+
+|[[application-properties.data.spring.data.redis.listener.subscription-registration-timeout]]xref:#application-properties.data.spring.data.redis.listener.subscription-registration-timeout[`+spring.data.redis.listener.subscription-registration-timeout+`]
+|+++等待订阅变为活跃状态的最大时间量。+++
+|`+2s+`
+
+|[[application-properties.data.spring.data.redis.masterreplica.nodes]]xref:#application-properties.data.spring.data.redis.masterreplica.nodes[`+spring.data.redis.masterreplica.nodes+`]
+|+++要使用的静态“主机:端口”对列表，至少需要一个条目。+++
+|
+
+|[[application-properties.data.spring.data.redis.password]]xref:#application-properties.data.spring.data.redis.password[`+spring.data.redis.password+`]
+|+++Redis 服务器的登录密码。+++
+|
+
+|[[application-properties.data.spring.data.redis.port]]xref:#application-properties.data.spring.data.redis.port[`+spring.data.redis.port+`]
+|+++Redis 服务器端口。+++
+|`+6379+`
+
+|[[application-properties.data.spring.data.redis.repositories.enabled]]xref:#application-properties.data.spring.data.redis.repositories.enabled[`+spring.data.redis.repositories.enabled+`]
+|+++是否启用 Redis 仓库。+++
+|`+true+`
+
+|[[application-properties.data.spring.data.redis.sentinel.master]]xref:#application-properties.data.spring.data.redis.sentinel.master[`+spring.data.redis.sentinel.master+`]
+|+++Redis 服务器名称。+++
+|
+
+|[[application-properties.data.spring.data.redis.sentinel.nodes]]xref:#application-properties.data.spring.data.redis.sentinel.nodes[`+spring.data.redis.sentinel.nodes+`]
+|+++“主机:端口”对列表。+++
+|
+
+|[[application-properties.data.spring.data.redis.sentinel.password]]xref:#application-properties.data.spring.data.redis.sentinel.password[`+spring.data.redis.sentinel.password+`]
+|+++用于向哨兵进行身份验证的密码。+++
+|
+
+|[[application-properties.data.spring.data.redis.sentinel.username]]xref:#application-properties.data.spring.data.redis.sentinel.username[`+spring.data.redis.sentinel.username+`]
+|+++用于向哨兵进行身份验证的登录用户名。+++
+|
+
+|[[application-properties.data.spring.data.redis.ssl.bundle]]xref:#application-properties.data.spring.data.redis.ssl.bundle[`+spring.data.redis.ssl.bundle+`]
+|+++SSL 包名称。+++
+|
+
+|[[application-properties.data.spring.data.redis.ssl.enabled]]xref:#application-properties.data.spring.data.redis.ssl.enabled[`+spring.data.redis.ssl.enabled+`]
+|+++是否启用 SSL 支持。如果提供了“bundle”，则自动启用，除非另有指定。+++
+|
+
+|[[application-properties.data.spring.data.redis.timeout]]xref:#application-properties.data.spring.data.redis.timeout[`+spring.data.redis.timeout+`]
+|+++读取超时时间。+++
+|
+
+|[[application-properties.data.spring.data.redis.url]]xref:#application-properties.data.spring.data.redis.url[`+spring.data.redis.url+`]
+|+++连接 URL。覆盖主机、端口、用户名、密码和数据库。示例：redis://user:password@example.com:6379/8+++
+|
+
+|[[application-properties.data.spring.data.redis.username]]xref:#application-properties.data.spring.data.redis.username[`+spring.data.redis.username+`]
+|+++Redis 服务器的登录用户名。+++
+|
+
+|[[application-properties.data.spring.data.rest.base-path]]xref:#application-properties.data.spring.data.rest.base-path[`+spring.data.rest.base-path+`]
+|+++Spring Data REST 用于暴露仓库资源的基础路径。+++
+|
+
+|[[application-properties.data.spring.data.rest.default-media-type]]xref:#application-properties.data.spring.data.rest.default-media-type[`+spring.data.rest.default-media-type+`]
+|+++未指定时默认使用的内容类型。+++
+|
+
+|[[application-properties.data.spring.data.rest.default-page-size]]xref:#application-properties.data.spring.data.rest.default-page-size[`+spring.data.rest.default-page-size+`]
+|+++默认页面大小。+++
+|
+
+|[[application-properties.data.spring.data.rest.detection-strategy]]xref:#application-properties.data.spring.data.rest.detection-strategy[`+spring.data.rest.detection-strategy+`]
+|+++用于确定哪些仓库被暴露的策略。+++
+|`+default+`
+
+|[[application-properties.data.spring.data.rest.enable-enum-translation]]xref:#application-properties.data.spring.data.rest.enable-enum-translation[`+spring.data.rest.enable-enum-translation+`]
+|+++是否通过 Spring Data REST 默认资源包启用枚举值翻译。+++
+|
+
+|[[application-properties.data.spring.data.rest.limit-param-name]]xref:#application-properties.data.spring.data.rest.limit-param-name[`+spring.data.rest.limit-param-name+`]
+|+++指示一次返回多少结果的 URL 查询字符串参数名称。+++
+|
+
+|[[application-properties.data.spring.data.rest.max-page-size]]xref:#application-properties.data.spring.data.rest.max-page-size[`+spring.data.rest.max-page-size+`]
+|+++页面最大大小。+++
+|
+
+|[[application-properties.data.spring.data.rest.page-param-name]]xref:#application-properties.data.spring.data.rest.page-param-name[`+spring.data.rest.page-param-name+`]
+|+++指示返回哪一页的 URL 查询字符串参数名称。+++
+|
+
+|[[application-properties.data.spring.data.rest.return-body-on-create]]xref:#application-properties.data.spring.data.rest.return-body-on-create[`+spring.data.rest.return-body-on-create+`]
+|+++创建实体后是否返回响应体。+++
+|
+
+|[[application-properties.data.spring.data.rest.return-body-on-delete]]xref:#application-properties.data.spring.data.rest.return-body-on-delete[`+spring.data.rest.return-body-on-delete+`]
+|+++删除实体后是否返回响应体。+++
+|
+
+|[[application-properties.data.spring.data.rest.return-body-on-update]]xref:#application-properties.data.spring.data.rest.return-body-on-update[`+spring.data.rest.return-body-on-update+`]
+|+++更新实体后是否返回响应体。+++
+|
+
+|[[application-properties.data.spring.data.rest.sort-param-name]]xref:#application-properties.data.spring.data.rest.sort-param-name[`+spring.data.rest.sort-param-name+`]
+|+++指示结果排序方向的 URL 查询字符串参数名称。+++
+|
+
+|[[application-properties.data.spring.data.web.pageable.default-page-size]]xref:#application-properties.data.spring.data.web.pageable.default-page-size[`+spring.data.web.pageable.default-page-size+`]
+|+++默认页面大小。+++
+|`+20+`
+
+|[[application-properties.data.spring.data.web.pageable.max-page-size]]xref:#application-properties.data.spring.data.web.pageable.max-page-size[`+spring.data.web.pageable.max-page-size+`]
+|+++可接受的最大页面大小。+++
+|`+2000+`
+
+|[[application-properties.data.spring.data.web.pageable.one-indexed-parameters]]xref:#application-properties.data.spring.data.web.pageable.one-indexed-parameters[`+spring.data.web.pageable.one-indexed-parameters+`]
+|+++是否暴露并假定基于 1 的页码索引。默认为“false”，意味着请求中的页码 0 对应第一页。+++
+|`+false+`
+
+|[[application-properties.data.spring.data.web.pageable.page-parameter]]xref:#application-properties.data.spring.data.web.pageable.page-parameter[`+spring.data.web.pageable.page-parameter+`]
+|+++页码参数名称。+++
+|`+page+`
+
+|[[application-properties.data.spring.data.web.pageable.prefix]]xref:#application-properties.data.spring.data.web.pageable.prefix[`+spring.data.web.pageable.prefix+`]
+|+++要添加到页码和页面大小参数前的通用前缀。+++
+|
+
+|[[application-properties.data.spring.data.web.pageable.qualifier-delimiter]]xref:#application-properties.data.spring.data.web.pageable.qualifier-delimiter[`+spring.data.web.pageable.qualifier-delimiter+`]
+|+++限定符与实际页码和大小属性之间使用的分隔符。+++
+|`+_+`
+
+|[[application-properties.data.spring.data.web.pageable.serialization-mode]]xref:#application-properties.data.spring.data.web.pageable.serialization-mode[`+spring.data.web.pageable.serialization-mode+`]
+|+++配置如何渲染 Spring Data Pageable 实例。+++
+|`+direct+`
+
+|[[application-properties.data.spring.data.web.pageable.size-parameter]]xref:#application-properties.data.spring.data.web.pageable.size-parameter[`+spring.data.web.pageable.size-parameter+`]
+|+++页面大小参数名称。+++
+|`+size+`
+
+|[[application-properties.data.spring.data.web.sort.sort-parameter]]xref:#application-properties.data.spring.data.web.sort.sort-parameter[`+spring.data.web.sort.sort-parameter+`]
+|+++排序参数名称。+++
+|`+sort+`
+
+|[[application-properties.data.spring.datasource.connection-fetch]]xref:#application-properties.data.spring.datasource.connection-fetch[`+spring.datasource.connection-fetch+`]
+|+++是否将自动配置的 DataSource 包装在一个代理中，该代理尽可能晚地获取 JDBC 连接。+++
+|`+eager+`
+
+|[[application-properties.data.spring.datasource.dbcp2]]xref:#application-properties.data.spring.datasource.dbcp2[`+spring.datasource.dbcp2.abandoned-usage-tracking+` +
+`+spring.datasource.dbcp2.access-to-underlying-connection-allowed+` +
+`+spring.datasource.dbcp2.auto-commit-on-return+` +
+`+spring.datasource.dbcp2.cache-state+` +
+`+spring.datasource.dbcp2.clear-statement-pool-on-return+` +
+`+spring.datasource.dbcp2.connection-factory-class-name+` +
+`+spring.datasource.dbcp2.connection-init-sqls+` +
+`+spring.datasource.dbcp2.default-auto-commit+` +
+`+spring.datasource.dbcp2.default-catalog+` +
+`+spring.datasource.dbcp2.default-read-only+` +
+`+spring.datasource.dbcp2.default-schema+` +
+`+spring.datasource.dbcp2.default-transaction-isolation+` +
+`+spring.datasource.dbcp2.disconnection-ignore-sql-codes+` +
+`+spring.datasource.dbcp2.disconnection-sql-codes+` +
+`+spring.datasource.dbcp2.driver-class-name+` +
+`+spring.datasource.dbcp2.duration-between-eviction-runs+` +
+`+spring.datasource.dbcp2.eviction-policy-class-name+` +
+`+spring.datasource.dbcp2.fast-fail-validation+` +
+`+spring.datasource.dbcp2.initial-size+` +
+`+spring.datasource.dbcp2.jmx-name+` +
+`+spring.datasource.dbcp2.lifo+` +
+`+spring.datasource.dbcp2.log-abandoned+` +
+`+spring.datasource.dbcp2.log-expired-connections+` +
+`+spring.datasource.dbcp2.login-timeout+` +
+`+spring.datasource.dbcp2.max-idle+` +
+`+spring.datasource.dbcp2.max-open-prepared-statements+` +
+`+spring.datasource.dbcp2.max-total+` +
+`+spring.datasource.dbcp2.min-idle+` +
+`+spring.datasource.dbcp2.num-tests-per-eviction-run+` +
+`+spring.datasource.dbcp2.password+` +
+`+spring.datasource.dbcp2.pool-prepared-statements+` +
+`+spring.datasource.dbcp2.remove-abandoned-on-borrow+` +
+`+spring.datasource.dbcp2.remove-abandoned-on-maintenance+` +
+`+spring.datasource.dbcp2.rollback-on-return+` +
+`+spring.datasource.dbcp2.test-on-borrow+` +
+`+spring.datasource.dbcp2.test-on-create+` +
+`+spring.datasource.dbcp2.test-on-return+` +
+`+spring.datasource.dbcp2.test-while-idle+` +
+`+spring.datasource.dbcp2.url+` +
+`+spring.datasource.dbcp2.username+` +
+`+spring.datasource.dbcp2.validation-query+` +
+]
+|+++Commons DBCP2 特定设置，绑定到 DBCP2 的 BasicDataSource 实例。+++
+|
+
+|[[application-properties.data.spring.datasource.driver-class-name]]xref:#application-properties.data.spring.datasource.driver-class-name[`+spring.datasource.driver-class-name+`]
+|+++JDBC 驱动程序的完全限定名称。默认根据 URL 自动检测。+++
+|
+
+|[[application-properties.data.spring.datasource.embedded-database-connection]]xref:#application-properties.data.spring.datasource.embedded-database-connection[`+spring.datasource.embedded-database-connection+`]
+|+++嵌入式数据库的连接详情。默认为 classpath 上最合适的可用嵌入式数据库。+++
+|
+
+|[[application-properties.data.spring.datasource.generate-unique-name]]xref:#application-properties.data.spring.datasource.generate-unique-name[`+spring.datasource.generate-unique-name+`]
+|+++是否生成随机数据源名称。+++
+|`+true+`
+
+|[[application-properties.data.spring.datasource.hikari]]xref:#application-properties.data.spring.datasource.hikari[`+spring.datasource.hikari.allow-pool-suspension+` +
+`+spring.datasource.hikari.auto-commit+` +
+`+spring.datasource.hikari.catalog+` +
+`+spring.datasource.hikari.connection-init-sql+` +
+`+spring.datasource.hikari.connection-test-query+` +
+`+spring.datasource.hikari.connection-timeout+` +
+`+spring.datasource.hikari.credentials-provider-class-name+` +
+`+spring.datasource.hikari.data-source-class-name+` +
+`+spring.datasource.hikari.data-source-j-n-d-i+` +
+`+spring.datasource.hikari.data-source-properties+` +
+`+spring.datasource.hikari.driver-class-name+` +
+`+spring.datasource.hikari.exception-override-class-name+` +
+`+spring.datasource.hikari.health-check-properties+` +
+`+spring.datasource.hikari.idle-timeout+` +
+`+spring.datasource.hikari.initialization-fail-timeout+` +
+`+spring.datasource.hikari.isolate-internal-queries+` +
+`+spring.datasource.hikari.jdbc-url+` +
+`+spring.datasource.hikari.keepalive-time+` +
+`+spring.datasource.hikari.leak-detection-threshold+` +
+`+spring.datasource.hikari.login-timeout+` +
+`+spring.datasource.hikari.max-lifetime+` +
+`+spring.datasource.hikari.maximum-pool-size+` +
+`+spring.datasource.hikari.minimum-idle+` +
+`+spring.datasource.hikari.password+` +
+`+spring.datasource.hikari.pool-name+` +
+`+spring.datasource.hikari.read-only+` +
+`+spring.datasource.hikari.register-mbeans+` +
+`+spring.datasource.hikari.schema+` +
+`+spring.datasource.hikari.transaction-isolation+` +
+`+spring.datasource.hikari.username+` +
+`+spring.datasource.hikari.validation-timeout+` +
+]
+|+++Hikari 特定设置，绑定到 Hikari 的 HikariDataSource 实例。+++
+|
+
+|[[application-properties.data.spring.datasource.jndi-name]]xref:#application-properties.data.spring.datasource.jndi-name[`+spring.datasource.jndi-name+`]
+|+++数据源的 JNDI 位置。设置后，将忽略 Class、url、username 和 password。+++
+|
+
+|[[application-properties.data.spring.datasource.name]]xref:#application-properties.data.spring.datasource.name[`+spring.datasource.name+`]
+|+++当“generate-unique-name”为 false 时使用的数据源名称。使用嵌入式数据库时默认为“testdb”，否则为 null。+++
+|
+
+|[[application-properties.data.spring.datasource.oracleucp]]xref:#application-properties.data.spring.datasource.oracleucp[`+spring.datasource.oracleucp.abandoned-connection-timeout+` +
+`+spring.datasource.oracleucp.commit-on-connection-return+` +
+`+spring.datasource.oracleucp.connection-affinity-callback+` +
+`+spring.datasource.oracleucp.connection-creation-consumer+` +
+`+spring.datasource.oracleucp.connection-factory-class-name+` +
+`+spring.datasource.oracleucp.connection-factory-properties+` +
+`+spring.datasource.oracleucp.connection-harvest-max-count+` +
+`+spring.datasource.oracleucp.connection-harvest-trigger-count+` +
+`+spring.datasource.oracleucp.connection-initialization-callback+` +
+`+spring.datasource.oracleucp.connection-labeling-callback+` +
+`+spring.datasource.oracleucp.connection-labeling-high-cost+` +
+`+spring.datasource.oracleucp.connection-pool-name+` +
+`+spring.datasource.oracleucp.connection-properties+` +
+`+spring.datasource.oracleucp.connection-repurpose-threshold+` +
+`+spring.datasource.oracleucp.connection-validation-timeout+` +
+`+spring.datasource.oracleucp.connection-wait-duration+` +
+`+spring.datasource.oracleucp.connection-wait-timeout-while-service-down+` +
+`+spring.datasource.oracleucp.create-connection-in-borrow-thread+` +
+`+spring.datasource.oracleucp.data-source-name+` +
+`+spring.datasource.oracleucp.database-name+` +
+`+spring.datasource.oracleucp.description+` +
+`+spring.datasource.oracleucp.fast-connection-failover-enabled+` +
+`+spring.datasource.oracleucp.high-cost-connection-reuse-threshold+` +
+`+spring.datasource.oracleucp.inactive-connection-timeout+` +
+`+spring.datasource.oracleucp.initial-pool-size+` +
+`+spring.datasource.oracleucp.login-timeout+` +
+`+spring.datasource.oracleucp.max-connection-reuse-count+` +
+`+spring.datasource.oracleucp.max-connection-reuse-time+` +
+`+spring.datasource.oracleucp.max-connections-per-shard+` +
+`+spring.datasource.oracleucp.max-idle-time+` +
+`+spring.datasource.oracleucp.max-pool-size+` +
+`+spring.datasource.oracleucp.max-statements+` +
+`+spring.datasource.oracleucp.min-idle+` +
+`+spring.datasource.oracleucp.min-pool-size+` +
+`+spring.datasource.oracleucp.network-protocol+` +
+`+spring.datasource.oracleucp.o-n-s-configuration+` +
+`+spring.datasource.oracleucp.password+` +
+`+spring.datasource.oracleucp.pdb-roles+` +
+`+spring.datasource.oracleucp.port-number+` +
+`+spring.datasource.oracleucp.property-cycle+` +
+`+spring.datasource.oracleucp.query-timeout+` +
+`+spring.datasource.oracleucp.read-only-instance-allowed+` +
+`+spring.datasource.oracleucp.s-q-l-for-validate-connection+` +
+`+spring.datasource.oracleucp.seconds-to-trust-idle-connection+` +
+`+spring.datasource.oracleucp.server-name+` +
+`+spring.datasource.oracleucp.sharding-mode+` +
+`+spring.datasource.oracleucp.time-to-live-connection-timeout+` +
+`+spring.datasource.oracleucp.timeout-check-interval+` +
+`+spring.datasource.oracleucp.u-r-l+` +
+`+spring.datasource.oracleucp.user+` +
+`+spring.datasource.oracleucp.validate-connection-on-borrow+` +
+]
+|+++Oracle UCP 特定设置，绑定到 Oracle UCP 的 PoolDataSource 实例。+++
+|
+
+|[[application-properties.data.spring.datasource.password]]xref:#application-properties.data.spring.datasource.password[`+spring.datasource.password+`]
+|+++数据库的登录密码。+++
+|
+
+|[[application-properties.data.spring.datasource.tomcat]]xref:#application-properties.data.spring.datasource.tomcat[`+spring.datasource.tomcat.abandon-when-percentage-full+` +
+`+spring.datasource.tomcat.access-to-underlying-connection-allowed+` +
+`+spring.datasource.tomcat.alternate-username-allowed+` +
+`+spring.datasource.tomcat.commit-on-return+` +
+`+spring.datasource.tomcat.connection-properties+` +
+`+spring.datasource.tomcat.data-source-j-n-d-i+` +
+`+spring.datasource.tomcat.db-properties+` +
+`+spring.datasource.tomcat.default-auto-commit+` +
+`+spring.datasource.tomcat.default-catalog+` +
+`+spring.datasource.tomcat.default-read-only+` +
+`+spring.datasource.tomcat.default-transaction-isolation+` +
+`+spring.datasource.tomcat.driver-class-name+` +
+`+spring.datasource.tomcat.fair-queue+` +
+`+spring.datasource.tomcat.ignore-exception-on-pre-load+` +
+`+spring.datasource.tomcat.init-s-q-l+` +
+`+spring.datasource.tomcat.initial-size+` +
+`+spring.datasource.tomcat.jdbc-interceptors+` +
+`+spring.datasource.tomcat.jmx-enabled+` +
+`+spring.datasource.tomcat.log-abandoned+` +
+`+spring.datasource.tomcat.log-validation-errors+` +
+`+spring.datasource.tomcat.login-timeout+` +
+`+spring.datasource.tomcat.max-active+` +
+`+spring.datasource.tomcat.max-age+` +
+`+spring.datasource.tomcat.max-idle+` +
+`+spring.datasource.tomcat.max-wait+` +
+`+spring.datasource.tomcat.min-evictable-idle-time-millis+` +
+`+spring.datasource.tomcat.min-idle+` +
+`+spring.datasource.tomcat.name+` +
+`+spring.datasource.tomcat.num-tests-per-eviction-run+` +
+`+spring.datasource.tomcat.password+` +
+`+spring.datasource.tomcat.propagate-interrupt-state+` +
+`+spring.datasource.tomcat.remove-abandoned+` +
+`+spring.datasource.tomcat.remove-abandoned-timeout+` +
+`+spring.datasource.tomcat.rollback-on-return+` +
+`+spring.datasource.tomcat.suspect-timeout+` +
+`+spring.datasource.tomcat.test-on-borrow+` +
+`+spring.datasource.tomcat.test-on-connect+` +
+`+spring.datasource.tomcat.test-on-return+` +
+`+spring.datasource.tomcat.test-while-idle+` +
+`+spring.datasource.tomcat.time-between-eviction-runs-millis+` +
+`+spring.datasource.tomcat.url+` +
+`+spring.datasource.tomcat.use-disposable-connection-facade+` +
+`+spring.datasource.tomcat.use-equals+` +
+`+spring.datasource.tomcat.use-lock+` +
+`+spring.datasource.tomcat.use-statement-facade+` +
+`+spring.datasource.tomcat.username+` +
+`+spring.datasource.tomcat.validation-interval+` +
+`+spring.datasource.tomcat.validation-query+` +
+`+spring.datasource.tomcat.validation-query-timeout+` +
+`+spring.datasource.tomcat.validator-class-name+` +
+]
+|+++Tomcat 数据源特定设置，绑定到 Tomcat JDBC 的 DataSource 实例。+++
+|
+
+|[[application-properties.data.spring.datasource.type]]xref:#application-properties.data.spring.datasource.type[`+spring.datasource.type+`]
+|+++要使用的 DataSource 实现的完全限定名。默认情况下，会从 classpath 自动检测连接池实现。+++
+|
+
+|[[application-properties.data.spring.datasource.url]]xref:#application-properties.data.spring.datasource.url[`+spring.datasource.url+`]
+|+++数据库的 JDBC URL。+++
+|
+
+|[[application-properties.data.spring.datasource.username]]xref:#application-properties.data.spring.datasource.username[`+spring.datasource.username+`]
+|+++数据库的 JDBC URL。+++
+|
+
+|[[application-properties.data.spring.datasource.xa.data-source-class-name]]xref:#application-properties.data.spring.datasource.xa.data-source-class-name[`+spring.datasource.xa.data-source-class-name+`]
+|+++数据库的登录用户名。+++
+|
+
+|[[application-properties.data.spring.datasource.xa.properties]]xref:#application-properties.data.spring.datasource.xa.properties[`+spring.datasource.xa.properties.*+`]
+|+++XA 数据源的完全限定名。+++
+|
+
+|[[application-properties.data.spring.elasticsearch.api-key]]xref:#application-properties.data.spring.elasticsearch.api-key[`+spring.elasticsearch.api-key+`]
+|+++传递给 XA 数据源的属性。+++
+|
+
+|[[application-properties.data.spring.elasticsearch.connection-timeout]]xref:#application-properties.data.spring.elasticsearch.connection-timeout[`+spring.elasticsearch.connection-timeout+`]
+|+++用于 Elasticsearch 身份验证的 API 密钥。+++
+|`+1s+`
+
+|[[application-properties.data.spring.elasticsearch.password]]xref:#application-properties.data.spring.elasticsearch.password[`+spring.elasticsearch.password+`]
+|+++与 Elasticsearch 通信时使用的连接超时时间。+++
+|
+
+|[[application-properties.data.spring.elasticsearch.path-prefix]]xref:#application-properties.data.spring.elasticsearch.path-prefix[`+spring.elasticsearch.path-prefix+`]
+|+++用于 Elasticsearch 身份验证的密码。+++
+|
+
+|[[application-properties.data.spring.elasticsearch.restclient.sniffer.delay-after-failure]]xref:#application-properties.data.spring.elasticsearch.restclient.sniffer.delay-after-failure[`+spring.elasticsearch.restclient.sniffer.delay-after-failure+`]
+|+++添加到发送给 Elasticsearch 的每个请求路径的前缀。+++
+|`+1m+`
+
+|[[application-properties.data.spring.elasticsearch.restclient.sniffer.enabled]]xref:#application-properties.data.spring.elasticsearch.restclient.sniffer.enabled[`+spring.elasticsearch.restclient.sniffer.enabled+`]
+|+++失败后计划的嗅探执行的延迟时间。+++
+|`+false+`
+
+|[[application-properties.data.spring.elasticsearch.restclient.sniffer.interval]]xref:#application-properties.data.spring.elasticsearch.restclient.sniffer.interval[`+spring.elasticsearch.restclient.sniffer.interval+`]
+|+++是否启用嗅探器。+++
+|`+5m+`
+
+|[[application-properties.data.spring.elasticsearch.restclient.ssl.bundle]]xref:#application-properties.data.spring.elasticsearch.restclient.ssl.bundle[`+spring.elasticsearch.restclient.ssl.bundle+`]
+|+++连续普通嗅探执行之间的间隔。+++
+|
+
+|[[application-properties.data.spring.elasticsearch.restclient.ssl.verify-hostname]]xref:#application-properties.data.spring.elasticsearch.restclient.ssl.verify-hostname[`+spring.elasticsearch.restclient.ssl.verify-hostname+`]
+|+++SSL 包名称。+++
+|`+true+`
+
+|[[application-properties.data.spring.elasticsearch.socket-keep-alive]]xref:#application-properties.data.spring.elasticsearch.socket-keep-alive[`+spring.elasticsearch.socket-keep-alive+`]
+|+++是否执行主机名验证。+++
+|`+true+`
+
+|[[application-properties.data.spring.elasticsearch.socket-timeout]]xref:#application-properties.data.spring.elasticsearch.socket-timeout[`+spring.elasticsearch.socket-timeout+`]
+|+++是否在客户端和 Elasticsearch 之间启用 socket keep alive。+++
+|`+30s+`
+
+|[[application-properties.data.spring.elasticsearch.uris]]xref:#application-properties.data.spring.elasticsearch.uris[`+spring.elasticsearch.uris+`]
+|+++与 Elasticsearch 通信时使用的 socket 超时时间。+++
+|`+[http://localhost:9200]+`
+
+|[[application-properties.data.spring.elasticsearch.username]]xref:#application-properties.data.spring.elasticsearch.username[`+spring.elasticsearch.username+`]
+|+++要使用的 Elasticsearch 实例列表。+++
+|
+
+|[[application-properties.data.spring.h2.console.enabled]]xref:#application-properties.data.spring.h2.console.enabled[`+spring.h2.console.enabled+`]
+|+++用于 Elasticsearch 身份验证的用户名。+++
+|`+false+`
+
+|[[application-properties.data.spring.h2.console.path]]xref:#application-properties.data.spring.h2.console.path[`+spring.h2.console.path+`]
+|+++是否启用控制台。+++
+|`+/h2-console+`
+
+|[[application-properties.data.spring.h2.console.settings.trace]]xref:#application-properties.data.spring.h2.console.settings.trace[`+spring.h2.console.settings.trace+`]
+|+++控制台可用的路径。+++
+|`+false+`
+
+|[[application-properties.data.spring.h2.console.settings.web-admin-password]]xref:#application-properties.data.spring.h2.console.settings.web-admin-password[`+spring.h2.console.settings.web-admin-password+`]
+|+++是否启用跟踪输出。+++
+|
+
+|[[application-properties.data.spring.h2.console.settings.web-allow-others]]xref:#application-properties.data.spring.h2.console.settings.web-allow-others[`+spring.h2.console.settings.web-allow-others+`]
+|+++访问 H2 控制台首选项和工具的密码。+++
+|`+false+`
+
+|[[application-properties.data.spring.jdbc.template.fetch-size]]xref:#application-properties.data.spring.jdbc.template.fetch-size[`+spring.jdbc.template.fetch-size+`]
+|+++是否启用远程访问。+++
+|`+-1+`
+
+|[[application-properties.data.spring.jdbc.template.ignore-warnings]]xref:#application-properties.data.spring.jdbc.template.ignore-warnings[`+spring.jdbc.template.ignore-warnings+`]
+|+++当需要更多行时，应从数据库获取的行数。使用 -1 使用 JDBC 驱动程序的默认配置。+++
+|`+true+`
+
+|[[application-properties.data.spring.jdbc.template.max-rows]]xref:#application-properties.data.spring.jdbc.template.max-rows[`+spring.jdbc.template.max-rows+`]
+|+++是否忽略 JDBC 语句警告（SQLWarning）。设置为 false 时，抛出 SQLWarningException。+++
+|`+-1+`
+
+|[[application-properties.data.spring.jdbc.template.query-timeout]]xref:#application-properties.data.spring.jdbc.template.query-timeout[`+spring.jdbc.template.query-timeout+`]
+|+++最大行数。使用 -1 使用 JDBC 驱动程序的默认配置。+++
+|
+
+|[[application-properties.data.spring.jdbc.template.results-map-case-insensitive]]xref:#application-properties.data.spring.jdbc.template.results-map-case-insensitive[`+spring.jdbc.template.results-map-case-insensitive+`]
+|+++查询超时时间。默认使用 JDBC 驱动程序的默认配置。如果未指定持续时间后缀，则使用秒。+++
+|`+false+`
+
+|[[application-properties.data.spring.jdbc.template.skip-results-processing]]xref:#application-properties.data.spring.jdbc.template.skip-results-processing[`+spring.jdbc.template.skip-results-processing+`]
+|+++执行 CallableStatement 是否将结果返回到使用不区分大小写的参数名称的 Map 中。+++
+|`+false+`
+
+|[[application-properties.data.spring.jdbc.template.skip-undeclared-results]]xref:#application-properties.data.spring.jdbc.template.skip-undeclared-results[`+spring.jdbc.template.skip-undeclared-results+`]
+|+++是否应跳过结果处理。当我们知道没有返回结果时，可用于优化可调用语句处理。+++
+|`+false+`
+
+|[[application-properties.data.spring.jooq.config]]xref:#application-properties.data.spring.jooq.config[`+spring.jooq.config+`]
+|+++是否应跳过未声明的结果。+++
+|
+
+|[[application-properties.data.spring.jooq.sql-dialect]]xref:#application-properties.data.spring.jooq.sql-dialect[`+spring.jooq.sql-dialect+`]
+|+++jOOQ 配置文件的位置。+++
+|
+
+|[[application-properties.data.spring.jpa.bootstrap]]xref:#application-properties.data.spring.jpa.bootstrap[`+spring.jpa.bootstrap+`]
+|+++要使用的 SQL 方言。默认自动检测。+++
+|`+default+`
+
+|[[application-properties.data.spring.jpa.database]]xref:#application-properties.data.spring.jpa.database[`+spring.jpa.database+`]
+|+++要使用的引导方法。+++
+|
+
+|[[application-properties.data.spring.jpa.database-platform]]xref:#application-properties.data.spring.jpa.database-platform[`+spring.jpa.database-platform+`]
+|+++要操作的目标数据库，默认自动检测。也可以使用 "databasePlatform" 属性设置。+++
+|
+
+|[[application-properties.data.spring.jpa.defer-datasource-initialization]]xref:#application-properties.data.spring.jpa.defer-datasource-initialization[`+spring.jpa.defer-datasource-initialization+`]
+|+++要操作的目标数据库名称，默认自动检测。也可以使用 "Database" 枚举设置。+++
+|`+false+`
+
+|[[application-properties.data.spring.jpa.generate-ddl]]xref:#application-properties.data.spring.jpa.generate-ddl[`+spring.jpa.generate-ddl+`]
+|+++是否延迟 DataSource 初始化，直到所有 EntityManagerFactory beans 创建并初始化之后。+++
+|`+false+`
+
+|[[application-properties.data.spring.jpa.hibernate.ddl-auto]]xref:#application-properties.data.spring.jpa.hibernate.ddl-auto[`+spring.jpa.hibernate.ddl-auto+`]
+|+++是否在启动时初始化 schema。+++
+|
+
+|[[application-properties.data.spring.jpa.hibernate.naming.implicit-strategy]]xref:#application-properties.data.spring.jpa.hibernate.naming.implicit-strategy[`+spring.jpa.hibernate.naming.implicit-strategy+`]
+|+++DDL 模式。这实际上是 "hibernate.hbm2ddl.auto" 属性的快捷方式。当使用嵌入式数据库且未检测到 schema 管理器时，默认为 "create-drop"。否则，默认为 "none"。+++
+|
+
+|[[application-properties.data.spring.jpa.hibernate.naming.physical-strategy]]xref:#application-properties.data.spring.jpa.hibernate.naming.physical-strategy[`+spring.jpa.hibernate.naming.physical-strategy+`]
+|+++隐式命名策略的完全限定名。+++
+|
+
+|[[application-properties.data.spring.jpa.mapping-resources]]xref:#application-properties.data.spring.jpa.mapping-resources[`+spring.jpa.mapping-resources+`]
+|+++物理命名策略的完全限定名。+++
+|
+
+|[[application-properties.data.spring.jpa.open-in-view]]xref:#application-properties.data.spring.jpa.open-in-view[`+spring.jpa.open-in-view+`]
+|+++映射资源（相当于 persistence.xml 中的 "mapping-file" 条目）。+++
+|`+true+`
+
+|[[application-properties.data.spring.jpa.properties]]xref:#application-properties.data.spring.jpa.properties[`+spring.jpa.properties.*+`]
+|+++注册 OpenEntityManagerInViewInterceptor。将 JPA EntityManager 绑定到线程，用于整个请求处理过程。+++
+|
+
+|[[application-properties.data.spring.jpa.show-sql]]xref:#application-properties.data.spring.jpa.show-sql[`+spring.jpa.show-sql+`]
+|+++要设置在 JPA 提供程序上的其他原生属性。+++
+|`+false+`
+
+|[[application-properties.data.spring.ldap.anonymous-read-only]]xref:#application-properties.data.spring.ldap.anonymous-read-only[`+spring.ldap.anonymous-read-only+`]
+|+++是否启用 SQL 语句的日志记录。+++
+|
+
+|[[application-properties.data.spring.ldap.base]]xref:#application-properties.data.spring.ldap.base[`+spring.ldap.base+`]
+|+++只读操作是否应使用匿名环境。默认禁用，除非设置了用户名。+++
+|
+
+|[[application-properties.data.spring.ldap.base-environment]]xref:#application-properties.data.spring.ldap.base-environment[`+spring.ldap.base-environment.*+`]
+|+++所有操作应源自的基本后缀。+++
+|
+
+|[[application-properties.data.spring.ldap.embedded.base-dn]]xref:#application-properties.data.spring.ldap.embedded.base-dn[`+spring.ldap.embedded.base-dn+`]
+|+++基础 DN 列表。+++
+|
+
+|[[application-properties.data.spring.ldap.embedded.credential.password]]xref:#application-properties.data.spring.ldap.embedded.credential.password[`+spring.ldap.embedded.credential.password+`]
+|+++嵌入式 LDAP 密码。+++
+|
+
+|[[application-properties.data.spring.ldap.embedded.credential.username]]xref:#application-properties.data.spring.ldap.embedded.credential.username[`+spring.ldap.embedded.credential.username+`]
+|+++嵌入式 LDAP 用户名。+++
+|
+
+|[[application-properties.data.spring.ldap.embedded.ldif]]xref:#application-properties.data.spring.ldap.embedded.ldif[`+spring.ldap.embedded.ldif+`]
+|+++模式（LDIF）脚本资源引用。+++
+|`+classpath:schema.ldif+`
+
+|[[application-properties.data.spring.ldap.embedded.port]]xref:#application-properties.data.spring.ldap.embedded.port[`+spring.ldap.embedded.port+`]
+|+++嵌入式 LDAP 端口。+++
+|`+0+`
+
+|[[application-properties.data.spring.ldap.embedded.ssl.bundle]]xref:#application-properties.data.spring.ldap.embedded.ssl.bundle[`+spring.ldap.embedded.ssl.bundle+`]
+|+++SSL 捆绑包名称。+++
+|
+
+|[[application-properties.data.spring.ldap.embedded.ssl.enabled]]xref:#application-properties.data.spring.ldap.embedded.ssl.enabled[`+spring.ldap.embedded.ssl.enabled+`]
+|+++是否启用 SSL 支持。如果提供了 "bundle"，除非另行指定，否则自动启用。+++
+|
+
+|[[application-properties.data.spring.ldap.embedded.validation.enabled]]xref:#application-properties.data.spring.ldap.embedded.validation.enabled[`+spring.ldap.embedded.validation.enabled+`]
+|+++是否启用 LDAP 模式验证。+++
+|`+true+`
+
+|[[application-properties.data.spring.ldap.embedded.validation.schema]]xref:#application-properties.data.spring.ldap.embedded.validation.schema[`+spring.ldap.embedded.validation.schema+`]
+|+++自定义模式的路径。+++
+|
+
+|[[application-properties.data.spring.ldap.password]]xref:#application-properties.data.spring.ldap.password[`+spring.ldap.password+`]
+|+++服务器的登录密码。+++
+|
+
+|[[application-properties.data.spring.ldap.referral]]xref:#application-properties.data.spring.ldap.referral[`+spring.ldap.referral+`]
+|+++指定服务提供者遇到的引用应如何处理。如果未指定，则默认由提供者决定。+++
+|
+
+|[[application-properties.data.spring.ldap.template.ignore-name-not-found-exception]]xref:#application-properties.data.spring.ldap.template.ignore-name-not-found-exception[`+spring.ldap.template.ignore-name-not-found-exception+`]
+|+++是否在通过 LdapTemplate 进行搜索时忽略 NameNotFoundException。+++
+|`+false+`
+
+|[[application-properties.data.spring.ldap.template.ignore-partial-result-exception]]xref:#application-properties.data.spring.ldap.template.ignore-partial-result-exception[`+spring.ldap.template.ignore-partial-result-exception+`]
+|+++是否在通过 LdapTemplate 进行搜索时忽略 PartialResultException。+++
+|`+false+`
+
+|[[application-properties.data.spring.ldap.template.ignore-size-limit-exceeded-exception]]xref:#application-properties.data.spring.ldap.template.ignore-size-limit-exceeded-exception[`+spring.ldap.template.ignore-size-limit-exceeded-exception+`]
+|+++是否在通过 LdapTemplate 进行搜索时忽略 SizeLimitExceededException。+++
+|`+true+`
+
+|[[application-properties.data.spring.ldap.urls]]xref:#application-properties.data.spring.ldap.urls[`+spring.ldap.urls+`]
+|+++服务器的 LDAP URL。+++
+|
+
+|[[application-properties.data.spring.ldap.username]]xref:#application-properties.data.spring.ldap.username[`+spring.ldap.username+`]
+|+++服务器的登录用户名。+++
+|
+
+|[[application-properties.data.spring.mongodb.additional-hosts]]xref:#application-properties.data.spring.mongodb.additional-hosts[`+spring.mongodb.additional-hosts+`]
+|+++额外的服务器主机。如果设置了 'uri' 或省略了 'host'，则忽略。额外主机将使用默认的 mongo 端口 27017。如果要使用不同的端口，可以使用 "host:port" 语法。+++
+|
+
+|[[application-properties.data.spring.mongodb.authentication-database]]xref:#application-properties.data.spring.mongodb.authentication-database[`+spring.mongodb.authentication-database+`]
+|+++认证数据库名称。+++
+|
+
+|[[application-properties.data.spring.mongodb.database]]xref:#application-properties.data.spring.mongodb.database[`+spring.mongodb.database+`]
+|+++数据库名称。覆盖 URI 中的数据库。+++
+|
+
+|[[application-properties.data.spring.mongodb.host]]xref:#application-properties.data.spring.mongodb.host[`+spring.mongodb.host+`]
+|+++Mongo 服务器主机。如果设置了 'uri'，则忽略。+++
+|
+
+|[[application-properties.data.spring.mongodb.password]]xref:#application-properties.data.spring.mongodb.password[`+spring.mongodb.password+`]
+|+++Mongo 服务器的登录密码。如果设置了 'uri'，则忽略。+++
+|
+
+|[[application-properties.data.spring.mongodb.port]]xref:#application-properties.data.spring.mongodb.port[`+spring.mongodb.port+`]
+|+++Mongo 服务器端口。如果设置了 'uri'，则忽略。+++
+|
+
+|[[application-properties.data.spring.mongodb.protocol]]xref:#application-properties.data.spring.mongodb.protocol[`+spring.mongodb.protocol+`]
+|+++用于 MongoDB 连接的协议。如果设置了 'uri'，则忽略。+++
+|`+mongodb+`
+
+|[[application-properties.data.spring.mongodb.replica-set-name]]xref:#application-properties.data.spring.mongodb.replica-set-name[`+spring.mongodb.replica-set-name+`]
+|+++集群所需的副本集名称。如果设置了 'uri'，则忽略。+++
+|
+
+|[[application-properties.data.spring.mongodb.representation.uuid]]xref:#application-properties.data.spring.mongodb.representation.uuid[`+spring.mongodb.representation.uuid+`]
+|+++将 UUID 转换为 BSON 二进制值时使用的表示形式。+++
+|`+unspecified+`
+
+|[[application-properties.data.spring.mongodb.ssl.bundle]]xref:#application-properties.data.spring.mongodb.ssl.bundle[`+spring.mongodb.ssl.bundle+`]
+|+++SSL 捆绑包名称。+++
+|
+
+|[[application-properties.data.spring.mongodb.ssl.enabled]]xref:#application-properties.data.spring.mongodb.ssl.enabled[`+spring.mongodb.ssl.enabled+`]
+|+++是否启用 SSL 支持。如果提供了 "bundle"，除非另行指定，否则自动启用。+++
+|
+
+|[[application-properties.data.spring.mongodb.uri]]xref:#application-properties.data.spring.mongodb.uri[`+spring.mongodb.uri+`]
+|+++Mongo 数据库 URI。覆盖主机、端口、用户名和密码。+++
+|`+mongodb://localhost/test+`
+
+|[[application-properties.data.spring.mongodb.username]]xref:#application-properties.data.spring.mongodb.username[`+spring.mongodb.username+`]
+|+++Mongo 服务器的登录用户。如果设置了 'uri'，则忽略。+++
+|
+
+|[[application-properties.data.spring.neo4j.authentication.kerberos-ticket]]xref:#application-properties.data.spring.neo4j.authentication.kerberos-ticket[`+spring.neo4j.authentication.kerberos-ticket+`]
+|+++用于连接数据库的 Kerberos 票据。与给定的用户名互斥。+++
+|
+
+|[[application-properties.data.spring.neo4j.authentication.password]]xref:#application-properties.data.spring.neo4j.authentication.password[`+spring.neo4j.authentication.password+`]
+|+++服务器的登录密码。+++
+|
+
+|[[application-properties.data.spring.neo4j.authentication.realm]]xref:#application-properties.data.spring.neo4j.authentication.realm[`+spring.neo4j.authentication.realm+`]
+|+++要连接的领域。+++
+|
+
+|[[application-properties.data.spring.neo4j.authentication.username]]xref:#application-properties.data.spring.neo4j.authentication.username[`+spring.neo4j.authentication.username+`]
+|+++服务器的登录用户。+++
+|
+
+|[[application-properties.data.spring.neo4j.connection-timeout]]xref:#application-properties.data.spring.neo4j.connection-timeout[`+spring.neo4j.connection-timeout+`]
+|+++从池中借用连接的超时时间。+++
+|`+30s+`
+
+|[[application-properties.data.spring.neo4j.max-transaction-retry-time]]xref:#application-properties.data.spring.neo4j.max-transaction-retry-time[`+spring.neo4j.max-transaction-retry-time+`]
+|+++事务允许重试的最长时间。+++
+|`+30s+`
+
+|[[application-properties.data.spring.neo4j.pool.connection-acquisition-timeout]]xref:#application-properties.data.spring.neo4j.pool.connection-acquisition-timeout[`+spring.neo4j.pool.connection-acquisition-timeout+`]
+|+++获取新连接的尝试最多持续配置的超时时间。+++
+|`+60s+`
+
+|[[application-properties.data.spring.neo4j.pool.idle-time-before-connection-test]]xref:#application-properties.data.spring.neo4j.pool.idle-time-before-connection-test[`+spring.neo4j.pool.idle-time-before-connection-test+`]
+|+++在池中空闲时间超过此阈值的池化连接将在再次使用前进行测试。+++
+|
+
+|[[application-properties.data.spring.neo4j.pool.log-leaked-sessions]]xref:#application-properties.data.spring.neo4j.pool.log-leaked-sessions[`+spring.neo4j.pool.log-leaked-sessions+`]
+|+++是否记录泄露的会话。+++
+|`+false+`
+
+|[[application-properties.data.spring.neo4j.pool.max-connection-lifetime]]xref:#application-properties.data.spring.neo4j.pool.max-connection-lifetime[`+spring.neo4j.pool.max-connection-lifetime+`]
+|+++超过此阈值的池化连接将被关闭并从池中移除。+++
+|`+1h+`
+
+|[[application-properties.data.spring.neo4j.pool.max-connection-pool-size]]xref:#application-properties.data.spring.neo4j.pool.max-connection-pool-size[`+spring.neo4j.pool.max-connection-pool-size+`]
+|+++指向单个数据库的连接池中的最大连接数。+++
+|`+100+`
+
+|[[application-properties.data.spring.neo4j.security.cert-file]]xref:#application-properties.data.spring.neo4j.security.cert-file[`+spring.neo4j.security.cert-file+`]
+|+++保存受信任证书的文件的路径。+++
+|
+
+|[[application-properties.data.spring.neo4j.security.encrypted]]xref:#application-properties.data.spring.neo4j.security.encrypted[`+spring.neo4j.security.encrypted+`]
+|+++驱动程序是否应使用加密流量。+++
+|`+false+`
+
+|[[application-properties.data.spring.neo4j.security.hostname-verification-enabled]]xref:#application-properties.data.spring.neo4j.security.hostname-verification-enabled[`+spring.neo4j.security.hostname-verification-enabled+`]
+|+++是否需要主机名验证。+++
+|`+true+`
+
+|[[application-properties.data.spring.neo4j.security.trust-strategy]]xref:#application-properties.data.spring.neo4j.security.trust-strategy[`+spring.neo4j.security.trust-strategy+`]
+|+++要使用的信任策略。+++
+|`+trust-system-ca-signed-certificates+`
+
+|[[application-properties.data.spring.neo4j.uri]]xref:#application-properties.data.spring.neo4j.uri[`+spring.neo4j.uri+`]
+|+++驱动程序使用的 URI。+++
+|`+bolt://localhost:7687+`
+
+|[[application-properties.data.spring.persistence.exceptiontranslation.enabled]]xref:#application-properties.data.spring.persistence.exceptiontranslation.enabled[`+spring.persistence.exceptiontranslation.enabled+`]
+|+++是否启用 PersistenceExceptionTranslationPostProcessor。+++
+|`+true+`
+
+|[[application-properties.data.spring.r2dbc.generate-unique-name]]xref:#application-properties.data.spring.r2dbc.generate-unique-name[`+spring.r2dbc.generate-unique-name+`]
+|+++是否生成随机数据库名称。启用时忽略任何已配置的名称。+++
+|`+false+`
+
+|[[application-properties.data.spring.r2dbc.name]]xref:#application-properties.data.spring.r2dbc.name[`+spring.r2dbc.name+`]
+|+++数据库名称。如果 URL 中未指定名称，则设置。使用嵌入式数据库时默认为 "testdb"。+++
+|
+
+|[[application-properties.data.spring.r2dbc.password]]xref:#application-properties.data.spring.r2dbc.password[`+spring.r2dbc.password+`]
+|+++数据库的登录密码。如果 URL 中未指定密码，则设置此项。+++
+|
+
+|[[application-properties.data.spring.r2dbc.pool.acquire-retry]]xref:#application-properties.data.spring.r2dbc.pool.acquire-retry[`+spring.r2dbc.pool.acquire-retry+`]
+|+++首次获取连接失败时的重试次数。+++
+|`+1+`
+
+|[[application-properties.data.spring.r2dbc.pool.enabled]]xref:#application-properties.data.spring.r2dbc.pool.enabled[`+spring.r2dbc.pool.enabled+`]
+|+++首次获取连接失败时的重试次数。+++
+|`+true+`
+
+|[[application-properties.data.spring.r2dbc.pool.initial-size]]xref:#application-properties.data.spring.r2dbc.pool.initial-size[`+spring.r2dbc.pool.initial-size+`]
+|+++是否启用连接池。需要 r2dbc-pool。+++
+|`+10+`
+
+|[[application-properties.data.spring.r2dbc.pool.max-acquire-time]]xref:#application-properties.data.spring.r2dbc.pool.max-acquire-time[`+spring.r2dbc.pool.max-acquire-time+`]
+|+++初始连接池大小。+++
+|
+
+|[[application-properties.data.spring.r2dbc.pool.max-create-connection-time]]xref:#application-properties.data.spring.r2dbc.pool.max-create-connection-time[`+spring.r2dbc.pool.max-create-connection-time+`]
+|+++创建新连接的最大等待时间。默认无限等待。+++
+|
+
+|[[application-properties.data.spring.r2dbc.pool.max-idle-time]]xref:#application-properties.data.spring.r2dbc.pool.max-idle-time[`+spring.r2dbc.pool.max-idle-time+`]
+|+++连接在池中允许空闲的最大时间。+++
+|`+30m+`
+
+|[[application-properties.data.spring.r2dbc.pool.max-life-time]]xref:#application-properties.data.spring.r2dbc.pool.max-life-time[`+spring.r2dbc.pool.max-life-time+`]
+|+++连接在池中允许空闲的最大时间。+++
+|
+
+|[[application-properties.data.spring.r2dbc.pool.max-size]]xref:#application-properties.data.spring.r2dbc.pool.max-size[`+spring.r2dbc.pool.max-size+`]
+|+++最大连接池大小。+++
+|`+10+`
+
+|[[application-properties.data.spring.r2dbc.pool.max-validation-time]]xref:#application-properties.data.spring.r2dbc.pool.max-validation-time[`+spring.r2dbc.pool.max-validation-time+`]
+|+++最大连接池大小。+++
+|
+
+|[[application-properties.data.spring.r2dbc.pool.min-idle]]xref:#application-properties.data.spring.r2dbc.pool.min-idle[`+spring.r2dbc.pool.min-idle+`]
+|+++最小空闲连接数。+++
+|`+0+`
+
+|[[application-properties.data.spring.r2dbc.pool.validation-depth]]xref:#application-properties.data.spring.r2dbc.pool.validation-depth[`+spring.r2dbc.pool.validation-depth+`]
+|+++最小空闲连接数。+++
+|`+local+`
+
+|[[application-properties.data.spring.r2dbc.pool.validation-query]]xref:#application-properties.data.spring.r2dbc.pool.validation-query[`+spring.r2dbc.pool.validation-query+`]
+|+++验证深度。+++
+|
+
+|[[application-properties.data.spring.r2dbc.properties]]xref:#application-properties.data.spring.r2dbc.properties[`+spring.r2dbc.properties.*+`]
+|+++额外的 R2DBC 选项。+++
+|
+
+|[[application-properties.data.spring.r2dbc.url]]xref:#application-properties.data.spring.r2dbc.url[`+spring.r2dbc.url+`]
+|+++数据库的 R2DBC URL。URL 中指定的数据库名称、用户名、密码和连接池选项优先于单独选项。+++
+|
+
+|[[application-properties.data.spring.r2dbc.username]]xref:#application-properties.data.spring.r2dbc.username[`+spring.r2dbc.username+`]
+|+++数据库的登录用户名。如果 URL 中未指定用户名，则设置此项。+++
+|
+
+|===

@@ -1,0 +1,19 @@
+[source,json,options="nowrap"]
+----
+{
+  "availableTags" : [ {
+    "tag" : "area",
+    "values" : [ "heap", "nonheap" ]
+  }, {
+    "tag" : "id",
+    "values" : [ "CodeHeap 'profiled nmethods'", "G1 Old Gen", "CodeHeap 'non-profiled nmethods'", "G1 Survivor Space", "Compressed Class Space", "Metaspace", "G1 Eden Space", "CodeHeap 'non-nmethods'" ]
+  } ],
+  "baseUnit" : "bytes",
+  "description" : "The maximum amount of memory in bytes that can be used for memory management",
+  "measurements" : [ {
+    "statistic" : "VALUE",
+    "value" : 2.936016893E9
+  } ],
+  "name" : "jvm.memory.max"
+}
+----

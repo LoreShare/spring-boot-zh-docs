@@ -1,0 +1,15 @@
+[[appendix.auto-configuration-classes.spring-boot-webservices]]
+= spring-boot-webservices
+
+以下 auto-configuration 类来自 `spring-boot-webservices` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-webservices/src/main/java/org/springframework/boot/webservices/autoconfigure/client/WebServiceTemplateAutoConfiguration.java[`WebServiceTemplateAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webservices/autoconfigure/client/WebServiceTemplateAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-webservices/src/main/java/org/springframework/boot/webservices/autoconfigure/WebServicesAutoConfiguration.java[`WebServicesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/webservices/autoconfigure/WebServicesAutoConfiguration.html[javadoc]
+|===

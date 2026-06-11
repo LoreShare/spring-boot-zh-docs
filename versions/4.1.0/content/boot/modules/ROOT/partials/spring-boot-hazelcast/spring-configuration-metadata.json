@@ -1,0 +1,21 @@
+{
+  "groups": [
+    {
+      "name": "spring.hazelcast",
+      "type": "org.springframework.boot.hazelcast.autoconfigure.HazelcastProperties",
+      "sourceType": "org.springframework.boot.hazelcast.autoconfigure.HazelcastProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.hazelcast.config",
+      "type": "org.springframework.core.io.Resource",
+      "description": "The location of the configuration file to use to initialize Hazelcast.",
+      "sourceType": "org.springframework.boot.hazelcast.autoconfigure.HazelcastProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

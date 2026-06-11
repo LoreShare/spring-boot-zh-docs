@@ -1,0 +1,12 @@
+[[appendix.auto-configuration-classes.spring-boot-h2console]]
+= spring-boot-h2console
+
+以下 auto-configuration 类来自 `spring-boot-h2console` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-h2console/src/main/java/org/springframework/boot/h2console/autoconfigure/H2ConsoleAutoConfiguration.java[`H2ConsoleAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/h2console/autoconfigure/H2ConsoleAutoConfiguration.html[javadoc]
+|===

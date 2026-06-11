@@ -1,0 +1,256 @@
+{
+  "groups": [
+    {
+      "name": "spring.cassandra",
+      "type": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties"
+    },
+    {
+      "name": "spring.cassandra.connection",
+      "type": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Connection",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties",
+      "sourceMethod": "getConnection()"
+    },
+    {
+      "name": "spring.cassandra.controlconnection",
+      "type": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Controlconnection",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties",
+      "sourceMethod": "getControlconnection()"
+    },
+    {
+      "name": "spring.cassandra.pool",
+      "type": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Pool",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties",
+      "sourceMethod": "getPool()"
+    },
+    {
+      "name": "spring.cassandra.request",
+      "type": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Request",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties",
+      "sourceMethod": "getRequest()"
+    },
+    {
+      "name": "spring.cassandra.request.throttler",
+      "type": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Throttler",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Request",
+      "sourceMethod": "getThrottler()"
+    },
+    {
+      "name": "spring.cassandra.ssl",
+      "type": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Ssl",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties",
+      "sourceMethod": "getSsl()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.health.cassandra.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Cassandra health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.cassandra.compression",
+      "type": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Compression",
+      "description": "Compression supported by the Cassandra binary protocol.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties",
+      "defaultValue": "none"
+    },
+    {
+      "name": "spring.cassandra.config",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the configuration file to use.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties"
+    },
+    {
+      "name": "spring.cassandra.connection.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout to use when establishing driver connections.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Connection",
+      "defaultValue": "5s"
+    },
+    {
+      "name": "spring.cassandra.connection.init-query-timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout to use for internal queries that run as part of the initialization process, just after a connection is opened.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Connection",
+      "defaultValue": "5s"
+    },
+    {
+      "name": "spring.cassandra.contact-points",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Cluster node addresses in the form 'host:port', or a simple 'host' to use the configured port.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties",
+      "defaultValue": [
+        "127.0.0.1:9042"
+      ]
+    },
+    {
+      "name": "spring.cassandra.controlconnection.timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout to use for control queries.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Controlconnection",
+      "defaultValue": "5s"
+    },
+    {
+      "name": "spring.cassandra.keyspace-name",
+      "type": "java.lang.String",
+      "description": "Keyspace name to use.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties"
+    },
+    {
+      "name": "spring.cassandra.local-datacenter",
+      "type": "java.lang.String",
+      "description": "Datacenter that is considered \"local\". Contact points should be from this datacenter.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties"
+    },
+    {
+      "name": "spring.cassandra.password",
+      "type": "java.lang.String",
+      "description": "Login password of the server.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties"
+    },
+    {
+      "name": "spring.cassandra.pool.heartbeat-interval",
+      "type": "java.time.Duration",
+      "description": "Heartbeat interval after which a message is sent on an idle connection to make sure it's still alive.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Pool",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.cassandra.pool.idle-timeout",
+      "type": "java.time.Duration",
+      "description": "Idle timeout before an idle connection is removed.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Pool",
+      "defaultValue": "5s"
+    },
+    {
+      "name": "spring.cassandra.port",
+      "type": "java.lang.Integer",
+      "description": "Port to use if a contact point does not specify one.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties",
+      "defaultValue": 9042
+    },
+    {
+      "name": "spring.cassandra.request.consistency",
+      "type": "com.datastax.oss.driver.api.core.DefaultConsistencyLevel",
+      "description": "Queries consistency level.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Request"
+    },
+    {
+      "name": "spring.cassandra.request.page-size",
+      "type": "java.lang.Integer",
+      "description": "How many rows will be retrieved simultaneously in a single network round-trip.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Request",
+      "defaultValue": 5000
+    },
+    {
+      "name": "spring.cassandra.request.serial-consistency",
+      "type": "com.datastax.oss.driver.api.core.DefaultConsistencyLevel",
+      "description": "Queries serial consistency level.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Request"
+    },
+    {
+      "name": "spring.cassandra.request.throttler.drain-interval",
+      "type": "java.time.Duration",
+      "description": "How often the throttler attempts to dequeue requests. Set this high enough that each attempt will process multiple entries in the queue, but not delay requests too much.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Throttler"
+    },
+    {
+      "name": "spring.cassandra.request.throttler.max-concurrent-requests",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of requests that are allowed to execute in parallel.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Throttler"
+    },
+    {
+      "name": "spring.cassandra.request.throttler.max-queue-size",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of requests that can be enqueued when the throttling threshold is exceeded.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Throttler"
+    },
+    {
+      "name": "spring.cassandra.request.throttler.max-requests-per-second",
+      "type": "java.lang.Integer",
+      "description": "Maximum allowed request rate.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Throttler"
+    },
+    {
+      "name": "spring.cassandra.request.throttler.type",
+      "type": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$ThrottlerType",
+      "description": "Request throttling type.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Throttler",
+      "defaultValue": "none"
+    },
+    {
+      "name": "spring.cassandra.request.timeout",
+      "type": "java.time.Duration",
+      "description": "How long the driver waits for a request to complete.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Request",
+      "defaultValue": "2s"
+    },
+    {
+      "name": "spring.cassandra.schema-action",
+      "type": "java.lang.String",
+      "description": "Schema action to take at startup.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties",
+      "defaultValue": "none"
+    },
+    {
+      "name": "spring.cassandra.session-name",
+      "type": "java.lang.String",
+      "description": "Name of the Cassandra session.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties"
+    },
+    {
+      "name": "spring.cassandra.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle name.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Ssl"
+    },
+    {
+      "name": "spring.cassandra.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Ssl"
+    },
+    {
+      "name": "spring.cassandra.ssl.verify-hostname",
+      "type": "java.lang.Boolean",
+      "description": "Whether to perform hostname verification.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties$Ssl",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.cassandra.username",
+      "type": "java.lang.String",
+      "description": "Login user of the server.",
+      "sourceType": "org.springframework.boot.cassandra.autoconfigure.CassandraProperties"
+    },
+    {
+      "name": "spring.cassandra.ssl",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.cassandra.ssl.enabled",
+        "since": "3.1.0"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.cassandra.schema-action",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "org.springframework.data.cassandra.config.SchemaAction"
+          }
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "groups": [
+    {
+      "name": "spring.docker.compose",
+      "type": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties"
+    },
+    {
+      "name": "spring.docker.compose.profiles",
+      "type": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Profiles",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties",
+      "sourceMethod": "getProfiles()"
+    },
+    {
+      "name": "spring.docker.compose.readiness",
+      "type": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Readiness",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties",
+      "sourceMethod": "getReadiness()"
+    },
+    {
+      "name": "spring.docker.compose.readiness.tcp",
+      "type": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Readiness$Tcp",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Readiness",
+      "sourceMethod": "getTcp()"
+    },
+    {
+      "name": "spring.docker.compose.skip",
+      "type": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Skip",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties",
+      "sourceMethod": "getSkip()"
+    },
+    {
+      "name": "spring.docker.compose.start",
+      "type": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Start",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties",
+      "sourceMethod": "getStart()"
+    },
+    {
+      "name": "spring.docker.compose.stop",
+      "type": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Stop",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties",
+      "sourceMethod": "getStop()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.docker.compose.arguments",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Arguments to pass to the Docker Compose command.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties"
+    },
+    {
+      "name": "spring.docker.compose.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether Docker Compose support is enabled.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.docker.compose.file",
+      "type": "java.util.List<java.io.File>",
+      "description": "Paths to the Docker Compose configuration files.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties"
+    },
+    {
+      "name": "spring.docker.compose.host",
+      "type": "java.lang.String",
+      "description": "Hostname or IP of the machine where the docker containers are started.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties"
+    },
+    {
+      "name": "spring.docker.compose.lifecycle-management",
+      "type": "org.springframework.boot.docker.compose.lifecycle.LifecycleManagement",
+      "description": "Docker compose lifecycle management.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties",
+      "defaultValue": "start-and-stop"
+    },
+    {
+      "name": "spring.docker.compose.profiles.active",
+      "type": "java.util.Set<java.lang.String>",
+      "description": "Docker compose profiles that should be active.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Profiles"
+    },
+    {
+      "name": "spring.docker.compose.readiness.tcp.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout for connections.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Readiness$Tcp",
+      "defaultValue": "200ms"
+    },
+    {
+      "name": "spring.docker.compose.readiness.tcp.read-timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout for reads.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Readiness$Tcp",
+      "defaultValue": "200ms"
+    },
+    {
+      "name": "spring.docker.compose.readiness.timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout of the readiness checks.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Readiness",
+      "defaultValue": "2m"
+    },
+    {
+      "name": "spring.docker.compose.readiness.wait",
+      "type": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Readiness$Wait",
+      "description": "Wait strategy to use.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Readiness",
+      "defaultValue": "always"
+    },
+    {
+      "name": "spring.docker.compose.skip.in-tests",
+      "type": "java.lang.Boolean",
+      "description": "Whether to skip in tests.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Skip",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.docker.compose.start.arguments",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Arguments to pass to the start command.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Start"
+    },
+    {
+      "name": "spring.docker.compose.start.command",
+      "type": "org.springframework.boot.docker.compose.lifecycle.StartCommand",
+      "description": "Command used to start Docker Compose.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Start",
+      "defaultValue": "up"
+    },
+    {
+      "name": "spring.docker.compose.start.log-level",
+      "type": "org.springframework.boot.logging.LogLevel",
+      "description": "Log level for output.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Start",
+      "defaultValue": "info"
+    },
+    {
+      "name": "spring.docker.compose.start.skip",
+      "type": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Start$Skip",
+      "description": "Whether to skip executing the start command.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Start",
+      "defaultValue": "if-running"
+    },
+    {
+      "name": "spring.docker.compose.stop.arguments",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Arguments to pass to the stop command.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Stop"
+    },
+    {
+      "name": "spring.docker.compose.stop.command",
+      "type": "org.springframework.boot.docker.compose.lifecycle.StopCommand",
+      "description": "Command used to stop Docker Compose.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Stop",
+      "defaultValue": "stop"
+    },
+    {
+      "name": "spring.docker.compose.stop.timeout",
+      "type": "java.time.Duration",
+      "description": "Timeout for stopping Docker Compose. Use '0' for forced stop.",
+      "sourceType": "org.springframework.boot.docker.compose.lifecycle.DockerComposeProperties$Stop",
+      "defaultValue": "10s"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

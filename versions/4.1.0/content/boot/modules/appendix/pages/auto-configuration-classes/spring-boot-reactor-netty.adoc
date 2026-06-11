@@ -1,0 +1,15 @@
+[[appendix.auto-configuration-classes.spring-boot-reactor-netty]]
+= spring-boot-reactor-netty
+
+以下 auto-configuration 类来自 `spring-boot-reactor-netty` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-reactor-netty/src/main/java/org/springframework/boot/reactor/netty/autoconfigure/actuate/web/server/NettyReactiveManagementContextAutoConfiguration.java[`NettyReactiveManagementContextAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/reactor/netty/autoconfigure/actuate/web/server/NettyReactiveManagementContextAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-reactor-netty/src/main/java/org/springframework/boot/reactor/netty/autoconfigure/NettyReactiveWebServerAutoConfiguration.java[`NettyReactiveWebServerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/reactor/netty/autoconfigure/NettyReactiveWebServerAutoConfiguration.html[javadoc]
+|===

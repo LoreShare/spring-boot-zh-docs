@@ -1,3 +1,186 @@
+[cols="d,d,a"]
 |===
-1+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+|模块 | 测试切片 | 导入的 auto-configuration
+
+| `spring-boot-data-cassandra-test`
+| javadoc:org.springframework.boot.data.cassandra.test.autoconfigure.DataCassandraTest[format=annotation]
+| 
+`org.springframework.boot.autoconfigure.ssl.SslAutoConfiguration`
+`org.springframework.boot.cassandra.autoconfigure.CassandraAutoConfiguration`
+`org.springframework.boot.data.cassandra.autoconfigure.DataCassandraAutoConfiguration`
+`org.springframework.boot.data.cassandra.autoconfigure.DataCassandraReactiveAutoConfiguration`
+`org.springframework.boot.data.cassandra.autoconfigure.DataCassandraReactiveRepositoriesAutoConfiguration`
+`org.springframework.boot.data.cassandra.autoconfigure.DataCassandraRepositoriesAutoConfiguration`
+`optional:org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration`
+
+| `spring-boot-data-couchbase-test`
+| javadoc:org.springframework.boot.data.couchbase.test.autoconfigure.DataCouchbaseTest[format=annotation]
+| 
+`org.springframework.boot.autoconfigure.ssl.SslAutoConfiguration`
+`org.springframework.boot.couchbase.autoconfigure.CouchbaseAutoConfiguration`
+`org.springframework.boot.data.couchbase.autoconfigure.DataCouchbaseAutoConfiguration`
+`org.springframework.boot.data.couchbase.autoconfigure.DataCouchbaseReactiveAutoConfiguration`
+`org.springframework.boot.data.couchbase.autoconfigure.DataCouchbaseReactiveRepositoriesAutoConfiguration`
+`org.springframework.boot.data.couchbase.autoconfigure.DataCouchbaseRepositoriesAutoConfiguration`
+`optional:org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration`
+
+| `spring-boot-data-elasticsearch-test`
+| javadoc:org.springframework.boot.data.elasticsearch.test.autoconfigure.DataElasticsearchTest[format=annotation]
+| 
+`org.springframework.boot.autoconfigure.ssl.SslAutoConfiguration`
+`org.springframework.boot.data.elasticsearch.autoconfigure.DataElasticsearchAutoConfiguration`
+`org.springframework.boot.data.elasticsearch.autoconfigure.DataElasticsearchReactiveRepositoriesAutoConfiguration`
+`org.springframework.boot.data.elasticsearch.autoconfigure.DataElasticsearchRepositoriesAutoConfiguration`
+`org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchClientAutoConfiguration`
+`org.springframework.boot.elasticsearch.autoconfigure.ElasticsearchRestClientAutoConfiguration`
+`optional:org.springframework.boot.jsonb.autoconfigure.JsonbAutoConfiguration`
+`optional:org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration`
+
+| `spring-boot-data-jdbc-test`
+| javadoc:org.springframework.boot.data.jdbc.test.autoconfigure.DataJdbcTest[format=annotation]
+| 
+`org.springframework.boot.data.jdbc.autoconfigure.DataJdbcRepositoriesAutoConfiguration`
+
+| `spring-boot-data-jpa-test`
+| javadoc:org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest[format=annotation]
+| 
+`org.springframework.boot.data.jpa.autoconfigure.DataJpaRepositoriesAutoConfiguration`
+`org.springframework.boot.hibernate.autoconfigure.HibernateJpaAutoConfiguration`
+
+| `spring-boot-data-ldap-test`
+| javadoc:org.springframework.boot.data.ldap.test.autoconfigure.DataLdapTest[format=annotation]
+| 
+`org.springframework.boot.data.ldap.autoconfigure.DataLdapRepositoriesAutoConfiguration`
+`org.springframework.boot.ldap.autoconfigure.LdapAutoConfiguration`
+`org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapAutoConfiguration`
+`optional:org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration`
+
+| `spring-boot-data-mongodb-test`
+| javadoc:org.springframework.boot.data.mongodb.test.autoconfigure.DataMongoTest[format=annotation]
+| 
+`org.springframework.boot.autoconfigure.ssl.SslAutoConfiguration`
+`org.springframework.boot.data.mongodb.autoconfigure.DataMongoAutoConfiguration`
+`org.springframework.boot.data.mongodb.autoconfigure.DataMongoReactiveAutoConfiguration`
+`org.springframework.boot.data.mongodb.autoconfigure.DataMongoReactiveRepositoriesAutoConfiguration`
+`org.springframework.boot.data.mongodb.autoconfigure.DataMongoRepositoriesAutoConfiguration`
+`org.springframework.boot.mongodb.autoconfigure.MongoAutoConfiguration`
+`org.springframework.boot.mongodb.autoconfigure.MongoReactiveAutoConfiguration`
+`org.springframework.boot.transaction.autoconfigure.TransactionAutoConfiguration`
+`org.springframework.boot.transaction.autoconfigure.TransactionManagerCustomizationAutoConfiguration`
+`optional:org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration`
+
+| `spring-boot-data-neo4j-test`
+| javadoc:org.springframework.boot.data.neo4j.test.autoconfigure.DataNeo4jTest[format=annotation]
+| 
+`org.springframework.boot.data.neo4j.autoconfigure.DataNeo4jAutoConfiguration`
+`org.springframework.boot.data.neo4j.autoconfigure.DataNeo4jReactiveAutoConfiguration`
+`org.springframework.boot.data.neo4j.autoconfigure.DataNeo4jReactiveRepositoriesAutoConfiguration`
+`org.springframework.boot.data.neo4j.autoconfigure.DataNeo4jRepositoriesAutoConfiguration`
+`org.springframework.boot.neo4j.autoconfigure.Neo4jAutoConfiguration`
+`org.springframework.boot.transaction.autoconfigure.TransactionAutoConfiguration`
+`org.springframework.boot.transaction.autoconfigure.TransactionManagerCustomizationAutoConfiguration`
+`optional:org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration`
+
+| `spring-boot-data-r2dbc-test`
+| javadoc:org.springframework.boot.data.r2dbc.test.autoconfigure.DataR2dbcTest[format=annotation]
+| 
+`org.springframework.boot.data.r2dbc.autoconfigure.DataR2dbcAutoConfiguration`
+`org.springframework.boot.data.r2dbc.autoconfigure.DataR2dbcRepositoriesAutoConfiguration`
+`org.springframework.boot.r2dbc.autoconfigure.R2dbcAutoConfiguration`
+`org.springframework.boot.r2dbc.autoconfigure.R2dbcInitializationAutoConfiguration`
+`org.springframework.boot.r2dbc.autoconfigure.R2dbcTransactionManagerAutoConfiguration`
+`org.springframework.boot.transaction.autoconfigure.TransactionAutoConfiguration`
+`org.springframework.boot.transaction.autoconfigure.TransactionManagerCustomizationAutoConfiguration`
+`optional:org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration`
+
+| `spring-boot-data-redis-test`
+| javadoc:org.springframework.boot.data.redis.test.autoconfigure.DataRedisTest[format=annotation]
+| 
+`org.springframework.boot.autoconfigure.ssl.SslAutoConfiguration`
+`org.springframework.boot.data.redis.autoconfigure.DataRedisAutoConfiguration`
+`org.springframework.boot.data.redis.autoconfigure.DataRedisReactiveAutoConfiguration`
+`org.springframework.boot.data.redis.autoconfigure.DataRedisRepositoriesAutoConfiguration`
+`optional:org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration`
+
+| `spring-boot-graphql-test`
+| javadoc:org.springframework.boot.graphql.test.autoconfigure.GraphQlTest[format=annotation]
+| 
+`org.springframework.boot.graphql.autoconfigure.GraphQlAutoConfiguration`
+`optional:org.springframework.boot.http.codec.autoconfigure.CodecsAutoConfiguration`
+`optional:org.springframework.boot.validation.autoconfigure.ValidationAutoConfiguration`
+`org.springframework.boot.graphql.test.autoconfigure.tester.GraphQlTesterAutoConfiguration`
+
+| `spring-boot-jdbc-test`
+| javadoc:org.springframework.boot.jdbc.test.autoconfigure.JdbcTest[format=annotation]
+| 
+`org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration`
+`org.springframework.boot.jdbc.autoconfigure.DataSourceTransactionManagerAutoConfiguration`
+`org.springframework.boot.jdbc.autoconfigure.JdbcClientAutoConfiguration`
+`org.springframework.boot.jdbc.autoconfigure.JdbcTemplateAutoConfiguration`
+`org.springframework.boot.transaction.autoconfigure.TransactionAutoConfiguration`
+`org.springframework.boot.transaction.autoconfigure.TransactionManagerCustomizationAutoConfiguration`
+`optional:org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration`
+`org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration`
+`org.springframework.boot.jdbc.test.autoconfigure.TestDatabaseAutoConfiguration`
+`optional:org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration`
+
+| `spring-boot-jooq-test`
+| javadoc:org.springframework.boot.jooq.test.autoconfigure.JooqTest[format=annotation]
+| 
+`org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration`
+`org.springframework.boot.jdbc.autoconfigure.DataSourceTransactionManagerAutoConfiguration`
+`org.springframework.boot.jooq.autoconfigure.JooqAutoConfiguration`
+`org.springframework.boot.transaction.autoconfigure.TransactionAutoConfiguration`
+`org.springframework.boot.transaction.autoconfigure.TransactionManagerCustomizationAutoConfiguration`
+`optional:org.springframework.boot.testcontainers.service.connection.ServiceConnectionAutoConfiguration`
+
+| `spring-boot-restclient-test`
+| javadoc:org.springframework.boot.restclient.test.autoconfigure.RestClientTest[format=annotation]
+| 
+`org.springframework.boot.restclient.test.autoconfigure.MockRestServiceServerAutoConfiguration`
+`org.springframework.boot.http.converter.autoconfigure.HttpMessageConvertersAutoConfiguration`
+`org.springframework.boot.restclient.autoconfigure.RestClientAutoConfiguration`
+`org.springframework.boot.restclient.autoconfigure.RestTemplateAutoConfiguration`
+
+| `spring-boot-webclient-test`
+| javadoc:org.springframework.boot.webclient.test.autoconfigure.WebClientTest[format=annotation]
+| 
+`org.springframework.boot.http.codec.autoconfigure.CodecsAutoConfiguration`
+`org.springframework.boot.webclient.autoconfigure.WebClientAutoConfiguration`
+
+| `spring-boot-webflux-test`
+| javadoc:org.springframework.boot.webflux.test.autoconfigure.WebFluxTest[format=annotation]
+| 
+`org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration`
+`org.springframework.boot.webflux.autoconfigure.WebFluxAutoConfiguration`
+`org.springframework.boot.webflux.autoconfigure.error.ErrorWebFluxAutoConfiguration`
+`optional:org.springframework.boot.http.codec.autoconfigure.CodecsAutoConfiguration`
+`optional:org.springframework.boot.validation.autoconfigure.ValidationAutoConfiguration`
+
+| `spring-boot-webmvc-test`
+| javadoc:org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest[format=annotation]
+| 
+`org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration`
+`org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration`
+`org.springframework.boot.servlet.autoconfigure.HttpEncodingAutoConfiguration`
+`org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration`
+`org.springframework.boot.webmvc.autoconfigure.error.ErrorMvcAutoConfiguration`
+`optional:org.springframework.boot.http.converter.autoconfigure.HttpMessageConvertersAutoConfiguration`
+`optional:org.springframework.boot.validation.autoconfigure.ValidationAutoConfiguration`
+`org.springframework.boot.webmvc.test.autoconfigure.MockMvcAutoConfiguration`
+`org.springframework.boot.webmvc.test.autoconfigure.MockMvcWebClientAutoConfiguration`
+`org.springframework.boot.webmvc.test.autoconfigure.MockMvcWebDriverAutoConfiguration`
+
+| `spring-boot-webservices-test`
+| javadoc:org.springframework.boot.webservices.test.autoconfigure.client.WebServiceClientTest[format=annotation]
+| 
+`org.springframework.boot.webservices.test.autoconfigure.client.MockWebServiceServerAutoConfiguration`
+`org.springframework.boot.webservices.autoconfigure.client.WebServiceTemplateAutoConfiguration`
+`org.springframework.boot.webservices.test.autoconfigure.client.WebServiceClientTemplateAutoConfiguration`
+
+| `spring-boot-webservices-test`
+| javadoc:org.springframework.boot.webservices.test.autoconfigure.server.WebServiceServerTest[format=annotation]
+| 
+`org.springframework.boot.webservices.autoconfigure.WebServicesAutoConfiguration`
+`org.springframework.boot.webservices.test.autoconfigure.server.MockWebServiceClientAutoConfiguration`
 |===

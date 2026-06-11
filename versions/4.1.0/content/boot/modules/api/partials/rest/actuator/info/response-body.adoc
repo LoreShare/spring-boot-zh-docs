@@ -1,0 +1,198 @@
+[source,json,options="nowrap"]
+----
+{
+  "git" : {
+    "branch" : "main",
+    "commit" : {
+      "id" : "df027cf",
+      "time" : "2026-06-10T16:30:12Z"
+    }
+  },
+  "build" : {
+    "artifact" : "application",
+    "version" : "1.0.3",
+    "group" : "com.example"
+  },
+  "os" : {
+    "arch" : "amd64",
+    "name" : "Linux",
+    "version" : "6.17.0-1015-azure"
+  },
+  "process" : {
+    "cpus" : 4,
+    "currentTime" : "2026-06-10T16:30:12.156908561Z",
+    "locale" : "en",
+    "memory" : {
+      "garbageCollectors" : [ {
+        "collectionCount" : 11,
+        "name" : "G1 Young Generation"
+      }, {
+        "collectionCount" : 4,
+        "name" : "G1 Concurrent GC"
+      }, {
+        "collectionCount" : 0,
+        "name" : "G1 Old Generation"
+      } ],
+      "heap" : {
+        "committed" : 159383552,
+        "init" : 262144000,
+        "max" : 1610612736,
+        "used" : 76493376
+      },
+      "nonHeap" : {
+        "committed" : 85327872,
+        "init" : 7667712,
+        "max" : -1,
+        "used" : 83572864
+      }
+    },
+    "owner" : "runner",
+    "parentPid" : 15671,
+    "pid" : 32565,
+    "startTime" : "2026-06-10T16:29:55.160Z",
+    "timezone" : "Etc/UTC",
+    "uptime" : "PT17.003617622S",
+    "virtualThreads" : {
+      "mounted" : 0,
+      "parallelism" : 4,
+      "poolSize" : 0,
+      "queued" : 0
+    },
+    "workingDirectory" : "/home/runner/work/spring-boot/spring-boot/documentation/spring-boot-actuator-docs"
+  },
+  "java" : {
+    "jvm" : {
+      "name" : "OpenJDK 64-Bit Server VM",
+      "vendor" : "BellSoft",
+      "version" : "25.0.3+11-LTS"
+    },
+    "runtime" : {
+      "name" : "OpenJDK Runtime Environment",
+      "version" : "25.0.3+11-LTS"
+    },
+    "vendor" : {
+      "name" : "BellSoft"
+    },
+    "version" : "25.0.3"
+  },
+  "ssl" : {
+    "bundles" : [ {
+      "certificateChains" : [ {
+        "alias" : "spring-boot",
+        "certificates" : [ {
+          "issuer" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "serialNumber" : "eb6114a6ae39ce6c",
+          "signatureAlgorithmName" : "SHA256withRSA",
+          "subject" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "validity" : {
+            "status" : "VALID"
+          },
+          "validityEnds" : "2123-04-11T11:26:57Z",
+          "validityStarts" : "2023-05-05T11:26:57Z",
+          "version" : "V3"
+        } ]
+      }, {
+        "alias" : "test-alias",
+        "certificates" : [ {
+          "issuer" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "serialNumber" : "14ca9ba6abe2a70d",
+          "signatureAlgorithmName" : "SHA256withRSA",
+          "subject" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "validity" : {
+            "status" : "VALID"
+          },
+          "validityEnds" : "2123-04-11T11:26:58Z",
+          "validityStarts" : "2023-05-05T11:26:58Z",
+          "version" : "V3"
+        } ]
+      }, {
+        "alias" : "spring-boot-cert",
+        "certificates" : [ {
+          "issuer" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "serialNumber" : "eb6114a6ae39ce6c",
+          "signatureAlgorithmName" : "SHA256withRSA",
+          "subject" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "validity" : {
+            "status" : "VALID"
+          },
+          "validityEnds" : "2123-04-11T11:26:57Z",
+          "validityStarts" : "2023-05-05T11:26:57Z",
+          "version" : "V3"
+        } ]
+      }, {
+        "alias" : "test-alias-cert",
+        "certificates" : [ {
+          "issuer" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "serialNumber" : "14ca9ba6abe2a70d",
+          "signatureAlgorithmName" : "SHA256withRSA",
+          "subject" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "validity" : {
+            "status" : "VALID"
+          },
+          "validityEnds" : "2123-04-11T11:26:58Z",
+          "validityStarts" : "2023-05-05T11:26:58Z",
+          "version" : "V3"
+        } ]
+      } ],
+      "name" : "test-0",
+      "trustStoreCertificateChains" : [ {
+        "alias" : "spring-boot",
+        "certificates" : [ {
+          "issuer" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "serialNumber" : "eb6114a6ae39ce6c",
+          "signatureAlgorithmName" : "SHA256withRSA",
+          "subject" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "validity" : {
+            "status" : "VALID"
+          },
+          "validityEnds" : "2123-04-11T11:26:57Z",
+          "validityStarts" : "2023-05-05T11:26:57Z",
+          "version" : "V3"
+        } ]
+      }, {
+        "alias" : "test-alias",
+        "certificates" : [ {
+          "issuer" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "serialNumber" : "14ca9ba6abe2a70d",
+          "signatureAlgorithmName" : "SHA256withRSA",
+          "subject" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "validity" : {
+            "status" : "VALID"
+          },
+          "validityEnds" : "2123-04-11T11:26:58Z",
+          "validityStarts" : "2023-05-05T11:26:58Z",
+          "version" : "V3"
+        } ]
+      }, {
+        "alias" : "spring-boot-cert",
+        "certificates" : [ {
+          "issuer" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "serialNumber" : "eb6114a6ae39ce6c",
+          "signatureAlgorithmName" : "SHA256withRSA",
+          "subject" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "validity" : {
+            "status" : "VALID"
+          },
+          "validityEnds" : "2123-04-11T11:26:57Z",
+          "validityStarts" : "2023-05-05T11:26:57Z",
+          "version" : "V3"
+        } ]
+      }, {
+        "alias" : "test-alias-cert",
+        "certificates" : [ {
+          "issuer" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "serialNumber" : "14ca9ba6abe2a70d",
+          "signatureAlgorithmName" : "SHA256withRSA",
+          "subject" : "CN=localhost,OU=Spring,O=VMware,L=Palo Alto,ST=California,C=US",
+          "validity" : {
+            "status" : "VALID"
+          },
+          "validityEnds" : "2123-04-11T11:26:58Z",
+          "validityStarts" : "2023-05-05T11:26:58Z",
+          "version" : "V3"
+        } ]
+      } ]
+    } ]
+  }
+}
+----

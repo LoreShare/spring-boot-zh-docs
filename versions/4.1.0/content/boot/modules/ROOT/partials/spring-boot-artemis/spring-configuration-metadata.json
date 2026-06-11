@@ -1,0 +1,182 @@
+{
+  "groups": [
+    {
+      "name": "spring.artemis",
+      "type": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties"
+    },
+    {
+      "name": "spring.artemis.embedded",
+      "type": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties$Embedded",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties",
+      "sourceMethod": "getEmbedded()"
+    },
+    {
+      "name": "spring.artemis.pool",
+      "type": "org.springframework.boot.jms.autoconfigure.JmsPoolConnectionFactoryProperties",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties",
+      "sourceMethod": "getPool()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.artemis.broker-url",
+      "type": "java.lang.String",
+      "description": "Artemis broker url.",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties",
+      "defaultValue": "tcp:\/\/localhost:61616"
+    },
+    {
+      "name": "spring.artemis.embedded.cluster-password",
+      "type": "java.lang.String",
+      "description": "Cluster password. Randomly generated on startup by default.",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties$Embedded"
+    },
+    {
+      "name": "spring.artemis.embedded.data-directory",
+      "type": "java.lang.String",
+      "description": "Journal file directory. Not necessary if persistence is turned off.",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties$Embedded"
+    },
+    {
+      "name": "spring.artemis.embedded.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable embedded mode if the Artemis server APIs are available.",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties$Embedded",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.artemis.embedded.persistent",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable persistent store.",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties$Embedded",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.artemis.embedded.queues",
+      "type": "java.lang.String[]",
+      "description": "List of queues to create on startup.",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties$Embedded",
+      "defaultValue": []
+    },
+    {
+      "name": "spring.artemis.embedded.server-id",
+      "type": "java.lang.Integer",
+      "description": "Server ID. By default, an auto-incremented counter is used.",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties$Embedded"
+    },
+    {
+      "name": "spring.artemis.embedded.topics",
+      "type": "java.lang.String[]",
+      "description": "List of topics to create on startup.",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties$Embedded",
+      "defaultValue": []
+    },
+    {
+      "name": "spring.artemis.mode",
+      "type": "org.springframework.boot.artemis.autoconfigure.ArtemisMode",
+      "description": "Artemis deployment mode, auto-detected by default.",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties"
+    },
+    {
+      "name": "spring.artemis.password",
+      "type": "java.lang.String",
+      "description": "Login password of the broker.",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties"
+    },
+    {
+      "name": "spring.artemis.pool.block-if-full",
+      "type": "java.lang.Boolean",
+      "description": "Whether to block when a connection is requested and the pool is full. Set it to false to throw a \"JMSException\" instead.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsPoolConnectionFactoryProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.artemis.pool.block-if-full-timeout",
+      "type": "java.time.Duration",
+      "description": "Blocking period before throwing an exception if the pool is still full.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsPoolConnectionFactoryProperties",
+      "defaultValue": "-1ms"
+    },
+    {
+      "name": "spring.artemis.pool.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether a JmsPoolConnectionFactory should be created, instead of a regular ConnectionFactory.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsPoolConnectionFactoryProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.artemis.pool.idle-timeout",
+      "type": "java.time.Duration",
+      "description": "Connection idle timeout.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsPoolConnectionFactoryProperties",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.artemis.pool.max-connections",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of pooled connections.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsPoolConnectionFactoryProperties",
+      "defaultValue": 1
+    },
+    {
+      "name": "spring.artemis.pool.max-sessions-per-connection",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of pooled sessions per connection in the pool.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsPoolConnectionFactoryProperties",
+      "defaultValue": 500
+    },
+    {
+      "name": "spring.artemis.pool.time-between-expiration-check",
+      "type": "java.time.Duration",
+      "description": "Time to sleep between runs of the idle connection eviction thread. When negative, no idle connection eviction thread runs.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsPoolConnectionFactoryProperties",
+      "defaultValue": "-1ms"
+    },
+    {
+      "name": "spring.artemis.pool.use-anonymous-producers",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use only one anonymous \"MessageProducer\" instance. Set it to false to create one \"MessageProducer\" every time one is required.",
+      "sourceType": "org.springframework.boot.jms.autoconfigure.JmsPoolConnectionFactoryProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.artemis.user",
+      "type": "java.lang.String",
+      "description": "Login user of the broker.",
+      "sourceType": "org.springframework.boot.artemis.autoconfigure.ArtemisProperties"
+    },
+    {
+      "name": "spring.artemis.host",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.artemis.broker-url",
+        "since": "2.5.0"
+      }
+    },
+    {
+      "name": "spring.artemis.pool.maximum-active-session-per-connection",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.artemis.pool.max-sessions-per-connection",
+        "since": "2.1.0"
+      }
+    },
+    {
+      "name": "spring.artemis.port",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.artemis.broker-url",
+        "since": "2.5.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "groups": [
+    {
+      "name": "spring.http.clients",
+      "type": "org.springframework.boot.http.client.autoconfigure.HttpClientsProperties",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.HttpClientsProperties"
+    },
+    {
+      "name": "spring.http.clients.imperative",
+      "type": "org.springframework.boot.http.client.autoconfigure.imperative.ImperativeHttpClientsProperties",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.imperative.ImperativeHttpClientsProperties"
+    },
+    {
+      "name": "spring.http.clients.reactive",
+      "type": "org.springframework.boot.http.client.autoconfigure.reactive.ReactiveHttpClientsProperties",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.reactive.ReactiveHttpClientsProperties"
+    },
+    {
+      "name": "spring.http.clients.ssl",
+      "type": "org.springframework.boot.http.client.autoconfigure.HttpClientSettingsProperties$Ssl",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.HttpClientsProperties",
+      "sourceMethod": "getSsl()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.http.clients.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Default connect timeout for a client HTTP request.",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.HttpClientsProperties"
+    },
+    {
+      "name": "spring.http.clients.cookie-handling",
+      "type": "org.springframework.boot.http.client.HttpCookieHandling",
+      "description": "Handling for HTTP cookies.",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.HttpClientsProperties"
+    },
+    {
+      "name": "spring.http.clients.imperative.factory",
+      "type": "org.springframework.boot.http.client.autoconfigure.imperative.ImperativeHttpClientsProperties$Factory",
+      "description": "Default factory used for a client HTTP request.",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.imperative.ImperativeHttpClientsProperties"
+    },
+    {
+      "name": "spring.http.clients.reactive.connector",
+      "type": "org.springframework.boot.http.client.autoconfigure.reactive.ReactiveHttpClientsProperties$Connector",
+      "description": "Default connector used for a client HTTP request.",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.reactive.ReactiveHttpClientsProperties"
+    },
+    {
+      "name": "spring.http.clients.read-timeout",
+      "type": "java.time.Duration",
+      "description": "Default read timeout for a client HTTP request.",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.HttpClientsProperties"
+    },
+    {
+      "name": "spring.http.clients.redirects",
+      "type": "org.springframework.boot.http.client.HttpRedirects",
+      "description": "Handling for HTTP redirects.",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.HttpClientsProperties"
+    },
+    {
+      "name": "spring.http.clients.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle to use.",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.HttpClientSettingsProperties$Ssl"
+    },
+    {
+      "name": "spring.http.serviceclient",
+      "type": "java.util.Map<String,org.springframework.boot.http.client.autoconfigure.HttpClientProperties>",
+      "description": "HTTP Service Client definitions",
+      "sourceType": "org.springframework.boot.http.client.autoconfigure.service.HttpServiceClientProperties"
+    },
+    {
+      "name": "spring.http.client.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Default connect timeout for a client HTTP request.",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.http.clients.connect-timeout",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.http.client.factory",
+      "description": "Default factory used for a client HTTP request.",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.http.clients.imperative.factory",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.http.client.read-timeout",
+      "type": "java.time.Duration",
+      "description": "Default read timeout for a client HTTP request.",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.http.clients.read-timeout",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.http.client.redirects",
+      "description": "Handling for HTTP redirects.",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.http.clients.redirects",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.http.client.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle to use.",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.http.clients.ssl.bundle",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.http.reactiveclient.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Default connect timeout for a client HTTP request.",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.http.clients.connect-timeout",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.http.reactiveclient.connector",
+      "description": "Default connector used for a client HTTP request.",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.http.clients.reactive.connector",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.http.reactiveclient.read-timeout",
+      "type": "java.time.Duration",
+      "description": "Default read timeout for a client HTTP request.",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.http.clients.read-timeout",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.http.reactiveclient.redirects",
+      "type": "org.springframework.boot.http.client.HttpRedirects",
+      "description": "Handling for HTTP redirects.",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.http.clients.redirects",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "spring.http.reactiveclient.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle to use.",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "spring.http.clients.ssl.bundle",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

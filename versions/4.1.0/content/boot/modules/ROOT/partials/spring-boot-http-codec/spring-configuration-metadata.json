@@ -1,0 +1,51 @@
+{
+  "groups": [
+    {
+      "name": "spring.http.codecs",
+      "type": "org.springframework.boot.http.codec.autoconfigure.HttpCodecsProperties",
+      "sourceType": "org.springframework.boot.http.codec.autoconfigure.HttpCodecsProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.http.codecs.log-request-details",
+      "type": "java.lang.Boolean",
+      "description": "Whether to log form data at DEBUG level, and headers at TRACE level.",
+      "sourceType": "org.springframework.boot.http.codec.autoconfigure.HttpCodecsProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.http.codecs.max-in-memory-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Limit on the number of bytes that can be buffered whenever the input stream needs to be aggregated. This applies only to the auto-configured WebFlux server and WebClient instances. By default this is not set, in which case individual codec defaults apply. Most codecs are limited to 256K by default.",
+      "sourceType": "org.springframework.boot.http.codec.autoconfigure.HttpCodecsProperties"
+    },
+    {
+      "name": "spring.http.codecs.preferred-json-mapper",
+      "type": "java.lang.String",
+      "description": "Preferred JSON mapper to use for HTTP encoding and decoding. By default, auto-detected according to the environment. Supported values are 'jackson' and 'jackson2' (deprecated).",
+      "defaultValue": "jackson"
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.http.codecs.preferred-json-mapper",
+      "values": [
+        {
+          "value": "jackson"
+        },
+        {
+          "value": "jackson2"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

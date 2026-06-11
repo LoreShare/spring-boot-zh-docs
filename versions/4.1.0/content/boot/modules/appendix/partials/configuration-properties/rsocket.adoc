@@ -1,1 +1,131 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.rsocket]]
+== RSocket 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.rsocket.spring.rsocket.preferred-mapper]]xref:#application-properties.rsocket.spring.rsocket.preferred-mapper[`+spring.rsocket.preferred-mapper+`]
+|+++首选 JSON 和 CBOR 映射器。默认根据环境自动检测。支持的值有 'jackson' 和 'jackson2'（已弃用）。+++
+|`+jackson+`
+
+|[[application-properties.rsocket.spring.rsocket.server.address]]xref:#application-properties.rsocket.spring.rsocket.server.address[`+spring.rsocket.server.address+`]
+|+++服务器应绑定的网络地址。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.fragment-size]]xref:#application-properties.rsocket.spring.rsocket.server.fragment-size[`+spring.rsocket.server.fragment-size+`]
+|+++最大传输单元。大于指定值的帧会被分片。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.mapping-path]]xref:#application-properties.rsocket.spring.rsocket.server.mapping-path[`+spring.rsocket.server.mapping-path+`]
+|+++RSocket 处理请求的路径（仅适用于 websocket 传输）。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.port]]xref:#application-properties.rsocket.spring.rsocket.server.port[`+spring.rsocket.server.port+`]
+|+++服务器端口。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.spec.compress]]xref:#application-properties.rsocket.spring.rsocket.server.spec.compress[`+spring.rsocket.server.spec.compress+`]
+|+++是否启用 websocket 压缩扩展。+++
+|`+false+`
+
+|[[application-properties.rsocket.spring.rsocket.server.spec.handle-ping]]xref:#application-properties.rsocket.spring.rsocket.server.spec.handle-ping[`+spring.rsocket.server.spec.handle-ping+`]
+|+++是否代理 websocket ping 帧或响应它们。+++
+|`+false+`
+
+|[[application-properties.rsocket.spring.rsocket.server.spec.max-frame-payload-length]]xref:#application-properties.rsocket.spring.rsocket.server.spec.max-frame-payload-length[`+spring.rsocket.server.spec.max-frame-payload-length+`]
+|+++最大允许的帧负载长度。+++
+|`+65536B+`
+
+|[[application-properties.rsocket.spring.rsocket.server.spec.protocols]]xref:#application-properties.rsocket.spring.rsocket.server.spec.protocols[`+spring.rsocket.server.spec.protocols+`]
+|+++在 websocket 握手签名中使用的子协议。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.bundle]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.bundle[`+spring.rsocket.server.ssl.bundle+`]
+|+++已配置的 SSL 捆绑包名称。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.certificate]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.certificate[`+spring.rsocket.server.ssl.certificate+`]
+|+++PEM 编码的 SSL 证书文件路径。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.certificate-private-key]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.certificate-private-key[`+spring.rsocket.server.ssl.certificate-private-key+`]
+|+++SSL 证书的 PEM 编码私钥文件路径。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.ciphers]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.ciphers[`+spring.rsocket.server.ssl.ciphers+`]
+|+++支持的 SSL 密码套件。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.client-auth]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.client-auth[`+spring.rsocket.server.ssl.client-auth+`]
+|+++客户端认证模式。需要信任库。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.enabled]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.enabled[`+spring.rsocket.server.ssl.enabled+`]
+|+++是否启用 SSL 支持。+++
+|`+true+`
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.enabled-protocols]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.enabled-protocols[`+spring.rsocket.server.ssl.enabled-protocols+`]
+|+++启用的 SSL 协议。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.key-alias]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.key-alias[`+spring.rsocket.server.ssl.key-alias+`]
+|+++标识密钥库中密钥的别名。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.key-password]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.key-password[`+spring.rsocket.server.ssl.key-password+`]
+|+++访问密钥库中密钥的密码。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.key-store]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.key-store[`+spring.rsocket.server.ssl.key-store+`]
+|+++持有 SSL 证书的密钥库路径（通常为 jks 文件）。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.key-store-password]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.key-store-password[`+spring.rsocket.server.ssl.key-store-password+`]
+|+++访问密钥库的密码。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.key-store-provider]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.key-store-provider[`+spring.rsocket.server.ssl.key-store-provider+`]
+|+++密钥库的提供者。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.key-store-type]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.key-store-type[`+spring.rsocket.server.ssl.key-store-type+`]
+|+++密钥库的类型。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.protocol]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.protocol[`+spring.rsocket.server.ssl.protocol+`]
+|+++要使用的 SSL 协议。+++
+|`+TLS+`
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.server-name-bundles]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.server-name-bundles[`+spring.rsocket.server.ssl.server-name-bundles+`]
+|+++用于 SNI 配置的主机名到 SSL 捆绑包的映射。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.trust-certificate]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.trust-certificate[`+spring.rsocket.server.ssl.trust-certificate+`]
+|+++PEM 编码的 SSL 证书颁发机构文件路径。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.trust-certificate-private-key]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.trust-certificate-private-key[`+spring.rsocket.server.ssl.trust-certificate-private-key+`]
+|+++SSL 证书颁发机构的 PEM 编码私钥文件路径。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.trust-store]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.trust-store[`+spring.rsocket.server.ssl.trust-store+`]
+|+++持有 SSL 证书的信任库。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.trust-store-password]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.trust-store-password[`+spring.rsocket.server.ssl.trust-store-password+`]
+|+++访问信任库的密码。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.trust-store-provider]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.trust-store-provider[`+spring.rsocket.server.ssl.trust-store-provider+`]
+|+++信任库的提供者。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.ssl.trust-store-type]]xref:#application-properties.rsocket.spring.rsocket.server.ssl.trust-store-type[`+spring.rsocket.server.ssl.trust-store-type+`]
+|+++信任库的类型。+++
+|
+
+|[[application-properties.rsocket.spring.rsocket.server.transport]]xref:#application-properties.rsocket.spring.rsocket.server.transport[`+spring.rsocket.server.transport+`]
+|+++RSocket 传输协议。+++
+|`+tcp+`
+
+|===

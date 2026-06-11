@@ -1,0 +1,33 @@
+{
+  "groups": [
+    {
+      "name": "spring.test.restdocs",
+      "type": "org.springframework.boot.restdocs.test.autoconfigure.RestDocsProperties",
+      "sourceType": "org.springframework.boot.restdocs.test.autoconfigure.RestDocsProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.test.restdocs.uri-host",
+      "type": "java.lang.String",
+      "description": "The URI host to use.",
+      "sourceType": "org.springframework.boot.restdocs.test.autoconfigure.RestDocsProperties"
+    },
+    {
+      "name": "spring.test.restdocs.uri-port",
+      "type": "java.lang.Integer",
+      "description": "The URI port to use.",
+      "sourceType": "org.springframework.boot.restdocs.test.autoconfigure.RestDocsProperties"
+    },
+    {
+      "name": "spring.test.restdocs.uri-scheme",
+      "type": "java.lang.String",
+      "description": "The URI scheme for to use (for example http).",
+      "sourceType": "org.springframework.boot.restdocs.test.autoconfigure.RestDocsProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

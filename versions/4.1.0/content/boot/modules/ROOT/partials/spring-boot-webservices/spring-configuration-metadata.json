@@ -1,0 +1,46 @@
+{
+  "groups": [
+    {
+      "name": "spring.webservices",
+      "type": "org.springframework.boot.webservices.autoconfigure.WebServicesProperties",
+      "sourceType": "org.springframework.boot.webservices.autoconfigure.WebServicesProperties"
+    },
+    {
+      "name": "spring.webservices.servlet",
+      "type": "org.springframework.boot.webservices.autoconfigure.WebServicesProperties$Servlet",
+      "sourceType": "org.springframework.boot.webservices.autoconfigure.WebServicesProperties",
+      "sourceMethod": "getServlet()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.webservices.path",
+      "type": "java.lang.String",
+      "description": "Path that serves as the base URI for the services.",
+      "sourceType": "org.springframework.boot.webservices.autoconfigure.WebServicesProperties",
+      "defaultValue": "\/services"
+    },
+    {
+      "name": "spring.webservices.servlet.init",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Servlet init parameters to pass to Spring Web Services.",
+      "sourceType": "org.springframework.boot.webservices.autoconfigure.WebServicesProperties$Servlet"
+    },
+    {
+      "name": "spring.webservices.servlet.load-on-startup",
+      "type": "java.lang.Integer",
+      "description": "Load on startup priority of the Spring Web Services servlet.",
+      "sourceType": "org.springframework.boot.webservices.autoconfigure.WebServicesProperties$Servlet",
+      "defaultValue": -1
+    },
+    {
+      "name": "spring.webservices.wsdl-locations",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Comma-separated list of locations of WSDLs and accompanying XSDs to be exposed as beans."
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

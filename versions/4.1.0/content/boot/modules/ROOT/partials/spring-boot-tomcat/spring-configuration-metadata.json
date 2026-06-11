@@ -1,0 +1,525 @@
+{
+  "groups": [
+    {
+      "name": "management.server.tomcat",
+      "type": "org.springframework.boot.tomcat.autoconfigure.actuate.web.server.TomcatManagementServerProperties",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.actuate.web.server.TomcatManagementServerProperties"
+    },
+    {
+      "name": "management.server.tomcat.accesslog",
+      "type": "org.springframework.boot.tomcat.autoconfigure.actuate.web.server.TomcatManagementServerProperties$Accesslog",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.actuate.web.server.TomcatManagementServerProperties",
+      "sourceMethod": "getAccesslog()"
+    },
+    {
+      "name": "server.tomcat",
+      "type": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties"
+    },
+    {
+      "name": "server.tomcat.accesslog",
+      "type": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "sourceMethod": "getAccesslog()"
+    },
+    {
+      "name": "server.tomcat.mbeanregistry",
+      "type": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Mbeanregistry",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "sourceMethod": "getMbeanregistry()"
+    },
+    {
+      "name": "server.tomcat.remoteip",
+      "type": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Remoteip",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "sourceMethod": "getRemoteip()"
+    },
+    {
+      "name": "server.tomcat.resource",
+      "type": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Resource",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "sourceMethod": "getResource()"
+    },
+    {
+      "name": "server.tomcat.threads",
+      "type": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Threads",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "sourceMethod": "getThreads()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.server.tomcat.accesslog.prefix",
+      "type": "java.lang.String",
+      "description": "Management log file name prefix.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.actuate.web.server.TomcatManagementServerProperties$Accesslog",
+      "defaultValue": "management_"
+    },
+    {
+      "name": "server.tomcat.accept-count",
+      "type": "java.lang.Integer",
+      "description": "Maximum queue length for incoming connection requests when all possible request processing threads are in use.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": 100
+    },
+    {
+      "name": "server.tomcat.accesslog.buffered",
+      "type": "java.lang.Boolean",
+      "description": "Whether to buffer output such that it is flushed only periodically.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": true
+    },
+    {
+      "name": "server.tomcat.accesslog.check-exists",
+      "type": "java.lang.Boolean",
+      "description": "Whether to check for log file existence so it can be recreated if an external process has renamed it.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": false
+    },
+    {
+      "name": "server.tomcat.accesslog.condition-if",
+      "type": "java.lang.String",
+      "description": "Whether logging of the request will only be enabled if \"ServletRequest.getAttribute(conditionIf)\" does not yield null.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog"
+    },
+    {
+      "name": "server.tomcat.accesslog.condition-unless",
+      "type": "java.lang.String",
+      "description": "Whether logging of the request will only be enabled if \"ServletRequest.getAttribute(conditionUnless)\" yield null.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog"
+    },
+    {
+      "name": "server.tomcat.accesslog.directory",
+      "type": "java.lang.String",
+      "description": "Directory in which log files are created. Can be absolute or relative to the Tomcat base dir.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": "logs"
+    },
+    {
+      "name": "server.tomcat.accesslog.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable access log.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": false
+    },
+    {
+      "name": "server.tomcat.accesslog.encoding",
+      "type": "java.lang.String",
+      "description": "Character set used by the log file. Default to the system default character set.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog"
+    },
+    {
+      "name": "server.tomcat.accesslog.file-date-format",
+      "type": "java.lang.String",
+      "description": "Date format to place in the log file name.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": ".yyyy-MM-dd"
+    },
+    {
+      "name": "server.tomcat.accesslog.ipv6-canonical",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use IPv6 canonical representation format as defined by RFC 5952.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": false
+    },
+    {
+      "name": "server.tomcat.accesslog.locale",
+      "type": "java.lang.String",
+      "description": "Locale used to format timestamps in log entries and in log file name suffix. Default to the default locale of the Java process.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog"
+    },
+    {
+      "name": "server.tomcat.accesslog.max-days",
+      "type": "java.lang.Integer",
+      "description": "Number of days to retain the access log files before they are removed.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": -1
+    },
+    {
+      "name": "server.tomcat.accesslog.pattern",
+      "type": "java.lang.String",
+      "description": "Format pattern for access logs.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": "common"
+    },
+    {
+      "name": "server.tomcat.accesslog.prefix",
+      "type": "java.lang.String",
+      "description": "Log file name prefix.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": "access_log"
+    },
+    {
+      "name": "server.tomcat.accesslog.rename-on-rotate",
+      "type": "java.lang.Boolean",
+      "description": "Whether to defer inclusion of the date stamp in the file name until rotate time.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": false
+    },
+    {
+      "name": "server.tomcat.accesslog.request-attributes-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Set request attributes for the IP address, Hostname, protocol, and port used for the request.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": false
+    },
+    {
+      "name": "server.tomcat.accesslog.rotate",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable access log rotation.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": true
+    },
+    {
+      "name": "server.tomcat.accesslog.suffix",
+      "type": "java.lang.String",
+      "description": "Log file name suffix.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Accesslog",
+      "defaultValue": ".log"
+    },
+    {
+      "name": "server.tomcat.additional-tld-skip-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of additional patterns that match jars to ignore for TLD scanning. The special '?' and '*' characters can be used in the pattern to match one and only one character and zero or more characters respectively.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties"
+    },
+    {
+      "name": "server.tomcat.background-processor-delay",
+      "type": "java.time.Duration",
+      "description": "Delay between the invocation of backgroundProcess methods. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "server.tomcat.basedir",
+      "type": "java.io.File",
+      "description": "Tomcat base directory. If not specified, a temporary directory is used.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties"
+    },
+    {
+      "name": "server.tomcat.connection-timeout",
+      "type": "java.time.Duration",
+      "description": "Amount of time the connector will wait, after accepting a connection, for the request URI line to be presented.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties"
+    },
+    {
+      "name": "server.tomcat.keep-alive-timeout",
+      "type": "java.time.Duration",
+      "description": "Time to wait for another HTTP request before the connection is closed. When not set the connectionTimeout is used. When set to -1 there will be no timeout.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties"
+    },
+    {
+      "name": "server.tomcat.max-connections",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of connections that the server accepts and processes at any given time. Once the limit has been reached, the operating system may still accept connections based on the \"acceptCount\" property.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": 8192
+    },
+    {
+      "name": "server.tomcat.max-http-form-post-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum size of the form content in any HTTP post request.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": "2MB"
+    },
+    {
+      "name": "server.tomcat.max-http-response-header-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum size of the HTTP response header.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": "8KB"
+    },
+    {
+      "name": "server.tomcat.max-keep-alive-requests",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of HTTP requests that can be pipelined before the connection is closed. When set to 0 or 1, keep-alive and pipelining are disabled. When set to -1, an unlimited number of pipelined or keep-alive requests are allowed.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": 100
+    },
+    {
+      "name": "server.tomcat.max-parameter-count",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of parameters (GET plus POST) that will be automatically parsed by the container. A value of less than 0 means no limit.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": 1000
+    },
+    {
+      "name": "server.tomcat.max-part-count",
+      "type": "java.lang.Integer",
+      "description": "Maximum total number of parts permitted in a multipart\/form-data request. Requests that exceed this limit will be rejected. A value of less than 0 means no limit.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": 50
+    },
+    {
+      "name": "server.tomcat.max-part-header-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum per-part header size permitted in a multipart\/form-data request. Requests that exceed this limit will be rejected. A value of less than 0 means no limit.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": "512B"
+    },
+    {
+      "name": "server.tomcat.max-swallow-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum amount of request body to swallow.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": "2MB"
+    },
+    {
+      "name": "server.tomcat.mbeanregistry.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether Tomcat's MBean Registry should be enabled.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Mbeanregistry",
+      "defaultValue": false
+    },
+    {
+      "name": "server.tomcat.processor-cache",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of idle processors that will be retained in the cache and reused with a subsequent request. When set to -1 the cache will be unlimited with a theoretical maximum size equal to the maximum number of connections.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": 200
+    },
+    {
+      "name": "server.tomcat.redirect-context-root",
+      "type": "java.lang.Boolean",
+      "description": "Whether requests to the context root should be redirected by appending a \/ to the path. When using SSL terminated at a proxy, this property should be set to false.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "server.tomcat.relaxed-path-chars",
+      "type": "java.util.List<java.lang.Character>",
+      "description": "List of additional unencoded characters that should be allowed in URI paths. Only \"< > [ \\ ] ^ ` { | }\" are allowed.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties"
+    },
+    {
+      "name": "server.tomcat.relaxed-query-chars",
+      "type": "java.util.List<java.lang.Character>",
+      "description": "List of additional unencoded characters that should be allowed in URI query strings. Only \"< > [ \\ ] ^ ` { | }\" are allowed.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties"
+    },
+    {
+      "name": "server.tomcat.remoteip.host-header",
+      "type": "java.lang.String",
+      "description": "Name of the HTTP header from which the remote host is extracted.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Remoteip",
+      "defaultValue": "X-Forwarded-Host"
+    },
+    {
+      "name": "server.tomcat.remoteip.internal-proxies",
+      "type": "java.lang.String",
+      "description": "Internal proxies that are to be trusted. Can be set as a comma separate list of CIDR or as a regular expression.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Remoteip",
+      "defaultValue": "192.168.0.0\/16, 172.16.0.0\/12, 169.254.0.0\/16, fc00::\/7, 10.0.0.0\/8, 100.64.0.0\/10, 127.0.0.0\/8, fe80::\/10, ::1\/128"
+    },
+    {
+      "name": "server.tomcat.remoteip.port-header",
+      "type": "java.lang.String",
+      "description": "Name of the HTTP header used to override the original port value.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Remoteip",
+      "defaultValue": "X-Forwarded-Port"
+    },
+    {
+      "name": "server.tomcat.remoteip.protocol-header",
+      "type": "java.lang.String",
+      "description": "Header that holds the incoming protocol, usually named \"X-Forwarded-Proto\".",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Remoteip"
+    },
+    {
+      "name": "server.tomcat.remoteip.protocol-header-https-value",
+      "type": "java.lang.String",
+      "description": "Value of the protocol header indicating whether the incoming request uses SSL.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Remoteip",
+      "defaultValue": "https"
+    },
+    {
+      "name": "server.tomcat.remoteip.remote-ip-header",
+      "type": "java.lang.String",
+      "description": "Name of the HTTP header from which the remote IP is extracted. For instance, 'X-FORWARDED-FOR'.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Remoteip"
+    },
+    {
+      "name": "server.tomcat.remoteip.trusted-proxies",
+      "type": "java.lang.String",
+      "description": "Regular expression defining proxies that are trusted when they appear in the \"remote-ip-header\" header.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Remoteip"
+    },
+    {
+      "name": "server.tomcat.resource.allow-caching",
+      "type": "java.lang.Boolean",
+      "description": "Whether static resource caching is permitted for this web application.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Resource",
+      "defaultValue": true
+    },
+    {
+      "name": "server.tomcat.resource.cache-max-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "description": "Maximum size of the static resource cache.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Resource",
+      "defaultValue": "10MB"
+    },
+    {
+      "name": "server.tomcat.resource.cache-ttl",
+      "type": "java.time.Duration",
+      "description": "Time-to-live of the static resource cache.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Resource",
+      "defaultValue": "5s"
+    },
+    {
+      "name": "server.tomcat.threads.max",
+      "type": "java.lang.Integer",
+      "description": "Maximum amount of worker threads. Doesn't have an effect if virtual threads are enabled.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Threads",
+      "defaultValue": 200
+    },
+    {
+      "name": "server.tomcat.threads.max-queue-capacity",
+      "type": "java.lang.Integer",
+      "description": "Maximum capacity of the thread pool's backing queue. This setting only has an effect if the value is greater than 0.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Threads",
+      "defaultValue": 2147483647
+    },
+    {
+      "name": "server.tomcat.threads.min-spare",
+      "type": "java.lang.Integer",
+      "description": "Minimum amount of worker threads. Doesn't have an effect if virtual threads are enabled.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$Threads",
+      "defaultValue": 10
+    },
+    {
+      "name": "server.tomcat.uri-encoding",
+      "type": "java.nio.charset.Charset",
+      "description": "Character encoding to use to decode the URI.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "server.tomcat.use-apr",
+      "type": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties$UseApr",
+      "description": "Whether to use APR.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": "never"
+    },
+    {
+      "name": "server.tomcat.use-relative-redirects",
+      "type": "java.lang.Boolean",
+      "description": "Whether HTTP 1.1 and later location headers generated by a call to sendRedirect will use relative or absolute redirects.",
+      "sourceType": "org.springframework.boot.tomcat.autoconfigure.TomcatServerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "server.tomcat.max-http-post-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "server.tomcat.max-http-form-post-size",
+        "since": "2.3.0"
+      }
+    },
+    {
+      "name": "server.tomcat.reject-illegal-header",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "since": "2.7.12"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "server.tomcat.accesslog.encoding",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "java.nio.charset.Charset"
+          }
+        }
+      ]
+    },
+    {
+      "name": "server.tomcat.accesslog.locale",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "java.util.Locale"
+          }
+        }
+      ]
+    },
+    {
+      "name": "server.tomcat.relaxed-path-chars",
+      "values": [
+        {
+          "value": "<"
+        },
+        {
+          "value": ">"
+        },
+        {
+          "value": "["
+        },
+        {
+          "value": "\\"
+        },
+        {
+          "value": "]"
+        },
+        {
+          "value": "^"
+        },
+        {
+          "value": "`"
+        },
+        {
+          "value": "{"
+        },
+        {
+          "value": "|"
+        },
+        {
+          "value": "}"
+        }
+      ]
+    },
+    {
+      "name": "server.tomcat.relaxed-query-chars",
+      "values": [
+        {
+          "value": "<"
+        },
+        {
+          "value": ">"
+        },
+        {
+          "value": "["
+        },
+        {
+          "value": "\\"
+        },
+        {
+          "value": "]"
+        },
+        {
+          "value": "^"
+        },
+        {
+          "value": "`"
+        },
+        {
+          "value": "{"
+        },
+        {
+          "value": "|"
+        },
+        {
+          "value": "}"
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

@@ -1,3 +1,56 @@
 |===
-3+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+|路径|类型|描述
+
+|`+contexts+`
+|`+Object+`
+|按 id 键控的应用程序上下文
+
+|`+contexts.*.flywayBeans.*.migrations+`
+|`+Array+`
+|Flyway 实例执行的迁移，按 Flyway bean 名称键控。
+
+|`+contexts.*.flywayBeans.*.migrations.[].checksum+`
+|`+Number+`
+|迁移的校验和（如果有）。
+
+|`+contexts.*.flywayBeans.*.migrations.[].description+`
+|`+String+`
+|迁移的描述（如果有）。
+
+|`+contexts.*.flywayBeans.*.migrations.[].executionTime+`
+|`+Number+`
+|已应用迁移的执行时间（毫秒）。
+
+|`+contexts.*.flywayBeans.*.migrations.[].installedBy+`
+|`+String+`
+|安装已应用迁移的用户（如果有）。
+
+|`+contexts.*.flywayBeans.*.migrations.[].installedOn+`
+|`+String+`
+|安装已应用迁移的时间戳（如果有）。
+
+|`+contexts.*.flywayBeans.*.migrations.[].installedRank+`
+|`+Number+`
+|已应用迁移的排名（如果有）。后迁移的排名更高。
+
+|`+contexts.*.flywayBeans.*.migrations.[].script+`
+|`+String+`
+|用于执行迁移的脚本名称（如果有）。
+
+|`+contexts.*.flywayBeans.*.migrations.[].state+`
+|`+String+`
+|迁移的状态。（`PENDING`, `ABOVE_TARGET`, `BELOW_BASELINE`, `BASELINE_IGNORED`, `BASELINE`, `IGNORED`, `MISSING_SUCCESS`, `MISSING_FAILED`, `SUCCESS`, `UNDONE`, `AVAILABLE`, `FAILED`, `OUT_OF_ORDER`, `FUTURE_SUCCESS`, `FUTURE_FAILED`, `OUTDATED`, `SUPERSEDED`, `DELETED`)
+
+|`+contexts.*.flywayBeans.*.migrations.[].type+`
+|`+String+`
+|迁移的类型。
+
+|`+contexts.*.flywayBeans.*.migrations.[].version+`
+|`+String+`
+|应用迁移后的数据库版本（如果有）。
+
+|`+contexts.*.parentId+`
+|`+String+`
+|父应用程序上下文的 id（如果有）。
+
 |===

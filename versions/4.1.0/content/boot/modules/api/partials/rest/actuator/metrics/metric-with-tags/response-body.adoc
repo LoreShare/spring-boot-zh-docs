@@ -1,0 +1,13 @@
+[source,json,options="nowrap"]
+----
+{
+  "availableTags" : [ ],
+  "baseUnit" : "bytes",
+  "description" : "The maximum amount of memory in bytes that can be used for memory management",
+  "measurements" : [ {
+    "statistic" : "VALUE",
+    "value" : 1.073741824E9
+  } ],
+  "name" : "jvm.memory.max"
+}
+----

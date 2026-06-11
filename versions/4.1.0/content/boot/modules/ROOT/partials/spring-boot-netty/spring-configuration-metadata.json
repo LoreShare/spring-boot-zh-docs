@@ -1,0 +1,21 @@
+{
+  "groups": [
+    {
+      "name": "spring.netty",
+      "type": "org.springframework.boot.netty.autoconfigure.NettyProperties",
+      "sourceType": "org.springframework.boot.netty.autoconfigure.NettyProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.netty.leak-detection",
+      "type": "org.springframework.boot.netty.autoconfigure.NettyProperties$LeakDetection",
+      "description": "Level of leak detection for reference-counted buffers. If not configured via 'ResourceLeakDetector.setLevel' or the 'io.netty.leakDetection.level' system property, default to 'simple'.",
+      "sourceType": "org.springframework.boot.netty.autoconfigure.NettyProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

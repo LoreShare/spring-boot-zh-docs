@@ -1,4 +1,31 @@
-[source,text]
+[source,http,options="nowrap"]
 ----
-该请求或响应示例由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+HTTP/1.1 200 OK
+Content-Type: application/vnd.spring-boot.actuator.v3+json
+Content-Length: 789
+
+{
+  "sessions" : [ {
+    "attributeNames" : [ ],
+    "creationTime" : "2026-06-10T04:30:23.695522571Z",
+    "expired" : false,
+    "id" : "84ecb213-5b47-4192-9038-fd76ea1810ee",
+    "lastAccessedTime" : "2026-06-10T16:29:38.695527290Z",
+    "maxInactiveInterval" : 1800
+  }, {
+    "attributeNames" : [ ],
+    "creationTime" : "2026-06-10T11:30:23.696319338Z",
+    "expired" : false,
+    "id" : "4db5efcc-99cb-4d05-a52c-b49acfbb7ea9",
+    "lastAccessedTime" : "2026-06-10T16:29:46.696321712Z",
+    "maxInactiveInterval" : 1800
+  }, {
+    "attributeNames" : [ ],
+    "creationTime" : "2026-06-10T14:30:23.696324388Z",
+    "expired" : false,
+    "id" : "b1343a13-bdba-492a-9bd1-3c4bb00aa7e0",
+    "lastAccessedTime" : "2026-06-10T16:30:11.696325009Z",
+    "maxInactiveInterval" : 1800
+  } ]
+}
 ----

@@ -1,0 +1,170 @@
+{
+  "groups": [
+    {
+      "name": "spring.ldap",
+      "type": "org.springframework.boot.ldap.autoconfigure.LdapProperties",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties"
+    },
+    {
+      "name": "spring.ldap.embedded",
+      "type": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties"
+    },
+    {
+      "name": "spring.ldap.embedded.credential",
+      "type": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties$Credential",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties",
+      "sourceMethod": "getCredential()"
+    },
+    {
+      "name": "spring.ldap.embedded.ssl",
+      "type": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties$Ssl",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties",
+      "sourceMethod": "getSsl()"
+    },
+    {
+      "name": "spring.ldap.embedded.validation",
+      "type": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties$Validation",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties",
+      "sourceMethod": "getValidation()"
+    },
+    {
+      "name": "spring.ldap.template",
+      "type": "org.springframework.boot.ldap.autoconfigure.LdapProperties$Template",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties",
+      "sourceMethod": "getTemplate()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.health.ldap.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable LDAP health check.",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.ldap.anonymous-read-only",
+      "type": "java.lang.Boolean",
+      "description": "Whether read-only operations should use an anonymous environment. Disabled by default unless a username is set.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties"
+    },
+    {
+      "name": "spring.ldap.base",
+      "type": "java.lang.String",
+      "description": "Base suffix from which all operations should originate.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties"
+    },
+    {
+      "name": "spring.ldap.base-environment",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "LDAP specification settings.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties"
+    },
+    {
+      "name": "spring.ldap.embedded.base-dn",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of base DNs.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties"
+    },
+    {
+      "name": "spring.ldap.embedded.credential.password",
+      "type": "java.lang.String",
+      "description": "Embedded LDAP password.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties$Credential"
+    },
+    {
+      "name": "spring.ldap.embedded.credential.username",
+      "type": "java.lang.String",
+      "description": "Embedded LDAP username.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties$Credential"
+    },
+    {
+      "name": "spring.ldap.embedded.ldif",
+      "type": "java.lang.String",
+      "description": "Schema (LDIF) script resource reference.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties",
+      "defaultValue": "classpath:schema.ldif"
+    },
+    {
+      "name": "spring.ldap.embedded.port",
+      "type": "java.lang.Integer",
+      "description": "Embedded LDAP port.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.ldap.embedded.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "SSL bundle name.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties$Ssl"
+    },
+    {
+      "name": "spring.ldap.embedded.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support. Enabled automatically if \"bundle\" is provided unless specified otherwise.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties$Ssl"
+    },
+    {
+      "name": "spring.ldap.embedded.validation.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable LDAP schema validation.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties$Validation",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.ldap.embedded.validation.schema",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Path to the custom schema.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.embedded.EmbeddedLdapProperties$Validation"
+    },
+    {
+      "name": "spring.ldap.password",
+      "type": "java.lang.String",
+      "description": "Login password of the server.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties"
+    },
+    {
+      "name": "spring.ldap.referral",
+      "type": "org.springframework.boot.ldap.autoconfigure.LdapProperties$Referral",
+      "description": "Specify how referrals encountered by the service provider are to be processed. If not specified, the default is determined by the provider.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties"
+    },
+    {
+      "name": "spring.ldap.template.ignore-name-not-found-exception",
+      "type": "java.lang.Boolean",
+      "description": "Whether NameNotFoundException should be ignored in searches through the LdapTemplate.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties$Template",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.ldap.template.ignore-partial-result-exception",
+      "type": "java.lang.Boolean",
+      "description": "Whether PartialResultException should be ignored in searches through the LdapTemplate.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties$Template",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.ldap.template.ignore-size-limit-exceeded-exception",
+      "type": "java.lang.Boolean",
+      "description": "Whether SizeLimitExceededException should be ignored in searches through the LdapTemplate.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties$Template",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.ldap.urls",
+      "type": "java.lang.String[]",
+      "description": "LDAP URLs of the server.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties"
+    },
+    {
+      "name": "spring.ldap.username",
+      "type": "java.lang.String",
+      "description": "Login username of the server.",
+      "sourceType": "org.springframework.boot.ldap.autoconfigure.LdapProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

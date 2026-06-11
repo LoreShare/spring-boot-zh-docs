@@ -1,1 +1,147 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.security]]
+== 安全属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.security.spring.security.filter.dispatcher-types]]xref:#application-properties.security.spring.security.filter.dispatcher-types[`+spring.security.filter.dispatcher-types+`]
+|+++基于 Servlet 的 Web 应用程序的安全过滤器链调度器类型。+++
+|`+[async, error, forward, include, request]+`
+
+|[[application-properties.security.spring.security.filter.order]]xref:#application-properties.security.spring.security.filter.order[`+spring.security.filter.order+`]
+|+++基于 Servlet 的 Web 应用程序的安全过滤器链顺序。+++
+|`+-100+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.client]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.client[`+spring.security.oauth2.authorizationserver.client.*+`]
+|+++授权服务器的已注册客户端。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.endpoint.authorization-uri]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.endpoint.authorization-uri[`+spring.security.oauth2.authorizationserver.endpoint.authorization-uri+`]
+|+++授权服务器的 OAuth 2.0 授权端点。+++
+|`+/oauth2/authorize+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.endpoint.device-authorization-uri]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.endpoint.device-authorization-uri[`+spring.security.oauth2.authorizationserver.endpoint.device-authorization-uri+`]
+|+++授权服务器的 OAuth 2.0 设备授权端点。+++
+|`+/oauth2/device_authorization+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.endpoint.device-verification-uri]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.endpoint.device-verification-uri[`+spring.security.oauth2.authorizationserver.endpoint.device-verification-uri+`]
+|+++授权服务器的 OAuth 2.0 设备验证端点。+++
+|`+/oauth2/device_verification+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.endpoint.jwk-set-uri]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.endpoint.jwk-set-uri[`+spring.security.oauth2.authorizationserver.endpoint.jwk-set-uri+`]
+|+++授权服务器的 JWK 集合端点。+++
+|`+/oauth2/jwks+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.endpoint.oidc.client-registration-uri]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.endpoint.oidc.client-registration-uri[`+spring.security.oauth2.authorizationserver.endpoint.oidc.client-registration-uri+`]
+|+++授权服务器的 OpenID Connect 1.0 客户端注册端点。+++
+|`+/connect/register+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.endpoint.oidc.logout-uri]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.endpoint.oidc.logout-uri[`+spring.security.oauth2.authorizationserver.endpoint.oidc.logout-uri+`]
+|+++授权服务器的 OpenID Connect 1.0 注销端点。+++
+|`+/connect/logout+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.endpoint.oidc.user-info-uri]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.endpoint.oidc.user-info-uri[`+spring.security.oauth2.authorizationserver.endpoint.oidc.user-info-uri+`]
+|+++授权服务器的 OpenID Connect 1.0 UserInfo 端点。+++
+|`+/userinfo+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.endpoint.pushed-authorization-request-uri]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.endpoint.pushed-authorization-request-uri[`+spring.security.oauth2.authorizationserver.endpoint.pushed-authorization-request-uri+`]
+|+++授权服务器的 OAuth 2.0 推送授权请求端点。+++
+|`+/oauth2/par+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.endpoint.token-introspection-uri]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.endpoint.token-introspection-uri[`+spring.security.oauth2.authorizationserver.endpoint.token-introspection-uri+`]
+|+++授权服务器的 OAuth 2.0 令牌内省端点。+++
+|`+/oauth2/introspect+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.endpoint.token-revocation-uri]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.endpoint.token-revocation-uri[`+spring.security.oauth2.authorizationserver.endpoint.token-revocation-uri+`]
+|+++授权服务器的 OAuth 2.0 令牌撤销端点。+++
+|`+/oauth2/revoke+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.endpoint.token-uri]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.endpoint.token-uri[`+spring.security.oauth2.authorizationserver.endpoint.token-uri+`]
+|+++授权服务器的 OAuth 2.0 令牌端点。+++
+|`+/oauth2/token+`
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.issuer]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.issuer[`+spring.security.oauth2.authorizationserver.issuer+`]
+|+++授权服务器颁发者标识符的 URL。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.authorizationserver.multiple-issuers-allowed]]xref:#application-properties.security.spring.security.oauth2.authorizationserver.multiple-issuers-allowed[`+spring.security.oauth2.authorizationserver.multiple-issuers-allowed+`]
+|+++是否允许每个主机有多个颁发者。在颁发者标识符的 URL 中使用路径组件可以在多租户托管配置中支持每个主机有多个颁发者。+++
+|`+false+`
+
+|[[application-properties.security.spring.security.oauth2.client.provider]]xref:#application-properties.security.spring.security.oauth2.client.provider[`+spring.security.oauth2.client.provider.*+`]
+|+++OAuth 提供者详细信息。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.client.registration]]xref:#application-properties.security.spring.security.oauth2.client.registration[`+spring.security.oauth2.client.registration.*+`]
+|+++OAuth 客户端注册。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.jwt.audiences]]xref:#application-properties.security.spring.security.oauth2.resourceserver.jwt.audiences[`+spring.security.oauth2.resourceserver.jwt.audiences+`]
+|+++标识 JWT 的目标接收者。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.jwt.authorities-claim-delimiter]]xref:#application-properties.security.spring.security.oauth2.resourceserver.jwt.authorities-claim-delimiter[`+spring.security.oauth2.resourceserver.jwt.authorities-claim-delimiter+`]
+|+++用于将 authorities 声明值拆分为 authorities 的正则表达式。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.jwt.authorities-claim-expressions]]xref:#application-properties.security.spring.security.oauth2.resourceserver.jwt.authorities-claim-expressions[`+spring.security.oauth2.resourceserver.jwt.authorities-claim-expressions+`]
+|+++用于从 JWT 提取 authorities 的表达式列表。与 'spring.security.oauth2.resourceserver.jwt.authorities-claim-name' 和 'spring.security.oauth2.resourceserver.jwt.authorities-claim-delimiter' 互斥。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.jwt.authorities-claim-name]]xref:#application-properties.security.spring.security.oauth2.resourceserver.jwt.authorities-claim-name[`+spring.security.oauth2.resourceserver.jwt.authorities-claim-name+`]
+|+++用于从 JWT 映射 authorities 的令牌声明名称。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.jwt.authority-prefix]]xref:#application-properties.security.spring.security.oauth2.resourceserver.jwt.authority-prefix[`+spring.security.oauth2.resourceserver.jwt.authority-prefix+`]
+|+++从 JWT 映射的 authorities 的前缀。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.jwt.issuer-uri]]xref:#application-properties.security.spring.security.oauth2.resourceserver.jwt.issuer-uri[`+spring.security.oauth2.resourceserver.jwt.issuer-uri+`]
+|+++URI，可以是 OpenID Connect 发现 endpoint 或 RFC 8414 定义的 OAuth 2.0 授权服务器元数据 endpoint。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.jwt.jwk-set-uri]]xref:#application-properties.security.spring.security.oauth2.resourceserver.jwt.jwk-set-uri[`+spring.security.oauth2.resourceserver.jwt.jwk-set-uri+`]
+|+++用于验证 JWT 令牌的 JSON Web Key URI。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.jwt.jws-algorithms]]xref:#application-properties.security.spring.security.oauth2.resourceserver.jwt.jws-algorithms[`+spring.security.oauth2.resourceserver.jwt.jws-algorithms+`]
+|+++用于验证数字签名的 JSON Web 算法。+++
+|`+RS256+`
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.jwt.principal-claim-name]]xref:#application-properties.security.spring.security.oauth2.resourceserver.jwt.principal-claim-name[`+spring.security.oauth2.resourceserver.jwt.principal-claim-name+`]
+|+++JWT 主体声明名称。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.jwt.public-key-location]]xref:#application-properties.security.spring.security.oauth2.resourceserver.jwt.public-key-location[`+spring.security.oauth2.resourceserver.jwt.public-key-location+`]
+|+++包含用于验证 JWT 的公钥的文件位置。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.opaquetoken.client-id]]xref:#application-properties.security.spring.security.oauth2.resourceserver.opaquetoken.client-id[`+spring.security.oauth2.resourceserver.opaquetoken.client-id+`]
+|+++用于向令牌内省 endpoint 进行身份验证的客户端 ID。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.opaquetoken.client-secret]]xref:#application-properties.security.spring.security.oauth2.resourceserver.opaquetoken.client-secret[`+spring.security.oauth2.resourceserver.opaquetoken.client-secret+`]
+|+++用于向令牌内省 endpoint 进行身份验证的客户端密钥。+++
+|
+
+|[[application-properties.security.spring.security.oauth2.resourceserver.opaquetoken.introspection-uri]]xref:#application-properties.security.spring.security.oauth2.resourceserver.opaquetoken.introspection-uri[`+spring.security.oauth2.resourceserver.opaquetoken.introspection-uri+`]
+|+++用于完成令牌内省的 OAuth 2.0 endpoint。+++
+|
+
+|[[application-properties.security.spring.security.saml2.relyingparty.registration]]xref:#application-properties.security.spring.security.saml2.relyingparty.registration[`+spring.security.saml2.relyingparty.registration.*+`]
+|+++SAML2 依赖方注册。+++
+|
+
+|[[application-properties.security.spring.security.user.name]]xref:#application-properties.security.spring.security.user.name[`+spring.security.user.name+`]
+|+++默认用户名。+++
+|`+user+`
+
+|[[application-properties.security.spring.security.user.password]]xref:#application-properties.security.spring.security.user.password[`+spring.security.user.password+`]
+|+++默认用户的密码。+++
+|
+
+|[[application-properties.security.spring.security.user.roles]]xref:#application-properties.security.spring.security.user.roles[`+spring.security.user.roles+`]
+|+++默认用户名的授权角色。+++
+|
+
+|===

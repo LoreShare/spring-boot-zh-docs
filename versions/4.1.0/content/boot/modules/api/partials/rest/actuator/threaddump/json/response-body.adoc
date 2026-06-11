@@ -1,0 +1,1271 @@
+[source,json,options="nowrap"]
+----
+{
+  "threads" : [ {
+    "blockedCount" : 23,
+    "blockedTime" : -1,
+    "daemon" : false,
+    "inNative" : false,
+    "lockOwnerId" : -1,
+    "lockedMonitors" : [ ],
+    "lockedSynchronizers" : [ ],
+    "priority" : 5,
+    "stackTrace" : [ {
+      "className" : "sun.management.ThreadImpl",
+      "fileName" : "ThreadImpl.java",
+      "lineNumber" : -2,
+      "methodName" : "dumpThreads0",
+      "moduleName" : "java.management",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : true
+    }, {
+      "className" : "sun.management.ThreadImpl",
+      "fileName" : "ThreadImpl.java",
+      "lineNumber" : 505,
+      "methodName" : "dumpAllThreads",
+      "moduleName" : "java.management",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "sun.management.ThreadImpl",
+      "fileName" : "ThreadImpl.java",
+      "lineNumber" : 493,
+      "methodName" : "dumpAllThreads",
+      "moduleName" : "java.management",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.boot.actuate.management.ThreadDumpEndpoint",
+      "fileName" : "ThreadDumpEndpoint.java",
+      "lineNumber" : 52,
+      "methodName" : "getFormattedThreadDump",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.boot.actuate.management.ThreadDumpEndpoint",
+      "fileName" : "ThreadDumpEndpoint.java",
+      "lineNumber" : 43,
+      "methodName" : "threadDump",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.DirectMethodHandle$Holder",
+      "fileName" : "DirectMethodHandle$Holder",
+      "lineNumber" : -1,
+      "methodName" : "invokeVirtual",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.LambdaForm$MH/0x0000000030045c00",
+      "fileName" : "LambdaForm$MH",
+      "lineNumber" : -1,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.Invokers$Holder",
+      "fileName" : "Invokers$Holder",
+      "lineNumber" : -1,
+      "methodName" : "invokeExact_MT",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "jdk.internal.reflect.DirectMethodHandleAccessor",
+      "fileName" : "DirectMethodHandleAccessor.java",
+      "lineNumber" : 154,
+      "methodName" : "invokeImpl",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "jdk.internal.reflect.DirectMethodHandleAccessor",
+      "fileName" : "DirectMethodHandleAccessor.java",
+      "lineNumber" : 104,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.reflect.Method",
+      "fileName" : "Method.java",
+      "lineNumber" : 565,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.util.ReflectionUtils",
+      "fileName" : "ReflectionUtils.java",
+      "lineNumber" : 281,
+      "methodName" : "invokeMethod",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker",
+      "fileName" : "ReflectiveOperationInvoker.java",
+      "lineNumber" : 76,
+      "methodName" : "invoke",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation",
+      "fileName" : "AbstractDiscoveredOperation.java",
+      "lineNumber" : 62,
+      "methodName" : "invoke",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.boot.webmvc.actuate.endpoint.web.AbstractWebMvcEndpointHandlerMapping$ServletWebOperationAdapter",
+      "fileName" : "AbstractWebMvcEndpointHandlerMapping.java",
+      "lineNumber" : 347,
+      "methodName" : "handle",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.boot.webmvc.actuate.endpoint.web.AbstractWebMvcEndpointHandlerMapping$OperationHandler",
+      "fileName" : "AbstractWebMvcEndpointHandlerMapping.java",
+      "lineNumber" : 476,
+      "methodName" : "handle",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.DirectMethodHandle$Holder",
+      "fileName" : "DirectMethodHandle$Holder",
+      "lineNumber" : -1,
+      "methodName" : "invokeSpecial",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.LambdaForm$MH/0x0000000030698800",
+      "fileName" : "LambdaForm$MH",
+      "lineNumber" : -1,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.LambdaForm$MH/0x000000003007d800",
+      "fileName" : "LambdaForm$MH",
+      "lineNumber" : -1,
+      "methodName" : "invokeExact_MT",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "jdk.internal.reflect.DirectMethodHandleAccessor",
+      "fileName" : "DirectMethodHandleAccessor.java",
+      "lineNumber" : 156,
+      "methodName" : "invokeImpl",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "jdk.internal.reflect.DirectMethodHandleAccessor",
+      "fileName" : "DirectMethodHandleAccessor.java",
+      "lineNumber" : 104,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.reflect.Method",
+      "fileName" : "Method.java",
+      "lineNumber" : 565,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.web.method.support.InvocableHandlerMethod",
+      "fileName" : "InvocableHandlerMethod.java",
+      "lineNumber" : 252,
+      "methodName" : "doInvoke",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.web.method.support.InvocableHandlerMethod",
+      "fileName" : "InvocableHandlerMethod.java",
+      "lineNumber" : 184,
+      "methodName" : "invokeForRequest",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod",
+      "fileName" : "ServletInvocableHandlerMethod.java",
+      "lineNumber" : 117,
+      "methodName" : "invokeAndHandle",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter",
+      "fileName" : "RequestMappingHandlerAdapter.java",
+      "lineNumber" : 934,
+      "methodName" : "invokeHandlerMethod",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter",
+      "fileName" : "RequestMappingHandlerAdapter.java",
+      "lineNumber" : 853,
+      "methodName" : "handleInternal",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter",
+      "fileName" : "AbstractHandlerMethodAdapter.java",
+      "lineNumber" : 86,
+      "methodName" : "handle",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.web.servlet.DispatcherServlet",
+      "fileName" : "DispatcherServlet.java",
+      "lineNumber" : 963,
+      "methodName" : "doDispatch",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.web.servlet.DispatcherServlet",
+      "fileName" : "DispatcherServlet.java",
+      "lineNumber" : 866,
+      "methodName" : "doService",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.web.servlet.FrameworkServlet",
+      "fileName" : "FrameworkServlet.java",
+      "lineNumber" : 1000,
+      "methodName" : "processRequest",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.web.servlet.FrameworkServlet",
+      "fileName" : "FrameworkServlet.java",
+      "lineNumber" : 892,
+      "methodName" : "doGet",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "jakarta.servlet.http.HttpServlet",
+      "fileName" : "HttpServlet.java",
+      "lineNumber" : 622,
+      "methodName" : "service",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.web.servlet.FrameworkServlet",
+      "fileName" : "FrameworkServlet.java",
+      "lineNumber" : 874,
+      "methodName" : "service",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.test.web.servlet.TestDispatcherServlet",
+      "fileName" : "TestDispatcherServlet.java",
+      "lineNumber" : 72,
+      "methodName" : "service",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "jakarta.servlet.http.HttpServlet",
+      "fileName" : "HttpServlet.java",
+      "lineNumber" : 710,
+      "methodName" : "service",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.mock.web.MockFilterChain$ServletFilterProxy",
+      "fileName" : "MockFilterChain.java",
+      "lineNumber" : 160,
+      "methodName" : "doFilter",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.mock.web.MockFilterChain",
+      "fileName" : "MockFilterChain.java",
+      "lineNumber" : 127,
+      "methodName" : "doFilter",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.test.web.servlet.MockMvc",
+      "fileName" : "MockMvc.java",
+      "lineNumber" : 199,
+      "methodName" : "perform",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.test.web.servlet.assertj.MockMvcTester",
+      "fileName" : "MockMvcTester.java",
+      "lineNumber" : 386,
+      "methodName" : "getMvcResultOrFailure",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.test.web.servlet.assertj.MockMvcTester",
+      "fileName" : "MockMvcTester.java",
+      "lineNumber" : 375,
+      "methodName" : "perform",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.test.web.servlet.assertj.MockMvcTester",
+      "fileName" : "MockMvcTester.java",
+      "lineNumber" : 401,
+      "methodName" : "exchange",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.test.web.servlet.assertj.MockMvcTester$MockMvcRequestBuilder",
+      "fileName" : "MockMvcTester.java",
+      "lineNumber" : 460,
+      "methodName" : "exchange",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.test.web.servlet.assertj.MockMvcTester$MockMvcRequestBuilder",
+      "fileName" : "MockMvcTester.java",
+      "lineNumber" : 486,
+      "methodName" : "assertThat",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.test.web.servlet.assertj.MockMvcTester$MockMvcRequestBuilder",
+      "fileName" : "MockMvcTester.java",
+      "lineNumber" : 425,
+      "methodName" : "assertThat",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.assertj.core.api.AssertionsForInterfaceTypes",
+      "fileName" : "AssertionsForInterfaceTypes.java",
+      "lineNumber" : 85,
+      "methodName" : "assertThat",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.assertj.core.api.Assertions",
+      "fileName" : "Assertions.java",
+      "lineNumber" : 3420,
+      "methodName" : "assertThat",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.springframework.boot.actuate.docs.management.ThreadDumpEndpointDocumentationTests",
+      "fileName" : "ThreadDumpEndpointDocumentationTests.java",
+      "lineNumber" : 65,
+      "methodName" : "jsonThreadDump",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.LambdaForm$DMH/0x0000000030609c00",
+      "fileName" : "LambdaForm$DMH",
+      "lineNumber" : -1,
+      "methodName" : "invokeVirtual",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.LambdaForm$MH/0x00000000300a0800",
+      "fileName" : "LambdaForm$MH",
+      "lineNumber" : -1,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.Invokers$Holder",
+      "fileName" : "Invokers$Holder",
+      "lineNumber" : -1,
+      "methodName" : "invokeExact_MT",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "jdk.internal.reflect.DirectMethodHandleAccessor",
+      "fileName" : "DirectMethodHandleAccessor.java",
+      "lineNumber" : 154,
+      "methodName" : "invokeImpl",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "jdk.internal.reflect.DirectMethodHandleAccessor",
+      "fileName" : "DirectMethodHandleAccessor.java",
+      "lineNumber" : 104,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.reflect.Method",
+      "fileName" : "Method.java",
+      "lineNumber" : 565,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.commons.util.ReflectionUtils",
+      "fileName" : "ReflectionUtils.java",
+      "lineNumber" : 701,
+      "methodName" : "invokeMethod",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.commons.support.ReflectionSupport",
+      "fileName" : "ReflectionSupport.java",
+      "lineNumber" : 502,
+      "methodName" : "invokeMethod",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.support.MethodReflectionUtils",
+      "fileName" : "MethodReflectionUtils.java",
+      "lineNumber" : 45,
+      "methodName" : "invoke",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.MethodInvocation",
+      "fileName" : "MethodInvocation.java",
+      "lineNumber" : 61,
+      "methodName" : "proceed",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation",
+      "fileName" : "InvocationInterceptorChain.java",
+      "lineNumber" : 124,
+      "methodName" : "proceed",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.extension.TimeoutExtension",
+      "fileName" : "TimeoutExtension.java",
+      "lineNumber" : 163,
+      "methodName" : "intercept",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.extension.TimeoutExtension",
+      "fileName" : "TimeoutExtension.java",
+      "lineNumber" : 148,
+      "methodName" : "interceptTestableMethod",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.extension.TimeoutExtension",
+      "fileName" : "TimeoutExtension.java",
+      "lineNumber" : 86,
+      "methodName" : "interceptTestMethod",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor$$Lambda/0x0000000030168f18",
+      "lineNumber" : -1,
+      "methodName" : "apply",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall",
+      "fileName" : "InterceptingExecutableInvoker.java",
+      "lineNumber" : 123,
+      "methodName" : "lambda$ofVoidMethod$0",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall$$Lambda/0x0000000030619bf0",
+      "lineNumber" : -1,
+      "methodName" : "apply",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker",
+      "fileName" : "InterceptingExecutableInvoker.java",
+      "lineNumber" : 105,
+      "methodName" : "lambda$invoke$0",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$$Lambda/0x000000003061b948",
+      "lineNumber" : -1,
+      "methodName" : "apply",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation",
+      "fileName" : "InvocationInterceptorChain.java",
+      "lineNumber" : 99,
+      "methodName" : "proceed",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InvocationInterceptorChain",
+      "fileName" : "InvocationInterceptorChain.java",
+      "lineNumber" : 66,
+      "methodName" : "proceed",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InvocationInterceptorChain",
+      "fileName" : "InvocationInterceptorChain.java",
+      "lineNumber" : 47,
+      "methodName" : "chainAndInvoke",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InvocationInterceptorChain",
+      "fileName" : "InvocationInterceptorChain.java",
+      "lineNumber" : 39,
+      "methodName" : "invoke",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker",
+      "fileName" : "InterceptingExecutableInvoker.java",
+      "lineNumber" : 104,
+      "methodName" : "invoke",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker",
+      "fileName" : "InterceptingExecutableInvoker.java",
+      "lineNumber" : 98,
+      "methodName" : "invoke",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker",
+      "fileName" : "InterceptingExecutableInvoker.java",
+      "lineNumber" : 71,
+      "methodName" : "invokeVoid",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor",
+      "fileName" : "TestMethodTestDescriptor.java",
+      "lineNumber" : 219,
+      "methodName" : "lambda$invokeTestMethod$0",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor$$Lambda/0x00000000306316c8",
+      "lineNumber" : -1,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.ThrowableCollector",
+      "fileName" : "ThrowableCollector.java",
+      "lineNumber" : 74,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor",
+      "fileName" : "TestMethodTestDescriptor.java",
+      "lineNumber" : 215,
+      "methodName" : "invokeTestMethod",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor",
+      "fileName" : "TestMethodTestDescriptor.java",
+      "lineNumber" : 157,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor",
+      "fileName" : "TestMethodTestDescriptor.java",
+      "lineNumber" : 70,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 176,
+      "methodName" : "lambda$executeRecursively$2",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x000000003018a5b8",
+      "lineNumber" : -1,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.ThrowableCollector",
+      "fileName" : "ThrowableCollector.java",
+      "lineNumber" : 74,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 166,
+      "methodName" : "lambda$executeRecursively$1",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x000000003018a388",
+      "lineNumber" : -1,
+      "methodName" : "invoke",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.Node",
+      "fileName" : "Node.java",
+      "lineNumber" : 138,
+      "methodName" : "around",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 164,
+      "methodName" : "lambda$executeRecursively$0",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x0000000030189f50",
+      "lineNumber" : -1,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.ThrowableCollector",
+      "fileName" : "ThrowableCollector.java",
+      "lineNumber" : 74,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 163,
+      "methodName" : "executeRecursively",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 116,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService$$Lambda/0x000000003018b0f8",
+      "lineNumber" : -1,
+      "methodName" : "accept",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.util.ArrayList",
+      "fileName" : "ArrayList.java",
+      "lineNumber" : 1604,
+      "methodName" : "forEach",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService",
+      "fileName" : "SameThreadHierarchicalTestExecutorService.java",
+      "lineNumber" : 42,
+      "methodName" : "invokeAll",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 180,
+      "methodName" : "lambda$executeRecursively$2",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x000000003018a5b8",
+      "lineNumber" : -1,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.ThrowableCollector",
+      "fileName" : "ThrowableCollector.java",
+      "lineNumber" : 74,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 166,
+      "methodName" : "lambda$executeRecursively$1",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x000000003018a388",
+      "lineNumber" : -1,
+      "methodName" : "invoke",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.Node",
+      "fileName" : "Node.java",
+      "lineNumber" : 138,
+      "methodName" : "around",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 164,
+      "methodName" : "lambda$executeRecursively$0",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x0000000030189f50",
+      "lineNumber" : -1,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.ThrowableCollector",
+      "fileName" : "ThrowableCollector.java",
+      "lineNumber" : 74,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 163,
+      "methodName" : "executeRecursively",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 116,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService$$Lambda/0x000000003018b0f8",
+      "lineNumber" : -1,
+      "methodName" : "accept",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.util.ArrayList",
+      "fileName" : "ArrayList.java",
+      "lineNumber" : 1604,
+      "methodName" : "forEach",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService",
+      "fileName" : "SameThreadHierarchicalTestExecutorService.java",
+      "lineNumber" : 42,
+      "methodName" : "invokeAll",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 180,
+      "methodName" : "lambda$executeRecursively$2",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x000000003018a5b8",
+      "lineNumber" : -1,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.ThrowableCollector",
+      "fileName" : "ThrowableCollector.java",
+      "lineNumber" : 74,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 166,
+      "methodName" : "lambda$executeRecursively$1",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x000000003018a388",
+      "lineNumber" : -1,
+      "methodName" : "invoke",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.Node",
+      "fileName" : "Node.java",
+      "lineNumber" : 138,
+      "methodName" : "around",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 164,
+      "methodName" : "lambda$executeRecursively$0",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x0000000030189f50",
+      "lineNumber" : -1,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.ThrowableCollector",
+      "fileName" : "ThrowableCollector.java",
+      "lineNumber" : 74,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 163,
+      "methodName" : "executeRecursively",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.NodeTestTask",
+      "fileName" : "NodeTestTask.java",
+      "lineNumber" : 116,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService",
+      "fileName" : "SameThreadHierarchicalTestExecutorService.java",
+      "lineNumber" : 36,
+      "methodName" : "submit",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor",
+      "fileName" : "HierarchicalTestExecutor.java",
+      "lineNumber" : 52,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine",
+      "fileName" : "HierarchicalTestEngine.java",
+      "lineNumber" : 58,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.EngineExecutionOrchestrator",
+      "fileName" : "EngineExecutionOrchestrator.java",
+      "lineNumber" : 246,
+      "methodName" : "executeEngine",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.EngineExecutionOrchestrator",
+      "fileName" : "EngineExecutionOrchestrator.java",
+      "lineNumber" : 218,
+      "methodName" : "failOrExecuteEngine",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.EngineExecutionOrchestrator",
+      "fileName" : "EngineExecutionOrchestrator.java",
+      "lineNumber" : 179,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.EngineExecutionOrchestrator",
+      "fileName" : "EngineExecutionOrchestrator.java",
+      "lineNumber" : 108,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.EngineExecutionOrchestrator",
+      "fileName" : "EngineExecutionOrchestrator.java",
+      "lineNumber" : 66,
+      "methodName" : "lambda$execute$0",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.EngineExecutionOrchestrator$$Lambda/0x0000000030177228",
+      "lineNumber" : -1,
+      "methodName" : "accept",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.EngineExecutionOrchestrator",
+      "fileName" : "EngineExecutionOrchestrator.java",
+      "lineNumber" : 157,
+      "methodName" : "withInterceptedStreams",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.EngineExecutionOrchestrator",
+      "fileName" : "EngineExecutionOrchestrator.java",
+      "lineNumber" : 65,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.DefaultLauncher",
+      "fileName" : "DefaultLauncher.java",
+      "lineNumber" : 125,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.DefaultLauncher",
+      "fileName" : "DefaultLauncher.java",
+      "lineNumber" : 114,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.DefaultLauncher",
+      "fileName" : "DefaultLauncher.java",
+      "lineNumber" : 93,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.DelegatingLauncher",
+      "fileName" : "DelegatingLauncher.java",
+      "lineNumber" : 48,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.InterceptingLauncher",
+      "fileName" : "InterceptingLauncher.java",
+      "lineNumber" : 41,
+      "methodName" : "lambda$execute$0",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.InterceptingLauncher$$Lambda/0x0000000030105b28",
+      "lineNumber" : -1,
+      "methodName" : "proceed",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor",
+      "fileName" : "ClasspathAlignmentCheckingLauncherInterceptor.java",
+      "lineNumber" : 25,
+      "methodName" : "intercept",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.InterceptingLauncher",
+      "fileName" : "InterceptingLauncher.java",
+      "lineNumber" : 40,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "org.junit.platform.launcher.core.DelegatingLauncher",
+      "fileName" : "DelegatingLauncher.java",
+      "lineNumber" : 48,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestDefinitionProcessor$CollectThenExecuteTestDefinitionConsumer",
+      "fileName" : "JUnitPlatformTestDefinitionProcessor.java",
+      "lineNumber" : 179,
+      "methodName" : "processAllTestDefinitions",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestDefinitionProcessor$CollectThenExecuteTestDefinitionConsumer",
+      "fileName" : "JUnitPlatformTestDefinitionProcessor.java",
+      "lineNumber" : 122,
+      "methodName" : "access$000",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestDefinitionProcessor",
+      "fileName" : "JUnitPlatformTestDefinitionProcessor.java",
+      "lineNumber" : 116,
+      "methodName" : "stop",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.api.internal.tasks.testing.SuiteTestDefinitionProcessor",
+      "fileName" : "SuiteTestDefinitionProcessor.java",
+      "lineNumber" : 63,
+      "methodName" : "stop",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.LambdaForm$DMH/0x00000000300a0000",
+      "fileName" : "LambdaForm$DMH",
+      "lineNumber" : -1,
+      "methodName" : "invokeInterface",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.LambdaForm$MH/0x00000000300a0800",
+      "fileName" : "LambdaForm$MH",
+      "lineNumber" : -1,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.invoke.Invokers$Holder",
+      "fileName" : "Invokers$Holder",
+      "lineNumber" : -1,
+      "methodName" : "invokeExact_MT",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "jdk.internal.reflect.DirectMethodHandleAccessor",
+      "fileName" : "DirectMethodHandleAccessor.java",
+      "lineNumber" : 154,
+      "methodName" : "invokeImpl",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "jdk.internal.reflect.DirectMethodHandleAccessor",
+      "fileName" : "DirectMethodHandleAccessor.java",
+      "lineNumber" : 104,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.reflect.Method",
+      "fileName" : "Method.java",
+      "lineNumber" : 565,
+      "methodName" : "invoke",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.internal.dispatch.MethodInvocation",
+      "fileName" : "MethodInvocation.java",
+      "lineNumber" : 77,
+      "methodName" : "invokeOn",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.internal.dispatch.ReflectionDispatch",
+      "fileName" : "ReflectionDispatch.java",
+      "lineNumber" : 28,
+      "methodName" : "dispatch",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.internal.dispatch.ReflectionDispatch",
+      "fileName" : "ReflectionDispatch.java",
+      "lineNumber" : 19,
+      "methodName" : "dispatch",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.internal.dispatch.ContextClassLoaderDispatch",
+      "fileName" : "ContextClassLoaderDispatch.java",
+      "lineNumber" : 33,
+      "methodName" : "dispatch",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler",
+      "fileName" : "ProxyDispatchAdapter.java",
+      "lineNumber" : 88,
+      "methodName" : "invoke",
+      "nativeMethod" : false
+    }, {
+      "className" : "jdk.proxy1.$Proxy4",
+      "lineNumber" : -1,
+      "methodName" : "stop",
+      "moduleName" : "jdk.proxy1",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.api.internal.tasks.testing.worker.TestWorker$3",
+      "fileName" : "TestWorker.java",
+      "lineNumber" : 195,
+      "methodName" : "run",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.api.internal.tasks.testing.worker.TestWorker",
+      "fileName" : "TestWorker.java",
+      "lineNumber" : 126,
+      "methodName" : "executeAndMaintainThreadName",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.api.internal.tasks.testing.worker.TestWorker",
+      "fileName" : "TestWorker.java",
+      "lineNumber" : 103,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.api.internal.tasks.testing.worker.TestWorker",
+      "fileName" : "TestWorker.java",
+      "lineNumber" : 63,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.process.internal.worker.child.ActionExecutionWorker",
+      "fileName" : "ActionExecutionWorker.java",
+      "lineNumber" : 56,
+      "methodName" : "execute",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker",
+      "fileName" : "SystemApplicationClassLoaderWorker.java",
+      "lineNumber" : 122,
+      "methodName" : "call",
+      "nativeMethod" : false
+    }, {
+      "className" : "org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker",
+      "fileName" : "SystemApplicationClassLoaderWorker.java",
+      "lineNumber" : 72,
+      "methodName" : "call",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "worker.org.gradle.process.internal.worker.GradleWorkerMain",
+      "fileName" : "GradleWorkerMain.java",
+      "lineNumber" : 69,
+      "methodName" : "run",
+      "nativeMethod" : false
+    }, {
+      "classLoaderName" : "app",
+      "className" : "worker.org.gradle.process.internal.worker.GradleWorkerMain",
+      "fileName" : "GradleWorkerMain.java",
+      "lineNumber" : 74,
+      "methodName" : "main",
+      "nativeMethod" : false
+    } ],
+    "suspended" : false,
+    "threadId" : 3,
+    "threadName" : "Test worker",
+    "threadState" : "RUNNABLE",
+    "waitedCount" : 34,
+    "waitedTime" : -1
+  }, {
+    "blockedCount" : 0,
+    "blockedTime" : -1,
+    "daemon" : true,
+    "inNative" : false,
+    "lockOwnerId" : -1,
+    "lockedMonitors" : [ ],
+    "lockedSynchronizers" : [ ],
+    "priority" : 10,
+    "stackTrace" : [ {
+      "className" : "java.lang.ref.Reference",
+      "fileName" : "Reference.java",
+      "lineNumber" : -2,
+      "methodName" : "waitForReferencePendingList",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : true
+    }, {
+      "className" : "java.lang.ref.Reference",
+      "fileName" : "Reference.java",
+      "lineNumber" : 246,
+      "methodName" : "processPendingReferences",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.ref.Reference$ReferenceHandler",
+      "fileName" : "Reference.java",
+      "lineNumber" : 208,
+      "methodName" : "run",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    } ],
+    "suspended" : false,
+    "threadId" : 13,
+    "threadName" : "Reference Handler",
+    "threadState" : "RUNNABLE",
+    "waitedCount" : 0,
+    "waitedTime" : -1
+  }, {
+    "blockedCount" : 0,
+    "blockedTime" : -1,
+    "daemon" : true,
+    "inNative" : false,
+    "lockInfo" : {
+      "className" : "java.lang.ref.ReferenceQueue$Lock",
+      "identityHashCode" : 1224339926
+    },
+    "lockName" : "java.lang.ref.ReferenceQueue$Lock@48f9f1d6",
+    "lockOwnerId" : -1,
+    "lockedMonitors" : [ ],
+    "lockedSynchronizers" : [ ],
+    "priority" : 8,
+    "stackTrace" : [ {
+      "className" : "java.lang.Object",
+      "lineNumber" : -2,
+      "methodName" : "wait0",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : true
+    }, {
+      "className" : "java.lang.Object",
+      "lineNumber" : 389,
+      "methodName" : "wait",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.Object",
+      "lineNumber" : 351,
+      "methodName" : "wait",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.ref.ReferenceQueue",
+      "fileName" : "ReferenceQueue.java",
+      "lineNumber" : 137,
+      "methodName" : "remove0",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.ref.ReferenceQueue",
+      "fileName" : "ReferenceQueue.java",
+      "lineNumber" : 215,
+      "methodName" : "remove",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    }, {
+      "className" : "java.lang.ref.Finalizer$FinalizerThread",
+      "fileName" : "Finalizer.java",
+      "lineNumber" : 165,
+      "methodName" : "run",
+      "moduleName" : "java.base",
+      "moduleVersion" : "25.0.3",
+      "nativeMethod" : false
+    } ],
+    "suspended" : false,
+    "threadId" : 14,
+    "threadName" : "Finalizer",
+    "threadState" : "WAITING",
+    "waitedCount" : 1,
+    "waitedTime" : -1
+  } ]
+}
+----

@@ -1,1 +1,58 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[cols="3,1"]
+|===
+| 名称 | 默认值
+
+| `management.tracing.sampling.probability`
+| `1.0`
+
+| `server.servlet.jsp.init-parameters.development`
+| `true`
+
+| `server.servlet.session.persistent`
+| `true`
+
+| `spring.docker.compose.readiness.wait`
+| `only-if-started`
+
+| `spring.freemarker.cache`
+| `false`
+
+| `spring.graphql.graphiql.enabled`
+| `true`
+
+| `spring.groovy.template.cache`
+| `false`
+
+| `spring.h2.console.enabled`
+| `true`
+
+| `spring.mustache.servlet.cache`
+| `false`
+
+| `spring.mvc.log-resolved-exception`
+| `true`
+
+| `spring.reactor.netty.shutdown-quiet-period`
+| `0s`
+
+| `spring.template.provider.cache`
+| `false`
+
+| `spring.thymeleaf.cache`
+| `false`
+
+| `spring.web.error.include-binding-errors`
+| `always`
+
+| `spring.web.error.include-message`
+| `always`
+
+| `spring.web.error.include-stacktrace`
+| `always`
+
+| `spring.web.resources.cache.period`
+| `0`
+
+| `spring.web.resources.chain.cache`
+| `false`
+|===

@@ -1,0 +1,221 @@
+{
+  "groups": [
+    {
+      "name": "management.endpoint.liquibase",
+      "type": "org.springframework.boot.liquibase.actuate.endpoint.LiquibaseEndpoint",
+      "sourceType": "org.springframework.boot.liquibase.actuate.endpoint.LiquibaseEndpoint"
+    },
+    {
+      "name": "spring.liquibase",
+      "type": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.endpoint.liquibase.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the liquibase endpoint.",
+      "sourceType": "org.springframework.boot.liquibase.actuate.endpoint.LiquibaseEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.liquibase.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.liquibase.actuate.endpoint.LiquibaseEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "spring.liquibase.analytics-enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to send product usage data and analytics to Liquibase.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.change-log",
+      "type": "java.lang.String",
+      "description": "Change log configuration path.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties",
+      "defaultValue": "classpath:\/db\/changelog\/db.changelog-master.yaml"
+    },
+    {
+      "name": "spring.liquibase.clear-checksums",
+      "type": "java.lang.Boolean",
+      "description": "Whether to clear all checksums in the current changelog, so they will be recalculated upon the next update.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.liquibase.contexts",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of runtime contexts to use.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.database-change-log-lock-table",
+      "type": "java.lang.String",
+      "description": "Name of table to use for tracking concurrent Liquibase usage.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties",
+      "defaultValue": "DATABASECHANGELOGLOCK"
+    },
+    {
+      "name": "spring.liquibase.database-change-log-table",
+      "type": "java.lang.String",
+      "description": "Name of table to use for tracking change history.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties",
+      "defaultValue": "DATABASECHANGELOG"
+    },
+    {
+      "name": "spring.liquibase.default-schema",
+      "type": "java.lang.String",
+      "description": "Default database schema.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.driver-class-name",
+      "type": "java.lang.String",
+      "description": "Fully qualified name of the JDBC driver. Auto-detected based on the URL by default.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.drop-first",
+      "type": "java.lang.Boolean",
+      "description": "Whether to first drop the database schema.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.liquibase.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Liquibase support.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.liquibase.label-filter",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of runtime labels to use.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.license-key",
+      "type": "java.lang.String",
+      "description": "Liquibase Pro license key.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.liquibase-schema",
+      "type": "java.lang.String",
+      "description": "Schema to use for Liquibase objects.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.liquibase-tablespace",
+      "type": "java.lang.String",
+      "description": "Tablespace to use for Liquibase objects.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.parameters",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Change log parameters.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.password",
+      "type": "java.lang.String",
+      "description": "Login password of the database to migrate.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.rollback-file",
+      "type": "java.io.File",
+      "description": "File to which rollback SQL is written when an update is performed.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.show-summary",
+      "type": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties$ShowSummary",
+      "description": "Whether to print a summary of the update operation.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties",
+      "defaultValue": "summary"
+    },
+    {
+      "name": "spring.liquibase.show-summary-output",
+      "type": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties$ShowSummaryOutput",
+      "description": "Where to print a summary of the update operation.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties",
+      "defaultValue": "log"
+    },
+    {
+      "name": "spring.liquibase.tag",
+      "type": "java.lang.String",
+      "description": "Tag name to use when applying database changes. Can also be used with \"rollbackFile\" to generate a rollback script for all existing changes associated with that tag.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.test-rollback-on-update",
+      "type": "java.lang.Boolean",
+      "description": "Whether rollback should be tested before update is performed.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.liquibase.ui-service",
+      "type": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties$UiService",
+      "description": "Which UIService to use.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties",
+      "defaultValue": "logger"
+    },
+    {
+      "name": "spring.liquibase.url",
+      "type": "java.lang.String",
+      "description": "JDBC URL of the database to migrate. If not set, the primary configured data source is used.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.user",
+      "type": "java.lang.String",
+      "description": "Login user of the database to migrate.",
+      "sourceType": "org.springframework.boot.liquibase.autoconfigure.LiquibaseProperties"
+    },
+    {
+      "name": "spring.liquibase.check-change-log-location",
+      "type": "java.lang.Boolean",
+      "description": "Check the change log location exists.",
+      "defaultValue": true,
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Liquibase has its own check that checks if the change log location exists making this property redundant.",
+        "since": "2.1.7"
+      }
+    },
+    {
+      "name": "spring.liquibase.labels",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.liquibase.label-filter",
+        "since": "3.0.0"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.liquibase.change-log",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "org.springframework.core.io.Resource"
+          }
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

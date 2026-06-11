@@ -1,0 +1,28 @@
+[source,json,options="nowrap"]
+----
+{
+  "exchanges" : [ {
+    "timestamp" : "2022-12-22T13:43:41Z",
+    "request" : {
+      "headers" : {
+        "Accept" : [ "application/json" ]
+      },
+      "method" : "GET",
+      "uri" : "https://api.example.com"
+    },
+    "response" : {
+      "headers" : {
+        "Content-Type" : [ "application/json" ]
+      },
+      "status" : 200
+    },
+    "principal" : {
+      "name" : "alice"
+    },
+    "session" : {
+      "id" : "19af495d-e56b-4b0b-8a7c-dd502c3aca69"
+    },
+    "timeTaken" : "PT0.023S"
+  } ]
+}
+----

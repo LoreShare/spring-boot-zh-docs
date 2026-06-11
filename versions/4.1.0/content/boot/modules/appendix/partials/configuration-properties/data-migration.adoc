@@ -1,1 +1,387 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.data-migration]]
+== 数据迁移属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.data-migration.spring.flyway.baseline-description]]xref:#application-properties.data-migration.spring.flyway.baseline-description[`+spring.flyway.baseline-description+`]
+|+++执行基线时用于标记现有模式的描述。+++
+|`+<< Flyway Baseline >>+`
+
+|[[application-properties.data-migration.spring.flyway.baseline-on-migrate]]xref:#application-properties.data-migration.spring.flyway.baseline-on-migrate[`+spring.flyway.baseline-on-migrate+`]
+|+++迁移非空模式时是否自动调用基线。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.flyway.baseline-version]]xref:#application-properties.data-migration.spring.flyway.baseline-version[`+spring.flyway.baseline-version+`]
+|+++执行基线时用于标记现有模式的版本。+++
+|`+1+`
+
+|[[application-properties.data-migration.spring.flyway.batch]]xref:#application-properties.data-migration.spring.flyway.batch[`+spring.flyway.batch+`]
+|+++执行 SQL 语句时是否进行批处理。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.callback-locations]]xref:#application-properties.data-migration.spring.flyway.callback-locations[`+spring.flyway.callback-locations+`]
+|+++回调的位置。可以包含特殊的 "{vendor}" 占位符以使用供应商特定的回调。无前缀的位置或以 "classpath:" 开头的位置指向 classpath 上的包，并且可以包含基于 SQL 和 Java 的回调。以 "filesystem:" 开头的位置指向文件系统上的目录，只能包含 SQL 回调。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.clean-disabled]]xref:#application-properties.data-migration.spring.flyway.clean-disabled[`+spring.flyway.clean-disabled+`]
+|+++是否禁用数据库清理。+++
+|`+true+`
+
+|[[application-properties.data-migration.spring.flyway.community-db-support-enabled]]xref:#application-properties.data-migration.spring.flyway.community-db-support-enabled[`+spring.flyway.community-db-support-enabled+`]
+|+++是否启用社区数据库支持。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.connect-retries]]xref:#application-properties.data-migration.spring.flyway.connect-retries[`+spring.flyway.connect-retries+`]
+|+++尝试连接数据库时的最大重试次数。+++
+|`+0+`
+
+|[[application-properties.data-migration.spring.flyway.connect-retries-interval]]xref:#application-properties.data-migration.spring.flyway.connect-retries-interval[`+spring.flyway.connect-retries-interval+`]
+|+++尝试连接数据库时的最大重试间隔。如果未指定持续时间后缀，则使用秒。+++
+|`+120s+`
+
+|[[application-properties.data-migration.spring.flyway.create-schemas]]xref:#application-properties.data-migration.spring.flyway.create-schemas[`+spring.flyway.create-schemas+`]
+|+++Flyway 是否应尝试创建 schemas 属性中指定的模式。+++
+|`+true+`
+
+|[[application-properties.data-migration.spring.flyway.default-schema]]xref:#application-properties.data-migration.spring.flyway.default-schema[`+spring.flyway.default-schema+`]
+|+++Flyway 管理的默认模式名称（区分大小写）。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.detect-encoding]]xref:#application-properties.data-migration.spring.flyway.detect-encoding[`+spring.flyway.detect-encoding+`]
+|+++是否尝试自动检测 SQL 迁移文件编码。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.driver-class-name]]xref:#application-properties.data-migration.spring.flyway.driver-class-name[`+spring.flyway.driver-class-name+`]
+|+++JDBC 驱动程序的完全限定名称。默认根据 URL 自动检测。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.dry-run-output]]xref:#application-properties.data-migration.spring.flyway.dry-run-output[`+spring.flyway.dry-run-output+`]
+|+++迁移试运行的 SQL 语句输出到的文件。需要 Flyway Teams。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.enabled]]xref:#application-properties.data-migration.spring.flyway.enabled[`+spring.flyway.enabled+`]
+|+++是否启用 Flyway。+++
+|`+true+`
+
+|[[application-properties.data-migration.spring.flyway.encoding]]xref:#application-properties.data-migration.spring.flyway.encoding[`+spring.flyway.encoding+`]
+|+++SQL 迁移的编码。+++
+|`+UTF-8+`
+
+|[[application-properties.data-migration.spring.flyway.error-overrides]]xref:#application-properties.data-migration.spring.flyway.error-overrides[`+spring.flyway.error-overrides+`]
+|+++内置错误处理的规则，用于覆盖特定的 SQL 状态和错误代码。需要 Flyway Teams。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.execute-in-transaction]]xref:#application-properties.data-migration.spring.flyway.execute-in-transaction[`+spring.flyway.execute-in-transaction+`]
+|+++Flyway 是否应在事务内执行 SQL。+++
+|`+true+`
+
+|[[application-properties.data-migration.spring.flyway.fail-on-missing-locations]]xref:#application-properties.data-migration.spring.flyway.fail-on-missing-locations[`+spring.flyway.fail-on-missing-locations+`]
+|+++如果迁移脚本的位置不存在，是否失败。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.flyway.group]]xref:#application-properties.data-migration.spring.flyway.group[`+spring.flyway.group+`]
+|+++应用迁移时是否将所有待处理迁移分组到同一事务中。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.flyway.ignore-migration-patterns]]xref:#application-properties.data-migration.spring.flyway.ignore-migration-patterns[`+spring.flyway.ignore-migration-patterns+`]
+|+++执行验证时标识要忽略的迁移的模式列表。+++
+|`+*:future+`
+
+|[[application-properties.data-migration.spring.flyway.init-sqls]]xref:#application-properties.data-migration.spring.flyway.init-sqls[`+spring.flyway.init-sqls+`]
+|+++获取连接后立即执行以初始化连接的 SQL 语句。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.installed-by]]xref:#application-properties.data-migration.spring.flyway.installed-by[`+spring.flyway.installed-by+`]
+|+++记录在模式历史表中作为应用迁移的用户名。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.jdbc-properties]]xref:#application-properties.data-migration.spring.flyway.jdbc-properties[`+spring.flyway.jdbc-properties.*+`]
+|+++传递给 JDBC 驱动程序的属性。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.kerberos-config-file]]xref:#application-properties.data-migration.spring.flyway.kerberos-config-file[`+spring.flyway.kerberos-config-file+`]
+|+++Kerberos 配置文件的路径。需要 Flyway Teams。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.locations]]xref:#application-properties.data-migration.spring.flyway.locations[`+spring.flyway.locations+`]
+|+++迁移脚本的位置。可以包含特殊的 "{vendor}" 占位符以使用供应商特定的位置。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.lock-retry-count]]xref:#application-properties.data-migration.spring.flyway.lock-retry-count[`+spring.flyway.lock-retry-count+`]
+|+++尝试获取锁时的最大重试次数。+++
+|`+50+`
+
+|[[application-properties.data-migration.spring.flyway.loggers]]xref:#application-properties.data-migration.spring.flyway.loggers[`+spring.flyway.loggers+`]
+|+++Flyway 应使用的日志记录器。+++
+|`+[slf4j]+`
+
+|[[application-properties.data-migration.spring.flyway.mixed]]xref:#application-properties.data-migration.spring.flyway.mixed[`+spring.flyway.mixed+`]
+|+++是否允许在同一迁移中混合事务性和非事务性语句。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.flyway.oracle.kerberos-cache-file]]xref:#application-properties.data-migration.spring.flyway.oracle.kerberos-cache-file[`+spring.flyway.oracle.kerberos-cache-file+`]
+|+++Oracle Kerberos 缓存文件的路径。需要 Flyway Teams。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.oracle.sqlplus]]xref:#application-properties.data-migration.spring.flyway.oracle.sqlplus[`+spring.flyway.oracle.sqlplus+`]
+|+++是否启用对 Oracle SQL*Plus 命令的支持。需要 Flyway Teams。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.oracle.sqlplus-warn]]xref:#application-properties.data-migration.spring.flyway.oracle.sqlplus-warn[`+spring.flyway.oracle.sqlplus-warn+`]
+|+++遇到尚不支持的 Oracle SQL*Plus 语句时是否发出警告而不是错误。需要 Flyway Teams。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.oracle.wallet-location]]xref:#application-properties.data-migration.spring.flyway.oracle.wallet-location[`+spring.flyway.oracle.wallet-location+`]
+|+++Oracle Wallet 的位置，用于自动登录数据库。需要 Flyway Teams。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.out-of-order]]xref:#application-properties.data-migration.spring.flyway.out-of-order[`+spring.flyway.out-of-order+`]
+|+++是否允许迁移乱序运行。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.flyway.output-query-results]]xref:#application-properties.data-migration.spring.flyway.output-query-results[`+spring.flyway.output-query-results+`]
+|+++Flyway 在执行迁移时是否应输出查询结果的表格。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.password]]xref:#application-properties.data-migration.spring.flyway.password[`+spring.flyway.password+`]
+|+++要迁移的数据库的登录密码。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.placeholder-prefix]]xref:#application-properties.data-migration.spring.flyway.placeholder-prefix[`+spring.flyway.placeholder-prefix+`]
+|+++迁移脚本中占位符的前缀。+++
+|`+${+`
+
+|[[application-properties.data-migration.spring.flyway.placeholder-replacement]]xref:#application-properties.data-migration.spring.flyway.placeholder-replacement[`+spring.flyway.placeholder-replacement+`]
+|+++在迁移脚本中执行占位符替换。+++
+|`+true+`
+
+|[[application-properties.data-migration.spring.flyway.placeholder-separator]]xref:#application-properties.data-migration.spring.flyway.placeholder-separator[`+spring.flyway.placeholder-separator+`]
+|+++默认占位符的分隔符。+++
+|`+:+`
+
+|[[application-properties.data-migration.spring.flyway.placeholder-suffix]]xref:#application-properties.data-migration.spring.flyway.placeholder-suffix[`+spring.flyway.placeholder-suffix+`]
+|+++迁移脚本中占位符的后缀。+++
+|`+}+`
+
+|[[application-properties.data-migration.spring.flyway.placeholders]]xref:#application-properties.data-migration.spring.flyway.placeholders[`+spring.flyway.placeholders.*+`]
+|+++占位符及其替换值，应用于 SQL 迁移脚本。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.postgresql.transactional-lock]]xref:#application-properties.data-migration.spring.flyway.postgresql.transactional-lock[`+spring.flyway.postgresql.transactional-lock+`]
+|+++是否应使用事务性咨询锁。如果设置为 false，则改用会话级锁。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.powershell-executable]]xref:#application-properties.data-migration.spring.flyway.powershell-executable[`+spring.flyway.powershell-executable+`]
+|+++用于运行 PowerShell 脚本的 PowerShell 可执行文件。在 Windows 上默认为 "powershell"，在其他平台上默认为 "pwsh"。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.repeatable-sql-migration-prefix]]xref:#application-properties.data-migration.spring.flyway.repeatable-sql-migration-prefix[`+spring.flyway.repeatable-sql-migration-prefix+`]
+|+++可重复 SQL 迁移的文件名前缀。+++
+|`+R+`
+
+|[[application-properties.data-migration.spring.flyway.schemas]]xref:#application-properties.data-migration.spring.flyway.schemas[`+spring.flyway.schemas+`]
+|+++可重复 SQL 迁移的文件名前缀。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.script-placeholder-prefix]]xref:#application-properties.data-migration.spring.flyway.script-placeholder-prefix[`+spring.flyway.script-placeholder-prefix+`]
+|+++迁移脚本中占位符的前缀。+++
+|`+FP__+`
+
+|[[application-properties.data-migration.spring.flyway.script-placeholder-suffix]]xref:#application-properties.data-migration.spring.flyway.script-placeholder-suffix[`+spring.flyway.script-placeholder-suffix+`]
+|+++迁移脚本中占位符的后缀。+++
+|`+__+`
+
+|[[application-properties.data-migration.spring.flyway.skip-default-callbacks]]xref:#application-properties.data-migration.spring.flyway.skip-default-callbacks[`+spring.flyway.skip-default-callbacks+`]
+|+++是否跳过默认回调。如果为 true，则仅使用自定义回调。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.flyway.skip-default-resolvers]]xref:#application-properties.data-migration.spring.flyway.skip-default-resolvers[`+spring.flyway.skip-default-resolvers+`]
+|+++是否跳过默认解析器。如果为 true，则仅使用自定义解析器。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.flyway.skip-executing-migrations]]xref:#application-properties.data-migration.spring.flyway.skip-executing-migrations[`+spring.flyway.skip-executing-migrations+`]
+|+++Flyway 是否应跳过执行迁移内容，仅更新 schema history 表。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.sql-migration-prefix]]xref:#application-properties.data-migration.spring.flyway.sql-migration-prefix[`+spring.flyway.sql-migration-prefix+`]
+|+++SQL 迁移的文件名前缀。+++
+|`+V+`
+
+|[[application-properties.data-migration.spring.flyway.sql-migration-separator]]xref:#application-properties.data-migration.spring.flyway.sql-migration-separator[`+spring.flyway.sql-migration-separator+`]
+|+++SQL 迁移的文件名分隔符。+++
+|`+__+`
+
+|[[application-properties.data-migration.spring.flyway.sql-migration-suffixes]]xref:#application-properties.data-migration.spring.flyway.sql-migration-suffixes[`+spring.flyway.sql-migration-suffixes+`]
+|+++SQL 迁移的文件名后缀。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.sqlserver.kerberos-login-file]]xref:#application-properties.data-migration.spring.flyway.sqlserver.kerberos-login-file[`+spring.flyway.sqlserver.kerberos-login-file+`]
+|+++SQL Server Kerberos 登录文件的路径。需要 Flyway Teams。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.stream]]xref:#application-properties.data-migration.spring.flyway.stream[`+spring.flyway.stream+`]
+|+++是否在执行 SQL 迁移时进行流式处理。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.table]]xref:#application-properties.data-migration.spring.flyway.table[`+spring.flyway.table+`]
+|+++Flyway 将使用的 schema history 表名称。+++
+|`+flyway_schema_history+`
+
+|[[application-properties.data-migration.spring.flyway.tablespace]]xref:#application-properties.data-migration.spring.flyway.tablespace[`+spring.flyway.tablespace+`]
+|+++创建 schema history 表的表空间。当使用不支持表空间的数据库时忽略。默认为 Flyway 使用的连接的默认表空间。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.target]]xref:#application-properties.data-migration.spring.flyway.target[`+spring.flyway.target+`]
+|+++迁移应考虑的目标版本。+++
+|`+latest+`
+
+|[[application-properties.data-migration.spring.flyway.url]]xref:#application-properties.data-migration.spring.flyway.url[`+spring.flyway.url+`]
+|+++要迁移的数据库的 JDBC URL。如果未设置，则使用主配置的数据源。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.user]]xref:#application-properties.data-migration.spring.flyway.user[`+spring.flyway.user+`]
+|+++要迁移的数据库的登录用户。+++
+|
+
+|[[application-properties.data-migration.spring.flyway.validate-migration-naming]]xref:#application-properties.data-migration.spring.flyway.validate-migration-naming[`+spring.flyway.validate-migration-naming+`]
+|+++是否验证其脚本不遵循正确命名约定的迁移和回调。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.flyway.validate-on-migrate]]xref:#application-properties.data-migration.spring.flyway.validate-on-migrate[`+spring.flyway.validate-on-migrate+`]
+|+++是否在执行迁移时自动调用 validate。+++
+|`+true+`
+
+|[[application-properties.data-migration.spring.liquibase.analytics-enabled]]xref:#application-properties.data-migration.spring.liquibase.analytics-enabled[`+spring.liquibase.analytics-enabled+`]
+|+++是否向 Liquibase 发送产品使用数据和分析。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.change-log]]xref:#application-properties.data-migration.spring.liquibase.change-log[`+spring.liquibase.change-log+`]
+|+++变更日志配置路径。+++
+|`+classpath:/db/changelog/db.changelog-master.yaml+`
+
+|[[application-properties.data-migration.spring.liquibase.clear-checksums]]xref:#application-properties.data-migration.spring.liquibase.clear-checksums[`+spring.liquibase.clear-checksums+`]
+|+++是否清除当前 changelog 中的所有校验和，以便在下一次更新时重新计算。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.liquibase.contexts]]xref:#application-properties.data-migration.spring.liquibase.contexts[`+spring.liquibase.contexts+`]
+|+++要使用的运行时上下文列表。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.database-change-log-lock-table]]xref:#application-properties.data-migration.spring.liquibase.database-change-log-lock-table[`+spring.liquibase.database-change-log-lock-table+`]
+|+++用于跟踪并发 Liquibase 使用的表名称。+++
+|`+DATABASECHANGELOGLOCK+`
+
+|[[application-properties.data-migration.spring.liquibase.database-change-log-table]]xref:#application-properties.data-migration.spring.liquibase.database-change-log-table[`+spring.liquibase.database-change-log-table+`]
+|+++用于跟踪变更历史的表名称。+++
+|`+DATABASECHANGELOG+`
+
+|[[application-properties.data-migration.spring.liquibase.default-schema]]xref:#application-properties.data-migration.spring.liquibase.default-schema[`+spring.liquibase.default-schema+`]
+|+++默认数据库模式。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.driver-class-name]]xref:#application-properties.data-migration.spring.liquibase.driver-class-name[`+spring.liquibase.driver-class-name+`]
+|+++JDBC 驱动程序的完全限定名称。默认根据 URL 自动检测。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.drop-first]]xref:#application-properties.data-migration.spring.liquibase.drop-first[`+spring.liquibase.drop-first+`]
+|+++是否首先删除数据库模式。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.liquibase.enabled]]xref:#application-properties.data-migration.spring.liquibase.enabled[`+spring.liquibase.enabled+`]
+|+++是否启用 Liquibase 支持。+++
+|`+true+`
+
+|[[application-properties.data-migration.spring.liquibase.label-filter]]xref:#application-properties.data-migration.spring.liquibase.label-filter[`+spring.liquibase.label-filter+`]
+|+++要使用的运行时标签列表。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.license-key]]xref:#application-properties.data-migration.spring.liquibase.license-key[`+spring.liquibase.license-key+`]
+|+++Liquibase Pro 许可证密钥。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.liquibase-schema]]xref:#application-properties.data-migration.spring.liquibase.liquibase-schema[`+spring.liquibase.liquibase-schema+`]
+|+++用于 Liquibase 对象的模式。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.liquibase-tablespace]]xref:#application-properties.data-migration.spring.liquibase.liquibase-tablespace[`+spring.liquibase.liquibase-tablespace+`]
+|+++用于 Liquibase 对象的表空间。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.parameters]]xref:#application-properties.data-migration.spring.liquibase.parameters[`+spring.liquibase.parameters.*+`]
+|+++变更日志参数。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.password]]xref:#application-properties.data-migration.spring.liquibase.password[`+spring.liquibase.password+`]
+|+++要迁移的数据库的登录密码。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.rollback-file]]xref:#application-properties.data-migration.spring.liquibase.rollback-file[`+spring.liquibase.rollback-file+`]
+|+++执行更新时写入回滚 SQL 的文件。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.show-summary]]xref:#application-properties.data-migration.spring.liquibase.show-summary[`+spring.liquibase.show-summary+`]
+|+++是否打印更新操作的摘要。+++
+|`+summary+`
+
+|[[application-properties.data-migration.spring.liquibase.show-summary-output]]xref:#application-properties.data-migration.spring.liquibase.show-summary-output[`+spring.liquibase.show-summary-output+`]
+|+++在哪里打印更新操作的摘要。+++
+|`+log+`
+
+|[[application-properties.data-migration.spring.liquibase.tag]]xref:#application-properties.data-migration.spring.liquibase.tag[`+spring.liquibase.tag+`]
+|+++应用数据库更改时使用的标签名称。也可与 "rollbackFile" 一起使用，为与该标签关联的所有现有更改生成回滚脚本。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.test-rollback-on-update]]xref:#application-properties.data-migration.spring.liquibase.test-rollback-on-update[`+spring.liquibase.test-rollback-on-update+`]
+|+++是否应在执行更新之前测试回滚。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.liquibase.ui-service]]xref:#application-properties.data-migration.spring.liquibase.ui-service[`+spring.liquibase.ui-service+`]
+|+++要使用的 UIService。+++
+|`+logger+`
+
+|[[application-properties.data-migration.spring.liquibase.url]]xref:#application-properties.data-migration.spring.liquibase.url[`+spring.liquibase.url+`]
+|+++要迁移的数据库的 JDBC URL。如果未设置，则使用主配置的数据源。+++
+|
+
+|[[application-properties.data-migration.spring.liquibase.user]]xref:#application-properties.data-migration.spring.liquibase.user[`+spring.liquibase.user+`]
+|+++要迁移的数据库的登录用户。+++
+|
+
+|[[application-properties.data-migration.spring.sql.init.continue-on-error]]xref:#application-properties.data-migration.spring.sql.init.continue-on-error[`+spring.sql.init.continue-on-error+`]
+|+++发生错误时初始化是否应继续。+++
+|`+false+`
+
+|[[application-properties.data-migration.spring.sql.init.data-locations]]xref:#application-properties.data-migration.spring.sql.init.data-locations[`+spring.sql.init.data-locations+`]
+|+++要应用于数据库的数据（DML）脚本的位置。+++
+|
+
+|[[application-properties.data-migration.spring.sql.init.encoding]]xref:#application-properties.data-migration.spring.sql.init.encoding[`+spring.sql.init.encoding+`]
+|+++Schema 和数据脚本的编码。+++
+|
+
+|[[application-properties.data-migration.spring.sql.init.mode]]xref:#application-properties.data-migration.spring.sql.init.mode[`+spring.sql.init.mode+`]
+|+++确定是否应执行初始化时要应用的模式。+++
+|`+embedded+`
+
+|[[application-properties.data-migration.spring.sql.init.password]]xref:#application-properties.data-migration.spring.sql.init.password[`+spring.sql.init.password+`]
+|+++应用初始化脚本时使用的数据库密码（如果不同）。+++
+|
+
+|[[application-properties.data-migration.spring.sql.init.platform]]xref:#application-properties.data-migration.spring.sql.init.platform[`+spring.sql.init.platform+`]
+|+++在默认 schema 或数据脚本位置中使用的平台，schema-${platform}.sql 和 data-${platform}.sql。+++
+|`+all+`
+
+|[[application-properties.data-migration.spring.sql.init.schema-locations]]xref:#application-properties.data-migration.spring.sql.init.schema-locations[`+spring.sql.init.schema-locations+`]
+|+++要应用于数据库的 schema（DDL）脚本的位置。+++
+|
+
+|[[application-properties.data-migration.spring.sql.init.separator]]xref:#application-properties.data-migration.spring.sql.init.separator[`+spring.sql.init.separator+`]
+|+++Schema 和数据脚本中的语句分隔符。+++
+|`+;+`
+
+|[[application-properties.data-migration.spring.sql.init.username]]xref:#application-properties.data-migration.spring.sql.init.username[`+spring.sql.init.username+`]
+|+++应用初始化脚本时使用的数据库用户名（如果不同）。+++
+|
+
+|===

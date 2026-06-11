@@ -1,0 +1,21 @@
+[[appendix.auto-configuration-classes.spring-boot-data-couchbase]]
+= spring-boot-data-couchbase
+
+以下 auto-configuration 类来自 `spring-boot-data-couchbase` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-data-couchbase/src/main/java/org/springframework/boot/data/couchbase/autoconfigure/DataCouchbaseAutoConfiguration.java[`DataCouchbaseAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/couchbase/autoconfigure/DataCouchbaseAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-couchbase/src/main/java/org/springframework/boot/data/couchbase/autoconfigure/DataCouchbaseReactiveAutoConfiguration.java[`DataCouchbaseReactiveAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/couchbase/autoconfigure/DataCouchbaseReactiveAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-couchbase/src/main/java/org/springframework/boot/data/couchbase/autoconfigure/DataCouchbaseReactiveRepositoriesAutoConfiguration.java[`DataCouchbaseReactiveRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/couchbase/autoconfigure/DataCouchbaseReactiveRepositoriesAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-data-couchbase/src/main/java/org/springframework/boot/data/couchbase/autoconfigure/DataCouchbaseRepositoriesAutoConfiguration.java[`DataCouchbaseRepositoriesAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/data/couchbase/autoconfigure/DataCouchbaseRepositoriesAutoConfiguration.html[javadoc]
+|===

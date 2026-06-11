@@ -1,1 +1,79 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.docker-compose]]
+== Docker Compose 属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.docker-compose.spring.docker.compose.arguments]]xref:#application-properties.docker-compose.spring.docker.compose.arguments[`+spring.docker.compose.arguments+`]
+|+++传递给 Docker Compose 命令的参数。+++
+|
+
+|[[application-properties.docker-compose.spring.docker.compose.enabled]]xref:#application-properties.docker-compose.spring.docker.compose.enabled[`+spring.docker.compose.enabled+`]
+|+++是否启用 Docker Compose 支持。+++
+|`+true+`
+
+|[[application-properties.docker-compose.spring.docker.compose.file]]xref:#application-properties.docker-compose.spring.docker.compose.file[`+spring.docker.compose.file+`]
+|+++Docker Compose 配置文件的路径。+++
+|
+
+|[[application-properties.docker-compose.spring.docker.compose.host]]xref:#application-properties.docker-compose.spring.docker.compose.host[`+spring.docker.compose.host+`]
+|+++启动 docker 容器所在机器的主机名或 IP。+++
+|
+
+|[[application-properties.docker-compose.spring.docker.compose.lifecycle-management]]xref:#application-properties.docker-compose.spring.docker.compose.lifecycle-management[`+spring.docker.compose.lifecycle-management+`]
+|+++Docker Compose 生命周期管理。+++
+|`+start-and-stop+`
+
+|[[application-properties.docker-compose.spring.docker.compose.profiles.active]]xref:#application-properties.docker-compose.spring.docker.compose.profiles.active[`+spring.docker.compose.profiles.active+`]
+|+++应激活的 Docker Compose profiles。+++
+|
+
+|[[application-properties.docker-compose.spring.docker.compose.readiness.tcp.connect-timeout]]xref:#application-properties.docker-compose.spring.docker.compose.readiness.tcp.connect-timeout[`+spring.docker.compose.readiness.tcp.connect-timeout+`]
+|+++连接超时时间。+++
+|`+200ms+`
+
+|[[application-properties.docker-compose.spring.docker.compose.readiness.tcp.read-timeout]]xref:#application-properties.docker-compose.spring.docker.compose.readiness.tcp.read-timeout[`+spring.docker.compose.readiness.tcp.read-timeout+`]
+|+++读取超时时间。+++
+|`+200ms+`
+
+|[[application-properties.docker-compose.spring.docker.compose.readiness.timeout]]xref:#application-properties.docker-compose.spring.docker.compose.readiness.timeout[`+spring.docker.compose.readiness.timeout+`]
+|+++就绪检查超时时间。+++
+|`+2m+`
+
+|[[application-properties.docker-compose.spring.docker.compose.readiness.wait]]xref:#application-properties.docker-compose.spring.docker.compose.readiness.wait[`+spring.docker.compose.readiness.wait+`]
+|+++使用的等待策略。+++
+|`+always+`
+
+|[[application-properties.docker-compose.spring.docker.compose.skip.in-tests]]xref:#application-properties.docker-compose.spring.docker.compose.skip.in-tests[`+spring.docker.compose.skip.in-tests+`]
+|+++是否在测试中跳过。+++
+|`+true+`
+
+|[[application-properties.docker-compose.spring.docker.compose.start.arguments]]xref:#application-properties.docker-compose.spring.docker.compose.start.arguments[`+spring.docker.compose.start.arguments+`]
+|+++传递给启动命令的参数。+++
+|
+
+|[[application-properties.docker-compose.spring.docker.compose.start.command]]xref:#application-properties.docker-compose.spring.docker.compose.start.command[`+spring.docker.compose.start.command+`]
+|+++用于启动 Docker Compose 的命令。+++
+|`+up+`
+
+|[[application-properties.docker-compose.spring.docker.compose.start.log-level]]xref:#application-properties.docker-compose.spring.docker.compose.start.log-level[`+spring.docker.compose.start.log-level+`]
+|+++输出的日志级别。+++
+|`+info+`
+
+|[[application-properties.docker-compose.spring.docker.compose.start.skip]]xref:#application-properties.docker-compose.spring.docker.compose.start.skip[`+spring.docker.compose.start.skip+`]
+|+++是否跳过执行启动命令。+++
+|`+if-running+`
+
+|[[application-properties.docker-compose.spring.docker.compose.stop.arguments]]xref:#application-properties.docker-compose.spring.docker.compose.stop.arguments[`+spring.docker.compose.stop.arguments+`]
+|+++传递给停止命令的参数。+++
+|
+
+|[[application-properties.docker-compose.spring.docker.compose.stop.command]]xref:#application-properties.docker-compose.spring.docker.compose.stop.command[`+spring.docker.compose.stop.command+`]
+|+++用于停止 Docker Compose 的命令。+++
+|`+stop+`
+
+|[[application-properties.docker-compose.spring.docker.compose.stop.timeout]]xref:#application-properties.docker-compose.spring.docker.compose.stop.timeout[`+spring.docker.compose.stop.timeout+`]
+|+++停止 Docker Compose 的超时时间。使用 '0' 表示强制停止。+++
+|`+10s+`
+
+|===

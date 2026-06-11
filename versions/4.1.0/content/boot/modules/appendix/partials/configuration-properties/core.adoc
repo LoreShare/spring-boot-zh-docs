@@ -1,1 +1,599 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.application-properties.core]]
+== 核心属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.core.debug]]xref:#application-properties.core.debug[`+debug+`]
+|+++启用调试日志。+++
+|`+false+`
+
+|[[application-properties.core.info]]xref:#application-properties.core.info[`+info.*+`]
+|+++要添加到 info endpoint 的任意属性。+++
+|
+
+|[[application-properties.core.logging.charset.console]]xref:#application-properties.core.logging.charset.console[`+logging.charset.console+`]
+|+++控制台输出使用的字符集。+++
+|
+
+|[[application-properties.core.logging.charset.file]]xref:#application-properties.core.logging.charset.file[`+logging.charset.file+`]
+|+++文件输出使用的字符集。+++
+|
+
+|[[application-properties.core.logging.config]]xref:#application-properties.core.logging.config[`+logging.config+`]
+|+++日志配置文件的位置。例如，对于 Logback 为 `classpath:logback.xml`。+++
+|
+
+|[[application-properties.core.logging.console.enabled]]xref:#application-properties.core.logging.console.enabled[`+logging.console.enabled+`]
+|+++是否启用基于控制台的日志记录。+++
+|
+
+|[[application-properties.core.logging.exception-conversion-word]]xref:#application-properties.core.logging.exception-conversion-word[`+logging.exception-conversion-word+`]
+|+++记录异常时使用的转换词。+++
+|`+%wEx+`
+
+|[[application-properties.core.logging.file.name]]xref:#application-properties.core.logging.file.name[`+logging.file.name+`]
+|+++日志文件名（例如 `myapp.log`）。名称可以是绝对位置或相对于当前目录的路径。+++
+|
+
+|[[application-properties.core.logging.file.path]]xref:#application-properties.core.logging.file.path[`+logging.file.path+`]
+|+++日志文件的位置。例如 `/var/log`。+++
+|
+
+|[[application-properties.core.logging.group]]xref:#application-properties.core.logging.group[`+logging.group.*+`]
+|+++日志组，用于快速同时更改多个日志记录器。例如 `logging.group.db=org.hibernate,org.springframework.jdbc`。+++
+|
+
+|[[application-properties.core.logging.include-application-group]]xref:#application-properties.core.logging.include-application-group[`+logging.include-application-group+`]
+|+++是否在日志中包含应用程序组。+++
+|`+true+`
+
+|[[application-properties.core.logging.include-application-name]]xref:#application-properties.core.logging.include-application-name[`+logging.include-application-name+`]
+|+++是否在日志中包含应用程序名称。+++
+|`+true+`
+
+|[[application-properties.core.logging.level]]xref:#application-properties.core.logging.level[`+logging.level.*+`]
+|+++日志级别严重性映射。例如 `logging.level.org.springframework=DEBUG`。+++
+|
+
+|[[application-properties.core.logging.log4j2.config.override]]xref:#application-properties.core.logging.log4j2.config.override[`+logging.log4j2.config.override+`]
+|+++用于创建复合配置的覆盖配置文件。可以加上 'optional:' 前缀，以便仅在存在时加载覆盖。+++
+|
+
+|[[application-properties.core.logging.log4j2.rollingpolicy.cron]]xref:#application-properties.core.logging.log4j2.rollingpolicy.cron[`+logging.log4j2.rollingpolicy.cron+`]
+|+++当策略为 'cron' 时使用的 cron 表达式。+++
+|`+0 0 0 * * ?+`
+
+|[[application-properties.core.logging.log4j2.rollingpolicy.file-name-pattern]]xref:#application-properties.core.logging.log4j2.rollingpolicy.file-name-pattern[`+logging.log4j2.rollingpolicy.file-name-pattern+`]
+|+++滚动日志文件名的模式。+++
+|`+${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz+`
+
+|[[application-properties.core.logging.log4j2.rollingpolicy.max-file-size]]xref:#application-properties.core.logging.log4j2.rollingpolicy.max-file-size[`+logging.log4j2.rollingpolicy.max-file-size+`]
+|+++最大日志文件大小。+++
+|`+10MB+`
+
+|[[application-properties.core.logging.log4j2.rollingpolicy.max-history]]xref:#application-properties.core.logging.log4j2.rollingpolicy.max-history[`+logging.log4j2.rollingpolicy.max-history+`]
+|+++要保留的最大归档日志文件数。+++
+|`+7+`
+
+|[[application-properties.core.logging.log4j2.rollingpolicy.strategy]]xref:#application-properties.core.logging.log4j2.rollingpolicy.strategy[`+logging.log4j2.rollingpolicy.strategy+`]
+|+++滚动策略。+++
+|`+size+`
+
+|[[application-properties.core.logging.log4j2.rollingpolicy.time-interval]]xref:#application-properties.core.logging.log4j2.rollingpolicy.time-interval[`+logging.log4j2.rollingpolicy.time-interval+`]
+|+++当策略为 'time' 或 'size-and-time' 时，基于时间的触发间隔。+++
+|`+1+`
+
+|[[application-properties.core.logging.log4j2.rollingpolicy.time-modulate]]xref:#application-properties.core.logging.log4j2.rollingpolicy.time-modulate[`+logging.log4j2.rollingpolicy.time-modulate+`]
+|+++当策略基于时间时，是否将下一次滚动时间对齐到间隔的起始时刻。+++
+|`+false+`
+
+|[[application-properties.core.logging.logback.rollingpolicy.clean-history-on-start]]xref:#application-properties.core.logging.logback.rollingpolicy.clean-history-on-start[`+logging.logback.rollingpolicy.clean-history-on-start+`]
+|+++是否在启动时清理归档日志文件。+++
+|`+false+`
+
+|[[application-properties.core.logging.logback.rollingpolicy.file-name-pattern]]xref:#application-properties.core.logging.logback.rollingpolicy.file-name-pattern[`+logging.logback.rollingpolicy.file-name-pattern+`]
+|+++滚动日志文件名的模式。+++
+|`+${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz+`
+
+|[[application-properties.core.logging.logback.rollingpolicy.max-file-size]]xref:#application-properties.core.logging.logback.rollingpolicy.max-file-size[`+logging.logback.rollingpolicy.max-file-size+`]
+|+++最大日志文件大小。+++
+|`+10MB+`
+
+|[[application-properties.core.logging.logback.rollingpolicy.max-history]]xref:#application-properties.core.logging.logback.rollingpolicy.max-history[`+logging.logback.rollingpolicy.max-history+`]
+|+++要保留的最大归档日志文件数。+++
+|`+7+`
+
+|[[application-properties.core.logging.logback.rollingpolicy.total-size-cap]]xref:#application-properties.core.logging.logback.rollingpolicy.total-size-cap[`+logging.logback.rollingpolicy.total-size-cap+`]
+|+++要保留的日志备份总大小。+++
+|`+0B+`
+
+|[[application-properties.core.logging.pattern.console]]xref:#application-properties.core.logging.pattern.console[`+logging.pattern.console+`]
+|+++控制台输出的附加器模式。其默认值因日志系统而异。+++
+|
+
+|[[application-properties.core.logging.pattern.correlation]]xref:#application-properties.core.logging.pattern.correlation[`+logging.pattern.correlation+`]
+|+++日志关联的附加器模式。其默认值因日志系统而异。+++
+|
+
+|[[application-properties.core.logging.pattern.dateformat]]xref:#application-properties.core.logging.pattern.dateformat[`+logging.pattern.dateformat+`]
+|+++日志日期格式的附加器模式。+++
+|`+yyyy-MM-dd'T'HH:mm:ss.SSSXXX+`
+
+|[[application-properties.core.logging.pattern.file]]xref:#application-properties.core.logging.pattern.file[`+logging.pattern.file+`]
+|+++文件输出的附加器模式。其默认值因日志系统而异。+++
+|
+
+|[[application-properties.core.logging.pattern.level]]xref:#application-properties.core.logging.pattern.level[`+logging.pattern.level+`]
+|+++日志级别的附加器模式。+++
+|`+%5p+`
+
+|[[application-properties.core.logging.register-shutdown-hook]]xref:#application-properties.core.logging.register-shutdown-hook[`+logging.register-shutdown-hook+`]
+|+++在日志系统初始化时为其注册一个关闭钩子。当部署为 war 文件时自动禁用。+++
+|`+true+`
+
+|[[application-properties.core.logging.structured.ecs.service.environment]]xref:#application-properties.core.logging.structured.ecs.service.environment[`+logging.structured.ecs.service.environment+`]
+|+++结构化 ECS 服务环境。+++
+|
+
+|[[application-properties.core.logging.structured.ecs.service.name]]xref:#application-properties.core.logging.structured.ecs.service.name[`+logging.structured.ecs.service.name+`]
+|+++结构化 ECS 服务名称（默认为 'spring.application.name'）。+++
+|
+
+|[[application-properties.core.logging.structured.ecs.service.node-name]]xref:#application-properties.core.logging.structured.ecs.service.node-name[`+logging.structured.ecs.service.node-name+`]
+|+++结构化 ECS 服务节点名称。+++
+|
+
+|[[application-properties.core.logging.structured.ecs.service.version]]xref:#application-properties.core.logging.structured.ecs.service.version[`+logging.structured.ecs.service.version+`]
+|+++结构化 ECS 服务版本（默认为 'spring.application.version'）。+++
+|
+
+|[[application-properties.core.logging.structured.format.console]]xref:#application-properties.core.logging.structured.format.console[`+logging.structured.format.console+`]
+|+++控制台输出的结构化日志格式。必须是格式 ID 或完全限定类名。+++
+|
+
+|[[application-properties.core.logging.structured.format.file]]xref:#application-properties.core.logging.structured.format.file[`+logging.structured.format.file+`]
+|+++文件输出的结构化日志格式。必须是格式 ID 或完全限定类名。+++
+|
+
+|[[application-properties.core.logging.structured.gelf.host]]xref:#application-properties.core.logging.structured.gelf.host[`+logging.structured.gelf.host+`]
+|+++结构化 GELF 主机（默认为 'spring.application.name'）。+++
+|
+
+|[[application-properties.core.logging.structured.gelf.service.version]]xref:#application-properties.core.logging.structured.gelf.service.version[`+logging.structured.gelf.service.version+`]
+|+++结构化 GELF 服务版本（默认为 'spring.application.version'）。+++
+|
+
+|[[application-properties.core.logging.structured.json.add]]xref:#application-properties.core.logging.structured.json.add[`+logging.structured.json.add.*+`]
+|+++应添加到结构化日志 JSON 中的附加成员。+++
+|
+
+|[[application-properties.core.logging.structured.json.context.include]]xref:#application-properties.core.logging.structured.json.context.include[`+logging.structured.json.context.include+`]
+|+++是否应在 JSON 中包含上下文数据。+++
+|
+
+|[[application-properties.core.logging.structured.json.context.prefix]]xref:#application-properties.core.logging.structured.json.context.prefix[`+logging.structured.json.context.prefix+`]
+|+++插入上下文数据时使用的前缀。+++
+|
+
+|[[application-properties.core.logging.structured.json.customizer]]xref:#application-properties.core.logging.structured.json.customizer[`+logging.structured.json.customizer+`]
+|+++StructuredLoggingJsonMembersCustomizer 实现的完全限定类名。+++
+|
+
+|[[application-properties.core.logging.structured.json.exclude]]xref:#application-properties.core.logging.structured.json.exclude[`+logging.structured.json.exclude+`]
+|+++应从结构化日志 JSON 中排除的成员路径。+++
+|
+
+|[[application-properties.core.logging.structured.json.include]]xref:#application-properties.core.logging.structured.json.include[`+logging.structured.json.include+`]
+|+++应包含在结构化日志 JSON 中的成员路径。+++
+|
+
+|[[application-properties.core.logging.structured.json.rename]]xref:#application-properties.core.logging.structured.json.rename[`+logging.structured.json.rename.*+`]
+|+++成员路径与在结构化日志 JSON 中使用的替代名称之间的映射。+++
+|
+
+|[[application-properties.core.logging.structured.json.stacktrace.include-common-frames]]xref:#application-properties.core.logging.structured.json.stacktrace.include-common-frames[`+logging.structured.json.stacktrace.include-common-frames+`]
+|+++是否包含公共框架。+++
+|
+
+|[[application-properties.core.logging.structured.json.stacktrace.include-hashes]]xref:#application-properties.core.logging.structured.json.stacktrace.include-hashes[`+logging.structured.json.stacktrace.include-hashes+`]
+|+++是否包含堆栈跟踪哈希。+++
+|
+
+|[[application-properties.core.logging.structured.json.stacktrace.max-length]]xref:#application-properties.core.logging.structured.json.stacktrace.max-length[`+logging.structured.json.stacktrace.max-length+`]
+|+++是否包含堆栈跟踪哈希。+++
+|
+
+|[[application-properties.core.logging.structured.json.stacktrace.max-throwable-depth]]xref:#application-properties.core.logging.structured.json.stacktrace.max-throwable-depth[`+logging.structured.json.stacktrace.max-throwable-depth+`]
+|+++最大打印长度。+++
+|
+
+|[[application-properties.core.logging.structured.json.stacktrace.printer]]xref:#application-properties.core.logging.structured.json.stacktrace.printer[`+logging.structured.json.stacktrace.printer+`]
+|+++最大可打印的异常深度。+++
+|
+
+|[[application-properties.core.logging.structured.json.stacktrace.root]]xref:#application-properties.core.logging.structured.json.stacktrace.root[`+logging.structured.json.stacktrace.root+`]
+|+++使用的打印机名称。可以是 'standard'、'logging-system' 或 StackTracePrinter 的完全限定类名。未指定时，将根据是否设置了其他属性使用 'logging-system' 或 'standard'。+++
+|
+
+|[[application-properties.core.logging.threshold.console]]xref:#application-properties.core.logging.threshold.console[`+logging.threshold.console+`]
+|+++根排序（根优先或根最后）。+++
+|`+TRACE+`
+
+|[[application-properties.core.logging.threshold.file]]xref:#application-properties.core.logging.threshold.file[`+logging.threshold.file+`]
+|+++文件输出的日志级别阈值。+++
+|`+TRACE+`
+
+|[[application-properties.core.spring.aop.auto]]xref:#application-properties.core.spring.aop.auto[`+spring.aop.auto+`]
+|+++添加 @EnableAspectJAutoProxy。+++
+|`+true+`
+
+|[[application-properties.core.spring.aop.proxy-target-class]]xref:#application-properties.core.spring.aop.proxy-target-class[`+spring.aop.proxy-target-class+`]
+|+++是否创建基于子类（CGLIB）的代理（true），而不是标准的 Java 基于接口的代理（false）。+++
+|`+true+`
+
+|[[application-properties.core.spring.application.admin.enabled]]xref:#application-properties.core.spring.application.admin.enabled[`+spring.application.admin.enabled+`]
+|+++是否为应用程序启用管理功能。+++
+|`+false+`
+
+|[[application-properties.core.spring.application.admin.jmx-name]]xref:#application-properties.core.spring.application.admin.jmx-name[`+spring.application.admin.jmx-name+`]
+|+++应用程序管理 MBean 的 JMX 名称。+++
+|`+org.springframework.boot:type=Admin,name=SpringApplication+`
+
+|[[application-properties.core.spring.application.group]]xref:#application-properties.core.spring.application.group[`+spring.application.group+`]
+|+++应用程序组。通常与日志记录一起使用以帮助识别应用程序。+++
+|
+
+|[[application-properties.core.spring.application.name]]xref:#application-properties.core.spring.application.name[`+spring.application.name+`]
+|+++应用程序名称。通常与日志记录一起使用以帮助识别应用程序。+++
+|
+
+|[[application-properties.core.spring.application.version]]xref:#application-properties.core.spring.application.version[`+spring.application.version+`]
+|+++应用程序版本（默认为清单中的 'Implementation-Version'）。+++
+|
+
+|[[application-properties.core.spring.autoconfigure.exclude]]xref:#application-properties.core.spring.autoconfigure.exclude[`+spring.autoconfigure.exclude+`]
+|+++要排除的自动配置类。+++
+|
+
+|[[application-properties.core.spring.banner.charset]]xref:#application-properties.core.spring.banner.charset[`+spring.banner.charset+`]
+|+++横幅文件编码。+++
+|`+UTF-8+`
+
+|[[application-properties.core.spring.banner.location]]xref:#application-properties.core.spring.banner.location[`+spring.banner.location+`]
+|+++横幅文本资源位置。+++
+|`+classpath:banner.txt+`
+
+|[[application-properties.core.spring.beaninfo.ignore]]xref:#application-properties.core.spring.beaninfo.ignore[`+spring.beaninfo.ignore+`]
+|+++是否跳过搜索 BeanInfo 类。+++
+|`+true+`
+
+|[[application-properties.core.spring.config.activate.on-cloud-platform]]xref:#application-properties.core.spring.config.activate.on-cloud-platform[`+spring.config.activate.on-cloud-platform+`]
+|+++文档包含所需的云平台。+++
+|
+
+|[[application-properties.core.spring.config.activate.on-profile]]xref:#application-properties.core.spring.config.activate.on-profile[`+spring.config.activate.on-profile+`]
+|+++文档包含应匹配的 Profile 表达式。+++
+|
+
+|[[application-properties.core.spring.config.additional-location]]xref:#application-properties.core.spring.config.additional-location[`+spring.config.additional-location+`]
+|+++除默认位置外使用的配置文件位置。+++
+|
+
+|[[application-properties.core.spring.config.import]]xref:#application-properties.core.spring.config.import[`+spring.config.import+`]
+|+++导入额外的配置数据。+++
+|
+
+|[[application-properties.core.spring.config.location]]xref:#application-properties.core.spring.config.location[`+spring.config.location+`]
+|+++替换默认位置的配置文件位置。+++
+|
+
+|[[application-properties.core.spring.config.name]]xref:#application-properties.core.spring.config.name[`+spring.config.name+`]
+|+++配置文件名。+++
+|`+application+`
+
+|[[application-properties.core.spring.info.build.encoding]]xref:#application-properties.core.spring.info.build.encoding[`+spring.info.build.encoding+`]
+|+++文件编码。+++
+|`+UTF-8+`
+
+|[[application-properties.core.spring.info.build.location]]xref:#application-properties.core.spring.info.build.location[`+spring.info.build.location+`]
+|+++生成的 build-info.properties 文件位置。+++
+|`+classpath:META-INF/build-info.properties+`
+
+|[[application-properties.core.spring.info.git.encoding]]xref:#application-properties.core.spring.info.git.encoding[`+spring.info.git.encoding+`]
+|+++文件编码。+++
+|`+UTF-8+`
+
+|[[application-properties.core.spring.info.git.location]]xref:#application-properties.core.spring.info.git.location[`+spring.info.git.location+`]
+|+++生成的 git.properties 文件位置。+++
+|`+classpath:git.properties+`
+
+|[[application-properties.core.spring.jmx.default-domain]]xref:#application-properties.core.spring.jmx.default-domain[`+spring.jmx.default-domain+`]
+|+++JMX 域名。+++
+|
+
+|[[application-properties.core.spring.jmx.enabled]]xref:#application-properties.core.spring.jmx.enabled[`+spring.jmx.enabled+`]
+|+++将 Spring 的管理 beans 暴露到 JMX 域。+++
+|`+false+`
+
+|[[application-properties.core.spring.jmx.registration-policy]]xref:#application-properties.core.spring.jmx.registration-policy[`+spring.jmx.registration-policy+`]
+|+++JMX 注册策略。+++
+|`+fail-on-existing+`
+
+|[[application-properties.core.spring.jmx.server]]xref:#application-properties.core.spring.jmx.server[`+spring.jmx.server+`]
+|+++MBeanServer bean 名称。+++
+|`+mbeanServer+`
+
+|[[application-properties.core.spring.jmx.unique-names]]xref:#application-properties.core.spring.jmx.unique-names[`+spring.jmx.unique-names+`]
+|+++是否确保唯一的运行时对象名称。+++
+|`+false+`
+
+|[[application-properties.core.spring.lifecycle.timeout-per-shutdown-phase]]xref:#application-properties.core.spring.lifecycle.timeout-per-shutdown-phase[`+spring.lifecycle.timeout-per-shutdown-phase+`]
+|+++任何阶段（具有相同 'phase' 值的 SmartLifecycle beans 组）关闭的超时时间。+++
+|`+30s+`
+
+|[[application-properties.core.spring.main.allow-bean-definition-overriding]]xref:#application-properties.core.spring.main.allow-bean-definition-overriding[`+spring.main.allow-bean-definition-overriding+`]
+|+++是否允许通过注册与现有定义同名的定义来覆盖 bean 定义。+++
+|`+false+`
+
+|[[application-properties.core.spring.main.allow-circular-references]]xref:#application-properties.core.spring.main.allow-circular-references[`+spring.main.allow-circular-references+`]
+|+++是否允许 beans 之间的循环引用并自动尝试解决它们。+++
+|`+false+`
+
+|[[application-properties.core.spring.main.banner-mode]]xref:#application-properties.core.spring.main.banner-mode[`+spring.main.banner-mode+`]
+|+++应用程序运行时显示横幅的模式。如果启用了结构化日志记录，则默认为 'off'，否则默认为 'console'。+++
+|
+
+|[[application-properties.core.spring.main.cloud-platform]]xref:#application-properties.core.spring.main.cloud-platform[`+spring.main.cloud-platform+`]
+|+++覆盖云平台自动检测。+++
+|
+
+|[[application-properties.core.spring.main.keep-alive]]xref:#application-properties.core.spring.main.keep-alive[`+spring.main.keep-alive+`]
+|+++即使没有更多非守护线程，是否保持应用程序存活。+++
+|`+false+`
+
+|[[application-properties.core.spring.main.lazy-initialization]]xref:#application-properties.core.spring.main.lazy-initialization[`+spring.main.lazy-initialization+`]
+|+++是否应延迟执行初始化。+++
+|`+false+`
+
+|[[application-properties.core.spring.main.log-startup-info]]xref:#application-properties.core.spring.main.log-startup-info[`+spring.main.log-startup-info+`]
+|+++是否在应用程序启动时记录有关应用程序的信息。+++
+|`+true+`
+
+|[[application-properties.core.spring.main.register-shutdown-hook]]xref:#application-properties.core.spring.main.register-shutdown-hook[`+spring.main.register-shutdown-hook+`]
+|+++应用程序是否应注册关闭钩子。+++
+|`+true+`
+
+|[[application-properties.core.spring.main.sources]]xref:#application-properties.core.spring.main.sources[`+spring.main.sources+`]
+|+++要包含在 ApplicationContext 中的源（类名、包名或 XML 资源位置）。+++
+|
+
+|[[application-properties.core.spring.main.web-application-type]]xref:#application-properties.core.spring.main.web-application-type[`+spring.main.web-application-type+`]
+|+++显式请求特定类型 Web 应用程序的标志。如果未设置，则根据 classpath 自动检测。+++
+|
+
+|[[application-properties.core.spring.mandatory-file-encoding]]xref:#application-properties.core.spring.mandatory-file-encoding[`+spring.mandatory-file-encoding+`]
+|+++应用程序必须使用的预期字符编码。+++
+|
+
+|[[application-properties.core.spring.messages.always-use-message-format]]xref:#application-properties.core.spring.messages.always-use-message-format[`+spring.messages.always-use-message-format+`]
+|+++是否始终应用 MessageFormat 规则，解析即使没有参数的消息。+++
+|`+false+`
+
+|[[application-properties.core.spring.messages.basename]]xref:#application-properties.core.spring.messages.basename[`+spring.messages.basename+`]
+|+++基名称列表（本质上是完全限定的 classpath 位置），每个都遵循 ResourceBundle 约定，并支持基于斜杠的位置。如果不包含包限定符（例如 "org.mypackage"），则将从 classpath 根目录解析。+++
+|`+[messages]+`
+
+|[[application-properties.core.spring.messages.cache-duration]]xref:#application-properties.core.spring.messages.cache-duration[`+spring.messages.cache-duration+`]
+|+++加载的资源包文件缓存持续时间。未设置时，包将永久缓存。如果未指定持续时间后缀，则使用秒。+++
+|
+
+|[[application-properties.core.spring.messages.common-messages]]xref:#application-properties.core.spring.messages.common-messages[`+spring.messages.common-messages+`]
+|+++包含通用消息的、与区域设置无关的属性文件资源列表。+++
+|
+
+|[[application-properties.core.spring.messages.encoding]]xref:#application-properties.core.spring.messages.encoding[`+spring.messages.encoding+`]
+|+++消息包的编码。+++
+|`+UTF-8+`
+
+|[[application-properties.core.spring.messages.fallback-to-system-locale]]xref:#application-properties.core.spring.messages.fallback-to-system-locale[`+spring.messages.fallback-to-system-locale+`]
+|+++如果未找到特定区域设置的文件，是否回退到系统区域设置。如果关闭此选项，唯一的回退将是默认文件（例如，基名为“messages”时的“messages.properties”）。+++
+|`+true+`
+
+|[[application-properties.core.spring.messages.use-code-as-default-message]]xref:#application-properties.core.spring.messages.use-code-as-default-message[`+spring.messages.use-code-as-default-message+`]
+|+++是否使用消息代码作为默认消息，而不是抛出“NoSuchMessageException”。建议仅在开发期间使用。+++
+|`+false+`
+
+|[[application-properties.core.spring.output.ansi.enabled]]xref:#application-properties.core.spring.output.ansi.enabled[`+spring.output.ansi.enabled+`]
+|+++配置 ANSI 输出。+++
+|`+detect+`
+
+|[[application-properties.core.spring.pid.fail-on-write-error]]xref:#application-properties.core.spring.pid.fail-on-write-error[`+spring.pid.fail-on-write-error+`]
+|+++如果使用 ApplicationPidFileWriter 但无法写入 PID 文件，则失败。+++
+|
+
+|[[application-properties.core.spring.pid.file]]xref:#application-properties.core.spring.pid.file[`+spring.pid.file+`]
+|+++要写入的 PID 文件的位置（如果使用了 ApplicationPidFileWriter）。+++
+|
+
+|[[application-properties.core.spring.profiles.active]]xref:#application-properties.core.spring.profiles.active[`+spring.profiles.active+`]
+|+++逗号分隔的活跃 profiles 列表。可通过命令行开关覆盖。+++
+|
+
+|[[application-properties.core.spring.profiles.default]]xref:#application-properties.core.spring.profiles.default[`+spring.profiles.default+`]
+|+++如果没有活跃的 profile，则启用的 profile 的名称。+++
+|`+default+`
+
+|[[application-properties.core.spring.profiles.group]]xref:#application-properties.core.spring.profiles.group[`+spring.profiles.group.*+`]
+|+++用于为一组相关的 profiles 定义逻辑名称的 profile 组。+++
+|
+
+|[[application-properties.core.spring.profiles.include]]xref:#application-properties.core.spring.profiles.include[`+spring.profiles.include+`]
+|+++无条件激活指定的逗号分隔的 profiles 列表（如果使用 YAML，则为 profiles 列表）。+++
+|
+
+|[[application-properties.core.spring.profiles.validate]]xref:#application-properties.core.spring.profiles.validate[`+spring.profiles.validate+`]
+|+++是否应验证 profiles 以确保使用合理的名称。+++
+|`+true+`
+
+|[[application-properties.core.spring.quartz.auto-startup]]xref:#application-properties.core.spring.quartz.auto-startup[`+spring.quartz.auto-startup+`]
+|+++初始化后是否自动启动调度器。+++
+|`+true+`
+
+|[[application-properties.core.spring.quartz.jdbc.comment-prefix]]xref:#application-properties.core.spring.quartz.jdbc.comment-prefix[`+spring.quartz.jdbc.comment-prefix+`]
+|+++SQL 初始化脚本中单行注释的前缀。+++
+|`+[#, --]+`
+
+|[[application-properties.core.spring.quartz.jdbc.continue-on-error]]xref:#application-properties.core.spring.quartz.jdbc.continue-on-error[`+spring.quartz.jdbc.continue-on-error+`]
+|+++应用模式脚本时发生错误，初始化是否应继续。+++
+|`+true+`
+
+|[[application-properties.core.spring.quartz.jdbc.initialize-schema]]xref:#application-properties.core.spring.quartz.jdbc.initialize-schema[`+spring.quartz.jdbc.initialize-schema+`]
+|+++数据库模式初始化模式。+++
+|`+embedded+`
+
+|[[application-properties.core.spring.quartz.jdbc.platform]]xref:#application-properties.core.spring.quartz.jdbc.platform[`+spring.quartz.jdbc.platform+`]
+|+++如果使用了 @@platform@@ 占位符，则在初始化脚本中使用的平台。默认自动检测。+++
+|
+
+|[[application-properties.core.spring.quartz.jdbc.schema]]xref:#application-properties.core.spring.quartz.jdbc.schema[`+spring.quartz.jdbc.schema+`]
+|+++用于初始化数据库模式的 SQL 文件的路径。+++
+|
+
+|[[application-properties.core.spring.quartz.job-store-type]]xref:#application-properties.core.spring.quartz.job-store-type[`+spring.quartz.job-store-type+`]
+|+++Quartz 任务存储类型。+++
+|`+memory+`
+
+|[[application-properties.core.spring.quartz.overwrite-existing-jobs]]xref:#application-properties.core.spring.quartz.overwrite-existing-jobs[`+spring.quartz.overwrite-existing-jobs+`]
+|+++配置的任务是否应覆盖现有任务定义。+++
+|`+false+`
+
+|[[application-properties.core.spring.quartz.properties]]xref:#application-properties.core.spring.quartz.properties[`+spring.quartz.properties.*+`]
+|+++额外的 Quartz 调度器属性。+++
+|
+
+|[[application-properties.core.spring.quartz.scheduler-name]]xref:#application-properties.core.spring.quartz.scheduler-name[`+spring.quartz.scheduler-name+`]
+|+++调度器的名称。+++
+|`+quartzScheduler+`
+
+|[[application-properties.core.spring.quartz.startup-delay]]xref:#application-properties.core.spring.quartz.startup-delay[`+spring.quartz.startup-delay+`]
+|+++初始化完成后，调度器启动前的延迟时间。如果希望在整个应用程序启动完成之前不运行任何任务，设置此属性是有意义的。+++
+|`+0s+`
+
+|[[application-properties.core.spring.quartz.wait-for-jobs-to-complete-on-shutdown]]xref:#application-properties.core.spring.quartz.wait-for-jobs-to-complete-on-shutdown[`+spring.quartz.wait-for-jobs-to-complete-on-shutdown+`]
+|+++关闭时是否等待正在运行的任务完成。+++
+|`+false+`
+
+|[[application-properties.core.spring.reactor.context-propagation]]xref:#application-properties.core.spring.reactor.context-propagation[`+spring.reactor.context-propagation+`]
+|+++Reactor 操作符的上下文传播支持模式。+++
+|`+limited+`
+
+|[[application-properties.core.spring.reactor.debug-agent.enabled]]xref:#application-properties.core.spring.reactor.debug-agent.enabled[`+spring.reactor.debug-agent.enabled+`]
+|+++当 reactor-tools 存在时，是否启用 Reactor 调试代理。+++
+|`+true+`
+
+|[[application-properties.core.spring.reactor.netty.shutdown-quiet-period]]xref:#application-properties.core.spring.reactor.netty.shutdown-quiet-period[`+spring.reactor.netty.shutdown-quiet-period+`]
+|+++关闭资源前等待的时间。+++
+|
+
+|[[application-properties.core.spring.ssl.bundle.jks]]xref:#application-properties.core.spring.ssl.bundle.jks[`+spring.ssl.bundle.jks.*+`]
+|+++Java 密钥库 SSL 信任材料。+++
+|
+
+|[[application-properties.core.spring.ssl.bundle.pem]]xref:#application-properties.core.spring.ssl.bundle.pem[`+spring.ssl.bundle.pem.*+`]
+|+++PEM 编码的 SSL 信任材料。+++
+|
+
+|[[application-properties.core.spring.ssl.bundle.watch.file.quiet-period]]xref:#application-properties.core.spring.ssl.bundle.watch.file.quiet-period[`+spring.ssl.bundle.watch.file.quiet-period+`]
+|+++静默期，之后检测更改。+++
+|`+10s+`
+
+|[[application-properties.core.spring.task.execution.mode]]xref:#application-properties.core.spring.task.execution.mode[`+spring.task.execution.mode+`]
+|+++确定何时创建任务执行器。+++
+|`+auto+`
+
+|[[application-properties.core.spring.task.execution.pool.allow-core-thread-timeout]]xref:#application-properties.core.spring.task.execution.pool.allow-core-thread-timeout[`+spring.task.execution.pool.allow-core-thread-timeout+`]
+|+++是否允许核心线程超时。这允许池的动态增长和收缩。如果启用了虚拟线程，则无效。+++
+|`+true+`
+
+|[[application-properties.core.spring.task.execution.pool.core-size]]xref:#application-properties.core.spring.task.execution.pool.core-size[`+spring.task.execution.pool.core-size+`]
+|+++核心线程数。如果启用了虚拟线程，则无效。+++
+|`+8+`
+
+|[[application-properties.core.spring.task.execution.pool.keep-alive]]xref:#application-properties.core.spring.task.execution.pool.keep-alive[`+spring.task.execution.pool.keep-alive+`]
+|+++线程在终止前可以保持空闲的时间限制。如果启用了虚拟线程，则无效。+++
+|`+60s+`
+
+|[[application-properties.core.spring.task.execution.pool.max-size]]xref:#application-properties.core.spring.task.execution.pool.max-size[`+spring.task.execution.pool.max-size+`]
+|+++最大允许线程数。如果任务填满队列，池可以扩展到该大小以容纳负载。如果队列无界，则忽略。如果启用了虚拟线程，则无效。+++
+|
+
+|[[application-properties.core.spring.task.execution.pool.queue-capacity]]xref:#application-properties.core.spring.task.execution.pool.queue-capacity[`+spring.task.execution.pool.queue-capacity+`]
+|+++队列容量。无界容量不会增加池，因此忽略“max-size”属性。如果启用了虚拟线程，则无效。+++
+|
+
+|[[application-properties.core.spring.task.execution.pool.shutdown.accept-tasks-after-context-close]]xref:#application-properties.core.spring.task.execution.pool.shutdown.accept-tasks-after-context-close[`+spring.task.execution.pool.shutdown.accept-tasks-after-context-close+`]
+|+++在应用程序上下文关闭阶段开始后，是否接受更多任务。+++
+|`+false+`
+
+|[[application-properties.core.spring.task.execution.propagate-context]]xref:#application-properties.core.spring.task.execution.propagate-context[`+spring.task.execution.propagate-context+`]
+|+++是否将当前上下文传播到任务执行。+++
+|`+false+`
+
+|[[application-properties.core.spring.task.execution.shutdown.await-termination]]xref:#application-properties.core.spring.task.execution.shutdown.await-termination[`+spring.task.execution.shutdown.await-termination+`]
+|+++执行器是否应等待计划任务在关闭时完成。+++
+|`+false+`
+
+|[[application-properties.core.spring.task.execution.shutdown.await-termination-period]]xref:#application-properties.core.spring.task.execution.shutdown.await-termination-period[`+spring.task.execution.shutdown.await-termination-period+`]
+|+++执行器等待剩余任务完成的最长时间。+++
+|
+
+|[[application-properties.core.spring.task.execution.simple.cancel-remaining-tasks-on-close]]xref:#application-properties.core.spring.task.execution.simple.cancel-remaining-tasks-on-close[`+spring.task.execution.simple.cancel-remaining-tasks-on-close+`]
+|+++关闭时是否取消剩余任务。仅当线程通常预期被卡住时推荐。+++
+|`+false+`
+
+|[[application-properties.core.spring.task.execution.simple.concurrency-limit]]xref:#application-properties.core.spring.task.execution.simple.concurrency-limit[`+spring.task.execution.simple.concurrency-limit+`]
+|+++设置允许的最大并行访问数。 -1 表示完全没有并发限制。+++
+|
+
+|[[application-properties.core.spring.task.execution.simple.reject-tasks-when-limit-reached]]xref:#application-properties.core.spring.task.execution.simple.reject-tasks-when-limit-reached[`+spring.task.execution.simple.reject-tasks-when-limit-reached+`]
+|+++达到并发限制时是否拒绝任务。+++
+|`+false+`
+
+|[[application-properties.core.spring.task.execution.thread-name-prefix]]xref:#application-properties.core.spring.task.execution.thread-name-prefix[`+spring.task.execution.thread-name-prefix+`]
+|+++用于新创建线程名称的前缀。+++
+|`+task-+`
+
+|[[application-properties.core.spring.task.scheduling.pool.size]]xref:#application-properties.core.spring.task.scheduling.pool.size[`+spring.task.scheduling.pool.size+`]
+|+++允许的最大线程数。如果启用了虚拟线程，则此设置无效。+++
+|`+1+`
+
+|[[application-properties.core.spring.task.scheduling.shutdown.await-termination]]xref:#application-properties.core.spring.task.scheduling.shutdown.await-termination[`+spring.task.scheduling.shutdown.await-termination+`]
+|+++执行器是否应在关闭时等待计划任务完成。+++
+|`+false+`
+
+|[[application-properties.core.spring.task.scheduling.shutdown.await-termination-period]]xref:#application-properties.core.spring.task.scheduling.shutdown.await-termination-period[`+spring.task.scheduling.shutdown.await-termination-period+`]
+|+++执行器等待剩余任务完成的最长时间。+++
+|
+
+|[[application-properties.core.spring.task.scheduling.simple.concurrency-limit]]xref:#application-properties.core.spring.task.scheduling.simple.concurrency-limit[`+spring.task.scheduling.simple.concurrency-limit+`]
+|+++设置允许的最大并行访问数。设置为 -1 表示无并发限制。+++
+|
+
+|[[application-properties.core.spring.task.scheduling.thread-name-prefix]]xref:#application-properties.core.spring.task.scheduling.thread-name-prefix[`+spring.task.scheduling.thread-name-prefix+`]
+|+++用于新创建线程名称的前缀。+++
+|`+scheduling-+`
+
+|[[application-properties.core.spring.threads.virtual.enabled]]xref:#application-properties.core.spring.threads.virtual.enabled[`+spring.threads.virtual.enabled+`]
+|+++是否使用虚拟线程。+++
+|`+false+`
+
+|[[application-properties.core.spring.validation.method.adapt-constraint-violations]]xref:#application-properties.core.spring.validation.method.adapt-constraint-violations[`+spring.validation.method.adapt-constraint-violations+`]
+|+++是否将 ConstraintViolations 适配为 MethodValidationResult。+++
+|`+false+`
+
+|[[application-properties.core.trace]]xref:#application-properties.core.trace[`+trace+`]
+|+++启用跟踪日志。+++
+|`+false+`
+
+|===

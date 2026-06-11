@@ -1,1 +1,39 @@
-该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。
+[[appendix.deprecated-application-properties.integration]]
+== 已弃用的集成属性
+[cols="4,3,3", options="header"]
+|===
+|名称|描述|默认值
+
+|[[application-properties.integration.spring.activemq.pool.maximum-active-session-per-connection]]xref:#application-properties.integration.spring.activemq.pool.maximum-active-session-per-connection[`+spring.activemq.pool.maximum-active-session-per-connection+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.integration.spring.activemq.pool.max-sessions-per-connection[`+spring.activemq.pool.max-sessions-per-connection+`] 替代
+|
+
+|[[application-properties.integration.spring.artemis.pool.maximum-active-session-per-connection]]xref:#application-properties.integration.spring.artemis.pool.maximum-active-session-per-connection[`+spring.artemis.pool.maximum-active-session-per-connection+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.integration.spring.artemis.pool.max-sessions-per-connection[`+spring.artemis.pool.max-sessions-per-connection+`] 替代
+|
+
+|[[application-properties.integration.spring.jms.listener.acknowledge-mode]]xref:#application-properties.integration.spring.jms.listener.acknowledge-mode[`+spring.jms.listener.acknowledge-mode+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.integration.spring.jms.listener.session.acknowledge-mode[`+spring.jms.listener.session.acknowledge-mode+`] 替代
+|
+
+|[[application-properties.integration.spring.jms.listener.concurrency]]xref:#application-properties.integration.spring.jms.listener.concurrency[`+spring.jms.listener.concurrency+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.integration.spring.jms.listener.min-concurrency[`+spring.jms.listener.min-concurrency+`] 替代
+|
+
+|[[application-properties.integration.spring.kafka.retry.topic.delay]]xref:#application-properties.integration.spring.kafka.retry.topic.delay[`+spring.kafka.retry.topic.delay+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.integration.spring.kafka.retry.topic.backoff.delay[`+spring.kafka.retry.topic.backoff.delay+`] 替代
+|
+
+|[[application-properties.integration.spring.kafka.retry.topic.max-delay]]xref:#application-properties.integration.spring.kafka.retry.topic.max-delay[`+spring.kafka.retry.topic.max-delay+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.integration.spring.kafka.retry.topic.backoff.max-delay[`+spring.kafka.retry.topic.backoff.max-delay+`] 替代
+|
+
+|[[application-properties.integration.spring.kafka.retry.topic.multiplier]]xref:#application-properties.integration.spring.kafka.retry.topic.multiplier[`+spring.kafka.retry.topic.multiplier+`]
+|已由 xref:appendix:application-properties/index.adoc#application-properties.integration.spring.kafka.retry.topic.backoff.multiplier[`+spring.kafka.retry.topic.backoff.multiplier+`] 替代
+|
+
+|[[application-properties.integration.spring.kafka.retry.topic.random-back-off]]xref:#application-properties.integration.spring.kafka.retry.topic.random-back-off[`+spring.kafka.retry.topic.random-back-off+`]
+|已由 `+spring.kafka.retry.topic.backoff.random+` 替代
+|
+
+|===

@@ -1,0 +1,865 @@
+{
+  "groups": [
+    {
+      "name": "management.endpoint.conditions",
+      "type": "org.springframework.boot.actuate.autoconfigure.condition.ConditionsReportEndpoint",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.condition.ConditionsReportEndpoint"
+    },
+    {
+      "name": "management.endpoint.configprops",
+      "type": "org.springframework.boot.actuate.autoconfigure.context.properties.ConfigurationPropertiesReportEndpointProperties",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.context.properties.ConfigurationPropertiesReportEndpointProperties"
+    },
+    {
+      "name": "management.endpoint.env",
+      "type": "org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointProperties",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointProperties"
+    },
+    {
+      "name": "management.endpoint.logfile",
+      "type": "org.springframework.boot.actuate.autoconfigure.logging.LogFileWebEndpointProperties",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.logging.LogFileWebEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.jmx",
+      "type": "org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointProperties",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.jmx.exposure",
+      "type": "org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointProperties$Exposure",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointProperties",
+      "sourceMethod": "getExposure()"
+    },
+    {
+      "name": "management.endpoints.web",
+      "type": "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.web.cors",
+      "type": "org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.web.discovery",
+      "type": "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties$Discovery",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties",
+      "sourceMethod": "getDiscovery()"
+    },
+    {
+      "name": "management.endpoints.web.exposure",
+      "type": "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties$Exposure",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties",
+      "sourceMethod": "getExposure()"
+    },
+    {
+      "name": "management.httpexchanges",
+      "type": "org.springframework.boot.actuate.autoconfigure.web.exchanges.HttpExchangesProperties",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.web.exchanges.HttpExchangesProperties"
+    },
+    {
+      "name": "management.httpexchanges.recording",
+      "type": "org.springframework.boot.actuate.autoconfigure.web.exchanges.HttpExchangesProperties$Recording",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.web.exchanges.HttpExchangesProperties",
+      "sourceMethod": "getRecording()"
+    },
+    {
+      "name": "management.info",
+      "type": "org.springframework.boot.actuate.autoconfigure.info.InfoContributorProperties",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.info.InfoContributorProperties"
+    },
+    {
+      "name": "management.info.git",
+      "type": "org.springframework.boot.actuate.autoconfigure.info.InfoContributorProperties$Git",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.info.InfoContributorProperties",
+      "sourceMethod": "getGit()"
+    },
+    {
+      "name": "management.server",
+      "type": "org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties"
+    },
+    {
+      "name": "management.server.ssl",
+      "type": "org.springframework.boot.web.server.Ssl",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties",
+      "sourceMethod": "getSsl()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "info",
+      "type": "java.util.Map<java.lang.String,java.lang.Object>",
+      "description": "Arbitrary properties to add to the info endpoint."
+    },
+    {
+      "name": "management.auditevents.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable storage of audit events.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.cloudfoundry.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable extended Cloud Foundry actuator endpoints.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.cloudfoundry.skip-ssl-validation",
+      "type": "java.lang.Boolean",
+      "description": "Whether to skip SSL verification for Cloud Foundry actuator endpoint security calls.",
+      "defaultValue": false
+    },
+    {
+      "name": "management.endpoint.conditions.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the conditions endpoint.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.condition.ConditionsReportEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.conditions.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.condition.ConditionsReportEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.configprops.roles",
+      "type": "java.util.Set<java.lang.String>",
+      "description": "Roles used to determine whether a user is authorized to be shown unsanitized values. When empty, all authenticated users are authorized.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.context.properties.ConfigurationPropertiesReportEndpointProperties"
+    },
+    {
+      "name": "management.endpoint.configprops.show-values",
+      "type": "org.springframework.boot.actuate.endpoint.Show",
+      "description": "When to show unsanitized values.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.context.properties.ConfigurationPropertiesReportEndpointProperties",
+      "defaultValue": "never"
+    },
+    {
+      "name": "management.endpoint.env.roles",
+      "type": "java.util.Set<java.lang.String>",
+      "description": "Roles used to determine whether a user is authorized to be shown unsanitized values. When empty, all authenticated users are authorized.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointProperties"
+    },
+    {
+      "name": "management.endpoint.env.show-values",
+      "type": "org.springframework.boot.actuate.endpoint.Show",
+      "description": "When to show unsanitized values.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointProperties",
+      "defaultValue": "never"
+    },
+    {
+      "name": "management.endpoint.logfile.external-file",
+      "type": "java.io.File",
+      "description": "External Logfile to be accessed. Can be used if the logfile is written by output redirect and not by the logging system itself.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.logging.LogFileWebEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.access.default",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Default access level for all endpoints."
+    },
+    {
+      "name": "management.endpoints.access.max-permitted",
+      "description": "Maximum level of endpoint access that is permitted. Caps an endpoint's individual access level (management.endpoint.<id>.access) and the default access (management.endpoints.access.default).'",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoints.jackson.isolated-json-mapper",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use an isolated JsonMapper to serialize endpoint JSON.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.endpoints.jmx.domain",
+      "type": "java.lang.String",
+      "description": "Endpoints JMX domain name. Fallback to 'spring.jmx.default-domain' if set.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointProperties",
+      "defaultValue": "org.springframework.boot"
+    },
+    {
+      "name": "management.endpoints.jmx.exposure.exclude",
+      "type": "java.util.Set<java.lang.String>",
+      "description": "Endpoint IDs that should be excluded or '*' for all.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointProperties$Exposure"
+    },
+    {
+      "name": "management.endpoints.jmx.exposure.include",
+      "type": "java.util.Set<java.lang.String>",
+      "description": "Endpoint IDs that should be included or '*' for all.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointProperties$Exposure",
+      "defaultValue": "health"
+    },
+    {
+      "name": "management.endpoints.jmx.static-names",
+      "type": "java.util.Properties",
+      "description": "Additional static properties to append to all ObjectNames of MBeans representing Endpoints.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.web.base-path",
+      "type": "java.lang.String",
+      "description": "Base path for Web endpoints. Relative to the servlet context path (server.servlet.context-path) or WebFlux base path (spring.webflux.base-path) when the management server is sharing the main server port. Relative to the management server base path (management.server.base-path) when a separate management server port (management.server.port) is configured.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties",
+      "defaultValue": "\/actuator"
+    },
+    {
+      "name": "management.endpoints.web.cors.allow-credentials",
+      "type": "java.lang.Boolean",
+      "description": "Whether credentials are supported. When not set, credentials are not supported.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.web.cors.allowed-headers",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of headers to allow in a request. '*' allows all headers.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.web.cors.allowed-methods",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of methods to allow. '*' allows all methods. When not set, defaults to GET.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.web.cors.allowed-origin-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of origin patterns to allow. Unlike allowed origins which only supports '*', origin patterns are more flexible (for example 'https:\/\/*.example.com') and can be used when credentials are allowed. When no allowed origin patterns or allowed origins are set, CORS support is disabled.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.web.cors.allowed-origins",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of origins to allow. '*' allows all origins. When credentials are allowed, '*' cannot be used and origin patterns should be configured instead. When no allowed origins or allowed origin patterns are set, CORS support is disabled.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.web.cors.exposed-headers",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of headers to include in a response.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties"
+    },
+    {
+      "name": "management.endpoints.web.cors.max-age",
+      "type": "java.time.Duration",
+      "description": "How long the response from a pre-flight request can be cached by clients. If a duration suffix is not specified, seconds will be used.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties",
+      "defaultValue": "1800s"
+    },
+    {
+      "name": "management.endpoints.web.discovery.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether the discovery page is enabled.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties$Discovery",
+      "defaultValue": true
+    },
+    {
+      "name": "management.endpoints.web.exposure.exclude",
+      "type": "java.util.Set<java.lang.String>",
+      "description": "Endpoint IDs that should be excluded or '*' for all.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties$Exposure"
+    },
+    {
+      "name": "management.endpoints.web.exposure.include",
+      "type": "java.util.Set<java.lang.String>",
+      "description": "Endpoint IDs that should be included or '*' for all.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties$Exposure",
+      "defaultValue": [
+        "health"
+      ]
+    },
+    {
+      "name": "management.endpoints.web.path-mapping",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "Mapping between endpoint IDs and the path that should expose them.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties"
+    },
+    {
+      "name": "management.httpexchanges.recording.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable HTTP request-response exchange recording.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.httpexchanges.recording.include",
+      "type": "java.util.Set<org.springframework.boot.actuate.web.exchanges.Include>",
+      "description": "Items to be included in the exchange recording. Defaults to request headers (excluding Authorization and Cookie), response headers (excluding Set-Cookie), and time taken.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.web.exchanges.HttpExchangesProperties$Recording",
+      "defaultValue": [
+        "time-taken",
+        "request-headers",
+        "response-headers"
+      ]
+    },
+    {
+      "name": "management.info.build.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable build info.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.info.defaults.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable default info contributors.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.info.env.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable environment info.",
+      "defaultValue": false
+    },
+    {
+      "name": "management.info.git.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable git info.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.info.git.mode",
+      "type": "org.springframework.boot.actuate.info.InfoPropertiesInfoContributor$Mode",
+      "description": "Mode to use to expose git information.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.info.InfoContributorProperties$Git",
+      "defaultValue": "simple"
+    },
+    {
+      "name": "management.info.java.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Java info.",
+      "defaultValue": false
+    },
+    {
+      "name": "management.info.os.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Operating System info.",
+      "defaultValue": false
+    },
+    {
+      "name": "management.info.process.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable process info.",
+      "defaultValue": false
+    },
+    {
+      "name": "management.info.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL certificate info.",
+      "defaultValue": false
+    },
+    {
+      "name": "management.logging.export.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether auto-configuration of logging is enabled to export logs.",
+      "defaultValue": true
+    },
+    {
+      "name": "management.server.add-application-context-header",
+      "type": "java.lang.Boolean",
+      "description": "Add the \"X-Application-Context\" HTTP header in each response.",
+      "defaultValue": false
+    },
+    {
+      "name": "management.server.address",
+      "type": "java.net.InetAddress",
+      "description": "Network address to which the management endpoints should bind. Requires a custom management.server.port.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties"
+    },
+    {
+      "name": "management.server.base-path",
+      "type": "java.lang.String",
+      "description": "Management endpoint base path (for instance, '\/management'). Requires a custom management.server.port.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties",
+      "defaultValue": ""
+    },
+    {
+      "name": "management.server.port",
+      "type": "java.lang.Integer",
+      "description": "Management endpoint HTTP port (uses the same port as the application by default). Configure a different port to use management-specific SSL.",
+      "sourceType": "org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties"
+    },
+    {
+      "name": "management.server.ssl.bundle",
+      "type": "java.lang.String",
+      "description": "Name of a configured SSL bundle.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.certificate",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded SSL certificate file.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.certificate-private-key",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded private key file for the SSL certificate.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.ciphers",
+      "type": "java.lang.String[]",
+      "description": "Supported SSL ciphers.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.client-auth",
+      "type": "org.springframework.boot.web.server.Ssl$ClientAuth",
+      "description": "Client authentication mode. Requires a trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support.",
+      "sourceType": "org.springframework.boot.web.server.Ssl",
+      "defaultValue": true
+    },
+    {
+      "name": "management.server.ssl.enabled-protocols",
+      "type": "java.lang.String[]",
+      "description": "Enabled SSL protocols.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.key-alias",
+      "type": "java.lang.String",
+      "description": "Alias that identifies the key in the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.key-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the key in the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.key-store",
+      "type": "java.lang.String",
+      "description": "Path to the key store that holds the SSL certificate (typically a jks file).",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.key-store-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.key-store-provider",
+      "type": "java.lang.String",
+      "description": "Provider for the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.key-store-type",
+      "type": "java.lang.String",
+      "description": "Type of the key store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.protocol",
+      "type": "java.lang.String",
+      "description": "SSL protocol to use.",
+      "sourceType": "org.springframework.boot.web.server.Ssl",
+      "defaultValue": "TLS"
+    },
+    {
+      "name": "management.server.ssl.server-name-bundles",
+      "type": "java.util.List<org.springframework.boot.web.server.Ssl$ServerNameSslBundle>",
+      "description": "Mapping of host names to SSL bundles for SNI configuration.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.trust-certificate",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded SSL certificate authority file.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.trust-certificate-private-key",
+      "type": "java.lang.String",
+      "description": "Path to a PEM-encoded private key file for the SSL certificate authority.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.trust-store",
+      "type": "java.lang.String",
+      "description": "Trust store that holds SSL certificates.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.trust-store-password",
+      "type": "java.lang.String",
+      "description": "Password used to access the trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.trust-store-provider",
+      "type": "java.lang.String",
+      "description": "Provider for the trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.server.ssl.trust-store-type",
+      "type": "java.lang.String",
+      "description": "Type of the trust store.",
+      "sourceType": "org.springframework.boot.web.server.Ssl"
+    },
+    {
+      "name": "management.endpoints.enabled-by-default",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable or disable all endpoints by default.",
+      "deprecated": true,
+      "deprecation": {
+        "replacement": "management.endpoints.access.default",
+        "since": "3.4.0"
+      }
+    },
+    {
+      "name": "management.endpoints.jackson2.isolated-object-mapper",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use an isolated object mapper to serialize endpoint JSON.",
+      "defaultValue": true,
+      "deprecated": true,
+      "deprecation": {
+        "reason": "Jackson 3 is preferred.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.endpoints.jmx.unique-names",
+      "type": "java.lang.Boolean",
+      "description": "Whether unique runtime object names should be ensured.",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "spring.jmx.unique-names",
+        "since": "2.1.0"
+      }
+    },
+    {
+      "name": "management.server.servlet.context-path",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.server.base-path",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "management.trace.http.enabled",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.httpexchanges.recording.enabled",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "management.trace.http.include",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.httpexchanges.recording.include",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "management.trace.include",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "replacement": "management.httpexchanges.recording.include",
+        "since": "3.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.api-token",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.api-token-type",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.application.cluster-name",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.application.custom-tags",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.application.name",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.application.service-name",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.application.shard-name",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.metrics.export.batch-size",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.metrics.export.connect-timeout",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.metrics.export.enabled",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.metrics.export.global-prefix",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.metrics.export.read-timeout",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.metrics.export.report-day-distribution",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.metrics.export.report-hour-distribution",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.metrics.export.report-minute-distribution",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.metrics.export.step",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.sender.batch-size",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.sender.flush-interval",
+      "type": "java.time.Duration",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.sender.max-queue-size",
+      "type": "java.lang.Integer",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.sender.message-size",
+      "type": "org.springframework.util.unit.DataSize",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.source",
+      "type": "java.lang.String",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.trace-derived-custom-tag-keys",
+      "type": "java.util.Set<java.lang.String>",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.tracing.export.enabled",
+      "type": "java.lang.Boolean",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    },
+    {
+      "name": "management.wavefront.uri",
+      "type": "java.net.URI",
+      "deprecated": true,
+      "deprecation": {
+        "level": "error",
+        "reason": "Wavefront is end-of-life.",
+        "since": "4.0.0"
+      }
+    }
+  ],
+  "hints": [
+    {
+      "name": "management.endpoints.web.cors.allowed-headers",
+      "values": [
+        {
+          "value": "*"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    },
+    {
+      "name": "management.endpoints.web.cors.allowed-methods",
+      "values": [
+        {
+          "value": "*"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    },
+    {
+      "name": "management.endpoints.web.cors.allowed-origins",
+      "values": [
+        {
+          "value": "*"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

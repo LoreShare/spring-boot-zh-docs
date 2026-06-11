@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"state":"running"}' | http POST 'http://localhost:8080/actuator/quartz/jobs/samples/jobOne' \
+    'Content-Type:application/json'
+----

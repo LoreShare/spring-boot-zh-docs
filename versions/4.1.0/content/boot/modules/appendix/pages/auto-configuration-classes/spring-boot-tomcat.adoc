@@ -1,0 +1,24 @@
+[[appendix.auto-configuration-classes.spring-boot-tomcat]]
+= spring-boot-tomcat
+
+以下 auto-configuration 类来自 `spring-boot-tomcat` 模块：
+
+[cols="4,1"]
+|===
+| 配置类 | 链接
+
+| {code-spring-boot}/module/spring-boot-tomcat/src/main/java/org/springframework/boot/tomcat/autoconfigure/metrics/TomcatMetricsAutoConfiguration.java[`TomcatMetricsAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/tomcat/autoconfigure/metrics/TomcatMetricsAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-tomcat/src/main/java/org/springframework/boot/tomcat/autoconfigure/actuate/web/server/TomcatReactiveManagementContextAutoConfiguration.java[`TomcatReactiveManagementContextAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/tomcat/autoconfigure/actuate/web/server/TomcatReactiveManagementContextAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-tomcat/src/main/java/org/springframework/boot/tomcat/autoconfigure/reactive/TomcatReactiveWebServerAutoConfiguration.java[`TomcatReactiveWebServerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/tomcat/autoconfigure/reactive/TomcatReactiveWebServerAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-tomcat/src/main/java/org/springframework/boot/tomcat/autoconfigure/actuate/web/server/TomcatServletManagementContextAutoConfiguration.java[`TomcatServletManagementContextAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/tomcat/autoconfigure/actuate/web/server/TomcatServletManagementContextAutoConfiguration.html[javadoc]
+
+| {code-spring-boot}/module/spring-boot-tomcat/src/main/java/org/springframework/boot/tomcat/autoconfigure/servlet/TomcatServletWebServerAutoConfiguration.java[`TomcatServletWebServerAutoConfiguration`]
+| link:https://docs.spring.io/spring-boot/4.1.0/api/java/org/springframework/boot/tomcat/autoconfigure/servlet/TomcatServletWebServerAutoConfiguration.html[javadoc]
+|===

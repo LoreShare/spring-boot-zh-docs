@@ -1,0 +1,151 @@
+{
+  "groups": [
+    {
+      "name": "management.endpoint.caches",
+      "type": "org.springframework.boot.cache.actuate.endpoint.CachesEndpoint",
+      "sourceType": "org.springframework.boot.cache.actuate.endpoint.CachesEndpoint"
+    },
+    {
+      "name": "spring.cache",
+      "type": "org.springframework.boot.cache.autoconfigure.CacheProperties",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties"
+    },
+    {
+      "name": "spring.cache.caffeine",
+      "type": "org.springframework.boot.cache.autoconfigure.CacheProperties$Caffeine",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties",
+      "sourceMethod": "getCaffeine()"
+    },
+    {
+      "name": "spring.cache.couchbase",
+      "type": "org.springframework.boot.cache.autoconfigure.CacheProperties$Couchbase",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties",
+      "sourceMethod": "getCouchbase()"
+    },
+    {
+      "name": "spring.cache.infinispan",
+      "type": "org.springframework.boot.cache.autoconfigure.CacheProperties$Infinispan",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties",
+      "sourceMethod": "getInfinispan()"
+    },
+    {
+      "name": "spring.cache.jcache",
+      "type": "org.springframework.boot.cache.autoconfigure.CacheProperties$JCache",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties",
+      "sourceMethod": "getJcache()"
+    },
+    {
+      "name": "spring.cache.redis",
+      "type": "org.springframework.boot.cache.autoconfigure.CacheProperties$Redis",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties",
+      "sourceMethod": "getRedis()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "management.endpoint.caches.access",
+      "type": "org.springframework.boot.actuate.endpoint.Access",
+      "description": "Permitted level of access for the caches endpoint.",
+      "sourceType": "org.springframework.boot.cache.actuate.endpoint.CachesEndpoint",
+      "defaultValue": "unrestricted"
+    },
+    {
+      "name": "management.endpoint.caches.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "org.springframework.boot.cache.actuate.endpoint.CachesEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "spring.cache.cache-names",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of cache names to create if supported by the underlying cache manager. Usually, this disables the ability to create additional caches on-the-fly.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties"
+    },
+    {
+      "name": "spring.cache.caffeine.spec",
+      "type": "java.lang.String",
+      "description": "The spec to use to create caches. See CaffeineSpec for more details on the spec format.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties$Caffeine"
+    },
+    {
+      "name": "spring.cache.couchbase.expiration",
+      "type": "java.time.Duration",
+      "description": "Entry expiration. By default the entries never expire. Note that this value is ultimately converted to seconds.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties$Couchbase"
+    },
+    {
+      "name": "spring.cache.infinispan.config",
+      "type": "org.springframework.core.io.Resource",
+      "description": "The location of the configuration file to use to initialize Infinispan.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties$Infinispan"
+    },
+    {
+      "name": "spring.cache.jcache.config",
+      "type": "org.springframework.core.io.Resource",
+      "description": "The location of the configuration file to use to initialize the cache manager. The configuration file is dependent of the underlying cache implementation.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties$JCache"
+    },
+    {
+      "name": "spring.cache.jcache.provider",
+      "type": "java.lang.String",
+      "description": "Fully qualified name of the CachingProvider implementation to use to retrieve the JSR-107 compliant cache manager. Needed only if more than one JSR-107 implementation is available on the classpath.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties$JCache"
+    },
+    {
+      "name": "spring.cache.redis.cache-null-values",
+      "type": "java.lang.Boolean",
+      "description": "Allow caching null values.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties$Redis",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.cache.redis.enable-statistics",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable cache statistics.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties$Redis",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.cache.redis.key-prefix",
+      "type": "java.lang.String",
+      "description": "Key prefix.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties$Redis"
+    },
+    {
+      "name": "spring.cache.redis.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Entry expiration. By default the entries never expire.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties$Redis"
+    },
+    {
+      "name": "spring.cache.redis.use-key-prefix",
+      "type": "java.lang.Boolean",
+      "description": "Whether to use the key prefix when writing to Redis.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties$Redis",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.cache.type",
+      "type": "org.springframework.boot.autoconfigure.cache.CacheType",
+      "description": "Cache type. By default, auto-detected according to the environment.",
+      "sourceType": "org.springframework.boot.cache.autoconfigure.CacheProperties"
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.cache.jcache.provider",
+      "providers": [
+        {
+          "name": "class-reference",
+          "parameters": {
+            "target": "javax.cache.spi.CachingProvider"
+          }
+        }
+      ]
+    }
+  ],
+  "ignored": {
+    "properties": []
+  }
+}

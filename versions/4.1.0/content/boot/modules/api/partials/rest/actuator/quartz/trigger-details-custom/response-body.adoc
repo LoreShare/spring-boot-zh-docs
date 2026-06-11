@@ -1,0 +1,19 @@
+[source,json,options="nowrap"]
+----
+{
+  "group" : "samples",
+  "name" : "example",
+  "description" : "Example trigger.",
+  "state" : "NORMAL",
+  "type" : "custom",
+  "calendarName" : "bankHolidays",
+  "startTime" : "2020-11-30T17:00:00.000Z",
+  "endTime" : "2020-12-30T03:00:00.000Z",
+  "previousFireTime" : "2020-12-04T03:00:00.000Z",
+  "nextFireTime" : "2020-12-07T03:00:00.000Z",
+  "priority" : 10,
+  "custom" : {
+    "trigger" : "com.example.CustomTrigger@fdsfsd"
+  }
+}
+----
