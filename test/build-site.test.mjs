@@ -125,6 +125,11 @@ test('构建后移除默认 Antora 顶部导航并清除顶部留白', () => {
   assert.doesNotMatch(html, /<header class="header"|id="topbar-nav"|Home Products Services Download/);
   assert.match(html, /spring-boot-zh-headerless/);
   assert.match(html, /body\s*\{\s*padding-top:\s*0/);
+  assert.match(html, /\.toolbar\s*\{\s*top:\s*0/);
+  assert.match(html, /\.nav-container\s*\{\s*top:\s*0/);
+  assert.match(html, /\.nav\s*\{\s*top:\s*0;\s*height:\s*100vh/);
+  assert.match(html, /\.toc\.sidebar\s+\.toc-menu\s*\{\s*top:\s*2\.5rem/);
+  assert.match(html, /\.toc\.sidebar\s+\.toc-menu\s+ul\s*\{\s*max-height:\s*calc\(100vh - 5rem\)/);
   assert.match(html, /<main>中文文档正文<\/main>/);
 
   const secondChanged = removeDefaultHeader({

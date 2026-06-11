@@ -332,6 +332,18 @@ function listHtmlFiles(directory) {
   return results.sort();
 }
 
+function hasHeaderlessLayoutRules(html) {
+  return [
+    /id="spring-boot-zh-headerless"/,
+    /body\s*\{\s*padding-top:\s*0\s*;/,
+    /\.nav-container\s*\{\s*top:\s*0\s*;/,
+    /\.toolbar\s*\{\s*top:\s*0\s*;/,
+    /\.nav\s*\{\s*top:\s*0\s*;\s*height:\s*100vh\s*;/,
+    /\.toc\.sidebar\s+\.toc-menu\s*\{\s*top:\s*2\.5rem\s*;/,
+    /\.toc\.sidebar\s+\.toc-menu\s+ul\s*\{\s*max-height:\s*calc\(100vh - 5rem\)\s*;/,
+  ].every((pattern) => pattern.test(html));
+}
+
 export function auditBuiltSiteHtml({
   outputDir = 'build/site',
   listFiles = () => listHtmlFiles(outputDir),
@@ -377,11 +389,19 @@ export function auditBuiltSiteHtml({
         message: '构建产物包含本机 Edit this Page 链接',
       }));
     }
-    if (/<header class="header"|id="topbar-nav"/.test(html)) {
+    const hasDefaultHeader = /<header class="header"|id="topbar-nav"/.test(html);
+    if (hasDefaultHeader) {
       issues.push(makeIssue({
         code: 'default-header-html',
         relativePath,
         message: '构建产物仍包含 Antora 默认顶部导航栏',
+      }));
+    }
+    if (!hasDefaultHeader && /<body class="article"/.test(html) && !hasHeaderlessLayoutRules(html)) {
+      issues.push(makeIssue({
+        code: 'headerless-layout-html',
+        relativePath,
+        message: '构建产物缺少完整的 headerless 布局偏移修正样式',
       }));
     }
   }

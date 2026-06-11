@@ -175,6 +175,40 @@ test('构建产物审计能发现默认顶部导航残留', () => {
   assert.deepEqual(issues.map((issue) => issue.code), ['default-header-html']);
 });
 
+test('构建产物审计能发现旧版 headerless 样式缺少布局偏移修正', () => {
+  const files = new Map([
+    [
+      'build/site/boot/4.1.0/upgrading.html',
+      [
+        '<!doctype html>',
+        '<html lang="zh-CN">',
+        '<head>',
+        '<style id="spring-boot-zh-headerless">',
+        'body {',
+        '  padding-top: 0;',
+        '}',
+        '</style>',
+        '</head>',
+        '<body class="article">',
+        '<div class="toolbar"></div>',
+        '<aside class="nav"></aside>',
+        '<aside class="toc sidebar"></aside>',
+        '<main><h1 class="page">升级 Spring Boot</h1></main>',
+        '</body>',
+        '</html>',
+      ].join('\n'),
+    ],
+  ]);
+
+  const issues = auditBuiltSiteHtml({
+    outputDir: 'build/site',
+    listFiles: () => [...files.keys()],
+    read: (file) => files.get(file),
+  });
+
+  assert.deepEqual(issues.map((issue) => issue.code), ['headerless-layout-html']);
+});
+
 test('完整性报告写入 JSONL 和 Markdown 摘要', () => {
   const writes = new Map();
   const issues = [
