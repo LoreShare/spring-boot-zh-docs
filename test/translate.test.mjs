@@ -373,6 +373,9 @@ test('翻译结果会统一 REST API 页面标题和 endpoint 文案', async () 
         'Spring Boot 为面向切面编程（AOP）提供了 auto-configuration。',
         '== 面向切面编程',
         'Google 远程过程调用 是一个高性能 RPC 框架。',
+        '此 endpoint 使用查询参数。',
+        '所有由 endpoints 消费的时间戳必须使用 ISO 8601。',
+        'endpoint URL 可配置。',
       ].join('\n'),
       usage: {
         prompt_tokens: 10,
@@ -393,6 +396,9 @@ test('翻译结果会统一 REST API 页面标题和 endpoint 文案', async () 
     'Spring Boot 为 AOP 提供了自动配置。',
     '== AOP',
     'gRPC 是一个高性能 RPC 框架。',
+    '此端点使用查询参数。',
+    '所有由端点使用的时间戳必须使用 ISO 8601。',
+    '端点 URL 可配置。',
   ].join('\n'));
 });
 

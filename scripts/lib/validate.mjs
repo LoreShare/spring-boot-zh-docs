@@ -524,8 +524,9 @@ export function findMixedLanguageVisibleSegments(content) {
   const lines = content.split(/\r?\n/);
   let inListingBlock = false;
   const duplicatePattern = /(?:[A-Za-z][A-Za-z0-9+.-]*\s+)?[\u4e00-\u9fff][^()[\]（）\n]{0,50}?\s*[（(]\s*`?[A-Za-z][A-Za-z0-9._-]{1,}`?\s*[)）]/g;
+  const endpointIdPattern = /`?[a-z][a-z0-9._-]+`?\s+endpoints?\b/gi;
+  const bareEndpointPattern = /\bendpoints?\s+(?:URLs?|使用|支持|消费|也可以|不应|应|将|会|可|可以|返回|生成|提供)/gi;
   const mixedPatterns = [
-    /`?[a-z][a-z0-9._-]+`?\s+endpoints?\b/gi,
     /\bauto-configuration\s+(?:类|配置|机制|系统|选项|支持|报告|结果|属性)/gi,
     /\bannotations?\s+(?:注解|列表|配置|属性)/gi,
   ];
@@ -545,6 +546,18 @@ export function findMixedLanguageVisibleSegments(content) {
     if (isHeadingOrNavLine(line)) {
       for (const match of visibleText.matchAll(duplicatePattern)) {
         issues.push(`第 ${index + 1} 行存在中英重复可见文案：${normalizeMixedLanguageSample(match[0])}`);
+      }
+    }
+
+    let foundEndpointIdMixedText = false;
+    for (const match of visibleText.matchAll(endpointIdPattern)) {
+      foundEndpointIdMixedText = true;
+      issues.push(`第 ${index + 1} 行存在可中文化混排：${normalizeMixedLanguageSample(match[0])}`);
+    }
+
+    if (!foundEndpointIdMixedText) {
+      for (const match of visibleText.matchAll(bareEndpointPattern)) {
+        issues.push(`第 ${index + 1} 行存在可中文化混排：${normalizeMixedLanguageSample(match[0])}`);
       }
     }
 

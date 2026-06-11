@@ -177,6 +177,8 @@ test('页面校验能发现中英重复和可中文化混排文案', () => {
       '',
       '`conditions` endpoint 提供信息。',
       'auto-configuration 类应写作自动配置类。',
+      '此 endpoint 使用查询参数。',
+      '所有由 endpoints 消费的时间戳。',
       '** xref:api:rest/actuator/integrationgraph.adoc[Spring 集成图 (integrationgraph)]',
     ].join('\n'),
   });
@@ -185,7 +187,9 @@ test('页面校验能发现中英重复和可中文化混排文案', () => {
     'modules/api/pages/rest/actuator/conditions.adoc：第 1 行存在中英重复可见文案：条件评估报告 (`conditions`)',
     'modules/api/pages/rest/actuator/conditions.adoc：第 3 行存在可中文化混排：`conditions` endpoint',
     'modules/api/pages/rest/actuator/conditions.adoc：第 4 行存在可中文化混排：auto-configuration 类',
-    'modules/api/pages/rest/actuator/conditions.adoc：第 5 行存在中英重复可见文案：Spring 集成图 (integrationgraph)',
+    'modules/api/pages/rest/actuator/conditions.adoc：第 5 行存在可中文化混排：endpoint 使用',
+    'modules/api/pages/rest/actuator/conditions.adoc：第 6 行存在可中文化混排：endpoints 消费',
+    'modules/api/pages/rest/actuator/conditions.adoc：第 7 行存在中英重复可见文案：Spring 集成图 (integrationgraph)',
   ]);
 });
 
