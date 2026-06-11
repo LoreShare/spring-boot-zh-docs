@@ -105,6 +105,34 @@ test('构建产物审计能发现未展开的 include-code 宏', () => {
   assert.deepEqual(issues.map((issue) => issue.code), ['raw-include-code-html']);
 });
 
+test('构建产物审计能发现未渲染的 javadoc 宏', () => {
+  const files = new Map([
+    ['build/site/example.html', '<p>javadoc:org.springframework.boot.SpringApplication[]</p>'],
+  ]);
+
+  const issues = auditBuiltSiteHtml({
+    outputDir: 'build/site',
+    listFiles: () => [...files.keys()],
+    read: (file) => files.get(file),
+  });
+
+  assert.deepEqual(issues.map((issue) => issue.code), ['raw-javadoc-html']);
+});
+
+test('构建产物审计能发现未解析的 URL 属性', () => {
+  const files = new Map([
+    ['build/site/example.html', '<p>{url-spring-data-site}[Spring Data]</p>'],
+  ]);
+
+  const issues = auditBuiltSiteHtml({
+    outputDir: 'build/site',
+    listFiles: () => [...files.keys()],
+    read: (file) => files.get(file),
+  });
+
+  assert.deepEqual(issues.map((issue) => issue.code), ['unresolved-url-attribute-html']);
+});
+
 test('完整性报告写入 JSONL 和 Markdown 摘要', () => {
   const writes = new Map();
   const issues = [
