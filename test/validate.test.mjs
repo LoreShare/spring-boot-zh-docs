@@ -74,6 +74,11 @@ test('能找出译文中缺失的不翻译术语', () => {
     findMissingProtectedTerms('Deploy WAR files to endpoints', '部署文件到端点'),
     ['WAR'],
   );
+
+  assert.deepEqual(
+    findMissingProtectedTerms('Java Management Extensions (JMX)', 'JMX'),
+    [],
+  );
 });
 
 test('能找出代码块外的高置信度英文残留', () => {

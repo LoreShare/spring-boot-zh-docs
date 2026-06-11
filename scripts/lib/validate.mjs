@@ -260,6 +260,14 @@ const ALLOWED_ENGLISH_WORDS = new Set([
   'zipkin',
 ]);
 
+const PROTECTED_TERM_REPLACEMENT_EXCEPTIONS = [
+  {
+    term: 'Java',
+    sourcePattern: /\bJava Management Extensions\b/i,
+    translatedPattern: /\bJMX\b/,
+  },
+];
+
 const ALLOWED_ENGLISH_PHRASES = [
   'Actuator Health Endpoints',
   'Amazon Elastic Container Service',
@@ -573,6 +581,14 @@ export function findMixedLanguageVisibleSegments(content) {
 
 export function findMissingProtectedTerms(source, translated) {
   return PROTECTED_TERMS.filter((term) => {
+    if (PROTECTED_TERM_REPLACEMENT_EXCEPTIONS.some((exception) => (
+      exception.term === term
+      && exception.sourcePattern.test(source)
+      && exception.translatedPattern.test(translated)
+    ))) {
+      return false;
+    }
+
     const pattern = buildTermPattern(term);
     return pattern.test(source) && !pattern.test(translated);
   });
