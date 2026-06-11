@@ -5,7 +5,14 @@ import { translateMvp } from './lib/translate.mjs';
 const force = process.argv.includes('--force');
 
 try {
-  const results = await translateMvp({ force });
+  const results = await translateMvp({
+    force,
+    onProgress: (event) => {
+      if (event.status === 'translating') {
+        console.log(`开始翻译：${event.relativePath}`);
+      }
+    },
+  });
   for (const result of results) {
     if (result.status === 'skipped') {
       console.log(`跳过已存在译文：${result.outputPath}`);

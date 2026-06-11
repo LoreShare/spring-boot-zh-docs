@@ -137,20 +137,35 @@ export async function requestTranslation({
   relativePath,
   source,
   fetchImpl = globalThis.fetch,
+  timeoutMs = 180_000,
 }) {
   if (typeof fetchImpl !== 'function') {
     throw new Error('当前 Node.js 环境不支持 fetch');
   }
 
   const messages = buildTranslationMessages({ relativePath, source });
-  const response = await fetchImpl(DEEPSEEK_API_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(buildDeepSeekRequest({ messages })),
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  let response;
+
+  try {
+    response = await fetchImpl(DEEPSEEK_API_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(buildDeepSeekRequest({ messages })),
+      signal: controller.signal,
+    });
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      throw new Error(`DeepSeek 请求超时：${relativePath} 超过 ${timeoutMs}ms 未返回`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
 
   if (!response.ok) {
     const body = await response.text();
@@ -172,6 +187,8 @@ export async function translateMvp({
   apiKey = readDeepSeekApiKey(),
   force = false,
   fetchImpl = globalThis.fetch,
+  requestTimeoutMs = 180_000,
+  onProgress = () => {},
 } = {}) {
   const results = [];
 
@@ -185,11 +202,19 @@ export async function translateMvp({
 
     if (!force && existsSync(outputPath)) {
       results.push({ relativePath, outputPath, status: 'skipped' });
+      onProgress({ relativePath, outputPath, status: 'skipped' });
       continue;
     }
 
     const source = readFileSync(sourcePath, 'utf8');
-    const translation = await requestTranslation({ apiKey, relativePath, source, fetchImpl });
+    onProgress({ relativePath, outputPath, status: 'translating' });
+    const translation = await requestTranslation({
+      apiKey,
+      relativePath,
+      source,
+      fetchImpl,
+      timeoutMs: requestTimeoutMs,
+    });
 
     mkdirSync(path.dirname(outputPath), { recursive: true });
     writeFileSync(outputPath, translation.translated_adoc.endsWith('\n')

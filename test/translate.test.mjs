@@ -9,6 +9,7 @@ import {
   buildTranslationMessages,
   getOutputPathForPage,
   parseTranslationJson,
+  requestTranslation,
 } from '../scripts/lib/translate.mjs';
 
 test('DeepSeek 请求固定使用 deepseek-v4-flash 并要求 JSON 输出', () => {
@@ -70,5 +71,24 @@ test('MVP 页面输出到 content/boot 对应模块路径', () => {
   assert.equal(
     getOutputPathForPage('modules/tutorial/pages/first-application/index.adoc'),
     'content/boot/modules/tutorial/pages/first-application/index.adoc',
+  );
+});
+
+test('DeepSeek 请求超时时返回中文错误', async () => {
+  await assert.rejects(
+    () => requestTranslation({
+      apiKey: 'fake-key',
+      relativePath: 'modules/ROOT/pages/index.adoc',
+      source: '= Spring Boot',
+      timeoutMs: 5,
+      fetchImpl: (_url, options) => new Promise((_resolve, reject) => {
+        options.signal.addEventListener('abort', () => {
+          const error = new Error('aborted');
+          error.name = 'AbortError';
+          reject(error);
+        });
+      }),
+    }),
+    /DeepSeek 请求超时/,
   );
 });
