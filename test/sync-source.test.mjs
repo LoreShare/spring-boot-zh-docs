@@ -3,11 +3,12 @@ import test from 'node:test';
 
 import {
   ANTORA_SOURCE_PATH,
+  ANTORA_SOURCE_PATHS,
   buildSyncSteps,
   getCachedAntoraRoot,
 } from '../scripts/lib/sync-source.mjs';
 
-test('新缓存目录使用稀疏克隆并设置 Antora 文档路径', () => {
+test('新缓存目录使用稀疏克隆并设置所有 Antora 文档路径', () => {
   const steps = buildSyncSteps({
     cacheDir: '.cache/spring-boot-v4.1.0',
     cacheGitExists: false,
@@ -29,13 +30,13 @@ test('新缓存目录使用稀疏克隆并设置 Antora 文档路径', () => {
     },
     {
       command: 'git',
-      args: ['sparse-checkout', 'set', ANTORA_SOURCE_PATH],
+      args: ['sparse-checkout', 'set', ...ANTORA_SOURCE_PATHS],
       cwd: '.cache/spring-boot-v4.1.0',
     },
   ]);
 });
 
-test('已有缓存目录拉取上游并重新设置稀疏路径', () => {
+test('已有缓存目录拉取上游并重新设置所有稀疏路径', () => {
   const steps = buildSyncSteps({
     cacheDir: '.cache/spring-boot-v4.1.0',
     cacheGitExists: true,
@@ -54,9 +55,18 @@ test('已有缓存目录拉取上游并重新设置稀疏路径', () => {
     },
     {
       command: 'git',
-      args: ['sparse-checkout', 'set', ANTORA_SOURCE_PATH],
+      args: ['sparse-checkout', 'set', ...ANTORA_SOURCE_PATHS],
       cwd: '.cache/spring-boot-v4.1.0',
     },
+  ]);
+});
+
+test('同步范围包含生成站点缺失的插件和 REST API 文档源', () => {
+  assert.deepEqual(ANTORA_SOURCE_PATHS, [
+    ANTORA_SOURCE_PATH,
+    'build-plugin/spring-boot-maven-plugin/src/docs/antora',
+    'build-plugin/spring-boot-gradle-plugin/src/docs/antora',
+    'documentation/spring-boot-actuator-docs/src/docs/antora',
   ]);
 });
 
