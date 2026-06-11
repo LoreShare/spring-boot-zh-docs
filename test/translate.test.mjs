@@ -376,6 +376,10 @@ test('翻译结果会统一 REST API 页面标题和 endpoint 文案', async () 
         '此 endpoint 使用查询参数。',
         '所有由 endpoints 消费的时间戳必须使用 ISO 8601。',
         'endpoint URL 可配置。',
+        'javadoc:org.example.Demo[format=annotation] annotation 可以启用。',
+        'javadoc:org.example.Demo[format=annotation] annotations 就绪。',
+        'xref:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration packages] 会被扫描。',
+        'Spring Boot 为 WebSockets auto-configuration。',
       ].join('\n'),
       usage: {
         prompt_tokens: 10,
@@ -399,6 +403,10 @@ test('翻译结果会统一 REST API 页面标题和 endpoint 文案', async () 
     '此端点使用查询参数。',
     '所有由端点使用的时间戳必须使用 ISO 8601。',
     '端点 URL 可配置。',
+    'javadoc:org.example.Demo[format=annotation] 注解可以启用。',
+    'javadoc:org.example.Demo[format=annotation] 注解就绪。',
+    'xref:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包] 会被扫描。',
+    'Spring Boot 为 WebSockets 自动配置。',
   ].join('\n'));
 });
 

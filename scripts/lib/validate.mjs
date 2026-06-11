@@ -408,7 +408,8 @@ function splitMacroLabelAndAttributes(body) {
 function exposeTranslatableMacroLabels(line) {
   const macroPattern = /\b(?:xref|link):{1,2}[^\s\[]+\[((?:[^\[\]\n]|\[[^\]\n]*\])*)\]|https?:\/\/[^\s\[]+\[((?:[^\[\]\n]|\[[^\]\n]*\])*)\]/g;
   const attributeUrlPattern = /\{[-\w.]+\}[^\s\[]*\[((?:[^\[\]\n]|\[[^\]\n]*\])*)\]/g;
-  return line.replace(macroPattern, (...args) => {
+  const javadocPattern = /\bjavadoc:[^\s\[]+\[(?:[^\[\]\n]|\[[^\]\n]*\])*\]/g;
+  return line.replace(javadocPattern, ' ').replace(macroPattern, (...args) => {
     const label = args[1] ?? args[2] ?? '';
     return ` ${splitMacroLabelAndAttributes(label).label} `;
   }).replace(attributeUrlPattern, (_match, label) => ` ${splitMacroLabelAndAttributes(label).label} `);
@@ -535,6 +536,8 @@ export function findMixedLanguageVisibleSegments(content) {
   const endpointIdPattern = /`?[a-z][a-z0-9._-]+`?\s+endpoints?\b/gi;
   const bareEndpointPattern = /\bendpoints?\s+(?:URLs?|使用|支持|消费|也可以|不应|应|将|会|可|可以|返回|生成|提供)/gi;
   const mixedPatterns = [
+    /(?<![./#\w-])auto-configuration(?![.\w-]|\s+(?:类|配置|机制|系统|选项|支持|报告|结果|属性))/gi,
+    /(?<![./=\w-])annotations?\b(?!\s+(?:注解|列表|配置|属性))/gi,
     /\bauto-configuration\s+(?:类|配置|机制|系统|选项|支持|报告|结果|属性)/gi,
     /\bannotations?\s+(?:注解|列表|配置|属性)/gi,
   ];

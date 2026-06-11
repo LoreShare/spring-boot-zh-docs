@@ -184,6 +184,8 @@ test('页面校验能发现中英重复和可中文化混排文案', () => {
       'auto-configuration 类应写作自动配置类。',
       '此 endpoint 使用查询参数。',
       '所有由 endpoints 消费的时间戳。',
+      'javadoc:org.example.Demo[format=annotation] annotation 可以启用。',
+      'WebSockets auto-configuration 需要中文化。',
       '** xref:api:rest/actuator/integrationgraph.adoc[Spring 集成图 (integrationgraph)]',
     ].join('\n'),
   });
@@ -194,8 +196,20 @@ test('页面校验能发现中英重复和可中文化混排文案', () => {
     'modules/api/pages/rest/actuator/conditions.adoc：第 4 行存在可中文化混排：auto-configuration 类',
     'modules/api/pages/rest/actuator/conditions.adoc：第 5 行存在可中文化混排：endpoint 使用',
     'modules/api/pages/rest/actuator/conditions.adoc：第 6 行存在可中文化混排：endpoints 消费',
-    'modules/api/pages/rest/actuator/conditions.adoc：第 7 行存在中英重复可见文案：Spring 集成图 (integrationgraph)',
+    'modules/api/pages/rest/actuator/conditions.adoc：第 7 行存在可中文化混排：annotation',
+    'modules/api/pages/rest/actuator/conditions.adoc：第 8 行存在可中文化混排：auto-configuration',
+    'modules/api/pages/rest/actuator/conditions.adoc：第 9 行存在中英重复可见文案：Spring 集成图 (integrationgraph)',
   ]);
+});
+
+test('可见混排校验忽略 javadoc 目标中的包名', () => {
+  const issues = validateTranslatedPage({
+    relativePath: 'modules/reference/pages/web/servlet.adoc',
+    source: 'Use @CrossOrigin.',
+    translated: '可以使用 javadoc:org.springframework.web.bind.annotation.CrossOrigin[format=annotation] 注解。',
+  });
+
+  assert.deepEqual(issues, []);
 });
 
 test('页面校验汇总 xref、代码块和术语问题', () => {

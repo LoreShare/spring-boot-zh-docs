@@ -378,7 +378,10 @@ function normalizeVisibleTerminologyLine(line) {
     .replace(/\bendpoints?\s+([\u4e00-\u9fff])/gi, '端点$1')
     .replace(/([\u4e00-\u9fff])\s+endpoints?\b/gi, '$1端点')
     .replace(/\bauto-configuration\s+(类|配置|机制|系统|选项|支持|报告|结果|属性)/g, '自动配置$1')
+    .replace(/\bauto-configuration packages\b/g, '自动配置包')
+    .replace(/(?<![./#\w-])auto-configuration(?![.\w-])/g, '自动配置')
     .replace(/\bannotations?\s+(注解|列表|配置|属性)/gi, '注解$1')
+    .replace(/(?<![./=\w-])annotations?\b/gi, '注解')
     .replace(/(端点|自动配置|注解)\s+([\u4e00-\u9fff])/g, '$1$2')
     .replace(/([\u4e00-\u9fff])\s+(端点|自动配置|注解)/g, '$1$2');
 }
