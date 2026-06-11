@@ -14,6 +14,7 @@ import {
   parseTranslationJson,
   requestTranslation,
   splitAsciiDocForTranslation,
+  translateContentWithRetries,
 } from '../scripts/lib/translate.mjs';
 
 test('DeepSeek 请求固定使用 deepseek-v4-flash 并要求 JSON 输出', () => {
@@ -158,4 +159,35 @@ test('usage 记录不包含密钥并保留 token 用量', () => {
     completionTokens: 80,
     totalTokens: 180,
   });
+});
+
+test('单块翻译失败时自动减小分块并重试', async () => {
+  const calls = [];
+  const result = await translateContentWithRetries({
+    apiKey: 'fake-key',
+    relativePath: 'modules/reference/pages/using/auto-configuration.adoc',
+    source: ['第一段。', '第二段。', '第三段。', '第四段。'].join('\n'),
+    initialMaxChunkChars: 100,
+    minChunkChars: 8,
+    requestTranslationImpl: async ({ source, chunkIndex, chunkCount }) => {
+      calls.push({ source, chunkIndex, chunkCount });
+      if (chunkCount === 1) {
+        throw new SyntaxError('Unterminated string in JSON');
+      }
+      return {
+        translated_adoc: `译文${chunkIndex}`,
+        usage: {
+          prompt_tokens: 10,
+          completion_tokens: 5,
+          total_tokens: 15,
+        },
+        model: 'deepseek-v4-flash',
+      };
+    },
+  });
+
+  assert.equal(result.translated, '译文1\n译文2\n译文3\n译文4');
+  assert.equal(result.usageRecords.length, 4);
+  assert.ok(calls.length > 1);
+  assert.equal(calls.at(-1).chunkCount, 4);
 });

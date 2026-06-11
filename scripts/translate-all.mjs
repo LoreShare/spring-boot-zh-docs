@@ -14,6 +14,8 @@ try {
         console.log(`复制结构文件：${event.outputPath}`);
       } else if (event.status === 'translating') {
         console.log(`开始翻译：${event.relativePath}（${event.chunkIndex}/${event.chunkCount}）`);
+      } else if (event.status === 'retrying') {
+        console.log(`缩小分块重试：${event.relativePath}（${event.maxChunkChars} 字符）`);
       }
     },
   });

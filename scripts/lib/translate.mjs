@@ -317,6 +317,82 @@ export function appendUsageRecord(record, usageLogPath = DEFAULT_USAGE_LOG) {
   appendFileSync(usageLogPath, `${JSON.stringify(record)}\n`);
 }
 
+export function isRetryableTranslationError(error) {
+  return error instanceof SyntaxError
+    || /JSON|translated_adoc|Unexpected token|Unterminated string/i.test(error.message);
+}
+
+export async function translateContentWithRetries({
+  apiKey,
+  relativePath,
+  source,
+  fetchImpl = globalThis.fetch,
+  requestTimeoutMs = 180_000,
+  initialMaxChunkChars = 12_000,
+  minChunkChars = 3_000,
+  requestTranslationImpl = requestTranslation,
+  onProgress = () => {},
+} = {}) {
+  let maxChunkChars = initialMaxChunkChars;
+  let retried = false;
+
+  while (true) {
+    const chunks = splitAsciiDocForTranslation(source, { maxChars: maxChunkChars });
+    const translatedChunks = [];
+    const usageRecords = [];
+
+    try {
+      for (const chunk of chunks) {
+        onProgress({
+          relativePath,
+          status: 'translating',
+          chunkIndex: chunk.index,
+          chunkCount: chunks.length,
+        });
+
+        const translation = await requestTranslationImpl({
+          apiKey,
+          relativePath,
+          source: chunk.content,
+          chunkIndex: chunk.index,
+          chunkCount: chunks.length,
+          fetchImpl,
+          timeoutMs: requestTimeoutMs,
+        });
+
+        usageRecords.push(createUsageRecord({
+          relativePath,
+          chunkIndex: chunk.index,
+          chunkCount: chunks.length,
+          model: translation.model,
+          usage: translation.usage,
+        }));
+
+        translatedChunks.push(translation.translated_adoc);
+      }
+
+      return {
+        translated: translatedChunks.join('\n'),
+        usageRecords,
+        chunkCount: chunks.length,
+      };
+    } catch (error) {
+      if (retried || maxChunkChars <= minChunkChars || !isRetryableTranslationError(error)) {
+        throw error;
+      }
+
+      retried = true;
+      maxChunkChars = minChunkChars;
+      onProgress({
+        relativePath,
+        status: 'retrying',
+        reason: error.message,
+        maxChunkChars,
+      });
+    }
+  }
+}
+
 export async function translateMvp({
   sourceRoot = getCachedAntoraRoot(),
   outputRoot = 'content/boot',
@@ -402,42 +478,23 @@ export async function translateAll({
     }
 
     const source = readFileSync(sourcePath, 'utf8');
-    const chunks = splitAsciiDocForTranslation(source, { maxChars: maxChunkChars });
-    const translatedChunks = [];
+    const translation = await translateContentWithRetries({
+      apiKey,
+      relativePath: item.relativePath,
+      source,
+      fetchImpl,
+      requestTimeoutMs,
+      initialMaxChunkChars: maxChunkChars,
+      onProgress: (event) => onProgress({ ...item, outputPath, ...event }),
+    });
 
-    for (const chunk of chunks) {
-      onProgress({
-        ...item,
-        outputPath,
-        status: 'translating',
-        chunkIndex: chunk.index,
-        chunkCount: chunks.length,
-      });
-
-      const translation = await requestTranslation({
-        apiKey,
-        relativePath: item.relativePath,
-        source: chunk.content,
-        chunkIndex: chunk.index,
-        chunkCount: chunks.length,
-        fetchImpl,
-        timeoutMs: requestTimeoutMs,
-      });
-
-      appendUsageRecord(createUsageRecord({
-        relativePath: item.relativePath,
-        chunkIndex: chunk.index,
-        chunkCount: chunks.length,
-        model: translation.model,
-        usage: translation.usage,
-      }), usageLogPath);
-
-      translatedChunks.push(translation.translated_adoc);
+    for (const record of translation.usageRecords) {
+      appendUsageRecord(record, usageLogPath);
     }
 
-    const translated = translatedChunks.join('\n');
+    const translated = translation.translated;
     writeFileSync(outputPath, translated.endsWith('\n') ? translated : `${translated}\n`);
-    results.push({ ...item, outputPath, status: 'translated', chunkCount: chunks.length });
+    results.push({ ...item, outputPath, status: 'translated', chunkCount: translation.chunkCount });
   }
 
   return results;
