@@ -244,6 +244,45 @@ test('保护嵌套 xref 和 javadoc 宏', () => {
   assert.match(restored, /auto-configuration/);
 });
 
+test('术语保护不匹配普通单词内部的短缩写', () => {
+  const source = 'WARNING: Deploy WAR files to servlet endpoints.';
+  const prepared = prepareSourceForTranslation(source);
+
+  assert.match(prepared.source, /WARNING/);
+  assert.doesNotMatch(prepared.source, /@@TERM_\d+@@NING/);
+
+  const restored = prepared.restore('WARNING: 部署 @@TERM_0@@ files 到 servlet @@TERM_1@@。');
+
+  assert.match(restored, /WAR/);
+  assert.match(restored, /endpoints/);
+});
+
+test('DeepSeek 响应缺少占位符时拒绝响应', async () => {
+  await assert.rejects(
+    () => requestTranslation({
+      apiKey: 'fake-key',
+      relativePath: 'modules/reference/pages/web/spring-hateoas.adoc',
+      source: 'Spring Boot provides auto-configuration.',
+      fetchImpl: async () => ({
+        ok: true,
+        json: async () => ({
+          choices: [{
+            message: {
+              content: '{"translated_adoc":"Spring Boot 提供自动配置。","warnings":[],"protected_terms":[]}',
+            },
+          }],
+          usage: {
+            prompt_tokens: 10,
+            completion_tokens: 5,
+            total_tokens: 15,
+          },
+        }),
+      }),
+    }),
+    /缺少占位符/,
+  );
+});
+
 test('只包含受保护内容的分块直接保留原文', async () => {
   const calls = [];
   const source = [

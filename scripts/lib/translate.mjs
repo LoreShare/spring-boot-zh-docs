@@ -159,10 +159,21 @@ function escapeRegex(source) {
 }
 
 function buildProtectedTermsPattern() {
+  const pluralizableTerms = new Set([
+    'bean',
+    'starter',
+    'auto-configuration',
+    'annotation',
+    'profile',
+    'endpoint',
+    'native image',
+    'JAR',
+    'WAR',
+  ]);
   const alternatives = [...PROTECTED_TERMS]
     .sort((left, right) => right.length - left.length)
-    .map(escapeRegex);
-  return new RegExp(alternatives.join('|'), 'g');
+    .map((term) => `${escapeRegex(term)}${pluralizableTerms.has(term) ? 's?' : ''}`);
+  return new RegExp(`(?<![A-Za-z0-9])(?:${alternatives.join('|')})(?![A-Za-z0-9])`, 'g');
 }
 
 export function prepareSourceForTranslation(source) {
@@ -180,6 +191,11 @@ export function prepareSourceForTranslation(source) {
 
   return {
     source: termProtection.replaced,
+    placeholders: [
+      ...blockProtection.values,
+      ...adocProtection.values,
+      ...termProtection.values,
+    ].map(({ placeholder }) => placeholder),
     restore(translatedSource) {
       return restorePlaceholders(
         restorePlaceholders(
@@ -353,6 +369,12 @@ export async function requestTranslation({
   }
 
   const translation = parseTranslationJson(content);
+  const missingPlaceholders = prepared.placeholders
+    .filter((placeholder) => !translation.translated_adoc.includes(placeholder));
+  if (missingPlaceholders.length > 0) {
+    throw new Error(`DeepSeek 响应缺少占位符：${missingPlaceholders.join('、')}`);
+  }
+
   return {
     ...translation,
     translated_adoc: prepared.restore(translation.translated_adoc),
@@ -386,7 +408,7 @@ export function appendUsageRecord(record, usageLogPath = DEFAULT_USAGE_LOG) {
 
 export function isRetryableTranslationError(error) {
   return error instanceof SyntaxError
-    || /JSON|translated_adoc|Unexpected token|Unterminated string/i.test(error.message);
+    || /JSON|translated_adoc|Unexpected token|Unterminated string|占位符/i.test(error.message);
 }
 
 export function isRetryableNetworkError(error) {
