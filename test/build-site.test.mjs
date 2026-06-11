@@ -6,6 +6,7 @@ import {
   buildSite,
   buildRedirectHtml,
   createCompatibilityRedirects,
+  removeDefaultHeader,
   removeLocalEditLinks,
 } from '../scripts/lib/build-site.mjs';
 
@@ -83,6 +84,60 @@ test('构建后移除默认 UI 生成的本机编辑链接', () => {
   assert.deepEqual(changed, ['boot/4.1.0/index.html']);
   assert.doesNotMatch(writes['build/site/boot/4.1.0/index.html'], /Edit this Page/);
   assert.match(writes['build/site/boot/4.1.0/index.html'], /file:\/\/\/path\/to\/buildpack\.tgz/);
+});
+
+test('构建后移除默认 Antora 顶部导航并清除顶部留白', () => {
+  const writes = {};
+  const files = new Map([
+    [
+      'build/site/boot/4.1.0/index.html',
+      [
+        '<!doctype html>',
+        '<html lang="zh-CN">',
+        '<head>',
+        '  <title>Spring Boot 中文站</title>',
+        '</head>',
+        '<body class="article">',
+        '<header class="header">',
+        '  <nav class="navbar">',
+        '    <div id="topbar-nav" class="navbar-menu">Home Products Services Download</div>',
+        '  </nav>',
+        '</header>',
+        '<main>中文文档正文</main>',
+        '</body>',
+        '</html>',
+      ].join('\n'),
+    ],
+  ]);
+
+  const changed = removeDefaultHeader({
+    outputDir: 'build/site',
+    listFiles: () => [...files.keys()],
+    read: (file) => files.get(file),
+    write: (file, content) => {
+      writes[file] = content;
+      files.set(file, content);
+    },
+  });
+
+  const html = writes['build/site/boot/4.1.0/index.html'];
+  assert.deepEqual(changed, ['boot/4.1.0/index.html']);
+  assert.doesNotMatch(html, /<header class="header"|id="topbar-nav"|Home Products Services Download/);
+  assert.match(html, /spring-boot-zh-headerless/);
+  assert.match(html, /body\s*\{\s*padding-top:\s*0/);
+  assert.match(html, /<main>中文文档正文<\/main>/);
+
+  const secondChanged = removeDefaultHeader({
+    outputDir: 'build/site',
+    listFiles: () => [...files.keys()],
+    read: (file) => files.get(file),
+    write: (file, content) => {
+      writes[file] = content;
+      files.set(file, content);
+    },
+  });
+
+  assert.deepEqual(secondChanged, []);
 });
 
 test('构建后发现未展开 include-code 时失败', () => {

@@ -150,6 +150,31 @@ test('构建产物审计能发现本机编辑链接残留', () => {
   assert.deepEqual(issues.map((issue) => issue.code), ['local-edit-url-html']);
 });
 
+test('构建产物审计能发现默认顶部导航残留', () => {
+  const files = new Map([
+    [
+      'build/site/example.html',
+      [
+        '<body class="article">',
+        '<header class="header">',
+        '  <nav class="navbar">',
+        '    <div id="topbar-nav" class="navbar-menu">Home Products Services Download</div>',
+        '  </nav>',
+        '</header>',
+        '</body>',
+      ].join('\n'),
+    ],
+  ]);
+
+  const issues = auditBuiltSiteHtml({
+    outputDir: 'build/site',
+    listFiles: () => [...files.keys()],
+    read: (file) => files.get(file),
+  });
+
+  assert.deepEqual(issues.map((issue) => issue.code), ['default-header-html']);
+});
+
 test('完整性报告写入 JSONL 和 Markdown 摘要', () => {
   const writes = new Map();
   const issues = [

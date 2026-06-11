@@ -13,6 +13,15 @@ import { readSiteVersions } from './site-versions.mjs';
 
 const DEFAULT_SITE_URL = 'http://localhost:8080';
 const LOCAL_EDIT_LINK_PATTERN = /<div class="edit-this-page"><a href="file:\/\/\/[^"]+">Edit this Page<\/a><\/div>\n?/g;
+const DEFAULT_HEADER_PATTERN = /<header class="header">[\s\S]*?<\/header>\n?/g;
+const HEADERLESS_STYLE_ID = 'spring-boot-zh-headerless';
+const HEADERLESS_STYLE = [
+  `<style id="${HEADERLESS_STYLE_ID}">`,
+  'body {',
+  '  padding-top: 0;',
+  '}',
+  '</style>',
+].join('\n');
 
 export function createCompatibilityRedirectsForVersion(version) {
   return [
@@ -167,6 +176,38 @@ export function removeLocalEditLinks({
   return changed;
 }
 
+function ensureHeaderlessStyle(html) {
+  if (html.includes(`id="${HEADERLESS_STYLE_ID}"`)) {
+    return html;
+  }
+  if (html.includes('</head>')) {
+    return html.replace('</head>', `${HEADERLESS_STYLE}\n</head>`);
+  }
+  return html;
+}
+
+export function removeDefaultHeader({
+  outputDir = 'build/site',
+  listFiles = () => listHtmlFiles(outputDir),
+  read = (file) => readFileSync(file, 'utf8'),
+  write = (file, content) => writeFileSync(file, content),
+} = {}) {
+  const changed = [];
+
+  for (const file of listFiles()) {
+    const html = read(file);
+    const withoutHeader = html.replace(DEFAULT_HEADER_PATTERN, '');
+    if (withoutHeader === html) {
+      continue;
+    }
+    const nextHtml = ensureHeaderlessStyle(withoutHeader);
+    write(file, nextHtml);
+    changed.push(toPosixPath(path.relative(outputDir, file)));
+  }
+
+  return changed;
+}
+
 export function validateBuiltSiteHtml({
   outputDir = 'build/site',
   auditBuiltSiteHtml = defaultAuditBuiltSiteHtml,
@@ -185,6 +226,7 @@ export function validateBuiltSiteHtml({
 export function buildSite(options = {}) {
   runAntoraBuild(options);
   removeLocalEditLinks(options);
+  removeDefaultHeader(options);
   const created = createCompatibilityRedirects(options);
   created.push(createNoJekyllFile(options));
   validateBuiltSiteHtml(options);

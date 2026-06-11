@@ -377,6 +377,13 @@ export function auditBuiltSiteHtml({
         message: '构建产物包含本机 Edit this Page 链接',
       }));
     }
+    if (/<header class="header"|id="topbar-nav"/.test(html)) {
+      issues.push(makeIssue({
+        code: 'default-header-html',
+        relativePath,
+        message: '构建产物仍包含 Antora 默认顶部导航栏',
+      }));
+    }
   }
 
   return issues;
