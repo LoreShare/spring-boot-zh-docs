@@ -370,6 +370,13 @@ export function auditBuiltSiteHtml({
         message: '构建产物包含未解析的 URL 属性',
       }));
     }
+    if (/<div class="edit-this-page"><a href="file:\/\/\/[^"]+">Edit this Page<\/a><\/div>/.test(html)) {
+      issues.push(makeIssue({
+        code: 'local-edit-url-html',
+        relativePath,
+        message: '构建产物包含本机 Edit this Page 链接',
+      }));
+    }
   }
 
   return issues;

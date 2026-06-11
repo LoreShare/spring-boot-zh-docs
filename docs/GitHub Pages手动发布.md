@@ -82,6 +82,8 @@ build/site/.nojekyll
 
 该文件用于避免 GitHub Pages 按 Jekyll 规则忽略 Antora 的 `_` 静态资源目录。
 
+公开发布的 HTML 不允许出现本机路径或 `file://` 编辑链接。当前 playbook 关闭 Antora 默认的远程编辑地址，构建脚本会删除默认 UI 回退生成的本地 `Edit this Page` 链接，并在产物审计中阻止这类链接残留。如果后续需要恢复编辑入口，必须改为指向 GitHub 仓库源码的 HTTPS 地址。
+
 ## 密钥规则
 
 - DeepSeek API key 只用于本地翻译。

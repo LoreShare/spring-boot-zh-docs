@@ -23,6 +23,12 @@ test('Antora playbook 使用多版本内容目录', () => {
   assert.doesNotMatch(playbook, /start_path:\s+content\/boot/);
 });
 
+test('Antora playbook 禁用本机编辑链接', () => {
+  const playbook = readProjectFile('antora-playbook.yml');
+
+  assert.match(playbook, /content:\s*\n\s+edit_url:\s+false/);
+});
+
 test('构建脚本支持本地默认地址和 SITE_URL 覆盖', () => {
   assert.equal(buildSiteModule.resolveSiteUrl({ env: {} }), 'http://localhost:8080');
   assert.equal(

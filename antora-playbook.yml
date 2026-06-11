@@ -4,6 +4,7 @@ site:
   start_page: boot::index.adoc
 
 content:
+  edit_url: false
   sources:
   - url: .
     branches: HEAD

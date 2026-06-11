@@ -6,6 +6,7 @@ import {
   buildSite,
   buildRedirectHtml,
   createCompatibilityRedirects,
+  removeLocalEditLinks,
 } from '../scripts/lib/build-site.mjs';
 
 test('定义验收需要的无版本前缀兼容入口', () => {
@@ -54,6 +55,34 @@ test('写入兼容入口时使用相对跳转路径', () => {
   assert.deepEqual(directories, ['build/site/maven-plugin']);
   assert.deepEqual(created, ['build/site/maven-plugin/index.html']);
   assert.match(writes['build/site/maven-plugin/index.html'], /\.\.\/boot\/4.1.0\/maven-plugin\/index.html/);
+});
+
+test('构建后移除默认 UI 生成的本机编辑链接', () => {
+  const writes = {};
+  const files = new Map([
+    [
+      'build/site/boot/4.1.0/index.html',
+      [
+        '<main>',
+        '<div class="edit-this-page"><a href="file:///tmp/content/modules/ROOT/pages/index.adoc">Edit this Page</a></div>',
+        '<p><code>file:///path/to/buildpack.tgz</code></p>',
+        '</main>',
+      ].join('\n'),
+    ],
+  ]);
+
+  const changed = removeLocalEditLinks({
+    outputDir: 'build/site',
+    listFiles: () => [...files.keys()],
+    read: (file) => files.get(file),
+    write: (file, content) => {
+      writes[file] = content;
+    },
+  });
+
+  assert.deepEqual(changed, ['boot/4.1.0/index.html']);
+  assert.doesNotMatch(writes['build/site/boot/4.1.0/index.html'], /Edit this Page/);
+  assert.match(writes['build/site/boot/4.1.0/index.html'], /file:\/\/\/path\/to\/buildpack\.tgz/);
 });
 
 test('构建后发现未展开 include-code 时失败', () => {

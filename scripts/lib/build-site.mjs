@@ -1,4 +1,10 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import {
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 
@@ -6,6 +12,7 @@ import { auditBuiltSiteHtml as defaultAuditBuiltSiteHtml } from './completeness-
 import { readSiteVersions } from './site-versions.mjs';
 
 const DEFAULT_SITE_URL = 'http://localhost:8080';
+const LOCAL_EDIT_LINK_PATTERN = /<div class="edit-this-page"><a href="file:\/\/\/[^"]+">Edit this Page<\/a><\/div>\n?/g;
 
 export function createCompatibilityRedirectsForVersion(version) {
   return [
@@ -120,6 +127,46 @@ export function createNoJekyllFile({
   return toPosixPath(file);
 }
 
+function listHtmlFiles(directory) {
+  const results = [];
+
+  function walk(currentDirectory) {
+    for (const entry of readdirSync(currentDirectory)) {
+      const file = path.join(currentDirectory, entry);
+      const stats = statSync(file);
+      if (stats.isDirectory()) {
+        walk(file);
+      } else if (file.endsWith('.html')) {
+        results.push(file);
+      }
+    }
+  }
+
+  walk(directory);
+  return results.sort();
+}
+
+export function removeLocalEditLinks({
+  outputDir = 'build/site',
+  listFiles = () => listHtmlFiles(outputDir),
+  read = (file) => readFileSync(file, 'utf8'),
+  write = (file, content) => writeFileSync(file, content),
+} = {}) {
+  const changed = [];
+
+  for (const file of listFiles()) {
+    const html = read(file);
+    const nextHtml = html.replace(LOCAL_EDIT_LINK_PATTERN, '');
+    if (nextHtml === html) {
+      continue;
+    }
+    write(file, nextHtml);
+    changed.push(toPosixPath(path.relative(outputDir, file)));
+  }
+
+  return changed;
+}
+
 export function validateBuiltSiteHtml({
   outputDir = 'build/site',
   auditBuiltSiteHtml = defaultAuditBuiltSiteHtml,
@@ -137,6 +184,7 @@ export function validateBuiltSiteHtml({
 
 export function buildSite(options = {}) {
   runAntoraBuild(options);
+  removeLocalEditLinks(options);
   const created = createCompatibilityRedirects(options);
   created.push(createNoJekyllFile(options));
   validateBuiltSiteHtml(options);

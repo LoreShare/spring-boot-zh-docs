@@ -133,6 +133,23 @@ test('构建产物审计能发现未解析的 URL 属性', () => {
   assert.deepEqual(issues.map((issue) => issue.code), ['unresolved-url-attribute-html']);
 });
 
+test('构建产物审计能发现本机编辑链接残留', () => {
+  const files = new Map([
+    [
+      'build/site/example.html',
+      '<div class="edit-this-page"><a href="file:///tmp/content/example.adoc">Edit this Page</a></div>',
+    ],
+  ]);
+
+  const issues = auditBuiltSiteHtml({
+    outputDir: 'build/site',
+    listFiles: () => [...files.keys()],
+    read: (file) => files.get(file),
+  });
+
+  assert.deepEqual(issues.map((issue) => issue.code), ['local-edit-url-html']);
+});
+
 test('完整性报告写入 JSONL 和 Markdown 摘要', () => {
   const writes = new Map();
   const issues = [
