@@ -389,6 +389,51 @@ export function isRetryableTranslationError(error) {
     || /JSON|translated_adoc|Unexpected token|Unterminated string/i.test(error.message);
 }
 
+export function isRetryableNetworkError(error) {
+  return /fetch failed|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|ENOTFOUND|network|socket|timeout/i
+    .test(error.message);
+}
+
+function wait(ms) {
+  if (ms <= 0) {
+    return Promise.resolve();
+  }
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+async function requestTranslationWithNetworkRetries({
+  maxAttempts = 3,
+  retryDelayMs = 1_000,
+  onProgress,
+  requestTranslationImpl,
+  request,
+}) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      return await requestTranslationImpl(request);
+    } catch (error) {
+      if (attempt >= maxAttempts || !isRetryableNetworkError(error)) {
+        throw error;
+      }
+
+      onProgress({
+        relativePath: request.relativePath,
+        status: 'retrying-request',
+        reason: error.message,
+        attempt: attempt + 1,
+        maxAttempts,
+        chunkIndex: request.chunkIndex,
+        chunkCount: request.chunkCount,
+      });
+      await wait(retryDelayMs);
+    }
+  }
+
+  throw new Error('网络重试状态异常');
+}
+
 export async function translateContentWithRetries({
   apiKey,
   relativePath,
@@ -398,6 +443,8 @@ export async function translateContentWithRetries({
   initialMaxChunkChars = 12_000,
   minChunkChars = 3_000,
   requestTranslationImpl = requestTranslation,
+  chunkNetworkMaxAttempts = 3,
+  chunkNetworkRetryDelayMs = 1_000,
   onProgress = () => {},
 } = {}) {
   let maxChunkChars = initialMaxChunkChars;
@@ -428,14 +475,20 @@ export async function translateContentWithRetries({
           chunkCount: chunks.length,
         });
 
-        const translation = await requestTranslationImpl({
-          apiKey,
-          relativePath,
-          source: chunk.content,
-          chunkIndex: chunk.index,
-          chunkCount: chunks.length,
-          fetchImpl,
-          timeoutMs: requestTimeoutMs,
+        const translation = await requestTranslationWithNetworkRetries({
+          requestTranslationImpl,
+          maxAttempts: chunkNetworkMaxAttempts,
+          retryDelayMs: chunkNetworkRetryDelayMs,
+          onProgress,
+          request: {
+            apiKey,
+            relativePath,
+            source: chunk.content,
+            chunkIndex: chunk.index,
+            chunkCount: chunks.length,
+            fetchImpl,
+            timeoutMs: requestTimeoutMs,
+          },
         });
 
         usageRecords.push(createUsageRecord({

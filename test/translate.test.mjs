@@ -257,3 +257,32 @@ test('只包含受保护内容的分块直接保留原文', async () => {
   assert.match(result.translated, /\$ gradle nativeTest/);
   assert.equal(result.usageRecords.length, 1);
 });
+
+test('分块网络错误会先重试当前请求', async () => {
+  let attempts = 0;
+  const result = await translateContentWithRetries({
+    apiKey: 'fake-key',
+    relativePath: 'modules/reference/pages/web/spring-graphql.adoc',
+    source: 'GraphQL endpoint。',
+    chunkNetworkRetryDelayMs: 0,
+    requestTranslationImpl: async () => {
+      attempts += 1;
+      if (attempts === 1) {
+        throw new Error('fetch failed');
+      }
+      return {
+        translated_adoc: 'GraphQL endpoint。',
+        usage: {
+          prompt_tokens: 10,
+          completion_tokens: 5,
+          total_tokens: 15,
+        },
+        model: 'deepseek-v4-flash',
+      };
+    },
+  });
+
+  assert.equal(attempts, 2);
+  assert.equal(result.translated, 'GraphQL endpoint。');
+  assert.equal(result.usageRecords.length, 1);
+});
