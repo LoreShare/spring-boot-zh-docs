@@ -11,6 +11,7 @@ import {
   buildTranslationMessages,
   createUsageRecord,
   getOutputPathForPage,
+  prepareSourceForTranslation,
   parseTranslationJson,
   requestTranslation,
   splitAsciiDocForTranslation,
@@ -190,4 +191,34 @@ test('单块翻译失败时自动减小分块并重试', async () => {
   assert.equal(result.usageRecords.length, 4);
   assert.ok(calls.length > 1);
   assert.equal(calls.at(-1).chunkCount, 4);
+});
+
+test('发送翻译前保护代码块和不翻译术语并可恢复', () => {
+  const source = [
+    'Spring Boot 支持 native image。',
+    '请参见 xref:actuator/endpoints.adoc#actuator.endpoints[] 和 `spring.main.banner-mode`。',
+    '----',
+    '$ java -jar demo.jar',
+    '----',
+    'Actuator endpoint。',
+  ].join('\n');
+
+  const prepared = prepareSourceForTranslation(source);
+
+  assert.match(prepared.source, /@@TERM_\d+@@/);
+  assert.match(prepared.source, /@@ADOC_TOKEN_\d+@@/);
+  assert.match(prepared.source, /@@CODE_BLOCK_\d+@@/);
+  assert.doesNotMatch(prepared.source, /java -jar/);
+  assert.doesNotMatch(prepared.source, /xref:actuator/);
+  assert.doesNotMatch(prepared.source, /spring\.main\.banner-mode/);
+
+  const restored = prepared.restore('@@TERM_0@@ 支持 @@TERM_1@@。\n@@ADOC_TOKEN_0@@\n@@ADOC_TOKEN_1@@\n@@CODE_BLOCK_0@@\n@@TERM_2@@ @@TERM_3@@。');
+
+  assert.match(restored, /Spring Boot/);
+  assert.match(restored, /native image/);
+  assert.match(restored, /xref:actuator\/endpoints\.adoc#actuator\.endpoints\[\]/);
+  assert.match(restored, /`spring\.main\.banner-mode`/);
+  assert.match(restored, /\$ java -jar demo\.jar/);
+  assert.match(restored, /Actuator/);
+  assert.match(restored, /endpoint/);
 });

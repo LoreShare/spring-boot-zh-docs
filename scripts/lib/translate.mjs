@@ -63,6 +63,7 @@ export function buildTranslationMessages({ relativePath, source }) {
     '只翻译自然语言，不要翻译代码、命令、配置键、类名、包名、路径、URL、xref 目标和 AsciiDoc 结构。',
     '必须完整保留 anchors、attributes、include 指令、xref/link/image 目标、代码块、inline code、表格结构和列表结构。',
     `以下术语不要翻译：${PROTECTED_TERMS.join('、')}。`,
+    '输入中的 @@CODE_BLOCK_N@@、@@ADOC_TOKEN_N@@、@@TERM_N@@ 是不可翻译占位符，必须逐字原样保留。',
     '输出必须是 JSON，不输出 Markdown 代码围栏以外的解释。',
     'JSON 字段必须包含 translated_adoc、warnings、protected_terms。',
     'translated_adoc 必须是完整 AsciiDoc 页面。',
@@ -133,6 +134,62 @@ export function listSourceFiles(sourceRoot = getCachedAntoraRoot()) {
 
   walk(sourceRoot);
   return results.sort();
+}
+
+function replaceWithPlaceholders(source, pattern, prefix) {
+  const values = [];
+  const replaced = source.replace(pattern, (match) => {
+    const placeholder = `@@${prefix}_${values.length}@@`;
+    values.push({ placeholder, value: match });
+    return placeholder;
+  });
+
+  return { replaced, values };
+}
+
+function restorePlaceholders(source, values) {
+  return values.reduce(
+    (restored, { placeholder, value }) => restored.split(placeholder).join(value),
+    source,
+  );
+}
+
+function escapeRegex(source) {
+  return source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function buildProtectedTermsPattern() {
+  const alternatives = [...PROTECTED_TERMS]
+    .sort((left, right) => right.length - left.length)
+    .map(escapeRegex);
+  return new RegExp(alternatives.join('|'), 'g');
+}
+
+export function prepareSourceForTranslation(source) {
+  const blockPattern = /(^|\n)----\n[\s\S]*?\n----(?=\n|$)/g;
+  const blockProtection = replaceWithPlaceholders(source, blockPattern, 'CODE_BLOCK');
+
+  const adocPattern = /`[^`\n]+`|xref:[^\s\[]+\[[^\]\n]*\]|link:[^\s\[]+\[[^\]\n]*\]|include::[^\[\n]+\[[^\]\n]*\]|image::[^\[\n]+\[[^\]\n]*\]|\[\[[^\]\n]+\]\]|\[#[-\w.]+\]|\{[-\w.]+\}/g;
+  const adocProtection = replaceWithPlaceholders(blockProtection.replaced, adocPattern, 'ADOC_TOKEN');
+
+  const termProtection = replaceWithPlaceholders(
+    adocProtection.replaced,
+    buildProtectedTermsPattern(),
+    'TERM',
+  );
+
+  return {
+    source: termProtection.replaced,
+    restore(translatedSource) {
+      return restorePlaceholders(
+        restorePlaceholders(
+          restorePlaceholders(translatedSource, termProtection.values),
+          adocProtection.values,
+        ),
+        blockProtection.values,
+      );
+    },
+  };
 }
 
 export function buildFullTranslationPlan({ files = listSourceFiles() } = {}) {
@@ -251,7 +308,8 @@ export async function requestTranslation({
   const requestPath = chunkCount && chunkCount > 1
     ? `${relativePath}（分块 ${chunkIndex}/${chunkCount}）`
     : relativePath;
-  const messages = buildTranslationMessages({ relativePath: requestPath, source });
+  const prepared = prepareSourceForTranslation(source);
+  const messages = buildTranslationMessages({ relativePath: requestPath, source: prepared.source });
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   let response;
@@ -289,6 +347,7 @@ export async function requestTranslation({
   const translation = parseTranslationJson(content);
   return {
     ...translation,
+    translated_adoc: prepared.restore(translation.translated_adoc),
     usage: payload.usage ?? {},
     model: payload.model ?? DEFAULT_MODEL,
   };
