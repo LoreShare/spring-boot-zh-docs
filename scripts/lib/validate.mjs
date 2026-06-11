@@ -498,6 +498,60 @@ export function findGeneratedPlaceholderSegments(content) {
   return issues;
 }
 
+function getVisibleTextForMixedLanguageCheck(line) {
+  return exposeTranslatableMacroLabels(line)
+    .replace(/^=+\s*/, '')
+    .replace(/^\*+\s*/, '')
+    .replace(/^\|/, '')
+    .replace(/\+\+\+/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function normalizeMixedLanguageSample(sample) {
+  return sample
+    .replace(/^[-*+=\s|]+/, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export function findMixedLanguageVisibleSegments(content) {
+  const issues = [];
+  const lines = content.split(/\r?\n/);
+  let inListingBlock = false;
+  const duplicatePattern = /(?:[A-Za-z][A-Za-z0-9+.-]*\s+)?[\u4e00-\u9fff][^()[\]（）\n]{0,50}?\s*[（(]\s*`?[A-Za-z][A-Za-z0-9._-]{1,}`?\s*[)）]/g;
+  const mixedPatterns = [
+    /`?[a-z][a-z0-9._-]+`?\s+endpoints?\b/gi,
+    /\bauto-configuration\s+(?:类|配置|机制|系统|选项|支持|报告|结果|属性)\b/gi,
+    /\bannotations?\s+(?:注解|列表|配置|属性)\b/gi,
+  ];
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    if (line.trim() === '----') {
+      inListingBlock = !inListingBlock;
+      continue;
+    }
+
+    if (inListingBlock || line.trim() === '') {
+      continue;
+    }
+
+    const visibleText = getVisibleTextForMixedLanguageCheck(line);
+    for (const match of visibleText.matchAll(duplicatePattern)) {
+      issues.push(`第 ${index + 1} 行存在中英重复可见文案：${normalizeMixedLanguageSample(match[0])}`);
+    }
+
+    for (const pattern of mixedPatterns) {
+      for (const match of visibleText.matchAll(pattern)) {
+        issues.push(`第 ${index + 1} 行存在可中文化混排：${normalizeMixedLanguageSample(match[0])}`);
+      }
+    }
+  }
+
+  return issues;
+}
+
 export function findMissingProtectedTerms(source, translated) {
   return PROTECTED_TERMS.filter((term) => {
     const pattern = buildTermPattern(term);
@@ -690,6 +744,10 @@ export function validateTranslatedPage({ relativePath, source, translated }) {
   }
 
   for (const issue of findGeneratedPlaceholderSegments(translated)) {
+    issues.push(`${relativePath}：${issue}`);
+  }
+
+  for (const issue of findMixedLanguageVisibleSegments(translated)) {
     issues.push(`${relativePath}：${issue}`);
   }
 

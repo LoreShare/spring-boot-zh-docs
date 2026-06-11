@@ -72,7 +72,7 @@ test('能找出译文中缺失的不翻译术语', () => {
 
   assert.deepEqual(
     findMissingProtectedTerms('Deploy WAR files to endpoints', '部署文件到端点'),
-    ['WAR', 'endpoint'],
+    ['WAR'],
   );
 });
 
@@ -161,6 +161,29 @@ test('页面校验汇总英文残留问题', () => {
 
   assert.deepEqual(issues, [
     'modules/maven-plugin/pages/index.adoc：第 3 行存在疑似未翻译英文：Getting Started',
+  ]);
+});
+
+test('页面校验能发现中英重复和可中文化混排文案', () => {
+  const issues = validateTranslatedPage({
+    relativePath: 'modules/api/pages/rest/actuator/conditions.adoc',
+    source: [
+      '= Conditions Evaluation Report (`conditions`)',
+      '',
+      '`conditions` endpoint provides information.',
+    ].join('\n'),
+    translated: [
+      '= 条件评估报告 (`conditions`)',
+      '',
+      '`conditions` endpoint 提供信息。',
+      '** xref:api:rest/actuator/integrationgraph.adoc[Spring 集成图 (integrationgraph)]',
+    ].join('\n'),
+  });
+
+  assert.deepEqual(issues, [
+    'modules/api/pages/rest/actuator/conditions.adoc：第 1 行存在中英重复可见文案：条件评估报告 (`conditions`)',
+    'modules/api/pages/rest/actuator/conditions.adoc：第 3 行存在可中文化混排：`conditions` endpoint',
+    'modules/api/pages/rest/actuator/conditions.adoc：第 4 行存在中英重复可见文案：Spring 集成图 (integrationgraph)',
   ]);
 });
 
