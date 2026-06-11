@@ -1,0 +1,209 @@
+[[getting-started.installing]]
+= 安装 Spring Boot
+
+Spring Boot 可以与 "`经典`" Java 开发工具一起使用，也可以作为命令行工具安装。
+无论如何，你需要 https://www.java.com[Java SDK v17] 或更高版本。
+开始之前，请使用以下命令检查当前的 Java 安装：
+
+[source,shell]
+----
+$ java -version
+----
+
+如果你是 Java 开发新手，或者想尝试 Spring Boot，你可能想先试试 xref:installing.adoc#getting-started.installing.cli[Spring Boot CLI]（命令行界面）。
+否则，请继续阅读 "`经典`" 安装说明。
+
+
+
+[[getting-started.installing.java]]
+== Java 开发者的安装说明
+
+你可以像使用任何标准 Java 库一样使用 Spring Boot。
+为此，请在 classpath 中包含适当的 `+spring-boot-*.jar+` 文件。
+Spring Boot 不需要任何特殊的工具集成，因此你可以使用任何 IDE 或文本编辑器。
+此外，Spring Boot 应用程序没有任何特殊之处，因此你可以像调试其他 Java 程序一样运行和调试 Spring Boot 应用程序。
+
+虽然你 _可以_ 复制 Spring Boot jar，但我们通常建议使用支持依赖管理的构建工具（例如 Maven 或 Gradle）。
+
+
+
+[[getting-started.installing.java.maven]]
+=== Maven 安装
+
+Spring Boot 兼容 Apache Maven 3.6.3 或更高版本。
+如果你尚未安装 Maven，可以按照 https://maven.apache.org 上的说明进行安装。
+
+提示：在许多操作系统上，Maven 可以通过包管理器安装。
+如果你使用 OSX Homebrew，请尝试 `brew install maven`。
+Ubuntu 用户可以运行 `sudo apt-get install maven`。
+使用 https://chocolatey.org/[Chocolatey] 的 Windows 用户可以从提升的（管理员）提示符运行 `choco install maven`。
+
+Spring Boot 依赖使用 `org.springframework.boot` group id。
+通常，你的 Maven POM 文件继承自 `spring-boot-starter-parent` 项目，并声明对一个或多个 xref:reference:using/build-systems.adoc#using.build-systems.starters[starters] 的依赖。
+Spring Boot 还提供了一个可选的 xref:maven-plugin:index.adoc[Maven plugin] 来创建可执行 JAR。
+
+更多关于 Spring Boot 和 Maven 入门的详细信息，请参阅 Maven 插件参考指南的 xref:maven-plugin:getting-started.adoc[] 部分。
+
+
+
+[[getting-started.installing.java.gradle]]
+=== Gradle 安装
+
+Spring Boot 兼容 Gradle 8.x（8.14 或更高版本）或 9.x。
+如果你尚未安装 Gradle，可以按照 https://gradle.org 上的说明进行安装。
+
+Spring Boot 依赖可以通过使用 `org.springframework.boot` `group` 来声明。
+通常，你的项目声明对一个或多个 xref:reference:using/build-systems.adoc#using.build-systems.starters[starters] 的依赖。
+Spring Boot 提供了一个有用的 xref:gradle-plugin:index.adoc[Gradle plugin]，可用于简化依赖声明和创建可执行 JAR。
+
+.Gradle Wrapper
+****
+Gradle Wrapper 提供了一种在需要构建项目时 "`获取`" Gradle 的好方法。
+它是一个小脚本和库，你将其与代码一起提交以引导构建过程。
+详细信息请参阅 {url-gradle-docs}/gradle_wrapper.html。
+****
+
+更多关于 Spring Boot 和 Gradle 入门的详细信息，请参阅 Gradle 插件参考指南的 xref:gradle-plugin:getting-started.adoc[] 部分。
+
+
+
+[[getting-started.installing.cli]]
+== 安装 Spring Boot CLI
+
+Spring Boot CLI（命令行界面）是一个命令行工具，可用于快速使用 Spring 进行原型开发。
+
+你不需要使用 CLI 来使用 Spring Boot，但它是一种无需 IDE 就能快速启动 Spring 应用程序的方法。
+
+
+
+[[getting-started.installing.cli.manual-installation]]
+=== 手动安装
+
+ifeval::["{artifact-release-type}" == "snapshot"]
+你可以从 {url-artifact-repository}/org/springframework/boot/spring-boot-cli/{version-spring-boot}/[Spring 软件仓库] 下载其中一个 `spring-boot-cli-*-bin.zip` 或 `spring-boot-cli-*-bin.tar.gz` 文件。
+endif::[]
+ifeval::["{artifact-release-type}" != "snapshot"]
+你可以从以下位置之一下载 Spring CLI 发行版：
+
+* {url-artifact-repository}/org/springframework/boot/spring-boot-cli/{version-spring-boot}/spring-boot-cli-{version-spring-boot}-bin.zip[spring-boot-cli-{version-spring-boot}-bin.zip]
+* {url-artifact-repository}/org/springframework/boot/spring-boot-cli/{version-spring-boot}/spring-boot-cli-{version-spring-boot}-bin.tar.gz[spring-boot-cli-{version-spring-boot}-bin.tar.gz]
+endif::[]
+
+
+下载后，按照解压后的归档文件中 {url-github-raw}/cli/spring-boot-cli/src/main/content/INSTALL.txt[INSTALL.txt] 的说明进行操作。
+简而言之，在 `.zip` 文件中的 `bin/` 目录下有一个 `spring` 脚本（Windows 上为 `spring.bat`）。
+或者，你可以将 `java -jar` 与 `.jar` 文件一起使用（该脚本有助于确保正确设置 classpath）。
+
+
+
+[[getting-started.installing.cli.sdkman]]
+=== 使用 SDKMAN! 安装
+
+SDKMAN!（软件开发工具包管理器）可用于管理多个二进制 SDK 的不同版本，包括 Groovy 和 Spring Boot CLI。
+从 https://sdkman.io 获取 SDKMAN!，然后使用以下命令安装 Spring Boot：
+
+[source,shell,subs="verbatim,attributes"]
+----
+$ sdk install springboot
+$ spring --version
+Spring CLI v{version-spring-boot}
+----
+
+如果你为 CLI 开发功能并希望访问你构建的版本，请使用以下命令：
+
+[source,shell,subs="verbatim,attributes"]
+----
+$ sdk install springboot dev /path/to/spring-boot/spring-boot-cli/target/spring-boot-cli-{version-spring-boot}-bin/spring-{version-spring-boot}/
+$ sdk default springboot dev
+$ spring --version
+Spring CLI v{version-spring-boot}
+----
+
+上述说明安装了一个名为 `dev` 实例的本地 `spring` 实例。
+它指向你的目标构建位置，因此每次重新构建 Spring Boot 时，`spring` 都是最新的。
+
+你可以通过运行以下命令查看它：
+
+[source,shell,subs="verbatim,attributes"]
+----
+$ sdk ls springboot
+
+================================================================================
+Available Springboot Versions
+================================================================================
+> + dev
+* {version-spring-boot}
+
+================================================================================
++ - local version
+* - installed
+> - currently in use
+================================================================================
+----
+
+
+
+[[getting-started.installing.cli.homebrew]]
+=== OSX Homebrew 安装
+
+如果你使用 Mac 并且使用 https://brew.sh/[Homebrew]，可以通过以下命令安装 Spring Boot CLI：
+
+[source,shell]
+----
+$ brew tap spring-io/tap
+$ brew install spring-boot
+----
+
+Homebrew 将 `spring` 安装到 `/usr/local/bin`。
+
+注意：如果你没有看到该公式，你的 brew 安装可能已过时。
+在这种情况下，请运行 `brew update` 并重试。
+
+
+
+[[getting-started.installing.cli.macports]]
+=== MacPorts 安装
+
+如果你使用 Mac 并且使用 https://www.macports.org/[MacPorts]，可以通过以下命令安装 Spring Boot CLI：
+
+[source,shell]
+----
+$ sudo port install spring-boot-cli
+----
+
+
+
+[[getting-started.installing.cli.completion]]
+=== 命令行补全
+
+Spring Boot CLI 包含为 https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29[BASH] 和 https://en.wikipedia.org/wiki/Z_shell[zsh] shell 提供命令补全的脚本。
+你可以 `source` 名为 `spring` 的脚本（对于 zsh 是 `_spring`），或者将其放在个人或系统范围的 bash 补全初始化中。
+在 Debian 系统上，系统范围的脚本位于 `<installation location>/shell-completion/<bash|zsh>`，并且该目录中的所有脚本在新 shell 启动时都会执行。
+例如，如果你通过 SDKMAN! 安装，要手动运行该脚本，请使用以下命令：
+
+[source,shell]
+----
+$ . ~/.sdkman/candidates/springboot/current/shell-completion/bash/spring
+$ spring <HIT TAB HERE>
+  encodepassword  help  init  shell  version
+----
+
+注意：如果你通过 Homebrew 或 MacPorts 安装 Spring Boot CLI，命令行补全脚本会自动注册到你的 shell 中。
+
+
+
+[[getting-started.installing.cli.scoop]]
+=== Windows Scoop 安装
+
+如果你使用 Windows 并且使用 https://scoop.sh/[Scoop]，可以通过以下命令安装 Spring Boot CLI：
+
+[source,shell]
+----
+$ scoop bucket add extras
+$ scoop install springboot
+----
+
+Scoop 将 `spring` 安装到 `~/scoop/apps/springboot/current/bin`。
+
+注意：如果你没有看到应用程序清单，你的 scoop 安装可能已过时。
+在这种情况下，请运行 `scoop update` 并重试。

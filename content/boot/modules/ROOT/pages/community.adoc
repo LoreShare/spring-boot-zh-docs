@@ -1,0 +1,17 @@
+[[community]]
+= 社区
+
+如果您在使用 Spring Boot 时遇到问题，我们很乐意提供帮助。
+
+* 请尝试阅读 xref:how-to:index.adoc[操作指南]。
+它们提供了最常见问题的解决方案。
+* 学习 Spring 基础知识。
+Spring Boot 基于许多其他 Spring 项目构建。
+请访问 https://spring.io[spring.io] 网站，获取丰富的参考文档。
+如果您刚开始使用 Spring，可以尝试其中一个 https://spring.io/guides[指南]。
+* 提问。
+我们关注 https://stackoverflow.com[stackoverflow.com] 上带有 https://stackoverflow.com/tags/spring-boot[`spring-boot`] 标签的问题。
+* 在 https://github.com/spring-projects/spring-boot/issues 报告 Spring Boot 的 bug。
+
+NOTE: Spring Boot 完全是开源的，包括文档。
+如果您发现文档有问题或想要改进它们，请 {url-github}[参与贡献]。
