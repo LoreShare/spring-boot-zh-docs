@@ -97,6 +97,7 @@ test('构建后发现未展开 include-code 时失败', () => {
           message: '构建产物仍包含未展开的 include-code 宏',
         },
       ],
+      listFiles: () => [],
       mkdir: () => {},
       write: () => {},
     }),
