@@ -78,12 +78,12 @@ javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBea
 Spring Boot 包含许多 javadoc:org.springframework.context.annotation.Conditional[format=annotation] 注解，你可以通过注解 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类或单个 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法在自己的代码中重用它们。
 这些注解包括：
 
-* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.class-conditions[]
-* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.bean-conditions[]
-* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.property-conditions[]
-* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.resource-conditions[]
-* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.web-application-conditions[]
-* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.spel-conditions[]
+* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.class-conditions[类条件]
+* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.bean-conditions[Bean 条件]
+* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.property-conditions[属性条件]
+* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.resource-conditions[资源条件]
+* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.web-application-conditions[Web 应用程序条件]
+* xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.spel-conditions[SpEL 表达式条件]
 
 [[features.developing-auto-configuration.condition-annotations.class-conditions]]
 === 类条件

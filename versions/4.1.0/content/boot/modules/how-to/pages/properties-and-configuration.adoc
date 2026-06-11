@@ -216,7 +216,7 @@ spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 spring.datasource.url=jdbc:mysql://localhost/test
 server.port=9000
 ----
-有关 YAML 的更多信息，请参阅“`Spring Boot Features`”部分中的 xref:reference:features/external-config.adoc#features.external-config.yaml[]。
+有关 YAML 的更多信息，请参阅“`Spring Boot Features`”部分中的 xref:reference:features/external-config.adoc#features.external-config.yaml[使用 YAML]。
 
 [[howto.properties-and-configuration.set-active-spring-profiles]]
 == 设置活动的 Spring Profile
@@ -260,7 +260,7 @@ spring:
 [[howto.properties-and-configuration.change-configuration-depending-on-the-environment]]
 == 根据环境更改配置
 
-Spring Boot 支持多文档 YAML 和 Properties 文件（详情请参见 xref:reference:features/external-config.adoc#features.external-config.files.multi-document[]），这些文件可以根据激活的 profiles 有条件地激活。
+Spring Boot 支持多文档 YAML 和 Properties 文件（详情请参见 xref:reference:features/external-config.adoc#features.external-config.files.multi-document[使用多文档文件]），这些文件可以根据激活的 profiles 有条件地激活。
 
 如果文档包含 `spring.config.activate.on-profile` 键，则 profiles 值（一个逗号分隔的 profiles 列表或 profile 表达式）会被传入 Spring 的 `Environment.acceptsProfiles()` 方法。
 如果 profile 表达式匹配，则该文档会被包含在最终的合并中（否则不会），如下例所示：

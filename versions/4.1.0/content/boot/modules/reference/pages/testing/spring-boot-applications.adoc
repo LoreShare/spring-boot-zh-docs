@@ -765,7 +765,7 @@ class MyHtmlUnitTests {
 
 警告：Spring Boot 创建的 `webDriver` 作用域将替换任何用户定义的相同名称的作用域。如果你定义了自己的 `webDriver` 作用域，你可能会发现它在使用 javadoc:org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest[format=annotation] 时停止工作。
 
-如果 Spring Security 在 classpath 上，javadoc:org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest[format=annotation] 也会扫描 javadoc:org.springframework.security.config.annotation.web.WebSecurityConfigurer[] beans。你可以使用 Spring Security 的测试支持，而不是完全禁用此类测试的安全性。有关如何使用 Spring Security 的 javadoc:org.springframework.test.web.servlet.MockMvc[] 支持的更多详细信息，请参阅本 xref:how-to:testing.adoc#howto.testing.with-spring-security[]“`How-to Guides`”部分。
+如果 Spring Security 在 classpath 上，javadoc:org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest[format=annotation] 也会扫描 javadoc:org.springframework.security.config.annotation.web.WebSecurityConfigurer[] beans。你可以使用 Spring Security 的测试支持，而不是完全禁用此类测试的安全性。有关如何使用 Spring Security 的 javadoc:org.springframework.test.web.servlet.MockMvc[] 支持的更多详细信息，请参阅本 xref:how-to:testing.adoc#howto.testing.with-spring-security[使用 Spring Security 进行测试]“`How-to Guides`”部分。
 
 提示：有时编写 Spring MVC 测试是不够的；Spring Boot 可以帮助你运行 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.with-running-server[使用实际服务器的完整端到端测试]。
 
@@ -964,7 +964,7 @@ javadoc:org.springframework.graphql.test.tester.HttpGraphQlTester[] bean 使用�
 默认情况下，它会配置一个 javadoc:org.springframework.data.cassandra.core.CassandraTemplate[]，扫描 javadoc:org.springframework.data.cassandra.core.mapping.Table[format=annotation] 类，并配置 Spring Data Cassandra 仓库。
 使用 javadoc:org.springframework.boot.data.cassandra.test.autoconfigure.DataCassandraTest[format=annotation] 注解时，不会扫描常规的 javadoc:org.springframework.stereotype.Component[format=annotation] 和 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 可用于包含 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
-（有关在 Spring Boot 中使用 Cassandra 的更多信息，请参见 xref:data/nosql.adoc#data.nosql.cassandra[]。）
+（有关在 Spring Boot 中使用 Cassandra 的更多信息，请参见 xref:data/nosql.adoc#data.nosql.cassandra[Cassandra]。）
 
 提示：javadoc:org.springframework.boot.data.cassandra.test.autoconfigure.DataCassandraTest[format=annotation] 启用的自动配置设置列表可以 xref:appendix:test-auto-configuration/index.adoc[在附录中找到]。
 
@@ -993,7 +993,7 @@ class MyDataCassandraTests {
 默认情况下，它会配置一个 javadoc:org.springframework.data.couchbase.core.CouchbaseTemplate[] 或 javadoc:org.springframework.data.couchbase.core.ReactiveCouchbaseTemplate[]，扫描 javadoc:org.springframework.data.couchbase.core.mapping.Document[format=annotation] 类，并配置 Spring Data Couchbase 仓库。
 使用 javadoc:org.springframework.boot.data.couchbase.test.autoconfigure.DataCouchbaseTest[format=annotation] 注解时，不会扫描常规的 javadoc:org.springframework.stereotype.Component[format=annotation] 和 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 可用于包含 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
-（有关在 Spring Boot 中使用 Couchbase 的更多信息，请参见本章前面的 xref:data/nosql.adoc#data.nosql.couchbase[]。）
+（有关在 Spring Boot 中使用 Couchbase 的更多信息，请参见本章前面的 xref:data/nosql.adoc#data.nosql.couchbase[Couchbase]。）
 
 提示：javadoc:org.springframework.boot.data.couchbase.test.autoconfigure.DataCouchbaseTest[format=annotation] 启用的自动配置设置列表可以 xref:appendix:test-auto-configuration/index.adoc[在附录中找到]。
 
@@ -1024,7 +1024,7 @@ class MyDataCouchbaseTests {
 默认情况下，它会配置一个 javadoc:org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate[]，扫描 javadoc:org.springframework.data.elasticsearch.annotations.Document[format=annotation] 类，并配置 Spring Data Elasticsearch 仓库。
 使用 javadoc:org.springframework.boot.data.elasticsearch.test.autoconfigure.DataElasticsearchTest[format=annotation] 注解时，不会扫描常规的 javadoc:org.springframework.stereotype.Component[format=annotation] 和 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 可用于包含 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
-（有关在 Spring Boot 中使用 Elasticsearch 的更多信息，请参见本章前面的 xref:data/nosql.adoc#data.nosql.elasticsearch[]。）
+（有关在 Spring Boot 中使用 Elasticsearch 的更多信息，请参见本章前面的 xref:data/nosql.adoc#data.nosql.elasticsearch[Elasticsearch]。）
 
 提示：javadoc:org.springframework.boot.data.elasticsearch.test.autoconfigure.DataElasticsearchTest[format=annotation] 启用的自动配置设置列表可以 xref:appendix:test-auto-configuration/index.adoc[在附录中找到]。
 
@@ -1167,7 +1167,7 @@ class MyTransactionalTests {
 ----
 
 如果你希望测试针对真实数据库运行，可以使用 javadoc:org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase[format=annotation] 注解，方式与 javadoc:org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest[format=annotation] 相同。
-（参见 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-spring-data-jpa[]。）
+（参见 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-spring-data-jpa[自动配置的 Data JPA 测试]。）
 
 
 
@@ -1186,7 +1186,7 @@ javadoc:org.springframework.boot.context.properties.EnableConfigurationPropertie
 如果这不是你想要的，你可以禁用测试或整个测试类的事务管理，如 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-jdbc[JDBC 示例所示]。
 
 如果你希望测试针对真实数据库运行，可以使用 javadoc:org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase[format=annotation] 注解，方式与 javadoc:org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest[format=annotation] 相同。
-（参见 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-spring-data-jpa[]。）
+（参见 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-spring-data-jpa[自动配置的 Data JPA 测试]。）
 
 
 
@@ -1203,7 +1203,7 @@ javadoc:org.springframework.boot.context.properties.EnableConfigurationPropertie
 默认情况下，Data R2DBC 测试不是事务性的。
 
 如果你希望测试针对真实数据库运行，可以使用 javadoc:org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase[format=annotation] 注解，方式与 javadoc:org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest[format=annotation] 相同。
-（参见 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-spring-data-jpa[]。）
+（参见 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-spring-data-jpa[自动配置的 Data JPA 测试]。）
 
 
 
@@ -1213,7 +1213,7 @@ javadoc:org.springframework.boot.context.properties.EnableConfigurationPropertie
 你可以使用来自 `spring-boot-jooq-test` 的 javadoc:org.springframework.boot.jooq.test.autoconfigure.JooqTest[format=annotation]，方式与 javadoc:org.springframework.boot.jdbc.test.autoconfigure.JdbcTest[format=annotation] 类似，但用于 jOOQ 相关的测试。
 由于 jOOQ 严重依赖于与数据库模式对应的 Java 模式，因此使用了现有的 javadoc:javax.sql.DataSource[]。
 如果你想将其替换为内存数据库，可以使用 javadoc:org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase[format=annotation] 覆盖这些设置。
-（有关在 Spring Boot 中使用 jOOQ 的更多信息，请参见 xref:data/sql.adoc#data.sql.jooq[]。）
+（有关在 Spring Boot 中使用 jOOQ 的更多信息，请参见 xref:data/sql.adoc#data.sql.jooq[使用 jOOQ]。）
 使用 javadoc:org.springframework.boot.jooq.test.autoconfigure.JooqTest[format=annotation] 注解时，不会扫描常规的 javadoc:org.springframework.stereotype.Component[format=annotation] 和 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 可用于包含 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
 
@@ -1253,7 +1253,7 @@ class MyJooqTests {
 默认情况下，它会配置一个 javadoc:org.springframework.data.mongodb.core.MongoTemplate[]，扫描 javadoc:org.springframework.data.mongodb.core.mapping.Document[format=annotation] 类，并配置 Spring Data MongoDB 仓库。
 使用 javadoc:org.springframework.boot.data.mongodb.test.autoconfigure.DataMongoTest[format=annotation] 注解时，不会扫描常规的 javadoc:org.springframework.stereotype.Component[format=annotation] 和 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 可用于包含 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
-（有关在 Spring Boot 中使用 MongoDB 的更多信息，请参见 xref:data/nosql.adoc#data.nosql.mongodb[]。）
+（有关在 Spring Boot 中使用 MongoDB 的更多信息，请参见 xref:data/nosql.adoc#data.nosql.mongodb[MongoDB]。）
 
 提示：javadoc:org.springframework.boot.data.mongodb.test.autoconfigure.DataMongoTest[format=annotation] 启用的自动配置设置列表可在 xref:appendix:test-auto-configuration/index.adoc[附录中]找到。
 
@@ -1286,7 +1286,7 @@ class MyDataMongoDbTests {
 默认情况下，它会扫描 javadoc:org.springframework.data.neo4j.core.schema.Node[format=annotation] 类，并配置 Spring Data Neo4j 仓库。
 使用 javadoc:org.springframework.boot.data.neo4j.test.autoconfigure.DataNeo4jTest[format=annotation] 注解时，不会扫描常规的 javadoc:org.springframework.stereotype.Component[format=annotation] 和 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 可用于包含 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
-（有关在 Spring Boot 中使用 Neo4J 的更多信息，请参见 xref:data/nosql.adoc#data.nosql.neo4j[]。）
+（有关在 Spring Boot 中使用 Neo4J 的更多信息，请参见 xref:data/nosql.adoc#data.nosql.neo4j[Neo4j]。）
 
 提示：javadoc:org.springframework.boot.data.neo4j.test.autoconfigure.DataNeo4jTest[format=annotation] 启用的自动配置设置列表可在 xref:appendix:test-auto-configuration/index.adoc[附录中]找到。
 
@@ -1333,7 +1333,7 @@ class MyDataNeo4jTests {
 [[testing.spring-boot-applications.autoconfigured-spring-data-redis]]
 == 自动配置的 Data Redis 测试
 
-您可以使用 `spring-boot-data-redis-test` 模块中的 javadoc:org.springframework.boot.data.redis.test.autoconfigure.DataRedisTest[format=annotation] 来测试 Data Redis 应用程序。默认情况下，它会扫描 javadoc:org.springframework.data.redis.core.RedisHash[format=annotation] 类并配置 Spring Data Redis 仓库。使用 javadoc:org.springframework.boot.data.redis.test.autoconfigure.DataRedisTest[format=annotation] 注解时，不会扫描常规的 javadoc:org.springframework.stereotype.Component[format=annotation] 和 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 可用于包含 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。（有关在 Spring Boot 中使用 Redis 的更多信息，请参见 xref:data/nosql.adoc#data.nosql.redis[]。）
+您可以使用 `spring-boot-data-redis-test` 模块中的 javadoc:org.springframework.boot.data.redis.test.autoconfigure.DataRedisTest[format=annotation] 来测试 Data Redis 应用程序。默认情况下，它会扫描 javadoc:org.springframework.data.redis.core.RedisHash[format=annotation] 类并配置 Spring Data Redis 仓库。使用 javadoc:org.springframework.boot.data.redis.test.autoconfigure.DataRedisTest[format=annotation] 注解时，不会扫描常规的 javadoc:org.springframework.stereotype.Component[format=annotation] 和 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 可用于包含 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。（有关在 Spring Boot 中使用 Redis 的更多信息，请参见 xref:data/nosql.adoc#data.nosql.redis[Redis]。）
 
 提示：由 javadoc:org.springframework.boot.data.redis.test.autoconfigure.DataRedisTest[format=annotation] 启用的自动配置设置列表可在 xref:appendix:test-auto-configuration/index.adoc[附录中找到]。
 
@@ -1361,7 +1361,7 @@ class MyDataRedisTests {
 [[testing.spring-boot-applications.autoconfigured-spring-data-ldap]]
 == 自动配置的 Data LDAP 测试
 
-您可以使用 javadoc:org.springframework.boot.data.ldap.test.autoconfigure.DataLdapTest[format=annotation] 来测试 Data LDAP 应用程序。默认情况下，它会配置一个内存中的嵌入式 LDAP（如果可用），配置一个 javadoc:org.springframework.ldap.core.LdapTemplate[]，扫描 javadoc:org.springframework.ldap.odm.annotations.Entry[format=annotation] 类，并配置 Spring Data LDAP 仓库。使用 javadoc:org.springframework.boot.data.ldap.test.autoconfigure.DataLdapTest[format=annotation] 注解时，不会扫描常规的 javadoc:org.springframework.stereotype.Component[format=annotation] 和 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 可用于包含 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。（有关在 Spring Boot 中使用 LDAP 的更多信息，请参见 xref:data/nosql.adoc#data.nosql.ldap[]。）
+您可以使用 javadoc:org.springframework.boot.data.ldap.test.autoconfigure.DataLdapTest[format=annotation] 来测试 Data LDAP 应用程序。默认情况下，它会配置一个内存中的嵌入式 LDAP（如果可用），配置一个 javadoc:org.springframework.ldap.core.LdapTemplate[]，扫描 javadoc:org.springframework.ldap.odm.annotations.Entry[format=annotation] 类，并配置 Spring Data LDAP 仓库。使用 javadoc:org.springframework.boot.data.ldap.test.autoconfigure.DataLdapTest[format=annotation] 注解时，不会扫描常规的 javadoc:org.springframework.stereotype.Component[format=annotation] 和 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 可用于包含 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。（有关在 Spring Boot 中使用 LDAP 的更多信息，请参见 xref:data/nosql.adoc#data.nosql.ldap[LDAP]。）
 
 提示：由 javadoc:org.springframework.boot.data.ldap.test.autoconfigure.DataLdapTest[format=annotation] 启用的自动配置设置列表可在 xref:appendix:test-auto-configuration/index.adoc[附录中找到]。
 

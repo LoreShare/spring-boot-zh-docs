@@ -27,8 +27,8 @@ TIP: "`Using Spring Boot`" 部分包含一个更完整的示例，展示了 xref
 
 一旦声明了 `spring-boot-antlib` 命名空间，就可以使用以下附加任务：
 
-* xref:antlib.adoc#build-tool-plugins.antlib.tasks.exejar[]
-* xref:antlib.adoc#build-tool-plugins.antlib.findmainclass[]
+* xref:antlib.adoc#build-tool-plugins.antlib.tasks.exejar[使用 "exejar" 任务]
+* xref:antlib.adoc#build-tool-plugins.antlib.findmainclass[使用 "findmainclass" 任务]
 
 
 [[build-tool-plugins.antlib.tasks.exejar]]

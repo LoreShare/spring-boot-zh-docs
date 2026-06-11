@@ -41,7 +41,7 @@ Spring Boot 使用一种非常特定的 javadoc:org.springframework.core.env.Pro
 如果在同一位置同时存在 `.properties` 和 YAML 格式的配置文件，则 `.properties` 优先。
 
 注意：如果使用环境变量而不是系统属性，大多数操作系统不允许使用句点分隔的键名，但你可以改用下划线（例如，configprop:spring.config.name[format=envvar] 而不是 configprop:spring.config.name[]）。
-详情请参见 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables[]。
+详情请参见 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables[从环境变量绑定]。
 
 注意：如果你的应用程序在 servlet 容器或应用服务器中运行，则可以使用 JNDI 属性（在 `java:comp/env` 中）或 servlet 上下文初始化参数来代替环境变量或系统属性，或者同时使用。
 
@@ -164,7 +164,7 @@ $ java -jar myproject.jar --spring.config.location=\
 位置组是一组被视为同一层级的位置集合。
 例如，你可能想将所有 classpath 位置分组，然后所有外部位置分组。
 位置组内的项应使用 `;` 分隔。
-更多细节请参见 xref:features/external-config.adoc#features.external-config.files.profile-specific[] 部分中的示例。
+更多细节请参见 xref:features/external-config.adoc#features.external-config.files.profile-specific[Profile 特定文件] 部分中的示例。
 
 通过使用 `spring.config.location` 配置的位置会替换默认位置。
 例如，如果 `spring.config.location` 配置的值为 `optional:classpath:/custom-config/,optional:file:./custom-config/`，则考虑的完整位置集为：
@@ -541,7 +541,7 @@ app:
 ====
 
 提示：你也可以使用此技术为现有的 Spring Boot 属性创建“`short`”变体。
-详情请参见“`How-to Guides`”中的 xref:how-to:properties-and-configuration.adoc#howto.properties-and-configuration.short-command-line-arguments[] 部分。
+详情请参见“`How-to Guides`”中的 xref:how-to:properties-and-configuration.adoc#howto.properties-and-configuration.short-command-line-arguments[使用 'Short' 命令行参数] 部分。
 
 
 
@@ -629,7 +629,7 @@ myotherprop: "sometimes-set"
 
 Spring Boot 不提供任何对属性值加密的内置支持，但它提供了必要的钩子点来修改 Spring javadoc:org.springframework.core.env.Environment[] 中包含的值。
 javadoc:org.springframework.boot.EnvironmentPostProcessor[] 接口允许你在应用程序启动前操作 javadoc:org.springframework.core.env.Environment[]。
-详情请参见 xref:how-to:application.adoc#howto.application.customize-the-environment-or-application-context[]。
+详情请参见 xref:how-to:application.adoc#howto.application.customize-the-environment-or-application-context[在 ApplicationContext 启动前自定义环境或 ApplicationContext]。
 
 如果你需要一种安全的方式来存储凭据和密码，https://cloud.spring.io/spring-cloud-vault/[Spring Cloud Vault] 项目提供了在 https://www.vaultproject.io/[HashiCorp Vault] 中存储外部化配置的支持。
 
@@ -685,7 +685,7 @@ my.servers[0]=dev.example.com
 my.servers[1]=another.example.com
 ----
 TIP: 使用 `[index]` 表示法的属性可以绑定到 Java 的 javadoc:java.util.List[] 或 javadoc:java.util.Set[] 对象，通过 Spring Boot 的 javadoc:org.springframework.boot.context.properties.bind.Binder[] 类。
-更多详情请参见下面的 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties[] 部分。
+更多详情请参见下面的 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties[类型安全的配置属性] 部分。
 
 WARNING: YAML 文件不能通过使用 javadoc:org.springframework.context.annotation.PropertySource[format=annotation] 或 javadoc:org.springframework.test.context.TestPropertySource[format=annotation] 注解加载。
 因此，如果你需要以这种方式加载值，你需要使用 properties 文件。
@@ -1338,8 +1338,8 @@ public class MyPersonProperties {
 | 标准 YAML 列表语法或逗号分隔值
 
 | 环境变量
-| 大写格式，以下划线作为分隔符（参见 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables[]）。
-| 用下划线包围的数字值（参见 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables[]）
+| 大写格式，以下划线作为分隔符（参见 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables[从环境变量绑定]）。
+| 用下划线包围的数字值（参见 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables[从环境变量绑定]）
 
 | 系统属性
 | 驼峰命名、短横线分隔或下划线表示法

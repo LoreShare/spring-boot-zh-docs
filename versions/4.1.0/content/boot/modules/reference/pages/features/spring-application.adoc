@@ -26,7 +26,7 @@ public class MyApplication {
 include::ROOT:partial$application/spring-application.txt[]
 ----
 默认情况下，会显示 `INFO` 日志消息，包括一些相关的启动细节，例如启动应用程序的用户。
-如果需要除 `INFO` 以外的日志级别，可以按照 xref:features/logging.adoc#features.logging.log-levels[] 中的描述进行设置。
+如果需要除 `INFO` 以外的日志级别，可以按照 xref:features/logging.adoc#features.logging.log-levels[日志级别] 中的描述进行设置。
 应用程序版本通过主应用程序类包中的实现版本确定。
 可以通过将 `spring.main.log-startup-info` 设置为 `false` 来关闭启动信息日志记录。
 这也会关闭应用程序活动 profiles 的日志记录。

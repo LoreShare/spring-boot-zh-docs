@@ -36,7 +36,7 @@ logging:
 
 如果您需要对 logback 应用超出 `application.properties` 所能实现的自定义，则需要添加标准的 logback 配置文件。
 您可以将 `logback.xml` 文件添加到 classpath 的根目录，以便 logback 找到它。
-如果您想使用 Spring Boot xref:reference:features/logging.adoc#features.logging.logback-extensions[]，也可以使用 `logback-spring.xml`。
+如果您想使用 Spring Boot xref:reference:features/logging.adoc#features.logging.logback-extensions[Logback 扩展]，也可以使用 `logback-spring.xml`。
 
 提示：Logback 文档有一个 https://logback.qos.ch/manual/configuration.html[专门介绍配置的部分]，其中详细介绍了配置。
 

@@ -62,7 +62,7 @@ Spring Boot 从 `META-INF/spring.factories` 加载许多此类自定义项以供
 * 声明方式，针对所有应用程序，添加一个 `META-INF/spring.factories` 并打包一个所有应用程序都用作库的 jar 文件。
 
 javadoc:org.springframework.boot.SpringApplication[] 向监听器发送一些特殊的 javadoc:org.springframework.test.context.event.ApplicationEvents[]（有些甚至在上下文创建之前），然后注册监听器以监听 javadoc:org.springframework.context.ApplicationContext[] 发布的事件。
-有关完整列表，请参见“`Spring Boot Features`”部分中的 xref:reference:features/spring-application.adoc#features.spring-application.application-events-and-listeners[]。
+有关完整列表，请参见“`Spring Boot Features`”部分中的 xref:reference:features/spring-application.adoc#features.spring-application.application-events-and-listeners[应用程序事件和监听器]。
 
 还可以通过使用 javadoc:org.springframework.boot.EnvironmentPostProcessor[] 在应用程序上下文刷新之前自定义 javadoc:org.springframework.core.env.Environment[]。
 每个实现都应在 `META-INF/spring.factories` 中注册，如下例所示：
@@ -127,7 +127,7 @@ public class MyEnvironmentPostProcessor implements EnvironmentPostProcessor {
 == 构建 ApplicationContext 层次结构（添加父上下文或根上下文）
 
 您可以使用 javadoc:org.springframework.boot.builder.SpringApplicationBuilder[] 类创建父/子 javadoc:org.springframework.context.ApplicationContext[] 层次结构。
-有关更多信息，请参阅“`Spring Boot Features`”部分中的 xref:reference:features/spring-application.adoc#features.spring-application.fluent-builder-api[]。
+有关更多信息，请参阅“`Spring Boot Features`”部分中的 xref:reference:features/spring-application.adoc#features.spring-application.fluent-builder-api[Fluent Builder API]。
 
 
 

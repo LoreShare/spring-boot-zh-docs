@@ -1134,7 +1134,7 @@ HTTP 探针也停止接受流量，因此外部无法直接获取可用性状态
 |应用程序上下文已关闭，应用程序已关闭。
 |===
 
-提示：有关 Kubernetes 部署的更多信息，请参阅 xref:how-to:deployment/cloud.adoc#howto.deployment.cloud.kubernetes.container-lifecycle[]。
+提示：有关 Kubernetes 部署的更多信息，请参阅 xref:how-to:deployment/cloud.adoc#howto.deployment.cloud.kubernetes.container-lifecycle[Kubernetes 容器生命周期]。
 特别是，它描述了如何使用 `preStop` 钩子在 Kubernetes 杀死应用程序之前给应用程序时间优雅关闭。
 
 
@@ -1242,7 +1242,7 @@ info:
 如果 javadoc:org.springframework.boot.info.GitProperties[] bean 可用，你可以使用 `info` 端点来暴露这些属性。
 
 提示：如果 classpath 根目录下存在 `git.properties` 文件，则会自动配置 javadoc:org.springframework.boot.info.GitProperties[] bean。
-更多详情请参见 xref:how-to:build.adoc#howto.build.generate-git-info[]。
+更多详情请参见 xref:how-to:build.adoc#howto.build.generate-git-info[生成 Git 信息]。
 
 默认情况下，端点会暴露 `git.branch`、`git.commit.id` 和 `git.commit.time` 属性（如果存在）。
 如果你不希望端点响应中包含这些属性中的任何一个，则需要将它们从 `git.properties` 文件中排除。
@@ -1271,7 +1271,7 @@ management:
 这发生在 classpath 中存在 `META-INF/build-info.properties` 文件时。
 
 提示：Maven 和 Gradle 插件都可以生成该文件。
-更多详情请参见 xref:how-to:build.adoc#howto.build.generate-info[]。
+更多详情请参见 xref:how-to:build.adoc#howto.build.generate-info[生成构建信息]。
 
 [[actuator.endpoints.info.java-information]]
 === Java 信息
@@ -1337,7 +1337,7 @@ CycloneDX SBOM 可以自动检测，但其他格式也可以手动配置。
 
 `sbom` actuator 端点将暴露一个名为 "application" 的 SBOM，它描述了你的应用程序的内容。
 
-提示：要在项目构建时自动生成 CycloneDX SBOM，请参阅 xref:how-to:build.adoc#howto.build.generate-cyclonedx-sbom[] 部分。
+提示：要在项目构建时自动生成 CycloneDX SBOM，请参阅 xref:how-to:build.adoc#howto.build.generate-cyclonedx-sbom[生成 CycloneDX SBOM] 部分。
 
 [[actuator.endpoints.sbom.other-formats]]
 === 其他 SBOM 格式

@@ -6,8 +6,8 @@
 
 在继续之前，您应阅读以下主题：
 
-* xref:#overview.endpoint-urls[]
-* xref:#overview.timestamps[]
+* xref:#overview.endpoint-urls[URLs]
+* xref:#overview.timestamps[时间戳]
 
 注意：为了获得下面记录的正确的 JSON 响应，必须提供 Jackson。
 

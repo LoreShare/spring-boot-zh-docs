@@ -304,4 +304,4 @@ class CreatingBaggage {
 == 测试
 
 使用 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 时，报告数据的追踪组件不会自动配置。
-更多详情请参见 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.tracing[]。
+更多详情请参见 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.tracing[使用 Tracing]。

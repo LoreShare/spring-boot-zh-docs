@@ -150,7 +150,7 @@ Jackson 提供了一系列开/关特性，可用于配置其处理的各个方�
 此外，还提供了一个类型为 javadoc:org.springframework.boot.http.converter.autoconfigure.HttpMessageConverters[] 的便利 bean（如果你使用默认的 MVC 配置，它始终可用）。
 它有一些有用的方法来访问默认和用户增强的消息转换器。
 
-有关更多详细信息，请参阅 xref:spring-mvc.adoc#howto.spring-mvc.customize-responsebody-rendering[] 部分和 {code-spring-boot-webmvc-src}/autoconfigure/WebMvcAutoConfiguration.java[`WebMvcAutoConfiguration`] 源代码。
+有关更多详细信息，请参阅 xref:spring-mvc.adoc#howto.spring-mvc.customize-responsebody-rendering[自定义 @ResponseBody 渲染] 部分和 {code-spring-boot-webmvc-src}/autoconfigure/WebMvcAutoConfiguration.java[`WebMvcAutoConfiguration`] 源代码。
 
 
 [[howto.spring-mvc.customize-responsebody-rendering]]
@@ -282,4 +282,4 @@ Spring Boot 安装了一个 '`whitelabel`' 错误页面，当遇到服务器错�
 除非你替换了一些默认配置，否则你应该在你的 javadoc:org.springframework.web.servlet.view.BeanNameViewResolver[] 中找到一个 javadoc:org.springframework.context.ApplicationContext[]，因此一个名为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 的 `error` 是实现这一点的一种方式。
 更多选项请参见 {code-spring-boot-webmvc-src}/autoconfigure/error/ErrorMvcAutoConfiguration.java[`ErrorMvcAutoConfiguration`]。
 
-有关如何在 servlet 容器中注册处理程序的详细信息，另请参见 xref:reference:web/servlet.adoc#web.servlet.spring-mvc.error-handling[] 部分。
+有关如何在 servlet 容器中注册处理程序的详细信息，另请参见 xref:reference:web/servlet.adoc#web.servlet.spring-mvc.error-handling[错误处理] 部分。

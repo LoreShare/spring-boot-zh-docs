@@ -2,4 +2,4 @@
 = 安装 CLI
 
 Spring Boot CLI（命令行界面）可以通过 SDKMAN!（SDK 管理器）手动安装，如果你是 OSX 用户，也可以使用 Homebrew 或 MacPorts 安装。
-有关全面的安装说明，请参阅“入门”部分中的 xref:ROOT:installing.adoc#getting-started.installing.cli[]。
+有关全面的安装说明，请参阅“入门”部分中的 xref:ROOT:installing.adoc#getting-started.installing.cli[安装 Spring Boot CLI]。

@@ -7,8 +7,8 @@
 
 默认情况下，这些写入器未激活，但你可以启用它们：
 
-* xref:actuator/process-monitoring.adoc#actuator.process-monitoring.configuration[]
-* xref:actuator/process-monitoring.adoc#actuator.process-monitoring.programmatically[]
+* xref:actuator/process-monitoring.adoc#actuator.process-monitoring.configuration[扩展配置]
+* xref:actuator/process-monitoring.adoc#actuator.process-monitoring.programmatically[以编程方式启用进程监控]
 
 
 [[actuator.process-monitoring.configuration]]

@@ -128,12 +128,12 @@ Spring Boot 提供了适用于大多数应用的 Spring MVC 的自动配置。
 除了 Spring MVC 的默认值外，自动配置还提供以下功能：
 
 * 包含 javadoc:org.springframework.web.servlet.view.ContentNegotiatingViewResolver[] 和 javadoc:org.springframework.web.servlet.view.BeanNameViewResolver[] beans。
-* 支持提供静态资源，包括对 WebJars 的支持（在本文档后面部分介绍 xref:web/servlet.adoc#web.servlet.spring-mvc.static-content）。
+* 支持提供静态资源，包括对 WebJars 的支持（在本文档后面部分介绍 xref:web/servlet.adoc#web.servlet.spring-mvc.static-content[静态内容]）。
 * 自动注册 javadoc:org.springframework.core.convert.converter.Converter[]、javadoc:org.springframework.core.convert.converter.GenericConverter[] 和 javadoc:org.springframework.format.Formatter[] beans。
-* 支持 javadoc:org.springframework.boot.http.converter.autoconfigure.HttpMessageConverters[]（在本文档后面部分介绍 xref:web/servlet.adoc#web.servlet.spring-mvc.message-converters）。
-* 自动注册 javadoc:org.springframework.validation.MessageCodesResolver[]（在本文档后面部分介绍 xref:web/servlet.adoc#web.servlet.spring-mvc.message-codes）。
+* 支持 javadoc:org.springframework.boot.http.converter.autoconfigure.HttpMessageConverters[]（在本文档后面部分介绍 xref:web/servlet.adoc#web.servlet.spring-mvc.message-converters[HttpMessageConverters]）。
+* 自动注册 javadoc:org.springframework.validation.MessageCodesResolver[]（在本文档后面部分介绍 xref:web/servlet.adoc#web.servlet.spring-mvc.message-codes[MessageCodesResolver]）。
 * 静态 `index.html` 支持。
-* 自动使用 javadoc:org.springframework.web.bind.support.ConfigurableWebBindingInitializer[] bean（在本文档后面部分介绍 xref:web/servlet.adoc#web.servlet.spring-mvc.binding-initializer）。
+* 自动使用 javadoc:org.springframework.web.bind.support.ConfigurableWebBindingInitializer[] bean（在本文档后面部分介绍 xref:web/servlet.adoc#web.servlet.spring-mvc.binding-initializer[ConfigurableWebBindingInitializer]）。
 
 如果你想保留这些 Spring Boot MVC 自定义设置并进行更多 {url-spring-framework-docs}/web/webmvc.html[MVC 自定义]（拦截器、格式化器、视图控制器和其他功能），你可以添加自己的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类，类型为 javadoc:org.springframework.web.servlet.config.annotation.WebMvcConfigurer[]，但 *不* 带 javadoc:org.springframework.web.servlet.config.annotation.EnableWebMvc[format=annotation]。
 
@@ -739,7 +739,7 @@ spring:
 为了更完全的控制，你还可以定义 javadoc:org.springframework.web.accept.ApiVersionResolver[]、javadoc:org.springframework.web.accept.ApiVersionParser[] 和 javadoc:org.springframework.web.accept.ApiVersionDeprecationHandler[] beans，它们将被注入到自动配置的 Spring MVC 配置中。
 
 提示：API 版本控制也同时支持 `WebClient` 和 `RestClient`。
-详情请参见 xref:io/rest-client.adoc#io.rest-client.apiversioning[]。
+详情请参见 xref:io/rest-client.adoc#io.rest-client.apiversioning[API 版本管理]。
 
 
 [[web.servlet.jersey]]

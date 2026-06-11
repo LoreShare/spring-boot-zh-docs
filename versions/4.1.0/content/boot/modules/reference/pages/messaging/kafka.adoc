@@ -102,7 +102,7 @@ Apache Kafka 的 Spring 提供了一个工厂 bean 来创建 javadoc:org.apache.
 后者可以全局设置，或者仅为流进行特定覆盖。
 
 多个附加属性可以使用专用属性进行设置；其他任意的 Kafka 属性可以使用 `spring.kafka.streams.properties` 命名空间进行设置。
-更多信息请参阅 xref:messaging/kafka.adoc#messaging.kafka.additional-properties[]。
+更多信息请参阅 xref:messaging/kafka.adoc#messaging.kafka.additional-properties[其他 Kafka 属性]。
 
 要使用工厂 bean，将 javadoc:org.apache.kafka.streams.StreamsBuilder[] 注入到您的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 中，如下例所示：
 

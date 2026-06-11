@@ -148,4 +148,4 @@ WARNING: 与 `spring.profiles.active` 和 `spring.profiles.include` 类似，`sp
 == Profile 特定的配置文件
 
 `application.properties`（或 `application.yaml`）以及通过 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 引用的文件的 Profile 特定变体都会被视作文件并加载。
-详情请参见 xref:features/external-config.adoc#features.external-config.files.profile-specific[]。
+详情请参见 xref:features/external-config.adoc#features.external-config.files.profile-specific[Profile 特定文件]。

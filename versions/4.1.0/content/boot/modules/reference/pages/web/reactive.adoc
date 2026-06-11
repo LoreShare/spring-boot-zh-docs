@@ -437,7 +437,7 @@ NOTE: 如果你的设置需要多种策略，例如请求头和查询参数，�
 为了更完全的控制，你还可以定义 javadoc:org.springframework.web.reactive.accept.ApiVersionResolver[]、javadoc:org.springframework.web.accept.ApiVersionParser[] 和 javadoc:org.springframework.web.reactive.accept.ApiVersionDeprecationHandler[] beans，它们将被注入到自动配置的 Spring WebFlux 配置中。
 
 TIP: 客户端也支持 API 版本管理，同时支持 `WebClient` 和 `RestClient`。
-详情请参见 xref:io/rest-client.adoc#io.rest-client.apiversioning[]。
+详情请参见 xref:io/rest-client.adoc#io.rest-client.apiversioning[API 版本管理]。
 
 
 [[web.reactive.reactive-server]]
@@ -538,4 +538,4 @@ NOTE: 自动配置的自定义器仍然会应用于你的自定义工厂，因�
 
 开发者可以通过提供自定义的 javadoc:org.springframework.http.client.ReactorResourceFactory[] 或 javadoc:org.springframework.http.client.reactive.JettyResourceFactory[] bean 来覆盖 Jetty 和 Reactor Netty 的资源配置——这将同时应用于客户端和服务器。
 
-你可以在 xref:io/rest-client.adoc#io.rest-client.webclient.runtime[] 部分了解更多关于客户端资源配置的信息。
+你可以在 xref:io/rest-client.adoc#io.rest-client.webclient.runtime[WebClient 运行时] 部分了解更多关于客户端资源配置的信息。

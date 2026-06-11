@@ -25,7 +25,7 @@ dependencies {
 }
 ----
 CAUTION: Devtools 可能导致类加载问题，尤其是在多模块项目中。
-xref:using/devtools.adoc#using.devtools.diagnosing-classloading-issues[] 解释了如何诊断和解决这些问题。
+xref:using/devtools.adoc#using.devtools.diagnosing-classloading-issues[诊断类加载问题] 解释了如何诊断和解决这些问题。
 
 NOTE: 当运行完全打包的应用程序时，开发者工具会自动禁用。
 如果您的应用程序是从 `java -jar` 启动的，或者是从特殊的类加载器启动的，则它被视为 "`production application`"。
@@ -47,7 +47,7 @@ TIP: 默认情况下，重新打包的归档文件不包含 devtools。
 [[using.devtools.diagnosing-classloading-issues]]
 == 诊断类加载问题
 
-如 xref:#using.devtools.restart.restart-vs-reload[] 部分所述，重启功能是通过使用两个类加载器实现的。
+如 xref:#using.devtools.restart.restart-vs-reload[重启与重新加载] 部分所述，重启功能是通过使用两个类加载器实现的。
 对于大多数应用程序，这种方法效果良好。
 然而，它有时会导致类加载问题，尤其是在多模块项目中。
 
@@ -235,7 +235,7 @@ https://spring.io/tools[Spring Tools for Eclipse] 和 https://www.jetbrains.com/
 
 [[using.devtools.restart.customizing-the-classload]]
 === 自定义重启类加载器
-如前文 xref:#using.devtools.restart.restart-vs-reload[] 部分所述，重启功能是通过使用两个类加载器实现的。
+如前文 xref:#using.devtools.restart.restart-vs-reload[重启与重新加载] 部分所述，重启功能是通过使用两个类加载器实现的。
 如果这导致问题，你可以使用 `spring.devtools.restart.enabled` 系统属性来诊断问题，并且如果应用在关闭重启的情况下正常工作，则可能需要自定义每个类加载器加载的内容。
 
 默认情况下，IDE 中任何打开的项目都使用“`restart`”类加载器加载，而任何常规的 `.jar` 文件都使用“`base`”类加载器加载。
@@ -287,7 +287,7 @@ NOTE: 一次只能运行一个 LiveReload 服务器。
 在启动应用程序之前，请确保没有其他 LiveReload 服务器正在运行。
 如果你从 IDE 启动多个应用程序，只有第一个支持 LiveReload。
 
-WARNING: 要在文件更改时触发 LiveReload，必须启用 xref:using/devtools.adoc#using.devtools.restart[]。
+WARNING: 要在文件更改时触发 LiveReload，必须启用 xref:using/devtools.adoc#using.devtools.restart[自动重启]。
 
 
 [[using.devtools.globalsettings]]
@@ -420,7 +420,7 @@ TIP: 如果需要使用代理访问远程应用，请配置 `spring.devtools.rem
 这通常表现为 javadoc:org.springframework.boot.devtools.RemoteSpringApplication[] 日志中关于无法上传某些类的警告，以及随后的重试。
 但也可能导致应用代码不一致，并在第一批更改上传后无法重启。
 如果你经常观察到此类问题，请尝试将 `spring.devtools.restart.poll-interval` 和 `spring.devtools.restart.quiet-period` 参数增加到适合你开发环境的值。
-有关配置这些属性的信息，请参阅 xref:using/devtools.adoc#using.devtools.globalsettings.configuring-file-system-watcher[] 部分。
+有关配置这些属性的信息，请参阅 xref:using/devtools.adoc#using.devtools.globalsettings.configuring-file-system-watcher[配置文件系统监视器] 部分。
 
 NOTE: 文件仅在远程客户端运行时被监视。
 如果在启动远程客户端之前更改了文件，则不会将其推送到远程服务器。

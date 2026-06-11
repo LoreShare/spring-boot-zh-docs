@@ -10,7 +10,7 @@
 Java 的 javadoc:javax.sql.DataSource[] 接口提供了处理数据库连接的标准方法。
 传统上，javadoc:javax.sql.DataSource[] 使用 `URL` 以及一些凭据来建立数据库连接。
 
-提示：有关更高级的示例（通常是为了完全控制 DataSource 的配置），请参阅“`How-to Guides`”的 xref:how-to:data-access.adoc#howto.data-access.configure-custom-datasource[] 部分。
+提示：有关更高级的示例（通常是为了完全控制 DataSource 的配置），请参阅“`How-to Guides`”的 xref:how-to:data-access.adoc#howto.data-access.configure-custom-datasource[配置自定义 DataSource] 部分。
 
 
 [[data.sql.datasource.embedded]]
@@ -313,7 +313,7 @@ public class City implements Serializable {
 ----
 
 提示：你可以通过使用 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] 注解来自定义实体扫描位置。
-请参阅“`How-to Guides`”中的 xref:how-to:data-access.adoc#howto.data-access.separate-entity-definitions-from-spring-configuration[] 部分。
+请参阅“`How-to Guides`”中的 xref:how-to:data-access.adoc#howto.data-access.separate-entity-definitions-from-spring-configuration[将 @Entity 定义与 Spring 配置分离] 部分。
 
 
 [[data.sql.jpa-and-spring-data.repositories]]

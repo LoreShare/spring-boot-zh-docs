@@ -101,7 +101,7 @@ WARNING：Spring Boot 的每个版本都与一个基础版本的 Spring 框架�
 </project>
 ----
 
-提示：如果你不想使用 `spring-boot-antlib` 模块，请参阅“`How-to Guides`”的 xref:how-to:build.adoc#howto.build.build-an-executable-archive-with-ant-without-using-spring-boot-antlib[] 部分。
+提示：如果你不想使用 `spring-boot-antlib` 模块，请参阅“`How-to Guides`”的 xref:how-to:build.adoc#howto.build.build-an-executable-archive-with-ant-without-using-spring-boot-antlib[在不使用 spring-boot-antlib 的情况下从 Ant 构建可执行归档] 部分。
 
 
 
@@ -121,7 +121,7 @@ starter 包含了许多你需要的依赖，可以快速启动项目，并提供
 许多 IDE 中的 Maven 集成允许你按名称搜索依赖。
 例如，安装了适当的 Eclipse 或 Spring Tools 插件后，你可以在 POM 编辑器中按 `ctrl-space`，然后输入“`spring-boot-starter`”以获取完整列表。
 
-如 xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.custom-starter[] 部分所述，第三方 starter 不应以 `spring-boot` 开头，因为它为官方 Spring Boot 工件保留。
+如 xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.custom-starter[创建自己的 Starter] 部分所述，第三方 starter 不应以 `spring-boot` 开头，因为它为官方 Spring Boot 工件保留。
 相反，第三方 starter 通常以项目名称开头。
 例如，一个名为 `thirdpartyproject` 的第三方 starter 项目通常会被命名为 `thirdpartyproject-spring-boot-starter`。
 ****

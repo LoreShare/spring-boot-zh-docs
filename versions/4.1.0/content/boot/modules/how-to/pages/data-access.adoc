@@ -10,7 +10,7 @@ Spring Boot 包含许多用于处理数据源的 starters。
 
 要配置自己的 javadoc:javax.sql.DataSource[]，请在配置中定义一个该类型的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
 Spring Boot 在任何需要的地方重用你的 javadoc:javax.sql.DataSource[]，包括数据库初始化。
-如果需要外部化某些设置，可以将 javadoc:javax.sql.DataSource[] 绑定到环境（参见 xref:reference:features/external-config.adoc#features.external-config.typesafe-configuration-properties.third-party-configuration[]）。
+如果需要外部化某些设置，可以将 javadoc:javax.sql.DataSource[] 绑定到环境（参见 xref:reference:features/external-config.adoc#features.external-config.typesafe-configuration-properties.third-party-configuration[第三方配置]）。
 
 以下示例展示了如何在 bean 中定义数据源：
 
@@ -169,14 +169,14 @@ app:
 ----
 请注意，由于自定义配置在代码中指定应使用 Hikari，`app.datasource.type` 将不会生效。
 
-如 xref:reference:data/sql.adoc#data.sql.datasource.connection-pool[] 所述，javadoc:org.springframework.boot.jdbc.DataSourceBuilder[] 支持多种不同的连接池。
+如 xref:reference:data/sql.adoc#data.sql.datasource.connection-pool[支持的连接池] 所述，javadoc:org.springframework.boot.jdbc.DataSourceBuilder[] 支持多种不同的连接池。
 要使用 Hikari 以外的连接池，请将其添加到 classpath，使用 `type(Class)` 方法指定要使用的连接池类，并更新 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法的返回类型以匹配。
 这还将为您提供所选特定连接池的配置属性元数据。
 
 提示：Spring Boot 会将 Hikari 特定的设置暴露给 `spring.datasource.hikari`。
 此示例使用更通用的 `configuration` 子命名空间，因为该示例不支持多种数据源实现。
 
-有关更多详细信息，请参阅 xref:reference:data/sql.adoc#data.sql.datasource[] 和 {code-spring-boot-jdbc-src}/autoconfigure/DataSourceAutoConfiguration.java[`DataSourceAutoConfiguration`] 类。
+有关更多详细信息，请参阅 xref:reference:data/sql.adoc#data.sql.datasource[配置 DataSource] 和 {code-spring-boot-jdbc-src}/autoconfigure/DataSourceAutoConfiguration.java[`DataSourceAutoConfiguration`] 类。
 
 
 [[howto.data-access.configure-two-datasources]]
@@ -270,7 +270,7 @@ public class MyCompleteAdditionalDataSourceConfiguration {
 请注意，`app.datasource.configuration.*` 属性提供了基于所选实现的高级设置。
 
 与 xref:how-to:data-access.adoc#howto.data-access.configure-custom-datasource[配置单个自定义 javadoc:javax.sql.DataSource[]] 一样，一个或两个 javadoc:javax.sql.DataSource[] beans 的类型可以使用 `type(Class)` 方法在 javadoc:org.springframework.boot.jdbc.DataSourceBuilder[] 上进行自定义。
-有关支持类型的详细信息，请参阅 xref:reference:data/sql.adoc#data.sql.datasource.connection-pool[]。
+有关支持类型的详细信息，请参阅 xref:reference:data/sql.adoc#data.sql.datasource.connection-pool[支持的连接池]。
 
 
 [[howto.data-access.spring-data-repositories]]

@@ -115,7 +115,7 @@ WARNING: 每个 Spring Boot 版本都是针对这组特定的第三方依赖进�
 
 要使用 Maven 覆盖依赖版本，请参阅 Maven 插件文档中的 xref:maven-plugin:using.adoc[]。
 
-要使用 Gradle 覆盖依赖版本，请参阅 Gradle 插件文档中的 xref:gradle-plugin:managing-dependencies.adoc#managing-dependencies.dependency-management-plugin.customizing[]。
+要使用 Gradle 覆盖依赖版本，请参阅 Gradle 插件文档中的 xref:gradle-plugin:managing-dependencies.adoc#managing-dependencies.dependency-management-plugin.customizing[自定义受管版本]。
 
 [[howto.build.create-an-executable-jar-with-maven]]
 == 使用 Maven 创建可执行 JAR

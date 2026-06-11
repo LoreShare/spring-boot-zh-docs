@@ -357,7 +357,7 @@ Spring Boot 管理 `io.netty:netty-tcnative-boringssl-static` “uber jar” 的
 == 配置 Web 服务器
 
 通常，你应该首先考虑使用许多可用的配置键之一，并通过在 `application.properties` 或 `application.yaml` 文件中添加新条目来自定义你的 Web 服务器。
-参见 xref:properties-and-configuration.adoc#howto.properties-and-configuration.discover-build-in-options-for-external-properties[]）。
+参见 xref:properties-and-configuration.adoc#howto.properties-and-configuration.discover-build-in-options-for-external-properties[发现外部属性的内置选项]）。
 `server.{asterisk}` 命名空间在这里非常有用，它包括 `server.tomcat.{asterisk}`、`server.jetty.{asterisk}` 等命名空间，用于特定于服务器的功能。
 参见 xref:appendix:application-properties/index.adoc[] 列表。
 
@@ -417,8 +417,8 @@ public class MyTomcatWebServerCustomizer implements WebServerFactoryCustomizer<T
 
 在 servlet 栈应用程序中，即使用 `spring-boot-starter-web`，有两种方法可以将 javadoc:jakarta.servlet.Servlet[]、javadoc:jakarta.servlet.Filter[]、javadoc:jakarta.servlet.ServletContextListener[] 以及 Servlet API 支持的其他监听器添加到你的应用程序：
 
-* xref:webserver.adoc#howto.webserver.add-servlet-filter-listener.spring-bean[]
-* xref:webserver.adoc#howto.webserver.add-servlet-filter-listener.using-scanning[]
+* xref:webserver.adoc#howto.webserver.add-servlet-filter-listener.spring-bean[通过使用 Spring Bean 添加 Servlet、Filter 或 Listener]
+* xref:webserver.adoc#howto.webserver.add-servlet-filter-listener.using-scanning[通过类路径扫描添加 Servlet、Filter 和 Listener]
 
 [[howto.webserver.add-servlet-filter-listener.spring-bean]]
 === 通过使用 Spring Bean 添加 Servlet、Filter 或 Listener
@@ -438,7 +438,7 @@ public class MyTomcatWebServerCustomizer implements WebServerFactoryCustomizer<T
 这与 servlet 规范的默认调度程序类型一致。
 ====
 
-像任何其他 Spring bean 一样，你可以定义 servlet 过滤器 beans 的顺序；请务必查看 xref:reference:web/servlet.adoc#web.servlet.embedded-container.servlets-filters-listeners.beans[] 部分。
+像任何其他 Spring bean 一样，你可以定义 servlet 过滤器 beans 的顺序；请务必查看 xref:reference:web/servlet.adoc#web.servlet.embedded-container.servlets-filters-listeners.beans[将 Servlets、Filters 和 Listeners 注册为 Spring Bean] 部分。
 
 [[howto.webserver.add-servlet-filter-listener.spring-bean.disable]]
 ==== 禁用 Servlet 或 Filter 的注册

@@ -2,23 +2,23 @@
 
 Spring Boot Actuator 为 {url-micrometer-site}[Micrometer] 提供依赖管理和自动配置，Micrometer 是一个应用指标门面，支持 {url-micrometer-docs}[众多监控系统]，包括：
 
-- xref:actuator/metrics.adoc#actuator.metrics.export.appoptics[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.atlas[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.datadog[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.dynatrace[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.elastic[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.ganglia[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.graphite[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.humio[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.influx[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.jmx[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.kairos[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.newrelic[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.otlp[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.prometheus[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.simple[]（内存中）
-- xref:actuator/metrics.adoc#actuator.metrics.export.stackdriver[]
-- xref:actuator/metrics.adoc#actuator.metrics.export.statsd[]
+- xref:actuator/metrics.adoc#actuator.metrics.export.appoptics[AppOptics]
+- xref:actuator/metrics.adoc#actuator.metrics.export.atlas[Atlas]
+- xref:actuator/metrics.adoc#actuator.metrics.export.datadog[Datadog]
+- xref:actuator/metrics.adoc#actuator.metrics.export.dynatrace[Dynatrace]
+- xref:actuator/metrics.adoc#actuator.metrics.export.elastic[Elastic]
+- xref:actuator/metrics.adoc#actuator.metrics.export.ganglia[Ganglia]
+- xref:actuator/metrics.adoc#actuator.metrics.export.graphite[Graphite]
+- xref:actuator/metrics.adoc#actuator.metrics.export.humio[Humio]
+- xref:actuator/metrics.adoc#actuator.metrics.export.influx[Influx]
+- xref:actuator/metrics.adoc#actuator.metrics.export.jmx[JMX]
+- xref:actuator/metrics.adoc#actuator.metrics.export.kairos[KairosDB]
+- xref:actuator/metrics.adoc#actuator.metrics.export.newrelic[New Relic]
+- xref:actuator/metrics.adoc#actuator.metrics.export.otlp[OTLP]
+- xref:actuator/metrics.adoc#actuator.metrics.export.prometheus[Prometheus]
+- xref:actuator/metrics.adoc#actuator.metrics.export.simple[简单]（内存中）
+- xref:actuator/metrics.adoc#actuator.metrics.export.stackdriver[Stackdriver]
+- xref:actuator/metrics.adoc#actuator.metrics.export.statsd[StatsD]
 
 提示：要了解 Micrometer 的更多功能，请参阅其 {url-micrometer-docs}[参考文档]，特别是 {url-micrometer-docs-concepts}[概念部分]。
 

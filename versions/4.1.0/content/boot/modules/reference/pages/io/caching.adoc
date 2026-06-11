@@ -41,15 +41,15 @@ public class MyMathService {
 
 如果你没有定义类型为 javadoc:org.springframework.cache.CacheManager[] 的 bean 或名为 `cacheResolver` 的 javadoc:org.springframework.cache.interceptor.CacheResolver[]（参见 javadoc:org.springframework.cache.annotation.CachingConfigurer[]），Spring Boot 会尝试按以下顺序检测提供者：
 
-. xref:io/caching.adoc#io.caching.provider.generic[]
-. xref:io/caching.adoc#io.caching.provider.jcache[]（EhCache 3、Hazelcast、Infinispan 等）
-. xref:io/caching.adoc#io.caching.provider.hazelcast[]
-. xref:io/caching.adoc#io.caching.provider.infinispan[]
-. xref:io/caching.adoc#io.caching.provider.couchbase[]
-. xref:io/caching.adoc#io.caching.provider.redis[]
-. xref:io/caching.adoc#io.caching.provider.caffeine[]
-. xref:io/caching.adoc#io.caching.provider.cache2k[]
-. xref:io/caching.adoc#io.caching.provider.simple[]
+. xref:io/caching.adoc#io.caching.provider.generic[通用]
+. xref:io/caching.adoc#io.caching.provider.jcache[JCache (JSR-107)]（EhCache 3、Hazelcast、Infinispan 等）
+. xref:io/caching.adoc#io.caching.provider.hazelcast[Hazelcast]
+. xref:io/caching.adoc#io.caching.provider.infinispan[Infinispan]
+. xref:io/caching.adoc#io.caching.provider.couchbase[Couchbase]
+. xref:io/caching.adoc#io.caching.provider.redis[Redis]
+. xref:io/caching.adoc#io.caching.provider.caffeine[Caffeine]
+. xref:io/caching.adoc#io.caching.provider.cache2k[Cache2k]
+. xref:io/caching.adoc#io.caching.provider.simple[Simple]
 
 提示：如果 javadoc:org.springframework.cache.CacheManager[] 由 Spring Boot 自动配置，可以通过设置 configprop:spring.cache.type[] 属性来 _强制_ 使用特定的缓存提供者。
 

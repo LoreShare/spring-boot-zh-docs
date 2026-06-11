@@ -31,4 +31,4 @@ $ java -Dspring.aot.enabled=true -jar myapplication.jar
 - Spring javadoc:org.springframework.context.annotation.Profile[format=annotation] 注解和特定于 profile 的配置 xref:how-to:aot.adoc#howto.aot.conditions[存在限制]。
 - 不支持那些在 bean 创建时发生变化的属性（例如，javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnProperty[format=annotation] 和 `.enabled` 属性）。
 
-要了解更多关于提前处理的信息，请参阅 xref:packaging/native-image/introducing-graalvm-native-images.adoc#packaging.native-image.introducing-graalvm-native-images.understanding-aot-processing[] 部分。
+要了解更多关于提前处理的信息，请参阅 xref:packaging/native-image/introducing-graalvm-native-images.adoc#packaging.native-image.introducing-graalvm-native-images.understanding-aot-processing[理解 Spring 提前处理] 部分。
