@@ -138,6 +138,24 @@ test('AsciiDoc 分块不在 listing 代码块内部切分', () => {
   assert.deepEqual(chunks.map((chunk) => chunk.index), [1, 2, 3]);
 });
 
+test('AsciiDoc 分块在 listing 代码块闭合后立即切分', () => {
+  const source = [
+    '说明。',
+    '----',
+    'line 1',
+    '----',
+    '后续正文。',
+  ].join('\n');
+
+  const chunks = splitAsciiDocForTranslation(source, { maxChars: 10_000 });
+
+  assert.deepEqual(chunks.map((chunk) => chunk.content), [
+    '说明。',
+    '----\nline 1\n----',
+    '后续正文。',
+  ]);
+});
+
 test('usage 记录不包含密钥并保留 token 用量', () => {
   const record = createUsageRecord({
     relativePath: 'modules/ROOT/pages/index.adoc',

@@ -271,9 +271,10 @@ export function splitAsciiDocForTranslation(source, { maxChars = 12_000 } = {}) 
 
     if (line.trim() === '----') {
       inListingBlock = !inListingBlock;
-    }
-
-    if (!inListingBlock && currentLength >= maxChars) {
+      if (!inListingBlock) {
+        flush();
+      }
+    } else if (!inListingBlock && currentLength >= maxChars) {
       flush();
     }
   }
