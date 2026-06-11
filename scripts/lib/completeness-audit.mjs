@@ -355,6 +355,20 @@ export function auditBuiltSiteHtml({
         message: '构建产物包含未解析的 include 指令',
       }));
     }
+    if (/\bjavadoc:[^\s<]+/.test(html)) {
+      issues.push(makeIssue({
+        code: 'raw-javadoc-html',
+        relativePath,
+        message: '构建产物仍包含未渲染的 javadoc 宏',
+      }));
+    }
+    if (/\{url-[^}]+}/.test(html)) {
+      issues.push(makeIssue({
+        code: 'unresolved-url-attribute-html',
+        relativePath,
+        message: '构建产物包含未解析的 URL 属性',
+      }));
+    }
   }
 
   return issues;
