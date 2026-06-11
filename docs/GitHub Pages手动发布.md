@@ -6,6 +6,18 @@
 
 GitHub Actions 只负责同步固定上游源、测试、校验、构建和发布静态站点，不执行 DeepSeek 翻译，不读取 `DEEPSEEK_API_KEY`，也不随 `push` 自动上线。
 
+线上站点地址：
+
+```text
+https://loreshare.github.io/spring-boot-zh-docs/
+```
+
+当前最新稳定版中文入口：
+
+```text
+https://loreshare.github.io/spring-boot-zh-docs/boot/4.1.0/
+```
+
 ## 本地流程
 
 新版本或译文调整必须先在本地完成：
@@ -57,6 +69,8 @@ versions/4.2.0/content/boot
 ```
 
 所有 GA 版本都保留，不删除历史版本。Antora playbook 使用 `start_paths: versions/*/content/boot` 收集所有版本，页面中的版本选择器由 Antora 默认 UI 生成。
+
+README 和公开页面说明应把本站定位为 Spring Boot 中文站：当前提供 Spring Boot `4.1.0` 最新稳定版中文化内容，后续 Spring Boot 发布新的稳定版后新增对应中文版本，并继续保留历史 GA 版本。
 
 ## 构建地址
 
