@@ -1,6 +1,6 @@
-# Spring Boot 4.1.0 中文文档站 MVP
+# Spring Boot 4.1.0 中文文档站
 
-这是 Spring Boot `4.1.0` 官方文档的非官方中文翻译站 MVP。
+这是 Spring Boot `4.1.0` 官方文档的非官方中文翻译站。译文由 DeepSeek `deepseek-v4-flash` 辅助生成，仍需要人工校对。
 
 ## 快速开始
 
@@ -20,6 +20,12 @@ npm run sync:source
 
 ```bash
 DEEPSEEK_API_KEY=你的本地密钥 npm run translate:mvp
+```
+
+翻译全量页面：
+
+```bash
+DEEPSEEK_API_KEY=你的本地密钥 npm run translate:all
 ```
 
 校验译文：
@@ -42,22 +48,33 @@ npm run serve
 
 默认访问地址是 `http://localhost:8080`。
 
-## MVP 范围
+## 翻译范围
 
-当前已翻译：
+当前已翻译并纳入导航：
 
-- 首页
-- 文档概览
-- 社区
-- 系统要求
-- 安装
-- 升级
-- 教程首页
-- 开发第一个 Spring Boot 应用
+- ROOT
+- tutorial
+- reference
+- how-to
+- build-tool-plugin
+- cli
+- api 导航 partial
+- specification
+- appendix
 
-`reference`、`how-to`、`api`、`appendix` 等完整模块不在本轮范围内。
+不包含官方构建时生成的 Javadoc、Kotlin API、Actuator REST API、Maven 插件文档和 Gradle 插件文档。
 
-因此构建时会输出这些未翻译模块的 xref 错误日志，但不会中断静态站生成。
+因此构建时仍会输出这些生成模块相关的 xref/include 错误日志，但不会中断静态站生成。
+
+## Token 用量
+
+`reports/deepseek-usage.jsonl` 记录成功写入译文的 DeepSeek 请求用量：
+
+- prompt tokens：1,058,213
+- completion tokens：798,863
+- total tokens：1,857,076
+
+该统计不包含少量失败请求和调试请求的实际消耗。
 
 ## 密钥
 
