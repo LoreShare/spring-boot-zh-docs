@@ -538,6 +538,110 @@ export function validatePartialIncludes({
   return issues;
 }
 
+function getPartialPath({ outputRoot, currentModuleName, moduleName, partialPath }) {
+  return path.join(outputRoot, 'modules', moduleName ?? currentModuleName, 'partials', partialPath);
+}
+
+function resolveNavContent({
+  relativePath = 'nav.adoc',
+  moduleName = 'ROOT',
+  outputRoot = 'content/boot',
+  exists = existsSync,
+  read = (file) => readFileSync(file, 'utf8'),
+  seen = new Set(),
+} = {}) {
+  const navPath = path.join(outputRoot, relativePath);
+  if (!exists(navPath)) {
+    return '';
+  }
+
+  const seenKey = `${moduleName}:${relativePath}`;
+  if (seen.has(seenKey)) {
+    return '';
+  }
+  seen.add(seenKey);
+
+  const lines = read(navPath).split(/\r?\n/);
+  return lines.map((line) => {
+    const includeMatch = line.match(/^include::(?:(?<moduleName>[-\w]+):)?partial\$(?<partialPath>[^\[\s]+)\[/);
+    if (!includeMatch) {
+      return line;
+    }
+
+    const includeModuleName = includeMatch.groups.moduleName ?? moduleName;
+    const partialPath = getPartialPath({
+      outputRoot,
+      currentModuleName: moduleName,
+      moduleName: includeMatch.groups.moduleName,
+      partialPath: includeMatch.groups.partialPath,
+    });
+    const partialRelativePath = path.relative(outputRoot, partialPath).split(path.sep).join('/');
+    return resolveNavContent({
+      relativePath: partialRelativePath,
+      moduleName: includeModuleName,
+      outputRoot,
+      exists,
+      read,
+      seen,
+    });
+  }).join('\n');
+}
+
+function extractTopLevelNavEntry(line, lineNumber) {
+  const match = line.match(/^\*\s+xref:([^\[\s]+)\[([^\]\n]*)]/);
+  if (!match) {
+    return undefined;
+  }
+
+  return {
+    target: match[1],
+    label: match[2].split(',')[0],
+    lineNumber,
+  };
+}
+
+export function findDuplicateTopLevelNavEntries(content) {
+  const seen = new Map();
+  const duplicates = [];
+  const lines = content.split(/\r?\n/);
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const entry = extractTopLevelNavEntry(lines[index], index + 1);
+    if (!entry) {
+      continue;
+    }
+
+    if (seen.has(entry.target)) {
+      const first = seen.get(entry.target);
+      duplicates.push({
+        target: entry.target,
+        label: entry.label || first.label,
+        firstLine: first.lineNumber,
+        duplicateLine: entry.lineNumber,
+      });
+      continue;
+    }
+
+    seen.set(entry.target, entry);
+  }
+
+  return duplicates;
+}
+
+export function validateTopLevelNavigation({
+  outputRoot = 'content/boot',
+  exists = existsSync,
+  read = (file) => readFileSync(file, 'utf8'),
+} = {}) {
+  const content = resolveNavContent({
+    outputRoot,
+    exists,
+    read,
+  });
+  return findDuplicateTopLevelNavEntries(content)
+    .map((duplicate) => `nav.adoc：顶层导航重复：第 ${duplicate.firstLine} 行和第 ${duplicate.duplicateLine} 行都指向 ${duplicate.target}（${duplicate.label}）`);
+}
+
 export function validateTranslatedPage({ relativePath, source, translated }) {
   const issues = [];
 
@@ -684,10 +788,12 @@ export function validateCompletenessAudit({
 export function validateAll({
   validateTranslatedFilesFn = validateTranslatedFiles,
   validateProjectSecretsFn = validateProjectSecrets,
+  validateTopLevelNavigationFn = validateTopLevelNavigation,
   auditTranslationCompletenessFn = auditTranslationCompleteness,
 } = {}) {
   return [
     ...validateTranslatedFilesFn(),
+    ...validateTopLevelNavigationFn(),
     ...validateProjectSecretsFn(),
     ...validateCompletenessAudit({ auditTranslationCompletenessFn }),
   ];

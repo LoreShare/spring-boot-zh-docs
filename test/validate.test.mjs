@@ -7,9 +7,11 @@ import {
   findUntranslatedEnglishSegments,
   findMissingProtectedTerms,
   findPartialIncludeTargets,
+  findDuplicateTopLevelNavEntries,
   hasBalancedListingBlocks,
   hasBalancedTabsBlocks,
   findCodeBlockAttributesWithoutDelimiter,
+  validateTopLevelNavigation,
   validatePartialIncludes,
   validateAll,
   validateTranslatedFiles,
@@ -217,6 +219,40 @@ test('能解析并校验 partial include 目标', () => {
       exists: (file) => Object.hasOwn(files, file),
     }),
     ['modules/maven-plugin/pages/goals.adoc：找不到 partial include 目标 output/modules/maven-plugin/partials/goals/missing.adoc'],
+  );
+});
+
+test('能发现顶层导航重复入口', () => {
+  const navEntries = findDuplicateTopLevelNavEntries([
+    '* xref:tutorial:index.adoc[教程]',
+    '* xref:tutorial:index.adoc[教程]',
+    '** xref:tutorial:first-application/index.adoc[开发第一个 Spring Boot 应用]',
+  ].join('\n'));
+
+  assert.deepEqual(navEntries, [
+    {
+      target: 'tutorial:index.adoc',
+      label: '教程',
+      firstLine: 1,
+      duplicateLine: 2,
+    },
+  ]);
+});
+
+test('全量校验会解析 nav include 并阻止重复顶层入口', () => {
+  const files = {
+    'output/nav.adoc': 'include::ROOT:partial$nav-root.adoc[]\ninclude::tutorial:partial$nav-tutorial.adoc[]\n',
+    'output/modules/ROOT/partials/nav-root.adoc': '* xref:tutorial:index.adoc[教程]\n',
+    'output/modules/tutorial/partials/nav-tutorial.adoc': '* xref:tutorial:index.adoc[教程]\n',
+  };
+
+  assert.deepEqual(
+    validateTopLevelNavigation({
+      outputRoot: 'output',
+      exists: (file) => Object.hasOwn(files, file),
+      read: (file) => files[file],
+    }),
+    ['nav.adoc：顶层导航重复：第 1 行和第 3 行都指向 tutorial:index.adoc（教程）'],
   );
 });
 

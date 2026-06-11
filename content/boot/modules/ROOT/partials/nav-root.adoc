@@ -4,4 +4,3 @@
 * xref:system-requirements.adoc[系统要求,role=navtree-icon-server]
 * xref:installing.adoc[安装,role=navtree-icon-gift]
 * xref:upgrading.adoc[升级,role=navtree-icon-rocket]
-* xref:tutorial:index.adoc[教程]
