@@ -40,6 +40,15 @@ npm run validate
 npm run build
 ```
 
+构建产物默认位于 `build/site/boot/4.1.0`。
+构建脚本会同时生成以下无版本前缀兼容入口：
+
+```text
+build/site/maven-plugin/index.html
+build/site/gradle-plugin/index.html
+build/site/api/rest/actuator/index.html
+```
+
 本地预览：
 
 ```bash
@@ -68,6 +77,9 @@ npm run serve
 不包含官方构建时生成的 Javadoc 和 Kotlin API 页面。
 
 Java API 和 Kotlin API 仍作为外部英文 API 参考链接保留，不生成中文镜像页面。
+
+上游官方构建流程生成的配置属性表、插件目标表和 Actuator REST API 请求/响应片段不在 Antora 源目录内。
+当前站点使用中文占位 partial 补齐这些 include，避免构建产物出现 unresolved include。
 
 ## Token 用量
 
