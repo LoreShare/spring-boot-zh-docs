@@ -53,6 +53,14 @@ const GENERATED_API_LINK_TARGETS = [
   ['api/kotlin/', 'https://docs.spring.io/spring-boot/4.1.0/api/kotlin/'],
 ];
 
+const MAVEN_PARAMETER_TABLE_LABELS = new Map([
+  ['| Name', '| 名称'],
+  ['| Type', '| 类型'],
+  ['| Default value', '| 默认值'],
+  ['| User property', '| 用户属性'],
+  ['| Since', '| 起始版本'],
+]);
+
 function toPosixPath(filePath) {
   return filePath.split(path.sep).join('/');
 }
@@ -325,13 +333,311 @@ function restoreTablePassthroughCellsFromSource(source, translated) {
   return translatedLines.join('\n');
 }
 
+function getGeneratedPropertyRows(lines) {
+  const rows = [];
+  lines.forEach((line, index) => {
+    const match = line.match(/^\|\[\[(application-properties\.[^\]]+)\]\]/);
+    if (!match) {
+      return;
+    }
+
+    let descriptionIndex = -1;
+    for (let candidateIndex = index + 1; candidateIndex < lines.length; candidateIndex += 1) {
+      const candidate = lines[candidateIndex];
+      if (candidate.trim() === '|===' || /^\|\[\[application-properties\./.test(candidate)) {
+        break;
+      }
+      if (candidate.startsWith('|+++') || candidate.startsWith('|Replaced by ')) {
+        descriptionIndex = candidateIndex;
+        break;
+      }
+    }
+
+    if (descriptionIndex !== -1) {
+      rows.push({
+        id: match[1],
+        propertyLine: line,
+        propertyIndex: index,
+        descriptionIndex,
+      });
+    }
+  });
+  return rows;
+}
+
+function hasUnresolvedTranslationPlaceholder(line) {
+  return /@@(?:ADOC_TOKEN|ADOC_MACRO|CODE_BLOCK|TERM)_\d+@@/.test(line);
+}
+
+function isTranslatedDescriptionCandidate(line) {
+  if (!line?.startsWith('|') || line.trim() === '|===' || hasUnresolvedTranslationPlaceholder(line)) {
+    return false;
+  }
+  if (/^\|\s*(?:名称|Name)\s*\|\s*(?:描述|Description)\s*\|/.test(line)) {
+    return false;
+  }
+  if (/\[\[application-properties\./.test(line) || /xref:#application-properties\./.test(line)) {
+    return false;
+  }
+  const content = line.slice(1).replace(/^\+\+\+/, '').replace(/\+\+\+$/, '');
+  if (content.trim() === '') {
+    return false;
+  }
+  if (/^`?\+[^`]*\+`?$/.test(content.trim())) {
+    return false;
+  }
+  return /[\u4e00-\u9fff]/.test(content);
+}
+
+function collectTranslatedDescriptionCandidates(lines) {
+  return lines.filter(isTranslatedDescriptionCandidate);
+}
+
+function getTranslatedHeading(lines) {
+  return lines.find((line) => /^==+\s/.test(line) && /[\u4e00-\u9fff]/.test(line) && !hasUnresolvedTranslationPlaceholder(line));
+}
+
+function normalizeGeneratedDescriptionCell(sourceLine, translatedLine) {
+  if (!translatedLine?.startsWith('|') || hasUnresolvedTranslationPlaceholder(translatedLine)) {
+    return sourceLine;
+  }
+
+  const translatedContent = translatedLine
+    .slice(1)
+    .replace(/^\+\+\+/, '')
+    .replace(/\+\+\+$/, '')
+    .replace(/(?<!\\)\|/g, '\\|');
+
+  if (sourceLine.startsWith('|+++') && sourceLine.endsWith('+++')) {
+    return `|+++${translatedContent}+++`;
+  }
+  return `|${translatedContent}`;
+}
+
+function buildTranslatedDescriptionByProperty(sourceRows, translatedLines) {
+  const descriptionByProperty = new Map();
+
+  for (const row of sourceRows) {
+    const translatedPropertyIndex = translatedLines.indexOf(row.propertyLine);
+    if (translatedPropertyIndex === -1) {
+      continue;
+    }
+    for (let index = translatedPropertyIndex + 1; index < translatedLines.length; index += 1) {
+      const translatedDescription = translatedLines[index];
+      if (translatedDescription.trim() === '|===' || /^\|\[\[application-properties\./.test(translatedDescription)) {
+        break;
+      }
+      if (isTranslatedDescriptionCandidate(translatedDescription)) {
+        descriptionByProperty.set(row.id, translatedDescription);
+        break;
+      }
+    }
+  }
+
+  return descriptionByProperty;
+}
+
+function rebuildGeneratedPropertyTableFromSource(source, translated) {
+  const sourceLines = source.split('\n');
+  const translatedLines = translated.split('\n');
+  const sourceRows = getGeneratedPropertyRows(sourceLines);
+  if (sourceRows.length === 0) {
+    return translated;
+  }
+
+  const translatedHeading = getTranslatedHeading(translatedLines);
+  const descriptionByProperty = buildTranslatedDescriptionByProperty(sourceRows, translatedLines);
+  const descriptionCandidates = collectTranslatedDescriptionCandidates(translatedLines);
+  const rowIndexByDescriptionIndex = new Map(
+    sourceRows.map((row, rowIndex) => [row.descriptionIndex, rowIndex]),
+  );
+
+  return sourceLines.map((line, index) => {
+    if (translatedHeading && /^==+\s/.test(line)) {
+      return translatedHeading;
+    }
+    if (line === '|Name|Description|Default Value') {
+      return '|名称|描述|默认值';
+    }
+
+    const rowIndex = rowIndexByDescriptionIndex.get(index);
+    if (rowIndex === undefined) {
+      return line;
+    }
+
+    const row = sourceRows[rowIndex];
+    const translatedDescription = descriptionByProperty.get(row.id)
+      ?? descriptionCandidates[rowIndex];
+    return normalizeGeneratedDescriptionCell(line, translatedDescription);
+  }).join('\n');
+}
+
+function collectMavenParameterTableBlocks(lines) {
+  const blocks = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    if (lines[index] !== '[cols="10h,90"]') {
+      continue;
+    }
+
+    const firstDelimiterIndex = lines.findIndex((line, candidateIndex) => (
+      candidateIndex > index && line.trim() === '|==='
+    ));
+    if (firstDelimiterIndex === -1) {
+      continue;
+    }
+
+    const endIndex = lines.findIndex((line, candidateIndex) => (
+      candidateIndex > firstDelimiterIndex && line.trim() === '|==='
+    ));
+    if (endIndex === -1) {
+      continue;
+    }
+
+    blocks.push({ startIndex: index, endIndex });
+    index = endIndex;
+  }
+  return blocks;
+}
+
+function translateMavenParameterTableLabels(lines) {
+  return lines.map((line) => MAVEN_PARAMETER_TABLE_LABELS.get(line) ?? line);
+}
+
+function rebuildMavenParameterTablesFromSource(source, translated) {
+  if (!source.includes('[cols="10h,90"]')) {
+    return translated;
+  }
+
+  const sourceLines = source.split('\n');
+  const translatedLines = translated.split('\n');
+  const sourceBlocks = collectMavenParameterTableBlocks(sourceLines);
+  const translatedBlocks = collectMavenParameterTableBlocks(translatedLines);
+  if (sourceBlocks.length === 0 || sourceBlocks.length !== translatedBlocks.length) {
+    return translated;
+  }
+
+  for (let index = sourceBlocks.length - 1; index >= 0; index -= 1) {
+    const sourceBlock = sourceBlocks[index];
+    const translatedBlock = translatedBlocks[index];
+    const replacement = translateMavenParameterTableLabels(
+      sourceLines.slice(sourceBlock.startIndex, sourceBlock.endIndex + 1),
+    );
+    translatedLines.splice(
+      translatedBlock.startIndex,
+      translatedBlock.endIndex - translatedBlock.startIndex + 1,
+      ...replacement,
+    );
+  }
+
+  return translatedLines.join('\n');
+}
+
+function collectMavenParameterSections(lines) {
+  const sections = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    if (!/^\[\[[^\]]+-goal\.parameter-details\.[^\]]+\]\]$/.test(lines[index])) {
+      continue;
+    }
+
+    const nextIndex = lines.findIndex((line, candidateIndex) => (
+      candidateIndex > index && /^\[\[[^\]]+-goal\.parameter-details\.[^\]]+\]\]$/.test(line)
+    ));
+    const endIndex = nextIndex === -1 ? lines.length : nextIndex;
+    const sectionLines = lines.slice(index, endIndex);
+    const tableStartIndex = sectionLines.findIndex((line) => line === '[cols="10h,90"]');
+    if (tableStartIndex === -1) {
+      continue;
+    }
+
+    sections.push({
+      anchor: lines[index],
+      lines: sectionLines,
+      tableStartIndex,
+    });
+    index = endIndex - 1;
+  }
+  return sections;
+}
+
+function getTranslatedMavenSectionDescription(translatedLines, anchor) {
+  const startIndex = translatedLines.indexOf(anchor);
+  if (startIndex === -1) {
+    return undefined;
+  }
+
+  const descriptionLines = [];
+  for (let index = startIndex + 1; index < translatedLines.length; index += 1) {
+    const line = translatedLines[index];
+    if (/^\[\[[^\]]+-goal\.parameter-details\.[^\]]+\]\]$/.test(line)
+      || line === '[cols="10h,90"]'
+      || line.trim() === '|==='
+      || line.startsWith('|')) {
+      break;
+    }
+    if (/^===\s/.test(line) || line.trim() === '') {
+      if (descriptionLines.length > 0 && line.trim() === '') {
+        break;
+      }
+      continue;
+    }
+
+    const cleaned = line.replace(/\s*\[cols="10h,90"\].*$/, '').trim();
+    if (cleaned && /[\u4e00-\u9fff]/.test(cleaned) && !hasUnresolvedTranslationPlaceholder(cleaned)) {
+      descriptionLines.push(cleaned);
+    }
+  }
+
+  return descriptionLines.length > 0 ? descriptionLines.join('\n') : undefined;
+}
+
+function rebuildMavenParameterSection(section, translatedDescription) {
+  const beforeDescription = section.lines.slice(0, 2);
+  const sourceDescription = section.lines.slice(2, section.tableStartIndex);
+  const description = translatedDescription
+    ? [`${translatedDescription}`, '']
+    : sourceDescription;
+  const table = translateMavenParameterTableLabels(section.lines.slice(section.tableStartIndex));
+  return [...beforeDescription, ...description, ...table];
+}
+
+function rebuildMavenParameterSectionsFromSource(source, translated) {
+  const sourceLines = source.split('\n');
+  const translatedLines = translated.split('\n');
+  const sourceSections = collectMavenParameterSections(sourceLines);
+  if (sourceSections.length === 0) {
+    return translated;
+  }
+
+  const firstTranslatedSectionIndex = translatedLines.indexOf(sourceSections[0].anchor);
+  if (firstTranslatedSectionIndex === -1) {
+    return translated;
+  }
+
+  const prefix = translatedLines.slice(0, firstTranslatedSectionIndex);
+  const rebuiltSections = sourceSections.flatMap((section) => rebuildMavenParameterSection(
+    section,
+    getTranslatedMavenSectionDescription(translatedLines, section.anchor),
+  ));
+
+  return [...prefix, ...rebuiltSections].join('\n');
+}
+
 export function postProcessGeneratedAdoc({ source, translated }) {
   return convertGeneratedApiXrefs(
-    restoreTablePassthroughCellsFromSource(
+    rebuildMavenParameterSectionsFromSource(
       source,
-      restorePrefixStructuralLinesFromSource(
+      rebuildMavenParameterTablesFromSource(
         source,
-        restoreTableDelimitersFromSource(source, translated),
+        rebuildGeneratedPropertyTableFromSource(
+          source,
+          restoreTablePassthroughCellsFromSource(
+            source,
+            restorePrefixStructuralLinesFromSource(
+              source,
+              restoreTableDelimitersFromSource(source, translated),
+            ),
+          ),
+        ),
       ),
     ),
   );

@@ -206,3 +206,107 @@ test('生成型内容后处理把 API xref 改为官方外链', () => {
     /`link:https:\/\/docs\.spring\.io\/spring-boot\/maven-plugin\/api\/java\/org\/springframework\/boot\/maven\/Docker\.html\[Docker\]`/,
   );
 });
+
+test('生成型内容后处理按官方源重建配置属性表结构', () => {
+  const source = [
+    '[[appendix.application-properties.data]]',
+    '== Data Properties',
+    '[cols="4,3,3", options="header"]',
+    '|===',
+    '|Name|Description|Default Value',
+    '',
+    '|[[application-properties.data.spring.r2dbc.url]]xref:#application-properties.data.spring.r2dbc.url[`+spring.r2dbc.url+`]',
+    '|+++R2DBC URL of the database.+++',
+    '|',
+    '',
+    '|[[application-properties.data.spring.r2dbc.username]]xref:#application-properties.data.spring.r2dbc.username[`+spring.r2dbc.username+`]',
+    '|+++Login username of the database.+++',
+    '|',
+    '',
+    '|===',
+  ].join('\n');
+  const translated = [
+    '== 数据属性',
+    '|===',
+    '|名称|描述|默认值',
+    '',
+    '|`+spring.r2dbc.url+`xref:#application-properties.data.spring.r2dbc.url[[[application-properties.data.spring.r2dbc.username]]]',
+    '|+++数据库的 R2DBC URL。+++',
+    '|',
+    '',
+    '|@@ADOC_TOKEN_38@@@@ADOC_MACRO_15@@[@@ADOC_TOKEN_39@@]',
+    '|+++数据库的登录用户名。+++',
+    '|',
+    '',
+    '|===',
+  ].join('\n');
+
+  const processed = postProcessGeneratedAdoc({ source, translated });
+
+  assert.match(processed, /\|名称\|描述\|默认值/);
+  assert.match(processed, /\|\[\[application-properties\.data\.spring\.r2dbc\.url\]\]xref:#application-properties\.data\.spring\.r2dbc\.url\[`\+spring\.r2dbc\.url\+`\]/);
+  assert.match(processed, /\|\+\+\+数据库的 R2DBC URL。\+\+\+/);
+  assert.match(processed, /\|\[\[application-properties\.data\.spring\.r2dbc\.username\]\]/);
+  assert.doesNotMatch(processed, /@@ADOC_/);
+});
+
+test('生成型内容后处理按官方源重建 Maven 参数详情表', () => {
+  const source = [
+    '[[packaging.repackage-goal.parameter-details.requires-unpack]]',
+    '=== `requiresUnpack`',
+    'A list of the libraries that must be unpacked.',
+    '',
+    '[cols="10h,90"]',
+    '|===',
+    '',
+    '| Name',
+    '| `requiresUnpack`',
+    '',
+    '| Type',
+    '| `java.util.List`',
+    '',
+    '| Default value',
+    '|',
+    '',
+    '| User property',
+    '|',
+    '',
+    '| Since',
+    '| `1.1.0`',
+    '',
+    '|===',
+  ].join('\n');
+  const translated = [
+    '[[packaging.repackage-goal.parameter-details.requires-unpack]]',
+    '=== `requiresUnpack`',
+    '必须解包的库列表。 [cols="10h,90"]',
+    '',
+    '`requiresUnpack`',
+    '|===',
+    '',
+    '| 名称',
+    '| `boolean`',
+    '',
+    '| 类型',
+    '| `false`',
+    '',
+    '| 默认值',
+    '| `spring-boot.repackage.skip`',
+    '',
+    '| 用户属性',
+    '| ``1.2.0``',
+    '',
+    '| 起始版本',
+    '| @@ADOC_TOKEN_184@@',
+    '',
+    '|===',
+  ].join('\n');
+
+  const processed = postProcessGeneratedAdoc({ source, translated });
+
+  assert.match(processed, /必须解包的库列表。\n\n\[cols="10h,90"\]/);
+  assert.match(processed, /\| 名称\n\| `requiresUnpack`/);
+  assert.match(processed, /\| 类型\n\| `java\.util\.List`/);
+  assert.match(processed, /\| 起始版本\n\| `1\.1\.0`/);
+  assert.doesNotMatch(processed, /@@ADOC_/);
+});
