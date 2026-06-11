@@ -1,7 +1,7 @@
 = Spring for GraphQL
 
 如果你想构建 GraphQL 应用程序，可以利用 Spring Boot 的 Spring for GraphQL 自动配置。
-Spring for GraphQL 项目基于 GraphQL Java。
+Spring for GraphQL 项目基于 https://github.com/graphql-java/graphql-java[GraphQL Java]。
 你至少需要 spring-boot-starter-graphql 这个 starter。
 由于 GraphQL 与传输无关，你还需要在应用程序中添加一个或多个额外的 starter，以通过 Web 暴露你的 GraphQL API：
 
