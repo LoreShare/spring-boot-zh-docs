@@ -86,9 +86,9 @@ test('GitHub Pages workflow 只能手动发布且不执行翻译', () => {
 
   assert.match(workflow, /workflow_dispatch:/);
   assert.doesNotMatch(workflow, /\npush:/);
-  assert.match(workflow, /uses:\s+actions\/configure-pages@v5/);
-  assert.match(workflow, /uses:\s+actions\/upload-pages-artifact@v4/);
-  assert.match(workflow, /uses:\s+actions\/deploy-pages@v4/);
+  assert.match(workflow, /uses:\s+actions\/configure-pages@v6/);
+  assert.match(workflow, /uses:\s+actions\/upload-pages-artifact@v5/);
+  assert.match(workflow, /uses:\s+actions\/deploy-pages@v5/);
   assert.match(workflow, /path:\s+build\/site/);
   assert.match(workflow, /SITE_URL:\s+\$\{\{\s*steps\.pages\.outputs\.base_url\s*\}\}/);
   assert.match(workflow, /npm test/);
