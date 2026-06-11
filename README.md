@@ -28,10 +28,22 @@ DEEPSEEK_API_KEY=你的本地密钥 npm run translate:mvp
 DEEPSEEK_API_KEY=你的本地密钥 npm run translate:all
 ```
 
+展开官方示例源码：
+
+```bash
+npm run materialize:include-code
+```
+
 校验译文：
 
 ```bash
 npm run validate
+```
+
+生成完整性审计报告：
+
+```bash
+npm run audit:completeness
 ```
 
 构建静态站：
@@ -80,6 +92,8 @@ Java API 和 Kotlin API 仍作为外部英文 API 参考链接保留，不生成
 
 上游官方构建流程生成的配置属性表、插件目标表、Actuator REST API 请求/响应片段和少量 example 片段不在 Antora 源目录内。
 当前站点使用中文占位 partial 补齐这些 include，避免构建产物出现 unresolved include。
+
+Spring Boot 官方 `include-code::` 宏引用的 Java/Kotlin 示例源码会通过 `npm run sync:source` 同步，并由 `npm run materialize:include-code` 展开为本地 AsciiDoc 代码块。
 
 ## Token 用量
 
