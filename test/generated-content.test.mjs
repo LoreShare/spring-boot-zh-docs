@@ -6,6 +6,7 @@ import {
   buildGeneratedContentSyncSteps,
   findGeneratedContentArchive,
   getGeneratedContentAction,
+  shouldImportGeneratedContentFile,
   shouldOverwriteGeneratedOutput,
 } from '../scripts/lib/generated-content.mjs';
 
@@ -81,6 +82,25 @@ test('生成型内容按文件类型决定翻译或复制', () => {
   assert.equal(
     getGeneratedContentAction('modules/ROOT/examples/resources/graphql/schema.graphqls'),
     'copy',
+  );
+});
+
+test('生成型内容只导入 Antora 内容文件，不导入组件描述符', () => {
+  assert.equal(
+    shouldImportGeneratedContentFile('modules/appendix/partials/configuration-properties/core.adoc'),
+    true,
+  );
+  assert.equal(
+    shouldImportGeneratedContentFile('modules/ROOT/examples/resources/graphql/schema.graphqls'),
+    true,
+  );
+  assert.equal(
+    shouldImportGeneratedContentFile('modules/antora.yml'),
+    false,
+  );
+  assert.equal(
+    shouldImportGeneratedContentFile('outside/modules/ROOT/partials/example.adoc'),
+    false,
   );
 });
 

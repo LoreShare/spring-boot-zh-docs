@@ -170,6 +170,13 @@ export function getGeneratedContentAction(relativePath) {
   return relativePath.endsWith('.adoc') ? 'translate' : 'copy';
 }
 
+export function shouldImportGeneratedContentFile(relativePath) {
+  if (!relativePath.startsWith('modules/')) {
+    return false;
+  }
+  return relativePath.split('/').at(-1) !== 'antora.yml';
+}
+
 export function shouldOverwriteGeneratedOutput({
   outputExists,
   outputContent = '',
@@ -226,7 +233,7 @@ export function syncGeneratedContent({ cacheDir = CACHE_DIR } = {}) {
 
 function buildGeneratedContentPlan({ sources, selectedPaths = [] }) {
   const plan = sources.flatMap((source) => listFiles(source.sourceRoot)
-    .filter((relativePath) => relativePath.startsWith('modules/'))
+    .filter((relativePath) => shouldImportGeneratedContentFile(relativePath))
     .map((relativePath) => ({
       sourceId: source.sourceId,
       sourceRoot: source.sourceRoot,
