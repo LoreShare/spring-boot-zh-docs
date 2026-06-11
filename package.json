@@ -1,0 +1,23 @@
+{
+  "name": "spring-boot-4-1-0-zh-docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Spring Boot 4.1.0 非官方中文文档站 MVP",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "sync:source": "node scripts/sync-source.mjs",
+    "translate:mvp": "node scripts/translate-mvp.mjs",
+    "validate": "node scripts/validate.mjs",
+    "build": "antora antora-playbook.yml",
+    "serve": "http-server build/site -p 8080 -c-1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@antora/cli": "^3.1.12",
+    "@antora/site-generator": "^3.1.12",
+    "http-server": "^14.1.1"
+  }
+}
