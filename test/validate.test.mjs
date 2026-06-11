@@ -6,6 +6,7 @@ import {
   detectSecrets,
   findMissingProtectedTerms,
   hasBalancedListingBlocks,
+  findCodeBlockAttributesWithoutDelimiter,
   validateTranslatedFiles,
   validateTranslatedPage,
 } from '../scripts/lib/validate.mjs';
@@ -20,6 +21,18 @@ test('能收集 AsciiDoc xref 目标', () => {
 test('能识别 listing 代码块是否成对', () => {
   assert.equal(hasBalancedListingBlocks('正文\n----\ncode\n----\n正文'), true);
   assert.equal(hasBalancedListingBlocks('正文\n----\ncode\n正文'), false);
+});
+
+test('能识别代码块属性后缺少分隔符', () => {
+  assert.deepEqual(
+    findCodeBlockAttributesWithoutDelimiter('[source,shell]\n----\n$ java -jar app.jar\n----'),
+    [],
+  );
+
+  assert.deepEqual(
+    findCodeBlockAttributesWithoutDelimiter('[source,dockerfile]\ninclude::reference:partial$dockerfile[]'),
+    [1],
+  );
 });
 
 test('能识别疑似真实密钥', () => {
@@ -39,11 +52,12 @@ test('页面校验汇总 xref、代码块和术语问题', () => {
   const issues = validateTranslatedPage({
     relativePath: 'modules/ROOT/pages/index.adoc',
     source: 'Spring Boot\n\nxref:installing.adoc[]\n\n----\ncode\n----\n',
-    translated: 'Spring 引导\n\n----\ncode\n',
+    translated: 'Spring 引导\n\n[source,shell]\n$ java -jar app.jar\n\n----\ncode\n',
   });
 
   assert.deepEqual(issues, [
     'modules/ROOT/pages/index.adoc：listing/source 代码块分隔符数量不成对',
+    'modules/ROOT/pages/index.adoc：第 3 行代码块属性后缺少 ---- 分隔符',
     'modules/ROOT/pages/index.adoc：缺少 xref 目标 installing.adoc',
     'modules/ROOT/pages/index.adoc：缺少不翻译术语 Spring Boot',
   ]);

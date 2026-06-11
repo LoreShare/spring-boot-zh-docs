@@ -23,6 +23,24 @@ export function hasBalancedListingBlocks(content) {
   return delimiterCount % 2 === 0;
 }
 
+function isCodeBlockAttribute(line) {
+  const trimmed = line.trim();
+  return /^\[(source|listing)(,|\])/.test(trimmed) || /^\[subs=/.test(trimmed);
+}
+
+export function findCodeBlockAttributesWithoutDelimiter(content) {
+  const lines = content.split(/\r?\n/);
+  const lineNumbers = [];
+
+  for (let index = 0; index < lines.length; index += 1) {
+    if (isCodeBlockAttribute(lines[index]) && lines[index + 1]?.trim() !== '----') {
+      lineNumbers.push(index + 1);
+    }
+  }
+
+  return lineNumbers;
+}
+
 export function detectSecrets(content) {
   return [...new Set(content.match(/\bsk-[A-Za-z0-9_-]{20,}\b/g) ?? [])];
 }
@@ -36,6 +54,10 @@ export function validateTranslatedPage({ relativePath, source, translated }) {
 
   if (!hasBalancedListingBlocks(translated)) {
     issues.push(`${relativePath}：listing/source 代码块分隔符数量不成对`);
+  }
+
+  for (const lineNumber of findCodeBlockAttributesWithoutDelimiter(translated)) {
+    issues.push(`${relativePath}：第 ${lineNumber} 行代码块属性后缺少 ---- 分隔符`);
   }
 
   for (const target of collectXrefs(source)) {
