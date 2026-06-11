@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { parsePathsOption, translateAll } from './lib/translate.mjs';
+import { ensureGeneratedPartials } from './lib/generated-partials.mjs';
 
 const force = process.argv.includes('--force');
 const selectedPaths = parsePathsOption();
@@ -25,7 +26,8 @@ try {
   const translated = results.filter((result) => result.status === 'translated').length;
   const copied = results.filter((result) => result.status === 'copied').length;
   const skipped = results.filter((result) => result.status === 'skipped').length;
-  console.log(`全量处理完成：翻译 ${translated} 个，复制 ${copied} 个，跳过 ${skipped} 个`);
+  const generated = ensureGeneratedPartials();
+  console.log(`全量处理完成：翻译 ${translated} 个，复制 ${copied} 个，跳过 ${skipped} 个，补齐生成型 partial ${generated.length} 个`);
 } catch (error) {
   console.error(`全量翻译失败：${error.message}`);
   process.exitCode = 1;
