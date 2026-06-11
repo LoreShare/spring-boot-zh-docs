@@ -17,6 +17,7 @@ import {
   appendUsageRecord,
   filterTranslationPlanByPaths,
   getOutputPathForPage,
+  postProcessTranslatedAdoc,
   readDeepSeekApiKey,
   translateContentWithRetries,
 } from './translate.mjs';
@@ -623,24 +624,28 @@ function rebuildMavenParameterSectionsFromSource(source, translated) {
 }
 
 export function postProcessGeneratedAdoc({ source, translated }) {
-  return convertGeneratedApiXrefs(
-    rebuildMavenParameterSectionsFromSource(
-      source,
-      rebuildMavenParameterTablesFromSource(
+  return postProcessTranslatedAdoc({
+    relativePath: '',
+    source,
+    translated: convertGeneratedApiXrefs(
+      rebuildMavenParameterSectionsFromSource(
         source,
-        rebuildGeneratedPropertyTableFromSource(
+        rebuildMavenParameterTablesFromSource(
           source,
-          restoreTablePassthroughCellsFromSource(
+          rebuildGeneratedPropertyTableFromSource(
             source,
-            restorePrefixStructuralLinesFromSource(
+            restoreTablePassthroughCellsFromSource(
               source,
-              restoreTableDelimitersFromSource(source, translated),
+              restorePrefixStructuralLinesFromSource(
+                source,
+                restoreTableDelimitersFromSource(source, translated),
+              ),
             ),
           ),
         ),
       ),
     ),
-  );
+  });
 }
 
 export function shouldOverwriteGeneratedOutput({

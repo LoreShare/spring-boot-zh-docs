@@ -310,3 +310,35 @@ test('生成型内容后处理按官方源重建 Maven 参数详情表', () => {
   assert.match(processed, /\| 起始版本\n\| `1\.1\.0`/);
   assert.doesNotMatch(processed, /@@ADOC_/);
 });
+
+test('生成型内容后处理统一 endpoint 可见文案', () => {
+  const source = [
+    '[[appendix.application-properties.actuator]]',
+    '== Actuator Properties',
+    '[cols="4,3,3", options="header"]',
+    '|===',
+    '|Name|Description|Default Value',
+    '',
+    '|[[application-properties.actuator.management.endpoint.conditions.access]]xref:#application-properties.actuator.management.endpoint.conditions.access[`+management.endpoint.conditions.access+`]',
+    '|+++Permitted level of access for the conditions endpoint.+++',
+    '|',
+    '',
+    '|===',
+  ].join('\n');
+  const translated = [
+    '== Actuator 属性',
+    '[cols="4,3,3", options="header"]',
+    '|===',
+    '|名称|描述|默认值',
+    '',
+    '|[[application-properties.actuator.management.endpoint.conditions.access]]xref:#application-properties.actuator.management.endpoint.conditions.access[`+management.endpoint.conditions.access+`]',
+    '|+++conditions endpoint 的允许访问级别。+++',
+    '|',
+    '',
+    '|===',
+  ].join('\n');
+
+  const processed = postProcessGeneratedAdoc({ source, translated });
+
+  assert.match(processed, /\|\+\+\+conditions 端点的允许访问级别。\+\+\+/);
+});
