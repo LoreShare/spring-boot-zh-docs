@@ -46,6 +46,7 @@ test('提示词包含默认保护术语和 AsciiDoc 保护要求', () => {
   assert.ok(PROTECTED_TERMS.includes('Actuator'));
   assert.match(messages[0].content, /Spring Boot/);
   assert.match(messages[0].content, /xref/);
+  assert.match(messages[0].content, /普通英文句子必须翻译/);
   assert.match(messages[1].content, /modules\/ROOT\/pages\/installing\.adoc/);
 });
 

@@ -61,6 +61,8 @@ export function buildTranslationMessages({ relativePath, source }) {
     '你是 Spring Boot 官方文档的中文技术译者。',
     '任务：把 AsciiDoc 页面翻译成自然、准确、克制的中文技术文档。',
     '只翻译自然语言，不要翻译代码、命令、配置键、类名、包名、路径、URL、xref 目标和 AsciiDoc 结构。',
+    '普通英文句子必须翻译成中文；不要照抄英文段落、英文标题、英文提示语或英文列表项。',
+    'xref/link/URL 宏的目标和属性必须保留，但方括号中的可见链接文本如为自然语言必须翻译。',
     '必须完整保留 anchors、attributes、include 指令、xref/link/image 目标、代码块、inline code、表格结构和列表结构。',
     `以下术语不要翻译：${PROTECTED_TERMS.join('、')}。`,
     '输入中的 @@CODE_BLOCK_N@@、@@ADOC_TOKEN_N@@、@@ADOC_MACRO_N@@、@@TERM_N@@ 是不可翻译占位符，必须逐字原样保留。',
