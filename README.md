@@ -4,11 +4,27 @@
 
 后续 Spring Boot 发布新的稳定版后，本站会新增对应中文版本并更新 latest 入口；已经发布过的 GA 中文版本会继续保留，方便不同项目在维护期查阅匹配版本的文档。
 
+![Spring Boot 中文站首页截图](docs/assets/spring-boot-zh-home.png)
+
 ## 在线访问
 
 - 站点首页：<https://loreshare.github.io/spring-boot-zh-docs/>
 - 当前最新稳定版：<https://loreshare.github.io/spring-boot-zh-docs/boot/4.1.0/>
 - 入门教程：<https://loreshare.github.io/spring-boot-zh-docs/boot/4.1.0/tutorial/first-application/index.html>
+
+## 版本支持
+
+本站跟随 Spring Boot 官方 GA 版本维护中文文档。完整且最新的支持周期请以 [Spring Boot 官方支持页面](https://spring.io/projects/spring-boot#support) 为准；下表按 2026-06-11 官方页面默认展示的分支整理。
+
+| 分支 | 首次发布 | OSS 支持结束 | 企业支持结束 |
+| --- | --- | --- | --- |
+| 4.1.x | 2026-06 | 2027-07 | 2028-07 |
+| 4.0.x | 2025-11 | 2026-12 | 2027-12 |
+| 3.5.x | 2025-05 | 2026-06 | 2032-06 |
+| 3.4.x | 2024-11 | 2025-12 | 2026-12 |
+| 3.3.x | 2024-05 | 2025-06 | 2026-06 |
+| 3.2.x | 2023-11 | 2024-12 | 2025-12 |
+| 2.7.x | 2022-05 | 2023-06 | 2029-06 |
 
 ## 这个站点做了什么
 
@@ -88,25 +104,6 @@ docker run --rm -p 8080:80 --name spring-boot-zh-docs spring-boot-zh-docs:4.1.0
 ```
 
 容器内使用 Node.js 构建静态站点，再由 nginx 暴露 `build/site`。由于 Antora playbook 使用当前 Git 仓库的 `HEAD` 作为本地内容源，Docker 构建上下文需要保留 `.git` 元数据；最终运行镜像只包含生成后的静态文件。
-
-## 当前范围
-
-当前已翻译并纳入导航：
-
-- ROOT
-- tutorial
-- reference
-- how-to
-- build-tool-plugin
-- cli
-- api 导航 partial
-- Maven Plugin
-- Gradle Plugin
-- Actuator REST API
-- specification
-- appendix
-
-当前不包含官方构建时生成的完整 Javadoc 和 Kotlin API 页面；相关入口保持为官方英文 API 外链。
 
 ## 说明
 
