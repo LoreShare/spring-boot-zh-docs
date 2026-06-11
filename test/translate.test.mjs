@@ -77,11 +77,11 @@ test('缺少 translated_adoc 时拒绝响应', () => {
   );
 });
 
-test('MVP 页面输出到 content/boot 对应模块路径', () => {
+test('MVP 页面默认输出到 latest 版本内容目录', () => {
   assert.ok(MVP_PAGES.includes('modules/tutorial/pages/first-application/index.adoc'));
   assert.equal(
     getOutputPathForPage('modules/tutorial/pages/first-application/index.adoc'),
-    'content/boot/modules/tutorial/pages/first-application/index.adoc',
+    'versions/4.1.0/content/boot/modules/tutorial/pages/first-application/index.adoc',
   );
 });
 
