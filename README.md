@@ -69,6 +69,22 @@ npm run serve
 
 默认访问地址是 `http://localhost:8080`。
 
+## Docker 运行
+
+构建 Docker 镜像：
+
+```bash
+docker build -t spring-boot-zh-docs:4.1.0 .
+```
+
+运行容器：
+
+```bash
+docker run --rm -p 8080:80 --name spring-boot-zh-docs spring-boot-zh-docs:4.1.0
+```
+
+容器内使用 Node.js 构建静态站点，再由 nginx 暴露 `build/site`。由于 Antora playbook 使用当前 Git 仓库的 `HEAD` 作为本地内容源，Docker 构建上下文需要保留 `.git` 元数据；最终运行镜像只包含生成后的静态文件。
+
 ## 翻译范围
 
 当前已翻译并纳入导航：
