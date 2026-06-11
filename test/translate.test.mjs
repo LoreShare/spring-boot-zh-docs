@@ -353,6 +353,37 @@ test('单块翻译失败时自动减小分块并重试', async () => {
   assert.equal(calls.at(-1).chunkCount, 4);
 });
 
+test('翻译结果会统一 REST API 页面标题和 endpoint 文案', async () => {
+  const result = await translateContentWithRetries({
+    apiKey: 'fake-key',
+    relativePath: 'modules/api/pages/rest/actuator/conditions.adoc',
+    source: [
+      '= Conditions Evaluation Report (`conditions`)',
+      '',
+      '`conditions` endpoint provides information.',
+    ].join('\n'),
+    requestTranslationImpl: async () => ({
+      translated_adoc: [
+        '= 条件评估报告 (`conditions`)',
+        '',
+        '`conditions` endpoint 提供信息。',
+      ].join('\n'),
+      usage: {
+        prompt_tokens: 10,
+        completion_tokens: 5,
+        total_tokens: 15,
+      },
+      model: 'deepseek-v4-flash',
+    }),
+  });
+
+  assert.equal(result.translated, [
+    '= conditions',
+    '',
+    '`conditions` 端点提供信息。',
+  ].join('\n'));
+});
+
 test('发送翻译前保护代码块和不翻译术语并可恢复', () => {
   const source = [
     'Spring Boot 支持 native image。',

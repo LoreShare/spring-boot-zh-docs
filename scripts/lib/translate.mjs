@@ -266,6 +266,50 @@ export function shouldSendToTranslator(source) {
   return stripped.length > 0;
 }
 
+function getActuatorRestApiEndpointId({ relativePath, source }) {
+  const match = relativePath?.match(/^modules\/api\/pages\/rest\/actuator\/([^/.]+)\.adoc$/);
+  if (!match || match[1] === 'index') {
+    return undefined;
+  }
+
+  return source.match(/^=\s+.*?[（(]\s*`?([a-z][a-z0-9._-]+)`?\s*[)）]/m)?.[1] ?? match[1];
+}
+
+function replaceFirstHeading(content, replacement) {
+  return content.replace(/^= .+$/m, replacement);
+}
+
+function normalizeVisibleTerminologyLine(line) {
+  return line
+    .replace(/(`[^`\n]+`)\s+endpoints?\b/gi, '$1 端点')
+    .replace(/\b(Cloud Foundry|Actuator|actuator|WebFlux|WebSocket|HTTP|JMX|REST|API|Web|Health|Foundry)\s+endpoints?\b/g, '$1 端点')
+    .replace(/\b(`?[a-z][a-z0-9._-]+`?)\s+endpoints?\b/g, '$1 端点')
+    .replace(/\bauto-configuration\s+(类|配置|机制|系统|选项|支持|报告|结果|属性)\b/g, '自动配置$1')
+    .replace(/\bannotations?\s+(注解|列表|配置|属性)\b/gi, '注解$1')
+    .replace(/(端点|自动配置|注解)\s+([\u4e00-\u9fff])/g, '$1$2');
+}
+
+function normalizeVisibleTerminology(content) {
+  const lines = content.split('\n');
+  let inListingBlock = false;
+
+  return lines.map((line) => {
+    if (line.trim() === '----') {
+      inListingBlock = !inListingBlock;
+      return line;
+    }
+    return inListingBlock ? line : normalizeVisibleTerminologyLine(line);
+  }).join('\n');
+}
+
+export function postProcessTranslatedAdoc({ relativePath, source, translated }) {
+  const endpointId = getActuatorRestApiEndpointId({ relativePath, source });
+  const withNormalizedTitle = endpointId
+    ? replaceFirstHeading(translated, `= ${endpointId}`)
+    : translated;
+  return normalizeVisibleTerminology(withNormalizedTitle);
+}
+
 function isExcludedSourceFile(relativePath) {
   return relativePath === 'antora.yml' || relativePath === 'local-nav.adoc';
 }
@@ -635,7 +679,11 @@ export async function translateContentWithRetries({
       }
 
       return {
-        translated: translatedChunks.join('\n'),
+        translated: postProcessTranslatedAdoc({
+          relativePath,
+          source,
+          translated: translatedChunks.join('\n'),
+        }),
         usageRecords,
         chunkCount: chunks.length,
       };

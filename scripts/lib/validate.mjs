@@ -515,6 +515,10 @@ function normalizeMixedLanguageSample(sample) {
     .trim();
 }
 
+function isHeadingOrNavLine(line) {
+  return /^=+\s/.test(line) || /^\*+\s+xref:/.test(line);
+}
+
 export function findMixedLanguageVisibleSegments(content) {
   const issues = [];
   const lines = content.split(/\r?\n/);
@@ -538,8 +542,10 @@ export function findMixedLanguageVisibleSegments(content) {
     }
 
     const visibleText = getVisibleTextForMixedLanguageCheck(line);
-    for (const match of visibleText.matchAll(duplicatePattern)) {
-      issues.push(`第 ${index + 1} 行存在中英重复可见文案：${normalizeMixedLanguageSample(match[0])}`);
+    if (isHeadingOrNavLine(line)) {
+      for (const match of visibleText.matchAll(duplicatePattern)) {
+        issues.push(`第 ${index + 1} 行存在中英重复可见文案：${normalizeMixedLanguageSample(match[0])}`);
+      }
     }
 
     for (const pattern of mixedPatterns) {
