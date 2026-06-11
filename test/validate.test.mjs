@@ -11,6 +11,7 @@ import {
   hasBalancedTabsBlocks,
   findCodeBlockAttributesWithoutDelimiter,
   validatePartialIncludes,
+  validateAll,
   validateTranslatedFiles,
   validateTranslatedPage,
 } from '../scripts/lib/validate.mjs';
@@ -264,4 +265,29 @@ test('全量校验支持多源翻译计划中的 sourceRoot', () => {
   });
 
   assert.deepEqual(issues, []);
+});
+
+test('validateAll 纳入完整性审计错误', () => {
+  const issues = validateAll({
+    validateTranslatedFilesFn: () => [],
+    validateProjectSecretsFn: () => [],
+    auditTranslationCompletenessFn: () => [
+      {
+        severity: 'error',
+        code: 'listing-block-missing',
+        relativePath: 'modules/how-to/pages/example.adoc',
+        message: '译文代码块数量少于上游',
+      },
+      {
+        severity: 'warning',
+        code: 'anchor-missing',
+        relativePath: 'modules/how-to/pages/example.adoc',
+        message: '译文缺少 anchor',
+      },
+    ],
+  });
+
+  assert.deepEqual(issues, [
+    'modules/how-to/pages/example.adoc：完整性审计 listing-block-missing：译文代码块数量少于上游',
+  ]);
 });

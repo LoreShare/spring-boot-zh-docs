@@ -3,6 +3,7 @@ import test from 'node:test';
 
 import {
   COMPATIBILITY_REDIRECTS,
+  buildSite,
   buildRedirectHtml,
   createCompatibilityRedirects,
 } from '../scripts/lib/build-site.mjs';
@@ -53,4 +54,23 @@ test('写入兼容入口时使用相对跳转路径', () => {
   assert.deepEqual(directories, ['build/site/maven-plugin']);
   assert.deepEqual(created, ['build/site/maven-plugin/index.html']);
   assert.match(writes['build/site/maven-plugin/index.html'], /\.\.\/boot\/4.1.0\/maven-plugin\/index.html/);
+});
+
+test('构建后发现未展开 include-code 时失败', () => {
+  assert.throws(
+    () => buildSite({
+      spawn: () => ({ status: 0 }),
+      auditBuiltSiteHtml: () => [
+        {
+          severity: 'error',
+          code: 'raw-include-code-html',
+          relativePath: 'boot/4.1.0/example.html',
+          message: '构建产物仍包含未展开的 include-code 宏',
+        },
+      ],
+      mkdir: () => {},
+      write: () => {},
+    }),
+    /构建产物完整性校验失败/,
+  );
 });

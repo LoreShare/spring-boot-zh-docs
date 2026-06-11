@@ -2,6 +2,8 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 
+import { auditBuiltSiteHtml as defaultAuditBuiltSiteHtml } from './completeness-audit.mjs';
+
 export const COMPATIBILITY_REDIRECTS = [
   {
     aliasPath: 'maven-plugin/index.html',
@@ -80,7 +82,24 @@ export function runAntoraBuild({
   }
 }
 
+export function validateBuiltSiteHtml({
+  outputDir = 'build/site',
+  auditBuiltSiteHtml = defaultAuditBuiltSiteHtml,
+} = {}) {
+  const issues = auditBuiltSiteHtml({ outputDir });
+  const errors = issues.filter((issue) => issue.severity === 'error');
+  if (errors.length > 0) {
+    const details = errors
+      .map((issue) => `${issue.relativePath}：${issue.code}：${issue.message}`)
+      .join('\n');
+    throw new Error(`构建产物完整性校验失败：\n${details}`);
+  }
+  return issues;
+}
+
 export function buildSite(options = {}) {
   runAntoraBuild(options);
-  return createCompatibilityRedirects(options);
+  const created = createCompatibilityRedirects(options);
+  validateBuiltSiteHtml(options);
+  return created;
 }

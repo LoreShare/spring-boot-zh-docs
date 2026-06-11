@@ -10,6 +10,7 @@ import {
   buildTranslationSources,
   getOutputPathForPage,
 } from './translate.mjs';
+import { auditTranslationCompleteness } from './completeness-audit.mjs';
 
 export function collectXrefs(content) {
   return [...content.matchAll(/\bxref:([^\[\s]+)\[/g)].map((match) => match[1]);
@@ -668,9 +669,26 @@ export function validateTranslatedFiles({
   return issues;
 }
 
-export function validateAll() {
+function formatCompletenessIssue(issue) {
+  return `${issue.relativePath}：完整性审计 ${issue.code}：${issue.message}`;
+}
+
+export function validateCompletenessAudit({
+  auditTranslationCompletenessFn = auditTranslationCompleteness,
+} = {}) {
+  return auditTranslationCompletenessFn()
+    .filter((issue) => issue.severity === 'error')
+    .map(formatCompletenessIssue);
+}
+
+export function validateAll({
+  validateTranslatedFilesFn = validateTranslatedFiles,
+  validateProjectSecretsFn = validateProjectSecrets,
+  auditTranslationCompletenessFn = auditTranslationCompleteness,
+} = {}) {
   return [
-    ...validateTranslatedFiles(),
-    ...validateProjectSecrets(),
+    ...validateTranslatedFilesFn(),
+    ...validateProjectSecretsFn(),
+    ...validateCompletenessAudit({ auditTranslationCompletenessFn }),
   ];
 }
