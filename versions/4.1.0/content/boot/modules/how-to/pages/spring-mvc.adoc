@@ -143,8 +143,8 @@ Jackson 提供了一系列开/关特性，可用于配置其处理的各个方�
 任何参与 Java `ServiceLoader` 机制的模块默认都会被找到并添加到自动配置的 javadoc:tools.jackson.databind.json.JsonMapper$Builder[]。要禁用此行为，请将 configprop:spring.jackson.find-and-add-modules[] 设置为 `false`。
 
 如果你想完全替换默认的 javadoc:tools.jackson.databind.json.JsonMapper[]，要么定义一个该类型的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，要么如果你更喜欢基于构建器的方法，定义一个 javadoc:tools.jackson.databind.json.JsonMapper$Builder[] javadoc:org.springframework.context.annotation.Bean[format=annotation]。
-在定义 javadoc:tools.jackson.databind.json.JsonMapper[] bean 时，建议将其标记为 javadoc:org.springframework.context.annotation.Primary[format=annotation]，因为它将替换的 auto-configuration 的 javadoc:tools.jackson.databind.json.JsonMapper[] 是 javadoc:org.springframework.context.annotation.Primary[format=annotation]。
-注意，无论哪种情况，这样做都会禁用 javadoc:tools.jackson.databind.json.JsonMapper[] 的所有 auto-configuration。
+在定义 javadoc:tools.jackson.databind.json.JsonMapper[] bean 时，建议将其标记为 javadoc:org.springframework.context.annotation.Primary[format=annotation]，因为它将替换的自动配置的 javadoc:tools.jackson.databind.json.JsonMapper[] 是 javadoc:org.springframework.context.annotation.Primary[format=annotation]。
+注意，无论哪种情况，这样做都会禁用 javadoc:tools.jackson.databind.json.JsonMapper[] 的所有自动配置。
 
 如果你提供任何类型为 javadoc:org.springframework.http.converter.json.JacksonJsonHttpMessageConverter[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，它们会替换 MVC 配置中的默认值。
 此外，还提供了一个类型为 javadoc:org.springframework.boot.http.converter.autoconfigure.HttpMessageConverters[] 的便利 bean（如果你使用默认的 MVC 配置，它始终可用）。

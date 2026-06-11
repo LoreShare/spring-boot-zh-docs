@@ -272,7 +272,7 @@ spring:
 ----
 如果定义了 javadoc:com.github.benmanes.caffeine.cache.CacheLoader[] bean，它会自动关联到 javadoc:org.springframework.cache.caffeine.CaffeineCacheManager[]。
 由于 javadoc:com.github.benmanes.caffeine.cache.CacheLoader[] 将与缓存管理器管理的 _所有_ 缓存关联，因此必须将其定义为 `CacheLoader<Object, Object>`。
-auto-configuration 会忽略任何其他泛型类型。
+自动配置会忽略任何其他泛型类型。
 
 [[io.caching.provider.cache2k]]
 === Cache2k

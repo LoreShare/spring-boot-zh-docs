@@ -1,6 +1,6 @@
-= 计划任务 (`scheduledtasks`)
+= scheduledtasks
 
-`scheduledtasks` endpoint 提供有关应用程序计划任务的信息。
+`scheduledtasks` 端点提供有关应用程序计划任务的信息。
 
 
 

@@ -3,7 +3,7 @@
 [[integrating-with-actuator.build-info]]
 == 生成构建信息
 
-Spring Boot Actuator 的 `info` endpoint 会在存在 `META-INF/build-info.properties` 文件时自动发布有关构建的信息。
+Spring Boot Actuator 的 `info` 端点会在存在 `META-INF/build-info.properties` 文件时自动发布有关构建的信息。
 提供了一个 {apiref-gradle-plugin-boot-build-info}[`BuildInfo`] 任务来生成此文件。
 使用该任务最简单的方式是通过插件的 DSL：
 

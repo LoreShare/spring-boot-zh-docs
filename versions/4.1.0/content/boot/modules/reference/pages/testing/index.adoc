@@ -2,7 +2,7 @@
 
 Spring Boot 提供了一些实用工具和 annotations，以帮助测试您的应用程序。
 
-测试支持由两个通用模块提供——`spring-boot-test` 包含核心项，`spring-boot-test-autoconfigure` 支持测试中的 auto-configuration——以及几个专注于特定功能的 `-test` 模块，这些模块为特定特性提供测试支持。
+测试支持由两个通用模块提供——`spring-boot-test` 包含核心项，`spring-boot-test-autoconfigure` 支持测试中的自动配置——以及几个专注于特定功能的 `-test` 模块，这些模块为特定特性提供测试支持。
 
 大多数开发者使用 `spring-boot-starter-test` starter，它同时导入了通用 Spring Boot 测试模块以及 JUnit Jupiter、AssertJ、Hamcrest 和许多其他有用的库，以及适用于其特定应用程序的专注 `-test` 模块。
 

@@ -1,6 +1,6 @@
 = 追踪
 
-Spring Boot Actuator 为 {url-micrometer-tracing-docs}[Micrometer Tracing] 提供依赖管理和 auto-configuration，后者是流行追踪器库的外观。
+Spring Boot Actuator 为 {url-micrometer-tracing-docs}[Micrometer Tracing] 提供依赖管理和自动配置，后者是流行追踪器库的外观。
 
 提示：要了解 Micrometer Tracing 的更多功能，请参阅其 {url-micrometer-tracing-docs}[参考文档]。
 
@@ -9,7 +9,7 @@ Spring Boot Actuator 为 {url-micrometer-tracing-docs}[Micrometer Tracing] 提�
 [[actuator.micrometer-tracing.tracers]]
 == 支持的追踪器
 
-Spring Boot 为以下追踪器提供了 auto-configuration：
+Spring Boot 为以下追踪器提供了自动配置：
 
 * https://opentelemetry.io/[OpenTelemetry] 与 https://opentelemetry.io/docs/reference/specification/protocol/[OTLP]。
 * https://github.com/openzipkin/brave[OpenZipkin Brave] 与 https://zipkin.io/[Zipkin]。
@@ -139,14 +139,14 @@ OpenTelemetry 与 OTLP 以及 Brave 与 Zipkin 的组合很常见，并且有专
 
 NOTE: 如果您需要对 OTLP span 导出器应用高级自定义，请考虑注册 javadoc:org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpHttpSpanExporterBuilderCustomizer[] 或 javadoc:org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpGrpcSpanExporterBuilderCustomizer[] beans。
 这些将在创建 `OtlpHttpSpanExporter` 或 `OtlpGrpcSpanExporter` 之前被调用。
-自定义器优先于 auto-configuration 应用的任何设置。
+自定义器优先于自动配置应用的任何设置。
 
 
 [[actuator.micrometer-tracing.tracer-implementations.otel-zipkin]]
 === 使用 Zipkin 的 OpenTelemetry
 
 WARNING: OpenTelemetry 已 https://opentelemetry.io/docs/specs/otel/trace/sdk_exporters/zipkin/[弃用其 Zipkin 支持]。
-其 auto-configuration 将在 Spring Boot 4.2 中移除。
+其自动配置将在 Spring Boot 4.2 中移除。
 请切换到 Brave，或考虑使用 https://github.com/openzipkin-contrib/zipkin-otel[Zipkin OTel 模块] 直接接收 OTLP。
 
 使用 OpenTelemetry 进行跟踪并报告到 Zipkin 需要以下依赖：

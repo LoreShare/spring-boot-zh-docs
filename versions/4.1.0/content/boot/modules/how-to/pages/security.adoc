@@ -26,7 +26,7 @@
 [[howto.security.enable-https]]
 == 在代理服务器后面运行时启用 HTTPS
 
-确保所有主要的 endpoint 仅通过 HTTPS 可用是任何应用程序的重要任务。
+确保所有主要的端点仅通过 HTTPS 可用是任何应用程序的重要任务。
 如果使用 Tomcat 作为 Servlet 容器，那么 Spring Boot 会在检测到某些环境设置时自动添加 Tomcat 自身的 javadoc:org.apache.catalina.valves.RemoteIpValve[]，从而允许你依赖 javadoc:jakarta.servlet.http.HttpServletRequest[] 来报告请求是否安全（即使在处理实际 SSL 终止的代理服务器下游也是如此）。
 标准行为由某些请求头（`x-forwarded-for` 和 `x-forwarded-proto`）的存在与否决定，这些头名称是约定俗成的，因此应该适用于大多数前端代理。
 你可以通过向 `application.properties` 添加一些条目来启用该阀，如下例所示：

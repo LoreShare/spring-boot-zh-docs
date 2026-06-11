@@ -9,7 +9,7 @@
 |`+false+`
 
 |[[application-properties.core.info]]xref:#application-properties.core.info[`+info.*+`]
-|+++要添加到 info endpoint 的任意属性。+++
+|+++要添加到 info 端点的任意属性。+++
 |
 
 |[[application-properties.core.logging.charset.console]]xref:#application-properties.core.logging.charset.console[`+logging.charset.console+`]
@@ -229,7 +229,7 @@
 |`+true+`
 
 |[[application-properties.core.spring.aop.proxy-target-class]]xref:#application-properties.core.spring.aop.proxy-target-class[`+spring.aop.proxy-target-class+`]
-|+++是否创建基于子类（CGLIB）的代理（true），而不是标准的 Java 基于接口的代理（false）。+++
+|+++是否创建基于 CGLIB的代理（true），而不是标准的 Java 基于接口的代理（false）。+++
 |`+true+`
 
 |[[application-properties.core.spring.application.admin.enabled]]xref:#application-properties.core.spring.application.admin.enabled[`+spring.application.admin.enabled+`]

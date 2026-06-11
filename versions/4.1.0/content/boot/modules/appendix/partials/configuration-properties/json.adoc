@@ -217,7 +217,7 @@
 |`+false+`
 
 |[[application-properties.json.spring.kotlinx.serialization.json.lenient]]xref:#application-properties.json.spring.kotlinx.serialization.json.lenient[`+spring.kotlinx.serialization.json.lenient+`]
-|+++解析器是否应以宽松模式运行，移除 JSON 规范限制（RFC-4627），并对格式错误的输入更加宽容。+++
+|+++解析器是否应以宽松模式运行，移除 JSON 规范 RFC-4627 限制，并对格式错误的输入更加宽容。+++
 |`+false+`
 
 |[[application-properties.json.spring.kotlinx.serialization.json.naming-strategy]]xref:#application-properties.json.spring.kotlinx.serialization.json.naming-strategy[`+spring.kotlinx.serialization.json.naming-strategy+`]

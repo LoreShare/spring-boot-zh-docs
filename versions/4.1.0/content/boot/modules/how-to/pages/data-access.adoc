@@ -266,7 +266,7 @@ public class MyCompleteAdditionalDataSourceConfiguration {
 }
 ----
 
-前面的示例使用与 Spring Boot 在 auto-configuration 中相同的逻辑配置了额外的数据源。
+前面的示例使用与 Spring Boot 在自动配置中相同的逻辑配置了额外的数据源。
 请注意，`app.datasource.configuration.*` 属性提供了基于所选实现的高级设置。
 
 与 xref:how-to:data-access.adoc#howto.data-access.configure-custom-datasource[配置单个自定义 javadoc:javax.sql.DataSource[]] 一样，一个或两个 javadoc:javax.sql.DataSource[] beans 的类型可以使用 `type(Class)` 方法在 javadoc:org.springframework.boot.jdbc.DataSourceBuilder[] 上进行自定义。
@@ -277,13 +277,13 @@ public class MyCompleteAdditionalDataSourceConfiguration {
 == 使用 Spring 数据仓库
 
 Spring Data 可以创建各种风格的 javadoc:org.springframework.data.repository.Repository[] 接口的实现。
-只要这些 javadoc:org.springframework.data.repository.Repository[] 实现包含在 xref:reference:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration 包] 中（通常是使用 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 或 javadoc:org.springframework.boot.autoconfigure.EnableAutoConfiguration[format=annotation] 注解的主应用程序类的包或其子包），Spring Boot 就会为您处理所有这些。
+只要这些 javadoc:org.springframework.data.repository.Repository[] 实现包含在 xref:reference:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包] 中（通常是使用 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 或 javadoc:org.springframework.boot.autoconfigure.EnableAutoConfiguration[format=annotation] 注解的主应用程序类的包或其子包），Spring Boot 就会为您处理所有这些。
 
 对于许多应用程序，您只需要将正确的 Spring Data 依赖项放在您的 classpath 上。
 有一个用于 JPA 的 `spring-boot-starter-data-jpa`，一个用于 MongoDB 的 `spring-boot-starter-data-mongodb`，以及各种其他受支持技术的 starters。
 要开始使用，请创建一些仓库接口来处理您的 javadoc:jakarta.persistence.Entity[format=annotation] 对象。
 
-Spring Boot 通过扫描 xref:reference:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration 包] 来确定您的 javadoc:org.springframework.data.repository.Repository[] 实现的位置。
+Spring Boot 通过扫描 xref:reference:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包] 来确定您的 javadoc:org.springframework.data.repository.Repository[] 实现的位置。
 要获得更多控制，请使用来自 Spring Data 的 `@Enable…Repositories` annotations。
 
 有关 Spring Data 的更多信息，请参阅 {url-spring-data-site}[Spring Data 项目页面]。
@@ -292,7 +292,7 @@ Spring Boot 通过扫描 xref:reference:using/auto-configuration.adoc#using.auto
 [[howto.data-access.separate-entity-definitions-from-spring-configuration]]
 == 将 @Entity 定义与 Spring 配置分离
 
-Spring Boot 通过扫描 xref:reference:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration 包] 来确定您的 javadoc:jakarta.persistence.Entity[format=annotation] 定义的位置。
+Spring Boot 通过扫描 xref:reference:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包] 来确定您的 javadoc:jakarta.persistence.Entity[format=annotation] 定义的位置。
 要获得更多控制，请使用 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] annotation，如下例所示：
 
 [source,java]
@@ -373,7 +373,7 @@ Spring Boot 不会对这些条目进行任何形式的宽松绑定。
 ====
 
 提示：如果你需要对 Hibernate 属性进行高级自定义，考虑注册一个 javadoc:org.springframework.boot.hibernate.autoconfigure.HibernatePropertiesCustomizer[] bean，它将在创建 javadoc:jakarta.persistence.EntityManagerFactory[] 之前被调用。
-这优先于 auto-configuration 应用的任何设置。
+这优先于自动配置应用的任何设置。
 
 
 [[howto.data-access.configure-hibernate-naming-strategy]]
@@ -498,7 +498,7 @@ public class MyHibernateSecondLevelCacheConfiguration {
 == 使用自定义 EntityManagerFactory
 
 要完全控制 javadoc:jakarta.persistence.EntityManagerFactory[] 的配置，你需要添加一个名为 '`entityManagerFactory`' 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
-Spring Boot auto-configuration 会在存在该类型的 bean 时关闭其实体管理器。
+Spring Boot 自动配置会在存在该类型的 bean 时关闭其实体管理器。
 
 注意：当你自己为 javadoc:org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean[] 创建 bean 时，在创建自动配置的 javadoc:org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean[] 期间应用的任何定制都会丢失。
 请确保使用自动配置的 javadoc:org.springframework.boot.jpa.EntityManagerFactoryBuilder[] 来保留 JPA 和供应商属性。
@@ -647,7 +647,7 @@ Spring Boot 在 `spring.data.web` 命名空间中提供了用于自定义其配�
 [[howto.data-access.exposing-spring-data-repositories-as-rest]]
 == 将 Spring Data 仓库暴露为 REST 端点
 
-Spring Data REST 可以将 javadoc:org.springframework.data.repository.Repository[] 实现作为 REST endpoints 暴露给你，
+Spring Data REST 可以将 javadoc:org.springframework.data.repository.Repository[] 实现作为 REST 端点暴露给你，
 前提是 Spring MVC 已为应用程序启用。
 
 Spring Boot 暴露了一组有用的属性（来自 `spring.data.rest` 命名空间），用于自定义 javadoc:org.springframework.data.rest.core.config.RepositoryRestConfiguration[]。
@@ -698,4 +698,4 @@ public class ElasticsearchEntityManagerFactoryDependsOnPostProcessor
 如果你需要使用多个数据源使用 jOOQ，则应为每个数据源创建自己的 javadoc:org.jooq.DSLContext[]。
 更多细节，请参阅 {code-spring-boot-jooq-src}/autoconfigure/JooqAutoConfiguration.java[`JooqAutoConfiguration`]。
 
-提示：特别是，javadoc:org.springframework.boot.jooq.autoconfigure.ExceptionTranslatorExecuteListener[] 和 javadoc:org.springframework.boot.jooq.autoconfigure.SpringTransactionProvider[] 可以重用，以提供与 auto-configuration 使用单个 javadoc:javax.sql.DataSource[] 类似的功能。
+提示：特别是，javadoc:org.springframework.boot.jooq.autoconfigure.ExceptionTranslatorExecuteListener[] 和 javadoc:org.springframework.boot.jooq.autoconfigure.SpringTransactionProvider[] 可以重用，以提供与自动配置使用单个 javadoc:javax.sql.DataSource[] 类似的功能。

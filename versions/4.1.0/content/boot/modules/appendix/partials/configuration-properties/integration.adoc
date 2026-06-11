@@ -221,7 +221,7 @@
 |`+30s+`
 
 |[[application-properties.integration.spring.integration.endpoint.no-auto-startup]]xref:#application-properties.integration.spring.integration.endpoint.no-auto-startup[`+spring.integration.endpoint.no-auto-startup+`]
-|+++不应在应用程序启动时自动启动的 endpoint bean 名称模式列表。+++
+|+++不应在应用程序启动时自动启动的端点 bean 名称模式列表。+++
 |
 
 |[[application-properties.integration.spring.integration.endpoint.read-only-headers]]xref:#application-properties.integration.spring.integration.endpoint.read-only-headers[`+spring.integration.endpoint.read-only-headers+`]
@@ -325,7 +325,7 @@
 |
 
 |[[application-properties.integration.spring.jms.jndi-name]]xref:#application-properties.integration.spring.jms.jndi-name[`+spring.jms.jndi-name+`]
-|+++连接工厂 JNDI 名称。设置后，优先于其他连接工厂 auto-configurations。+++
+|+++连接工厂 JNDI 名称。设置后，优先于其他连接工厂自动配置。+++
 |
 
 |[[application-properties.integration.spring.jms.listener.auto-startup]]xref:#application-properties.integration.spring.jms.listener.auto-startup[`+spring.jms.listener.auto-startup+`]
@@ -1005,7 +1005,7 @@
 |`+5m+`
 
 |[[application-properties.integration.spring.pulsar.admin.service-url]]xref:#application-properties.integration.spring.pulsar.admin.service-url[`+spring.pulsar.admin.service-url+`]
-|+++Pulsar 管理 endpoint 的 Web URL，格式为 '(http\|https)://host:port'。+++
+|+++Pulsar 管理端点的 Web URL，格式为 '(http\|https)://host:port'。+++
 |`+http://localhost:8080+`
 
 |[[application-properties.integration.spring.pulsar.client.authentication.param]]xref:#application-properties.integration.spring.pulsar.client.authentication.param[`+spring.pulsar.client.authentication.param.*+`]
@@ -1425,7 +1425,7 @@
 |`+true+`
 
 |[[application-properties.integration.spring.rabbitmq.listener.stream.native-listener]]xref:#application-properties.integration.spring.rabbitmq.listener.stream.native-listener[`+spring.rabbitmq.listener.stream.native-listener+`]
-|+++容器是否支持消费原生流消息而非Spring AMQP消息的监听器。+++
+|+++容器是否支持消费原生流消息而非Spring AMQP 消息的监听器。+++
 |`+false+`
 
 |[[application-properties.integration.spring.rabbitmq.listener.stream.observation-enabled]]xref:#application-properties.integration.spring.rabbitmq.listener.stream.observation-enabled[`+spring.rabbitmq.listener.stream.observation-enabled+`]

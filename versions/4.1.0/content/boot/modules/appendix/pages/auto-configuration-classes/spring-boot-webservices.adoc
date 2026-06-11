@@ -1,7 +1,7 @@
 [[appendix.auto-configuration-classes.spring-boot-webservices]]
 = spring-boot-webservices
 
-以下 auto-configuration 类来自 `spring-boot-webservices` 模块：
+以下自动配置类来自 `spring-boot-webservices` 模块：
 
 [cols="4,1"]
 |===

@@ -1,6 +1,6 @@
-= Flyway (`flyway`)
+= flyway
 
-`flyway` endpoint 提供由 Flyway 执行的数据库迁移信息。
+`flyway` 端点提供由 Flyway 执行的数据库迁移信息。
 
 [[flyway.retrieving]]
 == 检索迁移

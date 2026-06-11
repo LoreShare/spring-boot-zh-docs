@@ -18,7 +18,7 @@ NOTE: 如果微调日志配置，请确保 `org.springframework.boot.security.au
 在 Web 应用程序中默认获得的基本功能包括：
 
 * 一个 javadoc:org.springframework.security.core.userdetails.UserDetailsService[]（或 WebFlux 应用程序中的 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[]）bean，具有内存存储和一个带有生成密码的单一用户（参见 javadoc:org.springframework.boot.security.autoconfigure.SecurityProperties$User[] 了解用户的属性）。
-* 基于表单的登录或 HTTP Basic 安全（取决于请求中的 `Accept` 标头）适用于整个应用程序（如果 actuator 在 classpath 上，则包括 actuator endpoints）。
+* 基于表单的登录或 HTTP Basic 安全（取决于请求中的 `Accept` 标头）适用于整个应用程序（如果 actuator 在 classpath 上，则包括 actuator 端点）。
 * 一个用于发布身份验证事件的 javadoc:org.springframework.security.authentication.DefaultAuthenticationEventPublisher[]。
 
 您可以通过添加一个 bean 来提供不同的 javadoc:org.springframework.security.authentication.AuthenticationEventPublisher[]。
@@ -34,7 +34,7 @@ javadoc:org.springframework.boot.security.autoconfigure.SecurityAutoConfiguratio
 要完全关闭默认的 Web 应用程序安全配置（包括 Actuator 安全），或组合多个 Spring Security 组件（如 OAuth2 Client 和 Resource Server），请添加一个类型为 javadoc:org.springframework.security.web.SecurityFilterChain[] 的 bean（这样做不会禁用 javadoc:org.springframework.security.core.userdetails.UserDetailsService[] 配置）。
 要同时关闭 javadoc:org.springframework.security.core.userdetails.UserDetailsService[] 配置，请添加一个类型为 javadoc:org.springframework.security.core.userdetails.UserDetailsService[]、javadoc:org.springframework.security.authentication.AuthenticationProvider[] 或 javadoc:org.springframework.security.authentication.AuthenticationManager[] 的 bean。
 
-当以下任何 Spring Security 模块位于 classpath 上时，javadoc:org.springframework.security.core.userdetails.UserDetailsService[] 的 auto-configuration 也会退出：
+当以下任何 Spring Security 模块位于 classpath 上时，javadoc:org.springframework.security.core.userdetails.UserDetailsService[] 的自动配置也会退出：
 
 - `spring-security-oauth2-client`
 - `spring-security-oauth2-resource-server`
@@ -43,7 +43,7 @@ javadoc:org.springframework.boot.security.autoconfigure.SecurityAutoConfiguratio
 要除了这些依赖项中的一个或多个之外还使用 javadoc:org.springframework.security.core.userdetails.UserDetailsService[]，请定义您自己的 javadoc:org.springframework.security.provisioning.InMemoryUserDetailsManager[] bean。
 
 可以通过添加自定义的 javadoc:org.springframework.security.web.SecurityFilterChain[] bean 来覆盖访问规则。
-Spring Boot 提供了可用于覆盖 actuator endpoints 和静态资源访问规则的便捷方法。
+Spring Boot 提供了可用于覆盖 actuator 端点和静态资源访问规则的便捷方法。
 javadoc:org.springframework.boot.security.autoconfigure.actuate.web.servlet.EndpointRequest[] 可用于创建基于 configprop:management.endpoints.web.base-path[] 属性的 javadoc:org.springframework.security.web.util.matcher.RequestMatcher[]。
 javadoc:org.springframework.boot.security.autoconfigure.web.servlet.PathRequest[] 可用于为常用位置中的资源创建 javadoc:org.springframework.security.web.util.matcher.RequestMatcher[]。
 
@@ -61,7 +61,7 @@ javadoc:org.springframework.boot.security.autoconfigure.ReactiveUserDetailsServi
 要完全关闭默认的 Web 应用程序安全配置（包括 Actuator 安全），请添加一个类型为 javadoc:org.springframework.security.web.server.WebFilterChainProxy[] 的 bean（这样做不会禁用 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[] 配置）。
 要同时关闭 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[] 配置，请添加一个类型为 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[] 或 javadoc:org.springframework.security.authentication.ReactiveAuthenticationManager[] 的 bean。
 
-当以下任何 Spring Security 模块位于 classpath 上时，auto-configuration 也会退出：
+当以下任何 Spring Security 模块位于 classpath 上时，自动配置也会退出：
 
 - `spring-security-oauth2-client`
 - `spring-security-oauth2-resource-server`
@@ -69,7 +69,7 @@ javadoc:org.springframework.boot.security.autoconfigure.ReactiveUserDetailsServi
 要除了这些依赖项中的一个或多个之外还使用 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[]，请定义您自己的 javadoc:org.springframework.security.core.userdetails.MapReactiveUserDetailsService[] bean。
 
 可以通过添加自定义的 javadoc:org.springframework.security.web.server.SecurityWebFilterChain[] bean 来配置访问规则以及多个 Spring Security 组件（如 OAuth 2 Client 和 Resource Server）的使用。
-Spring Boot 提供了可用于覆盖 actuator endpoints 和静态资源访问规则的便捷方法。
+Spring Boot 提供了可用于覆盖 actuator 端点和静态资源访问规则的便捷方法。
 javadoc:org.springframework.boot.security.autoconfigure.actuate.web.reactive.EndpointRequest[] 可用于创建基于 configprop:management.endpoints.web.base-path[] 属性的 javadoc:org.springframework.security.web.server.util.matcher.ServerWebExchangeMatcher[]。
 
 javadoc:org.springframework.boot.security.autoconfigure.web.reactive.PathRequest[] 可用于为常用位置中的资源创建 javadoc:org.springframework.security.web.server.util.matcher.ServerWebExchangeMatcher[]。

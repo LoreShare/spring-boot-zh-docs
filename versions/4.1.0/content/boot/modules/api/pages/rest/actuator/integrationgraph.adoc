@@ -1,6 +1,6 @@
-= Spring 集成图（`integrationgraph`）
+= integrationgraph
 
-`integrationgraph` endpoint 暴露了一个包含所有 Spring 集成组件的图。
+`integrationgraph` 端点暴露了一个包含所有 Spring 集成组件的图。
 
 
 

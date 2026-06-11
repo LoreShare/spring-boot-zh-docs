@@ -2,7 +2,7 @@
 | 名称 | 描述
 
 | [[spring-boot-starter]]`spring-boot-starter`
-| 核心 starter，包括 auto-configuration 支持、日志和 YAML
+| 核心 starter，包括自动配置支持、日志和 YAML
 
 | [[spring-boot-starter-activemq]]`spring-boot-starter-activemq`
 | 用于使用 Apache ActiveMQ 和 JMS 的 starter
@@ -26,10 +26,10 @@
 | 用于测试 Apache Artemis 和 JMS 的 starter
 
 | [[spring-boot-starter-aspectj]]`spring-boot-starter-aspectj`
-| 用于使用 AspectJ 进行面向切面编程的 starter
+| 用于使用 AspectJ 进行 AOP 的 starter
 
 | [[spring-boot-starter-aspectj-test]]`spring-boot-starter-aspectj-test`
-| 用于测试 AspectJ 面向切面编程的 starter
+| 用于测试 AspectJ AOP 的 starter
 
 | [[spring-boot-starter-batch]]`spring-boot-starter-batch`
 | 用于使用 Spring Batch 的 starter
@@ -62,7 +62,7 @@
 | 用于测试 Cassandra 分布式数据库的 starter
 
 | [[spring-boot-starter-classic]]`spring-boot-starter-classic`
-| 核心经典 starter，包括完整的 auto-configuration 支持、日志和 YAML
+| 核心经典 starter，包括完整的自动配置支持、日志和 YAML
 
 | [[spring-boot-starter-cloudfoundry]]`spring-boot-starter-cloudfoundry`
 | 用于使用 Cloud Foundry 的 starter

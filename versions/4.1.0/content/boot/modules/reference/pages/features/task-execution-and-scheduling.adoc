@@ -84,7 +84,7 @@ public class MyTaskExecutorConfiguration {
 
 [TIP]
 ====
-自动配置的 javadoc:org.springframework.boot.task.ThreadPoolTaskExecutorBuilder[] 或 javadoc:org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder[] 允许您轻松创建类型为 javadoc:org.springframework.core.task.AsyncTaskExecutor[] 的实例，这些实例复制了 auto-configuration 的默认行为。
+自动配置的 javadoc:org.springframework.boot.task.ThreadPoolTaskExecutorBuilder[] 或 javadoc:org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder[] 允许您轻松创建类型为 javadoc:org.springframework.core.task.AsyncTaskExecutor[] 的实例，这些实例复制了自动配置的默认行为。
 
 [source,java]
 ----

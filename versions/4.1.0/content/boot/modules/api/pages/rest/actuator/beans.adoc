@@ -1,7 +1,7 @@
 [[beans]]
-= Beans (`beans`)
+= beans
 
-`beans` endpoint 提供应用程序 beans 的信息。
+`beans` 端点提供应用程序 beans 的信息。
 
 
 

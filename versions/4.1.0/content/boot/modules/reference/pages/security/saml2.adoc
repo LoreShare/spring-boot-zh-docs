@@ -38,10 +38,10 @@ repositories {
 [[security.saml2.relying-party]]
 == 依赖方
 
-如果你的 classpath 上启用了 `spring-security-saml2-service-provider`，你可以利用一些 auto-configuration 来设置 SAML 2.0 依赖方。
+如果你的 classpath 上启用了 `spring-security-saml2-service-provider`，你可以利用一些自动配置来设置 SAML 2.0 依赖方。
 此配置使用了 javadoc:org.springframework.boot.security.saml2.autoconfigure.Saml2RelyingPartyProperties[] 下的属性。
 
-一个依赖方注册表示身份提供者（IDP）和服务提供者（SP）之间的配对配置。
+一个依赖方注册表示 IDP 和 SP 之间的配对配置。
 你可以在 `spring.security.saml2.relyingparty` 前缀下注册多个依赖方，如下例所示：
 
 [configprops,yaml]

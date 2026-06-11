@@ -298,7 +298,7 @@ server:
 Spring Boot 在运行时将来自 `application.properties`（或 YAML 文件及其他位置）的外部属性绑定到应用程序中。
 不存在（并且在技术上不可能存在）单个位置中所有受支持属性的详尽列表，因为贡献可能来自 classpath 上的其他 jar 文件。
 
-一个运行中的、具有 Actuator 特性的应用程序有一个 `configprops` endpoint，它显示通过 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 可用的所有已绑定和可绑定的属性。
+一个运行中的、具有 Actuator 特性的应用程序有一个 `configprops` 端点，它显示通过 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 可用的所有已绑定和可绑定的属性。
 
 附录包含一个 xref:appendix:application-properties/index.adoc[`application.properties`] 示例，其中列出了 Spring Boot 支持的最常见属性。
 最终列表来自搜索源代码中的 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 和 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotations，以及偶尔使用的 javadoc:org.springframework.boot.context.properties.bind.Binder[]。

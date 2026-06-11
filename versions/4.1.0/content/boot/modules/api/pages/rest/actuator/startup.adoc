@@ -1,7 +1,7 @@
 [[startup]]
-= 应用启动 (`startup`)
+= startup
 
-`startup` endpoint 提供有关应用启动序列的信息。
+`startup` 端点提供有关应用启动序列的信息。
 
 
 

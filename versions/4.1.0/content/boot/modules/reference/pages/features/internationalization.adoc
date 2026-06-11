@@ -2,7 +2,7 @@
 
 Spring Boot 支持本地化消息，以便您的应用程序能够满足不同语言偏好的用户需求。默认情况下，Spring Boot 会在 classpath 的根目录下查找 `messages` 资源包。
 
-注意：当配置的资源包的默认属性文件可用时（默认为 `messages.properties`），auto-configuration 才会生效。如果您的资源包仅包含特定语言的属性文件，则需要添加默认文件。如果找不到与任何配置的基本名称匹配的属性文件，则不会有自动配置的 javadoc:org.springframework.context.MessageSource[]。
+注意：当配置的资源包的默认属性文件可用时（默认为 `messages.properties`），自动配置才会生效。如果您的资源包仅包含特定语言的属性文件，则需要添加默认文件。如果找不到与任何配置的基本名称匹配的属性文件，则不会有自动配置的 javadoc:org.springframework.context.MessageSource[]。
 
 可以使用 `spring.messages` 命名空间配置资源包的基本名称以及其他几个属性，如下例所示：
 

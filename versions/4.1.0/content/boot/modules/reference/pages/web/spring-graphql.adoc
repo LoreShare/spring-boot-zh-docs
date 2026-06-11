@@ -96,14 +96,14 @@ Spring Data 仓库，如果使用 javadoc:org.springframework.graphql.data.Graph
 [[web.graphql.transports.http-websocket]]
 === HTTP 和 WebSocket
 
-GraphQL HTTP endpoint 默认位于 HTTP POST `/graphql`。
+GraphQL HTTP 端点默认位于 HTTP POST `/graphql`。
 它还支持通过 Server Sent Events 的 `"text/event-stream"` 媒体类型，仅用于订阅。
 路径可以通过 configprop:spring.graphql.http.path[] 自定义。
 
-提示：Spring MVC 和 Spring WebFlux 的 HTTP endpoint 由 `RouterFunction` bean 提供，其 javadoc:org.springframework.core.annotation.Order[format=annotation] 为 `0`。
+提示：Spring MVC 和 Spring WebFlux 的 HTTP 端点由 `RouterFunction` bean 提供，其 javadoc:org.springframework.core.annotation.Order[format=annotation] 为 `0`。
 如果您定义了自己的 `RouterFunction` beans，可能需要添加适当的 javadoc:org.springframework.core.annotation.Order[format=annotation] annotations 以确保它们正确排序。
 
-GraphQL WebSocket endpoint 默认关闭。要启用它：
+GraphQL WebSocket 端点默认关闭。要启用它：
 
 * 对于 Servlet 应用程序，添加 WebSocket starter `spring-boot-starter-websocket`
 * 对于 WebFlux 应用程序，无需额外依赖

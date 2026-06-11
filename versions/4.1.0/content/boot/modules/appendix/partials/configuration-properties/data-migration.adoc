@@ -353,7 +353,7 @@
 |`+false+`
 
 |[[application-properties.data-migration.spring.sql.init.data-locations]]xref:#application-properties.data-migration.spring.sql.init.data-locations[`+spring.sql.init.data-locations+`]
-|+++要应用于数据库的数据（DML）脚本的位置。+++
+|+++要应用于数据库的 DML 脚本的位置。+++
 |
 
 |[[application-properties.data-migration.spring.sql.init.encoding]]xref:#application-properties.data-migration.spring.sql.init.encoding[`+spring.sql.init.encoding+`]

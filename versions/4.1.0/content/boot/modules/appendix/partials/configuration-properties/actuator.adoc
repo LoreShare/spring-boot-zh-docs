@@ -53,7 +53,7 @@
 |`+150s+`
 
 |[[application-properties.actuator.management.atlas.metrics.export.config-uri]]xref:#application-properties.actuator.management.atlas.metrics.export.config-uri[`+management.atlas.metrics.export.config-uri+`]
-|+++用于检索当前订阅的 Atlas LWC endpoint 的 URI。+++
+|+++用于检索当前订阅的 Atlas LWC 端点的 URI。+++
 |`+http://localhost:7101/lwc/api/v1/expressions/local-dev+`
 
 |[[application-properties.actuator.management.atlas.metrics.export.connect-timeout]]xref:#application-properties.actuator.management.atlas.metrics.export.connect-timeout[`+management.atlas.metrics.export.connect-timeout+`]
@@ -65,7 +65,7 @@
 |`+true+`
 
 |[[application-properties.actuator.management.atlas.metrics.export.eval-uri]]xref:#application-properties.actuator.management.atlas.metrics.export.eval-uri[`+management.atlas.metrics.export.eval-uri+`]
-|+++用于评估订阅数据的 Atlas LWC endpoint 的 URI。+++
+|+++用于评估订阅数据的 Atlas LWC 端点的 URI。+++
 |`+http://localhost:7101/lwc/api/v1/evaluate+`
 
 |[[application-properties.actuator.management.atlas.metrics.export.lwc-enabled]]xref:#application-properties.actuator.management.atlas.metrics.export.lwc-enabled[`+management.atlas.metrics.export.lwc-enabled+`]
@@ -109,11 +109,11 @@
 |`+false+`
 
 |[[application-properties.actuator.management.cloudfoundry.enabled]]xref:#application-properties.actuator.management.cloudfoundry.enabled[`+management.cloudfoundry.enabled+`]
-|+++是否启用扩展的 Cloud Foundry actuator endpoints。+++
+|+++是否启用扩展的 Cloud Foundry actuator 端点。+++
 |`+true+`
 
 |[[application-properties.actuator.management.cloudfoundry.skip-ssl-validation]]xref:#application-properties.actuator.management.cloudfoundry.skip-ssl-validation[`+management.cloudfoundry.skip-ssl-validation+`]
-|+++是否跳过 Cloud Foundry actuator endpoint 安全调用的 SSL 验证。+++
+|+++是否跳过 Cloud Foundry actuator 端点安全调用的 SSL 验证。+++
 |`+false+`
 
 |[[application-properties.actuator.management.datadog.metrics.export.api-key]]xref:#application-properties.actuator.management.datadog.metrics.export.api-key[`+management.datadog.metrics.export.api-key+`]
@@ -273,7 +273,7 @@
 |
 
 |[[application-properties.actuator.management.endpoint.auditevents.access]]xref:#application-properties.actuator.management.endpoint.auditevents.access[`+management.endpoint.auditevents.access+`]
-|+++auditevents endpoint的允许访问级别。+++
+|+++auditevents 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.auditevents.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.auditevents.cache.time-to-live[`+management.endpoint.auditevents.cache.time-to-live+`]
@@ -281,7 +281,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.beans.access]]xref:#application-properties.actuator.management.endpoint.beans.access[`+management.endpoint.beans.access+`]
-|+++beans endpoint的允许访问级别。+++
+|+++beans 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.beans.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.beans.cache.time-to-live[`+management.endpoint.beans.cache.time-to-live+`]
@@ -289,7 +289,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.caches.access]]xref:#application-properties.actuator.management.endpoint.caches.access[`+management.endpoint.caches.access+`]
-|+++caches endpoint的允许访问级别。+++
+|+++caches 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.caches.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.caches.cache.time-to-live[`+management.endpoint.caches.cache.time-to-live+`]
@@ -297,7 +297,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.conditions.access]]xref:#application-properties.actuator.management.endpoint.conditions.access[`+management.endpoint.conditions.access+`]
-|+++conditions endpoint的允许访问级别。+++
+|+++conditions 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.conditions.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.conditions.cache.time-to-live[`+management.endpoint.conditions.cache.time-to-live+`]
@@ -305,7 +305,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.configprops.access]]xref:#application-properties.actuator.management.endpoint.configprops.access[`+management.endpoint.configprops.access+`]
-|+++configprops endpoint的允许访问级别。+++
+|+++configprops 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.configprops.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.configprops.cache.time-to-live[`+management.endpoint.configprops.cache.time-to-live+`]
@@ -321,7 +321,7 @@
 |`+never+`
 
 |[[application-properties.actuator.management.endpoint.env.access]]xref:#application-properties.actuator.management.endpoint.env.access[`+management.endpoint.env.access+`]
-|+++env endpoint 的允许访问级别。+++
+|+++env 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.env.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.env.cache.time-to-live[`+management.endpoint.env.cache.time-to-live+`]
@@ -337,7 +337,7 @@
 |`+never+`
 
 |[[application-properties.actuator.management.endpoint.flyway.access]]xref:#application-properties.actuator.management.endpoint.flyway.access[`+management.endpoint.flyway.access+`]
-|+++flyway endpoint 的允许访问级别。+++
+|+++flyway 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.flyway.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.flyway.cache.time-to-live[`+management.endpoint.flyway.cache.time-to-live+`]
@@ -345,7 +345,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.health.access]]xref:#application-properties.actuator.management.endpoint.health.access[`+management.endpoint.health.access+`]
-|+++health endpoint 的允许访问级别。+++
+|+++health 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.health.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.health.cache.time-to-live[`+management.endpoint.health.cache.time-to-live+`]
@@ -353,7 +353,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.health.group]]xref:#application-properties.actuator.management.endpoint.health.group[`+management.endpoint.health.group.*+`]
-|+++Health endpoint 组。+++
+|+++Health 端点组。+++
 |
 
 |[[application-properties.actuator.management.endpoint.health.logging.slow-indicator-threshold]]xref:#application-properties.actuator.management.endpoint.health.logging.slow-indicator-threshold[`+management.endpoint.health.logging.slow-indicator-threshold+`]
@@ -393,7 +393,7 @@
 |`+true+`
 
 |[[application-properties.actuator.management.endpoint.heapdump.access]]xref:#application-properties.actuator.management.endpoint.heapdump.access[`+management.endpoint.heapdump.access+`]
-|+++heapdump endpoint 的允许访问级别。+++
+|+++heapdump 端点的允许访问级别。+++
 |`+none+`
 
 |[[application-properties.actuator.management.endpoint.heapdump.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.heapdump.cache.time-to-live[`+management.endpoint.heapdump.cache.time-to-live+`]
@@ -401,7 +401,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.httpexchanges.access]]xref:#application-properties.actuator.management.endpoint.httpexchanges.access[`+management.endpoint.httpexchanges.access+`]
-|+++httpexchanges endpoint 的允许访问级别。+++
+|+++httpexchanges 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.httpexchanges.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.httpexchanges.cache.time-to-live[`+management.endpoint.httpexchanges.cache.time-to-live+`]
@@ -409,7 +409,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.info.access]]xref:#application-properties.actuator.management.endpoint.info.access[`+management.endpoint.info.access+`]
-|+++info endpoint 的允许访问级别。+++
+|+++info 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.info.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.info.cache.time-to-live[`+management.endpoint.info.cache.time-to-live+`]
@@ -417,7 +417,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.integrationgraph.access]]xref:#application-properties.actuator.management.endpoint.integrationgraph.access[`+management.endpoint.integrationgraph.access+`]
-|+++integrationgraph endpoint 的允许访问级别。+++
+|+++integrationgraph 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.integrationgraph.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.integrationgraph.cache.time-to-live[`+management.endpoint.integrationgraph.cache.time-to-live+`]
@@ -425,7 +425,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.liquibase.access]]xref:#application-properties.actuator.management.endpoint.liquibase.access[`+management.endpoint.liquibase.access+`]
-|+++liquibase endpoint 的允许访问级别。+++
+|+++liquibase 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.liquibase.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.liquibase.cache.time-to-live[`+management.endpoint.liquibase.cache.time-to-live+`]
@@ -433,7 +433,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.logfile.access]]xref:#application-properties.actuator.management.endpoint.logfile.access[`+management.endpoint.logfile.access+`]
-|+++logfile endpoint 的允许访问级别。+++
+|+++logfile 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.logfile.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.logfile.cache.time-to-live[`+management.endpoint.logfile.cache.time-to-live+`]
@@ -445,7 +445,7 @@
 |
 
 |[[application-properties.actuator.management.endpoint.loggers.access]]xref:#application-properties.actuator.management.endpoint.loggers.access[`+management.endpoint.loggers.access+`]
-|+++loggers endpoint 的允许访问级别。+++
+|+++loggers 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.loggers.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.loggers.cache.time-to-live[`+management.endpoint.loggers.cache.time-to-live+`]
@@ -453,7 +453,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.mappings.access]]xref:#application-properties.actuator.management.endpoint.mappings.access[`+management.endpoint.mappings.access+`]
-|+++mappings endpoint 的允许访问级别。+++
+|+++mappings 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.mappings.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.mappings.cache.time-to-live[`+management.endpoint.mappings.cache.time-to-live+`]
@@ -461,7 +461,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.metrics.access]]xref:#application-properties.actuator.management.endpoint.metrics.access[`+management.endpoint.metrics.access+`]
-|+++metrics endpoint 的允许访问级别。+++
+|+++metrics 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.metrics.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.metrics.cache.time-to-live[`+management.endpoint.metrics.cache.time-to-live+`]
@@ -469,11 +469,11 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.prometheus.access]]xref:#application-properties.actuator.management.endpoint.prometheus.access[`+management.endpoint.prometheus.access+`]
-|+++prometheus endpoint 的允许访问级别。+++
+|+++prometheus 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.quartz.access]]xref:#application-properties.actuator.management.endpoint.quartz.access[`+management.endpoint.quartz.access+`]
-|+++quartz endpoint 的允许访问级别。+++
+|+++quartz 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.quartz.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.quartz.cache.time-to-live[`+management.endpoint.quartz.cache.time-to-live+`]
@@ -489,7 +489,7 @@
 |`+never+`
 
 |[[application-properties.actuator.management.endpoint.sbom.access]]xref:#application-properties.actuator.management.endpoint.sbom.access[`+management.endpoint.sbom.access+`]
-|+++sbom endpoint 的允许访问级别。+++
+|+++sbom 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.sbom.additional]]xref:#application-properties.actuator.management.endpoint.sbom.additional[`+management.endpoint.sbom.additional.*+`]
@@ -509,7 +509,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.scheduledtasks.access]]xref:#application-properties.actuator.management.endpoint.scheduledtasks.access[`+management.endpoint.scheduledtasks.access+`]
-|+++scheduledtasks endpoint 的允许访问级别。+++
+|+++scheduledtasks 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.scheduledtasks.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.scheduledtasks.cache.time-to-live[`+management.endpoint.scheduledtasks.cache.time-to-live+`]
@@ -517,15 +517,15 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.sessions.access]]xref:#application-properties.actuator.management.endpoint.sessions.access[`+management.endpoint.sessions.access+`]
-|+++sessions endpoint 的允许访问级别。+++
+|+++sessions 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.shutdown.access]]xref:#application-properties.actuator.management.endpoint.shutdown.access[`+management.endpoint.shutdown.access+`]
-|+++shutdown endpoint 的允许访问级别。+++
+|+++shutdown 端点的允许访问级别。+++
 |`+none+`
 
 |[[application-properties.actuator.management.endpoint.startup.access]]xref:#application-properties.actuator.management.endpoint.startup.access[`+management.endpoint.startup.access+`]
-|+++startup endpoint 的允许访问级别。+++
+|+++startup 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.startup.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.startup.cache.time-to-live[`+management.endpoint.startup.cache.time-to-live+`]
@@ -533,7 +533,7 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoint.threaddump.access]]xref:#application-properties.actuator.management.endpoint.threaddump.access[`+management.endpoint.threaddump.access+`]
-|+++threaddump endpoint 的允许访问级别。+++
+|+++threaddump 端点的允许访问级别。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoint.threaddump.cache.time-to-live]]xref:#application-properties.actuator.management.endpoint.threaddump.cache.time-to-live[`+management.endpoint.threaddump.cache.time-to-live+`]
@@ -541,15 +541,15 @@
 |`+0ms+`
 
 |[[application-properties.actuator.management.endpoints.access.default]]xref:#application-properties.actuator.management.endpoints.access.default[`+management.endpoints.access.default+`]
-|+++所有 endpoints 的默认访问级别。+++
+|+++所有端点的默认访问级别。+++
 |
 
 |[[application-properties.actuator.management.endpoints.access.max-permitted]]xref:#application-properties.actuator.management.endpoints.access.max-permitted[`+management.endpoints.access.max-permitted+`]
-|+++允许的最大 endpoint 访问级别。限制 endpoint 的单独访问级别 (management.endpoint.&lt;id&gt;.access) 和默认访问级别 (management.endpoints.access.default)。+++
+|+++允许的最大端点访问级别。限制端点的单独访问级别 (management.endpoint.&lt;id&gt;.access) 和默认访问级别 (management.endpoints.access.default)。+++
 |`+unrestricted+`
 
 |[[application-properties.actuator.management.endpoints.jackson.isolated-json-mapper]]xref:#application-properties.actuator.management.endpoints.jackson.isolated-json-mapper[`+management.endpoints.jackson.isolated-json-mapper+`]
-|+++是否使用隔离的 JsonMapper 来序列化 endpoint JSON。+++
+|+++是否使用隔离的 JsonMapper 来序列化端点 JSON。+++
 |`+true+`
 
 |[[application-properties.actuator.management.endpoints.jmx.domain]]xref:#application-properties.actuator.management.endpoints.jmx.domain[`+management.endpoints.jmx.domain+`]
@@ -569,11 +569,11 @@
 |
 
 |[[application-properties.actuator.management.endpoints.migrate-legacy-ids]]xref:#application-properties.actuator.management.endpoints.migrate-legacy-ids[`+management.endpoints.migrate-legacy-ids+`]
-|+++是否透明地迁移旧版 endpoint ID。+++
+|+++是否透明地迁移旧版端点 ID。+++
 |`+false+`
 
 |[[application-properties.actuator.management.endpoints.web.base-path]]xref:#application-properties.actuator.management.endpoints.web.base-path[`+management.endpoints.web.base-path+`]
-|+++Web endpoints 的基础路径。当管理服务器共享主服务器端口时，相对于 servlet 上下文路径 (server.servlet.context-path) 或 WebFlux 基础路径 (spring.webflux.base-path)。当配置了单独的管理服务器端口 (management.server.port) 时，相对于管理服务器基础路径 (management.server.base-path)。+++
+|+++Web 端点的基础路径。当管理服务器共享主服务器端口时，相对于 servlet 上下文路径 (server.servlet.context-path) 或 WebFlux 基础路径 (spring.webflux.base-path)。当配置了单独的管理服务器端口 (management.server.port) 时，相对于管理服务器基础路径 (management.server.base-path)。+++
 |`+/actuator+`
 
 |[[application-properties.actuator.management.endpoints.web.cors.allow-credentials]]xref:#application-properties.actuator.management.endpoints.web.cors.allow-credentials[`+management.endpoints.web.cors.allow-credentials+`]
@@ -969,11 +969,11 @@
 |
 
 |[[application-properties.actuator.management.logging.export.enabled]]xref:#application-properties.actuator.management.logging.export.enabled[`+management.logging.export.enabled+`]
-|+++是否启用日志的 auto-configuration 以导出日志。+++
+|+++是否启用日志的自动配置以导出日志。+++
 |`+true+`
 
 |[[application-properties.actuator.management.logging.export.otlp.enabled]]xref:#application-properties.actuator.management.logging.export.otlp.enabled[`+management.logging.export.otlp.enabled+`]
-|+++是否启用日志的 auto-configuration 以通过 OTLP 导出日志。+++
+|+++是否启用日志的自动配置以通过 OTLP 导出日志。+++
 |`+true+`
 
 |[[application-properties.actuator.management.metrics.data.repository.autotime.enabled]]xref:#application-properties.actuator.management.metrics.data.repository.autotime.enabled[`+management.metrics.data.repository.autotime.enabled+`]
@@ -1393,11 +1393,11 @@
 |`+false+`
 
 |[[application-properties.actuator.management.server.address]]xref:#application-properties.actuator.management.server.address[`+management.server.address+`]
-|+++管理 endpoints 应绑定的网络地址。需要自定义 management.server.port。+++
+|+++管理端点应绑定的网络地址。需要自定义 management.server.port。+++
 |
 
 |[[application-properties.actuator.management.server.base-path]]xref:#application-properties.actuator.management.server.base-path[`+management.server.base-path+`]
-|+++管理 endpoint 基础路径（例如，'/management'）。需要自定义 management.server.port。+++
+|+++管理端点基础路径（例如，'/management'）。需要自定义 management.server.port。+++
 |
 
 |[[application-properties.actuator.management.server.jetty.accesslog.prefix]]xref:#application-properties.actuator.management.server.jetty.accesslog.prefix[`+management.server.jetty.accesslog.prefix+`]
@@ -1405,7 +1405,7 @@
 |`+management_+`
 
 |[[application-properties.actuator.management.server.port]]xref:#application-properties.actuator.management.server.port[`+management.server.port+`]
-|+++管理 endpoint HTTP 端口（默认使用与应用程序相同的端口）。配置不同的端口以使用特定于管理的 SSL。+++
+|+++管理端点 HTTP 端口（默认使用与应用程序相同的端口）。配置不同的端口以使用特定于管理的 SSL。+++
 |
 
 |[[application-properties.actuator.management.server.ssl.bundle]]xref:#application-properties.actuator.management.server.ssl.bundle[`+management.server.ssl.bundle+`]
@@ -1621,11 +1621,11 @@
 |`+sampled-traces+`
 
 |[[application-properties.actuator.management.tracing.export.enabled]]xref:#application-properties.actuator.management.tracing.export.enabled[`+management.tracing.export.enabled+`]
-|+++是否启用追踪的 auto-configuration 以导出和传播追踪。+++
+|+++是否启用追踪的自动配置以导出和传播追踪。+++
 |`+true+`
 
 |[[application-properties.actuator.management.tracing.export.otlp.enabled]]xref:#application-properties.actuator.management.tracing.export.otlp.enabled[`+management.tracing.export.otlp.enabled+`]
-|+++是否启用追踪的 auto-configuration 以导出 OTLP 追踪。+++
+|+++是否启用追踪的自动配置以导出 OTLP 追踪。+++
 |`+true+`
 
 |[[application-properties.actuator.management.tracing.export.zipkin.connect-timeout]]xref:#application-properties.actuator.management.tracing.export.zipkin.connect-timeout[`+management.tracing.export.zipkin.connect-timeout+`]
@@ -1633,7 +1633,7 @@
 |`+1s+`
 
 |[[application-properties.actuator.management.tracing.export.zipkin.enabled]]xref:#application-properties.actuator.management.tracing.export.zipkin.enabled[`+management.tracing.export.zipkin.enabled+`]
-|+++是否启用追踪的 auto-configuration 以导出 Zipkin 追踪。+++
+|+++是否启用追踪的自动配置以导出 Zipkin 追踪。+++
 |`+true+`
 
 |[[application-properties.actuator.management.tracing.export.zipkin.encoding]]xref:#application-properties.actuator.management.tracing.export.zipkin.encoding[`+management.tracing.export.zipkin.encoding+`]

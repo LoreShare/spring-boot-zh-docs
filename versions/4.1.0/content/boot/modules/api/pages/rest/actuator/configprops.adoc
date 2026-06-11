@@ -1,7 +1,7 @@
 [[configprops]]
-= 配置属性 (`configprops`)
+= configprops
 
-`configprops` endpoint 提供有关应用程序的 `@ConfigurationProperties` beans 的信息。
+`configprops` 端点提供有关应用程序的 `@ConfigurationProperties` beans 的信息。
 
 
 

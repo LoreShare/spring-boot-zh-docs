@@ -5,7 +5,7 @@ https://wiki.openjdk.org/display/crac/Main[检查点协调恢复] (CRaC) 是一�
 它基于 https://github.com/checkpoint-restore/criu[CRIU]，一个在 Linux 上实现检查点/恢复功能的项目。
 
 原理如下：你几乎像往常一样启动应用程序，但使用启用了 CRaC 的 JDK 版本，例如 https://bell-sw.com/pages/downloads/?package=jdk-crac[BellSoft Liberica JDK with CRaC] 或 https://www.azul.com/downloads/?package=jdk-crac#zulu[Azul Zulu JDK with CRaC]。
-然后在某个时刻，可能是在执行所有常见代码路径以预热 JVM 的一些工作负载之后，你通过 API 调用、`jcmd` 命令、HTTP endpoint 或其他机制触发检查点。
+然后在某个时刻，可能是在执行所有常见代码路径以预热 JVM 的一些工作负载之后，你通过 API 调用、`jcmd` 命令、HTTP 端点或其他机制触发检查点。
 
 运行中的 JVM（包括其预热状态）的内存表示随后被序列化到磁盘，允许在稍后快速恢复，可能是在另一台具有类似操作系统和 CPU 架构的机器上。
 恢复的进程保留了 HotSpot JVM 的所有能力，包括运行时的进一步 JIT 优化。

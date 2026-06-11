@@ -11,19 +11,19 @@ Spring Data 提供了额外的项目，帮助你访问多种 NoSQL 技术，包�
 * {url-spring-data-neo4j-site}[Neo4J]
 * {url-spring-data-redis-site}[Redis]
 
-其中，Spring Boot 为 Cassandra、Couchbase、Elasticsearch、LDAP、MongoDB、Neo4J 和 Redis 提供了 auto-configuration。
-此外，{url-spring-boot-for-apache-geode-site}[Spring Boot for Apache Geode] 提供了 {url-spring-boot-for-apache-geode-docs}#geode-repositories[Apache Geode 的 auto-configuration]。
+其中，Spring Boot 为 Cassandra、Couchbase、Elasticsearch、LDAP、MongoDB、Neo4J 和 Redis 提供了自动配置。
+此外，{url-spring-boot-for-apache-geode-site}[Spring Boot for Apache Geode] 提供了 {url-spring-boot-for-apache-geode-docs}#geode-repositories[Apache Geode 的自动配置]。
 你可以使用其他项目，但必须自行配置它们。
 请参阅 {url-spring-data-site} 上的相应参考文档。
 
-Spring Boot 还为 InfluxDB 客户端提供了 auto-configuration，但已弃用，推荐使用 https://github.com/influxdata/influxdb-client-java[新的 InfluxDB Java 客户端]，该客户端提供了自己的 Spring Boot 集成。
+Spring Boot 还为 InfluxDB 客户端提供了自动配置，但已弃用，推荐使用 https://github.com/influxdata/influxdb-client-java[新的 InfluxDB Java 客户端]，该客户端提供了自己的 Spring Boot 集成。
 
 
 [[data.nosql.redis]]
 == Redis
 
 https://redis.io/[Redis] 是一个缓存、消息代理和功能丰富的键值存储。
-Spring Boot 为 https://github.com/redis/lettuce/[Lettuce] 和 https://github.com/redis/jedis/[Jedis] 客户端库以及 https://github.com/spring-projects/spring-data-redis[Spring Data Redis] 在其上提供的抽象提供了基本的 auto-configuration。
+Spring Boot 为 https://github.com/redis/lettuce/[Lettuce] 和 https://github.com/redis/jedis/[Jedis] 客户端库以及 https://github.com/spring-projects/spring-data-redis[Spring Data Redis] 在其上提供的抽象提供了基本的自动配置。
 
 有一个 `spring-boot-starter-data-redis` starter 用于以方便的方式收集依赖项。
 默认情况下，它使用 https://github.com/redis/lettuce/[Lettuce]。
@@ -122,10 +122,10 @@ spring:
 [[data.nosql.redis.receiving]]
 === 接收消息
 
-当 Redis 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.data.redis.annotation.RedisListener[format=annotation] 注解来创建一个监听器 endpoint。
+当 Redis 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.data.redis.annotation.RedisListener[format=annotation] 注解来创建一个监听器端点。
 如果没有定义 javadoc:org.springframework.data.redis.listener.RedisMessageListenerContainer[]，则会自动配置一个默认的。
 
-以下组件在 `someChannel` 频道上创建了一个监听器 endpoint：
+以下组件在 `someChannel` 频道上创建了一个监听器端点：
 
 [source,java]
 ----
@@ -295,7 +295,7 @@ TIP: 如果你不使用 Spring Data MongoDB，可以注入一个 javadoc:{url-mo
 如果你想完全控制 MongoDB 连接的建立，也可以声明自己的 javadoc:org.springframework.data.mongodb.MongoDatabaseFactory[] 或 javadoc:{url-mongodb-driver-sync-javadoc}/com.mongodb.client.MongoClient[] bean。
 
 NOTE: 如果你使用响应式驱动，SSL 需要 Netty。
-auto-configuration 会在 Netty 可用且尚未自定义要使用的工厂时自动配置此工厂。
+自动配置会在 Netty 可用且尚未自定义要使用的工厂时自动配置此工厂。
 
 
 
@@ -457,7 +457,7 @@ Spring Boot 支持经典和响应式 Neo4j 仓库，分别使用 javadoc:org.spr
 当 Project Reactor 在 classpath 上可用时，响应式风格也会自动配置。
 
 仓库和实体通过扫描发现。
-默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration 包]。
+默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包]。
 您可以通过分别使用 javadoc:org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories[format=annotation] 和 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] 来自定义查找仓库和实体的位置。
 
 [NOTE]
@@ -492,7 +492,7 @@ public class MyNeo4jConfiguration {
 == Elasticsearch
 
 https://www.elastic.co/products/elasticsearch[Elasticsearch] 是一个开源的分布式 RESTful 搜索和分析引擎。
-Spring Boot 为 Elasticsearch 客户端提供基本的 auto-configuration。
+Spring Boot 为 Elasticsearch 客户端提供基本的自动配置。
 
 Spring Boot 支持多个客户端：
 
@@ -629,7 +629,7 @@ Spring Boot 支持经典和响应式 Elasticsearch 仓库，使用 javadoc:org.s
 == Cassandra
 
 https://cassandra.apache.org/[Cassandra] 是一个开源的分布式数据库管理系统，旨在跨多台商用服务器处理大量数据。
-Spring Boot 为 Cassandra 提供 auto-configuration，以及由 {url-spring-data-cassandra-site}[Spring Data Cassandra] 在其之上提供的抽象。
+Spring Boot 为 Cassandra 提供自动配置，以及由 {url-spring-data-cassandra-site}[Spring Data Cassandra] 在其之上提供的抽象。
 有一个 `spring-boot-starter-data-cassandra` starter 用于以方便的方式收集依赖。
 
 [[data.nosql.cassandra.connecting]]
@@ -733,7 +733,7 @@ Spring Data 包含对 Cassandra 的基本仓库支持。
 目前，这比之前讨论的 JPA 仓库更有限，并且需要 javadoc:org.springframework.data.cassandra.repository.Query[format=annotation] 注解的查找方法。
 
 仓库和实体通过扫描发现。
-默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration 包]。
+默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包]。
 你可以通过分别使用 javadoc:org.springframework.data.cassandra.repository.config.EnableCassandraRepositories[format=annotation] 和 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] 来自定义查找仓库和实体的位置。
 
 提示：有关 Spring Data Cassandra 的完整详细信息，请参阅 {url-spring-data-cassandra-docs}[参考文档]。
@@ -744,7 +744,7 @@ Spring Data 包含对 Cassandra 的基本仓库支持。
 == Couchbase
 
 https://www.couchbase.com/[Couchbase] 是一个开源、分布式、多模型的 NoSQL 文档型数据库，针对交互式应用进行了优化。
-Spring Boot 为 Couchbase 提供了 auto-configuration，以及由 https://github.com/spring-projects/spring-data-couchbase[Spring Data Couchbase] 提供的上层抽象。
+Spring Boot 为 Couchbase 提供了自动配置，以及由 https://github.com/spring-projects/spring-data-couchbase[Spring Data Couchbase] 提供的上层抽象。
 有 `spring-boot-starter-data-couchbase` 和 `spring-boot-starter-data-couchbase-reactive` starters 可以方便地收集依赖。
 
 
@@ -818,7 +818,7 @@ TIP: 查看 `spring.couchbase.env.*` 属性以获取更多详细信息。
 Spring Data 包含对 Couchbase 的仓库支持。
 
 仓库和文档通过扫描发现。
-默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration 包]。
+默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包]。
 你可以分别使用 javadoc:org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories[format=annotation] 和 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] 自定义查找仓库和文档的位置。
 
 有关 Spring Data Couchbase 的完整详细信息，请参阅 {url-spring-data-couchbase-docs}[参考文档]。
@@ -858,7 +858,7 @@ public class MyBean {
 }
 ----
 
-你可以定义几个 beans 来覆盖 auto-configuration 提供的默认值：
+你可以定义几个 beans 来覆盖自动配置提供的默认值：
 
 * 一个名为 `couchbaseMappingContext` 的 javadoc:org.springframework.data.couchbase.core.mapping.CouchbaseMappingContext[] javadoc:org.springframework.context.annotation.Bean[format=annotation]。
 * 一个名为 `couchbaseCustomConversions` 的 javadoc:org.springframework.data.convert.CustomConversions[] javadoc:org.springframework.context.annotation.Bean[format=annotation]。
@@ -893,7 +893,7 @@ public class MyCouchbaseConfiguration {
 == LDAP
 
 https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol[LDAP]（轻量级目录访问协议）是一种开放、供应商中立的行业标准应用协议，用于通过 IP 网络访问和维护分布式目录信息服务。
-Spring Boot 为任何兼容的 LDAP 服务器提供 auto-configuration，并支持来自 https://ldap.com/unboundid-ldap-sdk-for-java/[UnboundID] 的嵌入式内存 LDAP 服务器。
+Spring Boot 为任何兼容的 LDAP 服务器提供自动配置，并支持来自 https://ldap.com/unboundid-ldap-sdk-for-java/[UnboundID] 的嵌入式内存 LDAP 服务器。
 
 LDAP 抽象由 https://github.com/spring-projects/spring-data-ldap[Spring Data LDAP] 提供。
 有一个 `spring-boot-starter-data-ldap` starter 用于以方便的方式收集依赖项。
@@ -928,7 +928,7 @@ spring:
 Spring Data 包含对 LDAP 的仓库支持。
 
 通过扫描发现仓库和文档。
-默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration 包]。
+默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包]。
 你可以分别使用 javadoc:org.springframework.data.ldap.repository.config.EnableLdapRepositories[format=annotation] 和 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] 自定义查找仓库和文档的位置。
 
 提示：有关 Spring Data LDAP 的完整详细信息，请参阅 {url-spring-data-ldap-docs}[参考文档]。

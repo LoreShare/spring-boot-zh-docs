@@ -427,7 +427,7 @@ javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemet
 
 注意：如果你需要对 OTLP 日志记录导出器应用高级自定义，请考虑注册 javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpHttpLogRecordExporterBuilderCustomizer[] 或 javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpGrpcLogRecordExporterBuilderCustomizer[] beans。
 这些将在创建 javadoc:io.opentelemetry.exporter.otlp.http.logs.OtlpHttpLogRecordExporter[] 或 javadoc:io.opentelemetry.exporter.otlp.logs.OtlpGrpcLogRecordExporter[] 之前被调用。
-自定义器优先于 auto-configuration 应用的任何内容。
+自定义器优先于自动配置应用的任何内容。
 
 然而，虽然存在 `SdkLoggerProvider` bean，但 Spring Boot 默认不支持将日志桥接到此 bean。
 这可以通过第三方日志桥接器完成，如 xref:reference:actuator/loggers.adoc#actuator.loggers.opentelemetry[使用 OpenTelemetry 进行日志记录] 部分所述。

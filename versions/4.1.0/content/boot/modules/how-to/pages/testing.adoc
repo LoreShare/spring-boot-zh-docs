@@ -78,7 +78,7 @@ public class MyConfiguration {
 }
 ----
 
-对于具有上述 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类的应用程序的 javadoc:org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest[format=annotation]，您可能期望在应用程序上下文中拥有 javadoc:org.springframework.security.web.SecurityFilterChain[] bean，以便测试您的控制器 endpoint 是否得到正确保护。
+对于具有上述 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类的应用程序的 javadoc:org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest[format=annotation]，您可能期望在应用程序上下文中拥有 javadoc:org.springframework.security.web.SecurityFilterChain[] bean，以便测试您的控制器端点是否得到正确保护。
 然而，`MyConfiguration` 不会被 @WebMvcTest 的组件扫描过滤器拾取，因为它不匹配过滤器指定的任何类型。
 您可以通过使用 `@Import(MyConfiguration.class)` 注解测试类来显式包含该配置。
 这将加载 `MyConfiguration` 中的所有 bean，包括测试 Web 层时不需要的 javadoc:com.zaxxer.hikari.HikariDataSource[] bean。

@@ -86,7 +86,7 @@ spring:
 
 提示：你也可以使用 xref:io/rest-client.adoc#io.rest-client.global-configuration[global configuration properties]，它适用于所有 HTTP 客户端。
 
-对于更复杂的自定义，你可以使用 javadoc:org.springframework.boot.http.client.autoconfigure.reactive.ClientHttpConnectorBuilderCustomizer[] 或声明你自己的 javadoc:org.springframework.boot.http.client.reactive.ClientHttpConnectorBuilder[] bean，这将导致 auto-configuration 退出。
+对于更复杂的自定义，你可以使用 javadoc:org.springframework.boot.http.client.autoconfigure.reactive.ClientHttpConnectorBuilderCustomizer[] 或声明你自己的 javadoc:org.springframework.boot.http.client.reactive.ClientHttpConnectorBuilder[] bean，这将导致自动配置退出。
 当你需要自定义底层 HTTP 库的某些内部细节时，这会很有用。
 
 例如，以下代码将使用配置了特定 javadoc:java.net.ProxySelector[] 的 JDK 客户端：
@@ -124,7 +124,7 @@ javadoc:org.springframework.web.reactive.function.client.WebClient$Builder[] 实
 为了对所有 javadoc:org.springframework.web.reactive.function.client.WebClient$Builder[] 实例进行应用程序范围的附加自定义，你可以声明 javadoc:org.springframework.boot.webclient.WebClientCustomizer[] bean，并在注入点本地修改 javadoc:org.springframework.web.reactive.function.client.WebClient$Builder[]。
 
 最后，你可以回退到原始 API 并使用 `WebClient.create()`。
-在这种情况下，不会应用任何 auto-configuration 或 javadoc:org.springframework.boot.webclient.WebClientCustomizer[]。
+在这种情况下，不会应用任何自动配置或 javadoc:org.springframework.boot.webclient.WebClientCustomizer[]。
 
 
 
@@ -211,7 +211,7 @@ javadoc:org.springframework.web.client.RestClient$Builder[] 实例是有状态�
 为了对所有 javadoc:org.springframework.web.client.RestClient$Builder[] 实例进行应用程序范围的附加自定义，你可以声明 javadoc:org.springframework.boot.restclient.RestClientCustomizer[] bean，并在注入点本地修改 javadoc:org.springframework.web.client.RestClient$Builder[]。
 
 最后，你可以回退到原始 API 并使用 `RestClient.create()`。
-在这种情况下，不会应用任何 auto-configuration 或 javadoc:org.springframework.boot.restclient.RestClientCustomizer[]。
+在这种情况下，不会应用任何自动配置或 javadoc:org.springframework.boot.restclient.RestClientCustomizer[]。
 
 提示：你也可以更改 xref:io/rest-client.adoc#io.rest-client.clienthttprequestfactory.configuration[global HTTP client configuration]。
 
@@ -378,8 +378,8 @@ public class MyRestTemplateCustomizer implements RestTemplateCustomizer {
 
 最后，你可以定义自己的 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[] bean。
 这样做将替换自动配置的构建器。
-如果你希望任何 javadoc:org.springframework.boot.restclient.RestTemplateCustomizer[] bean 应用于你的自定义构建器（就像 auto-configuration 所做的那样），请使用 javadoc:org.springframework.boot.restclient.autoconfigure.RestTemplateBuilderConfigurer[] 进行配置。
-以下示例公开了一个 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[]，它与 Spring Boot 的 auto-configuration 所做的匹配，只是还指定了自定义的连接和读取超时：
+如果你希望任何 javadoc:org.springframework.boot.restclient.RestTemplateCustomizer[] bean 应用于你的自定义构建器（就像自动配置所做的那样），请使用 javadoc:org.springframework.boot.restclient.autoconfigure.RestTemplateBuilderConfigurer[] 进行配置。
+以下示例公开了一个 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[]，它与 Spring Boot 的自动配置所做的匹配，只是还指定了自定义的连接和读取超时：
 
 [source,java]
 ----
@@ -474,7 +474,7 @@ spring:
 
 提示：你也可以使用 xref:io/rest-client.adoc#io.rest-client.global-configuration[global configuration properties]，它适用于所有 HTTP 客户端。
 
-对于更复杂的自定义，你可以使用 javadoc:org.springframework.boot.http.client.autoconfigure.ClientHttpRequestFactoryBuilderCustomizer[] 或声明你自己的 javadoc:org.springframework.boot.http.client.ClientHttpRequestFactoryBuilder[] bean，这将导致 auto-configuration 退出。
+对于更复杂的自定义，你可以使用 javadoc:org.springframework.boot.http.client.autoconfigure.ClientHttpRequestFactoryBuilderCustomizer[] 或声明你自己的 javadoc:org.springframework.boot.http.client.ClientHttpRequestFactoryBuilder[] bean，这将导致自动配置退出。
 当你需要自定义底层 HTTP 库的某些内部细节时，这会很有用。
 
 例如，以下代码使用配置了特定 javadoc:java.net.ProxySelector[] 的 JDK 客户端：
@@ -714,7 +714,7 @@ spring:
 对于 `RestClient` 支持的 HTTP 服务客户端，可以声明一个实现 javadoc:org.springframework.web.client.support.RestClientHttpServiceGroupConfigurer[] 的 bean。
 对于 `WebClient` 支持的 HTTP 服务客户端，可以声明一个实现 javadoc:org.springframework.web.reactive.function.client.support.WebClientHttpServiceGroupConfigurer[] 的 bean。
 
-两者的工作方式相同，并且会被 Spring Boot 的 auto-configuration 自动应用。
+两者的工作方式相同，并且会被 Spring Boot 的自动配置自动应用。
 
 例如，以下配置将添加一个组定制器，为每个传出请求添加一个包含组名的 HTTP 头：
 
@@ -777,7 +777,7 @@ spring:
 === InetAddress 过滤与 SSRF 防护
 
 有时限制 HTTP 客户端允许调用的远程地址是很有用的。
-在加固应用程序以防止服务端请求伪造（SSRF）攻击时，这种技术尤其有用。
+在加固应用程序以防止 SSRF 攻击时，这种技术尤其有用。
 
 要限制客户端可以调用的地址，可以使用 javadoc:org.springframework.boot.http.client.InetAddressFilter[]，它只允许与过滤器匹配的地址进行出站调用。
 该过滤器是一个函数式接口，你可以创建自己的实现，或者使用其中一个便捷的工厂方法。

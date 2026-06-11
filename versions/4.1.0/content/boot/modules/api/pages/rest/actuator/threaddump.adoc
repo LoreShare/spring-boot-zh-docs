@@ -1,7 +1,7 @@
 [[threaddump]]
-= 线程转储 (`threaddump`)
+= threaddump
 
-`threaddump` endpoint 提供来自应用程序 JVM 的线程转储。
+`threaddump` 端点提供来自应用程序 JVM 的线程转储。
 
 
 [[threaddump.retrieving-json]]

@@ -1,6 +1,6 @@
 = 响应式 Web 应用程序
 
-Spring Boot 通过为 Spring Webflux 提供 auto-configuration，简化了响应式 Web 应用程序的开发。
+Spring Boot 通过为 Spring Webflux 提供自动配置，简化了响应式 Web 应用程序的开发。
 
 
 [[web.reactive.webflux]]
@@ -130,9 +130,9 @@ public class MyUserHandler {
 [[web.reactive.webflux.auto-configuration]]
 === Spring WebFlux 自动配置
 
-Spring Boot 为 Spring WebFlux 提供了 auto-configuration，这些配置适用于大多数应用程序。
+Spring Boot 为 Spring WebFlux 提供了自动配置，这些配置适用于大多数应用程序。
 
-auto-configuration 在 Spring 的默认值之上添加了以下功能：
+自动配置在 Spring 的默认值之上添加了以下功能：
 
 * 为 javadoc:org.springframework.http.codec.HttpMessageReader[] 和 javadoc:org.springframework.http.codec.HttpMessageWriter[] 实例配置编解码器（描述 xref:web/reactive.adoc#web.reactive.webflux.httpcodecs[本文档稍后部分]）。
 * 支持提供静态资源，包括对 WebJars 的支持（描述 xref:web/servlet.adoc#web.servlet.spring-mvc.static-content[本文档稍后部分]）。
@@ -264,7 +264,7 @@ Spring Boot 支持静态和模板化的欢迎页面。
 除了 REST Web 服务，您还可以使用 Spring WebFlux 来提供动态 HTML 内容。
 Spring WebFlux 支持多种模板技术，包括 Thymeleaf、FreeMarker 和 Mustache。
 
-Spring Boot 包含对以下模板引擎的 auto-configuration 支持：
+Spring Boot 包含对以下模板引擎的自动配置支持：
 
 * https://freemarker.apache.org/docs/[FreeMarker]
 * https://www.thymeleaf.org[Thymeleaf]
@@ -395,7 +395,7 @@ Spring WebFlux 提供了一个 javadoc:org.springframework.web.server.WebFilter[
 javadoc:org.springframework.web.server.WebFilter[] 在应用上下文中找到的 beans 将自动用于过滤每个交换。
 
 当过滤器的顺序很重要时，它们可以实现 javadoc:org.springframework.core.Ordered[] 或使用 javadoc:org.springframework.core.annotation.Order[format=annotation] 进行注解。
-Spring Boot auto-configuration 可能会为你配置 Web 过滤器。
+Spring Boot 自动配置可能会为你配置 Web 过滤器。
 当它这样做时，将使用下表中显示的顺序：
 
 |===

@@ -6,7 +6,7 @@ https://oauth.net/2/[OAuth2] 是一个广泛使用的授权框架。
 [[security.oauth2.client]]
 == 客户端
 
-如果你的 classpath 上有 `spring-security-oauth2-client`，你可以利用一些 auto-configuration 来设置 OAuth2/Open ID Connect 客户端。
+如果你的 classpath 上有 `spring-security-oauth2-client`，你可以利用一些自动配置来设置 OAuth2/Open ID Connect 客户端。
 此配置使用 javadoc:org.springframework.boot.security.oauth2.client.autoconfigure.OAuth2ClientProperties[] 下的属性。
 这些属性同样适用于 Servlet 和响应式 Web 应用程序。
 
@@ -228,7 +228,7 @@ spring:
 [[security.oauth2.authorization-server]]
 == 授权服务器
 
-如果你的 classpath 上包含 `spring-security-oauth2-authorization-server`，你可以利用一些 auto-configuration 来设置基于 Servlet 的 OAuth2 授权服务器。
+如果你的 classpath 上包含 `spring-security-oauth2-authorization-server`，你可以利用一些自动配置来设置基于 Servlet 的 OAuth2 授权服务器。
 
 你可以在 `spring.security.oauth2.authorizationserver.client` 前缀下注册多个 OAuth2 客户端，如下例所示：
 
@@ -282,9 +282,9 @@ spring:
 javadoc:org.springframework.security.crypto.password.PasswordEncoder[] 的默认实例通过 `PasswordEncoderFactories.createDelegatingPasswordEncoder()` 创建。
 
 auto-configuration Spring Boot 提供的 Spring 授权服务器旨在快速入门。
-大多数应用程序需要进行定制，并希望定义多个 beans 以覆盖 auto-configuration。
+大多数应用程序需要进行定制，并希望定义多个 beans 以覆盖自动配置。
 
-以下组件可以定义为 beans 以覆盖特定于 Spring 授权服务器的 auto-configuration：
+以下组件可以定义为 beans 以覆盖特定于 Spring 授权服务器的自动配置：
 
 * javadoc:org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository[]
 * javadoc:org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings[]

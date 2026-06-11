@@ -1,6 +1,6 @@
 [cols="d,d,a"]
 |===
-|模块 | 测试切片 | 导入的 auto-configuration
+|模块 | 测试切片 | 导入的自动配置
 
 | `spring-boot-data-cassandra-test`
 | javadoc:org.springframework.boot.data.cassandra.test.autoconfigure.DataCassandraTest[format=annotation]

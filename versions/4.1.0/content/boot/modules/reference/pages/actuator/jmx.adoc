@@ -1,7 +1,7 @@
 [[actuator.jmx]]
 = 通过 JMX 进行监控和管理
 
-Java 管理扩展 (JMX) 提供了一种标准机制来监控和管理应用程序。
+JMX 提供了一种标准机制来监控和管理应用程序。
 默认情况下，此功能未启用。
 您可以通过将配置属性 `spring.jmx.enabled` 设置为 `true` 来启用它。
 Spring Boot 将最合适的 `javax.management.MBeanServer` 暴露为一个 ID 为 `mbeanServer` 的 bean。
@@ -46,9 +46,9 @@ management:
 
 
 [[actuator.jmx.disable-jmx-endpoints]]
-== 禁用 JMX Endpoints
+== 禁用 JMX 端点
 
-如果你不想通过 JMX 暴露 endpoints，可以将 configprop:management.endpoints.jmx.exposure.exclude[] 属性设置为 `*`，如下例所示：
+如果你不想通过 JMX 暴露端点，可以将 configprop:management.endpoints.jmx.exposure.exclude[] 属性设置为 `*`，如下例所示：
 
 [configprops,yaml]
 ----

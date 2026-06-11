@@ -127,7 +127,7 @@ Spring javadoc:org.springframework.web.servlet.DispatcherServlet[] 和 Spring Se
 * 一个类型为 javadoc:jakarta.servlet.Servlet[] 或 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 将该 bean 安装到容器中，就像它是 `web.xml` 中的 `<servlet/>` 和 `<servlet-mapping/>` 一样。
 * 一个类型为 javadoc:jakarta.servlet.Filter[] 或 javadoc:org.springframework.boot.web.servlet.FilterRegistrationBean[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 行为类似（作为 `<filter/>` 和 `<filter-mapping/>`）。
 * XML 文件中的 javadoc:org.springframework.context.ApplicationContext[] 可以通过 `+Application+` 中的 javadoc:org.springframework.context.annotation.ImportResource[format=annotation] 添加。
-  或者，已经大量使用 annotation 配置的情况可以在几行中重新创建为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 定义。
+  或者，已经大量使用注解配置的情况可以在几行中重新创建为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 定义。
 
 一旦 war 文件工作正常，你可以通过向 `Application` 添加一个 `main` 方法使其可执行，如下例所示：
 

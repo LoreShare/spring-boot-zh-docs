@@ -190,7 +190,7 @@ class MyTestConfiguration {
 == 服务连接
 
 服务连接是到任何远程服务的连接。
-Spring Boot 的 auto-configuration 可以使用服务连接的详细信息来建立到远程服务的连接。
+Spring Boot 的自动配置可以使用服务连接的详细信息来建立到远程服务的连接。
 这样做时，连接详细信息优先于任何与连接相关的配置属性。
 
 使用 Testcontainers 时，可以通过在测试类中注释容器字段来自动为容器中运行的服务创建连接详细信息。
@@ -222,7 +222,7 @@ class MyIntegrationTests {
 ----
 
 得益于 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation]，上述配置允许应用程序中的 Neo4j 相关 beans 与运行在 Testcontainers 管理的 Docker 容器中的 Neo4j 通信。
-这是通过自动定义一个 javadoc:org.springframework.boot.neo4j.autoconfigure.Neo4jConnectionDetails[] bean 来实现的，该 bean 随后被 Neo4j auto-configuration 使用，覆盖任何与连接相关的配置属性。
+这是通过自动定义一个 javadoc:org.springframework.boot.neo4j.autoconfigure.Neo4jConnectionDetails[] bean 来实现的，该 bean 随后被 Neo4j 自动配置使用，覆盖任何与连接相关的配置属性。
 
 注意：你需要添加 `spring-boot-testcontainers` 模块作为测试依赖项，以便将服务连接与 Testcontainers 一起使用。
 

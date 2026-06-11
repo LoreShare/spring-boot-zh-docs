@@ -1,9 +1,9 @@
-= 面向切面编程
+= AOP
 
-Spring Boot 为面向切面编程（AOP）提供了 auto-configuration。
+Spring Boot 为 AOP 提供了自动配置。
 你可以在 {url-spring-framework-docs}/core/aop-api.html[Spring 框架参考文档] 中了解更多关于 Spring 的 AOP 内容。
 
-默认情况下，Spring Boot 的 auto-configuration 配置 Spring AOP 使用 CGLib 代理。
+默认情况下，Spring Boot 的自动配置配置 Spring AOP 使用 CGLib 代理。
 要改用 JDK 代理，请将 configprop:spring.aop.proxy-target-class[] 设置为 `false`。
 
-如果 AspectJ 在 classpath 上，Spring Boot 的 auto-configuration 将自动启用 AspectJ 自动代理，因此不需要 javadoc:org.springframework.context.annotation.EnableAspectJAutoProxy[format=annotation]。
+如果 AspectJ 在 classpath 上，Spring Boot 的自动配置将自动启用 AspectJ 自动代理，因此不需要 javadoc:org.springframework.context.annotation.EnableAspectJAutoProxy[format=annotation]。

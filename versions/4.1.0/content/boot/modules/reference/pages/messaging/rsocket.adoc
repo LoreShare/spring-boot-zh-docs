@@ -7,7 +7,7 @@ Spring 框架的 `spring-messaging` 模块为客户端和服务端的 RSocket �
 [[messaging.rsocket.strategies-auto-configuration]]
 == RSocket 策略自动配置
 
-Spring Boot 自动配置一个 javadoc:org.springframework.messaging.rsocket.RSocketStrategies[] bean，提供编码和解码 RSocket 负载所需的所有基础设施。默认情况下，auto-configuration 会尝试按顺序配置以下内容：
+Spring Boot 自动配置一个 javadoc:org.springframework.messaging.rsocket.RSocketStrategies[] bean，提供编码和解码 RSocket 负载所需的所有基础设施。默认情况下，自动配置会尝试按顺序配置以下内容：
 
 . https://cbor.io/[CBOR] 编解码器（使用 Jackson）
 . JSON 编解码器（使用 Jackson）
@@ -19,7 +19,7 @@ Spring Boot 自动配置一个 javadoc:org.springframework.messaging.rsocket.RSo
 [[messaging.rsocket.server-auto-configuration]]
 == RSocket 服务器自动配置
 
-Spring Boot 提供 RSocket 服务器 auto-configuration。所需依赖由 `spring-boot-starter-rsocket` 提供。
+Spring Boot 提供 RSocket 服务器自动配置。所需依赖由 `spring-boot-starter-rsocket` 提供。
 
 Spring Boot 允许从 WebFlux 服务器通过 WebSocket 暴露 RSocket，或者搭建独立的 RSocket 服务器。这取决于应用程序的类型及其配置。
 

@@ -1,6 +1,6 @@
-= 映射 (`mappings`)
+= mappings
 
-`mappings` endpoint 提供有关应用程序请求映射的信息。
+`mappings` 端点提供有关应用程序请求映射的信息。
 
 
 

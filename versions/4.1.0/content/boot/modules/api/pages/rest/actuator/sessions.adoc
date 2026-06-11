@@ -1,7 +1,7 @@
 [[sessions]]
-= Sessions (`sessions`)
+= sessions
 
-`sessions` endpoint 提供由 Spring Session 管理的应用程序 HTTP 会话信息。
+`sessions` 端点提供由 Spring Session 管理的应用程序 HTTP 会话信息。
 
 
 
@@ -22,7 +22,7 @@ include::partial$rest/actuator/sessions/username/http-response.adoc[]
 [[sessions.retrieving.query-parameters]]
 === 查询参数
 
-endpoint 使用查询参数来限制其返回的会话。
+端点使用查询参数来限制其返回的会话。
 下表显示了单个必需的查询参数：
 
 [cols="2,4"]

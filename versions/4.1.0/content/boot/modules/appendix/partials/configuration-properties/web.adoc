@@ -37,11 +37,11 @@
 |`+false+`
 
 |[[application-properties.web.spring.graphql.graphiql.path]]xref:#application-properties.web.spring.graphql.graphiql.path[`+spring.graphql.graphiql.path+`]
-|+++GraphiQL UI endpoint 的路径。+++
+|+++GraphiQL UI 端点的路径。+++
 |`+/graphiql+`
 
 |[[application-properties.web.spring.graphql.http.path]]xref:#application-properties.web.spring.graphql.http.path[`+spring.graphql.http.path+`]
-|+++用于暴露 GraphQL 请求 HTTP endpoint 的路径。+++
+|+++用于暴露 GraphQL 请求 HTTP 端点的路径。+++
 |`+/graphql+`
 
 |[[application-properties.web.spring.graphql.http.sse.keep-alive]]xref:#application-properties.web.spring.graphql.http.sse.keep-alive[`+spring.graphql.http.sse.keep-alive+`]
@@ -81,7 +81,7 @@
 |`+classpath:graphql/**/+`
 
 |[[application-properties.web.spring.graphql.schema.printer.enabled]]xref:#application-properties.web.spring.graphql.schema.printer.enabled[`+spring.graphql.schema.printer.enabled+`]
-|+++是否启用打印模式的 endpoint。模式可在 spring.graphql.http.path + "/schema" 下获取。+++
+|+++是否启用打印模式的端点。模式可在 spring.graphql.http.path + "/schema" 下获取。+++
 |`+false+`
 
 |[[application-properties.web.spring.graphql.websocket.connection-init-timeout]]xref:#application-properties.web.spring.graphql.websocket.connection-init-timeout[`+spring.graphql.websocket.connection-init-timeout+`]
@@ -93,7 +93,7 @@
 |
 
 |[[application-properties.web.spring.graphql.websocket.path]]xref:#application-properties.web.spring.graphql.websocket.path[`+spring.graphql.websocket.path+`]
-|+++GraphQL WebSocket 订阅 endpoint 的路径。+++
+|+++GraphQL WebSocket 订阅端点的路径。+++
 |
 
 |[[application-properties.web.spring.hateoas.use-hal-as-default-json-media-type]]xref:#application-properties.web.spring.hateoas.use-hal-as-default-json-media-type[`+spring.hateoas.use-hal-as-default-json-media-type+`]

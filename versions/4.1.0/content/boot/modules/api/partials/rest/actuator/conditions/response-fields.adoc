@@ -47,7 +47,7 @@
 
 |`+contexts.*.unconditionalClasses+`
 |`+Array+`
-|无条件 auto-configuration 类的名称（如果有）。
+|无条件自动配置类的名称（如果有）。
 
 |`+contexts.*.parentId+`
 |`+String+`

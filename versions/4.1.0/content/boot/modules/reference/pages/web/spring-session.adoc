@@ -8,7 +8,7 @@ Spring Boot 为多种数据存储提供 {url-spring-session-site}[Spring Session
 * Redis (`spring-boot-starter-session-data-redis`)
 * JDBC (`spring-boot-starter-session-jdbc`)
 
-Servlet auto-configuration 取代了使用 `@Enable*HttpSession` 的需求。
+Servlet 自动配置取代了使用 `@Enable*HttpSession` 的需求。
 
 在构建响应式 Web 应用程序时，可以通过依赖 `spring-boot-starter-session-data-redis` 来自动配置 Redis 存储。
 这取代了使用 `@EnableRedisWebSession` 的需求。
@@ -25,10 +25,10 @@ spring:
 ----
 
 要设置会话超时时间，可以使用 configprop:spring.session.timeout[] 属性。
-如果该属性未在 Servlet Web 应用中设置，auto-configuration 会回退到 configprop:server.servlet.session.timeout[] 的值。
+如果该属性未在 Servlet Web 应用中设置，自动配置会回退到 configprop:server.servlet.session.timeout[] 的值。
 要以编程方式提供超时时间，请定义一个 javadoc:org.springframework.boot.session.autoconfigure.SessionTimeout[] bean。
 
 你可以通过 `@Enable*HttpSession`（Servlet）或 `@EnableRedisWebSession`（Reactive）来控制 Spring Session 的配置。
-这将导致 auto-configuration 退出。
+这将导致自动配置退出。
 或者，直接依赖相关的 Spring Session 模块，而不是使用 Spring Boot 的 starter 之一来配置 Spring Session。
 无论采用哪种方法，都可以使用 annotation 的属性（而非之前描述的配置属性）来配置 Spring Session。

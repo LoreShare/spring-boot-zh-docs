@@ -13,7 +13,7 @@
 |`+true+`
 
 |[[application-properties.grpc.spring.grpc.client.enabled]]xref:#application-properties.grpc.spring.grpc.client.enabled[`+spring.grpc.client.enabled+`]
-|+++是否启用 gRPC 客户端 auto-configuration。+++
+|+++是否启用 gRPC 客户端自动配置。+++
 |`+true+`
 
 |[[application-properties.grpc.spring.grpc.client.inprocess.enabled]]xref:#application-properties.grpc.spring.grpc.client.inprocess.enabled[`+spring.grpc.client.inprocess.enabled+`]
@@ -29,7 +29,7 @@
 |
 
 |[[application-properties.grpc.spring.grpc.server.enabled]]xref:#application-properties.grpc.spring.grpc.server.enabled[`+spring.grpc.server.enabled+`]
-|+++是否启用 gRPC 服务器 auto-configuration。+++
+|+++是否启用 gRPC 服务器自动配置。+++
 |`+true+`
 
 |[[application-properties.grpc.spring.grpc.server.factory.enabled]]xref:#application-properties.grpc.spring.grpc.server.factory.enabled[`+spring.grpc.server.factory.enabled+`]

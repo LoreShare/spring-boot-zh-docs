@@ -1,6 +1,6 @@
 = Apache Pulsar 支持
 
-https://pulsar.apache.org/[Apache Pulsar] 通过提供 auto-configuration 的 {url-spring-pulsar-site}[Spring for Apache Pulsar] 项目来获得支持。
+https://pulsar.apache.org/[Apache Pulsar] 通过提供自动配置的 {url-spring-pulsar-site}[Spring for Apache Pulsar] 项目来获得支持。
 
 当 `org.springframework.pulsar:spring-pulsar` 位于 classpath 上时，Spring Boot 将自动配置并注册用于 Apache Pulsar 组件的 Spring。
 
@@ -116,7 +116,7 @@ public class MyBean {
 ----
 
 javadoc:org.springframework.pulsar.core.PulsarTemplate[] 依赖于 javadoc:org.springframework.pulsar.core.PulsarProducerFactory[] 来创建底层的 Pulsar 生产者。
-Spring Boot auto-configuration 也提供了这个生产者工厂，默认情况下它会缓存创建的生产者。
+Spring Boot 自动配置也提供了这个生产者工厂，默认情况下它会缓存创建的生产者。
 你可以通过指定任何以 `spring.pulsar.producer.\*` 和 `spring.pulsar.producer.cache.*` 为前缀的应用程序属性来配置生产者工厂和缓存设置。
 
 如果你需要对生产者工厂配置进行更多控制，请考虑注册一个或多个 javadoc:org.springframework.pulsar.core.ProducerBuilderCustomizer[] bean。
@@ -130,8 +130,8 @@ Spring Boot auto-configuration 也提供了这个生产者工厂，默认情况�
 [[messaging.pulsar.receiving]]
 == 接收消息
 
-当 Apache Pulsar 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.pulsar.annotation.PulsarListener[format=annotation] 注解来创建一个监听器 endpoint。
-以下组件在 `someTopic` 主题上创建了一个监听器 endpoint：
+当 Apache Pulsar 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.pulsar.annotation.PulsarListener[format=annotation] 注解来创建一个监听器端点。
+以下组件在 `someTopic` 主题上创建了一个监听器端点：
 
 [source,java]
 ----
@@ -149,7 +149,7 @@ public class MyBean {
 }
 ----
 
-Spring Boot auto-configuration 提供了 javadoc:org.springframework.pulsar.annotation.PulsarListener[] 所需的所有组件，例如 javadoc:org.springframework.pulsar.config.PulsarListenerContainerFactory[] 以及用于构造底层 Pulsar 消费者的消费者工厂。
+Spring Boot 自动配置提供了 javadoc:org.springframework.pulsar.annotation.PulsarListener[] 所需的所有组件，例如 javadoc:org.springframework.pulsar.config.PulsarListenerContainerFactory[] 以及用于构造底层 Pulsar 消费者的消费者工厂。
 你可以通过指定任何以 `spring.pulsar.listener.\*` 和 `spring.pulsar.consumer.*` 为前缀的应用程序属性来配置这些组件。
 
 如果你需要对消费者工厂的配置进行更多控制，请考虑注册一个或多个 javadoc:org.springframework.pulsar.core.ConsumerBuilderCustomizer[] bean。
@@ -167,7 +167,7 @@ Pulsar 读取器接口使应用程序能够手动管理游标。
 当你使用读取器连接到主题时，需要指定读取器在连接主题时从哪条消息开始读取。
 
 当 Apache Pulsar 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.pulsar.annotation.PulsarReader[format=annotation] 注解来通过读取器消费消息。
-以下组件创建了一个读取器 endpoint，从 `someTopic` 主题的开头开始读取消息：
+以下组件创建了一个读取器端点，从 `someTopic` 主题的开头开始读取消息：
 
 [source,java]
 ----
@@ -186,7 +186,7 @@ public class MyBean {
 ----
 
 javadoc:org.springframework.pulsar.annotation.PulsarReader[format=annotation] 依赖于 javadoc:org.springframework.pulsar.core.PulsarReaderFactory[] 来创建底层的 Pulsar 读取器。
-Spring Boot auto-configuration 提供了这个读取器工厂，可以通过设置任何以 `spring.pulsar.reader.*` 为前缀的应用程序属性来自定义。
+Spring Boot 自动配置提供了这个读取器工厂，可以通过设置任何以 `spring.pulsar.reader.*` 为前缀的应用程序属性来自定义。
 
 如果你需要对读取器工厂的配置进行更多控制，请考虑注册一个或多个 javadoc:org.springframework.pulsar.core.ReaderBuilderCustomizer[] bean。
 这些自定义器会应用于工厂创建的所有读取器，因此也应用于所有 javadoc:org.springframework.pulsar.annotation.PulsarReader[format=annotation] 实例。
@@ -219,7 +219,7 @@ javadoc:org.springframework.pulsar.annotation.PulsarListener[format=annotation] 
 [[messaging.pulsar.additional-properties]]
 == 其他 Pulsar 属性
 
-auto-configuration 支持的属性显示在附录的 xref:appendix:application-properties/index.adoc#appendix.application-properties.integration[Integration Properties] 部分。
+自动配置支持的属性显示在附录的 xref:appendix:application-properties/index.adoc#appendix.application-properties.integration[Integration Properties] 部分。
 请注意，这些属性（连字符形式或驼峰形式）大部分直接映射到 Apache Pulsar 配置属性。
 详细信息请参阅 Apache Pulsar 文档。
 

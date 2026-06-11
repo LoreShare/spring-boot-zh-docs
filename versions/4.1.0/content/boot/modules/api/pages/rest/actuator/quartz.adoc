@@ -1,7 +1,7 @@
 [[quartz]]
-= Quartz (`quartz`)
+= quartz
 
-`quartz` endpoint 提供由 Quartz Scheduler 管理的作业和触发器的信息。
+`quartz` 端点提供由 Quartz Scheduler 管理的作业和触发器的信息。
 
 
 [[quartz.report]]

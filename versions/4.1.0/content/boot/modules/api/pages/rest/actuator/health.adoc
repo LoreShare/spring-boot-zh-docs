@@ -1,6 +1,6 @@
-= Health (`health`)
+= health
 
-`health` endpoint 提供关于应用程序健康状况的详细信息。
+`health` 端点提供关于应用程序健康状况的详细信息。
 
 
 
@@ -67,7 +67,7 @@ include::partial$rest/actuator/health/instance/curl-request.adoc[]
 include::partial$rest/actuator/health/instance/http-response.adoc[]
 
 应用程序健康状况的组件可以根据应用程序的健康指示器及其分组方式任意深度嵌套。
-健康 endpoint 支持 URL 中任意数量的 `/\{component}` 标识符，以允许检索任意深度的组件的健康状况。
+健康端点支持 URL 中任意数量的 `/\{component}` 标识符，以允许检索任意深度的组件的健康状况。
 
 
 

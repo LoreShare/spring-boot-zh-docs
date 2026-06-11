@@ -1,8 +1,8 @@
 [[web.spring-hateoas]]
 = Spring HATEOAS
 
-如果你开发使用超媒体的 RESTful API，Spring Boot 会为 Spring HATEOAS 提供 auto-configuration，且适用于大多数应用程序。
-该 auto-configuration 取代了使用 javadoc:org.springframework.hateoas.config.EnableHypermediaSupport[format=annotation] 的需要，并注册多个 bean 来帮助构建基于超媒体的应用程序，包括 javadoc:org.springframework.hateoas.client.LinkDiscoverers[]（用于客户端支持）以及 javadoc:tools.jackson.databind.json.JsonMapper[]，后者配置为能将响应正确编组为所需表示形式。
+如果你开发使用超媒体的 RESTful API，Spring Boot 会为 Spring HATEOAS 提供自动配置，且适用于大多数应用程序。
+该自动配置取代了使用 javadoc:org.springframework.hateoas.config.EnableHypermediaSupport[format=annotation] 的需要，并注册多个 bean 来帮助构建基于超媒体的应用程序，包括 javadoc:org.springframework.hateoas.client.LinkDiscoverers[]（用于客户端支持）以及 javadoc:tools.jackson.databind.json.JsonMapper[]，后者配置为能将响应正确编组为所需表示形式。
 javadoc:tools.jackson.databind.json.JsonMapper[] 可通过设置各种 `spring.jackson.*` 属性进行自定义；如果存在 javadoc:org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer[] bean，也会使用这些 bean 进行自定义。
 
 你可以通过使用 javadoc:org.springframework.hateoas.config.EnableHypermediaSupport[format=annotation] 来控制 Spring HATEOAS 的配置。

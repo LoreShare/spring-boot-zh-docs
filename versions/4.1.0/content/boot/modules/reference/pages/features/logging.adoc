@@ -559,11 +559,11 @@ NOTE: configprop:logging.structured.ecs.service.version[] 如果未指定，将�
 
 
 [[features.logging.structured.gelf]]
-=== Graylog 扩展日志格式 (GELF)
+=== GELF
 
-https://go2docs.graylog.org/current/getting_in_log_data/gelf.html[Graylog 扩展日志格式] 是一种基于 JSON 的日志格式，用于 Graylog 日志分析平台。
+https://go2docs.graylog.org/current/getting_in_log_data/gelf.html[GELF] 是一种基于 JSON 的日志格式，用于 Graylog 日志分析平台。
 
-要启用 Graylog 扩展日志格式，请将相应的 `format` 属性设置为 `gelf`：
+要启用 GELF，请将相应的 `format` 属性设置为 `gelf`：
 
 [configprops,yaml]
 ----

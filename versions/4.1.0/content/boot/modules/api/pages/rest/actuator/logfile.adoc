@@ -1,7 +1,7 @@
 [[logfile]]
-= 日志文件 (`logfile`)
+= logfile
 
-`logfile` endpoint 提供对应用程序日志文件内容的访问。
+`logfile` 端点提供对应用程序日志文件内容的访问。
 
 [[logfile.retrieving]]
 == 检索日志文件

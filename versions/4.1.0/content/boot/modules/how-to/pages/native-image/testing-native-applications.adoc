@@ -36,7 +36,7 @@ $ java -Dspring.aot.enabled=true -jar myapplication.jar
 如果你的应用程序在 `spring.aot.enabled` 属性设置为 `true` 时启动，那么你更有信心它在转换为 native image 后能正常工作。
 
 你也可以考虑针对正在运行的应用程序运行集成测试。
-例如，你可以使用 Spring javadoc:org.springframework.web.reactive.function.client.WebClient[] 来调用你的应用程序 REST endpoint。
+例如，你可以使用 Spring javadoc:org.springframework.web.reactive.function.client.WebClient[] 来调用你的应用程序 REST 端点。
 或者你可以考虑使用像 Selenium 这样的项目来检查应用程序的 HTML 响应。
 
 

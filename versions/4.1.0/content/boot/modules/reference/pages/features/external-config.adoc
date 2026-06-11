@@ -67,8 +67,8 @@ public class MyBean {
 在新环境中运行时，可以在 jar 外部提供一个 `application.properties` 文件来覆盖 `name`。
 对于一次性测试，你可以使用特定的命令行开关启动（例如，`java -jar app.jar --name="Spring"`）。
 
-提示：`env` 和 `configprops` endpoints 有助于确定属性为何具有特定值。
-你可以使用这两个 endpoints 来诊断意外的属性值。
+提示：`env` 和 `configprops` 端点有助于确定属性为何具有特定值。
+你可以使用这两个端点来诊断意外的属性值。
 详情请参见 xref:actuator/endpoints.adoc[生产就绪特性] 部分。
 
 [[features.external-config.command-line-args]]
@@ -1142,7 +1142,7 @@ TIP: 使用 Kotlin 时，你需要将 `username` 和 `password` 参数声明为�
 Spring Boot 提供了基础设施来绑定 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类型并将它们注册为 beans。
 你可以逐个类地启用配置属性，或者启用类似于组件扫描的配置属性扫描。
 
-有时，使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的类可能不适合扫描，例如，如果你正在开发自己的 auto-configuration 或者你想有条件地启用它们。
+有时，使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的类可能不适合扫描，例如，如果你正在开发自己的自动配置或者你想有条件地启用它们。
 在这些情况下，使用 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] annotation 指定要处理的类型列表。
 这可以在任何 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上完成，如下例所示：
 
@@ -1823,7 +1823,7 @@ my:
 [[features.external-config.typesafe-configuration-properties.validation]]
 === @ConfigurationProperties 验证
 
-Spring Boot 尝试验证 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类，只要它们被 Spring 的 javadoc:org.springframework.validation.annotation.Validated[format=annotation] annotation 注解。
+Spring Boot 尝试验证 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类，只要它们被 Spring 的 javadoc:org.springframework.validation.annotation.Validated[format=annotation] 注解注解。
 你可以直接在配置类上使用 JSR-303 `jakarta.validation` 约束 annotations。
 为此，请确保 classpath 上存在兼容的 JSR-303 实现，然后向字段添加约束 annotations，如下例所示：
 
@@ -1921,8 +1921,8 @@ javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法应
 配置属性验证器在应用程序生命周期的早期创建，将 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法声明为静态可以让 bean 在无需实例化 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类的情况下创建。
 这样做可以避免早期实例化可能引起的任何问题。
 
-提示：`spring-boot-actuator` 模块包含一个 endpoint，它公开了所有 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
-将 Web 浏览器指向 `/actuator/configprops` 或使用等效的 JMX endpoint。
+提示：`spring-boot-actuator` 模块包含一个端点，它公开了所有 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
+将 Web 浏览器指向 `/actuator/configprops` 或使用等效的 JMX 端点。
 有关详细信息，请参阅 xref:actuator/endpoints.adoc[生产就绪特性] 部分。
 
 [[features.external-config.typesafe-configuration-properties.vs-value-annotation]]

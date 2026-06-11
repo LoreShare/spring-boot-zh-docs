@@ -9,7 +9,7 @@
 |`+any+`
 
 |[[application-properties.testing.spring.test.jsontesters.enabled]]xref:#application-properties.testing.spring.test.jsontesters.enabled[`+spring.test.jsontesters.enabled+`]
-|+++是否启用 JSON 测试器的 auto-configuration。+++
+|+++是否启用 JSON 测试器的自动配置。+++
 |`+true+`
 
 |[[application-properties.testing.spring.test.metrics.export]]xref:#application-properties.testing.spring.test.metrics.export[`+spring.test.metrics.export+`]

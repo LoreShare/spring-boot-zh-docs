@@ -1,6 +1,6 @@
 = Apache Kafka 支持
 
-https://kafka.apache.org/[Apache Kafka] 通过提供 auto-configuration 的 `spring-kafka` 项目来支持。
+https://kafka.apache.org/[Apache Kafka] 通过提供自动配置的 `spring-kafka` 项目来支持。
 
 Kafka 配置由 `spring.kafka.*` 中的外部配置属性控制。
 例如，您可以在 `application.properties` 中声明以下部分：
@@ -58,10 +58,10 @@ public class MyBean {
 [[messaging.kafka.receiving]]
 == 接收消息
 
-当 Apache Kafka 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.kafka.annotation.KafkaListener[format=annotation] 注解来创建监听器 endpoint。
+当 Apache Kafka 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.kafka.annotation.KafkaListener[format=annotation] 注解来创建监听器端点。
 如果没有定义 javadoc:org.springframework.kafka.config.KafkaListenerContainerFactory[]，则会使用 `spring.kafka.listener.*` 中定义的键自动配置一个默认的。
 
-以下组件在 `someTopic` 主题上创建了一个监听器 endpoint：
+以下组件在 `someTopic` 主题上创建了一个监听器端点：
 
 [source,java]
 ----
@@ -159,7 +159,7 @@ public class MyKafkaStreamsConfiguration {
 如果需要，大多数这些通用属性可以针对一个或多个客户端类型进行覆盖。
 
 Apache Kafka 将属性重要性指定为 HIGH、MEDIUM 或 LOW。
-Spring Boot auto-configuration 支持所有 HIGH 重要性属性、一些选定的 MEDIUM 和 LOW 属性，以及任何没有默认值的属性。
+Spring Boot 自动配置支持所有 HIGH 重要性属性、一些选定的 MEDIUM 和 LOW 属性，以及任何没有默认值的属性。
 
 只有 Kafka 支持的属性子集可以直接通过 javadoc:org.springframework.boot.kafka.autoconfigure.KafkaProperties[] 类获得。
 如果您希望使用不直接支持的附加属性来配置各个客户端类型，请使用以下属性：
@@ -217,7 +217,7 @@ Spring for Apache Kafka 提供了一种便捷的方式来测试带有嵌入式 A
 要使用此功能，请使用来自 `spring-kafka-test` 模块的 javadoc:org.springframework.kafka.test.context.EmbeddedKafka[format=annotation] 注解测试类。
 更多信息，请参阅 Spring for Apache Kafka {url-spring-kafka-docs}/testing.html#ekb[参考手册]。
 
-为了使 Spring Boot auto-configuration 与上述嵌入式 Apache Kafka 代理协同工作，你需要将嵌入式代理地址的系统属性（由 javadoc:org.springframework.kafka.test.EmbeddedKafkaBroker[] 填充）重新映射到 Apache Kafka 的 Spring Boot 配置属性中。
+为了使 Spring Boot 自动配置与上述嵌入式 Apache Kafka 代理协同工作，你需要将嵌入式代理地址的系统属性（由 javadoc:org.springframework.kafka.test.EmbeddedKafkaBroker[] 填充）重新映射到 Apache Kafka 的 Spring Boot 配置属性中。
 有几种方法可以做到这一点：
 
 * 在测试类中提供一个系统属性，将嵌入式代理地址映射到 configprop:spring.kafka.bootstrap-servers[]：

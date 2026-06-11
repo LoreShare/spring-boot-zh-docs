@@ -1,7 +1,7 @@
 [[appendix.auto-configuration-classes.spring-boot-webflux]]
 = spring-boot-webflux
 
-以下 auto-configuration 类来自 `spring-boot-webflux` 模块：
+以下自动配置类来自 `spring-boot-webflux` 模块：
 
 [cols="4,1"]
 |===

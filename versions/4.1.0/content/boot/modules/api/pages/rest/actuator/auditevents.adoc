@@ -1,6 +1,6 @@
-= 审计事件 (`auditevents`)
+= auditevents
 
-`auditevents` endpoint 提供有关应用程序审计事件的信息。
+`auditevents` 端点提供有关应用程序审计事件的信息。
 
 
 
@@ -21,7 +21,7 @@ include::partial$rest/actuator/auditevents/filtered/http-response.adoc[]
 [[audit-events.retrieving.query-parameters]]
 === 查询参数
 
-endpoint 使用查询参数来限制其返回的事件。
+端点使用查询参数来限制其返回的事件。
 下表显示了支持的查询参数：
 
 [cols="2,4"]

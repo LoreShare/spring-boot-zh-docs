@@ -1,7 +1,7 @@
 [[messaging.amqp]]
 = AMQP
 
-高级消息队列协议（AMQP）是一种面向消息中间件的平台中立、线级协议。
+AMQP 是一种面向消息中间件的平台中立、线级协议。
 Spring AMQP 项目将核心 Spring 概念应用于基于 AMQP 的消息传递解决方案的开发。
 Spring Boot 提供了多种通过 RabbitMQ 使用 AMQP 的便利，包括 `spring-boot-starter-amqp` starter。
 
@@ -102,7 +102,7 @@ spring:
 默认情况下，重试是禁用的。
 你也可以通过声明一个 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitTemplateRetrySettingsCustomizer[] bean 以编程方式自定义 javadoc:org.springframework.core.retry.RetryTemplate[]。
 
-如果你需要创建更多的 javadoc:org.springframework.amqp.rabbit.core.RabbitTemplate[] 实例，或者想要覆盖默认设置，Spring Boot 提供了一个 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitTemplateConfigurer[] bean，你可以用它来初始化一个 javadoc:org.springframework.amqp.rabbit.core.RabbitTemplate[]，使其具有与 auto-configuration 使用的工厂相同的设置。
+如果你需要创建更多的 javadoc:org.springframework.amqp.rabbit.core.RabbitTemplate[] 实例，或者想要覆盖默认设置，Spring Boot 提供了一个 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitTemplateConfigurer[] bean，你可以用它来初始化一个 javadoc:org.springframework.amqp.rabbit.core.RabbitTemplate[]，使其具有与自动配置使用的工厂相同的设置。
 
 如果上下文中存在一个类型为 javadoc:org.springframework.amqp.rabbit.support.micrometer.RabbitTemplateObservationConvention[] 的 bean，它将自动配置到 javadoc:org.springframework.amqp.rabbit.core.RabbitTemplate[] 上。
 
@@ -122,7 +122,7 @@ spring:
 
 如果定义了 javadoc:org.springframework.amqp.support.converter.MessageConverter[]、javadoc:org.springframework.rabbit.stream.support.converter.StreamMessageConverter[]、javadoc:org.springframework.rabbit.stream.producer.ProducerCustomizer[] 或 javadoc:org.springframework.rabbit.stream.micrometer.RabbitStreamTemplateObservationConvention[] bean，它会自动关联到自动配置的 javadoc:org.springframework.rabbit.stream.producer.RabbitStreamTemplate[]。
 
-如果需要创建更多 javadoc:org.springframework.rabbit.stream.producer.RabbitStreamTemplate[] 实例，或者想要覆盖默认配置，Spring Boot 提供了一个 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitStreamTemplateConfigurer[] bean，你可以用它来初始化一个 javadoc:org.springframework.rabbit.stream.producer.RabbitStreamTemplate[]，其设置与 auto-configuration 使用的工厂相同。
+如果需要创建更多 javadoc:org.springframework.rabbit.stream.producer.RabbitStreamTemplate[] 实例，或者想要覆盖默认配置，Spring Boot 提供了一个 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitStreamTemplateConfigurer[] bean，你可以用它来初始化一个 javadoc:org.springframework.rabbit.stream.producer.RabbitStreamTemplate[]，其设置与自动配置使用的工厂相同。
 
 
 
@@ -136,11 +136,11 @@ spring:
 [[messaging.amqp.receiving]]
 == 接收消息
 
-当 Rabbit 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.amqp.rabbit.annotation.RabbitListener[format=annotation] 注解来创建一个监听器 endpoint。
+当 Rabbit 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.amqp.rabbit.annotation.RabbitListener[format=annotation] 注解来创建一个监听器端点。
 如果没有定义 javadoc:org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory[]，则会自动配置一个默认的 javadoc:org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory[]，你可以使用 configprop:spring.rabbitmq.listener.type[] 属性切换到直接容器。
 如果定义了 javadoc:org.springframework.amqp.support.converter.MessageConverter[]、javadoc:org.springframework.amqp.rabbit.retry.MessageRecoverer[] 或 javadoc:org.springframework.amqp.rabbit.support.micrometer.RabbitListenerObservationConvention[] bean，它会自动关联到默认工厂。
 
-以下示例组件在 `someQueue` 队列上创建了一个监听器 endpoint：
+以下示例组件在 `someQueue` 队列上创建了一个监听器端点：
 
 [source,java]
 ----
@@ -160,9 +160,9 @@ public class MyBean {
 
 提示：有关更多详细信息，请参阅 javadoc:org.springframework.amqp.rabbit.annotation.EnableRabbit[format=annotation]。
 
-如果需要创建更多 javadoc:org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory[] 实例，或者想要覆盖默认配置，Spring Boot 提供了 javadoc:org.springframework.boot.amqp.autoconfigure.SimpleRabbitListenerContainerFactoryConfigurer[] 和 javadoc:org.springframework.boot.amqp.autoconfigure.DirectRabbitListenerContainerFactoryConfigurer[]，你可以用它们来初始化 javadoc:org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory[] 和 javadoc:org.springframework.amqp.rabbit.config.DirectRabbitListenerContainerFactory[]，其设置与 auto-configuration 使用的工厂相同。
+如果需要创建更多 javadoc:org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory[] 实例，或者想要覆盖默认配置，Spring Boot 提供了 javadoc:org.springframework.boot.amqp.autoconfigure.SimpleRabbitListenerContainerFactoryConfigurer[] 和 javadoc:org.springframework.boot.amqp.autoconfigure.DirectRabbitListenerContainerFactoryConfigurer[]，你可以用它们来初始化 javadoc:org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory[] 和 javadoc:org.springframework.amqp.rabbit.config.DirectRabbitListenerContainerFactory[]，其设置与自动配置使用的工厂相同。
 
-提示：选择哪种容器类型并不重要。这两个 bean 由 auto-configuration 暴露。
+提示：选择哪种容器类型并不重要。这两个 bean 由自动配置暴露。
 
 例如，以下配置类暴露了另一个使用特定 javadoc:org.springframework.amqp.support.converter.MessageConverter[] 的工厂：
 

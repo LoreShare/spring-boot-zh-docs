@@ -1,7 +1,7 @@
 [[shutdown]]
-= 关闭 (`shutdown`)
+= shutdown
 
-`shutdown` endpoint 用于关闭应用程序。
+`shutdown` 端点用于关闭应用程序。
 
 
 

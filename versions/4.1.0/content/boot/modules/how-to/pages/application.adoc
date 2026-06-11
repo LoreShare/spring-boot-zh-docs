@@ -28,24 +28,24 @@ com.example.ProjectConstraintViolationFailureAnalyzer
 [[howto.application.troubleshoot-auto-configuration]]
 == 自动配置故障排除
 
-Spring Boot auto-configuration 会尽力“`do the right thing`”，但有时事情会失败，并且可能很难找出原因。
+Spring Boot 自动配置会尽力“`do the right thing`”，但有时事情会失败，并且可能很难找出原因。
 
 在任何 Spring Boot javadoc:org.springframework.context.ApplicationContext[] 中都有一个非常有用的 javadoc:org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport[]。
 如果你启用 `DEBUG` 日志输出，就可以看到它。
-如果你使用 `spring-boot-actuator`（参见 xref:actuator.adoc[] 部分），还有一个 `conditions` endpoint 以 JSON 格式呈现该报告。
-使用该 endpoint 调试应用程序，并查看 Spring Boot 在运行时添加了哪些功能（以及哪些未添加）。
+如果你使用 `spring-boot-actuator`（参见 xref:actuator.adoc[] 部分），还有一个 `conditions` 端点以 JSON 格式呈现该报告。
+使用该端点调试应用程序，并查看 Spring Boot 在运行时添加了哪些功能（以及哪些未添加）。
 
 许多问题可以通过查看源代码和 API 文档来回答。
 阅读代码时，请记住以下经验法则：
 
 * 查找名为 `+*AutoConfiguration+` 的类并阅读其源代码。
   特别注意 `+@Conditional*+` annotation，以了解它们启用了哪些功能以及何时启用。
-  在命令行或系统属性 `-Ddebug` 中添加 `--debug`，以在控制台上获取应用程序中所有 auto-configuration 决策的日志。
-  在启用了 actuator 的正在运行的应用程序中，查看 `conditions` endpoint（`/actuator/conditions` 或等效的 JMX）以获取相同的信息。
+  在命令行或系统属性 `-Ddebug` 中添加 `--debug`，以在控制台上获取应用程序中所有自动配置决策的日志。
+  在启用了 actuator 的正在运行的应用程序中，查看 `conditions` 端点（`/actuator/conditions` 或等效的 JMX）以获取相同的信息。
 * 查找 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类（例如 javadoc:org.springframework.boot.web.server.autoconfigure.ServerProperties[]），并从那里读取可用的外部配置选项。
   javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] annotation 有一个 `name` 属性，作为外部属性的前缀。
   因此，javadoc:org.springframework.boot.web.server.autoconfigure.ServerProperties[] 具有 `prefix="server"`，其配置属性为 `server.port`、`server.address` 等。
-  在启用了 actuator 的正在运行的应用程序中，查看 `configprops` endpoint。
+  在启用了 actuator 的正在运行的应用程序中，查看 `configprops` 端点。
 * 查找 javadoc:org.springframework.boot.context.properties.bind.Binder[] 上 `bind` 方法的使用，以宽松的方式从 javadoc:org.springframework.core.env.Environment[] 中显式提取配置值。
   它通常与前缀一起使用。
 * 查找直接绑定到 javadoc:org.springframework.core.env.Environment[] 的 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotation。

@@ -1,7 +1,7 @@
 [[loggers]]
-= 日志记录器 (`loggers`)
+= loggers
 
-`loggers` endpoint 提供对应用程序日志记录器及其级别配置的访问。
+`loggers` 端点提供对应用程序日志记录器及其级别配置的访问。
 
 
 [[loggers.all]]

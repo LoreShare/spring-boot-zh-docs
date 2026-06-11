@@ -328,11 +328,11 @@ TIP: javadoc:org.springframework.web.bind.annotation.RestController[format=annot
 
 其中，我们最感兴趣的是 javadoc:org.springframework.boot.autoconfigure.EnableAutoConfiguration[format=annotation]。
 javadoc:org.springframework.boot.autoconfigure.EnableAutoConfiguration[format=annotation] 告诉 Spring Boot 根据你添加的 jar 依赖来 "`猜测`" 你希望如何配置 Spring。
-由于 `spring-boot-starter-webmvc` 添加了 Tomcat 和 Spring MVC，auto-configuration 假定你正在开发一个 Web 应用并相应地设置 Spring。
+由于 `spring-boot-starter-webmvc` 添加了 Tomcat 和 Spring MVC，自动配置假定你正在开发一个 Web 应用并相应地设置 Spring。
 
-.Starter 和 auto-configuration
+.Starter 和自动配置
 ****
-auto-configuration 旨在与 starter 良好配合，但这两个概念并不直接绑定。
+自动配置旨在与 starter 良好配合，但这两个概念并不直接绑定。
 你可以自由选择 starter 之外的 jar 依赖。
 Spring Boot 仍然会尽力自动配置你的应用。
 ****

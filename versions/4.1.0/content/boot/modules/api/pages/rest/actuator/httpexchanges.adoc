@@ -1,6 +1,6 @@
-= HTTP Exchanges (`httpexchanges`)
+= httpexchanges
 
-`httpexchanges` endpoint 提供 HTTP 请求-响应交换的信息。
+`httpexchanges` 端点提供 HTTP 请求-响应交换的信息。
 
 
 [[httpexchanges.retrieving]]

@@ -82,7 +82,7 @@ class MyOutputCaptureTests {
 [[testing.utilities.test-rest-template]]
 == TestRestTemplate
 
-javadoc:org.springframework.boot.resttestclient.TestRestTemplate[] 是 Spring 的 javadoc:org.springframework.web.client.RestTemplate[] 的一个便捷替代方案，在集成测试中很有用。它由 `spring-boot-resttestclient` 模块提供。还需要依赖 `spring-boot-restclient`。添加此依赖时需小心，因为它会为 `RestClient.Builder` 启用 auto-configuration。如果你的主代码使用 `RestClient.Builder`，请声明 `spring-boot-restclient` 依赖，使其位于应用程序的主 classpath 上，而不仅仅是测试 classpath 上。
+javadoc:org.springframework.boot.resttestclient.TestRestTemplate[] 是 Spring 的 javadoc:org.springframework.web.client.RestTemplate[] 的一个便捷替代方案，在集成测试中很有用。它由 `spring-boot-resttestclient` 模块提供。还需要依赖 `spring-boot-restclient`。添加此依赖时需小心，因为它会为 `RestClient.Builder` 启用自动配置。如果你的主代码使用 `RestClient.Builder`，请声明 `spring-boot-restclient` 依赖，使其位于应用程序的主 classpath 上，而不仅仅是测试 classpath 上。
 
 你可以获取一个普通模板，或者一个发送基本 HTTP 认证（带有用户名和密码）的模板。无论哪种情况，模板都是容错的。这意味着它以测试友好的方式运行，不会在 4xx 和 5xx 错误时抛出异常。相反，可以通过返回的 javadoc:org.springframework.http.ResponseEntity[] 及其状态码检测此类错误。
 

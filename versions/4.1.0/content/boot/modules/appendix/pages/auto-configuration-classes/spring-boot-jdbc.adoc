@@ -1,7 +1,7 @@
 [[appendix.auto-configuration-classes.spring-boot-jdbc]]
 = spring-boot-jdbc
 
-以下 auto-configuration 类来自 `spring-boot-jdbc` 模块：
+以下自动配置类来自 `spring-boot-jdbc` 模块：
 
 [cols="4,1"]
 |===

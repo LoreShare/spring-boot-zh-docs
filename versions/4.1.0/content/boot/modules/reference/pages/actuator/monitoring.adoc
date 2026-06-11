@@ -1,7 +1,7 @@
 = 通过 HTTP 进行监控和管理
 
-如果你正在开发一个 Web 应用程序，Spring Boot Actuator 会自动配置所有已启用的 endpoints 以通过 HTTP 暴露。
-默认约定是使用 endpoint 的 `id`，并以 `/actuator` 作为 URL 路径的前缀。
+如果你正在开发一个 Web 应用程序，Spring Boot Actuator 会自动配置所有已启用的端点以通过 HTTP 暴露。
+默认约定是使用端点的 `id`，并以 `/actuator` 作为 URL 路径的前缀。
 例如，`health` 被暴露为 `/actuator/health`。
 
 提示：Actuator 原生支持 Spring MVC、Spring WebFlux 和 Jersey。
@@ -15,9 +15,9 @@ Jersey 尚未提供 Jackson 3 模块，因此你需要使用 Jackson 2。
 [[actuator.monitoring.customizing-management-server-context-path]]
 == 自定义管理端点路径
 
-有时，自定义管理 endpoints 的前缀很有用。
+有时，自定义管理端点的前缀很有用。
 例如，你的应用程序可能已经将 `/actuator` 用于其他目的。
-你可以使用 configprop:management.endpoints.web.base-path[] 属性来更改管理 endpoint 的前缀，如下例所示：
+你可以使用 configprop:management.endpoints.web.base-path[] 属性来更改管理端点的前缀，如下例所示：
 
 [configprops,yaml]
 ----
@@ -26,12 +26,12 @@ management:
     web:
       base-path: "/manage"
 ----
-前面的 `application.properties` 示例将 endpoint 从 `/actuator/\{id}` 更改为 `/manage/\{id}`（例如，`/manage/info`）。
+前面的 `application.properties` 示例将端点从 `/actuator/\{id}` 更改为 `/manage/\{id}`（例如，`/manage/info`）。
 
-注意：除非管理端口已配置为 xref:actuator/monitoring.adoc#actuator.monitoring.customizing-management-server-port[通过不同的 HTTP 端口暴露 endpoints]，否则 `management.endpoints.web.base-path` 相对于 `server.servlet.context-path`（对于 Servlet Web 应用程序）或 `spring.webflux.base-path`（对于响应式 Web 应用程序）。
+注意：除非管理端口已配置为 xref:actuator/monitoring.adoc#actuator.monitoring.customizing-management-server-port[通过不同的 HTTP 端口暴露端点]，否则 `management.endpoints.web.base-path` 相对于 `server.servlet.context-path`（对于 Servlet Web 应用程序）或 `spring.webflux.base-path`（对于响应式 Web 应用程序）。
 如果配置了 `management.server.port`，则 `management.endpoints.web.base-path` 相对于 `management.server.base-path`。
 
-如果要将 endpoints 映射到不同的路径，可以使用 configprop:management.endpoints.web.path-mapping[] 属性。
+如果要将端点映射到不同的路径，可以使用 configprop:management.endpoints.web.path-mapping[] 属性。
 
 以下示例将 `/actuator/health` 重新映射到 `/healthcheck`：
 
@@ -46,8 +46,8 @@ management:
 ----
 == 自定义管理服务器端口
 
-对于基于云的部署，使用默认 HTTP 端口暴露管理 endpoints 是一个明智的选择。
-但是，如果您的应用程序在您自己的数据中心内运行，您可能更倾向于使用不同的 HTTP 端口暴露 endpoints。
+对于基于云的部署，使用默认 HTTP 端口暴露管理端点是一个明智的选择。
+但是，如果您的应用程序在您自己的数据中心内运行，您可能更倾向于使用不同的 HTTP 端口暴露端点。
 
 您可以设置 configprop:management.server.port[] 属性来更改 HTTP 端口，如下例所示：
 
@@ -101,7 +101,7 @@ management:
 [[actuator.monitoring.customizing-management-server-address]]
 == 自定义管理服务器地址
 
-您可以通过设置 configprop:management.server.address[] 属性来自定义管理 endpoints 可用的地址。
+您可以通过设置 configprop:management.server.address[] 属性来自定义管理端点可用的地址。
 如果您只想在内部或面向运维的网络中监听，或者只监听来自 `localhost` 的连接，这样做会很有用。
 
 注意：仅当端口与主服务器端口不同时，您才能在不同的地址上监听。
@@ -117,7 +117,7 @@ management:
 ----
 == 禁用 HTTP 端点
 
-如果您不想通过 HTTP 暴露 endpoints，可以将管理端口设置为 `-1`，如下例所示：
+如果您不想通过 HTTP 暴露端点，可以将管理端口设置为 `-1`，如下例所示：
 
 [configprops,yaml]
 ----

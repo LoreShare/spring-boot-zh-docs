@@ -17,7 +17,7 @@ Jackson 3 是首选且默认的库。
 
 == Jackson 3
 
-为 Jackson 3 提供了 auto-configuration，并且 Jackson 是 spring-boot-starter-json 的一部分。
+为 Jackson 3 提供了自动配置，并且 Jackson 是 spring-boot-starter-json 的一部分。
 当 Jackson 在 classpath 上时，会自动配置一个 Jackson2ObjectMapperBuilder bean。
 提供了几个配置属性，用于 xref:how-to:spring-mvc.adoc#howto.spring-mvc.customize-jackson-jsonmapper[自定义 javadoc:tools.jackson.databind.json.JsonMapper[] 的配置]。
 
@@ -127,7 +127,7 @@ public class Example {
 === Mixins
 
 Jackson 支持 mixin，可用于将额外的 annotation 混合到目标类已声明的 annotation 中。
-Spring Boot 的 Jackson auto-configuration 将扫描应用程序的包，查找带有 @JsonMixin annotation 的类，并将它们注册到 auto-configured ObjectMapper。
+Spring Boot 的 Jackson 自动配置将扫描应用程序的包，查找带有 @JsonMixin annotation 的类，并将它们注册到 auto-configured ObjectMapper。
 注册由 Spring Boot 的 JsonMixinModule 执行。
 
 
@@ -135,7 +135,7 @@ Spring Boot 的 Jackson auto-configuration 将扫描应用程序的包，查找�
 [[features.json.kotlin-serialization]]
 == Kotlin Serialization
 
-提供 Kotlin Serialization 的 auto-configuration。
+提供 Kotlin Serialization 的自动配置。
 当 `kotlinx-serialization-json` 位于 classpath 上时，会自动配置一个 https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json/[Json] bean。
 提供了几个 `+spring.kotlinx.serialization.json.*+` 配置属性用于自定义配置。
 

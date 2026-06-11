@@ -7,7 +7,7 @@ javadoc:org.springframework.boot.actuate.web.exchanges.InMemoryHttpExchangeRepos
 对于生产环境，我们建议使用生产就绪的追踪或可观测性解决方案，例如 Zipkin 或 OpenTelemetry。
 或者，你可以创建自己的 javadoc:org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository[]。
 
-你可以使用 `httpexchanges` endpoint 来获取存储在 javadoc:org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository[] 中的请求-响应交换的信息。
+你可以使用 `httpexchanges` 端点来获取存储在 javadoc:org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository[] 中的请求-响应交换的信息。
 
 [[actuator.http-exchanges.custom]]
 == 自定义 HTTP 交换记录

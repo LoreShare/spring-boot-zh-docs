@@ -26,7 +26,7 @@ Spring Boot 可以自动配置嵌入式 https://www.h2database.com[H2]、https:/
 你无需提供任何连接 URL。
 你只需包含一个对你想要使用的嵌入式数据库的构建依赖。
 如果 classpath 上有多个嵌入式数据库，请设置 configprop:spring.datasource.embedded-database-connection[] 配置属性来控制使用哪一个。
-将该属性设置为 `none` 会禁用嵌入式数据库的 auto-configuration。
+将该属性设置为 `none` 会禁用嵌入式数据库的自动配置。
 
 [NOTE]
 ====
@@ -121,7 +121,7 @@ Spring Boot 使用以下算法选择具体实现：
 如果你的应用运行在 Tomcat 容器中，这一点尤其重要，因为默认提供了 `tomcat-jdbc`。
 
 始终可以使用 javadoc:org.springframework.boot.jdbc.DataSourceBuilder[] 手动配置额外的连接池。
-如果你定义了自己的 javadoc:javax.sql.DataSource[] bean，则不会发生 auto-configuration。
+如果你定义了自己的 javadoc:javax.sql.DataSource[] bean，则不会发生自动配置。
 javadoc:org.springframework.boot.jdbc.DataSourceBuilder[] 支持以下连接池：
 
 * HikariCP
@@ -237,7 +237,7 @@ public class MyBean {
 }
 ----
 
-如果你依赖 auto-configuration 来创建底层的 javadoc:org.springframework.jdbc.core.JdbcTemplate[]，那么使用 `spring.jdbc.template.*` 属性进行的任何自定义也会在客户端中生效。
+如果你依赖自动配置来创建底层的 javadoc:org.springframework.jdbc.core.JdbcTemplate[]，那么使用 `spring.jdbc.template.*` 属性进行的任何自定义也会在客户端中生效。
 
 
 [[data.sql.jpa-and-spring-data]]
@@ -260,7 +260,7 @@ Java 持久化 API 是一种标准技术，允许你将对象“`map`”到关�
 
 传统上，JPA “`Entity`” 类是在 `persistence.xml` 文件中指定的。
 使用 Spring Boot，这个文件不是必需的，而是使用“`Entity Scanning`”。
-默认情况下，会扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration 包]。
+默认情况下，会扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包]。
 
 任何带有 javadoc:jakarta.persistence.Entity[format=annotation]、javadoc:jakarta.persistence.Embeddable[format=annotation] 或 javadoc:jakarta.persistence.MappedSuperclass[format=annotation] 注解的类都会被考虑。
 一个典型的实体类如下例所示：
@@ -323,10 +323,10 @@ public class City implements Serializable {
 JPA 查询会根据你的方法名自动创建。
 例如，一个 `CityRepository` 接口可能声明一个 `findAllByState(String state)` 方法来查找给定州的所有城市。
 
-对于更复杂的查询，你可以使用 Spring Data 的 javadoc:org.springframework.data.jpa.repository.Query[] annotation 注解你的方法。
+对于更复杂的查询，你可以使用 Spring Data 的 javadoc:org.springframework.data.jpa.repository.Query[] 注解注解你的方法。
 
 Spring Data 仓库通常继承自 javadoc:org.springframework.data.repository.Repository[] 或 javadoc:org.springframework.data.repository.CrudRepository[] 接口。
-如果你使用 auto-configuration，则会搜索 xref:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration 包] 中的仓库。
+如果你使用自动配置，则会搜索 xref:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包] 中的仓库。
 
 提示：你可以使用 javadoc:org.springframework.data.jpa.repository.config.EnableJpaRepositories[format=annotation] 自定义查找仓库的位置。
 
@@ -615,7 +615,7 @@ NOTE: Spring Boot 只能自动配置 jOOQ 开源版本支持的方言。
 === 自定义 jOOQ
 
 更高级的自定义可以通过定义你自己的 javadoc:org.springframework.boot.jooq.autoconfigure.DefaultConfigurationCustomizer[] bean 来实现，该 Bean 将在创建 javadoc:org.jooq.Configuration[] javadoc:org.springframework.context.annotation.Bean[format=annotation] 之前被调用。
-这优先于 auto-configuration 应用的任何内容。
+这优先于自动配置应用的任何内容。
 
 如果你想完全控制 jOOQ 配置，你也可以创建自己的 javadoc:org.jooq.Configuration[] javadoc:org.springframework.context.annotation.Bean[format=annotation]。
 
@@ -692,7 +692,7 @@ public class MyPostgresR2dbcConfiguration {
 }
 ----
 
-当 javadoc:io.r2dbc.spi.ConnectionFactory[] bean 可用时，常规的 JDBC javadoc:javax.sql.DataSource[] auto-configuration 会退出。如果你想保留 JDBC javadoc:javax.sql.DataSource[] auto-configuration，并且愿意在响应式应用中使用阻塞 JDBC API 的风险，可以在应用程序的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上添加 `@Import(DataSourceAutoConfiguration.class)` 以重新启用它。
+当 javadoc:io.r2dbc.spi.ConnectionFactory[] bean 可用时，常规的 JDBC javadoc:javax.sql.DataSource[] 自动配置会退出。如果你想保留 JDBC javadoc:javax.sql.DataSource[] auto-configuration，并且愿意在响应式应用中使用阻塞 JDBC API 的风险，可以在应用程序的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上添加 `@Import(DataSourceAutoConfiguration.class)` 以重新启用它。
 
 [[data.sql.r2dbc.embedded]]
 === 嵌入式数据库支持
@@ -756,10 +756,10 @@ https://spring.io/projects/spring-data-r2dbc[Spring Data R2DBC] 仓库是你定�
 查询会根据你的方法名自动创建。
 例如，一个 `CityRepository` 接口可能声明一个 `findAllByState(String state)` 方法来查找给定州的所有城市。
 
-对于更复杂的查询，你可以使用 Spring Data 的 javadoc:org.springframework.data.r2dbc.repository.Query[format=annotation] annotation 注解你的方法。
+对于更复杂的查询，你可以使用 Spring Data 的 javadoc:org.springframework.data.r2dbc.repository.Query[format=annotation] 注解注解你的方法。
 
 Spring Data 仓库通常继承自 javadoc:org.springframework.data.repository.Repository[] 或 javadoc:org.springframework.data.repository.CrudRepository[] 接口。
-如果你使用 auto-configuration，则会搜索 xref:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration 包] 中的仓库。
+如果你使用自动配置，则会搜索 xref:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包] 中的仓库。
 
 以下示例展示了一个典型的 Spring Data 仓库接口定义：
 

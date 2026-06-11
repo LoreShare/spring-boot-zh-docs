@@ -79,4 +79,4 @@ public class MyBean {
 
 javadoc:org.springframework.boot.jms.XAConnectionFactoryWrapper[] 和 javadoc:org.springframework.boot.jdbc.XADataSourceWrapper[] 接口可用于支持嵌入式事务管理器。
 这些接口负责包装 javadoc:jakarta.jms.XAConnectionFactory[] 和 javadoc:javax.sql.XADataSource[] bean，并将它们暴露为常规的 javadoc:jakarta.jms.ConnectionFactory[] 和 javadoc:javax.sql.DataSource[] bean，从而透明地参与分布式事务。
-DataSource 和 JMS auto-configuration 使用 JTA 变体，前提是您有一个 javadoc:org.springframework.transaction.jta.JtaTransactionManager[] bean 并且在您的 javadoc:org.springframework.context.ApplicationContext[] 中注册了适当的 XA 包装器 bean。
+DataSource 和 JMS 自动配置使用 JTA 变体，前提是您有一个 javadoc:org.springframework.transaction.jta.JtaTransactionManager[] bean 并且在您的 javadoc:org.springframework.context.ApplicationContext[] 中注册了适当的 XA 包装器 bean。

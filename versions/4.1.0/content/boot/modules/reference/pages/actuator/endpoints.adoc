@@ -1,18 +1,18 @@
 = 端点
 
-Actuator endpoints 让您可以监控应用程序并与之交互。
-Spring Boot 包含许多内置的 endpoints，并允许您添加自己的端点。
-例如，`health` endpoint 提供基本的应用程序健康信息。
+Actuator 端点让您可以监控应用程序并与之交互。
+Spring Boot 包含许多内置的端点，并允许您添加自己的端点。
+例如，`health` 端点提供基本的应用程序健康信息。
 
-您可以 xref:actuator/endpoints.adoc#actuator.endpoints.controlling-access[控制访问] 每个 endpoint，并 xref:actuator/endpoints.adoc#actuator.endpoints.exposing[通过 HTTP 或 JMX 暴露它们（使其可远程访问）]。
-当允许访问并暴露时，endpoint 被视为可用。
-内置的 endpoints 仅在可用时自动配置。
-大多数应用程序选择通过 HTTP 暴露，其中 endpoint 的 ID 加上前缀 `/actuator` 映射到一个 URL。
-例如，默认情况下，`health` endpoint 映射到 `/actuator/health`。
+您可以 xref:actuator/endpoints.adoc#actuator.endpoints.controlling-access[控制访问] 每个端点，并 xref:actuator/endpoints.adoc#actuator.endpoints.exposing[通过 HTTP 或 JMX 暴露它们（使其可远程访问）]。
+当允许访问并暴露时，端点被视为可用。
+内置的端点仅在可用时自动配置。
+大多数应用程序选择通过 HTTP 暴露，其中端点的 ID 加上前缀 `/actuator` 映射到一个 URL。
+例如，默认情况下，`health` 端点映射到 `/actuator/health`。
 
-提示：要了解更多关于 Actuator 的 endpoints 及其请求和响应格式，请参阅 xref:api:rest/actuator/index.adoc[API 文档]。
+提示：要了解更多关于 Actuator 的端点及其请求和响应格式，请参阅 xref:api:rest/actuator/index.adoc[API 文档]。
 
-以下与技术无关的 endpoints 可用：
+以下与技术无关的端点可用：
 
 [cols="2,5"]
 |===
@@ -29,7 +29,7 @@ Spring Boot 包含许多内置的 endpoints，并允许您添加自己的端点�
 | 暴露可用的缓存。
 
 | `conditions`
-| 显示在配置和 auto-configuration 类上评估的条件，以及它们匹配或不匹配的原因。
+| 显示在配置和自动配置类上评估的条件，以及它们匹配或不匹配的原因。
 
 | `configprops`
 | 显示所有 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 的汇总列表。
@@ -94,7 +94,7 @@ Spring Boot 包含许多内置的 endpoints，并允许您添加自己的端点�
 | 执行线程转储。
 |===
 
-如果您的应用程序是 Web 应用程序（Spring MVC、Spring WebFlux 或 Jersey），您可以使用以下额外的 endpoints：
+如果您的应用程序是 Web 应用程序（Spring MVC、Spring WebFlux 或 Jersey），您可以使用以下额外的端点：
 
 [cols="2,5"]
 |===
@@ -119,9 +119,9 @@ Spring Boot 包含许多内置的 endpoints，并允许您添加自己的端点�
 [[actuator.endpoints.controlling-access]]
 == 控制对端点的访问
 
-默认情况下，除 `shutdown` 和 `heapdump` 之外的所有 endpoints 的访问不受限制。
-要配置对 endpoint 的允许访问，请使用其 `management.endpoint.<id>.access` 属性。
-以下示例允许对 `shutdown` endpoint 进行无限制访问：
+默认情况下，除 `shutdown` 和 `heapdump` 之外的所有端点的访问不受限制。
+要配置对端点的允许访问，请使用其 `management.endpoint.<id>.access` 属性。
+以下示例允许对 `shutdown` 端点进行无限制访问：
 
 [configprops,yaml]
 ----
@@ -130,8 +130,8 @@ management:
     shutdown:
       access: unrestricted
 ----
-如果你希望访问是选择加入而非选择退出，请将 configprop:management.endpoints.access.default[] 属性设置为 `none`，并使用各个 endpoint 的 `access` 属性重新选择加入。
-以下示例允许对 `loggers` endpoint 进行只读访问，并拒绝访问所有其他 endpoints：
+如果你希望访问是选择加入而非选择退出，请将 configprop:management.endpoints.access.default[] 属性设置为 `none`，并使用各个端点的 `access` 属性重新选择加入。
+以下示例允许对 `loggers` 端点进行只读访问，并拒绝访问所有其他端点：
 
 [configprops,yaml]
 ----
@@ -143,19 +143,19 @@ management:
     loggers:
       access: read-only
 ----
-NOTE: 不可访问的 endpoints 会从应用程序上下文中完全移除。
-如果只想更改暴露 endpoint 的技术，请改用 xref:actuator/endpoints.adoc#actuator.endpoints.exposing[`include` 和 `exclude` 属性]。
+NOTE: 不可访问的端点会从应用程序上下文中完全移除。
+如果只想更改暴露端点的技术，请改用 xref:actuator/endpoints.adoc#actuator.endpoints.exposing[`include` 和 `exclude` 属性]。
 
 
 [[actuator.endpoints.controlling-access.limiting]]
 === 限制访问
 
-可以使用 configprop:management.endpoints.access.max-permitted[] 属性限制整个应用程序的 endpoint 访问。
-此属性优先于默认访问或单个 endpoint 的访问级别。
-将其设置为 `none` 可使所有 endpoints 不可访问。
-将其设置为 `read-only` 则仅允许对 endpoints 进行读取访问。
+可以使用 configprop:management.endpoints.access.max-permitted[] 属性限制整个应用程序的端点访问。
+此属性优先于默认访问或单个端点的访问级别。
+将其设置为 `none` 可使所有端点不可访问。
+将其设置为 `read-only` 则仅允许对端点进行读取访问。
 
-对于 javadoc:org.springframework.boot.actuate.endpoint.annotation.Endpoint[format=annotation]、javadoc:org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpoint[format=annotation] 和 javadoc:org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint[format=annotation]，读取访问等同于使用 javadoc:org.springframework.boot.actuate.endpoint.annotation.ReadOperation[format=annotation] 注解的 endpoint 方法。
+对于 javadoc:org.springframework.boot.actuate.endpoint.annotation.Endpoint[format=annotation]、javadoc:org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpoint[format=annotation] 和 javadoc:org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint[format=annotation]，读取访问等同于使用 javadoc:org.springframework.boot.actuate.endpoint.annotation.ReadOperation[format=annotation] 注解的端点方法。
 对于 javadoc:org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint[format=annotation] 和 javadoc:org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint[format=annotation]，读取访问等同于能够处理 `GET` 和 `HEAD` 请求的请求映射。
 对于 javadoc:org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint[format=annotation]，读取访问等同于 `GET` 和 `HEAD` 请求。
 
@@ -163,10 +163,10 @@ NOTE: 不可访问的 endpoints 会从应用程序上下文中完全移除。
 [[actuator.endpoints.exposing]]
 == 暴露端点
 
-默认情况下，只有 health endpoint 通过 HTTP 和 JMX 暴露。
+默认情况下，只有 health 端点通过 HTTP 和 JMX 暴露。
 由于端点可能包含敏感信息，应仔细考虑何时暴露它们。
 
-要更改暴露哪些 endpoints，请使用以下特定技术的 `include` 和 `exclude` 属性：
+要更改暴露哪些端点，请使用以下特定技术的 `include` 和 `exclude` 属性：
 
 [cols="3,1"]
 |===
@@ -185,12 +185,12 @@ NOTE: 不可访问的 endpoints 会从应用程序上下文中完全移除。
 | `health`
 |===
 
-`include` 属性列出暴露的 endpoints 的 ID。
-`exclude` 属性列出不应暴露的 endpoints 的 ID。
+`include` 属性列出暴露的端点的 ID。
+`exclude` 属性列出不应暴露的端点的 ID。
 `exclude` 属性优先于 `include` 属性。
-您可以同时配置 `include` 和 `exclude` 属性，使用 endpoint ID 列表。
+您可以同时配置 `include` 和 `exclude` 属性，使用端点 ID 列表。
 
-例如，要仅通过 JMX 暴露 `health` 和 `info` endpoints，请使用以下属性：
+例如，要仅通过 JMX 暴露 `health` 和 `info` 端点，请使用以下属性：
 
 [configprops,yaml]
 ----
@@ -200,8 +200,8 @@ management:
       exposure:
         include: "health,info"
 ----
-`*` 可用于选择所有 endpoints。
-例如，要通过 HTTP 暴露所有端点，但排除 `env` 和 `beans` endpoints，请使用以下属性：
+`*` 可用于选择所有端点。
+例如，要通过 HTTP 暴露所有端点，但排除 `env` 和 `beans` 端点，请使用以下属性：
 
 [configprops,yaml]
 ----
@@ -212,25 +212,25 @@ management:
         include: "*"
         exclude: "env,beans"
 ----
-NOTE: `*` 在 YAML 中有特殊含义，因此如果要包含（或排除）所有 endpoints，请务必添加引号。
+NOTE: `*` 在 YAML 中有特殊含义，因此如果要包含（或排除）所有端点，请务必添加引号。
 
-NOTE: 如果您的应用程序对外公开，我们强烈建议您也 xref:actuator/endpoints.adoc#actuator.endpoints.security[保护您的 endpoints]。
+NOTE: 如果您的应用程序对外公开，我们强烈建议您也 xref:actuator/endpoints.adoc#actuator.endpoints.security[保护您的端点]。
 
-TIP: 如果您想实现自己的策略来决定何时暴露 endpoints，可以注册一个 javadoc:org.springframework.boot.actuate.endpoint.EndpointFilter[] bean。
+TIP: 如果您想实现自己的策略来决定何时暴露端点，可以注册一个 javadoc:org.springframework.boot.actuate.endpoint.EndpointFilter[] bean。
 
 
 [[actuator.endpoints.security]]
 == 安全性
 
-出于安全目的，默认情况下仅通过 HTTP 暴露 `/health` endpoint。
-您可以使用 configprop:management.endpoints.web.exposure.include[] 属性来配置暴露的 endpoints。
+出于安全目的，默认情况下仅通过 HTTP 暴露 `/health` 端点。
+您可以使用 configprop:management.endpoints.web.exposure.include[] 属性来配置暴露的端点。
 
 NOTE: 在设置 `management.endpoints.web.exposure.include` 之前，请确保暴露的 actuator 不包含敏感信息，通过将其置于防火墙后面来保护它们，或通过诸如 Spring Security 之类的东西来保护它们。
 
-如果 Spring Security 在 classpath 上，并且没有其他 javadoc:org.springframework.security.web.SecurityFilterChain[] bean 存在，则除 `/health` 之外的所有 actuator 都由 Spring Boot auto-configuration 保护。
-如果您定义了自定义的 javadoc:org.springframework.security.web.SecurityFilterChain[] bean，则 Spring Boot auto-configuration 会退出，让您完全控制 actuator 的访问规则。
+如果 Spring Security 在 classpath 上，并且没有其他 javadoc:org.springframework.security.web.SecurityFilterChain[] bean 存在，则除 `/health` 之外的所有 actuator 都由 Spring Boot 自动配置保护。
+如果您定义了自定义的 javadoc:org.springframework.security.web.SecurityFilterChain[] bean，则 Spring Boot 自动配置会退出，让您完全控制 actuator 的访问规则。
 
-如果您希望为 HTTP endpoints 配置自定义安全性（例如，仅允许具有特定角色的用户访问它们），Spring Boot 提供了一些方便的 javadoc:org.springframework.security.web.util.matcher.RequestMatcher[] 对象，您可以将其与 Spring Security 结合使用。
+如果您希望为 HTTP 端点配置自定义安全性（例如，仅允许具有特定角色的用户访问它们），Spring Boot 提供了一些方便的 javadoc:org.springframework.security.web.util.matcher.RequestMatcher[] 对象，您可以将其与 Spring Security 结合使用。
 
 一个典型的 Spring Security 配置可能类似于以下示例：
 
@@ -258,14 +258,14 @@ public class MySecurityConfiguration {
 }
 ----
 
-前面的示例使用 `EndpointRequest.toAnyEndpoint()` 将请求匹配到任何 endpoint，然后确保所有请求都具有 `ENDPOINT_ADMIN` 角色。
+前面的示例使用 `EndpointRequest.toAnyEndpoint()` 将请求匹配到任何端点，然后确保所有请求都具有 `ENDPOINT_ADMIN` 角色。
 javadoc:org.springframework.boot.security.autoconfigure.actuate.web.servlet.EndpointRequest[] 上还提供了其他几个匹配器方法。
 有关详细信息，请参阅 xref:api:rest/actuator/index.adoc[API 文档]。
 
-NOTE: 当匹配 Actuator endpoints 时，`EndpointRequest.to("endpoint")` 将考虑 endpoint 根路径及其所有子路径，
-即使 endpoint 未声明嵌套路由，也能有效匹配 `"/actuator/endpoint/**"`。
+NOTE: 当匹配 Actuator 端点时，`EndpointRequest.to("endpoint")` 将考虑端点根路径及其所有子路径，
+即使端点未声明嵌套路由，也能有效匹配 `"/actuator/endpoint/**"`。
 
-如果您在防火墙后面部署应用程序，您可能希望所有 actuator endpoints 都可以在无需身份验证的情况下访问。
+如果您在防火墙后面部署应用程序，您可能希望所有 actuator 端点都可以在无需身份验证的情况下访问。
 您可以通过更改 configprop:management.endpoints.web.exposure.include[] 属性来实现，如下所示：
 
 [configprops,yaml]
@@ -277,7 +277,7 @@ management:
         include: "*"
 ----
 
-此外，如果存在 Spring Security，则需要添加自定义安全配置，允许对 endpoints 进行未经身份验证的访问，如下例所示：
+此外，如果存在 Spring Security，则需要添加自定义安全配置，允许对端点进行未经身份验证的访问，如下例所示：
 
 [source,java]
 ----
@@ -300,15 +300,15 @@ public class MySecurityConfiguration {
 }
 ----
 
-注意：在前两个示例中，配置仅适用于 actuator endpoints。
+注意：在前两个示例中，配置仅适用于 actuator 端点。
 由于在存在任何 javadoc:org.springframework.security.web.SecurityFilterChain[] bean 时，Spring Boot 的安全配置会完全退出，因此您需要配置一个额外的 javadoc:org.springframework.security.web.SecurityFilterChain[] bean，其中包含适用于应用程序其余部分的规则。
 
 
 [[actuator.endpoints.security.csrf]]
-=== 跨站请求伪造保护
+=== CSRF 保护
 
 由于 Spring Boot 依赖于 Spring Security 的默认设置，因此默认情况下会启用 CSRF 保护。
-这意味着，当使用默认安全配置时，需要 `POST`（shutdown 和 loggers endpoints）、`PUT` 或 `DELETE` 的 actuator endpoints 会收到 403（禁止）错误。
+这意味着，当使用默认安全配置时，需要 `POST`（shutdown 和 loggers 端点）、`PUT` 或 `DELETE` 的 actuator 端点会收到 403（禁止）错误。
 
 注意：仅当您创建的服务供非浏览器客户端使用时，才建议完全禁用 CSRF 保护。
 
@@ -319,8 +319,8 @@ public class MySecurityConfiguration {
 == 配置端点
 
 端点会自动缓存不接受任何参数的读取操作的响应。
-要配置 endpoint 缓存响应的时长，请使用其 `cache.time-to-live` 属性。
-以下示例将 `beans` endpoint 的缓存生存时间设置为 10 秒：
+要配置端点缓存响应的时长，请使用其 `cache.time-to-live` 属性。
+以下示例将 `beans` 端点的缓存生存时间设置为 10 秒：
 
 [configprops,yaml]
 ----
@@ -330,30 +330,30 @@ management:
       cache:
         time-to-live: "10s"
 ----
-注意：`management.endpoint.<name>` 前缀唯一标识正在配置的 endpoint。
+注意：`management.endpoint.<name>` 前缀唯一标识正在配置的端点。
 
 [[actuator.endpoints.sanitization]]
 == 清理敏感值
 
-`/env`、`/configprops` 和 `/quartz` endpoints 返回的信息可能很敏感，因此默认情况下值总是被完全清理（替换为 `+******+`）。
+`/env`、`/configprops` 和 `/quartz` 端点返回的信息可能很敏感，因此默认情况下值总是被完全清理（替换为 `+******+`）。
 
 只有在以下情况下，才能以未清理的形式查看值：
 
 - `show-values` 属性已设置为非 `never` 的值
 - 没有应用自定义的 xref:how-to:actuator.adoc#howto.actuator.customizing-sanitization[`SanitizingFunction`] beans
 
-`show-values` 属性可以为可清理的 endpoints 配置为以下值之一：
+`show-values` 属性可以为可清理的端点配置为以下值之一：
 
 - `never` - 值总是被完全清理（替换为 `+******+`）
 - `always` - 值对所有用户显示（只要没有 javadoc:org.springframework.boot.actuate.endpoint.SanitizingFunction[] bean 适用）
 - `when-authorized` - 值仅对授权用户显示（只要没有 javadoc:org.springframework.boot.actuate.endpoint.SanitizingFunction[] bean 适用）
 
-对于 HTTP endpoints，如果用户已认证并拥有 endpoint 的角色属性配置的角色，则认为该用户已授权。
+对于 HTTP 端点，如果用户已认证并拥有端点的角色属性配置的角色，则认为该用户已授权。
 默认情况下，任何已认证的用户都是授权的。
 
-对于 JMX endpoints，所有用户始终是授权的。
+对于 JMX 端点，所有用户始终是授权的。
 
-以下示例允许所有拥有 `admin` 角色的用户以原始形式查看 `/env` endpoint 中的值。
+以下示例允许所有拥有 `admin` 角色的用户以原始形式查看 `/env` 端点中的值。
 未授权用户或没有 `admin` 角色的用户将只能看到清理后的值。
 
 [configprops,yaml]
@@ -369,7 +369,7 @@ NOTE: 此示例假设未定义任何 xref:how-to:actuator.adoc#howto.actuator.cu
 [[actuator.endpoints.hypermedia]]
 == Actuator Web 端点的超媒体
 
-添加了一个“`discovery page`”，其中包含指向所有 endpoints 的链接。
+添加了一个“`discovery page`”，其中包含指向所有端点的链接。
 默认情况下，“`discovery page`”在 `/actuator` 上可用。
 
 要禁用“`discovery page`”，请将以下属性添加到应用程序属性中：
@@ -390,7 +390,7 @@ management:
 == CORS 支持
 
 https://en.wikipedia.org/wiki/Cross-origin_resource_sharing[跨域资源共享] (CORS) 是一项 https://www.w3.org/TR/cors/[W3C 规范]，它允许你以灵活的方式指定授权哪些跨域请求。
-如果你使用 Spring MVC 或 Spring WebFlux，你可以配置 Actuator 的 Web endpoints 来支持此类场景。
+如果你使用 Spring MVC 或 Spring WebFlux，你可以配置 Actuator 的 Web 端点来支持此类场景。
 
 默认情况下，CORS 支持是禁用的，只有在你设置了 configprop:management.endpoints.web.cors.allowed-origins[] 属性后才启用。
 以下配置允许来自 `example.com` 域的 `GET` 和 `POST` 调用：
@@ -433,27 +433,27 @@ Actuator 将使用它进行 JSON 处理。
 	}
 ----
 
-你还可以通过使用 javadoc:org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpoint[format=annotation] 或 javadoc:org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint[format=annotation] 编写特定技术的 endpoints。
-这些 endpoints 仅限于各自的技术。
+你还可以通过使用 javadoc:org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpoint[format=annotation] 或 javadoc:org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint[format=annotation] 编写特定技术的端点。
+这些端点仅限于各自的技术。
 例如，javadoc:org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint[format=annotation] 仅通过 HTTP 暴露，而不通过 JMX。
 
 你可以通过使用 javadoc:org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension[format=annotation] 和 javadoc:org.springframework.boot.actuate.endpoint.jmx.annotation.EndpointJmxExtension[format=annotation] 编写特定技术的扩展。
-这些 annotations 允许你提供特定技术的操作来增强现有的 endpoint。
-一个 endpoint 每种类型最多只能有一个扩展。
+这些 annotations 允许你提供特定技术的操作来增强现有的端点。
+一个端点每种类型最多只能有一个扩展。
 
 最后，如果你需要访问 Web 框架特定的功能，你可以实现 servlet 或 Spring javadoc:org.springframework.stereotype.Controller[format=annotation] 和 javadoc:org.springframework.web.bind.annotation.RestController[format=annotation] endpoints，代价是它们不能通过 JMX 或在使用不同 Web 框架时使用。
 
 [[actuator.endpoints.implementing-custom.input]]
 === 接收输入
 
-endpoint 上的操作通过其参数接收输入。
+端点上的操作通过其参数接收输入。
 当通过 Web 暴露时，这些参数的值取自 URL 的查询参数和 JSON 请求体。
 当通过 JMX 暴露时，参数映射到 MBean 操作的参数。
 参数默认是必需的。
 可以通过使用 JSpecify 的 javadoc:org.jspecify.annotations.Nullable[format=annotation] 注解将它们设为可选。
 Kotlin 空安全也受支持。
 
-你可以将 JSON 请求体中的每个根属性映射到 endpoint 的一个参数。
+你可以将 JSON 请求体中的每个根属性映射到端点的一个参数。
 考虑以下 JSON 请求体：
 
 [source,json]
@@ -473,17 +473,17 @@ Kotlin 空安全也受支持。
 	}
 ----
 
-提示：由于 endpoints 与技术无关，方法签名中只能指定简单类型。
+提示：由于端点与技术无关，方法签名中只能指定简单类型。
 特别地，不支持声明一个具有 javadoc:liquibase.report.CustomData[] 类型且定义了 `name` 和 `counter` 属性的单个参数。
 
-注意：为了让输入映射到操作方法的参数，实现 Java 的 endpoint 代码应使用 `-parameters` 编译。
+注意：为了让输入映射到操作方法的参数，实现 Java 的端点代码应使用 `-parameters` 编译。
 对于 Kotlin 代码，请查阅 Spring 框架参考文档中 {url-spring-framework-docs}/languages/kotlin/classes-interfaces.html[的建议]。
 如果你使用 Spring Boot 的 Gradle 插件或使用 Maven 和 `spring-boot-starter-parent`，这将自动发生。
 
 [[actuator.endpoints.implementing-custom.input.conversion]]
 ==== 输入类型转换
 
-传递给 endpoint 操作方法的参数，如有必要，会自动转换为所需类型。
+传递给端点操作方法的参数，如有必要，会自动转换为所需类型。
 在调用操作方法之前，通过 JMX 或 HTTP 接收的输入会使用 javadoc:org.springframework.boot.convert.ApplicationConversionService[] 实例以及任何使用 javadoc:org.springframework.boot.actuate.endpoint.annotation.EndpointConverter[format=annotation] 限定的 javadoc:org.springframework.core.convert.converter.Converter[] 或 javadoc:org.springframework.core.convert.converter.GenericConverter[] beans 转换为所需类型。
 
 [[actuator.endpoints.implementing-custom.web]]
@@ -495,18 +495,18 @@ javadoc:org.springframework.boot.actuate.endpoint.annotation.Endpoint[format=ann
 [[actuator.endpoints.implementing-custom.web.request-predicates]]
 ==== Web 端点请求谓词
 
-对于 Web 暴露的 endpoint 上的每个操作，会自动生成一个请求谓词。
+对于 Web 暴露的端点上的每个操作，会自动生成一个请求谓词。
 
 [[actuator.endpoints.implementing-custom.web.path-predicates]]
 ==== 路径
 
-谓词的路径由 endpoint 的 ID 和 Web 暴露的 endpoints 的基路径决定。
+谓词的路径由端点的 ID 和 Web 暴露的端点的基路径决定。
 默认基路径是 `/actuator`。
-例如，ID 为 `sessions` 的 endpoint 在谓词中使用 `/actuator/sessions` 作为其路径。
+例如，ID 为 `sessions` 的端点在谓词中使用 `/actuator/sessions` 作为其路径。
 
 你可以通过使用 javadoc:org.springframework.boot.actuate.endpoint.annotation.Selector[format=annotation] 注解操作方法的一个或多个参数来进一步自定义路径。
 这样的参数会作为路径变量添加到路径谓词中。
-当调用 endpoint 操作时，该变量的值会传递给操作方法。
+当调用端点操作时，该变量的值会传递给操作方法。
 如果你想捕获所有剩余的路径元素，可以在最后一个参数上添加 `@Selector(Match=ALL_REMAINING)`，并使其类型与 `String[]` 转换兼容。
 
 [[actuator.endpoints.implementing-custom.web.method-predicates]]
@@ -548,7 +548,7 @@ javadoc:org.springframework.boot.actuate.endpoint.annotation.Endpoint[format=ann
 [[actuator.endpoints.implementing-custom.web.response-status]]
 ==== Web 端点响应状态
 
-endpoint 操作的默认响应状态取决于操作类型（读、写或删除）以及操作返回的内容（如果有）。
+端点操作的默认响应状态取决于操作类型（读、写或删除）以及操作返回的内容（如果有）。
 
 如果 javadoc:org.springframework.boot.actuate.endpoint.annotation.ReadOperation[format=annotation] 返回值，响应状态将为 200（OK）。
 如果不返回值，响应状态将为 404（Not Found）。
@@ -569,7 +569,7 @@ endpoint 操作的默认响应状态取决于操作类型（读、写或删除�
 [[actuator.endpoints.implementing-custom.web.security]]
 ==== Web 端点安全
 
-Web endpoint 或 Web 特定的 endpoint 扩展上的操作可以接收当前的 javadoc:java.security.Principal[] 或 javadoc:org.springframework.boot.actuate.endpoint.SecurityContext[] 作为方法参数。
+Web 端点或 Web 特定的端点扩展上的操作可以接收当前的 javadoc:java.security.Principal[] 或 javadoc:org.springframework.boot.actuate.endpoint.SecurityContext[] 作为方法参数。
 前者通常与 javadoc:org.jspecify.annotations.Nullable[format=annotation] 结合使用，为已认证和未认证用户提供不同的行为。
 后者通常用于通过其 `isUserInRole(String)` 方法执行授权检查。
 
@@ -578,7 +578,7 @@ Web endpoint 或 Web 特定的 endpoint 扩展上的操作可以接收当前的 
 
 你可以使用健康信息来检查正在运行的应用程序的状态。
 监控软件通常使用它来在生产系统宕机时提醒某人。
-`health` endpoint 暴露的信息取决于 configprop:management.endpoint.health.show-details[] 和 configprop:management.endpoint.health.show-components[] 属性，这些属性可以配置为以下值之一：
+`health` 端点暴露的信息取决于 configprop:management.endpoint.health.show-details[] 和 configprop:management.endpoint.health.show-components[] 属性，这些属性可以配置为以下值之一：
 
 [cols="1, 3"]
 |===
@@ -596,11 +596,11 @@ Web endpoint 或 Web 特定的 endpoint 扩展上的操作可以接收当前的 
 |===
 
 默认值为 `never`。
-当用户处于 endpoint 的一个或多个角色中时，该用户被视为已授权。
-如果 endpoint 没有配置角色（默认情况下），所有已认证用户都被视为已授权。
+当用户处于端点的一个或多个角色中时，该用户被视为已授权。
+如果端点没有配置角色（默认情况下），所有已认证用户都被视为已授权。
 你可以使用 configprop:management.endpoint.health.roles[] 属性配置角色。
 
-注意：如果你已保护应用程序并希望使用 `always`，你的安全配置必须允许已认证和未认证用户访问健康 endpoint。
+注意：如果你已保护应用程序并希望使用 `always`，你的安全配置必须允许已认证和未认证用户访问健康端点。
 
 健康信息从 javadoc:org.springframework.boot.health.registry.HealthContributorRegistry[] 的内容中收集（默认情况下，你的 javadoc:org.springframework.context.ApplicationContext[] 中定义的所有 javadoc:org.springframework.boot.health.contributor.HealthContributor[] 实例）。
 Spring Boot 包含许多自动配置的 javadoc:org.springframework.boot.health.contributor.HealthContributor[] beans，你也可以编写自己的。
@@ -771,7 +771,7 @@ management:
 响应中的 HTTP 状态码反映了整体健康状态。
 默认情况下，`OUT_OF_SERVICE` 和 `DOWN` 映射到 503。
 任何未映射的健康状态（包括 `UP`）都映射到 200。
-如果你通过 HTTP 访问健康 endpoint，可能还需要注册自定义状态映射。
+如果你通过 HTTP 访问健康端点，可能还需要注册自定义状态映射。
 配置自定义映射会禁用 `DOWN` 和 `OUT_OF_SERVICE` 的默认映射。
 如果要保留默认映射，必须显式配置它们以及任何自定义映射。
 例如，以下属性将 `FATAL` 映射到 503（服务不可用），并保留 `DOWN` 和 `OUT_OF_SERVICE` 的默认映射：
@@ -960,7 +960,7 @@ management.endpoint.health.group.custom.exclude="test/primary/b"
 这里，`primary` 本身是一个复合体，名为 `b` 的 javadoc:org.springframework.boot.health.contributor.HealthContributor[] 将从 `custom` 组中排除。
 
 健康组可以在主端口或管理端口的附加路径上可用。
-这在云环境（如 Kubernetes）中很有用，出于安全目的，通常使用单独的管理端口来提供 actuator endpoints。
+这在云环境（如 Kubernetes）中很有用，出于安全目的，通常使用单独的管理端口来提供 actuator 端点。
 使用单独的端口可能导致不健康的检查，因为即使健康检查成功，主应用程序也可能无法正常工作。
 健康组可以按如下方式配置附加路径：
 
@@ -977,7 +977,7 @@ management.endpoint.health.group.live.additional-path="server:/healthz"
 
 javadoc:javax.sql.DataSource[] 健康指示器显示标准数据源和路由数据源 beans 的健康状况。
 路由数据源的健康状况包括其每个目标数据源的健康状况。
-在健康 endpoint 的响应中，路由数据源的每个目标都使用其路由键命名。
+在健康端点的响应中，路由数据源的每个目标都使用其路由键命名。
 如果您不希望将路由数据源包含在指示器的输出中，请将 configprop:management.health.db.ignore-routing-data-sources[] 设置为 `true`。
 
 [[actuator.endpoints.kubernetes-probes]]
@@ -988,10 +988,10 @@ javadoc:javax.sql.DataSource[] 健康指示器显示标准数据源和路由数�
 
 默认情况下，Spring Boot 管理您的 xref:features/spring-application.adoc#features.spring-application.application-availability[应用程序可用性] 状态。
 如果部署在 Kubernetes 环境中，Actuator 会从 javadoc:org.springframework.boot.availability.ApplicationAvailability[] 接口收集 "`Liveness`" 和 "`Readiness`" 信息，并在专用的 xref:actuator/endpoints.adoc#actuator.endpoints.health.auto-configured-health-indicators[健康指示器] 中使用这些信息：javadoc:org.springframework.boot.health.application.LivenessStateHealthIndicator[] 和 javadoc:org.springframework.boot.health.application.ReadinessStateHealthIndicator[]。
-这些指示器显示在全局健康 endpoint（`"/actuator/health"`）上。
+这些指示器显示在全局健康端点（`"/actuator/health"`）上。
 它们还通过使用 xref:actuator/endpoints.adoc#actuator.endpoints.health.groups[健康组] 作为单独的 HTTP 探针暴露：`"/actuator/health/liveness"` 和 `"/actuator/health/readiness"`。
 
-然后，您可以使用以下 endpoint 信息配置您的 Kubernetes 基础设施：
+然后，您可以使用以下端点信息配置您的 Kubernetes 基础设施：
 
 [source,yaml]
 ----
@@ -1009,7 +1009,7 @@ readinessProbe:
   failureThreshold: ...
   periodSeconds: ...
 ----
-NOTE: `<actuator-port>` 应设置为 actuator endpoints 可用的端口。
+NOTE: `<actuator-port>` 应设置为 actuator 端点可用的端口。
 它可以是主 Web 服务器端口，或者如果设置了 `"management.server.port"` 属性，则可以是单独的管理端口。
 
 这些健康组会自动启用。
@@ -1021,7 +1021,7 @@ NOTE: 如果应用程序启动时间超过配置的存活期，Kubernetes https:
 但是，如果你的应用程序启动时间较长，请考虑 https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes[配置一个 `"startupProbe"`]，使用存活 HTTP 探测来确保 Kubernetes 不会在应用程序启动过程中将其杀死。
 请参阅描述 xref:actuator/endpoints.adoc#actuator.endpoints.kubernetes-probes.lifecycle[探测在应用程序生命周期中的行为] 的章节。
 
-如果你的 Actuator endpoints 部署在单独的管理上下文中，则 endpoints 不使用与主应用程序相同的 Web 基础设施（端口、连接池、框架组件）。
+如果你的 Actuator 端点部署在单独的管理上下文中，则端点不使用与主应用程序相同的 Web 基础设施（端口、连接池、框架组件）。
 在这种情况下，即使主应用程序无法正常工作（例如，无法接受新连接），探测检查也可能成功。
 因此，最好将 `liveness` 和 `readiness` 健康组放在主服务器端口上。
 可以通过设置以下属性来实现：
@@ -1205,7 +1205,7 @@ Spring Boot 包含许多自动配置的 javadoc:org.springframework.boot.actuate
 [[actuator.endpoints.info.custom-application-information]]
 === 自定义应用程序信息
 
-当 `env` 贡献者启用时，您可以通过设置 `+info.*+` Spring 属性来自定义 `info` endpoint 暴露的数据。
+当 `env` 贡献者启用时，您可以通过设置 `+info.*+` Spring 属性来自定义 `info` 端点暴露的数据。
 `info` 键下的所有 javadoc:org.springframework.core.env.Environment[] 属性都会自动暴露。
 例如，您可以将以下设置添加到您的 `application.properties` 文件中：
 
@@ -1239,13 +1239,13 @@ info:
 === Git 提交信息
 
 [[actuator.endpoints.info.git-commit-information]] 的另一个有用功能是能够发布项目构建时 `git` 源代码仓库状态的信息。
-如果 javadoc:org.springframework.boot.info.GitProperties[] bean 可用，你可以使用 `info` endpoint 来暴露这些属性。
+如果 javadoc:org.springframework.boot.info.GitProperties[] bean 可用，你可以使用 `info` 端点来暴露这些属性。
 
 提示：如果 classpath 根目录下存在 `git.properties` 文件，则会自动配置 javadoc:org.springframework.boot.info.GitProperties[] bean。
 更多详情请参见 xref:how-to:build.adoc#howto.build.generate-git-info[]。
 
-默认情况下，endpoint 会暴露 `git.branch`、`git.commit.id` 和 `git.commit.time` 属性（如果存在）。
-如果你不希望 endpoint 响应中包含这些属性中的任何一个，则需要将它们从 `git.properties` 文件中排除。
+默认情况下，端点会暴露 `git.branch`、`git.commit.id` 和 `git.commit.time` 属性（如果存在）。
+如果你不希望端点响应中包含这些属性中的任何一个，则需要将它们从 `git.properties` 文件中排除。
 如果你想显示完整的 git 信息（即 `git.properties` 的完整内容），请使用 configprop:management.info.git.mode[] 属性，如下所示：
 
 [configprops,yaml]
@@ -1255,7 +1255,7 @@ management:
     git:
       mode: "full"
 ----
-要完全禁用 `info` endpoint 中的 git 提交信息，请将 configprop:management.info.git.enabled[] 属性设置为 `false`，如下所示：
+要完全禁用 `info` 端点中的 git 提交信息，请将 configprop:management.info.git.enabled[] 属性设置为 `false`，如下所示：
 
 [configprops,yaml]
 ----
@@ -1267,7 +1267,7 @@ management:
 [[actuator.endpoints.info.build-information]]
 === 构建信息
 
-如果 javadoc:org.springframework.boot.info.BuildProperties[] bean 可用，`info` endpoint 也可以发布关于构建的信息。
+如果 javadoc:org.springframework.boot.info.BuildProperties[] bean 可用，`info` 端点也可以发布关于构建的信息。
 这发生在 classpath 中存在 `META-INF/build-info.properties` 文件时。
 
 提示：Maven 和 Gradle 插件都可以生成该文件。
@@ -1276,22 +1276,22 @@ management:
 [[actuator.endpoints.info.java-information]]
 === Java 信息
 
-`info` endpoint 发布关于 Java 运行时环境的信息，更多详情请参见 javadoc:org.springframework.boot.info.JavaInfo[]。
+`info` 端点发布关于 Java 运行时环境的信息，更多详情请参见 javadoc:org.springframework.boot.info.JavaInfo[]。
 
 [[actuator.endpoints.info.os-information]]
 === 操作系统信息
 
-`info` endpoint 发布关于操作系统的信息，更多详情请参见 javadoc:org.springframework.boot.info.OsInfo[]。
+`info` 端点发布关于操作系统的信息，更多详情请参见 javadoc:org.springframework.boot.info.OsInfo[]。
 
 [[actuator.endpoints.info.process-information]]
 === 进程信息
 
-`info` endpoint 发布关于进程的信息，更多详情请参见 javadoc:org.springframework.boot.info.ProcessInfo[]。
+`info` 端点发布关于进程的信息，更多详情请参见 javadoc:org.springframework.boot.info.ProcessInfo[]。
 
 [[actuator.endpoints.info.ssl-information]]
 === SSL 信息
 
-`info` endpoint 发布关于 SSL 证书（通过 xref:features/ssl.adoc#features.ssl.bundles[SSL 捆绑包] 配置）的信息，更多详情请参见 javadoc:org.springframework.boot.info.SslInfo[]。
+`info` 端点发布关于 SSL 证书（通过 xref:features/ssl.adoc#features.ssl.bundles[SSL 捆绑包] 配置）的信息，更多详情请参见 javadoc:org.springframework.boot.info.SslInfo[]。
 
 [[actuator.endpoints.info.writing-custom-info-contributors]]
 === 编写自定义 InfoContributor
@@ -1319,7 +1319,7 @@ public class MyInfoContributor implements InfoContributor {
 }
 ----
 
-如果您访问 `info` endpoint，您应该会看到包含以下额外条目的响应：
+如果您访问 `info` 端点，您应该会看到包含以下额外条目的响应：
 
 [source,json]
 ----
@@ -1330,12 +1330,12 @@ public class MyInfoContributor implements InfoContributor {
 }
 ----
 [[actuator.endpoints.sbom]]
-== 软件物料清单 (SBOM)
+== SBOM
 
-`sbom` endpoint 暴露了 https://en.wikipedia.org/wiki/Software_supply_chain[软件物料清单]。
+`sbom` 端点暴露了 https://en.wikipedia.org/wiki/Software_supply_chain[SBOM]。
 CycloneDX SBOM 可以自动检测，但其他格式也可以手动配置。
 
-`sbom` actuator endpoint 将暴露一个名为 "application" 的 SBOM，它描述了你的应用程序的内容。
+`sbom` actuator 端点将暴露一个名为 "application" 的 SBOM，它描述了你的应用程序的内容。
 
 提示：要在项目构建时自动生成 CycloneDX SBOM，请参阅 xref:how-to:build.adoc#howto.build.generate-cyclonedx-sbom[] 部分。
 
@@ -1353,7 +1353,7 @@ CycloneDX、SPDX 和 Syft 格式的 SBOM 的媒体类型会自动检测。
 [[actuator.endpoints.sbom.additional]]
 === 额外的 SBOM
 
-actuator endpoint 可以处理多个 SBOM。
+actuator 端点可以处理多个 SBOM。
 要添加 SBOM，请使用配置属性 configprop:management.endpoint.sbom.additional[]，如下例所示：
 
 [configprops,yaml]
@@ -1366,5 +1366,5 @@ management:
           location: "optional:file:/system.spdx.json"
           media-type: "application/spdx+json"
 ----
-这将添加一个名为“system”的SBOM，存储在 `/system.spdx.json` 中。
+这将添加一个名为“system”的 SBOM，存储在 `/system.spdx.json` 中。
 如果文件不存在，可以使用 `optional:` 前缀来防止启动失败。

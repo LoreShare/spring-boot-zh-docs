@@ -124,7 +124,7 @@ spring:
 
 在独立应用程序中，主 HTTP 端口默认为 `8080`，但可以通过 configprop:server.port[] 设置（例如，在 `application.properties` 中或作为系统属性）。由于 javadoc:org.springframework.core.env.Environment[] 值的宽松绑定，您也可以使用 configprop:server.port[format=envvar]（例如，作为操作系统环境变量）。
 
-要完全关闭 HTTP endpoints 但仍创建 javadoc:org.springframework.web.context.WebApplicationContext[]，请使用 `server.port=-1`（这样做有时对测试很有用）。
+要完全关闭 HTTP 端点但仍创建 javadoc:org.springframework.web.context.WebApplicationContext[]，请使用 `server.port=-1`（这样做有时对测试很有用）。
 
 更多详情，请参阅 '`Spring Boot Features`' 部分中的 xref:reference:web/servlet.adoc#web.servlet.embedded-container.customizing[自定义嵌入式 Servlet 容器]，或 javadoc:org.springframework.boot.web.server.autoconfigure.ServerProperties[] 类。
 
@@ -291,9 +291,9 @@ server:
 ====
 
 [[howto.webserver.configure-ssl.sni]]
-=== 配置服务器名称指示
+=== 配置 SNI
 
-Tomcat 和 Netty 可以配置为对单个主机名使用唯一的 SSL 信任材料，以支持服务器名称指示（SNI）。
+Tomcat 和 Netty 可以配置为对单个主机名使用唯一的 SSL 信任材料，以支持 SNI。
 Jetty 不支持 SNI 配置，但如果向它提供多个证书，Jetty 可以 https://eclipse.dev/jetty/documentation/jetty-12/operations-guide/index.html#og-protocols-ssl-sni[自动设置 SNI]。
 
 假设已配置了名为 `web`、`web-alt1` 和 `web-alt2` 的 xref:reference:features/ssl.adoc[SSL bundles]，以下配置可用于将每个 bundle 分配给嵌入式 Web 服务器服务的主机名：

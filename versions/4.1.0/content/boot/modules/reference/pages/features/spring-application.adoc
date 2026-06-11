@@ -211,7 +211,7 @@ public class MyApplication {
 
 当部署在平台上时，应用程序可以使用诸如 https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Kubernetes Probes] 之类的基础设施向平台提供其可用性信息。
 Spring Boot 内置了对常用的“`liveness`”和“`readiness`”可用性状态的支持。
-如果使用 Spring Boot 的“`actuator`”支持，则这些状态会作为健康 endpoint 组公开。
+如果使用 Spring Boot 的“`actuator`”支持，则这些状态会作为健康端点组公开。
 
 此外，还可以通过将 javadoc:org.springframework.boot.availability.ApplicationAvailability[] 接口注入到自己的 beans 中来获取可用性状态。
 
@@ -305,7 +305,7 @@ public class MyLocalCacheVerifier {
 }
 ----
 
-Spring Boot 提供了 xref:actuator/endpoints.adoc#actuator.endpoints.kubernetes-probes[通过 Actuator Health Endpoints 实现的 Kubernetes “Liveness”和“Readiness” HTTP probes]。
+Spring Boot 提供了 xref:actuator/endpoints.adoc#actuator.endpoints.kubernetes-probes[通过 Actuator Health 端点实现的 Kubernetes “Liveness”和“Readiness” HTTP probes]。
 可以在 xref:how-to:deployment/cloud.adoc#howto.deployment.cloud.kubernetes[在专门章节中将 Spring Boot 应用程序部署到 Kubernetes] 中获得更多指导。
 
 
@@ -536,7 +536,7 @@ $ java -XX:StartFlightRecording:filename=recording.jfr,duration=10s -jar demo.ja
 Spring Boot 附带了 javadoc:org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup[] 变体；此实现旨在缓冲启动步骤并将其排入外部指标系统。
 应用程序可以在任何组件中请求类型为 javadoc:org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup[] 的 bean。
 
-Spring Boot 也可以配置为暴露一个 xref:api:rest/actuator/startup.adoc[`startup` endpoint]，以 JSON 文档的形式提供此信息。
+Spring Boot 也可以配置为暴露一个 xref:api:rest/actuator/startup.adoc[`startup` 端点]，以 JSON 文档的形式提供此信息。
 
 
 [[features.spring-application.virtual-threads]]

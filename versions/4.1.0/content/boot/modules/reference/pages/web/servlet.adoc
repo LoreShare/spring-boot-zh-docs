@@ -1,7 +1,7 @@
 [[web.servlet]]
 = Servlet Web 应用
 
-如果你想要构建基于 Servlet 的 Web 应用，可以利用 Spring Boot 的 auto-configuration 来使用 Spring MVC 或 Jersey。
+如果你想要构建基于 Servlet 的 Web 应用，可以利用 Spring Boot 的自动配置来使用 Spring MVC 或 Jersey。
 
 
 
@@ -123,9 +123,9 @@ Spring MVC 是核心 Spring 框架的一部分，详细信息可在 {url-spring-
 [[web.servlet.spring-mvc.auto-configuration]]
 === Spring MVC 自动配置
 
-Spring Boot 提供了适用于大多数应用的 Spring MVC 的 auto-configuration。
+Spring Boot 提供了适用于大多数应用的 Spring MVC 的自动配置。
 它取代了对 javadoc:org.springframework.web.servlet.config.annotation.EnableWebMvc[format=annotation] 的需求，并且两者不能同时使用。
-除了 Spring MVC 的默认值外，auto-configuration 还提供以下功能：
+除了 Spring MVC 的默认值外，自动配置还提供以下功能：
 
 * 包含 javadoc:org.springframework.web.servlet.view.ContentNegotiatingViewResolver[] 和 javadoc:org.springframework.web.servlet.view.BeanNameViewResolver[] beans。
 * 支持提供静态资源，包括对 WebJars 的支持（在本文档后面部分介绍 xref:web/servlet.adoc#web.servlet.spring-mvc.static-content）。
@@ -141,7 +141,7 @@ Spring Boot 提供了适用于大多数应用的 Spring MVC 的 auto-configurati
 自定义实例将受到 Spring MVC 的进一步初始化和配置。
 要参与并（如果需要）覆盖后续处理，应使用 javadoc:org.springframework.web.servlet.config.annotation.WebMvcConfigurer[]。
 
-如果你不想使用 auto-configuration 并希望完全控制 Spring MVC，请添加你自己的带有 javadoc:org.springframework.web.servlet.config.annotation.EnableWebMvc[format=annotation] 注解的 javadoc:org.springframework.context.annotation.Configuration[format=annotation]。
+如果你不想使用自动配置并希望完全控制 Spring MVC，请添加你自己的带有 javadoc:org.springframework.web.servlet.config.annotation.EnableWebMvc[format=annotation] 注解的 javadoc:org.springframework.context.annotation.Configuration[format=annotation]。
 或者，添加你自己的带有 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 注解的 javadoc:org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration[]，如 javadoc:org.springframework.web.servlet.config.annotation.EnableWebMvc[format=annotation] API 文档中所述。
 
 
@@ -448,7 +448,7 @@ Spring MVC 使用 javadoc:org.springframework.web.bind.support.WebBindingInitial
 Spring MVC 支持多种模板技术，包括 Thymeleaf、FreeMarker 和 JSP。
 此外，许多其他模板引擎也包含它们自己的 Spring MVC 集成。
 
-Spring Boot 包含对以下模板引擎的 auto-configuration 支持：
+Spring Boot 包含对以下模板引擎的自动配置支持：
 
 * https://freemarker.apache.org/docs/[FreeMarker]
 * https://docs.groovy-lang.org/docs/next/html/documentation/template-engines.html#_the_markuptemplateengine[Groovy]
@@ -745,12 +745,12 @@ spring:
 [[web.servlet.jersey]]
 == JAX-RS 和 Jersey
 
-如果你更喜欢 REST endpoints 的 JAX-RS 编程模型，你可以使用其中一个可用的实现来代替 Spring MVC。
+如果你更喜欢 REST 端点的 JAX-RS 编程模型，你可以使用其中一个可用的实现来代替 Spring MVC。
 https://jersey.github.io/[Jersey] 和 https://cxf.apache.org/[Apache CXF] 开箱即用效果很好。
 CXF 要求你在应用程序上下文中将其 javadoc:jakarta.servlet.Servlet[] 或 javadoc:jakarta.servlet.Filter[] 注册为 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
-Jersey 有一些原生的 Spring 支持，因此我们在 Spring Boot 中也为它提供了 auto-configuration 支持，以及一个 starter。
+Jersey 有一些原生的 Spring 支持，因此我们在 Spring Boot 中也为它提供了自动配置支持，以及一个 starter。
 
-要开始使用 Jersey，请将 `spring-boot-starter-jersey` 作为依赖项包含进来，然后你需要一个类型为 javadoc:org.glassfish.jersey.server.ResourceConfig[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，在其中注册所有 endpoints，如下例所示：
+要开始使用 Jersey，请将 `spring-boot-starter-jersey` 作为依赖项包含进来，然后你需要一个类型为 javadoc:org.glassfish.jersey.server.ResourceConfig[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，在其中注册所有端点，如下例所示：
 
 [source,java]
 ----
@@ -769,12 +769,12 @@ public class MyJerseyConfig extends ResourceConfig {
 ----
 
 警告：Jersey 对可执行归档的扫描支持相当有限。
-例如，它无法扫描 xref:how-to:deployment/installing.adoc[完全可执行 jar 文件] 中的包中的 endpoints，或在运行可执行 war 文件时扫描 `WEB-INF/classes` 中的 endpoints。
-为了避免这个限制，不应使用 `packages` 方法，而应使用 `register` 方法单独注册 endpoints，如前面的示例所示。
+例如，它无法扫描 xref:how-to:deployment/installing.adoc[完全可执行 jar 文件] 中的包中的端点，或在运行可执行 war 文件时扫描 `WEB-INF/classes` 中的端点。
+为了避免这个限制，不应使用 `packages` 方法，而应使用 `register` 方法单独注册端点，如前面的示例所示。
 
 对于更高级的自定义，你还可以注册任意数量的实现 javadoc:org.springframework.boot.jersey.autoconfigure.ResourceConfigCustomizer[] 的 beans。
 
-所有注册的 endpoints 应该是一个带有 HTTP 资源 annotations（`@GET` 等）的 javadoc:org.springframework.stereotype.Component[format=annotation]，如下例所示：
+所有注册的端点应该是一个带有 HTTP 资源 annotations（`@GET` 等）的 javadoc:org.springframework.stereotype.Component[format=annotation]，如下例所示：
 
 [source,java]
 ----

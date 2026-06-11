@@ -448,9 +448,9 @@ include::example$packaging/boot-build-image-buildpacks.gradle.kts[tags=buildpack
 ----
 ======
 
-构建包（Buildpack）可以以下列任意形式指定。
+Buildpack可以以下列任意形式指定。
 
-位于 CNB 构建器（Builder）中的构建包（如果构建器中只有一个匹配 `buildpack-id` 的构建包，则可省略版本）：
+位于 CNB builder中的构建包（如果构建器中只有一个匹配 `buildpack-id` 的构建包，则可省略版本）：
 
 * `urn:cnb:builder:buildpack-id`
 * `urn:cnb:builder:buildpack-id@0.0.1`

@@ -1,6 +1,6 @@
-= 条件评估报告 (`conditions`)
+= conditions
 
-`conditions` endpoint 提供有关配置和 auto-configuration 类上条件评估的信息。
+`conditions` 端点提供有关配置和自动配置类上条件评估的信息。
 
 
 

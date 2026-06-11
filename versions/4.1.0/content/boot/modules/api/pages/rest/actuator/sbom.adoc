@@ -1,6 +1,6 @@
-= 软件物料清单 (`sbom`)
+= sbom
 
-`sbom` endpoint 提供有关软件物料清单（SBOM）的信息。
+`sbom` 端点提供有关 SBOM 的信息。
 
 
 

@@ -170,15 +170,15 @@ public class MyBean {
 [[messaging.jms.receiving]]
 == 接收消息
 
-当 JMS 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.jms.annotation.JmsListener[format=annotation] 注解来创建一个监听器 endpoint。
+当 JMS 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.jms.annotation.JmsListener[format=annotation] 注解来创建一个监听器端点。
 如果没有定义 javadoc:org.springframework.jms.config.JmsListenerContainerFactory[]，则会自动配置一个默认的工厂。
 如果定义了 javadoc:org.springframework.jms.support.destination.DestinationResolver[]、javadoc:org.springframework.jms.support.converter.MessageConverter[] 或 javadoc:jakarta.jms.ExceptionListener[] bean，它们会自动关联到默认工厂。
 
 在大多数场景下，消息监听器容器应针对原生 javadoc:jakarta.jms.ConnectionFactory[] 进行配置。
 这样每个监听器容器都有自己的连接，并在本地恢复方面拥有完全的责任。
-auto-configuration 使用 javadoc:org.springframework.boot.jms.ConnectionFactoryUnwrapper[] 从自动配置的连接工厂中解包出原生连接工厂。
+自动配置使用 javadoc:org.springframework.boot.jms.ConnectionFactoryUnwrapper[] 从自动配置的连接工厂中解包出原生连接工厂。
 
-注意：auto-configuration 仅解包 `CachedConnectionFactory`。
+注意：自动配置仅解包 `CachedConnectionFactory`。
 
 默认情况下，默认工厂是事务性的。
 如果你在存在 javadoc:org.springframework.transaction.jta.JtaTransactionManager[] 的基础设施中运行，它会默认关联到监听器容器。
@@ -187,7 +187,7 @@ auto-configuration 使用 javadoc:org.springframework.boot.jms.ConnectionFactory
 这确保了在本地事务完成后，传入消息被确认。
 这也包括在同一 JMS 会话中执行的响应消息的发送。
 
-以下组件在 `someQueue` 目标上创建了一个监听器 endpoint：
+以下组件在 `someQueue` 目标上创建了一个监听器端点：
 
 [source,java]
 ----
@@ -256,7 +256,7 @@ public class MyBean {
 }
 ----
 
-类似于 `DefaultJmsListenerContainerFactoryConfigurer`，Spring Boot 也提供了一个 javadoc:org.springframework.boot.jms.autoconfigure.SimpleJmsListenerContainerFactoryConfigurer[]，你可以使用它来初始化一个 javadoc:org.springframework.jms.config.SimpleJmsListenerContainerFactory[] 并应用 auto-configuration 提供的相关设置。
+类似于 `DefaultJmsListenerContainerFactoryConfigurer`，Spring Boot 也提供了一个 javadoc:org.springframework.boot.jms.autoconfigure.SimpleJmsListenerContainerFactoryConfigurer[]，你可以使用它来初始化一个 javadoc:org.springframework.jms.config.SimpleJmsListenerContainerFactory[] 并应用自动配置提供的相关设置。
 
 提示：与使用基于拉取机制（轮询）处理消息的 javadoc:org.springframework.jms.listener.DefaultMessageListenerContainer[] 相比，javadoc:org.springframework.jms.listener.SimpleMessageListenerContainer[] 使用基于推送的机制，这非常接近独立 JMS 规范的精神。
 要了解两个监听器容器之间的更多差异，请查阅它们各自的 javadoc 和 {url-spring-framework-docs}/integration/jms/using.html#jms-mdp[Spring Framework 参考文档]。

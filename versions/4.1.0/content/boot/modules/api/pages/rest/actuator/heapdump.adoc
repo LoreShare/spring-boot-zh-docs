@@ -1,7 +1,7 @@
 [[heapdump]]
-= 堆转储 (`heapdump`)
+= heapdump
 
-`heapdump` endpoint 提供来自应用程序 JVM 的堆转储。
+`heapdump` 端点提供来自应用程序 JVM 的堆转储。
 
 
 [[heapdump.retrieving]]

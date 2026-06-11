@@ -1,6 +1,6 @@
-= Liquibase (`liquibase`)
+= liquibase
 
-`liquibase` endpoint 提供由 Liquibase 应用的数据库变更集信息。
+`liquibase` 端点提供由 Liquibase 应用的数据库变更集信息。
 
 [[liquibase.retrieving]]
 == 检索变更

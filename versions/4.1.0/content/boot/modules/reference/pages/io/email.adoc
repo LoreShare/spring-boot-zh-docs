@@ -1,6 +1,6 @@
 = 发送电子邮件
 
-Spring 框架通过使用 javadoc:org.springframework.mail.javamail.JavaMailSender[] 接口提供了发送电子邮件的抽象，Spring Boot 为其提供了 auto-configuration 以及一个 starter 模块。
+Spring 框架通过使用 javadoc:org.springframework.mail.javamail.JavaMailSender[] 接口提供了发送电子邮件的抽象，Spring Boot 为其提供了自动配置以及一个 starter 模块。
 
 提示：请参阅 {url-spring-framework-docs}/integration/email.html[参考文档] 以了解如何使用 javadoc:org.springframework.mail.javamail.JavaMailSender[] 的详细说明。
 

@@ -1,6 +1,6 @@
 = gRPC
 
-Google 远程过程调用 (gRPC) 是一个高性能 RPC 框架，支持使用二进制消息进行客户端-服务器通信。
+gRPC 是一个高性能 RPC 框架，支持使用二进制消息进行客户端-服务器通信。
 Spring Boot 包含对开发和测试客户端及服务器 gRPC 应用程序的支持。
 
 gRPC 使用的底层消息格式是 Protocol Buffers，它允许消息被多种编程语言创建和使用。
@@ -367,7 +367,7 @@ spring:
 这允许客户端浏览你的服务的元数据并下载它们的 `.proto` 文件。
 
 反射服务位于 `io.grpc:grpc-services` 库中，这是一个可选依赖。
-你需要将该依赖添加到你的项目中，auto-configuration 才能生效。
+你需要将该依赖添加到你的项目中，自动配置才能生效。
 
 提示：如果你有 `io.grpc:grpc-services` 库但希望不自动配置反射，可以将 configprop:spring.grpc.server.reflection.enabled[] 设置为 `false`。
 
@@ -436,7 +436,7 @@ TIP: 你也可以将 configprop:spring.grpc.server.health.schedule.enabled[] 设
 
 Spring gRPC 包含一些特性，允许你使用 Spring Security 声明式地保护基于 Netty 的服务器应用程序。这遵循了与保护常规 Web 应用程序类似的模式。
 
-Spring Boot 为 javadoc:org.springframework.grpc.server.security.GrpcSecurity[] 和 javadoc:org.springframework.grpc.server.security.SecurityGrpcExceptionHandler[] beans 提供了 auto-configuration。通常，gRPC 应用程序随后通过在你的 gRPC 服务 beans 上使用 javadoc:org.springframework.security.access.prepost.PreAuthorize[format=annotation] annotations，或使用 javadoc:org.springframework.grpc.server.security.AuthenticationProcessInterceptor[] bean 来保护。
+Spring Boot 为 javadoc:org.springframework.grpc.server.security.GrpcSecurity[] 和 javadoc:org.springframework.grpc.server.security.SecurityGrpcExceptionHandler[] beans 提供了自动配置。通常，gRPC 应用程序随后通过在你的 gRPC 服务 beans 上使用 javadoc:org.springframework.security.access.prepost.PreAuthorize[format=annotation] annotations，或使用 javadoc:org.springframework.grpc.server.security.AuthenticationProcessInterceptor[] bean 来保护。
 
 更多详情，请参阅 {url-spring-grpc-docs}/server.html#_declarative_security_with_spring_security[Spring gRPC 文档]。
 
@@ -445,7 +445,7 @@ Spring Boot 为 javadoc:org.springframework.grpc.server.security.GrpcSecurity[] 
 
 如果你的 gRPC 服务器运行在 xref:web/servlet.adoc[标准 Servlet 容器内]，你可以使用典型的 xref:web/spring-security.adoc#web.security.spring-mvc[Web 安全配置] 来保护你的应用程序。Spring Boot 将自动配置 javadoc:org.springframework.boot.grpc.server.autoconfigure.GrpcServerExecutorProvider[] 和 javadoc:org.springframework.grpc.server.security.SecurityContextServerInterceptor[] beans，以确保 Spring Security 正常工作。
 
-跨站请求伪造（CSRF）保护与 gRPC 协议不兼容，默认情况下将对所有 gRPC 请求禁用。如果你希望配置自己的 CSRF 保护，可以通过将 configprop:spring.grpc.server.security.csrf.enabled[] 设置为 `false` 来关闭此功能。
+CSRF 保护与 gRPC 协议不兼容，默认情况下将对所有 gRPC 请求禁用。如果你希望配置自己的 CSRF 保护，可以通过将 configprop:spring.grpc.server.security.csrf.enabled[] 设置为 `false` 来关闭此功能。
 
 为了帮助手动配置 Security，Spring Boot 为 gRPC 服务提供了请求匹配器。匹配器可用于 Servlet 和响应式栈。例如，以下配置将包含所有 gRPC 服务，但 "`special`" 除外。
 
@@ -696,7 +696,7 @@ spring:
 [[grpc-client-observability]]
 === 可观测性
 
-Spring Boot 在 Micrometer 可用时提供 javadoc:io.micrometer.core.instrument.binder.grpc.ObservationGrpcClientInterceptor[] 的 auto-configuration。
+Spring Boot 在 Micrometer 可用时提供 javadoc:io.micrometer.core.instrument.binder.grpc.ObservationGrpcClientInterceptor[] 的自动配置。
 该拦截器为你的 gRPC 客户端应用程序提供可观测性。
 
 提示：如果你使用 Micrometer，但更倾向于不将其用于 gRPC，你可以将 configprop:spring.grpc.client.observation.enabled[] 设置为 `false`。

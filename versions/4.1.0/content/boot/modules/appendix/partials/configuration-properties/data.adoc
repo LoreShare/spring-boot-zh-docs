@@ -962,7 +962,7 @@
 |
 
 |[[application-properties.data.spring.ldap.embedded.ldif]]xref:#application-properties.data.spring.ldap.embedded.ldif[`+spring.ldap.embedded.ldif+`]
-|+++模式（LDIF）脚本资源引用。+++
+|+++LDIF 脚本资源引用。+++
 |`+classpath:schema.ldif+`
 
 |[[application-properties.data.spring.ldap.embedded.port]]xref:#application-properties.data.spring.ldap.embedded.port[`+spring.ldap.embedded.port+`]
