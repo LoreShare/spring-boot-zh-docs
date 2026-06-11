@@ -38,17 +38,6 @@ Spring for GraphQL 项目基于 GraphQL Java。
 
 [source,graphql,indent=0]
 ----
-type Query {
-    greeting: String!
-    greetings(name: String!): String!
-}
-
-type Greeting {
-    message: String!
-    author: String!
-}
-----
-----
 include::ROOT:example$resources/graphql/schema.graphqls[]
 ----
 NOTE: 默认情况下，https://spec.graphql.org/draft/#sec-Introspection[字段内省] 在模式上是允许的，因为 GraphiQL 等工具需要它。

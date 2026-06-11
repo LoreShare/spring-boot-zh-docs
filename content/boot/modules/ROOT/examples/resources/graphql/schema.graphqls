@@ -1,0 +1,9 @@
+type Query {
+    greeting: String!
+    greetings(name: String!): String!
+}
+
+type Greeting {
+    message: String!
+    author: String!
+}

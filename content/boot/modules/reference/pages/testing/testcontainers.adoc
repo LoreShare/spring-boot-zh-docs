@@ -174,7 +174,6 @@ javadoc:org.springframework.boot.testcontainers.service.connection.ContainerConn
 
 | javadoc:org.springframework.boot.r2dbc.autoconfigure.R2dbcConnectionDetails[]
 | 类型为 javadoc:org.testcontainers.clickhouse.ClickHouseContainer[] 的容器
-|===
 javadoc:{url-testcontainers-mariadb-javadoc}/org.testcontainers.mariadb.MariaDBContainer[]、javadoc:{url-testcontainers-mssqlserver-javadoc}/org.testcontainers.mssqlserver.MSSQLServerContainer[]、javadoc:{url-testcontainers-mysql-javadoc}/org.testcontainers.mysql.MySQLContainer[]、
 javadoc:org.testcontainers.oracle.OracleContainer[OracleContainer (free)]、javadoc:{url-testcontainers-oracle-xe-javadoc}/org.testcontainers.containers.OracleContainer[OracleContainer (XE)] 或 javadoc:{url-testcontainers-postgresql-javadoc}/org.testcontainers.postgresql.PostgreSQLContainer[]
 

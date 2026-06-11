@@ -78,8 +78,7 @@ Kotlin::
 ----
 include::example$managing-dependencies/depend-on-plugin-commercial.gradle.kts[]
 ----
-== 管理依赖
-
+======
 endif::[]
 
 ifeval::["{build-and-artifact-release-type}" == "opensource-release"]
@@ -97,6 +96,7 @@ Kotlin::
 ----
 include::example$managing-dependencies/depend-on-plugin-release.gradle.kts[]
 ----
+======
 endif::[]
 
 ifeval::["{build-and-artifact-release-type}" == "opensource-milestone"]
@@ -114,8 +114,7 @@ Kotlin::
 ----
 include::example$managing-dependencies/depend-on-plugin-release.gradle.kts[]
 ----
-== 管理依赖
-
+======
 endif::[]
 
 ifeval::["{build-and-artifact-release-type}" == "opensource-snapshot"]
@@ -133,6 +132,7 @@ Kotlin::
 ----
 include::example$managing-dependencies/depend-on-plugin-release.gradle.kts[]
 ----
+======
 endif::[]
 
 Spring Boot 插件对依赖管理插件的依赖意味着你可以使用依赖管理插件，而无需声明对其的依赖。
