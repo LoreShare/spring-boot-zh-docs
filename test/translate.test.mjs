@@ -366,7 +366,9 @@ test('翻译结果会统一 REST API 页面标题和 endpoint 文案', async () 
       translated_adoc: [
         '= 条件评估报告 (`conditions`)',
         '',
-        '`conditions` endpoint 提供信息。',
+        '`conditions` endpoint 提供 auto-configuration 类信息。',
+        '=== Graylog 扩展日志格式 (GELF)',
+        'Actuator Health Endpoints 可以用作探针。',
       ].join('\n'),
       usage: {
         prompt_tokens: 10,
@@ -380,7 +382,9 @@ test('翻译结果会统一 REST API 页面标题和 endpoint 文案', async () 
   assert.equal(result.translated, [
     '= conditions',
     '',
-    '`conditions` 端点提供信息。',
+    '`conditions` 端点提供自动配置类信息。',
+    '=== GELF',
+    'Actuator Health 端点可以用作探针。',
   ].join('\n'));
 });
 

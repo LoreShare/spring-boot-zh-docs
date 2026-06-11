@@ -526,8 +526,8 @@ export function findMixedLanguageVisibleSegments(content) {
   const duplicatePattern = /(?:[A-Za-z][A-Za-z0-9+.-]*\s+)?[\u4e00-\u9fff][^()[\]（）\n]{0,50}?\s*[（(]\s*`?[A-Za-z][A-Za-z0-9._-]{1,}`?\s*[)）]/g;
   const mixedPatterns = [
     /`?[a-z][a-z0-9._-]+`?\s+endpoints?\b/gi,
-    /\bauto-configuration\s+(?:类|配置|机制|系统|选项|支持|报告|结果|属性)\b/gi,
-    /\bannotations?\s+(?:注解|列表|配置|属性)\b/gi,
+    /\bauto-configuration\s+(?:类|配置|机制|系统|选项|支持|报告|结果|属性)/gi,
+    /\bannotations?\s+(?:注解|列表|配置|属性)/gi,
   ];
 
   for (let index = 0; index < lines.length; index += 1) {
