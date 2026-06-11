@@ -4,8 +4,7 @@ version: '4.1.0'
 display_version: '4.1.0'
 start_page: ROOT:index.adoc
 nav:
-- modules/ROOT/partials/nav-root.adoc
-- modules/tutorial/partials/nav-tutorial.adoc
+- nav.adoc
 asciidoc:
   attributes:
     artifact-release-type: release
