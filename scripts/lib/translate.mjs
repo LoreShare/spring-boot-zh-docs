@@ -192,6 +192,14 @@ export function prepareSourceForTranslation(source) {
   };
 }
 
+export function shouldSendToTranslator(source) {
+  const prepared = prepareSourceForTranslation(source).source;
+  const stripped = prepared
+    .replace(/@@(?:CODE_BLOCK|ADOC_TOKEN|TERM)_\d+@@/g, '')
+    .replace(/[ \t\r\n。、，；：,.!?()[\]{}<>"'`=:+*/\\|-]/g, '');
+  return stripped.length > 0;
+}
+
 export function buildFullTranslationPlan({ files = listSourceFiles() } = {}) {
   return files
     .filter((relativePath) => relativePath !== 'antora.yml')
@@ -402,6 +410,17 @@ export async function translateContentWithRetries({
 
     try {
       for (const chunk of chunks) {
+        if (!shouldSendToTranslator(chunk.content)) {
+          translatedChunks.push(chunk.content);
+          onProgress({
+            relativePath,
+            status: 'kept',
+            chunkIndex: chunk.index,
+            chunkCount: chunks.length,
+          });
+          continue;
+        }
+
         onProgress({
           relativePath,
           status: 'translating',

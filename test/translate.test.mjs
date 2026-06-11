@@ -222,3 +222,38 @@ test('发送翻译前保护代码块和不翻译术语并可恢复', () => {
   assert.match(restored, /Actuator/);
   assert.match(restored, /endpoint/);
 });
+
+test('只包含受保护内容的分块直接保留原文', async () => {
+  const calls = [];
+  const source = [
+    'For example:',
+    '----',
+    '$ gradle nativeTest',
+    '----',
+  ].join('\n');
+
+  const result = await translateContentWithRetries({
+    apiKey: 'fake-key',
+    relativePath: 'modules/how-to/pages/native-image/testing-native-applications.adoc',
+    source,
+    initialMaxChunkChars: 20,
+    minChunkChars: 8,
+    requestTranslationImpl: async ({ source }) => {
+      calls.push(source);
+      return {
+        translated_adoc: '例如：',
+        usage: {
+          prompt_tokens: 10,
+          completion_tokens: 5,
+          total_tokens: 15,
+        },
+        model: 'deepseek-v4-flash',
+      };
+    },
+  });
+
+  assert.deepEqual(calls, ['For example:']);
+  assert.match(result.translated, /例如：/);
+  assert.match(result.translated, /\$ gradle nativeTest/);
+  assert.equal(result.usageRecords.length, 1);
+});
