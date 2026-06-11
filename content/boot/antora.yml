@@ -56,6 +56,7 @@ asciidoc:
     url-quartz-javadoc: https://www.quartz-scheduler.org/api/2.5.x
     url-spring-batch-docs: https://docs.spring.io/spring-batch/reference
     url-spring-batch-site: https://spring.io/projects/spring-batch
+    url-spring-boot-layers-xsd: https://www.springframework.org/schema/boot/layers/layers-4.1.xsd
     url-spring-boot-for-apache-geode-docs: https://docs.spring.io/spring-boot-data-geode-build/current/reference/html5
     url-spring-boot-for-apache-geode-site: https://spring.io/projects/spring-boot-data-geode
     url-spring-data-cassandra-docs: https://docs.spring.io/spring-data/cassandra/reference
