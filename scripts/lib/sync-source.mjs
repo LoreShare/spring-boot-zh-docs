@@ -17,6 +17,10 @@ export function getCachedAntoraRoot(cacheDir = CACHE_DIR) {
   return `${cacheDir}/${ANTORA_SOURCE_PATH}`;
 }
 
+export function getCachedAntoraRoots(cacheDir = CACHE_DIR) {
+  return ANTORA_SOURCE_PATHS.map((antoraSourcePath) => `${cacheDir}/${antoraSourcePath}`);
+}
+
 export function buildSyncSteps({
   cacheDir = CACHE_DIR,
   cacheGitExists = existsSync(path.join(cacheDir, '.git')),
@@ -93,6 +97,6 @@ export function syncSource({ cacheDir = CACHE_DIR } = {}) {
   return {
     cacheDir,
     antoraRoot: getCachedAntoraRoot(cacheDir),
-    antoraRoots: ANTORA_SOURCE_PATHS.map((antoraSourcePath) => `${cacheDir}/${antoraSourcePath}`),
+    antoraRoots: getCachedAntoraRoots(cacheDir),
   };
 }

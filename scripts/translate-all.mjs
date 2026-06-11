@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 
-import { translateAll } from './lib/translate.mjs';
+import { parsePathsOption, translateAll } from './lib/translate.mjs';
 
 const force = process.argv.includes('--force');
+const selectedPaths = parsePathsOption();
 
 try {
   const results = await translateAll({
     force,
+    selectedPaths,
     onProgress: (event) => {
       if (event.status === 'skipped') {
         console.log(`跳过已存在文件：${event.outputPath}`);

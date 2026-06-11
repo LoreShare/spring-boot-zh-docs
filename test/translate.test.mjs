@@ -10,7 +10,9 @@ import {
   buildFullTranslationPlan,
   buildTranslationMessages,
   createUsageRecord,
+  filterTranslationPlanByPaths,
   getOutputPathForPage,
+  parsePathsOption,
   prepareSourceForTranslation,
   parseTranslationJson,
   requestTranslation,
@@ -116,6 +118,130 @@ test('全量翻译计划跳过组件配置并区分翻译与复制', () => {
     { relativePath: 'modules/ROOT/pages/index.adoc', action: 'translate' },
     { relativePath: 'modules/ROOT/pages/redirect.adoc', action: 'copy' },
     { relativePath: 'modules/reference/partials/dockerfile', action: 'copy' },
+  ]);
+});
+
+test('多源全量翻译计划包含插件和 Actuator REST API 文档', () => {
+  const plan = buildFullTranslationPlan({
+    sources: [
+      {
+        sourceId: 'core',
+        sourceRoot: 'source/core',
+        files: [
+          'antora.yml',
+          'local-nav.adoc',
+          'nav.adoc',
+          'modules/ROOT/pages/index.adoc',
+        ],
+      },
+      {
+        sourceId: 'maven-plugin',
+        sourceRoot: 'source/maven-plugin',
+        files: [
+          'antora.yml',
+          'local-nav.adoc',
+          'modules/maven-plugin/pages/index.adoc',
+          'modules/maven-plugin/examples/getting-started/pom.xml',
+          'modules/maven-plugin/partials/nav-maven-plugin.adoc',
+        ],
+      },
+      {
+        sourceId: 'gradle-plugin',
+        sourceRoot: 'source/gradle-plugin',
+        files: [
+          'modules/gradle-plugin/pages/index.adoc',
+          'modules/gradle-plugin/examples/getting-started/apply-plugin.gradle',
+        ],
+      },
+      {
+        sourceId: 'actuator-rest-api',
+        sourceRoot: 'source/actuator-rest-api',
+        files: [
+          'modules/api/pages/rest/actuator/index.adoc',
+          'modules/api/partials/nav-actuator-rest-api.adoc',
+        ],
+      },
+    ],
+  });
+
+  assert.deepEqual(plan, [
+    {
+      sourceId: 'core',
+      sourceRoot: 'source/core',
+      relativePath: 'nav.adoc',
+      action: 'copy',
+    },
+    {
+      sourceId: 'core',
+      sourceRoot: 'source/core',
+      relativePath: 'modules/ROOT/pages/index.adoc',
+      action: 'translate',
+    },
+    {
+      sourceId: 'actuator-rest-api',
+      sourceRoot: 'source/actuator-rest-api',
+      relativePath: 'modules/api/pages/rest/actuator/index.adoc',
+      action: 'translate',
+    },
+    {
+      sourceId: 'actuator-rest-api',
+      sourceRoot: 'source/actuator-rest-api',
+      relativePath: 'modules/api/partials/nav-actuator-rest-api.adoc',
+      action: 'translate',
+    },
+    {
+      sourceId: 'gradle-plugin',
+      sourceRoot: 'source/gradle-plugin',
+      relativePath: 'modules/gradle-plugin/examples/getting-started/apply-plugin.gradle',
+      action: 'copy',
+    },
+    {
+      sourceId: 'gradle-plugin',
+      sourceRoot: 'source/gradle-plugin',
+      relativePath: 'modules/gradle-plugin/pages/index.adoc',
+      action: 'translate',
+    },
+    {
+      sourceId: 'maven-plugin',
+      sourceRoot: 'source/maven-plugin',
+      relativePath: 'modules/maven-plugin/examples/getting-started/pom.xml',
+      action: 'copy',
+    },
+    {
+      sourceId: 'maven-plugin',
+      sourceRoot: 'source/maven-plugin',
+      relativePath: 'modules/maven-plugin/pages/index.adoc',
+      action: 'translate',
+    },
+    {
+      sourceId: 'maven-plugin',
+      sourceRoot: 'source/maven-plugin',
+      relativePath: 'modules/maven-plugin/partials/nav-maven-plugin.adoc',
+      action: 'translate',
+    },
+  ]);
+});
+
+test('paths 参数按模块路径过滤全量翻译计划', () => {
+  const plan = [
+    { relativePath: 'modules/ROOT/pages/index.adoc', action: 'translate' },
+    { relativePath: 'modules/maven-plugin/pages/index.adoc', action: 'translate' },
+    { relativePath: 'modules/maven-plugin/pages/run.adoc', action: 'translate' },
+    { relativePath: 'modules/gradle-plugin/pages/index.adoc', action: 'translate' },
+  ];
+
+  assert.deepEqual(parsePathsOption(['--force', '--paths=modules/maven-plugin,modules/gradle-plugin/pages/index.adoc']), [
+    'modules/maven-plugin',
+    'modules/gradle-plugin/pages/index.adoc',
+  ]);
+
+  assert.deepEqual(filterTranslationPlanByPaths(plan, [
+    'modules/maven-plugin',
+    'modules/gradle-plugin/pages/index.adoc',
+  ]), [
+    { relativePath: 'modules/maven-plugin/pages/index.adoc', action: 'translate' },
+    { relativePath: 'modules/maven-plugin/pages/run.adoc', action: 'translate' },
+    { relativePath: 'modules/gradle-plugin/pages/index.adoc', action: 'translate' },
   ]);
 });
 

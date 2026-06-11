@@ -10,7 +10,7 @@ import {
 } from 'node:fs';
 import path from 'node:path';
 
-import { getCachedAntoraRoot } from './sync-source.mjs';
+import { getCachedAntoraRoot, getCachedAntoraRoots } from './sync-source.mjs';
 
 export const DEFAULT_MODEL = 'deepseek-v4-flash';
 export const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
@@ -136,6 +136,14 @@ export function listSourceFiles(sourceRoot = getCachedAntoraRoot()) {
   return results.sort();
 }
 
+export function buildTranslationSources(sourceRoots = getCachedAntoraRoots()) {
+  const sourceIds = ['core', 'maven-plugin', 'gradle-plugin', 'actuator-rest-api'];
+  return sourceRoots.map((sourceRoot, index) => ({
+    sourceId: sourceIds[index] ?? `source-${index + 1}`,
+    sourceRoot,
+  }));
+}
+
 function replaceWithPlaceholders(source, pattern, prefix) {
   const values = [];
   const replaced = source.replace(pattern, (match) => {
@@ -216,24 +224,77 @@ export function shouldSendToTranslator(source) {
   return stripped.length > 0;
 }
 
-export function buildFullTranslationPlan({ files = listSourceFiles() } = {}) {
+function isExcludedSourceFile(relativePath) {
+  return relativePath === 'antora.yml' || relativePath === 'local-nav.adoc';
+}
+
+function sortTranslationItems(left, right) {
+  if (left.relativePath === 'nav.adoc') {
+    return -1;
+  }
+  if (right.relativePath === 'nav.adoc') {
+    return 1;
+  }
+  return left.relativePath < right.relativePath ? -1 : left.relativePath > right.relativePath ? 1 : 0;
+}
+
+function buildPlanItemsForFiles({ files, sourceId, sourceRoot } = {}) {
   return files
-    .filter((relativePath) => relativePath !== 'antora.yml')
-    .sort((left, right) => {
-      if (left === 'nav.adoc') {
-        return -1;
-      }
-      if (right === 'nav.adoc') {
-        return 1;
-      }
-      return left < right ? -1 : left > right ? 1 : 0;
-    })
+    .filter((relativePath) => !isExcludedSourceFile(relativePath))
+    .sort((left, right) => sortTranslationItems({ relativePath: left }, { relativePath: right }))
     .map((relativePath) => ({
+      ...(sourceId ? { sourceId } : {}),
+      ...(sourceRoot ? { sourceRoot } : {}),
       relativePath,
       action: relativePath.endsWith('.adoc') && !COPY_ONLY_FILES.includes(relativePath)
         ? 'translate'
         : 'copy',
     }));
+}
+
+export function buildFullTranslationPlan({
+  files,
+  sources,
+} = {}) {
+  if (sources) {
+    return sources
+      .flatMap((source) => buildPlanItemsForFiles({
+        files: source.files ?? listSourceFiles(source.sourceRoot),
+        sourceId: source.sourceId,
+        sourceRoot: source.sourceRoot,
+      }))
+      .sort(sortTranslationItems);
+  }
+
+  return buildPlanItemsForFiles({ files: files ?? listSourceFiles() })
+    .filter((item) => item.relativePath !== 'antora.yml')
+    .map((item) => ({
+      relativePath: item.relativePath,
+      action: item.action,
+    }));
+}
+
+export function parsePathsOption(argv = process.argv.slice(2)) {
+  const option = argv.find((argument) => argument.startsWith('--paths='));
+  if (!option) {
+    return [];
+  }
+
+  return option
+    .slice('--paths='.length)
+    .split(',')
+    .map((item) => item.trim().replace(/^content\/boot\//, '').replace(/\/+$/, ''))
+    .filter(Boolean);
+}
+
+export function filterTranslationPlanByPaths(plan, selectedPaths = []) {
+  if (selectedPaths.length === 0) {
+    return plan;
+  }
+
+  return plan.filter((item) => selectedPaths.some((selectedPath) => (
+    item.relativePath === selectedPath || item.relativePath.startsWith(`${selectedPath}/`)
+  )));
 }
 
 export function splitAsciiDocForTranslation(source, { maxChars = 12_000 } = {}) {
@@ -386,6 +447,7 @@ export async function requestTranslation({
 }
 
 export function createUsageRecord({
+  sourceId,
   relativePath,
   chunkIndex,
   chunkCount,
@@ -393,6 +455,7 @@ export function createUsageRecord({
   usage = {},
 }) {
   return {
+    ...(sourceId ? { sourceId } : {}),
     relativePath,
     chunkIndex,
     chunkCount,
@@ -460,6 +523,7 @@ async function requestTranslationWithNetworkRetries({
 
 export async function translateContentWithRetries({
   apiKey,
+  sourceId,
   relativePath,
   source,
   fetchImpl = globalThis.fetch,
@@ -516,6 +580,7 @@ export async function translateContentWithRetries({
         });
 
         usageRecords.push(createUsageRecord({
+          sourceId,
           relativePath,
           chunkIndex: chunk.index,
           chunkCount: chunks.length,
@@ -600,7 +665,10 @@ export async function translateMvp({
 }
 
 export async function translateAll({
-  sourceRoot = getCachedAntoraRoot(),
+  sourceRoot,
+  sources = sourceRoot
+    ? [{ sourceId: 'core', sourceRoot }]
+    : buildTranslationSources(),
   outputRoot = 'content/boot',
   apiKey = readDeepSeekApiKey(),
   force = false,
@@ -608,13 +676,14 @@ export async function translateAll({
   requestTimeoutMs = 180_000,
   usageLogPath = DEFAULT_USAGE_LOG,
   maxChunkChars = 12_000,
+  selectedPaths = [],
   onProgress = () => {},
 } = {}) {
-  const plan = buildFullTranslationPlan({ files: listSourceFiles(sourceRoot) });
+  const plan = filterTranslationPlanByPaths(buildFullTranslationPlan({ sources }), selectedPaths);
   const results = [];
 
   for (const item of plan) {
-    const sourcePath = path.join(sourceRoot, item.relativePath);
+    const sourcePath = path.join(item.sourceRoot, item.relativePath);
     const outputPath = getOutputPathForPage(item.relativePath, outputRoot);
 
     if (!force && existsSync(outputPath)) {
@@ -635,6 +704,7 @@ export async function translateAll({
     const source = readFileSync(sourcePath, 'utf8');
     const translation = await translateContentWithRetries({
       apiKey,
+      sourceId: item.sourceId,
       relativePath: item.relativePath,
       source,
       fetchImpl,
