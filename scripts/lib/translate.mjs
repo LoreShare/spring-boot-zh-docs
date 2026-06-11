@@ -1,4 +1,13 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import {
+  appendFileSync,
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import path from 'node:path';
 
 import { getCachedAntoraRoot } from './sync-source.mjs';
@@ -39,6 +48,13 @@ export const MVP_PAGES = [
   'modules/tutorial/pages/index.adoc',
   'modules/tutorial/pages/first-application/index.adoc',
 ];
+
+export const COPY_ONLY_FILES = [
+  'nav.adoc',
+  'modules/ROOT/pages/redirect.adoc',
+];
+
+export const DEFAULT_USAGE_LOG = 'reports/deepseek-usage.jsonl';
 
 export function buildTranslationMessages({ relativePath, source }) {
   const systemPrompt = [
@@ -100,6 +116,91 @@ export function getOutputPathForPage(relativePath, outputRoot = 'content/boot') 
   return `${outputRoot}/${relativePath}`;
 }
 
+export function listSourceFiles(sourceRoot = getCachedAntoraRoot()) {
+  const results = [];
+
+  function walk(directory) {
+    for (const entry of readdirSync(directory)) {
+      const fullPath = path.join(directory, entry);
+      const stats = statSync(fullPath);
+      if (stats.isDirectory()) {
+        walk(fullPath);
+      } else if (stats.isFile()) {
+        results.push(path.relative(sourceRoot, fullPath).split(path.sep).join('/'));
+      }
+    }
+  }
+
+  walk(sourceRoot);
+  return results.sort();
+}
+
+export function buildFullTranslationPlan({ files = listSourceFiles() } = {}) {
+  return files
+    .filter((relativePath) => relativePath !== 'antora.yml')
+    .sort((left, right) => {
+      if (left === 'nav.adoc') {
+        return -1;
+      }
+      if (right === 'nav.adoc') {
+        return 1;
+      }
+      return left < right ? -1 : left > right ? 1 : 0;
+    })
+    .map((relativePath) => ({
+      relativePath,
+      action: relativePath.endsWith('.adoc') && !COPY_ONLY_FILES.includes(relativePath)
+        ? 'translate'
+        : 'copy',
+    }));
+}
+
+export function splitAsciiDocForTranslation(source, { maxChars = 12_000 } = {}) {
+  const lines = source.split('\n');
+  const chunks = [];
+  let current = [];
+  let currentLength = 0;
+  let inListingBlock = false;
+
+  function flush() {
+    if (current.length === 0) {
+      return;
+    }
+
+    chunks.push({
+      index: chunks.length + 1,
+      content: current.join('\n'),
+    });
+    current = [];
+    currentLength = 0;
+  }
+
+  for (const line of lines) {
+    if (!inListingBlock && line.trim() === '----' && current.length > 0) {
+      flush();
+    }
+
+    const nextLength = currentLength + line.length + (current.length > 0 ? 1 : 0);
+    if (!inListingBlock && current.length > 0 && nextLength > maxChars) {
+      flush();
+    }
+
+    current.push(line);
+    currentLength += line.length + (current.length > 1 ? 1 : 0);
+
+    if (line.trim() === '----') {
+      inListingBlock = !inListingBlock;
+    }
+
+    if (!inListingBlock && currentLength >= maxChars) {
+      flush();
+    }
+  }
+
+  flush();
+  return chunks;
+}
+
 export function loadEnvFile(envPath = '.env') {
   if (!existsSync(envPath)) {
     return;
@@ -138,6 +239,8 @@ export async function requestTranslation({
   apiKey,
   relativePath,
   source,
+  chunkIndex,
+  chunkCount,
   fetchImpl = globalThis.fetch,
   timeoutMs = 180_000,
 }) {
@@ -145,7 +248,10 @@ export async function requestTranslation({
     throw new Error('当前 Node.js 环境不支持 fetch');
   }
 
-  const messages = buildTranslationMessages({ relativePath, source });
+  const requestPath = chunkCount && chunkCount > 1
+    ? `${relativePath}（分块 ${chunkIndex}/${chunkCount}）`
+    : relativePath;
+  const messages = buildTranslationMessages({ relativePath: requestPath, source });
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   let response;
@@ -180,7 +286,35 @@ export async function requestTranslation({
     throw new Error('DeepSeek 响应中缺少 choices[0].message.content');
   }
 
-  return parseTranslationJson(content);
+  const translation = parseTranslationJson(content);
+  return {
+    ...translation,
+    usage: payload.usage ?? {},
+    model: payload.model ?? DEFAULT_MODEL,
+  };
+}
+
+export function createUsageRecord({
+  relativePath,
+  chunkIndex,
+  chunkCount,
+  model,
+  usage = {},
+}) {
+  return {
+    relativePath,
+    chunkIndex,
+    chunkCount,
+    model,
+    promptTokens: usage.prompt_tokens ?? 0,
+    completionTokens: usage.completion_tokens ?? 0,
+    totalTokens: usage.total_tokens ?? 0,
+  };
+}
+
+export function appendUsageRecord(record, usageLogPath = DEFAULT_USAGE_LOG) {
+  mkdirSync(path.dirname(usageLogPath), { recursive: true });
+  appendFileSync(usageLogPath, `${JSON.stringify(record)}\n`);
 }
 
 export async function translateMvp({
@@ -229,6 +363,81 @@ export async function translateMvp({
       status: 'translated',
       warnings: translation.warnings,
     });
+  }
+
+  return results;
+}
+
+export async function translateAll({
+  sourceRoot = getCachedAntoraRoot(),
+  outputRoot = 'content/boot',
+  apiKey = readDeepSeekApiKey(),
+  force = false,
+  fetchImpl = globalThis.fetch,
+  requestTimeoutMs = 180_000,
+  usageLogPath = DEFAULT_USAGE_LOG,
+  maxChunkChars = 12_000,
+  onProgress = () => {},
+} = {}) {
+  const plan = buildFullTranslationPlan({ files: listSourceFiles(sourceRoot) });
+  const results = [];
+
+  for (const item of plan) {
+    const sourcePath = path.join(sourceRoot, item.relativePath);
+    const outputPath = getOutputPathForPage(item.relativePath, outputRoot);
+
+    if (!force && existsSync(outputPath)) {
+      results.push({ ...item, outputPath, status: 'skipped' });
+      onProgress({ ...item, outputPath, status: 'skipped' });
+      continue;
+    }
+
+    mkdirSync(path.dirname(outputPath), { recursive: true });
+
+    if (item.action === 'copy') {
+      copyFileSync(sourcePath, outputPath);
+      results.push({ ...item, outputPath, status: 'copied' });
+      onProgress({ ...item, outputPath, status: 'copied' });
+      continue;
+    }
+
+    const source = readFileSync(sourcePath, 'utf8');
+    const chunks = splitAsciiDocForTranslation(source, { maxChars: maxChunkChars });
+    const translatedChunks = [];
+
+    for (const chunk of chunks) {
+      onProgress({
+        ...item,
+        outputPath,
+        status: 'translating',
+        chunkIndex: chunk.index,
+        chunkCount: chunks.length,
+      });
+
+      const translation = await requestTranslation({
+        apiKey,
+        relativePath: item.relativePath,
+        source: chunk.content,
+        chunkIndex: chunk.index,
+        chunkCount: chunks.length,
+        fetchImpl,
+        timeoutMs: requestTimeoutMs,
+      });
+
+      appendUsageRecord(createUsageRecord({
+        relativePath: item.relativePath,
+        chunkIndex: chunk.index,
+        chunkCount: chunks.length,
+        model: translation.model,
+        usage: translation.usage,
+      }), usageLogPath);
+
+      translatedChunks.push(translation.translated_adoc);
+    }
+
+    const translated = translatedChunks.join('\n');
+    writeFileSync(outputPath, translated.endsWith('\n') ? translated : `${translated}\n`);
+    results.push({ ...item, outputPath, status: 'translated', chunkCount: chunks.length });
   }
 
   return results;

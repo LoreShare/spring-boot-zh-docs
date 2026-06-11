@@ -3,13 +3,17 @@ import test from 'node:test';
 
 import {
   DEFAULT_MODEL,
+  COPY_ONLY_FILES,
   MVP_PAGES,
   PROTECTED_TERMS,
   buildDeepSeekRequest,
+  buildFullTranslationPlan,
   buildTranslationMessages,
+  createUsageRecord,
   getOutputPathForPage,
   parseTranslationJson,
   requestTranslation,
+  splitAsciiDocForTranslation,
 } from '../scripts/lib/translate.mjs';
 
 test('DeepSeek 请求固定使用 deepseek-v4-flash 并要求 JSON 输出', () => {
@@ -93,4 +97,65 @@ test('DeepSeek 请求超时时返回中文错误', async () => {
     }),
     /DeepSeek 请求超时/,
   );
+});
+
+test('全量翻译计划跳过组件配置并区分翻译与复制', () => {
+  const files = [
+    'antora.yml',
+    'nav.adoc',
+    'modules/ROOT/pages/index.adoc',
+    'modules/ROOT/pages/redirect.adoc',
+    'modules/reference/partials/dockerfile',
+  ];
+
+  assert.ok(COPY_ONLY_FILES.includes('modules/ROOT/pages/redirect.adoc'));
+  assert.deepEqual(buildFullTranslationPlan({ files }), [
+    { relativePath: 'nav.adoc', action: 'copy' },
+    { relativePath: 'modules/ROOT/pages/index.adoc', action: 'translate' },
+    { relativePath: 'modules/ROOT/pages/redirect.adoc', action: 'copy' },
+    { relativePath: 'modules/reference/partials/dockerfile', action: 'copy' },
+  ]);
+});
+
+test('AsciiDoc 分块不在 listing 代码块内部切分', () => {
+  const source = [
+    '= 标题',
+    '',
+    '第一段很长很长。',
+    '----',
+    'line 1',
+    'line 2',
+    '----',
+    '第二段也很长很长。',
+  ].join('\n');
+
+  const chunks = splitAsciiDocForTranslation(source, { maxChars: 24 });
+
+  assert.equal(chunks.length, 3);
+  assert.match(chunks[1].content, /----\nline 1\nline 2\n----/);
+  assert.deepEqual(chunks.map((chunk) => chunk.index), [1, 2, 3]);
+});
+
+test('usage 记录不包含密钥并保留 token 用量', () => {
+  const record = createUsageRecord({
+    relativePath: 'modules/ROOT/pages/index.adoc',
+    chunkIndex: 1,
+    chunkCount: 2,
+    model: 'deepseek-v4-flash',
+    usage: {
+      prompt_tokens: 100,
+      completion_tokens: 80,
+      total_tokens: 180,
+    },
+  });
+
+  assert.deepEqual(record, {
+    relativePath: 'modules/ROOT/pages/index.adoc',
+    chunkIndex: 1,
+    chunkCount: 2,
+    model: 'deepseek-v4-flash',
+    promptTokens: 100,
+    completionTokens: 80,
+    totalTokens: 180,
+  });
 });

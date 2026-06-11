@@ -8,6 +8,7 @@
     "test": "node --test \"test/**/*.test.mjs\"",
     "sync:source": "node scripts/sync-source.mjs",
     "translate:mvp": "node scripts/translate-mvp.mjs",
+    "translate:all": "node scripts/translate-all.mjs",
     "validate": "node scripts/validate.mjs",
     "build": "antora antora-playbook.yml",
     "serve": "http-server build/site -p 8080 -c-1"
