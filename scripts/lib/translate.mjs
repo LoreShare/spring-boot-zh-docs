@@ -291,8 +291,85 @@ function normalizeDuplicateVisibleLabel(line) {
     );
 }
 
+const VISIBLE_TECH_TERM_REPLACEMENTS = [
+  ['高级消息队列协议（AMQP）', 'AMQP'],
+  ['高级消息队列协议 (AMQP)', 'AMQP'],
+  ['高级消息队列协议', 'AMQP'],
+  ['面向切面编程（AOP）', 'AOP'],
+  ['面向切面编程 (AOP)', 'AOP'],
+  ['面向切面编程', 'AOP'],
+  ['Java 管理扩展（JMX）', 'JMX'],
+  ['Java 管理扩展 (JMX)', 'JMX'],
+  ['Java 管理扩展', 'JMX'],
+  ['Google 远程过程调用（gRPC）', 'gRPC'],
+  ['Google 远程过程调用 (gRPC)', 'gRPC'],
+  ['Google 远程过程调用', 'gRPC'],
+  ['跨站请求伪造（CSRF）', 'CSRF'],
+  ['跨站请求伪造 (CSRF)', 'CSRF'],
+  ['跨站请求伪造', 'CSRF'],
+  ['服务端请求伪造（SSRF）', 'SSRF'],
+  ['服务端请求伪造 (SSRF)', 'SSRF'],
+  ['服务端请求伪造', 'SSRF'],
+  ['服务器名称指示（SNI）', 'SNI'],
+  ['服务器名称指示 (SNI)', 'SNI'],
+  ['服务器名称指示', 'SNI'],
+  ['软件物料清单（SBOM）', 'SBOM'],
+  ['软件物料清单 (SBOM)', 'SBOM'],
+  ['软件物料清单', 'SBOM'],
+  ['Graylog 扩展日志格式（GELF）', 'GELF'],
+  ['Graylog 扩展日志格式 (GELF)', 'GELF'],
+  ['Graylog 扩展日志格式', 'GELF'],
+  ['OpenTelemetry 协议（OTLP）', 'OTLP'],
+  ['OpenTelemetry 协议 (OTLP)', 'OTLP'],
+  ['OpenTelemetry 协议', 'OTLP'],
+  ['身份提供者（IDP）', 'IDP'],
+  ['身份提供者 (IDP)', 'IDP'],
+  ['服务提供者（SP）', 'SP'],
+  ['服务提供者 (SP)', 'SP'],
+  ['构建包（Buildpack）', 'Buildpack'],
+  ['构建包 (Buildpack)', 'Buildpack'],
+  ['构建器（Builder）', 'builder'],
+  ['构建器 (Builder)', 'builder'],
+  ['数据（DML）', 'DML'],
+  ['数据 (DML)', 'DML'],
+  ['模式（LDIF）', 'LDIF'],
+  ['模式 (LDIF)', 'LDIF'],
+];
+
+const VISIBLE_TECH_TERM_CODES = [
+  'AMQP',
+  'AOP',
+  'JMX',
+  'gRPC',
+  'CSRF',
+  'SSRF',
+  'SNI',
+  'SBOM',
+  'GELF',
+  'OTLP',
+  'IDP',
+  'SP',
+  'DML',
+  'LDIF',
+];
+
+function normalizeVisibleTechTerms(line) {
+  const termCodePattern = VISIBLE_TECH_TERM_CODES.join('|');
+  return VISIBLE_TECH_TERM_REPLACEMENTS.reduce(
+    (result, [from, to]) => result.replaceAll(from, to),
+    line,
+  )
+    .replace(/JSON 规范限制[（(]RFC-4627[)）]/g, 'JSON 规范 RFC-4627 限制')
+    .replace(/基于子类[（(]CGLIB[)）]/g, '基于 CGLIB')
+    .replace(/Spring Boot auto-configurations?\b/g, 'Spring Boot 自动配置')
+    .replace(/([\u4e00-\u9fff])\s+auto-configurations?\b/g, '$1自动配置')
+    .replace(/\bauto-configurations?\s+([\u4e00-\u9fff])/g, '自动配置$1')
+    .replace(new RegExp(`\\b(${termCodePattern})\\s*([\\u4e00-\\u9fff])`, 'g'), '$1 $2')
+    .replace(new RegExp(`([\\u4e00-\\u9fff])\\s*(${termCodePattern})\\b`, 'g'), '$1 $2');
+}
+
 function normalizeVisibleTerminologyLine(line) {
-  return normalizeDuplicateVisibleLabel(line)
+  return normalizeVisibleTechTerms(normalizeDuplicateVisibleLabel(line))
     .replace(/(`[^`\n]+`)\s+endpoints?\b/gi, '$1 端点')
     .replace(/\b(Cloud Foundry|Actuator|actuator|WebFlux|WebSocket|HTTP|JMX|REST|API|Web|Health|Foundry)\s+endpoints?\b/gi, '$1 端点')
     .replace(/\b(`?[a-z][a-z0-9._-]+`?)\s+endpoints?\b/g, '$1 端点')

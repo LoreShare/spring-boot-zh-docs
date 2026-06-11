@@ -369,6 +369,10 @@ test('翻译结果会统一 REST API 页面标题和 endpoint 文案', async () 
         '`conditions` endpoint 提供 auto-configuration 类信息。',
         '=== Graylog 扩展日志格式 (GELF)',
         'Actuator Health Endpoints 可以用作探针。',
+        '高级消息队列协议（AMQP）是一种协议。',
+        'Spring Boot 为面向切面编程（AOP）提供了 auto-configuration。',
+        '== 面向切面编程',
+        'Google 远程过程调用 是一个高性能 RPC 框架。',
       ].join('\n'),
       usage: {
         prompt_tokens: 10,
@@ -385,6 +389,10 @@ test('翻译结果会统一 REST API 页面标题和 endpoint 文案', async () 
     '`conditions` 端点提供自动配置类信息。',
     '=== GELF',
     'Actuator Health 端点可以用作探针。',
+    'AMQP 是一种协议。',
+    'Spring Boot 为 AOP 提供了自动配置。',
+    '== AOP',
+    'gRPC 是一个高性能 RPC 框架。',
   ].join('\n'));
 });
 
