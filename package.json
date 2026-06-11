@@ -10,6 +10,7 @@
     "translate:mvp": "node scripts/translate-mvp.mjs",
     "translate:all": "node scripts/translate-all.mjs",
     "fill:generated-partials": "node scripts/fill-generated-partials.mjs",
+    "audit:completeness": "node scripts/audit-completeness.mjs",
     "validate": "node scripts/validate.mjs",
     "build": "node scripts/build-site.mjs",
     "serve": "http-server build/site -p 8080 -c-1"

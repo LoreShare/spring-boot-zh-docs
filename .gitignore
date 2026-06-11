@@ -8,5 +8,8 @@ node_modules/
 build/
 coverage/
 
+reports/completeness-audit.jsonl
+reports/completeness-audit.md
+
 *.log
 npm-debug.log*
