@@ -543,7 +543,8 @@ async function requestTranslationWithNetworkRetries({
     try {
       return await requestTranslationImpl(request);
     } catch (error) {
-      if (attempt >= maxAttempts || !isRetryableNetworkError(error)) {
+      const retryableRequestError = isRetryableNetworkError(error) || isRetryableTranslationError(error);
+      if (attempt >= maxAttempts || !retryableRequestError) {
         throw error;
       }
 

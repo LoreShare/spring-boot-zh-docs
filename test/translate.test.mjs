@@ -522,3 +522,34 @@ test('分块网络错误会先重试当前请求', async () => {
   assert.equal(result.translated, 'GraphQL endpoint。');
   assert.equal(result.usageRecords.length, 1);
 });
+
+test('分块 JSON 解析错误会先重试当前请求', async () => {
+  let attempts = 0;
+  const result = await translateContentWithRetries({
+    apiKey: 'fake-key',
+    relativePath: 'modules/reference/pages/data/nosql.adoc',
+    source: 'MongoDB repositories can be enabled.',
+    initialMaxChunkChars: 100,
+    minChunkChars: 100,
+    chunkNetworkRetryDelayMs: 0,
+    requestTranslationImpl: async () => {
+      attempts += 1;
+      if (attempts === 1) {
+        throw new SyntaxError('Unexpected token 有 in JSON');
+      }
+      return {
+        translated_adoc: '可以启用 MongoDB repositories。',
+        usage: {
+          prompt_tokens: 10,
+          completion_tokens: 5,
+          total_tokens: 15,
+        },
+        model: 'deepseek-v4-flash',
+      };
+    },
+  });
+
+  assert.equal(attempts, 2);
+  assert.equal(result.translated, '可以启用 MongoDB repositories。');
+  assert.equal(result.usageRecords.length, 1);
+});
