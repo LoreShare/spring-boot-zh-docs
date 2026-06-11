@@ -11,7 +11,7 @@
     "translate:all": "node scripts/translate-all.mjs",
     "fill:generated-partials": "node scripts/fill-generated-partials.mjs",
     "validate": "node scripts/validate.mjs",
-    "build": "antora antora-playbook.yml",
+    "build": "node scripts/build-site.mjs",
     "serve": "http-server build/site -p 8080 -c-1"
   },
   "engines": {
