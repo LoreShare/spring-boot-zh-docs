@@ -69,6 +69,21 @@ npm run serve
 
 默认访问地址是 `http://localhost:8080`。
 
+## GitHub Pages 发布
+
+本站采用手动发布：翻译、校验、构建和预览先在本地完成；确认后推送代码，再到 GitHub Actions 手动触发 Pages 发布 workflow。
+
+GitHub Actions 不执行 `translate:mvp` 或 `translate:all`，不读取 `DEEPSEEK_API_KEY`，也不随 `push` 自动上线。发布前本地至少执行：
+
+```bash
+npm test
+npm run validate
+npm run build
+npm run serve
+```
+
+详细约定见 `docs/GitHub Pages手动发布.md`。
+
 ## Docker 运行
 
 构建 Docker 镜像：
