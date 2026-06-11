@@ -6,8 +6,11 @@ import {
   detectSecrets,
   findUntranslatedEnglishSegments,
   findMissingProtectedTerms,
+  findPartialIncludeTargets,
   hasBalancedListingBlocks,
+  hasBalancedTabsBlocks,
   findCodeBlockAttributesWithoutDelimiter,
+  validatePartialIncludes,
   validateTranslatedFiles,
   validateTranslatedPage,
 } from '../scripts/lib/validate.mjs';
@@ -22,6 +25,11 @@ test('能收集 AsciiDoc xref 目标', () => {
 test('能识别 listing 代码块是否成对', () => {
   assert.equal(hasBalancedListingBlocks('正文\n----\ncode\n----\n正文'), true);
   assert.equal(hasBalancedListingBlocks('正文\n----\ncode\n正文'), false);
+});
+
+test('能识别 tabs/example 块是否成对', () => {
+  assert.equal(hasBalancedTabsBlocks('[tabs]\n======\nA::\n+\ntext\n======'), true);
+  assert.equal(hasBalancedTabsBlocks('[tabs]\n======\nA::\n+\ntext'), false);
 });
 
 test('能识别代码块属性后缺少分隔符', () => {
@@ -154,6 +162,61 @@ test('页面校验汇总 xref、代码块和术语问题', () => {
     'modules/ROOT/pages/index.adoc：缺少 xref 目标 installing.adoc',
     'modules/ROOT/pages/index.adoc：缺少不翻译术语 Spring Boot',
   ]);
+});
+
+test('允许 Java 和 Kotlin API xref 改为官方外部链接', () => {
+  const issues = validateTranslatedPage({
+    relativePath: 'modules/api/partials/nav-java-api.adoc',
+    source: [
+      'xref:api:java/index.html[Spring Boot]',
+      'xref:api:kotlin/index.html[Spring Boot]',
+      'xref:maven-plugin:api/java/index.html[Maven Plugin]',
+      'xref:gradle-plugin:api/java/index.html[Gradle Plugin]',
+    ].join('\n'),
+    translated: [
+      'https://docs.spring.io/spring-boot/4.1.0/api/java/[Spring Boot,role=link-external, window=_blank]',
+      'https://docs.spring.io/spring-boot/4.1.0/api/kotlin/[Spring Boot,role=link-external, window=_blank]',
+      'https://docs.spring.io/spring-boot/4.1.0/maven-plugin/api/java/[Maven Plugin,role=link-external, window=_blank]',
+      'https://docs.spring.io/spring-boot/4.1.0/gradle-plugin/api/java/[Gradle Plugin,role=link-external, window=_blank]',
+    ].join('\n'),
+  });
+
+  assert.deepEqual(issues, []);
+});
+
+test('能解析并校验 partial include 目标', () => {
+  assert.deepEqual(
+    findPartialIncludeTargets('include::partial$goals/overview.adoc[]\ninclude::api:partial$nav-rest-api.adoc[]'),
+    [
+      { moduleName: undefined, partialPath: 'goals/overview.adoc' },
+      { moduleName: 'api', partialPath: 'nav-rest-api.adoc' },
+    ],
+  );
+
+  const files = {
+    'output/modules/maven-plugin/partials/goals/overview.adoc': '占位内容',
+    'output/modules/api/partials/nav-rest-api.adoc': '导航',
+  };
+
+  assert.deepEqual(
+    validatePartialIncludes({
+      relativePath: 'modules/maven-plugin/pages/goals.adoc',
+      translated: 'include::partial$goals/overview.adoc[]\ninclude::api:partial$nav-rest-api.adoc[]',
+      outputRoot: 'output',
+      exists: (file) => Object.hasOwn(files, file),
+    }),
+    [],
+  );
+
+  assert.deepEqual(
+    validatePartialIncludes({
+      relativePath: 'modules/maven-plugin/pages/goals.adoc',
+      translated: 'include::partial$goals/missing.adoc[]',
+      outputRoot: 'output',
+      exists: (file) => Object.hasOwn(files, file),
+    }),
+    ['modules/maven-plugin/pages/goals.adoc：找不到 partial include 目标 output/modules/maven-plugin/partials/goals/missing.adoc'],
+  );
 });
 
 test('全量校验按翻译计划检查所有输出文件', () => {

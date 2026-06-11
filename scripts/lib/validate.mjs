@@ -23,6 +23,14 @@ export function hasBalancedListingBlocks(content) {
   return delimiterCount % 2 === 0;
 }
 
+export function hasBalancedTabsBlocks(content) {
+  const delimiterCount = content
+    .split(/\r?\n/)
+    .filter((line) => line.trim() === '======')
+    .length;
+  return delimiterCount % 2 === 0;
+}
+
 function isCodeBlockAttribute(line) {
   const trimmed = line.trim();
   return /^\[(source|listing|configprops)(,|\])/.test(trimmed) || /^\[subs=/.test(trimmed);
@@ -483,6 +491,52 @@ export function findMissingProtectedTerms(source, translated) {
   });
 }
 
+const EXTERNAL_API_XREF_TARGETS = new Set([
+  'api/java/index.html',
+  'api/kotlin/index.html',
+  'api:java/index.html',
+  'api:kotlin/index.html',
+  'maven-plugin:api/java/index.html',
+  'gradle-plugin:api/java/index.html',
+]);
+
+function shouldRequireXrefTarget(target) {
+  return !EXTERNAL_API_XREF_TARGETS.has(target);
+}
+
+function getModuleNameFromRelativePath(relativePath) {
+  const match = relativePath.match(/^modules\/([^/]+)\//);
+  return match?.[1] ?? 'ROOT';
+}
+
+export function findPartialIncludeTargets(content) {
+  return [...content.matchAll(/\binclude::(?:(?<moduleName>[-\w]+):)?partial\$(?<partialPath>[^\[\s]+)\[/g)]
+    .map((match) => ({
+      moduleName: match.groups.moduleName,
+      partialPath: match.groups.partialPath,
+    }));
+}
+
+export function validatePartialIncludes({
+  relativePath,
+  translated,
+  outputRoot = 'content/boot',
+  exists = existsSync,
+} = {}) {
+  const issues = [];
+  const currentModuleName = getModuleNameFromRelativePath(relativePath);
+
+  for (const includeTarget of findPartialIncludeTargets(translated)) {
+    const moduleName = includeTarget.moduleName ?? currentModuleName;
+    const partialPath = path.join(outputRoot, 'modules', moduleName, 'partials', includeTarget.partialPath);
+    if (!exists(partialPath)) {
+      issues.push(`${relativePath}：找不到 partial include 目标 ${partialPath}`);
+    }
+  }
+
+  return issues;
+}
+
 export function validateTranslatedPage({ relativePath, source, translated }) {
   const issues = [];
 
@@ -490,12 +544,16 @@ export function validateTranslatedPage({ relativePath, source, translated }) {
     issues.push(`${relativePath}：listing/source 代码块分隔符数量不成对`);
   }
 
+  if (!hasBalancedTabsBlocks(translated)) {
+    issues.push(`${relativePath}：tabs/example 块分隔符数量不成对`);
+  }
+
   for (const lineNumber of findCodeBlockAttributesWithoutDelimiter(translated)) {
     issues.push(`${relativePath}：第 ${lineNumber} 行代码块属性后缺少 ---- 分隔符`);
   }
 
   for (const target of collectXrefs(source)) {
-    if (!translated.includes(`xref:${target}`)) {
+    if (shouldRequireXrefTarget(target) && !translated.includes(`xref:${target}`)) {
       issues.push(`${relativePath}：缺少 xref 目标 ${target}`);
     }
   }
@@ -592,10 +650,17 @@ export function validateTranslatedFiles({
     }
 
     if (item.action === 'translate') {
+      const translated = read(outputPath);
       issues.push(...validateTranslatedPage({
         relativePath: item.relativePath,
         source: read(sourcePath),
-        translated: read(outputPath),
+        translated,
+      }));
+      issues.push(...validatePartialIncludes({
+        relativePath: item.relativePath,
+        translated,
+        outputRoot,
+        exists,
       }));
     }
   }
