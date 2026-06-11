@@ -13,6 +13,8 @@
 - 输出必须是 JSON，不输出额外解释。
 - JSON 字段必须包含 `translated_adoc`、`warnings`、`protected_terms`。
 - `translated_adoc` 必须是完整 AsciiDoc 页面。
+- 请求体必须设置 `response_format: { "type": "json_object" }`。
+- 请求体必须关闭 thinking，避免把翻译任务消耗在推理内容上。
 
 ## 保护规则
 

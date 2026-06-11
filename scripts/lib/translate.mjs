@@ -71,6 +71,8 @@ export function buildDeepSeekRequest({ messages, model = DEFAULT_MODEL }) {
     temperature: 0.1,
     max_tokens: 8192,
     stream: false,
+    response_format: { type: 'json_object' },
+    thinking: { type: 'disabled' },
   };
 }
 

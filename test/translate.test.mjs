@@ -22,6 +22,8 @@ test('DeepSeek 请求固定使用 deepseek-v4-flash 并要求 JSON 输出', () =
   assert.equal(DEFAULT_MODEL, 'deepseek-v4-flash');
   assert.equal(request.model, 'deepseek-v4-flash');
   assert.equal(request.temperature, 0.1);
+  assert.deepEqual(request.response_format, { type: 'json_object' });
+  assert.deepEqual(request.thinking, { type: 'disabled' });
   assert.match(request.messages[0].content, /translated_adoc/);
   assert.match(request.messages[0].content, /不要翻译代码/);
 });
