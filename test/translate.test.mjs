@@ -356,7 +356,7 @@ test('发送翻译前保护代码块和不翻译术语并可恢复', () => {
   assert.doesNotMatch(prepared.source, /xref:actuator/);
   assert.doesNotMatch(prepared.source, /spring\.main\.banner-mode/);
 
-  const restored = prepared.restore('@@TERM_0@@ 支持 @@TERM_1@@。\n@@ADOC_TOKEN_0@@\n@@ADOC_TOKEN_1@@\n@@CODE_BLOCK_0@@\n@@TERM_2@@ @@TERM_3@@。');
+  const restored = prepared.restore(prepared.source);
 
   assert.match(restored, /Spring Boot/);
   assert.match(restored, /native image/);
@@ -379,13 +379,45 @@ test('保护嵌套 xref 和 javadoc 宏', () => {
   assert.doesNotMatch(prepared.source, /javadoc:org\.springframework/);
   assert.doesNotMatch(prepared.source, /format=annotation/);
 
-  const restored = prepared.restore('@@ADOC_TOKEN_0@@\n使用 @@ADOC_TOKEN_1@@ @@TERM_0@@ 和 @@TERM_1@@。');
+  const restored = prepared.restore(
+    prepared.source
+      .replace('Several properties are provided for ', '提供了几个属性用于')
+      .replace('customizing the ', '自定义 '),
+  );
 
   assert.match(restored, /xref:how-to:spring-mvc\.adoc#howto\.spring-mvc\.customize-jackson-jsonmapper/);
   assert.match(restored, /javadoc:tools\.jackson\.databind\.json\.JsonMapper\[\]/);
   assert.match(restored, /javadoc:org\.springframework\.boot\.jackson\.JacksonComponent\[format=annotation\]/);
   assert.match(restored, /annotation/);
   assert.match(restored, /auto-configuration/);
+});
+
+test('保护链接目标但保留可见链接文本用于翻译', () => {
+  const source = [
+    'See xref:maven-plugin:using.adoc[Using the Plugin] for details.',
+    'Home link: xref:index.adoc[,role=navtree-icon-home]',
+    'See xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.detecting-configuration[creating the javadoc:org.springframework.context.ApplicationContext[] used in your tests].',
+  ].join('\n');
+
+  const prepared = prepareSourceForTranslation(source);
+
+  assert.doesNotMatch(prepared.source, /xref:maven-plugin:using\.adoc/);
+  assert.doesNotMatch(prepared.source, /role=navtree-icon-home/);
+  assert.doesNotMatch(prepared.source, /javadoc:org\.springframework/);
+  assert.match(prepared.source, /Using the Plugin/);
+  assert.match(prepared.source, /creating the/);
+
+  const restored = prepared.restore(
+    prepared.source
+      .replace('Using the Plugin', '使用插件')
+      .replace('creating the ', '创建 ')
+      .replace(' used in your tests', ' 用于测试'),
+  );
+
+  assert.match(restored, /xref:maven-plugin:using\.adoc\[使用插件\]/);
+  assert.match(restored, /xref:index\.adoc\[,role=navtree-icon-home\]/);
+  assert.match(restored, /javadoc:org\.springframework\.context\.ApplicationContext\[\]/);
+  assert.match(restored, /创建 javadoc:org\.springframework\.context\.ApplicationContext\[\] 用于测试/);
 });
 
 test('术语保护不匹配普通单词内部的短缩写', () => {

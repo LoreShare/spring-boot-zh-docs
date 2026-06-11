@@ -7,8 +7,8 @@ import {
   MVP_PAGES,
   PROTECTED_TERMS,
   buildFullTranslationPlan,
+  buildTranslationSources,
   getOutputPathForPage,
-  listSourceFiles,
 } from './translate.mjs';
 
 export function collectXrefs(content) {
@@ -66,6 +66,166 @@ function buildTermPattern(term) {
   );
 }
 
+const ALLOWED_ENGLISH_WORDS = new Set([
+  'actuator',
+  'annotation',
+  'annotations',
+  'aot',
+  'api',
+  'apis',
+  'bean',
+  'beans',
+  'buildpack',
+  'buildpacks',
+  'classpath',
+  'docker',
+  'endpoint',
+  'endpoints',
+  'gradle',
+  'graalvm',
+  'http',
+  'https',
+  'jar',
+  'java',
+  'javadoc',
+  'json',
+  'kotlin',
+  'maven',
+  'oci',
+  'plugin',
+  'plugins',
+  'profile',
+  'profiles',
+  'rest',
+  'spring',
+  'starter',
+  'starters',
+  'war',
+  'xml',
+  'yaml',
+]);
+
+const COMMON_ENGLISH_WORDS = new Set([
+  'a',
+  'an',
+  'and',
+  'are',
+  'as',
+  'be',
+  'by',
+  'can',
+  'for',
+  'from',
+  'how',
+  'if',
+  'in',
+  'is',
+  'it',
+  'of',
+  'on',
+  'or',
+  'that',
+  'the',
+  'this',
+  'to',
+  'use',
+  'used',
+  'using',
+  'when',
+  'with',
+  'you',
+  'your',
+]);
+
+function splitMacroLabelAndAttributes(body) {
+  const attributesMatch = body.match(/((?:,\s*[-\w]+=[^,\]]*)+)$/);
+  if (!attributesMatch) {
+    return { label: body };
+  }
+  return { label: body.slice(0, attributesMatch.index) };
+}
+
+function exposeTranslatableMacroLabels(line) {
+  const macroPattern = /\b(?:xref|link):{1,2}[^\s\[]+\[((?:[^\[\]\n]|\[[^\]\n]*\])*)\]|https?:\/\/[^\s\[]+\[((?:[^\[\]\n]|\[[^\]\n]*\])*)\]/g;
+  return line.replace(macroPattern, (...args) => {
+    const label = args[1] ?? args[2] ?? '';
+    return ` ${splitMacroLabelAndAttributes(label).label} `;
+  });
+}
+
+function removeProtectedInlineText(line) {
+  return exposeTranslatableMacroLabels(line)
+    .replace(/`[^`\n]*`/g, ' ')
+    .replace(/\b[a-z][a-z0-9-]*:{1,2}[^\s\[]+\[(?:[^\[\]\n]|\[[^\]\n]*\])*\]/gi, ' ')
+    .replace(/https?:\/\/\S+/g, ' ')
+    .replace(/\[\[[^\]\n]+\]\]|\[#[-\w.]+\]|\{[-\w.]+\}|^\[[^\]\n]+\]$/gi, ' ')
+    .replace(/[.#*_+=|:;,[\]{}()<>"\\/]/g, ' ');
+}
+
+function removeAllowedEnglish(text) {
+  let cleaned = text;
+  for (const term of PROTECTED_TERMS) {
+    cleaned = cleaned.replace(buildTermPattern(term), ' ');
+  }
+  return cleaned;
+}
+
+function getEnglishWords(text) {
+  return [...text.matchAll(/\b[A-Za-z][A-Za-z'-]*\b/g)]
+    .map((match) => match[0])
+    .filter((word) => !/[a-z][A-Z]/.test(word))
+    .filter((word) => !ALLOWED_ENGLISH_WORDS.has(word.toLowerCase()));
+}
+
+function isLikelyEnglishTitle(words) {
+  return words.length >= 2 && words.every((word) => /^[A-Z][a-z]+/.test(word));
+}
+
+function buildEnglishSample(text) {
+  const fragments = text.match(/[A-Za-z][A-Za-z' -]*(?:[.!?])?/g) ?? [];
+  return fragments
+    .map((fragment) => fragment.trim())
+    .filter(Boolean)
+    .sort((left, right) => right.length - left.length)[0] ?? text.trim();
+}
+
+function isHighConfidenceEnglish(text) {
+  const words = getEnglishWords(removeAllowedEnglish(text));
+  if (words.length === 0) {
+    return false;
+  }
+
+  const normalizedWords = words.map((word) => word.toLowerCase());
+  return words.length >= 5
+    || (words.length >= 3 && normalizedWords.some((word) => COMMON_ENGLISH_WORDS.has(word)))
+    || isLikelyEnglishTitle(words);
+}
+
+export function findUntranslatedEnglishSegments(content) {
+  const issues = [];
+  const lines = content.split(/\r?\n/);
+  let inListingBlock = false;
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    if (line.trim() === '----') {
+      inListingBlock = !inListingBlock;
+      continue;
+    }
+
+    if (inListingBlock || line.trim() === '') {
+      continue;
+    }
+
+    const visibleText = removeProtectedInlineText(line).replace(/\s+/g, ' ').trim();
+    if (visibleText && isHighConfidenceEnglish(visibleText)) {
+      issues.push(`第 ${index + 1} 行存在疑似未翻译英文：${buildEnglishSample(visibleText)}`);
+    }
+  }
+
+  return issues;
+}
+
 export function findMissingProtectedTerms(source, translated) {
   return PROTECTED_TERMS.filter((term) => {
     const pattern = buildTermPattern(term);
@@ -92,6 +252,10 @@ export function validateTranslatedPage({ relativePath, source, translated }) {
 
   for (const term of findMissingProtectedTerms(source, translated)) {
     issues.push(`${relativePath}：缺少不翻译术语 ${term}`);
+  }
+
+  for (const issue of findUntranslatedEnglishSegments(translated)) {
+    issues.push(`${relativePath}：${issue}`);
   }
 
   return issues;
@@ -157,14 +321,14 @@ export function validateMvpPages({
 export function validateTranslatedFiles({
   sourceRoot = getCachedAntoraRoot(),
   outputRoot = 'content/boot',
-  plan = buildFullTranslationPlan({ files: listSourceFiles(sourceRoot) }),
+  plan = buildFullTranslationPlan({ sources: buildTranslationSources() }),
   exists = existsSync,
   read = (file) => readFileSync(file, 'utf8'),
 } = {}) {
   const issues = [];
 
   for (const item of plan) {
-    const sourcePath = path.join(sourceRoot, item.relativePath);
+    const sourcePath = path.join(item.sourceRoot ?? sourceRoot, item.relativePath);
     const outputPath = getOutputPathForPage(item.relativePath, outputRoot);
 
     if (!exists(sourcePath)) {

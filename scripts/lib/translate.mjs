@@ -63,7 +63,7 @@ export function buildTranslationMessages({ relativePath, source }) {
     '只翻译自然语言，不要翻译代码、命令、配置键、类名、包名、路径、URL、xref 目标和 AsciiDoc 结构。',
     '必须完整保留 anchors、attributes、include 指令、xref/link/image 目标、代码块、inline code、表格结构和列表结构。',
     `以下术语不要翻译：${PROTECTED_TERMS.join('、')}。`,
-    '输入中的 @@CODE_BLOCK_N@@、@@ADOC_TOKEN_N@@、@@TERM_N@@ 是不可翻译占位符，必须逐字原样保留。',
+    '输入中的 @@CODE_BLOCK_N@@、@@ADOC_TOKEN_N@@、@@ADOC_MACRO_N@@、@@TERM_N@@ 是不可翻译占位符，必须逐字原样保留。',
     '输出必须是 JSON，不输出 Markdown 代码围栏以外的解释。',
     'JSON 字段必须包含 translated_adoc、warnings、protected_terms。',
     'translated_adoc 必须是完整 AsciiDoc 页面。',
@@ -162,6 +162,42 @@ function restorePlaceholders(source, values) {
   );
 }
 
+function splitMacroLabelAndAttributes(body) {
+  const attributesMatch = body.match(/((?:,\s*[-\w]+=[^,\]]*)+)$/);
+  if (!attributesMatch) {
+    return { label: body, attributes: '' };
+  }
+
+  return {
+    label: body.slice(0, attributesMatch.index),
+    attributes: attributesMatch[0],
+  };
+}
+
+function protectTranslatableMacroSyntax(source) {
+  const values = [];
+  const macroPattern = /\b(?:xref|link):{1,2}[^\s\[]+\[(?:[^\[\]\n]|\[[^\]\n]*\])*\]|https?:\/\/[^\s\[]+\[(?:[^\[\]\n]|\[[^\]\n]*\])*\]/g;
+  const replaced = source.replace(macroPattern, (match) => {
+    const openBracket = match.indexOf('[');
+    const closeBracket = match.lastIndexOf(']');
+    const head = match.slice(0, openBracket);
+    const body = match.slice(openBracket + 1, closeBracket);
+    const { label, attributes } = splitMacroLabelAndAttributes(body);
+    const headPlaceholder = `@@ADOC_MACRO_${values.length}@@`;
+    values.push({ placeholder: headPlaceholder, value: head });
+
+    if (!attributes) {
+      return `${headPlaceholder}[${label}]`;
+    }
+
+    const attributesPlaceholder = `@@ADOC_MACRO_${values.length}@@`;
+    values.push({ placeholder: attributesPlaceholder, value: attributes });
+    return `${headPlaceholder}[${label}${attributesPlaceholder}]`;
+  });
+
+  return { replaced, values };
+}
+
 function escapeRegex(source) {
   return source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -188,8 +224,10 @@ export function prepareSourceForTranslation(source) {
   const blockPattern = /(^|\n)----\n[\s\S]*?\n----(?=\n|$)/g;
   const blockProtection = replaceWithPlaceholders(source, blockPattern, 'CODE_BLOCK');
 
+  const macroProtection = protectTranslatableMacroSyntax(blockProtection.replaced);
+
   const adocPattern = /`[^`\n]+`|\b[a-z][a-z0-9-]*:{1,2}[^\s\[]+\[(?:[^\[\]\n]|\[[^\]\n]*\])*\]|\[\[[^\]\n]+\]\]|\[#[-\w.]+\]|\{[-\w.]+\}|^\[[^\]\n]+\]$/gim;
-  const adocProtection = replaceWithPlaceholders(blockProtection.replaced, adocPattern, 'ADOC_TOKEN');
+  const adocProtection = replaceWithPlaceholders(macroProtection.replaced, adocPattern, 'ADOC_TOKEN');
 
   const termProtection = replaceWithPlaceholders(
     adocProtection.replaced,
@@ -201,14 +239,18 @@ export function prepareSourceForTranslation(source) {
     source: termProtection.replaced,
     placeholders: [
       ...blockProtection.values,
+      ...macroProtection.values,
       ...adocProtection.values,
       ...termProtection.values,
     ].map(({ placeholder }) => placeholder),
     restore(translatedSource) {
       return restorePlaceholders(
         restorePlaceholders(
-          restorePlaceholders(translatedSource, termProtection.values),
-          adocProtection.values,
+          restorePlaceholders(
+            restorePlaceholders(translatedSource, termProtection.values),
+            adocProtection.values,
+          ),
+          macroProtection.values,
         ),
         blockProtection.values,
       );
@@ -219,7 +261,7 @@ export function prepareSourceForTranslation(source) {
 export function shouldSendToTranslator(source) {
   const prepared = prepareSourceForTranslation(source).source;
   const stripped = prepared
-    .replace(/@@(?:CODE_BLOCK|ADOC_TOKEN|TERM)_\d+@@/g, '')
+    .replace(/@@(?:CODE_BLOCK|ADOC_TOKEN|ADOC_MACRO|TERM)_\d+@@/g, '')
     .replace(/[ \t\r\n。、，；：,.!?()[\]{}<>"'`=:+*/\\|-]/g, '');
   return stripped.length > 0;
 }

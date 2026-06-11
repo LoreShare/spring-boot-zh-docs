@@ -4,6 +4,7 @@ import test from 'node:test';
 import {
   collectXrefs,
   detectSecrets,
+  findUntranslatedEnglishSegments,
   findMissingProtectedTerms,
   hasBalancedListingBlocks,
   findCodeBlockAttributesWithoutDelimiter,
@@ -63,6 +64,40 @@ test('能找出译文中缺失的不翻译术语', () => {
   );
 });
 
+test('能找出代码块外的高置信度英文残留', () => {
+  assert.deepEqual(
+    findUntranslatedEnglishSegments([
+      'This section describes how to use the plugin.',
+      '',
+      '请参阅 xref:appendix:test-auto-configuration/index.adoc[found in the appendix]。',
+      '',
+      '`This code should stay in English`',
+      '',
+      '----',
+      'This code block should stay in English',
+      '----',
+      '',
+      'Spring Boot Actuator endpoint 保持英文术语。',
+    ].join('\n')),
+    [
+      '第 1 行存在疑似未翻译英文：This section describes how to use the plugin',
+      '第 3 行存在疑似未翻译英文：found in the appendix',
+    ],
+  );
+});
+
+test('页面校验汇总英文残留问题', () => {
+  const issues = validateTranslatedPage({
+    relativePath: 'modules/maven-plugin/pages/index.adoc',
+    source: '= Spring Boot Maven Plugin\n',
+    translated: '= Spring Boot Maven Plugin\n\nGetting Started\n',
+  });
+
+  assert.deepEqual(issues, [
+    'modules/maven-plugin/pages/index.adoc：第 3 行存在疑似未翻译英文：Getting Started',
+  ]);
+});
+
 test('页面校验汇总 xref、代码块和术语问题', () => {
   const issues = validateTranslatedPage({
     relativePath: 'modules/ROOT/pages/index.adoc',
@@ -99,4 +134,28 @@ test('全量校验按翻译计划检查所有输出文件', () => {
   assert.deepEqual(issues, [
     'modules/ROOT/pages/missing.adoc：找不到译文页面 output/modules/ROOT/pages/missing.adoc',
   ]);
+});
+
+test('全量校验支持多源翻译计划中的 sourceRoot', () => {
+  const files = {
+    'source/maven/modules/maven-plugin/pages/index.adoc': 'Spring Boot Maven Plugin\n',
+    'output/modules/maven-plugin/pages/index.adoc': 'Spring Boot Maven Plugin\n',
+  };
+
+  const issues = validateTranslatedFiles({
+    sourceRoot: 'source/core',
+    outputRoot: 'output',
+    plan: [
+      {
+        sourceId: 'maven-plugin',
+        sourceRoot: 'source/maven',
+        relativePath: 'modules/maven-plugin/pages/index.adoc',
+        action: 'translate',
+      },
+    ],
+    exists: (file) => Object.hasOwn(files, file),
+    read: (file) => files[file],
+  });
+
+  assert.deepEqual(issues, []);
 });
