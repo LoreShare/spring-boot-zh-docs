@@ -17,6 +17,12 @@ test('Dockerfile 使用 Node 构建阶段和 nginx 运行阶段', () => {
   assert.match(dockerfile, /EXPOSE 80/);
 });
 
+test('Dockerfile 不依赖额外的 BuildKit 前端镜像', () => {
+  const dockerfile = readProjectFile('Dockerfile');
+
+  assert.doesNotMatch(dockerfile, /^#\s*syntax=/m);
+});
+
 test('.dockerignore 排除本地产物但保留 Antora 需要的 Git 元数据', () => {
   const entries = readProjectFile('.dockerignore')
     .split(/\r?\n/)
