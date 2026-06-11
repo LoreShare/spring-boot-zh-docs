@@ -36,6 +36,9 @@ jobs:
       - name: 运行测试
         run: npm test
 
+      - name: 同步上游源
+        run: npm run sync:source
+
       - name: 校验译文
         run: npm run validate
 

@@ -92,6 +92,8 @@ test('GitHub Pages workflow 只能手动发布且不执行翻译', () => {
   assert.match(workflow, /path:\s+build\/site/);
   assert.match(workflow, /SITE_URL:\s+\$\{\{\s*steps\.pages\.outputs\.base_url\s*\}\}/);
   assert.match(workflow, /npm test/);
+  assert.match(workflow, /npm run sync:source/);
+  assert.match(workflow, /npm run sync:source[\s\S]*npm run validate/);
   assert.match(workflow, /npm run validate/);
   assert.match(workflow, /npm run build/);
   assert.doesNotMatch(workflow, /translate:mvp|translate:all|DEEPSEEK_API_KEY/);

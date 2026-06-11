@@ -4,7 +4,7 @@
 
 本站采用“本地翻译预览、GitHub Actions 手动发布、保留全部 GA 版本”的发布模式。
 
-GitHub Actions 只负责测试、校验、构建和发布静态站点，不执行 DeepSeek 翻译，不读取 `DEEPSEEK_API_KEY`，也不随 `push` 自动上线。
+GitHub Actions 只负责同步固定上游源、测试、校验、构建和发布静态站点，不执行 DeepSeek 翻译，不读取 `DEEPSEEK_API_KEY`，也不随 `push` 自动上线。
 
 ## 本地流程
 
@@ -29,10 +29,12 @@ GitHub Pages 发布只能手动触发：
 1. 打开 GitHub 仓库的 Actions 页面。
 2. 选择 Pages 发布 workflow。
 3. 点击 `Run workflow`。
-4. workflow 执行 `npm ci`、`npm test`、`npm run validate`、`npm run build`。
+4. workflow 执行 `npm ci`、`npm test`、`npm run sync:source`、`npm run validate`、`npm run build`。
 5. workflow 上传 `build/site` 并部署到 GitHub Pages。
 
 workflow 不配置 `push` 触发器，避免未经本地预览的内容自动上线。
+
+`npm run sync:source` 只同步 Spring Boot `4.1.0` 官方源，用于 `npm run validate` 的完整性审计；它不会调用 DeepSeek，也不会改写译文。
 
 ## 多版本约定
 

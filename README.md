@@ -73,7 +73,7 @@ npm run serve
 
 本站采用手动发布：翻译、校验、构建和预览先在本地完成；确认后推送代码，再到 GitHub Actions 手动触发 Pages 发布 workflow。
 
-GitHub Actions 不执行 `translate:mvp` 或 `translate:all`，不读取 `DEEPSEEK_API_KEY`，也不随 `push` 自动上线。发布前本地至少执行：
+GitHub Actions 不执行 `translate:mvp` 或 `translate:all`，不读取 `DEEPSEEK_API_KEY`，也不随 `push` 自动上线。workflow 会在校验前执行 `npm run sync:source`，只同步固定上游源用于完整性审计。发布前本地至少执行：
 
 ```bash
 npm test
