@@ -6,6 +6,7 @@ import {
   buildGeneratedContentSyncSteps,
   findGeneratedContentArchive,
   getGeneratedContentAction,
+  postProcessGeneratedAdoc,
   shouldImportGeneratedContentFile,
   shouldOverwriteGeneratedOutput,
 } from '../scripts/lib/generated-content.mjs';
@@ -120,5 +121,88 @@ test('已有占位输出必须被真实生成型内容覆盖', () => {
       force: false,
     }),
     false,
+  );
+});
+
+test('生成型内容后处理保留官方表格结构', () => {
+  const source = [
+    '[[appendix.application-properties.core]]',
+    '== Core Properties',
+    '[cols="4,3,3", options="header"]',
+    '|===',
+    '|Name|Description|Default Value',
+    '',
+    '|[[application-properties.core.debug]]xref:#application-properties.core.debug[`+debug+`]',
+    '|+++Enable debug logs.+++',
+    '|`+false+`',
+    '',
+    '|===',
+  ].join('\n');
+  const translated = [
+    '== 核心属性',
+    '|===',
+    '|名称|描述|默认值',
+    '',
+    '|[[application-properties.core.debug]]xref:#application-properties.core.debug[`+debug+`]',
+    '|启用调试日志。',
+    '|`+false+`',
+    '',
+    '|===',
+  ].join('\n');
+
+  const processed = postProcessGeneratedAdoc({ source, translated });
+
+  assert.match(processed, /^\[\[appendix\.application-properties\.core\]\]/);
+  assert.match(processed, /\[cols="4,3,3", options="header"\]\n\|===/);
+  assert.match(processed, /\|===\n\|名称\|描述\|默认值/);
+  assert.match(processed, /\|\+\+\+启用调试日志。\+\+\+/);
+});
+
+test('生成型内容后处理移除额外表格分隔符', () => {
+  const source = [
+    '|===',
+    '| Name | Description',
+    '',
+    '| [[spring-boot-starter-jsonb]]`spring-boot-starter-jsonb`',
+    '| Starter for using JSON-B',
+    '',
+    '| [[spring-boot-starter-kafka]]`spring-boot-starter-kafka`',
+    '| Starter for using Apache Kafka',
+    '|===',
+  ].join('\n');
+  const translated = [
+    '|===',
+    '| 名称 | 描述',
+    '',
+    '| [[spring-boot-starter-jsonb]]`spring-boot-starter-jsonb`',
+    '| 用于使用 JSON-B 的 starter',
+    '|===',
+    '| [[spring-boot-starter-kafka]]`spring-boot-starter-kafka`',
+    '| 用于使用 Apache Kafka 的 starter',
+    '|===',
+  ].join('\n');
+
+  const processed = postProcessGeneratedAdoc({ source, translated });
+
+  assert.equal(processed.match(/^\|===$/gm).length, 2);
+  assert.match(processed, /\| 用于使用 JSON-B 的 starter\n\n\| \[\[spring-boot-starter-kafka\]\]/);
+});
+
+test('生成型内容后处理把 API xref 改为官方外链', () => {
+  const processed = postProcessGeneratedAdoc({
+    source: '',
+    translated: [
+      '| xref:api:java/org/springframework/boot/SpringApplication.html[javadoc]',
+      '| `xref:maven-plugin:api/java/org/springframework/boot/maven/Docker.html[Docker]`',
+    ].join('\n'),
+  });
+
+  assert.match(
+    processed,
+    /link:https:\/\/docs\.spring\.io\/spring-boot\/4\.1\.0\/api\/java\/org\/springframework\/boot\/SpringApplication\.html\[javadoc\]/,
+  );
+  assert.match(
+    processed,
+    /`link:https:\/\/docs\.spring\.io\/spring-boot\/maven-plugin\/api\/java\/org\/springframework\/boot\/maven\/Docker\.html\[Docker\]`/,
   );
 });

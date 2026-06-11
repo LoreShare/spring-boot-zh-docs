@@ -35,6 +35,8 @@ try {
         console.log(`跳过已存在生成型内容：${event.outputPath}`);
       } else if (event.status === 'copied') {
         console.log(`复制生成型内容：${event.outputPath}`);
+      } else if (event.status === 'postprocessed') {
+        console.log(`修复生成型内容结构：${event.outputPath}`);
       } else if (event.status === 'translating') {
         console.log(`开始翻译生成型内容：${event.relativePath}（${event.chunkIndex}/${event.chunkCount}）`);
       } else if (event.status === 'retrying') {
@@ -44,9 +46,10 @@ try {
   });
   const generatedTranslated = generatedResults.filter((result) => result.status === 'translated').length;
   const generatedCopied = generatedResults.filter((result) => result.status === 'copied').length;
+  const generatedPostprocessed = generatedResults.filter((result) => result.status === 'postprocessed').length;
   const generatedSkipped = generatedResults.filter((result) => result.status === 'skipped').length;
   ensureGeneratedPartials();
-  console.log(`全量处理完成：翻译 ${translated} 个，复制 ${copied} 个，跳过 ${skipped} 个；生成型内容翻译 ${generatedTranslated} 个，复制 ${generatedCopied} 个，跳过 ${generatedSkipped} 个`);
+  console.log(`全量处理完成：翻译 ${translated} 个，复制 ${copied} 个，跳过 ${skipped} 个；生成型内容翻译 ${generatedTranslated} 个，复制 ${generatedCopied} 个，后处理 ${generatedPostprocessed} 个，跳过 ${generatedSkipped} 个`);
 } catch (error) {
   console.error(`全量翻译失败：${error.message}`);
   process.exitCode = 1;

@@ -45,6 +45,14 @@ export const GENERATED_CONTENT_TASKS = [
 
 export const GENERATED_PLACEHOLDER_PATTERN = /(?:当前中文站暂未纳入完整生成内容|该(?:表格片段|请求或响应示例|片段|示例输出)由官方构建流程生成|自动配置类列表由官方构建流程生成)/;
 
+const GENERATED_API_LINK_TARGETS = [
+  ['maven-plugin:api/java/', 'https://docs.spring.io/spring-boot/maven-plugin/api/java/'],
+  ['api:java/', 'https://docs.spring.io/spring-boot/4.1.0/api/java/'],
+  ['api:kotlin/', 'https://docs.spring.io/spring-boot/4.1.0/api/kotlin/'],
+  ['api/java/', 'https://docs.spring.io/spring-boot/4.1.0/api/java/'],
+  ['api/kotlin/', 'https://docs.spring.io/spring-boot/4.1.0/api/kotlin/'],
+];
+
 function toPosixPath(filePath) {
   return filePath.split(path.sep).join('/');
 }
@@ -177,6 +185,158 @@ export function shouldImportGeneratedContentFile(relativePath) {
   return relativePath.split('/').at(-1) !== 'antora.yml';
 }
 
+function getGeneratedApiHref(target) {
+  const mapping = GENERATED_API_LINK_TARGETS.find(([prefix]) => target.startsWith(prefix));
+  if (!mapping) {
+    return undefined;
+  }
+  const [prefix, baseUrl] = mapping;
+  return `${baseUrl}${target.slice(prefix.length)}`;
+}
+
+function convertGeneratedApiXrefs(translated) {
+  return translated.replace(
+    /\bxref:((?:maven-plugin:)?api(?::|\/)(?:java|kotlin)\/[^\[\s]+)\[([^\]\n]*)\]/g,
+    (match, target, label) => {
+      const href = getGeneratedApiHref(target);
+      return href ? `link:${href}[${label}]` : match;
+    },
+  );
+}
+
+function restoreTableDelimitersFromSource(source, translated) {
+  const sourceLines = source.split('\n');
+  const translatedLines = translated.split('\n');
+  const sourceDelimiterCount = sourceLines.filter((line) => line.trim() === '|===').length;
+  const translatedDelimiterIndexes = translatedLines
+    .map((line, index) => (line.trim() === '|===' ? index : -1))
+    .filter((index) => index !== -1);
+
+  if (sourceDelimiterCount === 0 || translatedDelimiterIndexes.length <= sourceDelimiterCount) {
+    return translated;
+  }
+
+  if (sourceLines.length === translatedLines.length) {
+    translatedLines.forEach((line, index) => {
+      if (line.trim() === '|===' && sourceLines[index]?.trim() !== '|===') {
+        translatedLines[index] = '';
+      }
+    });
+    return translatedLines.join('\n');
+  }
+
+  const extraDelimiterIndexes = translatedDelimiterIndexes.slice(1, 1 + (
+    translatedDelimiterIndexes.length - sourceDelimiterCount
+  ));
+  for (const index of extraDelimiterIndexes) {
+    translatedLines[index] = '';
+  }
+  return translatedLines.join('\n');
+}
+
+function isGeneratedPrefixStructuralLine(line) {
+  return /^\[\[[^\]]+\]\]$/.test(line)
+    || /^\[#[-\w.]+\]$/.test(line)
+    || /^\[cols=/.test(line);
+}
+
+function restorePrefixStructuralLinesFromSource(source, translated) {
+  const sourceLines = source.split('\n');
+  const translatedLines = translated.split('\n');
+  const firstSourceTableIndex = sourceLines.findIndex((line) => line.trim() === '|===');
+  if (firstSourceTableIndex === -1) {
+    return translated;
+  }
+
+  const sourcePrefixLines = sourceLines
+    .slice(0, firstSourceTableIndex)
+    .filter(isGeneratedPrefixStructuralLine);
+
+  for (const line of sourcePrefixLines) {
+    if (translatedLines.includes(line)) {
+      continue;
+    }
+
+    if (/^\[\[[^\]]+\]\]$/.test(line) || /^\[#[-\w.]+\]$/.test(line)) {
+      const headingIndex = translatedLines.findIndex((candidate) => /^=+\s/.test(candidate));
+      translatedLines.splice(headingIndex === -1 ? 0 : headingIndex, 0, line);
+      continue;
+    }
+
+    const tableIndex = translatedLines.findIndex((candidate) => candidate.trim() === '|===');
+    translatedLines.splice(tableIndex === -1 ? translatedLines.length : tableIndex, 0, line);
+  }
+
+  return translatedLines.join('\n');
+}
+
+function findPreviousGeneratedTableCellLine(lines, startIndex) {
+  for (let index = startIndex; index >= 0; index -= 1) {
+    const line = lines[index];
+    if (line.trim() === '') {
+      continue;
+    }
+    if (line.startsWith('|') && line.trim() !== '|===' && !line.startsWith('|+++')) {
+      return { line, distance: startIndex - index };
+    }
+    return undefined;
+  }
+  return undefined;
+}
+
+function buildLineIndexes(lines) {
+  const indexes = new Map();
+  lines.forEach((line, index) => {
+    if (!indexes.has(line)) {
+      indexes.set(line, []);
+    }
+    indexes.get(line).push(index);
+  });
+  return indexes;
+}
+
+function restoreTablePassthroughCellsFromSource(source, translated) {
+  const sourceLines = source.split('\n');
+  const translatedLines = translated.split('\n');
+  const translatedIndexes = buildLineIndexes(translatedLines);
+
+  sourceLines.forEach((line, sourceIndex) => {
+    if (!line.startsWith('|+++') || !line.endsWith('+++')) {
+      return;
+    }
+
+    const previousCell = findPreviousGeneratedTableCellLine(sourceLines, sourceIndex - 1);
+    if (!previousCell) {
+      return;
+    }
+
+    for (const translatedIndex of translatedIndexes.get(previousCell.line) ?? []) {
+      const cellIndex = translatedIndex + previousCell.distance + 1;
+      const translatedCell = translatedLines[cellIndex];
+      if (!translatedCell?.startsWith('|') || translatedCell.startsWith('|+++') || translatedCell.trim() === '|===') {
+        continue;
+      }
+
+      const cellContent = translatedCell.slice(1).replace(/^\+\+\+/, '').replace(/\+\+\+$/, '');
+      translatedLines[cellIndex] = `|+++${cellContent}+++`;
+    }
+  });
+
+  return translatedLines.join('\n');
+}
+
+export function postProcessGeneratedAdoc({ source, translated }) {
+  return convertGeneratedApiXrefs(
+    restoreTablePassthroughCellsFromSource(
+      source,
+      restorePrefixStructuralLinesFromSource(
+        source,
+        restoreTableDelimitersFromSource(source, translated),
+      ),
+    ),
+  );
+}
+
 export function shouldOverwriteGeneratedOutput({
   outputExists,
   outputContent = '',
@@ -267,6 +427,17 @@ export async function translateGeneratedContent({
     const outputContent = outputExists ? readFileSync(outputPath, 'utf8') : '';
 
     if (!shouldOverwriteGeneratedOutput({ outputExists, outputContent, force })) {
+      if (item.action === 'translate') {
+        const source = readFileSync(sourcePath, 'utf8');
+        const processed = postProcessGeneratedAdoc({ source, translated: outputContent });
+        if (processed !== outputContent) {
+          writeFileSync(outputPath, processed.endsWith('\n') ? processed : `${processed}\n`);
+          results.push({ ...item, outputPath, status: 'postprocessed' });
+          onProgress({ ...item, outputPath, status: 'postprocessed' });
+          continue;
+        }
+      }
+
       results.push({ ...item, outputPath, status: 'skipped' });
       onProgress({ ...item, outputPath, status: 'skipped' });
       continue;
@@ -297,7 +468,7 @@ export async function translateGeneratedContent({
       appendUsageRecord(record, usageLogPath);
     }
 
-    const translated = translation.translated;
+    const translated = postProcessGeneratedAdoc({ source, translated: translation.translated });
     writeFileSync(outputPath, translated.endsWith('\n') ? translated : `${translated}\n`);
     results.push({ ...item, outputPath, status: 'translated', chunkCount: translation.chunkCount });
   }
