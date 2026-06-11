@@ -97,6 +97,24 @@ function isTablePartial(partialPath, columnCount) {
 }
 
 export function buildGeneratedPartialContent({ partialPath, columnCount } = {}) {
+  void partialPath;
+  void columnCount;
+  throw new Error('禁止生成中文占位 partial；请先导入官方 Gradle 生成型内容');
+}
+
+function formatMissingGeneratedPartials(missing) {
+  return missing.map((partial) => partial.outputPath).join('、');
+}
+
+export function assertNoMissingGeneratedPartials(options = {}) {
+  const missing = collectMissingGeneratedPartials(options);
+  if (missing.length > 0) {
+    throw new Error(`缺少官方生成型 partial：${formatMissingGeneratedPartials(missing)}。请先运行 npm run sync:generated-content，再运行 npm run translate:all`);
+  }
+  return missing;
+}
+
+export function buildLegacyGeneratedPartialContent({ partialPath, columnCount } = {}) {
   if (partialPath.endsWith('.txt')) {
     return '该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。\n';
   }
@@ -174,9 +192,9 @@ export function ensureGeneratedPartials({
     read,
   });
 
-  for (const partial of missing) {
-    mkdirSync(path.dirname(partial.outputPath), { recursive: true });
-    write(partial.outputPath, buildGeneratedPartialContent(partial));
+  if (missing.length > 0) {
+    void write;
+    throw new Error(`缺少官方生成型 partial：${formatMissingGeneratedPartials(missing)}。请先运行 npm run sync:generated-content，再运行 npm run translate:all`);
   }
 
   return missing;

@@ -7,6 +7,7 @@ import {
   findUntranslatedEnglishSegments,
   findMissingProtectedTerms,
   findPartialIncludeTargets,
+  findGeneratedPlaceholderSegments,
   findDuplicateTopLevelNavEntries,
   hasBalancedListingBlocks,
   hasBalancedTabsBlocks,
@@ -96,6 +97,17 @@ test('能找出代码块外的高置信度英文残留', () => {
       '第 3 行存在疑似未翻译英文：found in the appendix',
       '第 4 行存在疑似未翻译英文：Using the Plugin',
     ],
+  );
+});
+
+test('能识别生成型内容占位文本残留', () => {
+  assert.deepEqual(
+    findGeneratedPlaceholderSegments([
+      '= 配置属性',
+      '',
+      '该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。',
+    ].join('\n')),
+    ['第 3 行存在生成型内容占位文本：该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。'],
   );
 });
 
@@ -207,6 +219,7 @@ test('能解析并校验 partial include 目标', () => {
       translated: 'include::partial$goals/overview.adoc[]\ninclude::api:partial$nav-rest-api.adoc[]',
       outputRoot: 'output',
       exists: (file) => Object.hasOwn(files, file),
+      read: (file) => files[file],
     }),
     [],
   );
@@ -217,8 +230,20 @@ test('能解析并校验 partial include 目标', () => {
       translated: 'include::partial$goals/missing.adoc[]',
       outputRoot: 'output',
       exists: (file) => Object.hasOwn(files, file),
+      read: (file) => files[file],
     }),
     ['modules/maven-plugin/pages/goals.adoc：找不到 partial include 目标 output/modules/maven-plugin/partials/goals/missing.adoc'],
+  );
+
+  assert.deepEqual(
+    validatePartialIncludes({
+      relativePath: 'modules/maven-plugin/pages/goals.adoc',
+      translated: 'include::partial$goals/overview.adoc[]',
+      outputRoot: 'output',
+      exists: (file) => Object.hasOwn(files, file),
+      read: () => '该片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。',
+    }),
+    ['modules/maven-plugin/pages/goals.adoc：partial include 目标 output/modules/maven-plugin/partials/goals/overview.adoc 仍包含生成型内容占位文本'],
   );
 });
 

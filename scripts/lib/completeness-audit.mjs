@@ -14,6 +14,7 @@ import {
   getOutputPathForPage,
 } from './translate.mjs';
 import { getLatestContentRoot } from './site-versions.mjs';
+import { containsGeneratedPlaceholder } from './generated-content.mjs';
 
 export const DEFAULT_COMPLETENESS_JSONL = 'reports/completeness-audit.jsonl';
 export const DEFAULT_COMPLETENESS_MARKDOWN = 'reports/completeness-audit.md';
@@ -359,6 +360,13 @@ export function auditBuiltSiteHtml({
         code: 'raw-include-code-html',
         relativePath,
         message: '构建产物仍包含未展开的 include-code 宏',
+      }));
+    }
+    if (containsGeneratedPlaceholder(html)) {
+      issues.push(makeIssue({
+        code: 'generated-placeholder-html',
+        relativePath,
+        message: '构建产物仍包含生成型内容占位文本',
       }));
     }
     if (/Unresolved include directive/i.test(html)) {

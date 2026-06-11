@@ -105,6 +105,20 @@ test('构建产物审计能发现未展开的 include-code 宏', () => {
   assert.deepEqual(issues.map((issue) => issue.code), ['raw-include-code-html']);
 });
 
+test('构建产物审计能发现生成型内容占位文本残留', () => {
+  const files = new Map([
+    ['build/site/example.html', '<p>当前中文站暂未纳入完整生成内容。请参考官方英文文档。</p>'],
+  ]);
+
+  const issues = auditBuiltSiteHtml({
+    outputDir: 'build/site',
+    listFiles: () => [...files.keys()],
+    read: (file) => files.get(file),
+  });
+
+  assert.deepEqual(issues.map((issue) => issue.code), ['generated-placeholder-html']);
+});
+
 test('构建产物审计能发现未渲染的 javadoc 宏', () => {
   const files = new Map([
     ['build/site/example.html', '<p>javadoc:org.springframework.boot.SpringApplication[]</p>'],

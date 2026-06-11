@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
-  buildGeneratedPartialContent,
   collectMissingGeneratedPartials,
+  ensureGeneratedPartials,
   resolvePartialOutputPath,
 } from '../scripts/lib/generated-partials.mjs';
 
@@ -25,18 +25,6 @@ test('按当前模块解析 partial include 输出路径', () => {
       partialPath: 'logging/logging-format.txt',
     }),
     'content/boot/modules/ROOT/partials/logging/logging-format.txt',
-  );
-});
-
-test('生成表格和请求响应片段占位内容', () => {
-  assert.equal(
-    buildGeneratedPartialContent({ partialPath: 'rest/actuator/sessions/username/response-fields.adoc', columnCount: 3 }),
-    '|===\n3+| 该表格片段由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。\n|===\n',
-  );
-
-  assert.equal(
-    buildGeneratedPartialContent({ partialPath: 'rest/actuator/sessions/username/curl-request.adoc' }),
-    '[source,text]\n----\n该请求或响应示例由官方构建流程生成，当前中文站暂未纳入完整生成内容。请参考官方英文文档。\n----\n',
   );
 });
 
@@ -70,4 +58,26 @@ test('收集缺失的生成型 partial', () => {
       columnCount: 3,
     },
   ]);
+});
+
+test('缺失生成型 partial 时失败而不是写入占位', () => {
+  const files = {
+    'content/boot/modules/api/pages/rest/actuator/sessions.adoc': [
+      '[cols="3,1,3"]',
+      'include::partial$rest/actuator/sessions/username/response-fields.adoc[]',
+    ].join('\n'),
+  };
+  const writes = [];
+
+  assert.throws(
+    () => ensureGeneratedPartials({
+      contentRoot: 'content/boot',
+      files: Object.keys(files),
+      exists: (file) => Object.hasOwn(files, file),
+      read: (file) => files[file],
+      write: (...args) => writes.push(args),
+    }),
+    /缺少官方生成型 partial/,
+  );
+  assert.deepEqual(writes, []);
 });

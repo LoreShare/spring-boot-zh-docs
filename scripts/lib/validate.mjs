@@ -12,6 +12,7 @@ import {
 } from './translate.mjs';
 import { auditTranslationCompleteness } from './completeness-audit.mjs';
 import { getLatestContentRoot } from './site-versions.mjs';
+import { containsGeneratedPlaceholder } from './generated-content.mjs';
 
 export function collectXrefs(content) {
   return [...content.matchAll(/\bxref:([^\[\s]+)\[/g)].map((match) => match[1]);
@@ -486,6 +487,17 @@ export function findUntranslatedEnglishSegments(content) {
   return issues;
 }
 
+export function findGeneratedPlaceholderSegments(content) {
+  const issues = [];
+  const lines = content.split(/\r?\n/);
+  for (let index = 0; index < lines.length; index += 1) {
+    if (containsGeneratedPlaceholder(lines[index])) {
+      issues.push(`第 ${index + 1} 行存在生成型内容占位文本：${lines[index].trim()}`);
+    }
+  }
+  return issues;
+}
+
 export function findMissingProtectedTerms(source, translated) {
   return PROTECTED_TERMS.filter((term) => {
     const pattern = buildTermPattern(term);
@@ -524,6 +536,7 @@ export function validatePartialIncludes({
   translated,
   outputRoot = getLatestContentRoot(),
   exists = existsSync,
+  read = (file) => readFileSync(file, 'utf8'),
 } = {}) {
   const issues = [];
   const currentModuleName = getModuleNameFromRelativePath(relativePath);
@@ -533,6 +546,10 @@ export function validatePartialIncludes({
     const partialPath = path.join(outputRoot, 'modules', moduleName, 'partials', includeTarget.partialPath);
     if (!exists(partialPath)) {
       issues.push(`${relativePath}：找不到 partial include 目标 ${partialPath}`);
+      continue;
+    }
+    if (containsGeneratedPlaceholder(read(partialPath))) {
+      issues.push(`${relativePath}：partial include 目标 ${partialPath} 仍包含生成型内容占位文本`);
     }
   }
 
@@ -672,6 +689,10 @@ export function validateTranslatedPage({ relativePath, source, translated }) {
     issues.push(`${relativePath}：${issue}`);
   }
 
+  for (const issue of findGeneratedPlaceholderSegments(translated)) {
+    issues.push(`${relativePath}：${issue}`);
+  }
+
   return issues;
 }
 
@@ -767,6 +788,7 @@ export function validateTranslatedFiles({
         translated,
         outputRoot,
         exists,
+        read,
       }));
     }
   }
