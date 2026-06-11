@@ -59,12 +59,15 @@ npm run serve
 - build-tool-plugin
 - cli
 - api 导航 partial
+- Maven Plugin
+- Gradle Plugin
+- Actuator REST API
 - specification
 - appendix
 
-不包含官方构建时生成的 Javadoc、Kotlin API、Actuator REST API、Maven 插件文档和 Gradle 插件文档。
+不包含官方构建时生成的 Javadoc 和 Kotlin API 页面。
 
-因此构建时仍会输出这些生成模块相关的 xref/include 错误日志，但不会中断静态站生成。
+Java API 和 Kotlin API 仍作为外部英文 API 参考链接保留，不生成中文镜像页面。
 
 ## Token 用量
 
