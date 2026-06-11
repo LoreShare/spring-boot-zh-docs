@@ -1,0 +1,84 @@
+= 测试模块
+
+Spring Boot 提供了几个专注于特定功能的 `-test` 模块：
+
+[cols="1,3"]
+|===
+|模块 | 用途
+
+|`spring-boot-cache-test`
+|测试使用 Spring 框架缓存抽象的应用。
+
+|`spring-boot-data-cassandra-test`
+|测试使用 Spring Data Cassandra 的应用。提供 `@DataCassandraTest` 测试切片。
+
+|`spring-boot-data-couchbase-test`
+|测试使用 Spring Data Couchbase 的应用。提供 `@DataCouchbaseTest` 测试切片。
+
+|`spring-boot-data-elasticsearch-test`
+|测试使用 Spring Data Elasticsearch 的应用。提供 `@DataElasticsearchTest` 测试切片。
+
+|`spring-boot-data-jdbc-test`
+|测试使用 Spring Data JDBC 的应用。提供 `@DataJdbcTest` 测试切片。
+
+|`spring-boot-data-jpa-test`
+|测试使用 Spring Data JPA 的应用。提供 `@DataJpaTest` 测试切片。
+
+|`spring-boot-data-ldap-test`
+|测试使用 Spring Data LDAP 的应用。提供 `@DataLdapTest` 测试切片。
+
+|`spring-boot-mongodb-test`
+|测试使用 Spring Data MongoDB 的应用。提供 `@DataMongoTest` 测试切片。
+
+|`spring-boot-data-neo4j-test`
+|测试使用 Spring Data JPA 的应用。提供 `@DataNeo4jTest` 测试切片。
+
+|`spring-boot-data-r2dbc-test`
+|测试使用 Spring Data R2DBC 的应用。提供 `@DataR2dbcTest` 测试切片。
+
+|`spring-boot-data-redis-test`
+|测试使用 Spring Data Redis 的应用。提供 `@DataRedisTest` 测试切片。
+
+|`spring-boot-graphql-test`
+|测试使用 Spring GraphQL 的应用。提供 `@GraphQlTest` 测试切片。
+
+|`spring-boot-grpc-test`
+|测试使用 Spring gRPC 的应用。
+
+|`spring-boot-jdbc-test`
+|测试使用 Spring JDBC 的应用。提供 `@JdbcTest` 测试切片。
+
+|`spring-boot-jooq-test`
+|测试使用 jOOQ 的应用。提供 `@JooqTest` 测试切片。
+
+|`spring-boot-jpa-test`
+|测试使用 JPA 的应用。
+
+|`spring-boot-micrometer-metrics-test`
+|测试使用 Micrometer Metrics 的应用。
+
+|`spring-boot-micrometer-tracing-test`
+|测试使用 Micrometer Tracing 的应用。
+
+|`spring-boot-restclient-test`
+|测试使用 REST 客户端的应用。提供 `@RestClientTest` 测试切片。
+
+|`spring-boot-security-test`
+|测试使用 Spring Security 的应用。
+
+|`spring-boot-webserver-test`
+|测试使用 `WebServer` 实现的应用。提供 `@AutoconfigureWebServer` annotation。
+
+|`spring-boot-webclient-test`
+|测试使用 `WebClient` 的应用。提供 `@WebClientTest` 测试切片。
+
+|`spring-boot-webflux-test`
+|测试使用 Spring WebFlux 的应用。提供 `@WebFluxTest` 测试切片。
+
+|`spring-boot-webmvc-test`
+|测试使用 Spring Web MVC 的应用。提供 `@WebMvcTest` 测试切片。
+
+|`spring-boot-webservices-test`
+|测试使用 Spring Web Services 的应用。提供 `@WebServiceClientTest` 和 `@WebServiceServerTest` 测试切片。
+
+|===

@@ -1,0 +1,12 @@
+[[packaging.container-images.buildpacks]]
+= Cloud Native Buildpacks
+
+可以使用 https://buildpacks.io[Cloud Native Buildpacks] 直接从 Maven 或 Gradle 插件构建 Docker 镜像。如果你曾经使用过 Cloud Foundry 或 Heroku 等应用平台，那么你可能已经使用过 buildpack。Buildpack 是平台的一部分，负责将你的应用程序转换为平台可以实际运行的内容。例如，Cloud Foundry 的 Java buildpack 会注意到你正在推送一个 `.jar` 文件，并自动添加相关的 JRE。
+
+使用 Cloud Native Buildpacks，你可以创建可在任何地方运行的 Docker 兼容镜像。Spring Boot 直接为 Maven 和 Gradle 提供了 buildpack 支持。这意味着你只需输入一个命令，就能快速将合适的镜像放入本地运行的 Docker 守护进程中。
+
+有关如何使用 buildpack 的详细信息，请参阅 xref:maven-plugin:build-image.adoc#build-image[Maven] 和 xref:gradle-plugin:packaging-oci-image.adoc[Gradle] 的相应插件文档。
+
+注意：https://github.com/paketo-buildpacks/spring-boot[Paketo Spring Boot buildpack] 支持 `layers.idx` 文件，因此应用于该文件的任何 xref:packaging/container-images/efficient-images.adoc#packaging.container-images.efficient-images.layering[层自定义] 都将反映在 buildpack 创建的镜像中。
+
+注意：为了实现可重复构建和容器镜像缓存，buildpack 可能会操作应用程序资源的元数据（例如文件的“最后修改”信息）。你应该确保你的应用程序在运行时不依赖这些元数据。Spring Boot 在提供静态资源时可能会使用该信息，但可以通过 configprop:spring.web.resources.cache.use-last-modified[] 禁用它。

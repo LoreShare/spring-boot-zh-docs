@@ -1,0 +1,60 @@
+= 批处理应用
+
+在 Spring 应用中使用 Spring Boot Batch 时，经常会出现一些问题。
+本节将解答这些问题。
+
+
+
+== 指定批处理数据源
+
+将作业详情存储在 SQL 数据库中的批处理应用需要一个 javadoc:javax.sql.DataSource[] bean。
+默认情况下需要一个 javadoc:javax.sql.DataSource[] bean。
+要让 Spring Batch 使用不同于应用主数据源的 javadoc:javax.sql.DataSource[]，请声明一个 javadoc:javax.sql.DataSource[] bean，并用 javadoc:org.springframework.boot.batch.jdbc.autoconfigure.BatchDataSource[format=annotation] 注解其 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法。
+如果这样做并且需要两个数据源（例如通过保留自动配置的主 javadoc:javax.sql.DataSource[]），请将 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 的 `defaultCandidate` 属性设置为 `false`。
+
+
+
+== 指定批处理事务管理器
+
+与 xref:batch.adoc#howto.batch.specifying-a-data-source[] 类似，你可以通过用 javadoc:org.springframework.boot.batch.autoconfigure.BatchTransactionManager[format=annotation] 注解其 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法，定义一个用于批处理的 javadoc:org.springframework.transaction.PlatformTransactionManager[]。
+如果这样做并且需要两个事务管理器（例如通过保留自动配置的 javadoc:org.springframework.transaction.PlatformTransactionManager[]），请将 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 的 `defaultCandidate` 属性设置为 `false`。
+
+
+
+== 指定批处理任务执行器
+
+与 xref:batch.adoc#howto.batch.specifying-a-data-source[] 类似，你可以通过用 javadoc:org.springframework.boot.batch.autoconfigure.BatchTaskExecutor[format=annotation] 注解其 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法，定义一个用于批处理的 javadoc:org.springframework.core.task.TaskExecutor[]。
+如果这样做并且需要两个任务执行器（例如通过保留自动配置的 javadoc:org.springframework.core.task.TaskExecutor[]），请将 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 的 `defaultCandidate` 属性设置为 `false`。
+
+
+
+== 从命令行运行
+
+Spring Boot 将以 `--` 开头的任何命令行参数转换为要添加到 javadoc:org.springframework.core.env.Environment[] 的属性，请参见 xref:reference:features/external-config.adoc#features.external-config.command-line-args[accessing command line properties]。
+这不应被用于向批处理作业传递参数。
+要在命令行上指定批处理参数，请使用常规格式（即不带 `--`），如下例所示：
+
+[source,shell]
+----
+$ java -jar myapp.jar someParameter=someValue anotherParameter=anotherValue
+----
+
+如果您在命令行上指定了 javadoc:org.springframework.core.env.Environment[] 的属性，该属性将被 job 忽略。
+考虑以下命令：
+
+[source,shell]
+----
+$ java -jar myapp.jar --server.port=7070 someParameter=someValue
+----
+
+这仅为批处理作业提供了一个参数：`someParameter=someValue`。
+
+
+[[howto.batch.restarting-a-failed-job]]
+== 重启已停止或失败的作业
+
+要重启一个失败的 javadoc:org.springframework.batch.core.job.Job[]，所有参数（标识性和非标识性）都必须在命令行中重新指定。
+非标识性参数*不会*从之前的执行中复制。
+这允许它们被修改或移除。
+
+注意：当你使用自定义的 javadoc:org.springframework.batch.core.job.parameters.JobParametersIncrementer[] 时，你必须收集增量器管理的所有参数才能重启失败的执行。

@@ -1,0 +1,34 @@
+[[packaging.aot]]
+= 使用 JVM 进行提前处理
+
+使用 AOT 生成的初始化代码运行应用程序有利于缩短启动时间。
+首先，你需要确保构建的 jar 包含 AOT 生成的代码。
+
+注意：AOT 缓存和 Spring 的 AOT 可以结合使用，以进一步缩短启动时间。
+
+对于 Maven，这意味着你应该使用 `-Pnative` 构建以激活 `native` profile：
+
+[source,shell]
+----
+$ mvn -Pnative package
+----
+
+对于 Gradle，你需要确保构建中包含 `org.springframework.boot.aot` 插件。
+
+当 JAR 构建完成后，使用 `spring.aot.enabled` 系统属性设置为 `true` 来运行它。例如：
+
+[source,shell]
+----
+$ java -Dspring.aot.enabled=true -jar myapplication.jar
+
+........ 启动 AOT 处理的 MyApplication ...
+----
+
+请注意，使用提前处理存在一些缺点。它意味着以下限制：
+
+* classpath 在构建时是固定的且完全定义
+* 应用程序中定义的 bean 不能在运行时更改，这意味着：
+- Spring javadoc:org.springframework.context.annotation.Profile[format=annotation] 注解和特定于 profile 的配置 xref:how-to:aot.adoc#howto.aot.conditions[存在限制]。
+- 不支持那些在 bean 创建时发生变化的属性（例如，javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnProperty[format=annotation] 和 `.enabled` 属性）。
+
+要了解更多关于提前处理的信息，请参阅 xref:packaging/native-image/introducing-graalvm-native-images.adoc#packaging.native-image.introducing-graalvm-native-images.understanding-aot-processing[] 部分。

@@ -1,0 +1,48 @@
+= 安全
+
+本节解答使用 Spring Boot 时的安全问题，包括使用 Spring Security 与 Spring Boot 时产生的问题。
+
+有关 Spring Security 的更多信息，请参阅 {url-spring-security-site}[Spring Security 项目页面]。
+
+
+
+[[howto.security.switch-off-spring-boot-configuration]]
+== 关闭 Spring Boot 安全配置
+
+如果在应用程序中定义了一个带有 javadoc:org.springframework.security.web.SecurityFilterChain[] bean 的 javadoc:org.springframework.context.annotation.Configuration[format=annotation]，此操作将关闭 Spring Boot 中的默认 Web 应用安全设置。
+
+
+
+[[howto.security.change-user-details-service-and-add-user-accounts]]
+== 更改 UserDetailsService 并添加用户账户
+
+如果提供了类型为 javadoc:org.springframework.security.authentication.AuthenticationManager[]、javadoc:org.springframework.security.authentication.AuthenticationProvider[] 或 javadoc:org.springframework.security.core.userdetails.UserDetailsService[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，则不会创建默认的 javadoc:org.springframework.context.annotation.Bean[format=annotation]（用于 javadoc:org.springframework.security.provisioning.InMemoryUserDetailsManager[]）。
+这意味着你可以使用 Spring Security 的完整功能集（例如 {url-spring-security-docs}/servlet/authentication/index.html[各种身份验证选项]）。
+
+添加用户账户的最简单方法是提供你自己的 javadoc:org.springframework.security.core.userdetails.UserDetailsService[] bean。
+
+
+
+[[howto.security.enable-https]]
+== 在代理服务器后面运行时启用 HTTPS
+
+确保所有主要的 endpoint 仅通过 HTTPS 可用是任何应用程序的重要任务。
+如果使用 Tomcat 作为 Servlet 容器，那么 Spring Boot 会在检测到某些环境设置时自动添加 Tomcat 自身的 javadoc:org.apache.catalina.valves.RemoteIpValve[]，从而允许你依赖 javadoc:jakarta.servlet.http.HttpServletRequest[] 来报告请求是否安全（即使在处理实际 SSL 终止的代理服务器下游也是如此）。
+标准行为由某些请求头（`x-forwarded-for` 和 `x-forwarded-proto`）的存在与否决定，这些头名称是约定俗成的，因此应该适用于大多数前端代理。
+你可以通过向 `application.properties` 添加一些条目来启用该阀，如下例所示：
+
+[configprops,yaml]
+----
+server:
+  tomcat:
+    remoteip:
+      remote-ip-header: "x-forwarded-for"
+      protocol-header: "x-forwarded-proto"
+----
+
+（存在这两个属性中的任何一个都会启用该阀门。
+或者，你可以通过使用 javadoc:org.springframework.boot.web.server.WebServerFactoryCustomizer[] bean 自定义 javadoc:org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory[] 来添加 javadoc:org.apache.catalina.valves.RemoteIpValve[]。）
+
+要配置 Spring Security 以要求所有（或部分）请求使用安全通道，可以考虑添加你自己的 javadoc:org.springframework.security.web.SecurityFilterChain[] bean，该 Bean 添加了以下 javadoc:org.springframework.security.config.annotation.web.builders.HttpSecurity[] 配置：
+
+include-code::MySecurityConfig[]

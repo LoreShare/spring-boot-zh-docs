@@ -1,0 +1,6 @@
+[[features]]
+= 核心特性
+
+本节深入探讨 Spring Boot 的细节。
+在这里，您可以了解可能想要使用和自定义的关键特性。
+如果您还没有这样做，建议先阅读 xref:tutorial:index.adoc[] 和 xref:using/index.adoc[] 部分，以便打好基础。

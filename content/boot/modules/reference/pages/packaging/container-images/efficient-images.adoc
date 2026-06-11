@@ -1,0 +1,49 @@
+[[packaging.container-images.efficient-images]]
+= 高效的容器镜像
+
+将 Spring Boot uber jar 打包为 Docker 镜像很容易。
+然而，在 Docker 镜像中直接复制并运行 uber jar 存在各种缺点。
+在不解压的情况下运行 uber jar 总是会有一定的开销，在容器化环境中这可能很明显。
+另一个问题是，将应用程序代码及其所有依赖放在 Docker 镜像的一个层中并不理想。
+由于你可能重新编译代码的频率高于升级 Spring Boot 版本的频率，通常最好将内容进一步分离。
+如果将 jar 文件放在应用程序类之前的层中，Docker 通常只需要更改最底层，并可以从其缓存中获取其他层。
+
+
+[[packaging.container-images.efficient-images.layering]]
+== Docker 镜像分层
+
+为了更容易创建优化的 Docker 镜像，Spring Boot 支持向 jar 添加层索引文件。
+它提供了层列表以及 jar 中应包含在这些层中的部分。
+索引中的层列表基于应添加到 Docker/OCI 镜像的层的顺序进行排序。
+开箱即用，支持以下层：
+
+* `dependencies`（用于常规发布的依赖）
+* `spring-boot-loader`（用于 `org/springframework/boot/loader` 下的所有内容）
+* `snapshot-dependencies`（用于快照依赖）
+* `application`（用于应用程序类和资源）
+
+以下是一个 `layers.idx` 文件的示例：
+
+[source,yaml]
+----
+- "dependencies":
+  - BOOT-INF/lib/library1.jar
+  - BOOT-INF/lib/library2.jar
+- "spring-boot-loader":
+  - org/springframework/boot/loader/launch/JarLauncher.class
+  - ... <other classes>
+- "snapshot-dependencies":
+  - BOOT-INF/lib/library3-SNAPSHOT.jar
+- "application":
+  - META-INF/MANIFEST.MF
+  - BOOT-INF/classes/a/b/C.class
+----
+
+这种分层设计旨在根据代码在应用构建之间变化的可能性来分离代码。
+库代码在构建之间变化的可能性较小，因此将其放在自己的层中，以便工具可以重用缓存中的层。
+应用代码在构建之间更可能发生变化，因此将其隔离在单独的层中。
+
+Spring Boot 还借助 `layers.idx` 支持 war 文件的分层。
+
+对于 Maven，请参阅 xref:maven-plugin:packaging.adoc#packaging.layers[打包分层 jar 或 war 部分] 以了解有关向归档添加层索引的更多详细信息。
+对于 Gradle，请参阅 Gradle 插件文档的 xref:gradle-plugin:packaging.adoc#packaging-executable.configuring.layered-archives[打包分层 jar 或 war 部分]。

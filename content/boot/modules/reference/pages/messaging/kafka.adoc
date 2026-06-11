@@ -1,0 +1,170 @@
+= Apache Kafka 支持
+
+https://kafka.apache.org/[Apache Kafka] 通过提供 auto-configuration 的 `spring-kafka` 项目来支持。
+
+Kafka 配置由 `spring.kafka.*` 中的外部配置属性控制。
+例如，您可以在 `application.properties` 中声明以下部分：
+
+[configprops,yaml]
+----
+spring:
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    consumer:
+      group-id: "myGroup"
+----
+TIP: 要在启动时创建一个主题，请添加一个类型为 javadoc:org.apache.kafka.clients.admin.NewTopic[] 的 bean。
+如果主题已存在，则 bean 会被忽略。
+
+有关更多支持的选项，请参阅 javadoc:org.springframework.boot.kafka.autoconfigure.KafkaProperties[]。
+
+
+
+[[messaging.kafka.sending]]
+== 发送消息
+
+Spring 的 javadoc:org.springframework.kafka.core.KafkaTemplate[] 是自动配置的，您可以直接在您自己的 beans 中自动注入它，如下例所示：
+
+include-code::MyBean[]
+
+注意：如果定义了属性 configprop:spring.kafka.producer.transaction-id-prefix[]，则会自动配置一个 javadoc:org.springframework.kafka.transaction.KafkaTransactionManager[]。
+此外，如果定义了 javadoc:org.springframework.kafka.support.converter.RecordMessageConverter[] bean，它会自动关联到自动配置的 javadoc:org.springframework.kafka.core.KafkaTemplate[]。
+
+如果上下文中存在类型为 `KafkaTemplateObservationConvention` 的 bean，它会自动注册到 `KafkaTemplate` 上。
+
+
+
+[[messaging.kafka.receiving]]
+== 接收消息
+
+当 Apache Kafka 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.kafka.annotation.KafkaListener[format=annotation] 注解来创建监听器 endpoint。
+如果没有定义 javadoc:org.springframework.kafka.config.KafkaListenerContainerFactory[]，则会使用 `spring.kafka.listener.*` 中定义的键自动配置一个默认的。
+
+以下组件在 `someTopic` 主题上创建了一个监听器 endpoint：
+
+include-code::MyBean[]
+
+如果定义了 javadoc:org.springframework.kafka.transaction.KafkaTransactionManager[] bean，它会自动关联到容器工厂。
+类似地，如果定义了 javadoc:org.springframework.kafka.listener.adapter.RecordFilterStrategy[]、javadoc:org.springframework.kafka.listener.CommonErrorHandler[]、javadoc:org.springframework.kafka.listener.AfterRollbackProcessor[] 或 javadoc:org.springframework.kafka.listener.ConsumerAwareRebalanceListener[] bean，它会自动关联到默认工厂。
+
+根据监听器类型，javadoc:org.springframework.kafka.support.converter.RecordMessageConverter[] 或 javadoc:org.springframework.kafka.support.converter.BatchMessageConverter[] bean 会关联到默认工厂。
+如果对于批量监听器只存在 javadoc:org.springframework.kafka.support.converter.RecordMessageConverter[] bean，它会被包装在 javadoc:org.springframework.kafka.support.converter.BatchMessageConverter[] 中。
+
+提示：自定义的 javadoc:org.springframework.kafka.transaction.ChainedKafkaTransactionManager[] 必须标记为 javadoc:org.springframework.context.annotation.Primary[format=annotation]，因为它通常引用自动配置的 javadoc:org.springframework.kafka.transaction.KafkaTransactionManager[] bean。
+
+如果上下文中存在类型为 `KafkaListenerObservationConvention` 的 bean，它会自动注册到容器工厂。
+
+
+
+[[messaging.kafka.streams]]
+== Kafka Streams
+
+Apache Kafka 的 Spring 提供了一个工厂 bean 来创建 javadoc:org.apache.kafka.streams.StreamsBuilder[] 对象并管理其流的生命周期。
+只要 `kafka-streams` 在 classpath 上并且通过 javadoc:org.springframework.kafka.annotation.EnableKafkaStreams[format=annotation] annotation 启用了 Kafka Streams，Spring Boot 就会自动配置所需的 javadoc:org.springframework.kafka.config.KafkaStreamsConfiguration[] bean。
+
+启用 Kafka Streams 意味着必须设置应用程序 ID 和引导服务器。
+前者可以使用 `spring.kafka.streams.application-id` 进行配置，如果未设置则默认为 `spring.application.name`。
+后者可以全局设置，或者仅为流进行特定覆盖。
+
+多个附加属性可以使用专用属性进行设置；其他任意的 Kafka 属性可以使用 `spring.kafka.streams.properties` 命名空间进行设置。
+更多信息请参阅 xref:messaging/kafka.adoc#messaging.kafka.additional-properties[]。
+
+要使用工厂 bean，将 javadoc:org.apache.kafka.streams.StreamsBuilder[] 注入到您的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 中，如下例所示：
+
+include-code::MyKafkaStreamsConfiguration[]
+
+默认情况下，由 javadoc:org.apache.kafka.streams.StreamsBuilder[] 对象管理的流会自动启动。
+您可以使用 configprop:spring.kafka.streams.auto-startup[] 属性自定义此行为。
+
+提示：您还可以注册任意数量的实现 javadoc:org.springframework.kafka.config.StreamsBuilderFactoryBeanConfigurer[] 的 beans 以实现更高级的自定义。
+
+
+
+[[messaging.kafka.additional-properties]]
+== 其他 Kafka 属性
+
+自动配置支持的属性显示在附录的 xref:appendix:application-properties/index.adoc#appendix.application-properties.integration[Integration Properties] 部分。
+请注意，大多数情况下，这些属性（连字符形式或驼峰形式）直接映射到 Apache Kafka 的点分属性。
+详情请参阅 Apache Kafka 文档。
+
+名称中不包含客户端类型（`producer`、`consumer`、`admin` 或 `streams`）的属性被视为通用属性，适用于所有客户端。
+如果需要，大多数这些通用属性可以针对一个或多个客户端类型进行覆盖。
+
+Apache Kafka 将属性重要性指定为 HIGH、MEDIUM 或 LOW。
+Spring Boot auto-configuration 支持所有 HIGH 重要性属性、一些选定的 MEDIUM 和 LOW 属性，以及任何没有默认值的属性。
+
+只有 Kafka 支持的属性子集可以直接通过 javadoc:org.springframework.boot.kafka.autoconfigure.KafkaProperties[] 类获得。
+如果您希望使用不直接支持的附加属性来配置各个客户端类型，请使用以下属性：
+
+[configprops,yaml]
+----
+spring:
+  kafka:
+    properties:
+      "[prop.one]": "first"
+    admin:
+      properties:
+        "[prop.two]": "second"
+    consumer:
+      properties:
+        "[prop.three]": "third"
+    producer:
+      properties:
+        "[prop.four]": "fourth"
+    streams:
+      properties:
+        "[prop.five]": "fifth"
+----
+这将公共的 `prop.one` Kafka 属性设置为 `first`（适用于生产者、消费者、管理员和流），将 `prop.two` 管理员属性设置为 `second`，将 `prop.three` 消费者属性设置为 `third`，将 `prop.four` 生产者属性设置为 `fourth`，并将 `prop.five` 流属性设置为 `fifth`。
+
+您还可以按如下方式配置 Spring Kafka javadoc:org.springframework.kafka.support.serializer.JacksonJsonDeserializer[]：
+
+[configprops,yaml]
+----
+spring:
+  kafka:
+    consumer:
+      value-deserializer: "org.springframework.kafka.support.serializer.JacksonJsonDeserializer"
+      properties:
+        "[spring.json.value.default.type]": "com.example.Invoice"
+        "[spring.json.trusted.packages]": "com.example.main,com.example.another"
+----
+类似地，你可以禁用 javadoc:org.springframework.kafka.support.serializer.JacksonJsonSerializer[] 在头部发送类型信息的默认行为：
+
+[configprops,yaml]
+----
+spring:
+  kafka:
+    producer:
+      value-serializer: "org.springframework.kafka.support.serializer.JacksonJsonSerializer"
+      properties:
+        "[spring.json.add.type.headers]": false
+----
+IMPORTANT: 以这种方式设置的属性会覆盖 Spring Boot 显式支持的任何配置项。
+
+[[messaging.kafka.embedded]]
+== 使用嵌入式 Kafka 进行测试
+
+Spring for Apache Kafka 提供了一种便捷的方式来测试带有嵌入式 Apache Kafka 代理的项目。
+要使用此功能，请使用来自 `spring-kafka-test` 模块的 javadoc:org.springframework.kafka.test.context.EmbeddedKafka[format=annotation] 注解测试类。
+更多信息，请参阅 Spring for Apache Kafka {url-spring-kafka-docs}/testing.html#ekb[参考手册]。
+
+为了使 Spring Boot auto-configuration 与上述嵌入式 Apache Kafka 代理协同工作，你需要将嵌入式代理地址的系统属性（由 javadoc:org.springframework.kafka.test.EmbeddedKafkaBroker[] 填充）重新映射到 Apache Kafka 的 Spring Boot 配置属性中。
+有几种方法可以做到这一点：
+
+* 在测试类中提供一个系统属性，将嵌入式代理地址映射到 configprop:spring.kafka.bootstrap-servers[]：
+
+include-code::property/MyTest[tag=*]
+
+* 在 javadoc:org.springframework.kafka.test.context.EmbeddedKafka[format=annotation] annotation 上配置属性名称：
+
+include-code::annotation/MyTest[]
+
+* 在配置属性中使用占位符：
+
+[configprops,yaml]
+----
+spring:
+  kafka:
+    bootstrap-servers: "${spring.embedded.kafka.brokers}"
+----

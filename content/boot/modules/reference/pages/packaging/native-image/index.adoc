@@ -1,0 +1,5 @@
+[[packaging.native-image]]
+= GraalVM Native Images
+
+https://www.graalvm.org/native-image/[GraalVM Native Images] 是通过提前处理编译后的 Java 应用程序生成的独立可执行文件。
+Native Images 通常比其 JVM 对应版本具有更小的内存占用和更快的启动速度。

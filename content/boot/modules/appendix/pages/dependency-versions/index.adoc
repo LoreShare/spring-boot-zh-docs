@@ -1,0 +1,5 @@
+[appendix]
+[[appendix.dependency-versions]]
+= 依赖版本
+
+本附录提供了由 Spring Boot 管理的依赖项的详细信息。

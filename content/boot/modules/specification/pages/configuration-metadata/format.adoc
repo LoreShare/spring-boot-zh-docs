@@ -1,0 +1,337 @@
+= 元数据格式
+
+配置元数据文件位于 jar 内的 `META-INF/spring-configuration-metadata.json` 路径下。
+它们采用 JSON 格式，项目分类在 "`groups`" 或 "`properties`" 下，附加的值提示分类在 "`hints`" 下，忽略的项目在 "`ignored`" 下，如下例所示：
+
+[source,json]
+----
+{"groups": [
+	{
+		"name": "server",
+		"type": "org.springframework.boot.web.server.autoconfigure.ServerProperties",
+		"sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties"
+	},
+	{
+		"name": "spring.jpa.hibernate",
+		"type": "org.springframework.boot.jpa.autoconfigure.JpaProperties$Hibernate",
+		"sourceType": "org.springframework.boot.jpa.autoconfigure.JpaProperties",
+		"sourceMethod": "getHibernate()"
+	}
+	...
+],"properties": [
+	{
+		"name": "server.port",
+		"type": "java.lang.Integer",
+		"sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties"
+	},
+	{
+		"name": "server.address",
+		"type": "java.net.InetAddress",
+		"sourceType": "org.springframework.boot.web.server.autoconfigure.ServerProperties"
+	},
+	{
+		  "name": "spring.jpa.hibernate.ddl-auto",
+		  "type": "java.lang.String",
+		  "description": "DDL mode. This is actually a shortcut for the \"hibernate.hbm2ddl.auto\" property.",
+		  "sourceType": "org.springframework.boot.jpa.autoconfigure.JpaProperties$Hibernate"
+	}
+	...
+],"hints": [
+	{
+		"name": "spring.jpa.hibernate.ddl-auto",
+		"values": [
+			{
+				"value": "none",
+				"description": "Disable DDL handling."
+			},
+			{
+				"value": "validate",
+				"description": "Validate the schema, make no changes to the database."
+			},
+			{
+				"value": "update",
+				"description": "Update the schema if necessary."
+			},
+			{
+				"value": "create",
+				"description": "Create the schema and destroy previous data."
+			},
+			{
+				"value": "create-drop",
+				"description": "Create and then destroy the schema at the end of the session."
+			}
+		]
+	}
+	...
+],"ignored": {
+	"properties": [
+		{
+			"name": "server.ignored"
+		}
+		...
+	]
+}}
+----
+每个 "`property`" 是用户通过给定值指定的配置项。
+例如，`server.port` 和 `server.address` 可以在你的 `application.properties`/`application.yaml` 中指定，如下所示：
+
+[configprops,yaml]
+----
+server:
+  port: 9090
+  address: 127.0.0.1
+----
+“`groups`”是更高级别的条目，它们本身不指定值，而是为属性提供上下文分组。
+例如，`server.port` 和 `server.address` 属性属于 `server` 组。
+
+注意：并非每个“`property`”都必须有“`group`”。
+某些属性可能独立存在。
+
+“`hints`”是用于帮助用户配置给定属性的附加信息。
+例如，当开发者配置 configprop:spring.jpa.hibernate.ddl-auto[] 属性时，工具可以使用提示为 `none`、`validate`、`update`、`create` 和 `create-drop` 值提供一些自动补全帮助。
+
+最后，“`ignored`”用于已被有意忽略的条目。
+此部分的内容通常来自 xref:specification:configuration-metadata/annotation-processor.adoc#appendix.configuration-metadata.annotation-processor.adding-additional-metadata[additional metadata]。
+
+
+[[appendix.configuration-metadata.format.group]]
+== 组属性
+
+`groups` 数组中的 JSON 对象可以包含下表中所示的属性：
+
+[cols="1,1,4"]
+|===
+| 名称 | 类型 | 用途
+
+| `name`
+| String
+| 组的全名。
+  此属性是必需的。
+
+| `type`
+| String
+| 组数据类型的类名。
+  例如，如果组基于使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的类，则该属性将包含该类的完全限定名。
+  如果基于 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法，则为该方法的返回类型。
+  如果类型未知，则可以省略此属性。
+
+| `description`
+| String
+| 可向用户显示的组的简短描述。
+  如果没有可用的描述，则可以省略。
+  建议描述为简短段落，第一行提供简洁摘要。
+  描述的最后一行应以句号（`.`）结尾。
+
+| `sourceType`
+| String
+| 贡献此组的源的类名。
+  例如，如果组基于使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法，则该属性将包含包含该方法的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类的完全限定名。
+  如果源类型未知，则可以省略此属性。
+
+| `sourceMethod`
+| String
+| 贡献此组的方法的全名（包括括号和参数类型）（例如，使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法的名称）。
+  如果源方法未知，则可以省略。
+|===
+
+
+
+[[appendix.configuration-metadata.format.property]]
+== 属性属性
+
+`properties` 数组中的 JSON 对象可以包含下表中描述的属性：
+
+[cols="1,1,4"]
+|===
+| 名称 | 类型 | 用途
+
+| `name`
+| String
+| 属性的全名。
+  名称采用小写句点分隔形式（例如，`server.address`）。
+  此属性是必需的。
+
+| `type`
+| String
+| 属性数据类型的完整签名（例如，javadoc:java.lang.String[]），也可以是完整泛型类型（例如 `java.util.Map<java.lang.String,com.example.MyEnum>`）。
+  可以使用此属性指导用户了解他们可以输入的值的类型。
+  为保持一致性，原始类型通过其包装类指定（例如，`boolean` 变为 javadoc:java.lang.Boolean[]）。
+  请注意，此类可能是一个复杂类型，在值绑定时从 javadoc:java.lang.String[] 转换而来。
+  如果类型未知，则可以省略。
+
+| `description`
+| String
+| 可向用户显示的属性的简短描述。
+  如果没有可用的描述，则可以省略。
+  建议描述为简短段落，第一行提供简洁摘要。
+  描述的最后一行应以句号（`.`）结尾。
+
+| `sourceType`
+| String
+| 贡献此属性的源的类名。
+  例如，如果属性来自使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的类，则该属性将包含该类的完全限定名。
+  如果源类型未知，则可以省略。
+
+| `defaultValue`
+| Object
+| 默认值，如果未指定属性，则使用该值。
+  如果属性的类型是数组，则可以是值的数组。
+  如果默认值未知，则可以省略。
+
+| `deprecation`
+| Deprecation
+| 指定属性是否已弃用。
+  如果字段未弃用或该信息未知，则可以省略。
+  下表提供了有关 `deprecation` 属性的更多详细信息。
+|===
+
+每个 `properties` 元素的 `deprecation` 属性中的 JSON 对象可以包含以下属性：
+
+[cols="1,1,4"]
+|===
+| 名称 | 类型 | 用途
+
+| `level`
+| String
+| 弃用级别，可以是 `warning`（默认）或 `error`。
+  当属性具有 `warning` 弃用级别时，它仍应绑定到环境中。
+  但是，当它具有 `error` 弃用级别时，该属性不再受管理且不会被绑定。
+
+| `reason`
+| String
+| 属性被弃用原因的简短描述。
+  如果没有可用的原因，则可以省略。
+  建议描述为简短段落，第一行提供简洁摘要。
+  描述的最后一行应以句号（`.`）结尾。
+
+| `replacement`
+| String
+| _替换_此弃用属性的属性的全名。
+  如果没有替换属性，则可以省略。
+
+| `since`
+| String
+| 属性被弃用的版本。
+  可以省略。
+|===
+
+注意：在 Spring Boot 1.3 之前，可以使用单个 `deprecated` 布尔属性代替 `deprecation` 元素。
+这仍然以弃用的方式支持，但不应再使用。
+如果没有可用的原因和替换，则应设置一个空的 `deprecation` 对象。
+
+弃用也可以通过代码声明性地指定，方法是将 javadoc:org.springframework.boot.context.properties.DeprecatedConfigurationProperty[format=annotation] annotation 添加到暴露弃用属性的 getter 上。
+例如，假设 `my.app.target` 属性令人困惑，并已重命名为 `my.app.name`。
+以下示例展示了如何处理这种情况：
+
+include-code::MyProperties[]
+
+注意：无法设置 `level`。
+`warning` 始终是假设的，因为代码仍在处理该属性。
+
+上述代码确保弃用的属性仍然有效（在幕后委托给 `name` 属性）。
+一旦 `getTarget` 和 `setTarget` 方法可以从公共 API 中移除，元数据中的自动弃用提示也会消失。
+如果您想保留提示，添加具有 `error` 弃用级别的手动元数据可确保用户仍然了解该属性。
+当提供了 `replacement` 时，这样做特别有用。
+
+
+
+[[appendix.configuration-metadata.format.hints]]
+== 提示属性
+
+`hints` 数组中的 JSON 对象可以包含下表中所示的属性：
+
+[cols="1,1,4"]
+|===
+| 名称 | 类型 | 用途
+
+| `name`
+| String
+| 此提示所指属性的全名。
+  名称采用小写句点分隔形式（例如 `spring.mvc.servlet.path`）。
+  如果属性引用映射（例如 `system.contexts`），则提示适用于映射的 _键_（`system.contexts.keys`）或映射的 _值_（`system.contexts.values`）。
+  此属性是必需的。
+
+| `values`
+| ValueHint[]
+| 由 `ValueHint` 对象（在下表中描述）定义的有效值列表。
+  每个条目定义值，并且可能具有描述。
+
+| `providers`
+| ValueProvider[]
+| 由 `ValueProvider` 对象（在本文档后面描述）定义的提供者列表。
+  每个条目定义提供者的名称及其参数（如果有）。
+|===
+
+每个 `hint` 元素的 `values` 属性中的 JSON 对象可以包含下表中描述的属性：
+
+[cols="1,1,4"]
+|===
+| 名称 | 类型 | 用途
+
+| `value`
+| Object
+| 提示所指元素的有效值。
+  如果属性的类型是数组，则也可以是值的数组。
+  此属性是必需的。
+
+| `description`
+| String
+| 可向用户显示的值的简短描述。
+  如果没有可用的描述，则可以省略。
+  建议描述为简短段落，第一行提供简洁摘要。
+  描述的最后一行应以句号（`.`）结尾。
+|===
+
+每个 `hint` 元素的 `providers` 属性中的 JSON 对象可以包含下表中描述的属性：
+
+[cols="1,1,4"]
+|===
+|名称 | 类型 |用途
+
+| `name`
+| String
+| 提供者的名称，用于为提示所指的元素提供额外的内容帮助。
+
+| `parameters`
+| JSON object
+| 提供者支持的任何附加参数（有关更多详细信息，请查看提供者的文档）。
+|===
+
+
+
+[[appendix.configuration-metadata.format.ignored]]
+== 忽略的属性
+
+`ignored` 对象可以包含下表中所示的属性：
+
+[cols="1,1,4"]
+|===
+| 名称 | 类型 | 用途
+
+| `properties`
+| ItemIgnore[]
+| 由 ItemIgnore 对象（在下表中描述）定义的忽略属性列表。每个条目定义忽略属性的名称。
+
+|===
+
+每个 `ignored` 元素的 `properties` 属性中的 JSON 对象可以包含下表中描述的属性：
+
+[cols="1,1,4"]
+|===
+| 名称 | 类型 | 用途
+
+| `name`
+| String
+| 要忽略的属性的全名。
+名称采用小写句点分隔形式（例如 `spring.mvc.servlet.path`）。
+此属性是必需的。
+
+|===
+
+
+[[appendix.configuration-metadata.format.repeated-items]]
+== 重复的元数据条目
+
+具有相同“`property`”和“`group`”名称的对象可以在元数据文件中多次出现。
+例如，您可以将两个单独的类绑定到同一个前缀，每个类可能具有重叠的属性名称。
+虽然相同的名称在元数据中多次出现并不常见，但元数据的消费者应注意确保支持这种情况。

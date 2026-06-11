@@ -1,0 +1,54 @@
+[[howto.aot]]
+= 提前处理
+
+在使用 Spring Boot 应用程序的提前处理时，经常会出现一些问题。
+本节将解答这些问题。
+
+
+[[howto.aot.conditions]]
+== 条件
+
+提前处理会优化应用程序，并根据构建时的环境评估 javadoc:org.springframework.context.annotation.Conditional[format=annotation] 注解。
+xref:reference:features/profiles.adoc[Profile] 是通过条件实现的，因此也会受到影响。
+
+如果你希望在提前优化的应用程序中基于条件创建 bean，则必须在构建应用程序时设置环境。
+在构建时提前处理期间创建的 bean 在运行应用程序时始终会被创建，并且无法关闭。
+为此，你可以设置构建应用程序时应使用的 profile。
+
+对于 Maven，可以通过设置 `spring-boot-maven-plugin:process-aot` 执行的 `profiles` 配置来实现：
+
+[source,xml]
+----
+<profile>
+    <id>native</id>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>process-aot</id>
+                            <configuration>
+                                <profiles>profile-a,profile-b</profiles>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</profile>
+----
+
+对于 Gradle，你需要配置 `ProcessAot` 任务：
+
+[source,gradle]
+----
+tasks.withType(org.springframework.boot.gradle.tasks.aot.ProcessAot).configureEach {
+    args('--spring.profiles.active=profile-a,profile-b')
+}
+----
+
+仅更改不影响条件的配置属性的 profile 在运行提前优化应用程序时不受限制地支持。

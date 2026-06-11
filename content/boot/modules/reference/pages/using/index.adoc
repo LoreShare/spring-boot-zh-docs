@@ -1,0 +1,8 @@
+= 使用 Spring Boot 进行开发
+
+本节更详细地介绍你应该如何使用 Spring Boot。
+它涵盖了构建系统、auto-configuration 以及如何运行你的应用程序等主题。
+我们还介绍了一些 Spring Boot 最佳实践。
+虽然 Spring Boot 并没有什么特别之处（它只是你可以使用的另一个库），但有一些建议，如果遵循这些建议，可以使你的开发过程稍微容易一些。
+
+如果你刚开始使用 Spring Boot，在深入本节之前，你可能应该阅读 xref:tutorial:first-application/index.adoc[] 教程。

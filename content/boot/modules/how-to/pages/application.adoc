@@ -1,0 +1,107 @@
+= Spring Boot 应用程序
+
+本节包含与 Spring Boot 应用程序直接相关的主题。
+
+
+
+== 创建你自己的 FailureAnalyzer
+
+javadoc:org.springframework.boot.diagnostics.FailureAnalyzer[] 是一种很好的方式，可以在启动时拦截异常并将其转换为人类可读的消息，包装在 javadoc:org.springframework.boot.diagnostics.FailureAnalysis[] 中。
+Spring Boot 为应用程序上下文相关的异常、JSR-303 验证等提供了这样一个分析器。
+你也可以创建自己的分析器。
+
+javadoc:org.springframework.boot.diagnostics.AbstractFailureAnalyzer[] 是 javadoc:org.springframework.boot.diagnostics.FailureAnalyzer[] 的一个便捷扩展，它会检查要处理的异常中是否存在指定的异常类型。
+你可以继承它，这样你的实现只有在异常实际存在时才有机会处理该异常。
+如果由于某种原因你无法处理该异常，返回 `null` 以让另一个实现有机会处理该异常。
+
+javadoc:org.springframework.boot.diagnostics.FailureAnalyzer[] 的实现必须在 `META-INF/spring.factories` 中注册。
+以下示例注册了 `ProjectConstraintViolationFailureAnalyzer`：
+
+[source,properties]
+----
+org.springframework.boot.diagnostics.FailureAnalyzer=\
+com.example.ProjectConstraintViolationFailureAnalyzer
+----
+
+注意：如果你需要访问 javadoc:org.springframework.beans.factory.BeanFactory[] 或 javadoc:org.springframework.core.env.Environment[]，请在 javadoc:org.springframework.boot.diagnostics.FailureAnalyzer[] 实现中将其声明为构造函数参数。
+
+[[howto.application.troubleshoot-auto-configuration]]
+== 自动配置故障排除
+
+Spring Boot auto-configuration 会尽力“`do the right thing`”，但有时事情会失败，并且可能很难找出原因。
+
+在任何 Spring Boot javadoc:org.springframework.context.ApplicationContext[] 中都有一个非常有用的 javadoc:org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport[]。
+如果你启用 `DEBUG` 日志输出，就可以看到它。
+如果你使用 `spring-boot-actuator`（参见 xref:actuator.adoc[] 部分），还有一个 `conditions` endpoint 以 JSON 格式呈现该报告。
+使用该 endpoint 调试应用程序，并查看 Spring Boot 在运行时添加了哪些功能（以及哪些未添加）。
+
+许多问题可以通过查看源代码和 API 文档来回答。
+阅读代码时，请记住以下经验法则：
+
+* 查找名为 `+*AutoConfiguration+` 的类并阅读其源代码。
+  特别注意 `+@Conditional*+` annotation，以了解它们启用了哪些功能以及何时启用。
+  在命令行或系统属性 `-Ddebug` 中添加 `--debug`，以在控制台上获取应用程序中所有 auto-configuration 决策的日志。
+  在启用了 actuator 的正在运行的应用程序中，查看 `conditions` endpoint（`/actuator/conditions` 或等效的 JMX）以获取相同的信息。
+* 查找 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类（例如 javadoc:org.springframework.boot.web.server.autoconfigure.ServerProperties[]），并从那里读取可用的外部配置选项。
+  javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] annotation 有一个 `name` 属性，作为外部属性的前缀。
+  因此，javadoc:org.springframework.boot.web.server.autoconfigure.ServerProperties[] 具有 `prefix="server"`，其配置属性为 `server.port`、`server.address` 等。
+  在启用了 actuator 的正在运行的应用程序中，查看 `configprops` endpoint。
+* 查找 javadoc:org.springframework.boot.context.properties.bind.Binder[] 上 `bind` 方法的使用，以宽松的方式从 javadoc:org.springframework.core.env.Environment[] 中显式提取配置值。
+  它通常与前缀一起使用。
+* 查找直接绑定到 javadoc:org.springframework.core.env.Environment[] 的 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotation。
+* 查找 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnExpression[format=annotation] annotation，它们根据 SpEL 表达式（通常使用从 javadoc:org.springframework.core.env.Environment[] 解析的占位符进行评估）来开启或关闭功能。
+
+[[howto.application.customize-the-environment-or-application-context]]
+== 在 ApplicationContext 启动前自定义环境或 ApplicationContext
+
+javadoc:org.springframework.boot.SpringApplication[] 具有 javadoc:org.springframework.context.ApplicationListener[] 和 javadoc:org.springframework.context.ApplicationContextInitializer[] 实现，用于对上下文或环境进行自定义。
+Spring Boot 从 `META-INF/spring.factories` 加载许多此类自定义项以供内部使用。
+注册额外自定义项的方法不止一种：
+
+* 编程方式，针对每个应用程序，在运行 javadoc:org.springframework.boot.SpringApplication[] 之前调用其 `addListeners` 和 `addInitializers` 方法。
+* 声明方式，针对所有应用程序，添加一个 `META-INF/spring.factories` 并打包一个所有应用程序都用作库的 jar 文件。
+
+javadoc:org.springframework.boot.SpringApplication[] 向监听器发送一些特殊的 javadoc:org.springframework.test.context.event.ApplicationEvents[]（有些甚至在上下文创建之前），然后注册监听器以监听 javadoc:org.springframework.context.ApplicationContext[] 发布的事件。
+有关完整列表，请参见“`Spring Boot Features`”部分中的 xref:reference:features/spring-application.adoc#features.spring-application.application-events-and-listeners[]。
+
+还可以通过使用 javadoc:org.springframework.boot.EnvironmentPostProcessor[] 在应用程序上下文刷新之前自定义 javadoc:org.springframework.core.env.Environment[]。
+每个实现都应在 `META-INF/spring.factories` 中注册，如下例所示：
+
+[source]
+----
+org.springframework.boot.EnvironmentPostProcessor=com.example.YourEnvironmentPostProcessor
+----
+
+该实现可以加载任意文件并将其添加到 javadoc:org.springframework.core.env.Environment[] 中。
+例如，以下示例从 classpath 加载一个 YAML 配置文件：
+
+include-code::MyEnvironmentPostProcessor[]
+
+提示：javadoc:org.springframework.core.env.Environment[] 已经准备好了 Spring Boot 默认加载的所有常用属性源。
+因此，可以从环境中获取文件的位置。
+前面的示例将 `custom-resource` 属性源添加到列表末尾，以便任何其他常用位置中定义的键优先。
+自定义实现可以定义其他顺序。
+
+注意：虽然在 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 上使用 javadoc:org.springframework.context.annotation.PropertySource[format=annotation] 似乎是加载自定义资源到 javadoc:org.springframework.core.env.Environment[] 的便捷方式，但我们不推荐这样做。
+此类属性源直到应用程序上下文刷新时才会添加到 javadoc:org.springframework.core.env.Environment[] 中。
+这对于配置某些属性（例如 `+logging.*+` 和 `+spring.main.*+`，它们在刷新开始之前被读取）来说为时已晚。
+
+
+
+[[howto.application.context-hierarchy]]
+== 构建 ApplicationContext 层次结构（添加父上下文或根上下文）
+
+您可以使用 javadoc:org.springframework.boot.builder.SpringApplicationBuilder[] 类创建父/子 javadoc:org.springframework.context.ApplicationContext[] 层次结构。
+有关更多信息，请参阅“`Spring Boot Features`”部分中的 xref:reference:features/spring-application.adoc#features.spring-application.fluent-builder-api[]。
+
+
+
+[[howto.application.non-web-application]]
+== 创建非 Web 应用程序
+
+并非所有 Spring 应用程序都必须是 Web 应用程序（或 Web 服务）。
+如果您想在 `main` 方法中执行一些代码，同时引导一个 Spring 应用程序以设置要使用的基础设施，则可以使用 Spring Boot 的 javadoc:org.springframework.boot.SpringApplication[] 特性。
+javadoc:org.springframework.boot.SpringApplication[] 会根据其判断是否需要 Web 应用程序来更改其 javadoc:org.springframework.context.ApplicationContext[] 类。
+您可以做的第一件事是让服务器相关依赖项（例如 servlet API）脱离 classpath。
+如果您无法做到这一点（例如，如果您从同一代码库运行两个应用程序），则可以在 javadoc:org.springframework.boot.SpringApplication[] 实例上显式调用 `setWebApplicationType(WebApplicationType.NONE)`，或设置 `applicationContextClass` 属性（通过 Java API 或外部属性）。
+您希望作为业务逻辑运行的应用程序代码可以实现为 javadoc:org.springframework.boot.CommandLineRunner[]，并作为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 定义放入上下文中。

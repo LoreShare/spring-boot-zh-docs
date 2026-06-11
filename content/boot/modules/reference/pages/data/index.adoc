@@ -1,0 +1,4 @@
+[[data]]
+= 数据
+
+Spring Boot 集成了多种数据技术，包括 SQL 和 NoSQL。

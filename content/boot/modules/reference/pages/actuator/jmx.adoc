@@ -1,0 +1,60 @@
+[[actuator.jmx]]
+= 通过 JMX 进行监控和管理
+
+Java 管理扩展 (JMX) 提供了一种标准机制来监控和管理应用程序。
+默认情况下，此功能未启用。
+您可以通过将配置属性 `spring.jmx.enabled` 设置为 `true` 来启用它。
+Spring Boot 将最合适的 `javax.management.MBeanServer` 暴露为一个 ID 为 `mbeanServer` 的 bean。
+任何使用 Spring JMX 注解（`@org.springframework.jmx.export.annotation.ManagedResource`、`@org.springframework.jmx.export.annotation.ManagedAttribute` 或 `@org.springframework.jmx.export.annotation.ManagedOperation`）标注的 bean 都会被暴露给它。
+
+如果您的平台提供了标准的 `javax.management.MBeanServer`，Spring Boot 会使用它，并在必要时默认使用 VM 的 `javax.management.MBeanServer`。
+如果所有这些都失败，则会创建一个新的 `javax.management.MBeanServer`。
+
+注意：`spring.jmx.enabled` 仅影响 Spring 提供的管理 bean。
+启用其他库（例如 {url-log4j2-docs}/jmx.html[Log4j2] 或 {url-quartz-javadoc}/constant-values.html#org.quartz.impl.StdSchedulerFactory.PROP_SCHED_JMX_EXPORT[Quartz]）提供的管理 bean 是独立的。
+
+有关更多详细信息，请参阅 {code-spring-boot-autoconfigure-src}/jmx/JmxAutoConfiguration.java[`JmxAutoConfiguration`] 类。
+
+默认情况下，Spring Boot 还会在 `org.springframework.boot` 域下将管理端点暴露为 JMX MBeans。
+要完全控制 JMX 域中的端点注册，请考虑注册您自己的 `org.springframework.boot.actuate.endpoint.jmx.EndpointObjectNameFactory` 实现。
+
+
+
+[[actuator.jmx.custom-mbean-names]]
+== 自定义 MBean 名称
+
+MBean 的名称通常根据端点的 `id` 生成。
+例如，`health` 端点被暴露为 `org.springframework.boot:type=Endpoint,name=Health`。
+
+如果您的应用程序包含多个 Spring `ApplicationContext`，您可能会发现名称冲突。
+要解决此问题，您可以将配置属性 `spring.jmx.unique-names` 设置为 `true`，以便 MBean 名称始终唯一。
+
+您还可以自定义暴露端点的 JMX 域。
+以下设置显示了在 `application.properties` 中执行此操作的示例：
+
+[configprops,yaml]
+----
+spring:
+  jmx:
+    unique-names: true
+management:
+  endpoints:
+    jmx:
+      domain: "com.example.myapp"
+----
+
+
+
+[[actuator.jmx.disable-jmx-endpoints]]
+== 禁用 JMX Endpoints
+
+如果你不想通过 JMX 暴露 endpoints，可以将 configprop:management.endpoints.jmx.exposure.exclude[] 属性设置为 `*`，如下例所示：
+
+[configprops,yaml]
+----
+management:
+  endpoints:
+    jmx:
+      exposure:
+        exclude: "*"
+----

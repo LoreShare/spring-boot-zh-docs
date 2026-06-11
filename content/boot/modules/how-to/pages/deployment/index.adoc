@@ -1,0 +1,7 @@
+[[howto.deployment]]
+= 部署 Spring Boot 应用程序
+
+Spring Boot 灵活的打包选项在部署应用程序时提供了大量选择。
+你可以将 Spring Boot 应用程序部署到各种云平台以及虚拟或真实机器上。
+
+本节涵盖了一些更常见的部署场景。

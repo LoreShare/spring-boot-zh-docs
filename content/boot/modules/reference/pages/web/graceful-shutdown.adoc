@@ -1,0 +1,44 @@
+[[web.graceful-shutdown]]
+= 优雅关闭
+
+默认情况下，所有三个嵌入式 Web 服务器（Jetty、Reactor Netty 和 Tomcat）以及响应式和基于 Servlet 的 Web 应用程序都启用了优雅关闭。
+它作为关闭应用程序上下文的一部分发生，并在停止 javadoc:org.springframework.context.SmartLifecycle[] bean 的最早阶段执行。
+此停止处理使用超时，该超时提供了一个宽限期，在此期间允许完成现有请求，但不允许新请求。
+
+要配置超时时间，请配置 configprop:spring.lifecycle.timeout-per-shutdown-phase[] 属性，如下例所示：
+
+[configprops,yaml]
+----
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: "20s"
+----
+
+重要提示：如果您的 IDE 没有发送正确的 `SIGTERM` 信号，则其中的关闭可能是立即的，而非优雅的。
+有关更多详细信息，请参阅您的 IDE 文档。
+
+
+
+[[web.graceful-shutdown.rejecting-requests-during-the-grace-period]]
+== 在优雅期内拒绝请求
+
+拒绝新请求的具体方式取决于所使用的 Web 服务器。
+实现可能会在网络层停止接受请求，或者返回带有特定 HTTP 状态码或 HTTP 头的响应。
+持久连接的使用也会改变请求停止被接受的方式。
+
+提示：要了解与您的 Web 服务器一起使用的具体方法，请参阅 javadoc:org.springframework.boot.tomcat.TomcatWebServer#shutDownGracefully(org.springframework.boot.web.server.GracefulShutdownCallback)[]、javadoc:org.springframework.boot.reactor.netty.NettyWebServer#shutDownGracefully(org.springframework.boot.web.server.GracefulShutdownCallback)[] 或 javadoc:org.springframework.boot.jetty.JettyWebServer#shutDownGracefully(org.springframework.boot.web.server.GracefulShutdownCallback)[] 的 `shutDownGracefully` API 文档。
+
+Jetty、Reactor Netty 和 Tomcat 将在网络层停止接受新请求。
+
+
+
+[[web.graceful-shutdown.disabling-graceful-shutdown]]
+== 禁用优雅关闭
+
+要禁用优雅关闭，请配置 configprop:server.shutdown[] 属性，如下例所示：
+
+[configprops,yaml]
+----
+server:
+  shutdown: "immediate"
+----

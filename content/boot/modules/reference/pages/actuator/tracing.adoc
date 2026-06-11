@@ -1,0 +1,246 @@
+= 追踪
+
+Spring Boot Actuator 为 {url-micrometer-tracing-docs}[Micrometer Tracing] 提供依赖管理和 auto-configuration，Micrometer Tracing 是流行追踪器库的外观。
+
+提示：要了解 Micrometer Tracing 的更多功能，请参阅其 {url-micrometer-tracing-docs}[参考文档]。
+
+
+
+[[actuator.micrometer-tracing.tracers]]
+== 支持的追踪器
+
+Spring Boot 为以下追踪器提供了 auto-configuration：
+
+* https://opentelemetry.io/[OpenTelemetry] 配合 https://opentelemetry.io/docs/reference/specification/protocol/[OTLP]。
+* https://github.com/openzipkin/brave[OpenZipkin Brave] 配合 https://zipkin.io/[Zipkin]。
+
+
+
+[[actuator.micrometer-tracing.getting-started]]
+== 入门
+
+我们需要一个示例应用程序来开始使用追踪。
+就我们的目的而言，xref:tutorial:first-application/index.adoc[] 部分中介绍的简单 "`Hello World!`" Web 应用程序就足够了。
+我们将使用 Brave 追踪器，并以 Zipkin 作为追踪后端。
+
+回顾一下，我们的主要应用程序代码如下所示：
+
+include-code::MyApplication[]
+
+注意：`home()` 方法中添加了一条日志语句，这将在后面变得重要。
+
+现在我们必须添加 `org.springframework.boot:spring-boot-starter-zipkin` 依赖。
+
+然后添加以下应用程序属性：
+
+[configprops,yaml]
+----
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+----
+
+默认情况下，Spring Boot 仅对 10% 的请求进行采样，以防止压垮追踪后端。
+此属性将其切换为 100%，以便每个请求都发送到追踪后端。
+
+要收集和可视化追踪信息，我们需要一个正在运行的追踪后端。
+这里我们使用 Zipkin 作为追踪后端。
+https://zipkin.io/pages/quickstart[Zipkin 快速入门指南] 提供了如何在本地启动 Zipkin 的说明。
+
+Zipkin 运行后，您可以启动应用程序。
+
+如果您在 Web 浏览器中打开 `http://localhost:8080`，您应该会看到以下输出：
+
+[source]
+----
+Hello World!
+----
+
+在幕后，已为 HTTP 请求创建了一个观测（observation），该观测随后被桥接到 Brave，后者向 Zipkin 报告一个新的跟踪信息。
+
+现在打开 `http://localhost:9411` 上的 Zipkin UI，并点击“运行查询”按钮以列出所有收集到的跟踪信息。
+你应该会看到一个跟踪信息。
+点击“显示”按钮查看该跟踪信息的详细信息。
+
+
+[[actuator.micrometer-tracing.logging]]
+== 日志关联 ID
+
+关联 ID 提供了一种有用的方式，将日志文件中的行与跨度/跟踪信息关联起来。
+如果你正在使用 Micrometer Tracing，Spring Boot 默认会在日志中包含关联 ID。
+
+默认的关联 ID 由 `traceId` 和 `spanId` https://logback.qos.ch/manual/mdc.html[MDC] 值构建而成。
+例如，如果 Micrometer Tracing 添加了一个值为 `803B448A0489F84084905D3093480352` 的 MDC `traceId` 和一个值为 `3425F23BB2432450` 的 MDC `spanId`，则日志输出将包含关联 ID `[803B448A0489F84084905D3093480352-3425F23BB2432450]`。
+
+如果你希望为关联 ID 使用不同的格式，可以使用 configprop:logging.pattern.correlation[] 属性来定义一个。
+例如，以下配置将为 Logback 提供一种关联 ID，其格式与 Spring Cloud Sleuth 先前使用的格式相同：
+
+[configprops,yaml]
+----
+logging:
+  pattern:
+    correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}] "
+  include-application-name: false
+----
+
+注意：在上面的示例中，configprop:logging.include-application-name[] 被设置为 `false`，以避免应用程序名称在日志消息中重复（configprop:logging.pattern.correlation[] 已经包含它）。
+另外值得一提的是，configprop:logging.pattern.correlation[] 包含一个尾随空格，以便默认情况下与紧随其后的记录器名称分隔开。
+
+提示：关联 ID 依赖于上下文传播。
+请阅读 xref:reference:actuator/observability.adoc#actuator.observability.context-propagation[this documentation for more details]。
+
+
+
+[[actuator.micrometer-tracing.propagating-traces]]
+== 传播跟踪
+
+要自动通过网络传播跟踪，请使用自动配置的 xref:io/rest-client.adoc#io.rest-client.resttemplate[`RestTemplateBuilder`]、xref:io/rest-client.adoc#io.rest-client.restclient[`RestClient.Builder`] 或 xref:io/rest-client.adoc#io.rest-client.webclient[`WebClient.Builder`] 来构造客户端。
+
+WARNING：如果您创建 javadoc:org.springframework.web.client.RestTemplate[]、javadoc:org.springframework.web.client.RestClient[] 或 javadoc:org.springframework.web.reactive.function.client.WebClient[] 而不使用自动配置的构建器，则自动跟踪传播将不起作用！
+
+
+
+[[actuator.micrometer-tracing.tracer-implementations]]
+== 跟踪器实现
+
+由于 Micrometer Tracer 支持多种跟踪器实现，因此 Spring Boot 可能存在多种依赖组合。
+使用 OTLP 的 OpenTelemetry 和使用 Zipkin 的 Brave 是常见的组合，并且有专门的 starter。
+
+
+[[actuator.micrometer-tracing.tracer-implementations.otel-otlp]]
+=== 使用 OTLP 的 OpenTelemetry
+
+使用 OpenTelemetry 进行跟踪并通过 OTLP 报告需要以下依赖：
+
+* `org.springframework.boot:spring-boot-starter-opentelemetry`
+
+使用 `management.opentelemetry.tracing.export.otlp.*` 配置属性来配置通过 OTLP 的报告。
+
+注意：如果您需要对 OTLP span 导出器应用高级自定义，请考虑注册 javadoc:org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpHttpSpanExporterBuilderCustomizer[] 或 javadoc:org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpGrpcSpanExporterBuilderCustomizer[] bean。
+这些将在创建 `OtlpHttpSpanExporter` 或 `OtlpGrpcSpanExporter` 之前被调用。
+自定义器优先于 auto-configuration 应用的任何内容。
+
+
+
+[[actuator.micrometer-tracing.tracer-implementations.otel-zipkin]]
+=== 使用 Zipkin 的 OpenTelemetry
+
+WARNING：OpenTelemetry 已 https://opentelemetry.io/docs/specs/otel/trace/sdk_exporters/zipkin/[弃用其 Zipkin 支持]。
+其 auto-configuration 将在 Spring Boot 4.2 中移除。
+请切换到 Brave，或考虑使用 https://github.com/openzipkin-contrib/zipkin-otel[Zipkin OTel 模块] 直接接收 OTLP。
+
+使用 OpenTelemetry 进行跟踪并报告到 Zipkin 需要以下依赖：
+
+* `org.springframework.boot:spring-boot-micrometer-tracing-opentelemetry` - Spring Boot 对基于 OpenTelemetry 的 Micrometer Tracing 的支持。
+* `io.micrometer:micrometer-tracing-bridge-otel` - 将 Micrometer Observation API 桥接到 OpenTelemetry。
+* `org.springframework.boot:spring-boot-zipkin` - Spring Boot 对 Zipkin 的支持。
+* `io.opentelemetry:opentelemetry-exporter-zipkin` - 将跟踪报告到 Zipkin 的 OpenTelemetry 导出器。
+
+使用 `management.tracing.export.zipkin.*` 配置属性来配置报告到 Zipkin。
+
+
+
+[[actuator.micrometer-tracing.tracer-implementations.brave-zipkin]]
+=== 使用 Zipkin 的 OpenZipkin Brave
+
+使用 OpenZipkin Brave 进行跟踪并报告到 Zipkin 需要以下依赖：
+
+* `org.springframework.boot:spring-boot-starter-zipkin`
+
+使用 `management.tracing.export.zipkin.*` 配置属性来配置报告到 Zipkin。
+
+
+
+[[actuator.micrometer-tracing.sampling]]
+== 采样
+
+默认情况下，Spring Boot 仅对 10% 的请求进行采样，以防止压垮跟踪后端。
+可以使用 configprop:management.tracing.sampling.probability[] 属性进行配置。
+
+使用 OpenTelemetry 时，您还可以通过 configprop:management.opentelemetry.tracing.sampler[] 属性配置使用的采样器。
+支持以下采样器：
+
+|===
+|采样器 |描述
+
+|`always-on`
+|对每个跟踪进行采样。
+
+|`always-off`
+|丢弃每个跟踪。
+
+|`trace-id-ratio`
+|根据 configprop:management.tracing.sampling.probability[] 对一部分跟踪进行采样。
+
+|`parent-based-always-on`
+|如果父 span 被采样，则对子 span 进行采样。如果没有父 span，则对每个跟踪进行采样。
+
+|`parent-based-always-off`
+|如果父 span 被采样，则对子 span 进行采样。如果没有父 span，则丢弃每个跟踪。
+
+|`parent-based-trace-id-ratio`（默认）
+|如果父 span 被采样，则对子 span 进行采样。如果没有父 span，则根据 configprop:management.tracing.sampling.probability[] 对一部分跟踪进行采样。
+|===
+
+
+
+[[actuator.micrometer-tracing.span-limits]]
+== Span 限制
+
+使用 OpenTelemetry 时，您可以通过 `management.opentelemetry.tracing.limits.*` 配置属性配置 span 限制。
+这些允许您控制每个 span 的最大属性数、事件数和链接数，以及字符串属性值的最大长度。
+
+例如，要将每个 span 的属性数限制为 64，并将属性值最大长度限制为 256 个字符：
+
+[configprops,yaml]
+----
+management:
+  opentelemetry:
+    tracing:
+      limits:
+        max-attributes: 64
+        max-attribute-value-length: 256
+----
+
+如果需要完全控制，可以注册自定义的 javadoc:io.opentelemetry.sdk.trace.SpanLimits[] bean。
+
+
+
+[[actuator.micrometer-tracing.micrometer-observation]]
+== 与 Micrometer Observation 集成
+
+javadoc:io.micrometer.tracing.handler.TracingAwareMeterObservationHandler[] 会自动注册到 javadoc:io.micrometer.observation.ObservationRegistry[] 上，为每个完成的 observation 创建 span。
+
+
+
+[[actuator.micrometer-tracing.creating-spans]]
+== 创建自定义 Span
+
+你可以通过启动一个 observation 来创建自己的 span。为此，将 javadoc:io.micrometer.observation.ObservationRegistry[] 注入到你的组件中：
+
+include-code::CustomObservation[]
+
+这将创建一个名为 "some-operation" 的 observation，并带有标签 "some-tag=some-value"。
+
+提示：如果你想创建 span 而不创建指标，则需要使用 Micrometer 的 {url-micrometer-tracing-docs}/api[较低层级的 `Tracer` API]。
+
+
+
+[[actuator.micrometer-tracing.baggage]]
+== Baggage
+
+你可以使用 javadoc:io.micrometer.tracing.Tracer[] API 创建 baggage：
+
+include-code::CreatingBaggage[]
+
+此示例创建了一个名为 `baggage1`、值为 `value1` 的 baggage。如果你使用 W3C 传播，baggage 会自动通过网络传播。如果你使用 B3 传播，baggage 不会自动传播。要手动通过网络传播 baggage，请使用 configprop:management.tracing.baggage.remote-fields[] 配置属性（这也适用于 W3C）。对于上面的示例，将此属性设置为 `baggage1` 会导致 HTTP 头 `baggage1: value1`。
+
+如果你想将 baggage 传播到 MDC，请使用 configprop:management.tracing.baggage.correlation.fields[] 配置属性。对于上面的示例，将此属性设置为 `baggage1` 会导致一个名为 `baggage1` 的 MDC 条目。
+
+
+
+[[actuator.micrometer-tracing.tests]]
+== 测试
+
+使用 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 时，报告数据的追踪组件不会自动配置。更多详情请参见 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.tracing[]。

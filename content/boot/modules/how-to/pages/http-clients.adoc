@@ -1,0 +1,29 @@
+[[howto.http-clients]]
+= HTTP 客户端
+
+Spring Boot 提供了多个与 HTTP 客户端配合使用的 starter。
+本节回答与使用它们相关的问题。
+
+
+
+[[howto.http-clients.rest-template-proxy-configuration]]
+== 配置 RestTemplate 使用代理
+
+如 xref:reference:io/rest-client.adoc#io.rest-client.resttemplate.customization[RestTemplate 定制] 所述，你可以使用 javadoc:org.springframework.boot.restclient.RestTemplateCustomizer[] 与 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[] 来构建一个定制的 javadoc:org.springframework.web.client.RestTemplate[]。
+这是创建配置为使用代理的 javadoc:org.springframework.web.client.RestTemplate[] 的推荐方法。
+
+代理配置的具体细节取决于所使用的底层客户端请求工厂。
+
+
+
+[[howto.http-clients.webclient-reactor-netty-customization]]
+== 配置基于 Reactor Netty 的 WebClient 所使用的 TcpClient
+
+当 Reactor Netty 在 classpath 上时，会自动配置基于 Reactor Netty 的 javadoc:org.springframework.web.reactive.function.client.WebClient[]。
+要定制客户端对网络连接的处理，请提供一个 javadoc:org.springframework.http.client.reactive.ClientHttpConnector[] bean。
+以下示例配置了 60 秒的连接超时，并添加了一个 javadoc:io.netty.handler.timeout.ReadTimeoutHandler[]：
+
+include-code::MyReactorNettyClientConfiguration[]
+
+提示：注意使用 javadoc:org.springframework.http.client.ReactorResourceFactory[] 来管理连接提供者和事件循环资源。
+这确保了接收请求的服务器和发出请求的客户端能够高效地共享资源。

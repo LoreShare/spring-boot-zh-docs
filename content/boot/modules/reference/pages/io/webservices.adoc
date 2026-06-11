@@ -1,0 +1,33 @@
+= Web Services
+
+Spring Boot 提供了 Web Services auto-configuration，因此您只需定义您的 javadoc:org.springframework.ws.server.endpoint.annotation.Endpoint[format=annotation] bean。
+
+{url-spring-webservices-docs}[Spring Web Services 特性] 可以通过 `spring-boot-starter-webservices` 模块轻松访问。
+
+javadoc:org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition[] 和 javadoc:org.springframework.xml.xsd.SimpleXsdSchema[] bean 可以分别为您的 WSDL 和 XSD 自动创建。
+为此，请配置它们的位置，如下例所示：
+
+[configprops,yaml]
+----
+spring:
+  webservices:
+    wsdl-locations: "classpath:/wsdl"
+----
+
+[[io.webservices.template]]
+== 使用 WebServiceTemplate 调用 Web 服务
+
+如果您的应用程序需要调用远程 Web 服务，可以使用 {url-spring-webservices-docs}#client-web-service-template[`WebServiceTemplate`] 类。
+由于 javadoc:org.springframework.ws.client.core.WebServiceTemplate[] 实例在使用前通常需要定制，Spring Boot 不提供任何单一的自动配置的 javadoc:org.springframework.ws.client.core.WebServiceTemplate[] bean。
+不过，它确实自动配置了一个 javadoc:org.springframework.boot.webservices.client.WebServiceTemplateBuilder[]，可以在需要时用于创建 javadoc:org.springframework.ws.client.core.WebServiceTemplate[] 实例。
+
+以下代码展示了一个典型示例：
+
+include-code::MyService[]
+
+默认情况下，javadoc:org.springframework.boot.webservices.client.WebServiceTemplateBuilder[] 使用 classpath 上可用的 HTTP 客户端库检测合适的基于 HTTP 的 javadoc:org.springframework.ws.transport.WebServiceMessageSender[]。
+您还可以按如下方式自定义单个构建器的读取和连接超时：
+
+include-code::MyWebServiceTemplateConfiguration[]
+
+提示：如果没有应用特定的模板定制代码，您也可以更改所使用的 xref:io/rest-client.adoc#io.rest-client.clienthttprequestfactory.configuration[global HTTP client configuration]。

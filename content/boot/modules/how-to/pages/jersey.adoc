@@ -1,0 +1,26 @@
+[[howto.jersey]]
+= Jersey
+
+
+
+[[howto.jersey.spring-security]]
+== 使用 Spring Security 保护 Jersey 端点
+
+Spring Security 可用于保护基于 Jersey 的 Web 应用程序，其方式与保护基于 Spring MVC 的 Web 应用程序大致相同。
+但是，如果你想在 Jersey 中使用 Spring Security 的方法级安全，则必须配置 Jersey 使用 `setStatus(int)` 而不是 `sendError(int)`。
+这可以防止 Jersey 在 Spring Security 有机会向客户端报告身份验证或授权失败之前提交响应。
+
+必须在应用程序的 javadoc:org.glassfish.jersey.server.ResourceConfig[] bean 上将 `jersey.config.server.response.setStatusOverSendError` 属性设置为 `true`，如下例所示：
+
+include-code::JerseySetStatusOverSendErrorConfig[]
+
+
+
+[[howto.jersey.alongside-another-web-framework]]
+== 将 Jersey 与另一个 Web 框架一起使用
+
+要将 Jersey 与另一个 Web 框架（例如 Spring MVC）一起使用，应将其配置为允许其他框架处理其无法处理的请求。
+首先，通过将 configprop:spring.jersey.type[] 应用程序属性配置为 `filter` 值，将 Jersey 配置为使用过滤器而不是 servlet。
+其次，配置你的 javadoc:org.glassfish.jersey.server.ResourceConfig[] 以转发会导致 404 的请求，如下例所示。
+
+include-code::JerseyConfig[]

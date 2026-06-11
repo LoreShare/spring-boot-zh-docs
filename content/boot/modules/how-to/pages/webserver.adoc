@@ -1,0 +1,533 @@
+= 嵌入式 Web 服务器
+
+每个 Spring Boot Web 应用都包含一个嵌入式 Web 服务器。
+这一特性引出了许多操作指南问题，包括如何更换嵌入式服务器以及如何配置嵌入式服务器。
+本节将回答这些问题。
+
+
+== 使用其他 Web 服务器
+
+许多 Spring Boot starters 都包含默认的嵌入式容器。
+
+* 对于 Servlet 栈应用，`spring-boot-starter-web` 通过包含 `spring-boot-starter-tomcat` 来包含 Tomcat，但你可以改用 `spring-boot-starter-jetty`。
+* 对于响应式栈应用，`spring-boot-starter-webflux` 通过包含 `spring-boot-starter-reactor-netty` 来包含 Reactor Netty，但你可以改用 `spring-boot-starter-tomcat` 或 `spring-boot-starter-jetty`。
+
+当切换到不同的 HTTP 服务器时，你需要将默认依赖替换为你需要的依赖。
+为帮助完成此过程，Spring Boot 为每个受支持的 HTTP 服务器提供了单独的 starter。
+
+以下示例展示了如何排除 Tomcat 并为 Spring MVC 包含 Jetty：
+
+[tabs]
+======
+
+Maven::
++
+[source,xml]
+----
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-webmvc</artifactId>
+	<exclusions>
+		<!-- Exclude the Tomcat dependency -->
+		<exclusion>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+<!-- Use Jetty instead -->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-jetty</artifactId>
+</dependency>
+----
++
+
+Gradle::
++
+[source,gradle]
+----
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-webmvc') {
+		// Exclude the Tomcat dependency
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+	}
+	// Use Jetty instead
+	implementation "org.springframework.boot:spring-boot-starter-jetty"
+}
+----
++
+======
+
+如果你正在创建一个 war 文件，可以使用类似的方法，但必须指定 provided 依赖：
+
+
+[tabs]
+======
+
+Maven::
++
+[source,xml]
+----
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-webmvc</artifactId>
+	<exclusions>
+		<!-- Exclude the Tomcat dependency -->
+		<exclusion>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+<!-- Use Jetty instead -->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-jetty</artifactId>
+	<scope>provided</scope>
+</dependency>
+----
++
+
+Gradle::
++
+[source,gradle]
+----
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-webmvc') {
+		// Exclude the Tomcat dependency
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+	}
+	// Use Jetty instead
+	implementation "org.springframework.boot:spring-boot-starter-jetty"
+	providedRuntime "org.springframework.boot:spring-boot-starter-jetty-runtime"
+}
+----
++
+======
+
+
+
+[[howto.webserver.disable]]
+== 禁用 Web 服务器
+
+如果你的 classpath 包含启动 Web 服务器所需的组件，Spring Boot 会自动启动它。
+要禁用此行为，请在 `application.properties` 中配置 javadoc:org.springframework.boot.WebApplicationType[]，如下例所示：
+
+[configprops,yaml]
+----
+spring:
+  main:
+    web-application-type: "none"
+----
+[[howto.webserver.change-port]]
+== 更改 HTTP 端口
+
+在独立应用程序中，主 HTTP 端口默认为 `8080`，但可以通过 configprop:server.port[] 设置（例如，在 `application.properties` 中或作为系统属性）。
+由于 javadoc:org.springframework.core.env.Environment[] 值的宽松绑定，您也可以使用 configprop:server.port[format=envvar]（例如，作为操作系统环境变量）。
+
+要完全关闭 HTTP endpoints 但仍创建 javadoc:org.springframework.web.context.WebApplicationContext[]，请使用 `server.port=-1`（这样做有时对测试很有用）。
+
+更多详情，请参阅 '`Spring Boot Features`' 部分中的 xref:reference:web/servlet.adoc#web.servlet.embedded-container.customizing[Customizing Embedded Servlet Containers]，或 javadoc:org.springframework.boot.web.server.autoconfigure.ServerProperties[] 类。
+
+[[howto.webserver.use-random-port]]
+== 使用随机未分配的 HTTP 端口
+
+要扫描空闲端口（使用操作系统原生机制防止冲突），请使用 `server.port=0`。
+
+[[howto.webserver.discover-port]]
+== 在运行时发现 HTTP 端口
+
+您可以从日志输出或通过 javadoc:org.springframework.boot.web.server.context.WebServerApplicationContext[] 的 javadoc:org.springframework.boot.web.server.WebServer[] 访问服务器正在运行的端口。
+获取该值并确保其已初始化的最佳方法是添加一个类型为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 的 `ApplicationListener<WebServerInitializedEvent>`，并在事件发布时从中提取容器。
+
+使用 `@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)` 的测试也可以通过使用 javadoc:org.springframework.boot.test.web.server.LocalServerPort[format=annotation] annotation 将实际端口注入到字段中，如下例所示：
+
+include-code::MyWebIntegrationTests[]
+
+[NOTE]
+====
+javadoc:org.springframework.boot.test.web.server.LocalServerPort[format=annotation] 是 `@Value("${local.server.port}")` 的元 annotation。
+不要尝试在常规应用程序中注入端口。
+正如我们刚才所见，该值仅在容器初始化后设置。
+与测试相反，应用程序代码回调处理得较早（在实际值可用之前）。
+====
+
+[[howto.webserver.build-uri-test-web-server]]
+== 针对测试 Web 服务器构建 URI
+
+启动 javadoc:org.springframework.boot.web.server.WebServer[]（例如 `@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)`）的测试可以使用 javadoc:org.springframework.boot.test.http.server.LocalTestWebServer[] 获取有关运行中服务器的信息，如下例所示：
+
+include-code::MyWebIntegrationTests[]
+
+javadoc:org.springframework.boot.test.http.server.LocalTestWebServer[] 提供了对合适 javadoc:org.springframework.web.util.UriBuilderFactory[] 的访问。
+它也可以被定制以在应用程序的子路径上构建这样的实例。
+
+[[howto.webserver.enable-response-compression]]
+== 启用 HTTP 响应压缩
+
+Jetty、Tomcat 和 Reactor Netty 支持 HTTP 响应压缩。
+可以在 `application.properties` 中启用它，如下所示：
+
+[configprops,yaml]
+----
+server:
+  compression:
+    enabled: true
+----
+默认情况下，响应必须至少为 2048 字节才会进行压缩。
+你可以通过设置 configprop:server.compression.min-response-size[] 属性来配置此行为。
+
+默认情况下，仅当响应的内容类型为以下之一时才会进行压缩：
+
+* `text/html`
+* `text/xml`
+* `text/plain`
+* `text/css`
+* `text/javascript`
+* `application/javascript`
+* `application/json`
+* `application/xml`
+
+要配置将被压缩的 MIME 类型（替换默认值），请设置 configprop:server.compression.mime-types[] 属性。
+要保留默认值并配置额外的 MIME 类型，请设置 configprop:server.compression.additional-mime-types[] 属性。
+
+
+
+[[howto.webserver.configure-ssl]]
+== 配置 SSL
+
+可以通过设置各种 `+server.ssl.*+` 属性（通常在 `application.properties` 或 `application.yaml` 中）来声明式地配置 SSL。
+有关所有受支持属性的详细信息，请参见 javadoc:org.springframework.boot.web.server.Ssl[]。
+
+以下示例展示了如何使用 Java KeyStore 文件设置 SSL 属性：
+
+[configprops,yaml]
+----
+server:
+  port: 8443
+  ssl:
+    key-store: "classpath:keystore.jks"
+    key-store-password: "secret"
+    key-password: "another-secret"
+----
+使用上述示例这样的配置意味着应用程序不再支持在端口 8080 上使用纯 HTTP 连接器。
+Spring Boot 不支持通过 `application.properties` 同时配置 HTTP 连接器和 HTTPS 连接器。
+如果你希望同时拥有两者，则需要以编程方式配置其中一个。
+我们建议使用 `application.properties` 来配置 HTTPS，因为 HTTP 连接器是两者中更容易以编程方式配置的。
+
+
+[[howto.webserver.configure-ssl.pem-files]]
+=== 使用 PEM 编码文件
+
+你可以使用 PEM 编码文件代替 Java KeyStore 文件。
+应尽可能使用 PKCS#8 密钥文件。
+PEM 编码的 PKCS#8 密钥文件以 `-----BEGIN PRIVATE KEY-----` 或 `-----BEGIN ENCRYPTED PRIVATE KEY-----` 头部开头。
+
+如果你有其他格式的文件，例如 PKCS#1（`-----BEGIN RSA PRIVATE KEY-----`）或 SEC 1（`-----BEGIN EC PRIVATE KEY-----`），可以使用 OpenSSL 将其转换为 PKCS#8：
+
+[source,shell,subs="verbatim,attributes"]
+----
+openssl pkcs8 -topk8 -nocrypt -in <input file> -out <output file>
+----
+以下示例展示了使用 PEM 编码的证书和私钥文件设置 SSL 属性：
+
+[configprops,yaml]
+----
+server:
+  port: 8443
+  ssl:
+    certificate: "classpath:my-cert.crt"
+    certificate-private-key: "classpath:my-cert.key"
+    trust-certificate: "classpath:ca-cert.crt"
+----
+[[howto.webserver.configure-ssl.bundles]]
+=== 使用 SSL 捆绑包
+
+或者，SSL 信任材料可以在 xref:reference:features/ssl.adoc[SSL bundle] 中配置，并应用于 Web 服务器，如下例所示：
+
+[configprops,yaml]
+----
+server:
+  port: 8443
+  ssl:
+    bundle: "example"
+----
+[NOTE]
+====
+`server.ssl.bundle` 属性不能与 `server.ssl` 下的离散 Java KeyStore 或 PEM 属性选项结合使用。
+
+使用 bundle 时，configprop:server.ssl.ciphers[]、configprop:server.ssl.enabled-protocols[]、configprop:server.ssl.protocol[] 属性也会被忽略。
+这些属性应改用 `spring.ssl.bundle.<type>.<name>.options` 属性来定义。
+====
+
+[[howto.webserver.configure-ssl.sni]]
+=== 配置服务器名称指示
+
+Tomcat 和 Netty 可以配置为对单个主机名使用唯一的 SSL 信任材料，以支持服务器名称指示（SNI）。
+Jetty 不支持 SNI 配置，但如果向 Jetty 提供多个证书，它可以 https://eclipse.dev/jetty/documentation/jetty-12/operations-guide/index.html#og-protocols-ssl-sni[automatically set up SNI]。
+
+假设已配置了名为 `web`、`web-alt1` 和 `web-alt2` 的 xref:reference:features/ssl.adoc[SSL bundles]，以下配置可用于将每个 bundle 分配给嵌入式 Web 服务器服务的主机名：
+
+[configprops,yaml]
+----
+server:
+  port: 8443
+  ssl:
+    bundle: "web"
+    server-name-bundles:
+      - server-name: "alt1.example.com"
+        bundle: "web-alt1"
+      - server-name: "alt2.example.com"
+        bundle: "web-alt2"
+----
+使用 `server.ssl.bundle` 指定的包将用于默认主机，以及任何支持 SNI 的客户端。
+如果配置了任何 `server.ssl.server-name-bundles`，则必须配置此默认包。
+
+[[howto.webserver.configure-http2]]
+== 配置 HTTP/2
+
+您可以通过 configprop:server.http2.enabled[] 配置属性在 Spring Boot 应用程序中启用 HTTP/2 支持。
+支持 `h2`（基于 TLS 的 HTTP/2）和 `h2c`（基于 TCP 的 HTTP/2）。
+要使用 `h2`，还必须启用 SSL。
+当未启用 SSL 时，将使用 `h2c`。
+例如，当您的应用程序位于执行 TLS 终止的 xref:webserver.adoc#howto.webserver.use-behind-a-proxy-server[running behind a proxy server] 之后时，您可能希望使用 `h2c`。
+
+[[howto.webserver.configure-http2.tomcat]]
+=== 使用 Tomcat 的 HTTP/2
+
+Spring Boot 默认附带 Tomcat 11.0.x，它开箱即支持 `h2c` 和 `h2`。
+或者，如果主机操作系统上安装了该库及其依赖项，您可以使用 `libtcnative` 来获得 `h2` 支持。
+
+必须使库目录（如果尚未）对 JVM 库路径可用。
+您可以通过 JVM 参数（例如 `-Djava.library.path=/usr/local/opt/tomcat-native/lib`）来实现。
+更多信息请参阅 {url-tomcat-docs}/apr.html[官方 Tomcat 文档]。
+
+[[howto.webserver.configure-http2.jetty]]
+=== 使用 Jetty 的 HTTP/2
+
+对于 HTTP/2 支持，Jetty 需要额外的 `org.eclipse.jetty.http2:jetty-http2-server` 依赖。
+要使用 `h2c`，不需要其他依赖。
+要使用 `h2`，您还需要根据部署情况选择以下依赖之一：
+
+* `org.eclipse.jetty:jetty-alpn-java-server` 使用 JDK 内置支持
+* `org.eclipse.jetty:jetty-alpn-conscrypt-server` 和 https://www.conscrypt.org/[Conscrypt library]
+
+[[howto.webserver.configure-http2.netty]]
+=== 使用 Reactor Netty 的 HTTP/2
+
+`spring-boot-webflux-starter` 默认使用 Reactor Netty 作为服务器。
+Reactor Netty 开箱即支持 `h2c` 和 `h2`。
+为了获得最佳运行时性能，该服务器还支持使用原生库的 `h2`。
+要启用此功能，您的应用程序需要有一个额外的依赖。
+
+Spring Boot 管理 `io.netty:netty-tcnative-boringssl-static` “uber jar” 的版本，其中包含所有平台的原生库。
+开发人员可以选择使用分类器仅导入所需的依赖（请参阅 https://netty.io/wiki/forked-tomcat-native.html[the Netty official documentation]）。
+
+[[howto.webserver.configure]]
+== 配置 Web 服务器
+
+通常，您应该首先考虑使用许多可用的配置键之一，并通过在 `application.properties` 或 `application.yaml` 文件中添加新条目来自定义您的 Web 服务器。
+请参阅 xref:properties-and-configuration.adoc#howto.properties-and-configuration.discover-build-in-options-for-external-properties[]）。
+`server.{asterisk}` 命名空间在这里非常有用，它包括诸如 `server.tomcat.{asterisk}`、`server.jetty.{asterisk}` 等命名空间，用于特定于服务器的功能。
+请参阅 xref:appendix:application-properties/index.adoc[] 列表。
+
+前面的部分已经涵盖了许多常见用例，例如压缩、SSL 或 HTTP/2。
+但是，如果您的用例不存在配置键，那么您应该查看 javadoc:org.springframework.boot.web.server.WebServerFactoryCustomizer[]。
+您可以声明这样一个组件，并访问与您的选择相关的服务器工厂：您应该为所选服务器（Tomcat、Jetty、Reactor Netty）和所选 Web 堆栈（servlet 或 reactive）选择相应的变体。
+
+以下示例适用于使用 `spring-boot-starter-web`（servlet 堆栈）的 Tomcat：
+
+include-code::MyTomcatWebServerCustomizer[]
+
+注意：Spring Boot 内部使用该基础设施来自动配置服务器。
+自动配置的 javadoc:org.springframework.boot.web.server.WebServerFactoryCustomizer[] beans 的顺序为 `0`，并且将在任何用户定义的自定义器之前处理，除非它明确指定了其他顺序。
+
+一旦您使用自定义器访问了 javadoc:org.springframework.boot.web.server.WebServerFactory[]，您就可以使用它来配置特定部分，例如连接器、服务器资源或服务器本身——全部使用特定于服务器的 API。
+
+此外，Spring Boot 提供：
+
+[[howto-configure-webserver-customizers]]
+[cols="1,2,2", options="header"]
+|===
+| 服务器 | Servlet 堆栈 | Reactive 堆栈
+
+| Tomcat
+| javadoc:org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory[]
+| javadoc:org.springframework.boot.tomcat.reactive.TomcatReactiveWebServerFactory[]
+
+| Jetty
+| javadoc:org.springframework.boot.jetty.servlet.JettyServletWebServerFactory[]
+| javadoc:org.springframework.boot.jetty.reactive.JettyReactiveWebServerFactory[]
+
+| Reactor
+| 不适用
+| javadoc:org.springframework.boot.reactor.netty.NettyReactiveWebServerFactory[]
+|===
+
+作为最后的手段，您还可以声明自己的 javadoc:org.springframework.boot.web.server.WebServerFactory[] bean，它将覆盖 Spring Boot 提供的那个。
+当您这样做时，自动配置的自定义器仍然应用于您的自定义工厂，因此请谨慎使用该选项。
+
+[[howto.webserver.add-servlet-filter-listener]]
+== 向应用程序添加 Servlet、Filter 或 Listener
+
+在 servlet 堆栈应用程序中，即使用 `spring-boot-starter-web`，有两种方法可以将 javadoc:jakarta.servlet.Servlet[]、javadoc:jakarta.servlet.Filter[]、javadoc:jakarta.servlet.ServletContextListener[] 以及 Servlet API 支持的其他监听器添加到您的应用程序：
+
+* xref:webserver.adoc#howto.webserver.add-servlet-filter-listener.spring-bean[]
+* xref:webserver.adoc#howto.webserver.add-servlet-filter-listener.using-scanning[]
+
+[[howto.webserver.add-servlet-filter-listener.spring-bean]]
+=== 通过使用 Spring Bean 添加 Servlet、Filter 或 Listener
+
+要通过使用 Spring bean 添加 javadoc:jakarta.servlet.Servlet[]、javadoc:jakarta.servlet.Filter[] 或 servlet `*Listener`，您必须为其提供 javadoc:org.springframework.context.annotation.Bean[format=annotation] 定义。
+当您想要注入配置或依赖项时，这样做非常有用。
+但是，您必须非常小心，不要导致太多其他 beans 的急切初始化，因为它们必须在应用程序生命周期的早期安装在容器中。
+（例如，让它们依赖于您的 javadoc:javax.sql.DataSource[] 或 JPA 配置并不是一个好主意。）
+您可以通过在首次使用时延迟初始化 beans 而不是在初始化时初始化来绕过此类限制。
+
+对于过滤器和 servlet，您还可以通过添加 javadoc:org.springframework.boot.web.servlet.FilterRegistrationBean[] 或 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[] 来添加映射和初始化参数，以替代或补充底层组件。
+您还可以使用 javadoc:org.springframework.boot.web.servlet.ServletRegistration[format=annotation] 和 javadoc:org.springframework.boot.web.servlet.FilterRegistration[format=annotation] 作为 annotation 基础的替代方案，以替代 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[] 和 javadoc:org.springframework.boot.web.servlet.FilterRegistrationBean[]。
+
+[NOTE]
+====
+如果未在过滤器注册上指定 `dispatcherType`，则使用 `REQUEST`。
+这与 servlet 规范的默认调度程序类型一致。
+====
+
+与任何其他 Spring bean 一样，您可以定义 servlet 过滤器 beans 的顺序；请务必查看 xref:reference:web/servlet.adoc#web.servlet.embedded-container.servlets-filters-listeners.beans[] 部分。
+
+[[howto.webserver.add-servlet-filter-listener.spring-bean.disable]]
+==== 禁用 Servlet 或 Filter 的注册
+
+默认情况下，任何 javadoc:jakarta.servlet.Servlet[] 或 javadoc:jakarta.servlet.Filter[] beans 都会自动注册到 servlet 容器中。
+要禁用特定 javadoc:jakarta.servlet.Filter[] 或 javadoc:jakarta.servlet.Servlet[] bean 的注册，请为其创建一个注册 bean 并将其标记为已禁用，如下例所示：
+
+include-code::MyFilterConfiguration[]
+
+[[howto.webserver.add-servlet-filter-listener.using-scanning]]
+=== 通过使用类路径扫描添加 Servlet、Filter 和 Listener
+
+通过使用 javadoc:org.springframework.boot.web.server.servlet.context.ServletComponentScan[format=annotation] 注解 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类并指定包含要注册的组件的包，javadoc:jakarta.servlet.annotation.WebServlet[format=annotation]、javadoc:jakarta.servlet.annotation.WebFilter[format=annotation] 和 javadoc:jakarta.servlet.annotation.WebListener[format=annotation] 注解的类可以自动注册到嵌入式 servlet 容器中。
+默认情况下，javadoc:org.springframework.boot.web.server.servlet.context.ServletComponentScan[format=annotation] 从注解类的包开始扫描。
+
+[[howto.webserver.configure-access-logs]]
+== 配置访问日志
+
+可以通过各自的命名空间为 Tomcat 和 Jetty 配置访问日志。
+
+例如，以下设置使用 {url-tomcat-docs}/config/valve.html#Access_Logging[custom pattern] 在 Tomcat 上记录访问日志。
+
+[configprops,yaml]
+----
+server:
+  tomcat:
+    basedir: "my-tomcat"
+    accesslog:
+      enabled: true
+      pattern: "%t %a %r %s (%D microseconds)"
+----
+NOTE: 日志的默认位置是相对于 Tomcat 基础目录的 `logs` 目录。
+默认情况下，`logs` 目录是一个临时目录，因此你可能需要固定 Tomcat 的基础目录或为日志使用绝对路径。
+在前面的示例中，日志位于相对于应用程序工作目录的 `my-tomcat/logs` 中。
+
+最后，Jetty 的访问日志也可以按如下方式配置：
+
+[configprops,yaml]
+----
+server:
+  jetty:
+    accesslog:
+      enabled: true
+      filename: "/var/log/jetty-access.log"
+----
+默认情况下，日志被重定向到 javadoc:java.lang.System#err[]。
+更多详情，请参阅 Jetty 文档。
+
+[[howto.webserver.use-behind-a-proxy-server]]
+== 运行在前端代理服务器之后
+
+如果您的应用程序运行在代理、负载均衡器或云环境中，请求信息（如主机、端口、协议等）可能会在传输过程中发生变化。
+您的应用程序可能运行在 `10.10.10.10:8080` 上，但 HTTP 客户端应该只看到 `example.org`。
+
+https://tools.ietf.org/html/rfc7239[RFC7239 "Forwarded Headers"] 定义了 `Forwarded` HTTP 头；代理可以使用此头提供原始请求的信息。
+您可以配置应用程序读取这些头，并在创建链接以及通过 HTTP 302 响应、JSON 文档或 HTML 页面发送给客户端时自动使用这些信息。
+还有一些非标准头，如 `X-Forwarded-Host`、`X-Forwarded-Port`、`X-Forwarded-Proto`、`X-Forwarded-Ssl` 和 `X-Forwarded-Prefix`。
+
+如果代理添加了常用的 `X-Forwarded-For` 和 `X-Forwarded-Proto` 头，将 `server.forward-headers-strategy` 设置为 `NATIVE` 就足以支持这些功能。
+使用此选项，Web 服务器本身原生支持此功能；您可以查看其特定文档以了解具体行为。
+
+如果这还不够，Spring 框架为 Servlet 堆栈提供了 {url-spring-framework-docs}/web/webmvc/filters.html#filters-forwarded-headers[ForwardedHeaderFilter]，为响应式堆栈提供了 {url-spring-framework-docs}/web/webflux/reactive-spring.html#webflux-forwarded-headers[ForwardedHeaderTransformer]。
+您可以通过将 configprop:server.forward-headers-strategy[] 设置为 `FRAMEWORK` 在应用程序中使用它们。
+
+提示：如果您使用 Tomcat 并在代理处终止 SSL，则应将 configprop:server.tomcat.redirect-context-root[] 设置为 `false`。
+这允许在执行任何重定向之前尊重 `X-Forwarded-Proto` 头。
+
+注意：如果您的应用程序运行在 javadoc:org.springframework.boot.cloud.CloudPlatform#enum-constant-summary[in a supported Cloud Platform] 中，则 configprop:server.forward-headers-strategy[] 属性默认为 `NATIVE`。
+在所有其他情况下，它默认为 `NONE`。
+
+[[howto.webserver.use-behind-a-proxy-server.tomcat]]
+=== 自定义 Tomcat 的代理配置
+
+如果您使用 Tomcat，还可以额外配置用于携带“`forwarded`”信息的头名称，如下例所示：
+
+[configprops,yaml]
+----
+server:
+  tomcat:
+    remoteip:
+      remote-ip-header: "x-your-remote-ip-header"
+      protocol-header: "x-your-protocol-header"
+----
+Tomcat 还配置了一个正则表达式，用于匹配受信任的内部代理。
+其默认值请参见 xref:appendix:application-properties/index.adoc#application-properties.server.server.tomcat.remoteip.internal-proxies[configprop:server.tomcat.remoteip.internal-proxies[] entry in the appendix]。
+您可以通过向 `application.properties` 添加条目来自定义阀门的配置，如下例所示：
+
+[configprops,yaml]
+----
+server:
+  tomcat:
+    remoteip:
+      internal-proxies: "192\\.168\\.\\d{1,3}\\.\\d{1,3}"
+----
+NOTE: 你可以通过将 `internal-proxies` 设置为空来信任所有代理（但不要在生产环境中这样做）。
+
+你可以通过关闭自动配置（设置 `server.forward-headers-strategy=NONE`）并使用 javadoc:org.springframework.boot.web.server.WebServerFactoryCustomizer[] bean 添加新的 valve 实例，来完全控制 Tomcat 的 javadoc:org.apache.catalina.valves.RemoteIpValve[] 配置。
+
+[[howto.webserver.enable-multiple-connectors]]
+== 启用多个连接器
+
+[[howto.webserver.enable-multiple-connectors.tomcat]]
+=== 使用 Tomcat 的多个连接器
+
+你可以向 javadoc:org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory[] 添加一个 javadoc:org.apache.catalina.connector.Connector[]，从而允许多个连接器，包括 HTTP 和 HTTPS 连接器，如下例所示：
+
+include-code::MyTomcatConfiguration[]
+
+[[howto.webserver.enable-multiple-connectors.jetty]]
+=== 使用 Jetty 的多个连接器
+
+你可以通过在 javadoc:org.springframework.boot.jetty.ConfigurableJettyWebServerFactory[] 上添加 javadoc:org.springframework.boot.jetty.JettyServerCustomizer[] 来注册额外的 Jetty javadoc:org.eclipse.jetty.server.Connector[] 实例，如下例所示：
+
+include-code::MyJettyConfiguration[]
+
+[[howto.webserver.enable-tomcat-mbean-registry]]
+== 启用 Tomcat 的 MBean 注册表
+
+嵌入式 Tomcat 的 MBean 注册表默认是禁用的。
+这可以最小化 Tomcat 的内存占用。
+如果你想使用 Tomcat 的 MBeans，例如让 Micrometer 使用它们来暴露指标，你必须使用 configprop:server.tomcat.mbeanregistry.enabled[] 属性，如下例所示：
+
+[configprops,yaml]
+----
+server:
+  tomcat:
+    mbeanregistry:
+      enabled: true
+----
+== 使用 @ServerEndpoint 创建 WebSocket 端点
+
+如果要在使用嵌入式容器的 Spring Boot 应用程序中使用 javadoc:jakarta.websocket.server.ServerEndpoint[format=annotation]，必须声明一个 javadoc:org.springframework.web.socket.server.standard.ServerEndpointExporter[] javadoc:org.springframework.context.annotation.Bean[format=annotation]，如下例所示：
+
+include-code::MyWebSocketConfiguration[]
+
+上例中所示的 bean 会将所有 javadoc:jakarta.websocket.server.ServerEndpoint[format=annotation] 注解的 beans 注册到底层 WebSocket 容器中。当部署到独立的 servlet 容器时，此角色由 servlet 容器初始化器执行，因此不需要 javadoc:org.springframework.web.socket.server.standard.ServerEndpointExporter[] bean。

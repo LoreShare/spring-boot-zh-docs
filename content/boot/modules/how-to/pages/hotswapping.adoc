@@ -1,0 +1,70 @@
+[[howto.hotswapping]]
+= 热替换
+
+Spring Boot 支持热替换。
+本节回答关于其工作原理的问题。
+
+
+[[howto.hotswapping.reload-static-content]]
+== 重新加载静态内容
+
+有几种热重载选项。
+推荐的方法是使用 xref:reference:using/devtools.adoc[`spring-boot-devtools`]，因为它提供了额外的开发时特性，例如支持快速应用重启和 LiveReload，以及合理的开发时配置（如模板缓存）。
+Devtools 通过监控 classpath 的变化来工作。
+这意味着静态资源的变化必须经过“构建”才能生效。
+默认情况下，在 Eclipse 中保存更改时会自动发生这种情况。
+在 IntelliJ IDEA 中，Make Project 命令会触发必要的构建。
+由于 xref:reference:using/devtools.adoc#using.devtools.restart.excluding-resources[默认的重启排除项]，对静态资源的更改不会触发应用重启。
+但它们会触发实时重载。
+
+或者，在 IDE 中运行（特别是开启调试）是一种很好的开发方式（所有现代 IDE 都允许重新加载静态资源，并且通常也允许 Java 类更改的热替换）。
+
+最后，可以配置 xref:build-tool-plugin:index.adoc[Maven 和 Gradle 插件]（参见 `addResources` 属性）以支持从命令行运行并直接从源代码重新加载静态文件。
+如果你使用更高级的工具编写代码，可以将其与外部 css/js 编译器进程结合使用。
+
+
+[[howto.hotswapping.reload-templates]]
+== 无需重启容器即可重新加载模板
+
+Spring Boot 支持的大多数模板技术都包含一个禁用缓存的配置选项（本文档后面会描述）。
+如果你使用 `spring-boot-devtools` 模块，这些属性会在开发时 xref:reference:using/devtools.adoc#using.devtools.property-defaults[自动配置]。
+
+
+[[howto.hotswapping.reload-templates.thymeleaf]]
+=== Thymeleaf 模板
+
+如果你使用 Thymeleaf，请将 `spring.thymeleaf.cache` 设置为 `false`。
+有关其他 Thymeleaf 自定义选项，请参见 {code-spring-boot-thymeleaf-src}/autoconfigure/ThymeleafAutoConfiguration.java[`ThymeleafAutoConfiguration`]。
+
+
+[[howto.hotswapping.reload-templates.freemarker]]
+=== FreeMarker 模板
+
+如果你使用 FreeMarker，请将 `spring.freemarker.cache` 设置为 `false`。
+有关其他 FreeMarker 自定义选项，请参见 {code-spring-boot-freemarker-src}/autoconfigure/FreeMarkerAutoConfiguration.java[`FreeMarkerAutoConfiguration`]。
+
+注意：WebFlux 不支持 FreeMarker 的模板缓存。
+
+
+[[howto.hotswapping.reload-templates.groovy]]
+=== Groovy 模板
+
+如果你使用 Groovy 模板，请将 `spring.groovy.template.cache` 设置为 `false`。
+有关其他 Groovy 自定义选项，请参见 {code-spring-boot-groovy-templates-src}/autoconfigure/GroovyTemplateAutoConfiguration.java[`GroovyTemplateAutoConfiguration`]。
+
+
+[[howto.hotswapping.fast-application-restarts]]
+== 快速应用重启
+
+`spring-boot-devtools` 模块包含对自动应用重启的支持。
+虽然不如 https://www.jrebel.com/products/jrebel[JRebel] 等技术快，但通常比“冷启动”快得多。
+在尝试本文档后面讨论的更复杂的重载选项之前，你应该先尝试一下。
+
+更多详情，请参见 xref:reference:using/devtools.adoc[] 部分。
+
+
+[[howto.hotswapping.reload-java-classes-without-restarting]]
+== 无需重启容器即可重新加载 Java 类
+
+许多现代 IDE（Eclipse、IntelliJ IDEA 等）支持字节码的热替换。
+因此，如果你所做的更改不影响类或方法签名，它应该可以干净地重新加载而不会产生副作用。

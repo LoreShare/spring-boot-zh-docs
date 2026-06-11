@@ -1,0 +1,41 @@
+= 测试
+
+Spring Boot 包含许多测试工具和支持类，以及一个提供常见测试依赖的专用 starter。
+本节回答关于测试的常见问题。
+
+
+[[howto.testing.with-spring-security]]
+== 使用 Spring Security 进行测试
+
+Spring Security 支持以特定用户身份运行测试。
+例如，下面代码片段中的测试将以具有 `ADMIN` 角色的已认证用户身份运行。
+
+include-code::MySecurityTests[]
+
+Spring Security 提供了与 Spring MVC Test 的全面集成，在使用 javadoc:org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest[format=annotation] 切片和 javadoc:org.springframework.test.web.servlet.MockMvc[] 测试控制器时也可以使用此集成。
+
+有关 Spring Security 测试支持的更多详细信息，请参阅 Spring Security 的 {url-spring-security-docs}/servlet/test/index.html[参考文档]。
+
+
+
+[[howto.testing.slice-tests]]
+== 为包含在切片测试中而结构化 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类
+
+切片测试通过将 Spring Framework 的组件扫描限制为基于其类型的有限组件集来工作。
+对于任何不是通过组件扫描创建的 bean，例如使用 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 创建的 bean，切片测试将无法将它们包含/排除在应用程序上下文之外。
+考虑这个示例：
+
+include-code::MyConfiguration[]
+
+对于具有上述 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类的应用程序的 javadoc:org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest[format=annotation]，您可能期望在应用程序上下文中拥有 javadoc:org.springframework.security.web.SecurityFilterChain[] bean，以便测试您的控制器 endpoint 是否得到正确保护。
+然而，`MyConfiguration` 不会被 @WebMvcTest 的组件扫描过滤器拾取，因为它不匹配过滤器指定的任何类型。
+您可以通过使用 `@Import(MyConfiguration.class)` 注解测试类来显式包含该配置。
+这将加载 `MyConfiguration` 中的所有 bean，包括测试 Web 层时不需要的 javadoc:com.zaxxer.hikari.HikariDataSource[] bean。
+将配置类拆分为两个将允许仅导入安全配置。
+
+include-code::MySecurityConfiguration[]
+
+include-code::MyDatasourceConfiguration[]
+
+当需要将某个领域的 bean 包含在切片测试中时，使用单个配置类可能效率低下。
+相反，将应用程序的配置结构化为多个细粒度类，每个类包含特定领域的 bean，可以仅在特定切片测试中导入它们。

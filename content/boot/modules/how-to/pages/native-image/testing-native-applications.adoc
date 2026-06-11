@@ -1,0 +1,108 @@
+= 测试 GraalVM 原生镜像
+
+在编写 native image 应用程序时，我们建议您尽可能继续使用 JVM 来开发大部分单元测试和集成测试。
+这将有助于保持开发人员的构建时间较短，并允许您使用现有的 IDE 集成。
+在 JVM 上拥有广泛的测试覆盖后，您可以专注于 native image 测试那些可能不同的领域。
+
+对于 native image 测试，您通常需要确保以下方面正常工作：
+
+* Spring AOT 引擎能够处理您的应用程序，并且它将在 AOT 处理模式下运行。
+* GraalVM 有足够的提示来确保可以生成有效的 native image。
+
+[[howto.native-image.testing.with-the-jvm]]
+== 在 JVM 上测试提前处理
+
+当 Spring Boot 应用程序运行时，它会尝试检测是否作为 native image 运行。
+如果作为 native image 运行，它将使用 Spring AOT 引擎在构建时生成的代码来初始化应用程序。
+
+如果应用程序在常规 JVM 上运行，则任何 AOT 生成的代码都会被忽略。
+
+由于 `native-image` 编译阶段可能需要一段时间才能完成，有时在 JVM 上运行应用程序但使用 AOT 生成的初始化代码会很有用。
+这样做可以帮助您快速验证 AOT 生成的代码中没有错误，并且在您的应用程序最终转换为 native image 时没有遗漏任何内容。
+
+要在 JVM 上运行 Spring Boot 应用程序并使用 AOT 生成的代码，您可以设置 `spring.aot.enabled` 系统属性为 `true`。
+
+例如：
+
+[source,shell]
+----
+$ java -Dspring.aot.enabled=true -jar myapplication.jar
+----
+
+注意：你需要确保正在测试的 jar 包含 AOT 生成的代码。
+对于 Maven，这意味着你应该使用 `-Pnative` 构建以激活 `native` profile。
+对于 Gradle，你需要确保构建中包含 `org.graalvm.buildtools.native` 插件。
+
+如果你的应用程序在 `spring.aot.enabled` 属性设置为 `true` 时启动，那么你更有信心它在转换为 native image 后能正常工作。
+
+你也可以考虑针对正在运行的应用程序运行集成测试。
+例如，你可以使用 Spring javadoc:org.springframework.web.reactive.function.client.WebClient[] 来调用你的应用程序 REST endpoint。
+或者你可以考虑使用像 Selenium 这样的项目来检查应用程序的 HTML 响应。
+
+
+[[howto.native-image.testing.with-native-build-tools]]
+== 使用原生构建工具进行测试
+
+GraalVM 原生构建工具包含在 native image 中运行测试的能力。
+当你想要深入测试应用程序内部在 GraalVM native image 中是否正常工作时，这会很有帮助。
+
+生成包含要运行测试的 native image 可能是一个耗时的操作，因此大多数开发者可能更倾向于在本地使用 JVM。
+然而，它们作为 CI 流水线的一部分可能非常有用。
+例如，你可以选择每天运行一次原生测试。
+
+Spring 框架包含用于运行测试的提前处理支持。
+所有常见的 Spring 测试功能都适用于 native image 测试。
+例如，你可以继续使用 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] annotation。
+你也可以使用 Spring Boot xref:reference:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-tests[test slices] 仅测试应用程序的特定部分。
+
+Spring 框架的原生测试支持按以下方式工作：
+
+* 分析测试以发现任何需要的 javadoc:org.springframework.context.ApplicationContext[] 实例。
+* 对每个应用程序上下文应用提前处理，并生成资产。
+* 创建一个 native image，生成的资产由 GraalVM 处理。
+* native image 还包括 JUnit javadoc:org.junit.platform.engine.TestEngine[]，配置了已发现测试的列表。
+* native image 启动，触发引擎运行每个测试并报告结果。
+
+
+[[howto.native-image.testing.with-native-build-tools.maven]]
+=== 使用 Maven
+
+要使用 Maven 运行原生测试，请确保你的 `pom.xml` 文件使用了 `spring-boot-starter-parent`。
+你应该有一个如下所示的 `<parent>` 部分：
+
+[source,xml,subs="verbatim,attributes"]
+----
+<parent>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>{version-spring-boot}</version>
+</parent>
+----
+
+`spring-boot-starter-parent` 定义了一个 `nativeTest` profile，它为 Spring Boot 和 Native Build Tools 插件提供了必要的配置。
+首先，你需要在模块中添加这两个插件以选择加入该功能。
+只有当 `nativeTest` 被启用时，你的测试才会以原生模式执行。
+你可以使用命令行上的 `-P` 标志来激活 profile。
+
+提示：如果你不想使用 `spring-boot-starter-parent`，则需要为 Spring Boot 插件的 `process-test-aot` 目标和 Native Build Tools 插件的 `test` 目标配置执行。
+
+要构建镜像并运行测试，请使用 `test` 目标并激活 `nativeTest` profile：
+
+[source,shell]
+----
+$ mvn -PnativeTest test
+----
+
+[[howto.native-image.testing.with-native-build-tools.gradle]]
+=== 使用 Gradle
+
+当应用 GraalVM Native Image 插件时，Spring Boot Gradle 插件会自动配置 AOT 测试任务。
+你应该检查你的 Gradle 构建是否包含一个 `plugins` 块，其中包含 `org.graalvm.buildtools.native`。
+
+要使用 Gradle 运行原生测试，你可以使用 `nativeTest` 任务：
+
+[source,shell]
+----
+$ gradle nativeTest
+----
+

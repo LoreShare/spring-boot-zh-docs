@@ -1,0 +1,5 @@
+[appendix]
+[[appendix.test-auto-configuration]]
+= 测试自动配置注解
+
+本附录描述了 Spring Boot 为测试应用程序切片所提供的 `@...Test` auto-configuration annotation。

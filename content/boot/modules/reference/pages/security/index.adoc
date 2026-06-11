@@ -1,0 +1,7 @@
+[[security]]
+= 安全
+
+Spring Boot 为通用安全特性（如 OAuth2 和 SAML 2.0）提供了有用的支持。
+本节涵盖这些通用安全关注点。
+
+如果你希望保护 Web 应用程序，请参阅 xref:web/spring-security.adoc#web.security[Web 安全章节] 而非本节。

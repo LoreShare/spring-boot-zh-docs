@@ -1,0 +1,41 @@
+[[appendix.executable-jar.launching]]
+= 启动可执行 JAR
+
+javadoc:org.springframework.boot.loader.launch.Launcher[] 类是一个特殊的引导类，用作可执行 JAR 的主入口点。
+它是 JAR 文件中实际的 `Main-Class`，用于设置合适的 javadoc:java.lang.ClassLoader[] 并最终调用你的 `main()` 方法。
+
+有三个启动器子类（javadoc:org.springframework.boot.loader.launch.JarLauncher[]、javadoc:org.springframework.boot.loader.launch.WarLauncher[] 和 javadoc:org.springframework.boot.loader.launch.PropertiesLauncher[]）。
+它们的作用是从嵌套的 JAR 文件或目录中的 WAR 文件（而不是显式位于 classpath 上的文件）加载资源（`.class` 文件等）。
+对于 javadoc:org.springframework.boot.loader.launch.JarLauncher[] 和 javadoc:org.springframework.boot.loader.launch.WarLauncher[]，嵌套路径是固定的。
+javadoc:org.springframework.boot.loader.launch.JarLauncher[] 查找 `BOOT-INF/lib/`，而 javadoc:org.springframework.boot.loader.launch.WarLauncher[] 查找 `WEB-INF/lib/` 和 `WEB-INF/lib-provided/`。
+如果你需要更多 JAR，可以在这些位置添加额外的 JAR。
+
+默认情况下，javadoc:org.springframework.boot.loader.launch.PropertiesLauncher[] 在你的应用程序归档中查找 `BOOT-INF/lib/`。
+你可以通过设置名为 `LOADER_PATH` 的环境变量或 `loader.properties` 中的 `loader.path`（这是一个以逗号分隔的目录、归档或归档内目录列表）来添加其他位置。
+
+
+
+[[appendix.executable-jar.launching.manifest]]
+== 启动器清单
+
+你需要指定一个合适的 javadoc:org.springframework.boot.loader.launch.Launcher[] 作为 `META-INF/MANIFEST.MF` 的 `Main-Class` 属性。
+你实际想要启动的类（即包含 `main` 方法的类）应在 `Start-Class` 属性中指定。
+
+以下示例展示了一个典型的可执行 JAR 文件的 `MANIFEST.MF`：
+
+[source,manifest]
+----
+Main-Class: org.springframework.boot.loader.launch.JarLauncher
+Start-Class: com.mycompany.project.MyApplication
+----
+
+对于 war 文件，其内容如下：
+
+[source,manifest]
+----
+Main-Class: org.springframework.boot.loader.launch.WarLauncher
+Start-Class: com.mycompany.project.MyApplication
+----
+
+NOTE: 你不需要在清单文件中指定 `Class-Path` 条目。
+类路径是从嵌套的 JAR 中推导出来的。

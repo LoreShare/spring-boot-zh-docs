@@ -1,0 +1,32 @@
+[[actuator.enabling]]
+= 启用生产就绪功能
+
+{code-spring-boot}/module/spring-boot-actuator[`spring-boot-actuator`] 模块提供了 Spring Boot 的所有生产就绪功能。
+推荐的方式是通过添加 `spring-boot-starter-actuator` starter 依赖来启用这些功能。
+
+.Actuator 的定义
+****
+Actuator 是一个制造术语，指用于移动或控制某物的机械装置。
+Actuator 可以通过微小的变化产生大幅度的运动。
+****
+
+要将 actuator 添加到基于 Maven 的项目中，请添加以下 starter 依赖：
+
+[source,xml]
+----
+<dependencies>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-actuator</artifactId>
+	</dependency>
+</dependencies>
+----
+
+对于 Gradle，使用以下声明：
+
+[source,gradle]
+----
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+}
+----

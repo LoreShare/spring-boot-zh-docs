@@ -1,0 +1,45 @@
+= 使用 JTA 进行分布式事务
+
+Spring Boot 通过使用从 JNDI 获取的事务管理器，支持跨多个 XA 资源的分布式 JTA 事务。
+
+当检测到 JTA 环境时，Spring 的 javadoc:org.springframework.transaction.jta.JtaTransactionManager[] 用于管理事务。
+自动配置的 JMS、DataSource 和 JPA bean 会升级以支持 XA 事务。
+您可以使用标准的 Spring 惯用法（例如 javadoc:org.springframework.transaction.annotation.Transactional[format=annotation]）来参与分布式事务。
+如果您处于 JTA 环境中但仍想使用本地事务，可以将 configprop:spring.jta.enabled[] 属性设置为 `false` 以禁用 JTA auto-configuration。
+
+
+[[io.jta.jakartaee]]
+== 使用 Jakarta EE 托管事务管理器
+
+如果您将 Spring Boot 应用程序打包为 `war` 或 `ear` 文件并部署到 Jakarta EE 应用服务器，则可以使用应用服务器内置的事务管理器。
+Spring Boot 会尝试通过查找常见的 JNDI 位置（`java:comp/UserTransaction`、`java:comp/TransactionManager` 等）来自动配置事务管理器。
+当使用应用服务器提供的事务服务时，通常还需要确保所有资源都由服务器管理并通过 JNDI 暴露。
+Spring Boot 会尝试通过查找 JNDI 路径（`java:/JmsXA` 或 `java:/XAConnectionFactory`）上的 javadoc:jakarta.jms.ConnectionFactory[] 来自动配置 JMS，并且您可以使用 xref:data/sql.adoc#data.sql.datasource.jndi[configprop:spring.datasource.jndi-name[] 属性] 来配置您的 javadoc:javax.sql.DataSource[]。
+
+
+[[io.jta.mixing-xa-and-non-xa-connections]]
+== 混合使用 XA 和非 XA JMS 连接
+
+使用 JTA 时，主要的 JMS javadoc:jakarta.jms.ConnectionFactory[] bean 是 XA 感知的，并参与分布式事务。
+您可以将其注入到您的 bean 中，而无需使用任何 javadoc:org.springframework.beans.factory.annotation.Qualifier[format=annotation]：
+
+include-code::primary/MyBean[]
+
+在某些情况下，您可能希望使用非 XA 的 javadoc:jakarta.jms.ConnectionFactory[] 来处理某些 JMS 消息。
+例如，您的 JMS 处理逻辑可能比 XA 超时时间更长。
+
+如果您想使用非 XA 的 javadoc:jakarta.jms.ConnectionFactory[]，可以使用 `nonXaJmsConnectionFactory` bean：
+
+include-code::nonxa/MyBean[]
+
+为了一致性，`jmsConnectionFactory` bean 也通过使用 bean 别名 `xaJmsConnectionFactory` 提供：
+
+include-code::xa/MyBean[]
+
+
+[[io.jta.supporting-embedded-transaction-manager]]
+== 支持嵌入式事务管理器
+
+javadoc:org.springframework.boot.jms.XAConnectionFactoryWrapper[] 和 javadoc:org.springframework.boot.jdbc.XADataSourceWrapper[] 接口可用于支持嵌入式事务管理器。
+这些接口负责包装 javadoc:jakarta.jms.XAConnectionFactory[] 和 javadoc:javax.sql.XADataSource[] bean，并将它们暴露为常规的 javadoc:jakarta.jms.ConnectionFactory[] 和 javadoc:javax.sql.DataSource[] bean，从而透明地参与分布式事务。
+DataSource 和 JMS auto-configuration 使用 JTA 变体，前提是您有一个 javadoc:org.springframework.transaction.jta.JtaTransactionManager[] bean 并且在您的 javadoc:org.springframework.context.ApplicationContext[] 中注册了适当的 XA 包装器 bean。

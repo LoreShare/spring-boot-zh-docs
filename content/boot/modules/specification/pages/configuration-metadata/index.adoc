@@ -1,0 +1,9 @@
+[appendix]
+[[appendix.configuration-metadata]]
+= 配置元数据
+
+Spring Boot jar 包含提供所有支持的配置属性详细信息的元数据文件。
+这些文件旨在让 IDE 开发者在用户处理 `application.properties` 或 `application.yaml` 文件时提供上下文帮助和“代码补全”。
+
+元数据文件的大部分内容是在编译时通过处理所有带有 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的项自动生成的。
+对于边界情况或更高级的用例，可以 xref:configuration-metadata/annotation-processor.adoc#appendix.configuration-metadata.annotation-processor.automatic-metadata-generation.source[从外部类型获取元数据] 或 xref:configuration-metadata/annotation-processor.adoc#appendix.configuration-metadata.annotation-processor.adding-additional-metadata[手动编写部分元数据]。

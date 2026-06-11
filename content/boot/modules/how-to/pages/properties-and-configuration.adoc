@@ -1,0 +1,275 @@
+= 属性与配置
+
+本节包含关于设置和读取属性及配置设置，以及它们与 Spring Boot 应用程序交互的主题。
+
+
+
+== 在构建时自动展开属性
+
+与其硬编码某些也在项目构建配置中指定的属性，不如通过使用现有的构建配置来自动展开它们。这在 Maven 和 Gradle 中都是可行的。
+
+
+
+=== 使用 Maven 自动展开属性
+
+你可以通过使用资源过滤在 Maven 项目中自动展开属性。如果你使用 `spring-boot-starter-parent`，那么你可以通过 `@..@` 占位符引用你的 Maven '`project properties`'，如下例所示：
+
+[configprops%novalidate,yaml]
+----
+app:
+  encoding: "@project.build.sourceEncoding@"
+  java:
+    version: "@java.version@"
+----
+NOTE: 只有生产环境的配置会以这种方式被过滤（换句话说，在 `src/test/resources` 上不应用过滤）。
+
+TIP: 如果你启用 `addResources` 标志，`spring-boot:run` 目标可以将 `src/main/resources` 直接添加到 classpath 中（用于热重载目的）。这样做会绕过资源过滤和此功能。相反，你可以使用 `exec:java` 目标或自定义插件的配置。更多详情请参见 xref:maven-plugin:using.adoc[plugin usage page]。
+
+如果你不使用 starter 父级，你需要在你的 `pom.xml` 的 `<build/>` 元素内包含以下元素：
+
+[source,xml]
+----
+<resources>
+	<resource>
+		<directory>src/main/resources</directory>
+		<filtering>true</filtering>
+	</resource>
+</resources>
+----
+You also need to include the following element inside `<plugins/>`:
+
+[source,xml]
+----
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-resources-plugin</artifactId>
+	<version>2.7</version>
+	<configuration>
+		<delimiters>
+			<delimiter>@</delimiter>
+		</delimiters>
+		<useDefaultDelimiters>false</useDefaultDelimiters>
+	</configuration>
+</plugin>
+----
+NOTE: 如果你在配置中使用标准的 Spring 占位符（例如 `$\{placeholder}`），则 `useDefaultDelimiters` 属性非常重要。
+如果该属性未设置为 `false`，这些占位符可能会被构建过程展开。
+
+[[howto.properties-and-configuration.expand-properties.gradle]]
+=== 使用 Gradle 自动展开属性
+
+你可以通过配置 Java 插件的 `processResources` 任务，从 Gradle 项目自动展开属性，如下例所示：
+
+[source,gradle]
+----
+tasks.named('processResources') {
+	expand(project.properties)
+}
+----
+然后，您可以通过占位符引用 Gradle 项目的属性，如下例所示：
+
+[configprops%novalidate,yaml]
+----
+app:
+  name: "${name}"
+  description: "${description}"
+----
+NOTE: Gradle 的 `expand` 方法使用 Groovy 的 `SimpleTemplateEngine`，它会转换 `${..}` 标记。
+`${..}` 风格与 Spring 自身的属性占位符机制冲突。
+要将 Spring 属性占位符与自动展开一起使用，请按如下方式转义 Spring 属性占位符：`\${..}`。
+
+[[howto.properties-and-configuration.externalize-configuration]]
+== 外部化 SpringApplication 的配置
+
+javadoc:org.springframework.boot.SpringApplication[] 具有 bean 属性设置器，因此您可以在创建应用程序时使用其 Java API 来修改其行为。
+或者，您可以通过在 `+spring.main.*+` 中设置属性来外部化配置。
+例如，在 `application.properties` 中，您可能有以下设置：
+
+[configprops,yaml]
+----
+spring:
+  main:
+    web-application-type: "none"
+    banner-mode: "off"
+----
+Then the Spring Boot banner is not printed on startup, and the application is not starting an embedded web server.
+
+Properties defined in external configuration override and replace the values specified with the Java API, with the notable exception of the primary sources.
+Primary sources are those provided to the javadoc:org.springframework.boot.SpringApplication[] constructor:
+
+include-code::application/MyApplication[]
+
+Or to `sources(...)` method of a javadoc:org.springframework.boot.builder.SpringApplicationBuilder[]:
+
+include-code::builder/MyApplication[]
+
+Given the examples above, if we have the following configuration:
+
+[configprops,yaml]
+----
+spring:
+  main:
+    sources: "com.example.MyDatabaseConfig,com.example.MyJmsConfig"
+    banner-mode: "console"
+----
+实际应用将显示横幅（由配置覆盖）并使用三个来源的 javadoc:org.springframework.context.ApplicationContext[]。
+应用来源包括：
+
+. `MyApplication`（来自代码）
+. `MyDatabaseConfig`（来自外部配置）
+. `MyJmsConfig`（来自外部配置）
+
+
+[[howto.properties-and-configuration.external-properties-location]]
+== 更改应用程序外部属性的位置
+
+默认情况下，来自不同源的属性会按定义的顺序添加到 Spring javadoc:org.springframework.core.env.Environment[] 中（具体顺序请参见“`Spring Boot Features`”部分中的 xref:reference:features/external-config.adoc[]）。
+
+您还可以提供以下系统属性（或环境变量）来更改行为：
+
+* configprop:spring.config.name[]（configprop:spring.config.name[format=envvar]）：默认为 `application` 作为文件名的根。
+* configprop:spring.config.location[]（configprop:spring.config.location[format=envvar]）：要加载的文件（例如 classpath 资源或 URL）。
+  为此文档设置了一个单独的 javadoc:org.springframework.core.env.Environment[] 属性源，它可以通过系统属性、环境变量或命令行覆盖。
+
+无论您在环境中设置什么，Spring Boot 始终按上述方式加载 `application.properties`。
+默认情况下，如果使用 YAML，则扩展名为 '`.yaml`' 和 '`.yml`' 的文件也会添加到列表中。
+
+提示：如果您想了解正在加载的文件的详细信息，可以将 `org.springframework.boot.context.config` 的 xref:reference:features/logging.adoc#features.logging.log-levels[set the logging level] 设置为 `trace`。
+
+
+[[howto.properties-and-configuration.short-command-line-arguments]]
+== 使用 '`Short`' 命令行参数
+
+有些人喜欢使用（例如）`--port=9000` 而不是 `--server.port=9000` 在命令行上设置配置属性。
+您可以通过在 `application.properties` 中使用占位符来启用此行为，如下例所示：
+
+[configprops,yaml]
+----
+server:
+  port: "${port:8080}"
+----
+提示：如果您继承自 `spring-boot-starter-parent` POM，`maven-resources-plugins` 的默认过滤令牌已从 `+${*}+` 更改为 `@`（即 `@maven.token@` 而不是 `${maven.token}`），以防止与 Spring 风格的占位符冲突。
+如果您已直接为 `application.properties` 启用了 Maven 过滤，您可能也希望将默认过滤令牌更改为使用 https://maven.apache.org/plugins/maven-resources-plugin/resources-mojo.html#delimiters[other delimiters]。
+
+注意：在这种特定情况下，端口绑定在 PaaS 环境（如 Heroku 或 Cloud Foundry）中有效。
+在这两个平台上，`PORT` 环境变量会自动设置，并且 Spring 可以绑定到 javadoc:org.springframework.core.env.Environment[] 属性的大写同义词。
+
+
+[[howto.properties-and-configuration.yaml]]
+== 使用 YAML 作为外部属性
+
+YAML 是 JSON 的超集，因此，它是一种以分层格式存储外部属性的便捷语法，如下例所示：
+
+[source,yaml]
+----
+spring:
+  application:
+    name: "cruncher"
+  datasource:
+    driver-class-name: "com.mysql.jdbc.Driver"
+    url: "jdbc:mysql://localhost/test"
+server:
+  port: 9000
+----
+创建一个名为 `application.yaml` 的文件，并将其放在 classpath 的根目录下。
+然后将 `snakeyaml` 添加到你的依赖中（Maven 坐标 `org.yaml:snakeyaml`，如果你使用了 `spring-boot-starter`，则已包含）。
+YAML 文件被解析为 Java `Map<String,Object>`（类似于 JSON 对象），而 Spring Boot 会将映射展平为单层深度，并使用句点分隔的键，正如许多人在 Java 中使用 javadoc:java.util.Properties[] 文件所习惯的那样。
+
+前面的 YAML 示例对应于以下 `application.properties` 文件：
+
+[source,properties,subs="verbatim",configprops]
+----
+spring.application.name=cruncher
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost/test
+server.port=9000
+----
+请参阅“xref:reference:features/external-config.adoc#features.external-config.yaml[]”一节中的“`Spring Boot Features`”以获取有关 YAML 的更多信息。
+
+[[howto.properties-and-configuration.set-active-spring-profiles]]
+== 设置活动的 Spring Profile
+
+Spring javadoc:org.springframework.core.env.Environment[] 为此提供了 API，但通常你会设置一个系统属性（configprop:spring.profiles.active[]）或操作系统环境变量（configprop:spring.profiles.active[format=envvar]）。
+此外，你可以使用 `-D` 参数启动应用程序（记得将其放在主类或 jar 归档之前），如下所示：
+
+[source,shell]
+----
+$ java -jar -Dspring.profiles.active=production demo-0.0.1-SNAPSHOT.jar
+----
+在 Spring Boot 中，您还可以在 `application.properties` 中设置活动的 profile，如下例所示：
+
+[configprops,yaml]
+----
+spring:
+  profiles:
+    active: "production"
+----
+以这种方式设置的值会被系统属性或环境变量设置覆盖，但不会被 `SpringApplicationBuilder.profiles()` 方法覆盖。
+因此，后者的 Java API 可用于在不更改默认值的情况下增强 profiles。
+
+更多信息请参见“`Spring Boot Features`”部分中的 xref:reference:features/profiles.adoc[]。
+
+
+
+[[howto.properties-and-configuration.set-default-spring-profile-name]]
+== 设置默认 Profile 名称
+
+默认 profile 是一个在没有激活 profile 时启用的 profile。
+默认情况下，默认 profile 的名称为 `default`，但可以通过系统属性（configprop:spring.profiles.default[]）或操作系统环境变量（configprop:spring.profiles.default[format=envvar]）进行更改。
+
+在 Spring Boot 中，您还可以在 `application.properties` 中设置默认 profile 名称，如下例所示：
+
+[configprops,yaml]
+----
+spring:
+  profiles:
+    default: "dev"
+----
+更多信息请参见“xref:reference:features/profiles.adoc[]”一节中的“`Spring Boot Features`”。
+
+[[howto.properties-and-configuration.change-configuration-depending-on-the-environment]]
+== 根据环境更改配置
+
+Spring Boot 支持多文档 YAML 和 Properties 文件（详情请参见 xref:reference:features/external-config.adoc#features.external-config.files.multi-document[]），这些文件可以根据激活的 profiles 有条件地激活。
+
+如果文档包含 `spring.config.activate.on-profile` 键，则 profiles 值（一个逗号分隔的 profiles 列表或一个 profile 表达式）会被传入 Spring 的 `Environment.acceptsProfiles()` 方法。
+如果 profile 表达式匹配，则该文档会被包含在最终的合并中（否则不会），如下例所示：
+
+[configprops,yaml]
+----
+server:
+  port: 9000
+---
+spring:
+  config:
+    activate:
+      on-profile: "development"
+server:
+  port: 9001
+---
+spring:
+  config:
+    activate:
+      on-profile: "production"
+server:
+  port: 0
+----
+在前面的示例中，默认端口是 9000。
+但是，如果名为 '`development`' 的 Spring profile 处于激活状态，则端口为 9001。
+如果 '`production`' 处于激活状态，则端口为 0。
+
+注意：文档按照它们被遇到的顺序合并。
+后面的值会覆盖前面的值。
+
+
+[[howto.properties-and-configuration.discover-build-in-options-for-external-properties]]
+== 发现外部属性的内置选项
+
+Spring Boot 在运行时将来自 `application.properties`（或 YAML 文件及其他位置）的外部属性绑定到应用程序中。
+不存在（并且在技术上也不可能存在）一个包含所有受支持属性的详尽列表，因为贡献可能来自 classpath 上的其他 jar 文件。
+
+一个运行中的、具有 Actuator 特性的应用程序有一个 `configprops` endpoint，它显示所有通过 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 可用的已绑定和可绑定属性。
+
+附录中包含一个 xref:appendix:application-properties/index.adoc[`application.properties`] 示例，列出了 Spring Boot 支持的最常见属性。
+最终的列表来自搜索源代码中的 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 和 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotations，以及偶尔使用的 javadoc:org.springframework.boot.context.properties.bind.Binder[]。
+关于加载属性的确切顺序的更多信息，请参见 xref:reference:features/external-config.adoc[]。

@@ -1,0 +1,59 @@
+[[howto.deployment.installing]]
+= 安装 Spring Boot 应用程序
+
+除了直接使用 `java -jar` 运行 Spring Boot 应用程序外，还可以将其作为服务运行。
+
+
+
+[[howto.deployment.installing.system-d]]
+== 作为 systemd 服务安装
+
+`systemd` 是 System V init 系统的后继者，现在已被许多现代 Linux 发行版使用。
+Spring Boot 应用程序可以通过使用 `systemd` 的 '`service`' 脚本来启动。
+
+假设您有一个打包为 uber jar 的 Spring Boot 应用程序位于 `/var/myapp`，要将其安装为 `systemd` 服务，请创建一个名为 `myapp.service` 的脚本并将其放置在 `/etc/systemd/system` 目录中。
+以下脚本提供了一个示例：
+
+[source]
+----
+[Unit]
+Description=myapp
+After=syslog.target network.target
+
+[Service]
+User=myapp
+Group=myapp
+
+Type=exec
+ExecStart=/path/to/java/home/bin/java -jar /var/myapp/myapp.jar
+WorkingDirectory=/var/myapp
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+----
+
+重要提示：请根据你的应用程序修改 `Description`、`User`、`Group`、`ExecStart` 和 `WorkingDirectory` 字段。
+
+注意：`ExecStart` 字段未声明脚本操作命令，这意味着默认使用 `run` 命令。
+
+运行应用程序的用户、PID 文件和控制台日志文件由 `systemd` 自身管理，因此必须通过在 '`service`' 脚本中使用适当的字段进行配置。
+更多详情请参阅 https://www.freedesktop.org/software/systemd/man/systemd.service.html[服务单元配置手册页]。
+
+要将应用程序标记为在系统启动时自动启动，请使用以下命令：
+
+[source,shell]
+----
+$ systemctl enable myapp.service
+----
+
+运行 `man systemctl` 获取更多详细信息。
+
+
+
+[[howto.deployment.installing.windows-services]]
+== Microsoft Windows 服务
+
+可以通过使用 https://github.com/kohsuke/winsw[`winsw`] 将 Spring Boot 应用程序作为 Windows 服务启动。
+
+一个（https://github.com/snicoll/spring-boot-daemon[单独维护的示例]）逐步描述了如何为 Spring Boot 应用程序创建 Windows 服务。

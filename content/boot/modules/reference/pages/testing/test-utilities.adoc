@@ -1,0 +1,53 @@
+= 测试工具类
+
+一些在测试应用程序时通常有用的测试工具类被打包为 `spring-boot` 的一部分。
+
+
+[[testing.utilities.config-data-application-context-initializer]]
+== ConfigDataApplicationContextInitializer
+
+javadoc:org.springframework.boot.test.context.ConfigDataApplicationContextInitializer[] 是一个 javadoc:org.springframework.context.ApplicationContextInitializer[]，你可以将其应用于测试以加载 Spring Boot `application.properties` 文件。当你不需要 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 提供的全部功能时，可以使用它，如下例所示：
+
+include-code::MyConfigFileTests[]
+
+注意：单独使用 javadoc:org.springframework.boot.test.context.ConfigDataApplicationContextInitializer[] 并不提供对 `@Value("${...}")` 注入的支持。它的唯一工作是确保 `application.properties` 文件被加载到 Spring 的 javadoc:org.springframework.core.env.Environment[] 中。要支持 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation]，你需要额外配置一个 javadoc:org.springframework.context.support.PropertySourcesPlaceholderConfigurer[]，或者使用 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation]，它会自动为你配置一个。
+
+
+[[testing.utilities.test-property-values]]
+== TestPropertyValues
+
+javadoc:org.springframework.boot.test.util.TestPropertyValues[] 允许你快速向 javadoc:org.springframework.core.env.ConfigurableEnvironment[] 或 javadoc:org.springframework.context.ConfigurableApplicationContext[] 添加属性。你可以使用 `key=value` 字符串调用它，如下所示：
+
+include-code::MyEnvironmentTests[]
+
+
+[[testing.utilities.output-capture]]
+== OutputCaptureExtension
+
+javadoc:org.springframework.boot.test.system.OutputCaptureExtension[] 是一个 JUnit javadoc:org.junit.jupiter.api.extension.Extension[]，你可以用它来捕获 javadoc:java.lang.System#out[] 和 javadoc:java.lang.System#err[] 的输出。要使用它，请添加 `@ExtendWith(OutputCaptureExtension.class)` 并将 javadoc:org.springframework.boot.test.system.CapturedOutput[] 作为参数注入到测试类构造函数或测试方法中，如下所示：
+
+include-code::MyOutputCaptureTests[]
+
+
+[[testing.utilities.test-rest-template]]
+== TestRestTemplate
+
+javadoc:org.springframework.boot.resttestclient.TestRestTemplate[] 是 Spring 的 javadoc:org.springframework.web.client.RestTemplate[] 的一个便捷替代方案，在集成测试中很有用。它由 `spring-boot-resttestclient` 模块提供。还需要依赖 `spring-boot-restclient`。添加此依赖时需小心，因为它会为 `RestClient.Builder` 启用 auto-configuration。如果你的主代码使用 `RestClient.Builder`，请声明 `spring-boot-restclient` 依赖，使其位于应用程序的主 classpath 上，而不仅仅是测试 classpath 上。
+
+你可以获取一个普通模板，或者一个发送基本 HTTP 认证（带有用户名和密码）的模板。无论哪种情况，模板都是容错的。这意味着它以测试友好的方式运行，不会在 4xx 和 5xx 错误时抛出异常。相反，可以通过返回的 javadoc:org.springframework.http.ResponseEntity[] 及其状态码检测此类错误。
+
+如果你需要流畅的断言 API，请考虑使用 javadoc:org.springframework.test.web.servlet.client.RestTestClient[]，它与 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.with-mock-environment[mock environments] 和 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.with-running-server[end-to-end tests] 一起工作。
+
+如果你使用 Spring WebFlux，请考虑使用 javadoc:org.springframework.test.web.reactive.server.WebTestClient[]，它提供类似的 API，并与 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.with-mock-environment[mock environments]、xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.spring-webflux-tests[WebFlux integration tests] 和 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.with-running-server[end-to-end tests] 一起工作。
+
+建议（但非强制）使用 Apache HTTP Client（版本 5.1 或更高）。如果你的 classpath 上有它，javadoc:org.springframework.boot.resttestclient.TestRestTemplate[] 会通过适当配置客户端来响应。
+
+javadoc:org.springframework.boot.resttestclient.TestRestTemplate[] 可以直接在你的集成测试中实例化，如下例所示：
+
+include-code::MyTests[]
+
+或者，如果你使用带有 `WebEnvironment.RANDOM_PORT` 或 `WebEnvironment.DEFINED_PORT` 的 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] annotation，你可以通过使用 javadoc:org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate[format=annotation] 注解测试类来注入一个完全配置的 javadoc:org.springframework.boot.resttestclient.TestRestTemplate[]。如有必要，可以通过 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[] bean 应用额外的自定义。
+
+任何未指定主机和端口的 URL 会自动连接到嵌入式服务器，如下例所示：
+
+include-code::MySpringBootTests[]

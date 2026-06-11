@@ -1,0 +1,706 @@
+= gRPC
+
+Google Remote Procedure Call (gRPC) 是一个高性能 RPC 框架，支持使用二进制消息进行客户端-服务器通信。
+Spring Boot 包含对开发和测试客户端及服务器 gRPC 应用程序的支持。
+
+gRPC 使用的底层消息格式是 Protocol Buffers，它允许消息被多种编程语言创建和消费。
+
+
+[[io.grpc.servicedefinitions]]
+== 服务定义
+
+要开发 gRPC 应用程序，首先需要一个 Protocol Buffers 服务定义文件。
+`.proto` 文件定义了应用程序可以消费或提供的服务和消息。
+
+以下是一个典型的 `.proto` 文件示例，它使用了 https://protobuf.dev/programming-guides/proto3/[`proto3` 修订版] 的协议缓冲区语言：
+
+[,protobuf]
+----
+syntax = "proto3";
+
+option java_package = "com.example.grpc.proto";
+option java_multiple_files = true;
+
+service HelloWorld {
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+message HelloRequest {
+    string name = 1;
+}
+
+message HelloReply {
+    string message = 1;
+}
+----
+
+该文件定义了一个 `HelloWorld` 服务，其中包含一个接受 `HelloReqest` 消息并返回 `HelloReply` 消息的方法。
+`HelloReqest` 消息包含一个 `name` 字符串字段。
+`HelloReply` 消息包含一个 `message` 字符串字段。
+
+除了 `java_package` 和 `java_multiple_files` 选项外，`.proto` 文件中没有任何特定于 Java 编程语言的内容。
+
+[[io.grpc.servicedefinitions.generatingjavacode]]
+=== 生成 Java 代码
+
+由于 `.proto` 文件与语言无关，我们需要一个过程将它们转换为可用的 Java 代码。
+然后，我们可以使用生成的代码向正在运行的服务发起远程过程调用，或者自己实现该服务以便其他人调用。
+
+生成代码的具体过程取决于你的构建系统。
+Spring Boot 支持 Maven 和 Gradle 的 protobuf 插件，但你可以自由选择最适合你的解决方案。
+
+[[io.grpc.servicedefinitions.generatingjavacode.maven]]
+==== 使用 Maven 插件
+
+Spring Boot 包含对 `io.github.ascopes:protobuf-maven-plugin` Maven 插件的依赖管理。
+如果你使用 `spring-boot-starter-parent` POM，你还会获得合理的开箱即用配置。
+
+以下是一个使用该插件的典型 Maven POM 文件：
+
+[source,xml,subs="verbatim,attributes"]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>{version-spring-boot}</version>
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>myproject</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>io.github.ascopes</groupId>
+				<artifactId>protobuf-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+ifeval::["{build-and-artifact-release-type}" == "opensource-snapshot"]
+    <!-- you don't need this if you are using a release version -->
+    <repositories>
+        <repository>
+            <id>spring-snapshots</id>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+endif::[]
+</project>
+----
+
+由于上面的 POM 继承了 `spring-boot-starter-parent`，你将获得以下内容：
+
+* `protoc` 版本的配置。
+* `binary-maven` 插件的配置。
+* `generate` 目标的执行配置。
+
+`.proto` 文件应添加到 `src/main/proto` 中。
+
+提示：如果你不使用 `spring-boot-starter-parent`，或者想直接配置插件，请参考 https://ascopes.github.io/protobuf-maven-plugin[protobuf-maven-plugin 文档]。
+如果你使用 Spring Boot 的依赖管理，`${protobuf-java.version}` 和 `${grpc-java.version}` 属性会很有用。
+
+
+[[io.grpc.servicedefinitions.generatingjavacode.gradle]]
+==== 使用 Gradle 插件
+
+Spring Boot 包含对 `com.google.protobuf:protobuf-gradle-plugin` Gradle 插件的依赖管理。
+此外，`spring-boot-gradle-plugin` 会响应 protobuf 插件的存在并适当配置它。
+
+以下是一个使用该插件的典型 Gradle 文件：
+
+[source,gradle,subs="verbatim,attributes"]
+----
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '{version-spring-boot}'
+	id 'io.spring.dependency-management' version '{version-dependency-management-plugin}'
+	id 'com.google.protobuf' version '{version-protobuf-gradle-plugin}'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+ifeval::["{build-and-artifact-release-type}" == "opensource-snapshot"]
+	// you don't need this if you are using a release version
+	maven { url 'https://repo.spring.io/snapshot' }
+endif::[]
+}
+----
+
+由于这个 gradle 文件同时使用了 `org.springframework.boot` 和 `com.google.protobuf` 插件，你将获得以下内容：
+
+* `protoc` 版本的配置。
+* `protoc-gen-grpc-java` 版本的配置。
+
+`.proto` 文件应添加到 `src/main/proto` 中。
+
+提示：如果你不使用 `org.springframework.boot` 插件，或者想直接配置该插件，请参考 https://github.com/google/protobuf-gradle-plugin[protobuf-gradle-plugin 文档]。
+
+
+[[io.grpc.server]]
+== 编写 gRPC 服务器应用程序
+
+Spring Boot 提供了一个 `spring-boot-grpc-server` 模块和一个 `spring-boot-starter-grpc-server` starter POM，可用于服务器应用程序。
+
+为了编写实际的服务器代码，你需要扩展从 `.proto` 文件生成的一个或多个基类，并将它们暴露为 Spring bean。
+Spring gRPC 会自动将任何实现了 javadoc:io.grpc.BindableService[] 的 bean 暴露为 gRPC 服务器。
+由于所有 `.proto` 生成的类都实现了 javadoc:io.grpc.BindableService[]，将它们添加为 bean 就足以通过 gRPC 暴露它们。
+
+提示：更多详情请参见 {url-spring-grpc-docs}/server.html#_create_a_grpc_service[Spring gRPC 文档]。
+
+以下示例展示了如何实现上述 `.proto` 文件中的 `HelloWorld` 服务。
+在此示例中，我们使用了 javadoc:org.springframework.grpc.server.service.GrpcService[format=annotation] annotation，并假设代码位于一个会被组件扫描拾取的包中：
+
+include-code::MyHelloWorldService[]
+
+如果应用程序使用了 `spring-boot-starter-grpc-server`，那么 Netty 将被用作服务器实现，监听端口 `9090`。
+
+你可以使用 https://github.com/fullstorydev/grpcurl[grpcurl] 测试你的应用程序：
+
+[source,shell]
+----
+$ grpcurl -d '{"name":"Spring"}' -plaintext localhost:9090 HelloWorld.SayHello
+----
+
+[source,json]
+----
+{
+  "message": "Hello 'Spring'"
+}
+----
+
+[[io.grpc.server.netty-shaded]]
+=== 切换到 Netty Shaded 服务器
+
+如果你发现 `spring-boot-starter-grpc-server` starter POM 提供的 Netty 版本与你使用的其他库不兼容，可以切换到 "`shaded`" 版本。
+
+要切换，你可以排除 `io.grpc:grpc-netty` 并包含 `io.grpc:grpc-netty-shaded`。
+例如：
+
+[tabs]
+======
+
+Maven::
++
+[source,xml]
+----
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-grpc-server</artifactId>
+	<exclusions>
+		<!-- Exclude the gRPC Netty dependency -->
+		<exclusion>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+<!-- Use gRPC Netty Shaded instead -->
+<dependency>
+	<groupId>io.grpc</groupId>
+	<artifactId>grpc-netty-shaded</artifactId>
+</dependency>
+----
++
+
+Gradle::
++
+[source,gradle]
+----
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-grpc-server') {
+		// Exclude the gRPC Netty dependency
+		exclude group: 'io.grpc', module: 'grpc-netty'
+	}
+	// Use gRPC Netty Shaded instead
+	implementation "io.grpc:grpc-netty-shaded"
+}
+----
++
+======
+
+
+
+[[io.grpc.server.servlet]]
+=== 切换到 Servlet 容器
+
+可以使用常规的 Servlet 容器（如 Tomcat）来暴露 gRPC 服务，而不是使用 Netty。
+为此，您的 Servlet 容器必须配置为支持 HTTP/2。
+
+要切换到 Servlet gRPC 实现，您可以排除 `io.grpc:grpc-netty` 并包含 `io.grpc:grpc-servlet-jakarta`。
+例如：
+
+[tabs]
+======
+
+Maven::
++
+[source,xml]
+----
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-webmvc</artifactId>
+</dependency>
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-grpc-server</artifactId>
+	<exclusions>
+		<!-- Exclude the gRPC Netty dependency -->
+		<exclusion>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+<!-- Use gRPC Servlet Jakarta instead -->
+<dependency>
+	<groupId>io.grpc</groupId>
+	<artifactId>grpc-servlet-jakarta</artifactId>
+</dependency>
+----
++
+
+Gradle::
++
+[source,gradle]
+----
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-webmvc') {
+	implementation('org.springframework.boot:spring-boot-starter-grpc-server') {
+		// Exclude the gRPC Netty dependency
+		exclude group: 'io.grpc', module: 'grpc-netty'
+	}
+	// Use gRPC Servlet Jakarta instead
+	implementation "io.grpc:grpc-servlet-jakarta"
+}
+----
++
+======
+
+TIP: 请记得包含一个 Servlet 容器依赖，例如使用 `spring-boot-starter-tomcat`，并将 `server.http2.enabled` 设置为 `true`。
+
+NOTE: 当使用 Servlet 容器时，某些 gRPC 服务器配置属性不相关且会被忽略。
+例如，configprop:spring.grpc.server.port[] 会被忽略，因为 configprop:server.port[] 用于设置 Web 服务器端口。
+
+
+
+[[io.grpc.server.ssl]]
+=== SSL 支持
+
+SSL 可以同时为 `grpc-netty` 和 `grpc-netty-shaded` 服务器配置，使用 SSL 绑定。
+有关如何声明 SSL 绑定的详细信息，请参阅 xref:features/ssl.adoc[SSL core documentation]。
+
+一旦定义了绑定，您可以在 gRPC 服务器应用程序中使用以下属性来使用它：
+
+[configprops,yaml]
+----
+spring:
+  grpc:
+    server:
+      ssl:
+        bundle: mysslbundle
+----
+
+客户端认证也可以通过将 configprop:spring.grpc.server.ssl.client-auth[] 设置为 `optional` 或 `require` 来配置。
+
+提示：要临时禁用服务器 SSL 支持（例如为了辅助测试），可以将 configprop:spring.grpc.server.ssl.enabled[] 设置为 `false`。
+
+
+
+[[io.grpc.server.in-process]]
+=== 使用进程内服务器
+
+你可以通过在 classpath 上包含 `io.grpc:grpc-inprocess` 依赖并定义 configprop:spring.grpc.server.inprocess.name[] 属性来运行进程内服务器。
+在此模式下，除了常规服务器工厂外，进程内服务器工厂也会被自动配置。
+
+你提供的名称可以使用 `in-process:<name>` 格式作为客户端通道目标。
+
+
+
+[[io.grpc.server.reflection]]
+=== 反射
+
+当可用时，Spring Boot 会自动配置 https://grpc.io/docs/guides/reflection/[gRPC 反射服务]。
+这允许客户端浏览你的服务的元数据并下载它们的 `.proto` 文件。
+
+反射服务位于 `io.grpc:grpc-services` 库中，这是一个可选依赖。
+你需要将该依赖添加到项目中，以便 auto-configuration 应用。
+
+提示：如果你有 `io.grpc:grpc-services` 库但希望不自动配置反射，可以将 configprop:spring.grpc.server.reflection.enabled[] 设置为 `false`。
+
+
+
+[[io.grpc.server.health]]
+=== 服务器健康
+
+gRPC 服务器可以使用标准服务 API (https://github.com/grpc/grpc-proto/blob/master/grpc/health/v1/health.proto[health/v1]) 提供健康信息。
+这允许客户端检查你的服务器服务的健康状况，并相应地路由流量。
+
+Spring Boot 在其自身的 `spring-boot-health` 模块与标准 gRPC 健康服务之间提供了桥梁。
+当 `io.grpc:grpc-services` 和 `org.springframework.boot:spring-boot-health` 模块位于你的 classpath 上时，健康信息会被提供。
+
+提示：如果你不希望暴露健康指标，可以将 configprop:spring.grpc.server.health.enabled[] 设置为 `false`。
+
+
+
+[[io.grpc.server.health.service-mappings]]
+==== 服务特定的健康映射
+
+默认情况下，使用所有可用的健康指标为整体服务器状态（`""`）提供健康信息。
+
+也可以仅包含健康指标的子集，为特定服务提供细粒度的健康信息。
+还可以为每个服务定义自定义映射和排序规则。
+
+例如，以下配置将仅使用 `db` 和 `redis` 指标为 "`myservice`" 提供健康信息。
+
+[configprops,yaml]
+----
+spring:
+  grpc:
+    server:
+      health:
+        service:
+          myservice:
+            include:
+            - db
+            - redis
+----
+
+提示：你可以将 configprop:spring.grpc.server.health.include-overall-health[] 设置为 `false`，如果你只想提供特定服务的健康状态，则禁用整体服务器健康状态。
+
+
+
+[[io.grpc.server.health.push]]
+==== 推送配置
+
+与基于 Web 的健康检查不同，gRPC 健康信息是定期推送而非拉取的。
+默认情况下，第一次健康推送在应用启动后 5 秒发生，之后每 5 秒推送一次。
+
+要对此进行微调，你可以使用以下属性：
+
+[configprops,yaml]
+----
+spring:
+  grpc:
+    server:
+      health:
+        schedule:
+          period: 5m
+          delay: 2s
+----
+
+提示：如果你希望以其他方式发送健康更新，也可以将 configprop:spring.grpc.server.health.schedule.enabled[] 设置为 `false`。
+
+
+[[io.grpc.server.security]]
+=== 保护 gRPC 服务器应用
+
+
+[[io.grpc.server.security.netty]]
+==== 基于 Netty 的服务器
+
+Spring gRPC 包含一些功能，允许你使用 Spring Security 声明式地保护基于 Netty 的服务器应用。这与你保护常规 Web 应用的模式类似。
+
+Spring Boot 为 javadoc:org.springframework.grpc.server.security.GrpcSecurity[] 和 javadoc:org.springframework.grpc.server.security.SecurityGrpcExceptionHandler[] bean 提供了 auto-configuration。通常，gRPC 应用随后通过在你的 gRPC 服务 bean 上使用 javadoc:org.springframework.security.access.prepost.PreAuthorize[format=annotation] annotation，或使用 javadoc:org.springframework.grpc.server.security.AuthenticationProcessInterceptor[] bean 来保护。
+
+更多详情，请参阅 {url-spring-grpc-docs}/server.html#_declarative_security_with_spring_security[Spring gRPC 文档]。
+
+
+[[io.grpc.server.security.servlet]]
+==== 基于 Servlet 容器的服务器
+
+如果你的 gRPC 服务器运行在 xref:web/servlet.adoc[within a standard Servlet Container] 上，你可以使用典型的 xref:web/spring-security.adoc#web.security.spring-mvc[web security configuration] 来保护你的应用。Spring Boot 将自动配置 javadoc:org.springframework.boot.grpc.server.autoconfigure.GrpcServerExecutorProvider[] 和 javadoc:org.springframework.grpc.server.security.SecurityContextServerInterceptor[] bean，以确保 Spring Security 正常工作。
+
+跨站请求伪造（CSRF）保护与 gRPC 协议不兼容，默认情况下将对所有 gRPC 请求禁用。如果你希望配置自己的 CSRF 保护，可以通过将 configprop:spring.grpc.server.security.csrf.enabled[] 设置为 `false` 来关闭此功能。
+
+为了帮助手动配置 Security，Spring Boot 为 gRPC 服务提供了请求匹配器。匹配器可用于 Servlet 和响应式栈。例如，以下配置将包含所有 gRPC 服务，但排除 "`special`"。
+
+include-code::MySecurityConfiguration[]
+
+注意：对于响应式匹配，请使用 javadoc:org.springframework.boot.grpc.server.autoconfigure.security.web.servlet.GrpcRequest[format=full]。
+
+
+[[io.grpc.server.security.oauth-resource-server]]
+==== OAuth2 资源服务器
+
+https://oauth.net/2/[OAuth2] 是一个广泛使用的授权框架。Spring Boot 的 OAuth2 资源服务器支持与 gRPC 兼容，可以按常规方式进行配置。
+
+有关如何配置 OAuth2 资源服务器以与你的 gRPC 服务器应用一起使用的详细信息，请参阅 xref:security/oauth2.adoc#security.oauth2.server["`OAuth2`" section] 中的 "`Security`" 部分。
+
+
+[[io.grpc.client]]
+== 编写 gRPC 客户端应用
+
+Spring Boot 提供了一个 `spring-boot-grpc-client` 模块和一个 `spring-boot-starter-grpc-client` starter POM，可用于客户端应用。
+
+客户端可以通过导入从其 `.proto` 文件生成的一个或多个 "`stub`" 类来调用远程 gRPC 服务。你可以使用 javadoc:org.springframework.grpc.client.ImportGrpcClients[format=annotation] annotation 来导入你想要使用的存根类。
+
+每个导入包含一个 `target`，它可以是逻辑通道名称，也可以是远程服务器的基础 URL。我们通常建议使用通道名称，而不是硬编码目标。
+
+以下是一个典型示例：
+
+include-code::MyApplication[]
+
+注意：如果你没有指定 `target`，则使用 "`default`"。
+
+提示：你可以使用 javadoc:org.springframework.grpc.client.ImportGrpcClients[format=annotation] 的 `basePackageClasses` 或 `basePackages` 属性来导入给定包中的所有存根。
+
+
+[[io.grpc.client.channel-properties]]
+=== 通道属性
+
+当 javadoc:org.springframework.grpc.client.ImportGrpcClients[format=annotation] 的 `target` 属性使用逻辑通道名称时，你需要提供一些属性，以便 Spring Boot 能够找到实际的 gRPC 服务器进行调用。
+
+为此，你可以使用 `spring.grpc.channel.<name>.*` 属性添加一个条目。通常，你将配置实际的 `target`，以及通道特有的任何其他设置。
+
+例如，以下配置将 `myservice` 配置为使用实际目标 `static://grpc.example.com:9090`。它还更改了 keep-alive 超时时间和允许的最大消息大小：
+
+[configprops,yaml]
+----
+spring:
+  grpc:
+    client:
+      channel:
+        myservice:
+          target: static://grpc.example.com:9090
+          inbound:
+            keepalive:
+              timeout: 40s
+            message:
+              max-size: 8MB
+----
+
+[[io.grpc.client.stub-beans]]
+=== 使用 Stub Bean
+
+有了 javadoc:org.springframework.grpc.client.ImportGrpcClients[format=annotation] annotation，并编写好属性后，你可以像使用其他 bean 一样使用 stub。
+
+例如，以下是将 `HelloWorldStub` 注入到 `ApplicationRunner` bean 中的示例：
+
+include-code::MyApplicationRunner[]
+
+
+
+[[io.grpc.client.netty-shaded]]
+=== 切换到 Netty Shaded 客户端传输
+
+在底层，远程 gRPC 网络调用使用 Netty 进行。
+如果你发现 `spring-boot-starter-grpc-client` starter POM 提供的 Netty 版本与你使用的其他库不兼容，可以切换到 "`shaded`" 版本。
+
+要切换，你可以排除 `io.grpc:grpc-netty` 并包含 `io.grpc:grpc-netty-shaded`。
+例如：
+
+[tabs]
+======
+
+Maven::
++
+[source,xml]
+----
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-grpc-client</artifactId>
+	<exclusions>
+		<!-- Exclude the gRPC Netty dependency -->
+		<exclusion>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+<!-- Use gRPC Netty Shaded instead -->
+<dependency>
+	<groupId>io.grpc</groupId>
+	<artifactId>grpc-netty-shaded</artifactId>
+</dependency>
+----
++
+
+Gradle::
++
+[source,gradle]
+----
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-grpc-client') {
+		// Exclude the gRPC Netty dependency
+		exclude group: 'io.grpc', module: 'grpc-netty'
+	}
+	// Use gRPC Netty Shaded instead
+	implementation "io.grpc:grpc-netty-shaded"
+}
+----
++
+======
+
+[[io.grpc.client.ssl]]
+=== SSL 支持
+
+客户端 gRPC 应用可以使用 SSL/TLS 加密连接连接到 gRPC 服务。
+你可以将 gRPC 连接配置为使用标准单向 TLS 或双向 TLS。
+
+[[io.grpc.client.ssl.one-way]]
+==== 标准单向 TLS
+
+要使用标准单向 TLS，你可以在通道属性中将 `ssl.enabled` 属性设置为 `true`。
+例如，以下配置将为 `myservice` 通道启用 SSL/TLS 连接：
+
+[configprops,yaml]
+----
+spring:
+  grpc:
+    client:
+      channel:
+        myservice:
+          target: static://grpc.example.com:9090
+          ssl:
+            enabled: true
+----
+
+[[io.grpc.client.ssl.mutual]]
+==== 双向 TLS
+
+双向 TLS（mTLS）是一种安全协议，要求客户端和服务器都向对方出示证书。
+要使用双向 TLS，您可以在通道属性中设置 `ssl.bundle` 属性。
+有关如何声明 SSL 包的详细信息，请参阅 xref:features/ssl.adoc[SSL core features documentation]。
+
+以下示例配置 `myservice` 通道使用 `mybundle` 包进行双向 TLS：
+
+[configprops,yaml]
+----
+spring:
+  grpc:
+    client:
+      channel:
+        myservice:
+          target: static://grpc.example.com:9090
+          ssl:
+            bundle: mybundle
+----
+
+[TIP]
+====
+要临时禁用客户端 SSL 支持（例如为了辅助测试），你可以在通道配置中将 `bypass-certificate-validation` 设置为 `true`：
+
+[configprops,yaml]
+----
+spring:
+  grpc:
+    client:
+      channel:
+        myservice:
+          bypass-certificate-validation: true
+----
+====
+
+
+
+[[io.grpc.client.in-process]]
+=== 使用进程内通道
+
+你可以通过在你的 classpath 上包含 `io.grpc.grpc-inprocess` 依赖，与一个 xref:io/grpc.adoc#io.grpc.server.in-process[in-process server]（即不监听网络端口）进行通信。
+
+在此模式下，进程内通道工厂会与常规通道工厂（例如 Netty）一起自动配置。
+为了防止用户处理多个通道工厂，一个复合通道工厂被配置为主通道工厂 bean。
+该复合工厂会查询其组成的工厂，以找到第一个支持通道目标的工厂。
+
+要使用进程内服务器，通道目标必须设置为 `in-process:<name>`。
+
+提示：要禁用进程内通道工厂，你可以将 configprop:spring.grpc.client.inprocess.enabled[] 属性设置为 `false`。
+
+
+
+[[io.grpc.client.observability]]
+=== 可观测性
+
+Spring Boot 在 Micrometer 可用时，提供 javadoc:io.micrometer.core.instrument.binder.grpc.ObservationGrpcClientInterceptor[] 的 auto-configuration。
+该拦截器为你的 gRPC 客户端应用程序提供可观测性。
+
+提示：如果你使用 Micrometer，但更倾向于不为 gRPC 使用它，你可以将 configprop:spring.grpc.client.observation.enabled[] 设置为 `false`。
+
+
+
+[[io.grpc.client.channel-customization]]
+=== 通道定制
+
+如果你需要超出基本属性范围来定制你的 gRPC 通道，你可以使用 javadoc:org.springframework.grpc.client.GrpcChannelBuilderCustomizer[]。
+每个定制器都会收到逻辑目标名称和将构建通道的 javadoc:io.grpc.ManagedChannelBuilder[]。
+还有一个方便的 `matching(String pattern)` 工厂方法，可以将定制限制在匹配给定正则表达式的目标上。
+
+一个常见的定制器用例是向构建器添加 {url-spring-grpc-docs}/client.html#_http_headers[安全拦截器]。
+例如，这里我们向匹配 "`hello`" 的目标添加 javadoc:org.springframework.grpc.client.interceptor.security.BearerTokenAuthenticationInterceptor[]：
+
+include-code::MyGrpcConfiguration[]
+
+
+
+[[io.grpc.testing]]
+== 测试 gRPC 应用程序
+
+为了帮助测试你的 gRPC 客户端和服务器应用程序，你可以使用 `spring-boot-grpc-test` 模块或 `spring-boot-starter-grpc-client-test` / `spring-boot-starter-grpc-server-test` starter POM。
+
+
+[[io.grpc.testing.test-transport]]
+=== 使用进程内测试传输
+
+javadoc:org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTransport[format=annotation] annotation 允许你快速将 gRPC 通信通道替换为专门用于测试的进程内通道。
+与常规的进程内通道不同，这些测试通道不需要任何配置。
+
+使用测试 gRPC 传输意味着你不需要实际监听网络端口来启动应用程序。
+这允许你的测试快速运行，同时仍然确保你的应用程序按预期工作。
+
+默认情况下，使用 javadoc:org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTransport[format=annotation] 将会：
+
+* 配置测试用的 javadoc:org.springframework.grpc.server.GrpcServerFactory[] / javadoc:org.springframework.grpc.client.GrpcChannelFactory[] beans
+* 禁用任何 gRPC servlet 注册。
+* 禁用 javadoc:org.springframework.grpc.server.GrpcServerFactory[] bean auto-configuration。
+* 禁用 javadoc:org.springframework.grpc.client.GrpcChannelFactory[] bean auto-configuration。
+
+以下示例展示了如何使用 javadoc:org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTransport[format=annotation] 来测试 gRPC 服务器应用程序：
+
+include-code::MyGrpcTests[]
+
+
+
+[[io.grpc.testing.local-server-port]]
+=== 使用运行中的服务器进行测试
+
+如果你更倾向于通过启动真实服务器并使用实际网络连接来测试你的 gRPC 应用程序，我们建议你使用随机端口。
+这将确保你可以在任何环境中运行测试，并且不会意外调用真实服务。
+
+要使用随机端口启动 gRPC 服务器，请将 configprop:spring.grpc.server.port[] 设置为 `0`。
+你可以使用 javadoc:org.springframework.boot.grpc.test.autoconfigure.LocalGrpcServerPort[format=annotation] annotation 来获取服务器启动的实际端口。
+
+以下是一个测试示例：
+
+include-code::MyGrpcIntegrationTests[]
+
+// FIXME https://github.com/spring-projects/spring-grpc/issues/397

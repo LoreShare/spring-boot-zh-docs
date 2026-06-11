@@ -1,0 +1,25 @@
+[[using.configuration-classes]]
+= 配置类
+
+Spring Boot 青睐基于 Java 的配置。
+虽然可以将 javadoc:org.springframework.boot.SpringApplication[] 与 XML 源一起使用，但我们通常建议您的主要源是一个单独的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类。
+通常，定义 `main` 方法的类作为主要的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 是一个不错的选择。
+
+提示：互联网上已经发布了许多使用 XML 配置的 Spring 配置示例。
+如果可能，请始终尝试使用等效的基于 Java 的配置。
+搜索 `+Enable*+` 注解可以是一个很好的起点。
+
+
+[[using.configuration-classes.importing-additional-configuration]]
+== 导入其他配置类
+
+您无需将所有 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 放入一个类中。
+javadoc:org.springframework.context.annotation.Import[format=annotation] 注解可用于导入其他配置类。
+或者，您可以使用 javadoc:org.springframework.context.annotation.ComponentScan[format=annotation] 自动检测所有 Spring 组件，包括 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类。
+
+
+[[using.configuration-classes.importing-xml-configuration]]
+== 导入 XML 配置
+
+如果您绝对必须使用基于 XML 的配置，我们建议您仍然从一个 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类开始。
+然后，您可以使用 javadoc:org.springframework.context.annotation.ImportResource[format=annotation] 注解来加载 XML 配置文件。

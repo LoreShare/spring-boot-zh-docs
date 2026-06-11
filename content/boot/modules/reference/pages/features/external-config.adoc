@@ -1,0 +1,1366 @@
+= 外部化配置
+
+Spring Boot 允许你将配置外部化，以便你可以在不同环境中使用相同的应用程序代码。
+你可以使用多种外部配置源，包括 Java 属性文件、YAML 文件、环境变量和命令行参数。
+
+属性值可以通过使用 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotation 直接注入到你的 beans 中，通过 Spring 的 javadoc:org.springframework.core.env.Environment[] 抽象访问，或者通过 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 进行 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties[bound to structured objects]。
+
+Spring Boot 使用一个非常特定的 javadoc:org.springframework.core.env.PropertySource[] 顺序，旨在允许合理的值覆盖。
+后面的属性源可以覆盖前面定义的属性值。
+
+[[features.external-config.order]]
+属性源按以下顺序考虑：
+
+. 默认属性（通过设置 javadoc:org.springframework.boot.SpringApplication#setDefaultProperties(java.util.Map)[] 指定）。
+. 在你的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上的 javadoc:org.springframework.context.annotation.PropertySource[format=annotation] annotations。
+  请注意，此类属性源在应用程序上下文刷新之前不会添加到 javadoc:org.springframework.core.env.Environment[] 中。
+  这对于配置某些属性（如 `+logging.*+` 和 `+spring.main.*+`）来说太晚了，这些属性在刷新开始之前就被读取。
+. 配置数据（例如 `application.properties` 文件）。
+. 一个仅在 `+random.*+` 中包含属性的 javadoc:org.springframework.boot.env.RandomValuePropertySource[]。
+. 操作系统环境变量。
+. Java 系统属性（`System.getProperties()`）。
+. 来自 `java:comp/env` 的 JNDI 属性。
+. javadoc:jakarta.servlet.ServletContext[] 初始化参数。
+. javadoc:jakarta.servlet.ServletConfig[] 初始化参数。
+. 来自 `SPRING_APPLICATION_JSON` 的属性（环境变量或系统属性中嵌入的内联 JSON）。
+. 命令行参数。
+. 你的测试上的 `properties` 属性。
+  可在 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 和 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-tests[test annotations for testing a particular slice of your application] 上使用。
+. 你的测试中的 javadoc:org.springframework.test.context.DynamicPropertySource[format=annotation] annotations。
+. 你的测试上的 javadoc:org.springframework.test.context.TestPropertySource[format=annotation] annotations。
+. 当 devtools 激活时，xref:using/devtools.adoc#using.devtools.globalsettings[Devtools global settings properties] 在 `$HOME/.config/spring-boot` 目录中。
+
+配置数据文件按以下顺序考虑：
+
+. 打包在你的 jar 内的 xref:features/external-config.adoc#features.external-config.files[Application properties]（`application.properties` 和 YAML 变体）。
+. 打包在你的 jar 内的 xref:features/external-config.adoc#features.external-config.files.profile-specific[Profile-specific application properties]（`application-\{profile}.properties` 和 YAML 变体）。
+. 打包在你的 jar 外部的 xref:features/external-config.adoc#features.external-config.files[Application properties]（`application.properties` 和 YAML 变体）。
+. 打包在你的 jar 外部的 xref:features/external-config.adoc#features.external-config.files.profile-specific[Profile-specific application properties]（`application-\{profile}.properties` 和 YAML 变体）。
+
+注意：建议为整个应用程序坚持使用一种格式。
+如果你在同一位置同时拥有 `.properties` 和 YAML 格式的配置文件，则 `.properties` 优先。
+
+注意：如果你使用环境变量而不是系统属性，大多数操作系统不允许使用句点分隔的键名，但你可以改用下划线（例如，configprop:spring.config.name[format=envvar] 而不是 configprop:spring.config.name[]）。
+详情请参见 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables[]。
+
+注意：如果你的应用程序在 servlet 容器或应用服务器中运行，则可以使用 JNDI 属性（在 `java:comp/env` 中）或 servlet 上下文初始化参数来代替环境变量或系统属性，或者同时使用。
+
+为了提供一个具体的例子，假设你开发了一个使用 `name` 属性的 javadoc:org.springframework.stereotype.Component[format=annotation]，如下例所示：
+
+include-code::MyBean[]
+
+在你的应用程序 classpath（例如，在你的 jar 内）上，你可以有一个 `application.properties` 文件，为 `name` 提供合理的默认属性值。
+在新环境中运行时，可以在你的 jar 外部提供一个 `application.properties` 文件来覆盖 `name`。
+对于一次性测试，你可以使用特定的命令行开关启动（例如，`java -jar app.jar --name="Spring"`）。
+
+提示：`env` 和 `configprops` endpoints 有助于确定属性为何具有特定值。
+你可以使用这两个 endpoints 来诊断意外的属性值。
+详情请参见 xref:actuator/endpoints.adoc[Production ready features] 部分。
+
+[[features.external-config.command-line-args]]
+== 访问命令行属性
+
+默认情况下，javadoc:org.springframework.boot.SpringApplication[] 将任何命令行选项参数（即以 `--` 开头的参数，例如 `--server.port=9000`）转换为 `property`，并将它们添加到 Spring javadoc:org.springframework.core.env.Environment[] 中。
+如前所述，命令行属性始终优先于基于文件的属性源。
+
+如果你不希望将命令行属性添加到 javadoc:org.springframework.core.env.Environment[] 中，你可以通过使用 `SpringApplication.setAddCommandLineProperties(false)` 来禁用它们。
+
+[[features.external-config.application-json]]
+== JSON 应用程序属性
+
+环境变量和系统属性通常有限制，意味着某些属性名称无法使用。
+为了帮助解决这个问题，Spring Boot 允许你将一组属性编码到单个 JSON 结构中。
+
+当你的应用程序启动时，任何 `spring.application.json` 或 `SPRING_APPLICATION_JSON` 属性都将被解析并添加到 javadoc:org.springframework.core.env.Environment[] 中。
+
+例如，`SPRING_APPLICATION_JSON` 属性可以在命令行中作为环境变量在 UN{asterisk}X shell 中提供：
+
+[source,shell]
+----
+$ SPRING_APPLICATION_JSON='{"my":{"name":"test"}}' java -jar myapp.jar
+----
+在前面的示例中，你最终会在 Spring javadoc:org.springframework.core.env.Environment[] 中得到 `my.name=test`。
+
+相同的 JSON 也可以作为系统属性提供：
+
+[source,shell]
+----
+$ java -Dspring.application.json='{"my":{"name":"test"}}' -jar myapp.jar
+----
+或者，你可以通过命令行参数提供 JSON：
+
+[source,shell]
+----
+$ java -jar myapp.jar --spring.application.json='{"my":{"name":"test"}}'
+----
+如果您部署到经典的应用服务器，也可以使用名为 `java:comp/env/spring.application.json` 的 JNDI 变量。
+
+注意：尽管 JSON 中的 `null` 值会被添加到最终的属性源中，但 javadoc:org.springframework.core.env.PropertySourcesPropertyResolver[] 将 `null` 属性视为缺失值。
+这意味着 JSON 无法使用 `null` 值覆盖来自较低顺序属性源的属性。
+
+
+[[features.external-config.files]]
+== 外部应用属性
+
+Spring Boot 会在应用程序启动时自动从以下位置查找并加载 `application.properties` 和 `application.yaml` 文件：
+
+. 从 classpath
+.. classpath 根目录
+.. classpath `/config` 包
+. 从当前目录
+.. 当前目录
+.. 当前目录下的 `config/` 子目录
+.. `config/` 子目录的直接子目录
+
+该列表按优先级排序（较低项的值会覆盖较早项）。
+加载文件中的文档会作为 javadoc:org.springframework.core.env.PropertySource[] 实例添加到 Spring javadoc:org.springframework.core.env.Environment[] 中。
+
+如果您不喜欢 `application` 作为配置文件名，可以通过指定 configprop:spring.config.name[] 环境属性切换到其他文件名。
+例如，要查找 `myproject.properties` 和 `myproject.yaml` 文件，可以按如下方式运行应用程序：
+
+[source,shell]
+----
+$ java -jar myproject.jar --spring.config.name=myproject
+----
+您也可以使用 configprop:spring.config.location[] 环境属性来指定显式位置。
+该属性接受一个逗号分隔的位置列表，用于检查一个或多个位置。
+
+以下示例展示了如何指定两个不同的文件：
+
+[source,shell]
+----
+$ java -jar myproject.jar --spring.config.location=\
+	optional:classpath:/default.properties,\
+	optional:classpath:/override.properties
+----
+提示：如果 xref:features/external-config.adoc#features.external-config.files.optional-prefix[locations are optional] 且你不介意它们不存在，请使用前缀 `optional:`。
+
+警告：`spring.config.name`、`spring.config.location` 和 `spring.config.additional-location` 在非常早期就被用来确定哪些文件需要加载。
+它们必须被定义为环境属性（通常是操作系统环境变量、系统属性或命令行参数）。
+
+如果 `spring.config.location` 包含目录（而非文件），它们应以 `/` 结尾。
+在运行时，它们会附加由 `spring.config.name` 生成的名称后再加载。
+在 `spring.config.location` 中指定的文件会直接导入。
+
+注意：目录和文件位置值也会被展开以检查 xref:features/external-config.adoc#features.external-config.files.profile-specific[profile-specific files]。
+例如，如果你有一个 `spring.config.location` 为 `classpath:myconfig.properties`，你也会发现相应的 `classpath:myconfig-<profile>.properties` 文件被加载。
+
+在大多数情况下，你添加的每个 configprop:spring.config.location[] 项都会引用单个文件或目录。
+位置按照定义的顺序处理，后面的位置可以覆盖前面的值。
+
+[[features.external-config.files.location-groups]]
+如果你有复杂的位置设置，并且使用了 profile 特定的配置文件，你可能需要提供进一步的提示，以便 Spring Boot 知道如何对它们进行分组。
+位置组是一组被视为同一层级的位置集合。
+例如，你可能想先对所有 classpath 位置进行分组，然后对所有外部位置进行分组。
+位置组内的项应使用 `;` 分隔。
+更多细节请参见 xref:features/external-config.adoc#features.external-config.files.profile-specific[] 部分中的示例。
+
+通过使用 `spring.config.location` 配置的位置会替换默认位置。
+例如，如果 `spring.config.location` 配置的值为 `optional:classpath:/custom-config/,optional:file:./custom-config/`，则考虑的完整位置集为：
+
+. `optional:classpath:custom-config/`
+. `optional:file:./custom-config/`
+
+如果你更倾向于添加额外位置而不是替换它们，可以使用 `spring.config.additional-location`。
+从额外位置加载的属性可以覆盖默认位置中的属性。
+例如，如果 `spring.config.additional-location` 配置的值为 `optional:classpath:/custom-config/,optional:file:./custom-config/`，则考虑的完整位置集为：
+
+. `optional:classpath:/;optional:classpath:/config/`
+. `optional:file:./;optional:file:./config/;optional:file:./config/*/`
+. `optional:classpath:custom-config/`
+. `optional:file:./custom-config/`
+
+这种搜索顺序让你可以在一个配置文件中指定默认值，然后在另一个文件中选择性地覆盖这些值。
+你可以在默认位置之一的 `application.properties`（或你通过 `spring.config.name` 选择的其他基本名称）中为你的应用程序提供默认值。
+这些默认值可以在运行时通过位于自定义位置中的不同文件进行覆盖。
+
+[[features.external-config.files.optional-prefix]]
+=== 可选位置
+
+默认情况下，当指定的配置数据位置不存在时，Spring Boot 会抛出 javadoc:org.springframework.boot.context.config.ConfigDataLocationNotFoundException[]，你的应用程序将无法启动。
+
+如果你希望指定一个位置，但不介意它是否始终存在，可以使用 `optional:` 前缀。
+你可以将此前缀与 `spring.config.location` 和 `spring.config.additional-location` 属性以及 xref:features/external-config.adoc#features.external-config.files.importing[`spring.config.import`] 声明一起使用。
+
+例如，`spring.config.import` 的值为 `optional:file:./myconfig.properties` 允许你的应用程序启动，即使 `myconfig.properties` 文件缺失。
+
+如果你想忽略所有 javadoc:org.springframework.boot.context.config.ConfigDataLocationNotFoundException[] 错误并始终继续启动应用程序，可以使用 `spring.config.on-not-found` 属性。
+使用 `SpringApplication.setDefaultProperties(...)` 或系统/环境变量将值设置为 `ignore`。
+
+[[features.external-config.files.wildcard-locations]]
+=== 通配符位置
+
+如果配置文件位置在最后一个路径段中包含 `{asterisk}` 字符，则被视为通配符位置。
+通配符在加载配置时展开，以便同时检查直接子目录。
+通配符位置在诸如 Kubernetes 等存在多个配置属性源的环境中特别有用。
+
+例如，如果你有一些 Redis 配置和一些 MySQL 配置，你可能希望将这两部分配置分开，同时要求它们都出现在一个 `application.properties` 文件中。
+这可能导致两个独立的 `application.properties` 文件挂载在不同的位置，例如 `/config/redis/application.properties` 和 `/config/mysql/application.properties`。
+在这种情况下，使用通配符位置 `config/*/` 将导致两个文件都被处理。
+
+默认情况下，Spring Boot 在默认搜索位置中包含 `config/*/`。
+这意味着将搜索 jar 外部的 `/config` 目录的所有子目录。
+
+你可以通过 `spring.config.location` 和 `spring.config.additional-location` 属性自行使用通配符位置。
+
+注意：通配符位置必须只包含一个 `{asterisk}`，并且对于目录的搜索位置以 `{asterisk}/` 结尾，对于文件的搜索位置以 `*/<filename>` 结尾。
+带有通配符的位置会根据文件名的绝对路径按字母顺序排序。
+
+提示：通配符位置仅适用于外部目录。
+你不能在 `classpath:` 位置中使用通配符。
+
+[[features.external-config.files.profile-specific]]
+=== Profile 特定文件
+
+除了 `application` 属性文件外，Spring Boot 还会尝试使用命名约定 `application-\{profile}` 加载 profile 特定的文件。
+例如，如果你的应用程序激活了一个名为 `prod` 的 profile 并使用 YAML 文件，那么 `application.yaml` 和 `application-prod.yaml` 都会被考虑。
+
+Profile 特定的属性从与标准 `application.properties` 相同的位置加载，profile 特定的文件总是覆盖非特定的文件。
+如果指定了多个 profiles，则采用最后获胜策略。
+例如，如果 profiles `prod,live` 由 configprop:spring.profiles.active[] 属性指定，则 `application-prod.properties` 中的值可以被 `application-live.properties` 中的值覆盖。
+
+[NOTE]
+====
+最后获胜策略适用于 xref:features/external-config.adoc#features.external-config.files.location-groups[location group] 级别。
+configprop:spring.config.location[] 为 `classpath:/cfg/,classpath:/ext/` 的覆盖规则与 `classpath:/cfg/;classpath:/ext/` 不同。
+
+例如，继续我们上面的 `prod,live` 示例，我们可能有以下文件：
+----
+/cfg
+  application-live.properties
+/ext
+  application-live.properties
+  application-prod.properties
+----
+当我们有一个 configprop:spring.config.location[] 的 `classpath:/cfg/,classpath:/ext/` 时，我们在所有 `/ext` 文件之前处理所有 `/cfg` 文件：
+
+. `/cfg/application-live.properties`
+. `/ext/application-prod.properties`
+. `/ext/application-live.properties`
+
+当我们有 `classpath:/cfg/;classpath:/ext/` 时（使用 `;` 分隔符），我们在同一级别处理 `/cfg` 和 `/ext`：
+
+. `/ext/application-prod.properties`
+. `/cfg/application-live.properties`
+. `/ext/application-live.properties`
+====
+
+javadoc:org.springframework.core.env.Environment[] 有一组默认的 profiles（默认情况下，`[default]`），如果没有设置活动的 profiles，则使用这些默认值。
+换句话说，如果没有显式激活 profiles，则考虑来自 `application-default` 的属性。
+
+注意：属性文件只加载一次。
+如果你已经直接 xref:features/external-config.adoc#features.external-config.files.importing[imported] 了一个 profile 特定的属性文件，则不会再次导入。
+
+
+[[features.external-config.files.importing]]
+=== 导入附加数据
+
+应用程序属性可以使用 configprop:spring.config.import[] 属性从其他位置导入更多配置数据。
+导入在发现时被处理，并被视为紧接在声明导入的文档下方插入的附加文档。
+
+例如，你可能在 classpath `application.properties` 文件中有以下内容：
+
+[configprops,yaml]
+----
+spring:
+  application:
+    name: "myapp"
+  config:
+    import: "optional:file:./dev.properties"
+----
+这将触发导入当前目录中的 `dev.properties` 文件（如果该文件存在）。
+来自导入的 `dev.properties` 中的值将优先于触发导入的文件中的值。
+在上面的示例中，`dev.properties` 可以将 `spring.application.name` 重新定义为不同的值。
+
+注意：无论声明多少次，一个导入只会被导入一次。
+
+默认情况下，属性文件使用 ISO-8859-1 字符集导入。要更改这一点，可以使用 encoding 属性：
+
+[configprops,yaml]
+----
+spring:
+  config:
+    import: "classpath:import.properties[encoding=utf-8]"
+----
+The `import.properties` file will now be read in UTF-8 encoding.
+
+[[features.external-config.files.importing.fixed-and-relative-paths]]
+==== 使用 "`Fixed`" 和 "`Import Relative`" 位置
+
+导入可以指定为 _固定_ 或 _导入相对_ 位置。
+固定位置始终解析为相同的底层资源，无论 configprop:spring.config.import[] 属性在哪里声明。
+导入相对位置相对于声明 configprop:spring.config.import[] 属性的文件进行解析。
+
+以斜杠（`/`）或 URL 风格前缀（`file:`、`classpath:` 等）开头的位置被视为固定位置。
+所有其他位置被视为导入相对位置。
+
+注意：在确定位置是固定还是导入相对时，不考虑 `optional:` 前缀。
+
+例如，假设我们有一个 `/demo` 目录，其中包含我们的 `application.jar` 文件。
+我们可以添加一个包含以下内容的 `/demo/application.properties` 文件：
+
+[source,properties]
+----
+spring.config.import=optional:core/core.properties
+----
+这是一个相对位置的导入，因此如果文件 `/demo/core/core.properties` 存在，它将尝试加载该文件。
+
+如果 `/demo/core/core.properties` 包含以下内容：
+
+[source,properties]
+----
+spring.config.import=optional:extra/extra.properties
+----
+它将尝试加载 `/demo/core/extra/extra.properties`。
+`optional:extra/extra.properties` 相对于 `/demo/core/core.properties`，因此完整目录为 `/demo/core/` + `extra/extra.properties`。
+
+[[features.external-config.files.importing.import-property-order]]
+==== 属性顺序
+
+在 properties/yaml 文件的单个文档中，导入定义的顺序无关紧要。
+例如，以下两个示例产生相同的结果：
+
+[configprops%novalidate,yaml]
+----
+spring:
+  config:
+    import: "my.properties"
+my:
+  property: "value"
+----
+
+[configprops%novalidate,yaml]
+----
+my:
+  property: "value"
+spring:
+  config:
+    import: "my.properties"
+----
+在上述两个示例中，来自 `my.properties` 文件的值将优先于触发其导入的文件。
+
+可以在单个 `spring.config.import` 键下指定多个位置。
+位置将按照定义的顺序处理，后导入的优先级更高。
+
+注意：在适当的情况下，xref:features/external-config.adoc#features.external-config.files.profile-specific[Profile-specific variants] 也会被考虑导入。
+上面的示例将同时导入 `my.properties` 以及任何 `my-<profile>.properties` 变体。
+
+[TIP]
+====
+Spring Boot 包含可插拔 API，允许支持各种不同的位置地址。
+默认情况下，您可以导入 Java Properties、YAML 和 xref:features/external-config.adoc#features.external-config.files.configtree[configuration trees]。
+
+第三方 jar 可以提供对其他技术的支持（不要求文件是本地文件）。
+例如，您可以想象来自外部存储（如 Consul、Apache ZooKeeper 或 Netflix Archaius）的配置数据。
+
+如果您想支持自己的位置，请参阅 javadoc:org.springframework.boot.context.config.ConfigDataLocationResolver[] 和 javadoc:org.springframework.boot.context.config.ConfigDataLoader[] 类，它们位于 `org.springframework.boot.context.config` 包中。
+====
+
+
+[[features.external-config.files.importing-extensionless]]
+=== 导入无扩展名的文件
+
+某些云平台无法为卷挂载的文件添加文件扩展名。
+要导入这些无扩展名的文件，您需要给 Spring Boot 一个提示，以便它知道如何加载它们。
+您可以通过在方括号中放置扩展名提示来实现这一点。
+
+例如，假设您有一个 `/etc/config/myconfig` 文件，希望将其作为 yaml 导入。
+您可以使用以下方式从 `application.properties` 导入它：
+
+[configprops,yaml]
+----
+spring:
+  config:
+    import: "file:/etc/config/myconfig[.yaml]"
+----
+这是以下内容的简写形式：
+
+[configprops,yaml]
+----
+spring:
+  config:
+    import: "file:/etc/config/myconfig[extension=.yaml]"
+----
+[[features.external-config.files.attributes]]
+=== 文件属性
+
+configprop:spring.config.import[] 配置属性支持文件属性，如指定 xref:features/external-config.adoc#features.external-config.files.importing[encoding] 或 xref:features/external-config.adoc#features.external-config.files.importing-extensionless[extension] 时所示。
+
+如果需要指定多个属性，可以使用以下语法：
+
+[configprops,yaml]
+----
+spring:
+  config:
+    import: "file:/etc/config/myconfig[extension=.yaml][encoding=utf-8]"
+----
+[[features.external-config.files.env-variables]]
+=== 使用环境变量
+
+在云平台（如 Kubernetes）上运行应用程序时，通常需要读取平台提供的配置值。
+为此，你可以使用环境变量，也可以使用 xref:reference:features/external-config.adoc#features.external-config.files.configtree[configuration trees]。
+
+你甚至可以将整个配置以 properties 或 yaml 格式存储在（多行）环境变量中，并使用 `env:` 前缀加载它们。
+假设有一个名为 `MY_CONFIGURATION` 的环境变量，其内容如下：
+
+[source,properties]
+----
+my.name=Service1
+my.cluster=Cluster1
+----
+使用 `env:` 前缀，可以从此变量导入所有属性：
+
+[configprops,yaml]
+----
+spring:
+  config:
+    import: "env:MY_CONFIGURATION"
+----
+提示：此功能也支持 xref:reference:features/external-config.adoc#features.external-config.files.importing-extensionless[specifying the extension]。
+默认扩展名为 `.properties`。
+
+
+[[features.external-config.files.configtree]]
+=== 使用配置树
+
+将配置值存储在环境变量中有缺点，尤其是当该值需要保密时。
+
+作为环境变量的替代方案，许多云平台现在允许你将配置映射到挂载的数据卷中。
+例如，Kubernetes 可以卷挂载 https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#populate-a-volume-with-data-stored-in-a-configmap[`ConfigMaps`] 和 https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod[`Secrets`]。
+
+有两种常见的卷挂载模式可以使用：
+
+. 单个文件包含一组完整的属性（通常以 YAML 形式编写）。
+. 多个文件写入目录树，文件名成为 '`key`'，内容成为 '`value`'。
+
+对于第一种情况，你可以直接使用 `spring.config.import` 导入 YAML 或 Properties 文件，如 xref:features/external-config.adoc#features.external-config.files.importing[above] 所述。
+对于第二种情况，你需要使用 `configtree:` 前缀，以便 Spring Boot 知道它需要将所有文件公开为属性。
+
+例如，假设 Kubernetes 挂载了以下卷：
+
+[source]
+----
+etc/
+  config/
+    myapp/
+      username
+      password
+----
+The contents of the `username` file would be a config value, and the contents of `password` would be a secret.
+
+To import these properties, you can add the following to your `application.properties` or `application.yaml` file:
+
+[configprops,yaml]
+----
+spring:
+  config:
+    import: "optional:configtree:/etc/config/"
+----
+然后，你可以像往常一样从 javadoc:org.springframework.core.env.Environment[] 访问或注入 `myapp.username` 和 `myapp.password` 属性。
+
+提示：配置树下的文件夹和文件名构成属性名。
+在上面的例子中，要访问属性 `username` 和 `password`，你可以将 `spring.config.import` 设置为 `optional:configtree:/etc/config/myapp`。
+
+注意：带点号的文件名也会被正确映射。
+例如，在上面的例子中，`/etc/config` 中名为 `myapp.username` 的文件会导致 javadoc:org.springframework.core.env.Environment[] 中出现 `myapp.username` 属性。
+
+提示：配置树的值可以根据预期内容绑定到字符串 javadoc:java.lang.String[] 和 `byte[]` 类型。
+
+如果你要从同一个父文件夹导入多个配置树，可以使用通配符快捷方式。
+任何以 `/*/` 结尾的 `configtree:` 位置都会导入所有直接子目录作为配置树。
+与非通配符导入一样，每个配置树下的文件夹和文件名构成属性名。
+
+例如，给定以下卷：
+
+[source]
+----
+etc/
+  config/
+    dbconfig/
+      db/
+        username
+        password
+    mqconfig/
+      mq/
+        username
+        password
+----
+您可以使用 `configtree:/etc/config/*/` 作为导入位置：
+
+[configprops,yaml]
+----
+spring:
+  config:
+    import: "optional:configtree:/etc/config/*/"
+----
+这将添加 `db.username`、`db.password`、`mq.username` 和 `mq.password` 属性。
+
+注意：使用通配符加载的目录会按字母顺序排序。
+如果需要不同的顺序，则应将每个位置列为单独的导入。
+
+配置树也可以用于 Docker secrets。
+当 Docker swarm 服务被授予对 secret 的访问权限时，该 secret 会被挂载到容器中。
+例如，如果一个名为 `db.password` 的 secret 被挂载到位置 `/run/secrets/`，你可以通过以下方式使 `db.password` 在 Spring 环境中可用：
+
+[configprops,yaml]
+----
+spring:
+  config:
+    import: "optional:configtree:/run/secrets/"
+----
+=== 属性占位符
+
+`application.properties` 和 `application.yaml` 中的值在使用时会通过现有的 javadoc:org.springframework.core.env.Environment[] 进行过滤，因此你可以引用先前定义的值（例如，来自系统属性或环境变量）。标准的 `$\{name}` 属性占位符语法可以在值中的任何位置使用。属性占位符还可以使用 `:` 指定默认值，将默认值与属性名称分隔开，例如 `${name:default}`。
+
+以下示例展示了使用带默认值和不带默认值的占位符：
+
+[configprops%novalidate,yaml]
+----
+app:
+  name: "MyApp"
+  description: "${app.name} is a Spring Boot application written by ${username:Unknown}"
+----
+假设 `username` 属性尚未在其他地方设置，`app.description` 将具有值 `MyApp is a Spring Boot application written by Unknown`。
+
+[NOTE]
+====
+在占位符中引用属性名称时，应始终使用其规范形式（仅使用小写字母的 kebab-case 形式）。
+这将使 Spring Boot 能够使用与 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding[relaxed binding] javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 时相同的逻辑。
+
+例如，`${demo.item-price}` 将从 `application.properties` 文件中获取 `demo.item-price` 和 `demo.itemPrice` 形式，并从系统环境中获取 `DEMO_ITEMPRICE`。
+如果使用 `${demo.itemPrice}`，它将从 `application.properties` 文件中获取 `demo.itemPrice` 形式，并从系统环境中获取 `DEMO_ITEMPRICE`，但 `demo.item-price` 将不会被考虑。
+====
+
+提示：你也可以使用此技术为现有的 Spring Boot 属性创建“`short`”变体。
+详情请参阅“`How-to Guides`”中的 xref:how-to:properties-and-configuration.adoc#howto.properties-and-configuration.short-command-line-arguments[] 部分。
+
+
+
+[[features.external-config.files.multi-document]]
+=== 使用多文档文件
+
+Spring Boot 允许你将单个物理文件拆分为多个逻辑文档，每个文档独立添加。
+文档按从上到下的顺序处理。
+后面的文档可以覆盖前面文档中定义的属性。
+
+对于 `application.yaml` 文件，使用标准的 YAML 多文档语法。
+三个连续的连字符表示一个文档的结束和下一个文档的开始。
+
+例如，以下文件包含两个逻辑文档：
+
+[source,yaml]
+----
+spring:
+  application:
+    name: "MyApp"
+---
+spring:
+  application:
+    name: "MyCloudApp"
+  config:
+    activate:
+      on-cloud-platform: "kubernetes"
+----
+对于 `application.properties` 文件，使用特殊的 `#---` 或 `!---` 注释来标记文档分割：
+
+[source,properties]
+----
+spring.application.name=MyApp
+#---
+spring.application.name=MyCloudApp
+spring.config.activate.on-cloud-platform=kubernetes
+----
+NOTE: 属性文件分隔符前面不能有空格，且必须恰好包含三个连字符。
+分隔符前后的行不能是相同的注释前缀。
+
+TIP: 多文档属性文件通常与激活属性（如 `spring.config.activate.on-profile`）结合使用。
+详情请参见 xref:features/external-config.adoc#features.external-config.files.activation-properties[next section]。
+
+WARNING: 多文档属性文件无法通过 javadoc:org.springframework.context.annotation.PropertySource[format=annotation] 或 javadoc:org.springframework.test.context.TestPropertySource[format=annotation] annotations 加载。
+
+
+[[features.external-config.files.activation-properties]]
+=== 激活属性
+
+有时，仅在满足特定条件时激活一组属性会很有用。
+例如，您可能拥有仅在特定 profile 处于活动状态时才相关的属性。
+
+您可以使用 `spring.config.activate.*` 有条件地激活属性文档。
+
+以下激活属性可用：
+
+.激活属性
+[cols="1,4"]
+|===
+| 属性 | 说明
+
+| `on-profile`
+| 一个必须匹配才能使文档处于活动状态的 profile 表达式，或者一个 profile 表达式列表，其中至少有一个必须匹配才能使文档处于活动状态。
+
+| `on-cloud-platform`
+| 必须检测到 javadoc:org.springframework.boot.cloud.CloudPlatform[] 才能使文档处于活动状态。
+|===
+
+例如，以下内容指定第二个文档仅在运行于 Kubernetes 时处于活动状态，并且仅当 "`prod`" 或 "`staging`" profiles 处于活动状态时：
+
+[configprops%novalidate,yaml]
+----
+myprop:
+  "always-set"
+---
+spring:
+  config:
+    activate:
+      on-cloud-platform: "kubernetes"
+      on-profile: "prod | staging"
+myotherprop: "sometimes-set"
+----
+[[features.external-config.encrypting]]
+== 加密属性
+
+Spring Boot 不提供任何对属性值加密的内置支持，但它确实提供了必要的钩子点，用于修改 Spring javadoc:org.springframework.core.env.Environment[] 中包含的值。
+javadoc:org.springframework.boot.EnvironmentPostProcessor[] 接口允许你在应用程序启动前操作 javadoc:org.springframework.core.env.Environment[]。
+详情请参见 xref:how-to:application.adoc#howto.application.customize-the-environment-or-application-context[]。
+
+如果你需要一种安全的方式来存储凭据和密码，https://cloud.spring.io/spring-cloud-vault/[Spring Cloud Vault] 项目提供了在 https://www.vaultproject.io/[HashiCorp Vault] 中存储外部化配置的支持。
+
+[[features.external-config.yaml]]
+== 使用 YAML
+
+https://yaml.org[YAML] 是 JSON 的超集，因此是指定分层配置数据的便捷格式。
+当你的 classpath 上有 https://github.com/snakeyaml/snakeyaml[SnakeYAML] 库时，javadoc:org.springframework.boot.SpringApplication[] 类会自动支持 YAML 作为 properties 的替代方案。
+
+注意：如果你使用 starters，SnakeYAML 由 `spring-boot-starter` 自动提供。
+
+[[features.external-config.yaml.mapping-to-properties]]
+=== 将 YAML 映射为属性
+
+YAML 文档需要从其分层格式转换为可与 Spring javadoc:org.springframework.core.env.Environment[] 一起使用的扁平结构。
+例如，考虑以下 YAML 文档：
+
+[source,yaml]
+----
+environments:
+  dev:
+    url: "https://dev.example.com"
+    name: "Developer Setup"
+  prod:
+    url: "https://another.example.com"
+    name: "My Cool App"
+----
+为了从 javadoc:org.springframework.core.env.Environment[] 访问这些属性，它们会被展平如下：
+
+[source,properties]
+----
+environments.dev.url=https://dev.example.com
+environments.dev.name=Developer Setup
+environments.prod.url=https://another.example.com
+environments.prod.name=My Cool App
+----
+同样，YAML 列表也需要被展平。
+它们被表示为带有 `[index]` 解引用器的属性键。
+例如，考虑以下 YAML：
+
+[source,yaml]
+----
+ my:
+  servers:
+  - "dev.example.com"
+  - "another.example.com"
+----
+前面的示例将被转换为以下属性：
+
+[source,properties]
+----
+my.servers[0]=dev.example.com
+my.servers[1]=another.example.com
+----
+TIP: 使用 `[index]` 表示法的属性可以通过 Spring Boot 的 javadoc:org.springframework.boot.context.properties.bind.Binder[] 类绑定到 Java javadoc:java.util.List[] 或 javadoc:java.util.Set[] 对象。
+更多详情请参见下面的 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties[] 部分。
+
+WARNING: 无法通过 javadoc:org.springframework.context.annotation.PropertySource[format=annotation] 或 javadoc:org.springframework.test.context.TestPropertySource[format=annotation] annotations 加载 YAML 文件。
+因此，如果你需要以这种方式加载值，必须使用 properties 文件。
+
+
+[[features.external-config.yaml.directly-loading]]
+=== 直接加载 YAML
+
+Spring 框架提供了两个方便的类，可用于加载 YAML 文档。
+javadoc:org.springframework.beans.factory.config.YamlPropertiesFactoryBean[] 将 YAML 加载为 javadoc:java.util.Properties[]，而 javadoc:org.springframework.beans.factory.config.YamlMapFactoryBean[] 将 YAML 加载为 javadoc:java.util.Map[]。
+
+如果你希望将 YAML 加载为 Spring javadoc:org.springframework.core.env.PropertySource[]，也可以使用 javadoc:org.springframework.boot.env.YamlPropertySourceLoader[] 类。
+
+
+[[features.external-config.random-values]]
+== 配置随机值
+
+javadoc:org.springframework.boot.env.RandomValuePropertySource[] 对于注入随机值（例如，用于密钥或测试用例）非常有用。
+它可以生成整数、长整数、UUID 或字符串，如下例所示：
+
+[configprops%novalidate,yaml]
+----
+my:
+  secret: "${random.value}"
+  number: "${random.int}"
+  bignumber: "${random.long}"
+  uuid: "${random.uuid}"
+  number-less-than-ten: "${random.int(10)}"
+  number-in-range: "${random.int[1024,65536]}"
+----
+The `+random.int*+` syntax is `OPEN value (,max) CLOSE` where the `OPEN,CLOSE` are any character and `value,max` are integers.
+If `max` is provided, then `value` is the minimum value and `max` is the maximum value (exclusive).
+
+
+[[features.external-config.system-environment]]
+== 配置系统环境属性
+
+Spring Boot 支持为环境属性设置前缀。
+当系统环境被多个具有不同配置需求的 Spring Boot 应用程序共享时，这非常有用。
+系统环境属性的前缀可以直接在 javadoc:org.springframework.boot.SpringApplication[] 上通过调用 `setEnvironmentPrefix(...)` 方法在应用程序运行前设置。
+
+例如，如果你将前缀设置为 `input`，那么像 `remote.timeout` 这样的属性将在系统环境中被解析为 `INPUT_REMOTE_TIMEOUT`。
+
+注意：前缀_仅_适用于系统环境属性。
+上面的示例在从其他来源读取属性时将继续使用 `remote.timeout`。
+
+
+[[features.external-config.typesafe-configuration-properties]]
+== 类型安全的配置属性
+
+使用 `@Value("$\{property}")` annotation 来注入配置属性有时会很繁琐，尤其是在处理多个属性或数据具有层次结构时。
+Spring Boot 提供了另一种处理属性的方法，允许强类型的 beans 管理和验证应用程序的配置。
+
+提示：另请参阅 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.vs-value-annotation[differences between javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] and type-safe configuration properties]。
+
+
+[[features.external-config.typesafe-configuration-properties.java-bean-binding]]
+=== JavaBean 属性绑定
+
+可以将声明标准 JavaBean 属性的 bean 绑定，如下例所示：
+
+include-code::MyProperties[]
+
+上述 POJO 定义了以下属性：
+
+* `my.service.enabled`，默认值为 `false`。
+* `my.service.remote-address`，类型可从 javadoc:java.lang.String[] 强制转换。
+* `my.service.security.username`，包含一个嵌套的 "security" 对象，其名称由属性名称决定。
+  特别是，类型在那里完全不被使用，本可以是 javadoc:org.springframework.boot.security.autoconfigure.SecurityProperties[]。
+* `my.service.security.password`。
+* `my.service.security.roles`，包含一个 javadoc:java.lang.String[] 集合，默认为 `USER`。
+
+提示：要在属性名称中使用保留关键字（如 `my.service.import`），请在属性字段上使用 javadoc:org.springframework.boot.context.properties.bind.Name[format=annotation] annotation。
+
+注意：映射到 Spring Boot 中可用的 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类的属性（这些类通过属性文件、YAML 文件、环境变量和其他机制进行配置）是公共 API，但类本身的访问器（getter/setter）不应直接使用。
+
+[NOTE]
+====
+这种安排依赖于默认的空构造函数，并且 getter 和 setter 通常是必需的，因为绑定是通过标准的 Java Beans 属性描述符进行的，就像在 Spring MVC 中一样。
+在以下情况下可以省略 setter：
+
+* 预初始化的 Maps 和 Collections，只要它们使用可变实现初始化（如前面示例中的 `roles` 字段）。
+* 预初始化的嵌套 POJO（如前面示例中的 `Security` 字段）。
+  如果你希望绑定器使用其默认构造函数动态创建实例，则需要 setter。
+
+有些人使用 Project Lombok 自动添加 getter 和 setter。
+确保 Lombok 不会为此类生成任何特定的构造函数，因为容器会自动使用它来实例化对象。
+
+最后，只考虑标准的 Java Bean 属性，不支持对静态属性的绑定。
+====
+
+
+[[features.external-config.typesafe-configuration-properties.constructor-binding]]
+=== 构造函数绑定
+
+上一节中的示例可以以不可变的方式重写，如下例所示：
+
+include-code::MyProperties[]
+
+在这种设置中，存在单个参数化构造函数意味着应使用构造函数绑定。
+这意味着绑定器将找到一个包含你想要绑定的参数的构造函数。
+如果你的类有多个构造函数，可以使用 javadoc:org.springframework.boot.context.properties.bind.ConstructorBinding[format=annotation] annotation 来指定用于构造函数绑定的构造函数。
+
+要选择退出类的构造函数绑定，必须使用 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] 注解参数化构造函数或将其设为 `private`。
+Kotlin 开发人员可以使用空的主构造函数来选择退出构造函数绑定。
+
+例如：
+
+include-code::primaryconstructor/MyProperties[]
+
+构造函数绑定可以与 records 一起使用。
+除非你的 record 有多个构造函数，否则无需使用 javadoc:org.springframework.boot.context.properties.bind.ConstructorBinding[format=annotation]。
+
+构造函数绑定类的嵌套成员（如上例中的 `Security`）也将通过其构造函数进行绑定。
+
+注意：要使用构造函数绑定，必须使用 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 或配置属性扫描启用该类。
+你不能将构造函数绑定与由常规 Spring 机制创建的 beans 一起使用（例如 javadoc:org.springframework.stereotype.Component[format=annotation] beans、使用 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法创建的 beans 或使用 javadoc:org.springframework.context.annotation.Import[format=annotation] 加载的 beans）。
+
+注意：要使用构造函数绑定，类必须使用 `-parameters` 编译。
+如果你使用 Spring Boot 的 Gradle 插件或使用 Maven 和 `spring-boot-starter-parent`，这将自动发生。
+
+注意：不推荐将 javadoc:java.util.Optional[] 与 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 一起使用，因为它主要用作返回类型。
+因此，它不太适合配置属性注入。
+为了与其他类型的属性保持一致，如果你确实声明了一个 javadoc:java.util.Optional[] 属性且它没有值，则将绑定 `null` 而不是空的 javadoc:java.util.Optional[]。
+
+提示：要在属性名称中使用保留关键字（如 `my.service.import`），请在构造函数参数上使用 javadoc:org.springframework.boot.context.properties.bind.Name[format=annotation] annotation。
+
+
+[[features.external-config.typesafe-configuration-properties.constructor-binding.default-values]]
+==== @DefaultValue 和绑定
+
+可以使用 javadoc:org.springframework.boot.context.properties.bind.DefaultValue[format=annotation] 在构造函数参数和 record 组件上指定默认值。
+转换服务将用于将 annotation 的 javadoc:java.lang.String[] 值强制转换为缺失属性的目标类型。
+
+在上面的 `MyProperties` 示例中，你可以看到嵌套的 `Security` 类对 `roles` 参数使用了 `@DefaultValue("USER")`。
+这意味着如果定义了 `security` 属性，但未定义 `roles`，则将绑定默认值 `"USER"`。
+
+例如，以下属性：
+
+[configprops%novalidate,yaml]
+----
+my:
+  service:
+    enabled: true
+    security:
+      username: admin
+----
+将被绑定为 `new MyProperties(true, null, new Security("admin", null, List.of("USER")))`
+
+如果 `security` 属性完全不存在，那么 `Security` 实例将为 `null`。
+
+例如，以下属性：
+
+[configprops%novalidate,yaml]
+----
+my:
+  service:
+    enabled: true
+----
+将被绑定为 `new MyProperties(true, null, null)`
+
+[NOTE]
+====
+如果您想触发与完全默认的 `Security` 实例的绑定，可以定义一个空的 `security` 属性。
+
+对于 YAML，您可以使用以下语法：
+
+[,yaml]
+----
+my:
+  service:
+    enabled: true
+    security: {}
+----
+使用 `Properties` 你可以使用：
+
+[,properties]
+----
+my.service.enabled=true
+my.service.security=
+----
+将被绑定为 `new MyProperties(true, null, new Security(null, null, List.of("USER")))`
+====
+
+如果你希望始终绑定一个非空的 `Security` 实例，即使属性缺失，也可以使用空的 javadoc:org.springframework.boot.context.properties.bind.DefaultValue[format=annotation] annotation：
+
+include-code::nonnull/MyProperties[tag=*]
+
+提示：使用 Kotlin 时，你需要将 `username` 和 `password` 参数声明为可空，因为它们没有默认值
+
+
+
+[[features.external-config.typesafe-configuration-properties.default-values]]
+=== 默认值
+
+配置属性中定义的默认值不会反映在 javadoc:org.springframework.core.env.Environment[] 中。
+在上面的例子中，绑定到 `my.service` 的 `MyProperties` 的 `enabled` 属性默认是 `false`。
+
+然而，如果用户没有设置该属性，`my.service.enabled` 在 `Environment` 中不可用，其值为 `false`。
+具体来说，这阻止你在没有显式提供默认值的情况下，将 `@Value(${"my.service.enabled"})` 或 `my.service.enabled` 用作配置属性中的占位符。
+如果你需要查询该属性的 javadoc:org.springframework.core.env.Environment[]，例如在 javadoc:org.springframework.context.annotation.Condition[] 实现中，也需要提供默认值。
+
+
+
+[[features.external-config.typesafe-configuration-properties.enabling-annotated-types]]
+=== 启用 @ConfigurationProperties 注解的类型
+
+Spring Boot 提供了绑定 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类型并将其注册为 beans 的基础设施。
+你可以逐个类地启用配置属性，也可以启用类似于组件扫描的配置属性扫描。
+
+有时，使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的类可能不适合扫描，例如，如果你正在开发自己的 auto-configuration 或希望有条件地启用它们。
+在这些情况下，使用 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] annotation 指定要处理的类型列表。
+这可以在任何 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上完成，如下例所示：
+
+include-code::MyConfiguration[]
+include-code::SomeProperties[]
+
+要使用配置属性扫描，请将 javadoc:org.springframework.boot.context.properties.ConfigurationPropertiesScan[format=annotation] annotation 添加到你的应用程序中。
+通常，它被添加到使用 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 注解的主应用程序类上，但也可以添加到任何 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上。
+默认情况下，扫描将从声明 annotation 的类的包开始。
+如果你想定义要扫描的特定包，可以按如下示例操作：
+
+include-code::MyApplication[]
+
+[NOTE]
+====
+当 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] bean 通过配置属性扫描或 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 注册时，bean 有一个约定名称：`<prefix>-<fqn>`，其中 `<prefix>` 是在 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] annotation 中指定的环境键前缀，`<fqn>` 是 bean 的全限定名。
+如果 annotation 没有提供任何前缀，则只使用 bean 的全限定名。
+
+假设它在 `com.example.app` 包中，上面 `SomeProperties` 示例的 bean 名称是 `some.properties-com.example.app.SomeProperties`。
+====
+
+我们建议 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 只处理环境，尤其不要从上下文中注入其他 beans。
+对于特殊情况，可以使用 setter 注入或框架提供的任何 `*Aware` 接口（例如，如果需要访问 javadoc:org.springframework.core.env.Environment[]，可以使用 javadoc:org.springframework.context.EnvironmentAware[]）。
+如果你仍然想使用构造函数注入其他 beans，则配置属性 bean 必须使用 javadoc:org.springframework.stereotype.Component[format=annotation] 注解，并使用基于 JavaBean 的属性绑定。
+
+
+
+[[features.external-config.typesafe-configuration-properties.using-annotated-types]]
+=== 使用 @ConfigurationProperties 注解的类型
+
+这种配置风格特别适用于 javadoc:org.springframework.boot.SpringApplication[] 外部 YAML 配置，如下例所示：
+
+[source,yaml]
+----
+my:
+  service:
+    remote-address: 192.168.1.1
+    security:
+      username: "admin"
+      roles:
+      - "USER"
+      - "ADMIN"
+----
+
+
+要使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans，你可以像注入任何其他 bean 一样注入它们，如下例所示：
+
+include-code::MyService[]
+
+提示：使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 还可以生成元数据文件，IDE 可以利用这些文件为你自己的键提供自动补全。
+详情请参见 xref:specification:configuration-metadata/index.adoc[appendix]。
+
+
+
+[[features.external-config.typesafe-configuration-properties.third-party-configuration]]
+=== 第三方配置
+
+除了使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解类之外，你还可以在公共的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法上使用它。
+当你想要将属性绑定到你无法控制的第三方组件时，这样做特别有用。
+
+要从 javadoc:org.springframework.core.env.Environment[] 属性配置 bean，请将 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 添加到其 bean 注册中，如下例所示：
+
+include-code::ThirdPartyConfiguration[]
+
+任何以 `another` 前缀定义的 JavaBean 属性都会以类似于前面 `SomeProperties` 示例的方式映射到该 `AnotherComponent` bean。
+
+
+
+[[features.external-config.typesafe-configuration-properties.relaxed-binding]]
+=== 宽松绑定
+
+Spring Boot 使用一些宽松规则将 javadoc:org.springframework.core.env.Environment[] 属性绑定到 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans，因此 javadoc:org.springframework.core.env.Environment[] 属性名称和 bean 属性名称之间不需要完全匹配。
+常见的例子包括短横线分隔的环境属性（例如，`context-path` 绑定到 `contextPath`）和大写的环境属性（例如，`PORT` 绑定到 `port`）。
+
+例如，考虑以下 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类：
+
+include-code::MyPersonProperties[]
+
+使用上述代码，以下所有属性名称都可以使用：
+
+.宽松绑定
+[cols="1,4"]
+|===
+| 属性 | 说明
+
+| `my.main-project.person.first-name`
+| 短横线命名法，推荐在 `.properties` 和 YAML 文件中使用。
+
+| `my.main-project.person.firstName`
+| 标准驼峰命名法。
+
+| `my.main-project.person.first_name`
+| 下划线表示法，是在 `.properties` 和 YAML 文件中使用的替代格式。
+
+| `MY_MAINPROJECT_PERSON_FIRSTNAME`
+| 大写格式，推荐在使用系统环境变量时使用。
+|===
+
+注意：annotation 的 `prefix` 值_必须_是短横线命名法（小写并用 `-` 分隔，例如 `my.main-project.person`）。
+
+.按属性源的宽松绑定规则
+[cols="2,4,4"]
+|===
+| 属性源 | 简单 | 列表
+
+| 属性文件
+| 驼峰命名法、短横线命名法或下划线表示法
+| 使用 `[ ]` 或逗号分隔值的标准列表语法
+
+| YAML 文件
+| 驼峰命名法、短横线命名法或下划线表示法
+| 标准 YAML 列表语法或逗号分隔值
+
+| 环境变量
+| 使用下划线作为分隔符的大写格式（参见 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables[]）
+| 数字值用下划线包围（参见 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables[]）
+
+| 系统属性
+| 驼峰命名法、短横线命名法或下划线表示法
+| 使用 `[ ]` 或逗号分隔值的标准列表语法
+|===
+
+提示：我们建议，在可能的情况下，属性以小写短横线格式存储，例如 `my.person.first-name=Rod`。
+
+
+
+[[features.external-config.typesafe-configuration-properties.relaxed-binding.maps]]
+==== 绑定映射
+
+当绑定到 javadoc:java.util.Map[] 属性时，你可能需要使用特殊的括号表示法，以便保留原始的 `key` 值。
+如果键没有被 `[]` 包围，任何非字母数字、`-` 或 `.` 的字符都会被移除。
+
+例如，考虑将以下属性绑定到 `Map<String,String>`：
+
+[configprops%novalidate,yaml]
+----
+my:
+  map:
+    "[/key1]": "value1"
+    "[/key2]": "value2"
+    "/key3": "value3"
+----
+NOTE: 对于 YAML 文件，键需要被引号包围才能正确解析括号。
+
+上述属性将绑定到一个 javadoc:java.util.Map[]，其中 `/key1`、`/key2` 和 `key3` 作为映射中的键。
+`key3` 中的斜杠已被移除，因为它没有被方括号包围。
+
+当绑定到标量值时，包含 `.` 的键不需要被 `[]` 包围。
+标量值包括枚举和 `java.lang` 包中除 javadoc:java.lang.Object[] 之外的所有类型。
+将 `a.b=c` 绑定到 `Map<String, String>` 将保留键中的 `.`，并返回一个包含条目 `{"a.b"="c"}` 的 Map。
+对于任何其他类型，如果你的 `key` 包含 `.`，则需要使用括号表示法。
+例如，将 `a.b=c` 绑定到 `Map<String, Object>` 将返回一个包含条目 `{"a"={"b"="c"}}` 的 Map，而 `[a.b]=c` 将返回一个包含条目 `{"a.b"="c"}` 的 Map。
+
+
+
+[[features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables]]
+==== 从环境变量绑定
+
+大多数操作系统对可用于环境变量的名称施加了严格的规则。
+例如，Linux shell 变量只能包含字母（`a` 到 `z` 或 `A` 到 `Z`）、数字（`0` 到 `9`）或下划线字符（`_`）。
+按照惯例，Unix shell 变量的名称也通常使用大写字母。
+
+Spring Boot 的宽松绑定规则尽可能设计为与这些命名限制兼容。
+
+要将规范形式的属性名称转换为环境变量名称，可以遵循以下规则：
+
+* 将点（`.`）替换为下划线（`_`）。
+* 移除任何破折号（`-`）。
+* 转换为大写。
+
+例如，配置属性 `spring.main.log-startup-info` 将对应环境变量名称 `SPRING_MAIN_LOGSTARTUPINFO`。
+
+环境变量也可以用于绑定到对象列表。
+要绑定到 javadoc:java.util.List[]，元素编号应在变量名称中用下划线包围。
+
+例如，配置属性 `my.service[0].other` 将使用环境变量名称 `MY_SERVICE_0_OTHER`。
+
+从环境变量绑定的支持应用于 `systemEnvironment` 属性源以及任何名称以 `-systemEnvironment` 结尾的附加属性源。
+
+
+
+[[features.external-config.typesafe-configuration-properties.relaxed-binding.maps-from-environment-variables]]
+==== 从环境变量绑定映射
+
+当 Spring Boot 将环境变量绑定到属性类时，它会在绑定前将环境变量名称转换为小写。
+大多数情况下，这个细节并不重要，除非绑定到 javadoc:java.util.Map[] 属性。
+
+javadoc:java.util.Map[] 中的键始终是小写的，如下例所示：
+
+include-code::MyMapsProperties[]
+
+当设置 `MY_PROPS_VALUES_KEY=value` 时，`values` javadoc:java.util.Map[] 包含一个 `{"key"="value"}` 条目。
+
+只有环境变量*名称*被转换为小写，而不是值。
+当设置 `MY_PROPS_VALUES_KEY=VALUE` 时，`values` javadoc:java.util.Map[] 包含一个 `{"key"="VALUE"}` 条目。
+
+
+
+[[features.external-config.typesafe-configuration-properties.relaxed-binding.caching]]
+==== 缓存
+
+宽松绑定使用缓存来提高性能。默认情况下，此缓存仅应用于不可变的属性源。
+要自定义此行为，例如为可变属性源启用缓存，请使用 javadoc:org.springframework.boot.context.properties.source.ConfigurationPropertyCaching[]。
+
+
+
+[[features.external-config.typesafe-configuration-properties.merging-complex-types]]
+=== 合并复杂类型
+
+当列表在多个位置配置时，覆盖会替换整个列表。
+
+例如，假设一个 `MyPojo` 对象，其 `name` 和 `description` 属性默认是 `null`。
+以下示例从 `MyProperties` 公开了一个 `MyPojo` 对象列表：
+
+include-code::list/MyProperties[]
+
+考虑以下配置：
+
+[configprops%novalidate,yaml]
+----
+my:
+  list:
+  - name: "my name"
+    description: "my description"
+---
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+my:
+  list:
+  - name: "my another name"
+----
+如果 `dev` profile 未激活，则 `MyProperties.list` 包含一个 `MyPojo` 条目，如前所述。
+但如果 `dev` profile 已启用，则 `list` _仍然_ 只包含一个条目（名称为 `my another name`，描述为 `null`）。
+此配置 _不会_ 向列表添加第二个 `MyPojo` 实例，也不会合并这些项。
+
+当在多个 profiles 中指定了 javadoc:java.util.List[] 时，将使用优先级最高的那个（且仅使用该一个）。
+考虑以下示例：
+
+[configprops%novalidate,yaml]
+----
+my:
+  list:
+  - name: "my name"
+    description: "my description"
+  - name: "another name"
+    description: "another description"
+---
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+my:
+  list:
+  - name: "my another name"
+----
+在前面的示例中，如果 `dev` profile 处于激活状态，`MyProperties.list` 包含 _一个_ `MyPojo` 条目（名称为 `my another name`，描述为 `null`）。
+对于 YAML，逗号分隔的列表和 YAML 列表都可以用于完全覆盖列表的内容。
+
+对于 javadoc:java.util.Map[] 属性，你可以绑定来自多个源的属性值。
+然而，对于多个源中的同一属性，使用优先级最高的那个。
+以下示例从 `MyProperties` 暴露了一个 `Map<String, MyPojo>`：
+
+include-code::map/MyProperties[]
+
+考虑以下配置：
+
+[configprops%novalidate,yaml]
+----
+my:
+  map:
+    key1:
+      name: "my name 1"
+      description: "my description 1"
+---
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+my:
+  map:
+    key1:
+      name: "dev name 1"
+    key2:
+      name: "dev name 2"
+      description: "dev description 2"
+----
+如果 `dev` profile 未激活，则 `MyProperties.map` 包含一个条目，键为 `key1`（名称为 `my name 1`，描述为 `my description 1`）。
+如果 `dev` profile 已启用，则 `map` 包含两个条目，键分别为 `key1`（名称为 `dev name 1`，描述为 `my description 1`）和 `key2`（名称为 `dev name 2`，描述为 `dev description 2`）。
+
+注意：上述合并规则适用于所有属性源的属性，而不仅仅是文件。
+
+[[features.external-config.typesafe-configuration-properties.conversion]]
+=== 属性转换
+
+Spring Boot 在将外部应用程序属性绑定到 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans 时，会尝试将其强制转换为正确的类型。
+如果你需要自定义类型转换，可以提供 javadoc:org.springframework.core.convert.ConversionService[] bean（带有名为 `conversionService` 的 bean）、自定义属性编辑器（通过 javadoc:org.springframework.beans.factory.config.CustomEditorConfigurer[] bean）或自定义转换器（带有标注为 javadoc:org.springframework.boot.context.properties.ConfigurationPropertiesBinding[format=annotation] 的 bean 定义）。
+
+[NOTE]
+====
+用于属性转换的 bean 在应用程序生命周期的早期就被请求，因此请确保限制你的 javadoc:org.springframework.core.convert.ConversionService[] 所使用的依赖项。
+通常，你所需的任何依赖项在创建时可能尚未完全初始化。
+====
+
+提示：如果你的自定义 javadoc:org.springframework.core.convert.ConversionService[] 不需要用于配置键的强制转换，并且仅依赖于使用 javadoc:org.springframework.boot.context.properties.ConfigurationPropertiesBinding[format=annotation] 限定的自定义转换器，则可能需要重命名它。
+当使用 `@ConfigurationPropertiesBinding` 限定 `@Bean` 方法时，该方法应为 `static`，以避免 "`bean is not eligible for getting processed by all BeanPostProcessors`" 警告。
+
+[[features.external-config.typesafe-configuration-properties.conversion.durations]]
+==== 持续时间转换
+
+Spring Boot 对表示持续时间提供了专门支持。
+如果你暴露一个 javadoc:java.time.Duration[] 属性，则应用程序属性中可以使用以下格式：
+
+* 常规的 `long` 表示（默认使用毫秒为单位，除非指定了 javadoc:org.springframework.boot.convert.DurationUnit[format=annotation]）
+* 标准的 ISO-8601 格式 {apiref-openjdk}/java.base/java/time/Duration.html#parse(java.lang.CharSequence)[由 javadoc:java.time.Duration[] 使用]
+* 一种更易读的格式，其中值和单位耦合（`10s` 表示 10 秒）
+
+考虑以下示例：
+
+include-code::javabeanbinding/MyProperties[]
+
+要指定 30 秒的会话超时，`30`、`PT30S` 和 `30s` 都是等价的。
+500ms 的读取超时可以通过以下任意形式指定：`500`、`PT0.5S` 和 `500ms`。
+
+你也可以使用任何支持的单元。
+这些单元包括：
+
+* `ns` 纳秒
+* `us` 微秒
+* `ms` 毫秒
+* `s` 秒
+* `m` 分
+* `h` 小时
+* `d` 天
+
+默认单位是毫秒，可以通过 javadoc:org.springframework.boot.convert.DurationUnit[format=annotation] 覆盖，如上面的示例所示。
+
+如果你更喜欢使用构造函数绑定，可以暴露相同的属性，如下例所示：
+
+include-code::constructorbinding/MyProperties[]
+
+提示：如果你正在升级 javadoc:java.lang.Long[] 属性，请确保在不是毫秒的情况下定义单位（使用 javadoc:org.springframework.boot.convert.DurationUnit[format=annotation]）。
+这样做可以在支持更丰富格式的同时提供透明的升级路径。
+
+[[features.external-config.typesafe-configuration-properties.conversion.periods]]
+==== 周期转换
+
+除了持续时间，Spring Boot 还可以处理 javadoc:java.time.Period[] 类型。
+应用程序属性中可以使用以下格式：
+
+* 常规的 `int` 表示（默认使用天为单位，除非指定了 javadoc:org.springframework.boot.convert.PeriodUnit[format=annotation]）
+* 标准的 ISO-8601 格式 {apiref-openjdk}/java.base/java/time/Period.html#parse(java.lang.CharSequence)[由 javadoc:java.time.Period[] 使用]
+* 一种更简单的格式，其中值和单位对耦合（`1y3d` 表示 1 年零 3 天）
+
+简单格式支持以下单位：
+
+* `y` 年
+* `m` 月
+* `w` 周
+* `d` 天
+
+注意：javadoc:java.time.Period[] 类型实际上从不存储周数，它是一个快捷方式，表示 "`7 days`"。
+
+[[features.external-config.typesafe-configuration-properties.conversion.data-sizes]]
+==== 数据大小转换
+
+Spring 框架有一个 javadoc:org.springframework.util.unit.DataSize[] 值类型，用于表示以字节为单位的大小。
+如果你暴露一个 javadoc:org.springframework.util.unit.DataSize[] 属性，则应用程序属性中可以使用以下格式：
+
+* 常规的 `long` 表示（默认使用字节为单位，除非指定了 javadoc:org.springframework.boot.convert.DataSizeUnit[format=annotation]）
+* 一种更易读的格式，其中值和单位耦合（`10MB` 表示 10 兆字节）
+
+考虑以下示例：
+
+include-code::javabeanbinding/MyProperties[]
+
+要指定 10 兆字节的缓冲区大小，`10` 和 `10MB` 是等价的。
+256 字节的大小阈值可以指定为 `256` 或 `256B`。
+
+你也可以使用任何支持的单元。
+这些单元包括：
+
+* `B` 字节
+* `KB` 千字节
+* `MB` 兆字节
+* `GB` 吉字节
+* `TB` 太字节
+
+默认单位是字节，可以通过 javadoc:org.springframework.boot.convert.DataSizeUnit[format=annotation] 覆盖，如上面的示例所示。
+
+如果你更喜欢使用构造函数绑定，可以暴露相同的属性，如下例所示：
+
+include-code::constructorbinding/MyProperties[]
+
+提示：如果你正在升级 javadoc:java.lang.Long[] 属性，请确保在不是字节的情况下定义单位（使用 javadoc:org.springframework.boot.convert.DataSizeUnit[format=annotation]）。
+这样做可以在支持更丰富格式的同时提供透明的升级路径。
+
+[[features.external-config.typesafe-configuration-properties.conversion.base64]]
+==== Base64 数据转换
+
+Spring Boot 支持解析经过 Base64 编码的二进制数据。
+如果你暴露一个 `Resource` 属性，则可以将 base64 编码的文本作为值提供，并带有 `base64:` 前缀，如下例所示：
+
+[configprops%novalidate,yaml]
+----
+my:
+  property: base64:SGVsbG8gV29ybGQ=
+----
+NOTE: `Resource` 属性也可以用于提供资源的路径，使其更加通用。
+
+[[features.external-config.typesafe-configuration-properties.validation]]
+=== @ConfigurationProperties 校验
+
+Spring Boot 会尝试校验 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类，只要它们被 Spring 的 javadoc:org.springframework.validation.annotation.Validated[format=annotation] annotation 注解。
+你可以直接在配置类上使用 JSR-303 `jakarta.validation` 约束 annotations。
+为此，请确保 classpath 上存在兼容的 JSR-303 实现，然后向字段添加约束 annotations，如下例所示：
+
+include-code::MyProperties[]
+
+提示：你也可以通过使用 javadoc:org.springframework.validation.annotation.Validated[format=annotation] 注解创建配置属性的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法来触发校验。
+
+要对嵌套属性进行级联校验，相关字段必须使用 javadoc:jakarta.validation.Valid[format=annotation] 注解。
+以下示例基于前面的 `MyProperties` 示例：
+
+include-code::nested/MyProperties[]
+
+你也可以通过创建一个名为 `configurationPropertiesValidator` 的 bean 定义来添加自定义 Spring javadoc:org.springframework.validation.Validator[]。
+javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法应声明为 `static`。
+配置属性校验器在应用程序生命周期的早期创建，将 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法声明为静态可以让 bean 在无需实例化 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类的情况下创建。
+这样做可以避免早期实例化可能引起的任何问题。
+
+提示：`spring-boot-actuator` 模块包含一个 endpoint，它暴露了所有 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans。
+将浏览器指向 `/actuator/configprops` 或使用等效的 JMX endpoint。
+详情请参见 xref:actuator/endpoints.adoc[Production ready features] 部分。
+
+
+[[features.external-config.typesafe-configuration-properties.vs-value-annotation]]
+=== @ConfigurationProperties 与 @Value 对比
+
+javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotation 是一个核心容器特性，它不提供与类型安全配置属性相同的功能。
+下表总结了 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 和 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] 支持的特性：
+
+[cols="4,2,2"]
+|===
+| 特性 |`@ConfigurationProperties` |`@Value`
+
+| xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding[Relaxed binding]
+| 是
+| 有限（参见 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.vs-value-annotation.note[note below]）
+
+| xref:specification:configuration-metadata/index.adoc[Meta-data support]
+| 是
+| 否
+
+| `SpEL` 求值
+| 否
+| 是
+|===
+
+[[features.external-config.typesafe-configuration-properties.vs-value-annotation.note]]
+[NOTE]
+====
+如果你确实想使用 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation]，我们建议你使用其规范形式（仅使用小写字母的 kebab-case）来引用属性名称。
+这将允许 Spring Boot 使用与 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding[relaxed binding] javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 时相同的逻辑。
+
+例如，`@Value("${demo.item-price}")` 将从 `application.properties` 文件中获取 `demo.item-price` 和 `demo.itemPrice` 形式，以及从系统环境中获取 `DEMO_ITEMPRICE`。
+如果你改用 `@Value("${demo.itemPrice}")`，它将从 `application.properties` 文件中获取 `demo.itemPrice` 形式，以及从系统环境中获取 `DEMO_ITEMPRICE`，但 `demo.item-price` 将不会被考虑。
+====
+
+如果你为自己的组件定义了一组配置键，我们建议将它们分组到一个使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的 POJO 中。
+这样做将为你提供一个结构化的、类型安全的对象，你可以将其注入到自己的 beans 中。
+
+`SpEL` 表达式在解析这些文件并填充环境时不会被处理。
+然而，可以在 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] 中编写 `SpEL` 表达式。
+如果应用程序属性文件中的属性值是 `SpEL` 表达式，则在通过 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] 消费时会被求值。

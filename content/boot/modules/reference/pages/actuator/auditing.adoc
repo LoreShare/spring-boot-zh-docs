@@ -1,0 +1,20 @@
+[[actuator.auditing]]
+= 审计
+
+一旦 Spring Security 生效，Spring Boot Actuator 便拥有一个灵活的审计框架，用于发布事件（默认情况下为“认证成功”、“失败”和“访问被拒绝”异常）。
+此功能对于报告以及基于认证失败实现锁定策略非常有用。
+
+您可以通过在应用程序的配置中提供一个类型为 javadoc:org.springframework.boot.actuate.audit.AuditEventRepository[] 的 bean 来启用审计。
+为方便起见，Spring Boot 提供了一个 javadoc:org.springframework.boot.actuate.audit.InMemoryAuditEventRepository[]。
+javadoc:org.springframework.boot.actuate.audit.InMemoryAuditEventRepository[] 功能有限，我们建议仅将其用于开发环境。
+对于生产环境，请考虑创建您自己的替代 javadoc:org.springframework.boot.actuate.audit.AuditEventRepository[] 实现。
+
+
+
+[[actuator.auditing.custom]]
+== 自定义审计
+
+要自定义已发布的安全事件，您可以提供自己的 javadoc:org.springframework.boot.actuate.security.AbstractAuthenticationAuditListener[] 和 javadoc:org.springframework.boot.actuate.security.AbstractAuthorizationAuditListener[] 实现。
+
+您也可以将审计服务用于自己的业务事件。
+为此，可以将 javadoc:org.springframework.boot.actuate.audit.AuditEventRepository[] bean 注入到您自己的组件中并直接使用，或者通过 Spring 的 javadoc:org.springframework.context.ApplicationEventPublisher[]（通过实现 javadoc:org.springframework.context.ApplicationEventPublisherAware[]）发布一个 javadoc:org.springframework.boot.actuate.audit.listener.AuditApplicationEvent[]。

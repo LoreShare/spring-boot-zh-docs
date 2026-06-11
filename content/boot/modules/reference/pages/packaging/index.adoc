@@ -1,0 +1,5 @@
+= 打包 Spring Boot 应用程序
+
+Spring Boot 支持多种技术来优化应用程序的部署，包括 xref:packaging/native-image/index.adoc[GraalVM native images]、xref:packaging/aot-cache.adoc[AOT cache] 和 xref:packaging/checkpoint-restore.adoc[Checkpoint and Restore]。
+
+Spring Boot 应用程序可以使用 xref:packaging/container-images/index.adoc[] 中描述的技术打包到 Docker 容器中。

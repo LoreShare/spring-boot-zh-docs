@@ -1,0 +1,8 @@
+[[using.packaging-for-production]]
+= 为生产环境打包你的应用
+
+当你的 Spring Boot 应用准备好部署到生产环境时，有许多打包和优化应用的选择。
+请参阅文档的 xref:packaging/index.adoc[] 部分以了解这些功能。
+
+对于额外的“生产就绪”功能，如健康检查、审计和指标 REST 或 JMX 端点，请考虑添加 `spring-boot-actuator`。
+详见 xref:how-to:actuator.adoc[]。

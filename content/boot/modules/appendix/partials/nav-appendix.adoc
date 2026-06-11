@@ -1,0 +1,15 @@
+* 附录
+
+** xref:appendix:application-properties/index.adoc[应用属性]
+
+** xref:appendix:deprecated-application-properties/index.adoc[已弃用的应用属性]
+
+** xref:appendix:auto-configuration-classes/index.adoc[自动配置类]
+include::appendix:partial$auto-configuration-classes/nav.adoc[]
+
+** xref:appendix:test-auto-configuration/index.adoc[测试自动配置]
+*** xref:appendix:test-auto-configuration/slices.adoc[切片]
+
+** xref:appendix:dependency-versions/index.adoc[依赖版本]
+*** xref:appendix:dependency-versions/coordinates.adoc[坐标]
+*** xref:appendix:dependency-versions/properties.adoc[属性]

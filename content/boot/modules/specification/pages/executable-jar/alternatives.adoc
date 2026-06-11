@@ -1,0 +1,9 @@
+[[appendix.executable-jar.alternatives]]
+= 替代的单 Jar 解决方案
+
+如果上述限制意味着您无法使用 Spring Boot Loader，请考虑以下替代方案：
+
+* https://maven.apache.org/plugins/maven-shade-plugin/[Maven Shade Plugin]
+* http://www.jdotsoft.com/JarClassLoader.php[JarClassLoader]
+* https://sourceforge.net/projects/one-jar/[OneJar]
+* https://gradleup.com/shadow/[Gradle Shadow Plugin]

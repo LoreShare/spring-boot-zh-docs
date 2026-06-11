@@ -1,0 +1,18 @@
+[[using.spring-beans-and-dependency-injection]]
+= Spring Beans 与依赖注入
+
+你可以自由使用任何标准的 Spring Framework 技术来定义 bean 及其注入的依赖。
+我们通常建议使用构造器注入来连接依赖，并使用 javadoc:org.springframework.context.annotation.ComponentScan[format=annotation] 来查找 bean。
+
+如果你按照上述建议组织代码（将应用程序类放在顶层包中），则可以添加不带任何参数的 javadoc:org.springframework.context.annotation.ComponentScan[format=annotation] 或使用隐式包含它的 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 注解。
+你的所有应用程序组件（javadoc:org.springframework.stereotype.Component[format=annotation]、javadoc:org.springframework.stereotype.Service[format=annotation]、javadoc:org.springframework.stereotype.Repository[format=annotation]、javadoc:org.springframework.stereotype.Controller[format=annotation] 等）都会自动注册为 Spring Bean。
+
+以下示例展示了一个 javadoc:org.springframework.stereotype.Service[format=annotation] Bean，它使用构造器注入来获取所需的 `RiskAssessor` bean：
+
+include-code::singleconstructor/MyAccountService[]
+
+如果一个 bean 有多个构造器，你需要使用 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] 标记希望 Spring 使用的那一个：
+
+include-code::multipleconstructors/MyAccountService[]
+
+TIP: 注意，使用构造器注入可以让 `riskAssessor` 字段被标记为 `final`，表明它之后不能被修改。

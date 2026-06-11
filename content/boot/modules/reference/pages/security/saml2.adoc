@@ -1,0 +1,99 @@
+= SAML 2.0
+
+https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html[SAML v2.0] 是一种广泛采用的框架，用于在线业务伙伴之间交换安全信息。
+
+[[security.saml2.build]]
+== 构建配置
+SAML 2.0 支持基于 OpenSAML 库构建，该库需要 https://shibboleth.atlassian.net/wiki/spaces/DEV/pages/1123844333/Use+of+Maven+Central#Publishing-to-Maven-Central[额外的仓库]配置。
+
+[[security.saml2.build.maven]]
+=== 使用 Maven
+对于 Maven，您需要在 POM 中添加一个额外的 `repository` 元素，如下所示：
+
+[source,xml,subs="verbatim,attributes"]
+----
+<repositories>
+	<repository>
+		<id>shibboleth-releases</id>
+		<name>Shibboleth Releases Repository</name>
+		<url>https://build.shibboleth.net/maven/releases</url>
+		<snapshots>
+			<enabled>false</enabled>
+		</snapshots>
+	</repository>
+</repositories>
+----
+
+[[security.saml2.build.gradle]]
+=== 使用 Gradle
+使用 Gradle 时，需要在构建脚本中添加一个仓库元素：
+
+[source,gradle,subs="verbatim,attributes"]
+----
+repositories {
+    maven { url "https://build.shibboleth.net/maven/releases" }
+}
+----
+
+[[security.saml2.relying-party]]
+== 依赖方
+
+如果你的 classpath 上启用了 `spring-security-saml2-service-provider`，你可以利用一些 auto-configuration 来设置 SAML 2.0 依赖方。
+此配置使用了 javadoc:org.springframework.boot.security.saml2.autoconfigure.Saml2RelyingPartyProperties[] 下的属性。
+
+一个依赖方注册表示身份提供者（IDP）和服务提供者（SP）之间的配对配置。
+你可以在 `spring.security.saml2.relyingparty` 前缀下注册多个依赖方，如下例所示：
+
+[configprops,yaml]
+----
+spring:
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          my-relying-party1:
+            signing:
+              credentials:
+              - private-key-location: "path-to-private-key"
+                certificate-location: "path-to-certificate"
+            decryption:
+              credentials:
+              - private-key-location: "path-to-private-key"
+                certificate-location: "path-to-certificate"
+            singlelogout:
+               url: "https://myapp/logout/saml2/slo"
+               response-url: "https://remoteidp2.slo.url"
+               binding: "POST"
+            assertingparty:
+              verification:
+                credentials:
+                - certificate-location: "path-to-verification-cert"
+              entity-id: "remote-idp-entity-id1"
+              sso-url: "https://remoteidp1.sso.url"
+
+          my-relying-party2:
+            signing:
+              credentials:
+              - private-key-location: "path-to-private-key"
+                certificate-location: "path-to-certificate"
+            decryption:
+              credentials:
+              - private-key-location: "path-to-private-key"
+                certificate-location: "path-to-certificate"
+            assertingparty:
+              verification:
+                credentials:
+                - certificate-location: "path-to-other-verification-cert"
+              entity-id: "remote-idp-entity-id2"
+              sso-url: "https://remoteidp2.sso.url"
+              singlelogout:
+                url: "https://remoteidp2.slo.url"
+                response-url: "https://myapp/logout/saml2/slo"
+                binding: "POST"
+----
+
+对于 SAML2 登出，默认情况下，Spring Security 的 javadoc:org.springframework.security.saml2.provider.service.web.authentication.logout.Saml2LogoutRequestFilter[] 和 javadoc:org.springframework.security.saml2.provider.service.web.authentication.logout.Saml2LogoutResponseFilter[] 仅处理匹配 `/logout/saml2/slo` 的 URL。
+如果你想自定义 AP 发起的登出请求发送到的 `url` 或 AP 发送登出响应到的 `response-url`，以使用不同的模式，则需要提供配置来处理该自定义模式。
+例如，对于 Servlet 应用程序，你可以添加自己的 javadoc:org.springframework.security.web.SecurityFilterChain[]，如下所示：
+
+include-code::MySamlRelyingPartyConfiguration[]

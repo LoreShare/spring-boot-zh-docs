@@ -1,0 +1,7 @@
+= 消息传递
+
+Spring 框架为与消息传递系统集成提供了广泛支持，从使用 javadoc:org.springframework.jms.core.JmsClient[] 简化 JMS API 的使用，到用于异步接收消息的完整基础设施。
+Spring AMQP 为高级消息队列协议提供了类似的功能集。
+Spring Boot 还为 javadoc:org.springframework.amqp.rabbit.core.RabbitTemplate[] 和 RabbitMQ 提供了 auto-configuration 选项。
+Spring WebSocket 原生支持 STOMP 消息传递，Spring Boot 通过 starter 和少量 auto-configuration 提供了对此的支持。
+Spring Boot 还支持 Apache Kafka 和 Apache Pulsar。

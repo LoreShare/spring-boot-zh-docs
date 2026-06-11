@@ -1,0 +1,279 @@
+= OAuth2
+
+https://oauth.net/2/[OAuth2] 是一个广泛使用的授权框架。
+
+
+== 客户端
+
+如果你的 classpath 上有 `spring-security-oauth2-client`，你可以利用一些 auto-configuration 来设置 OAuth2/Open ID Connect 客户端。
+此配置使用了 javadoc:org.springframework.boot.security.oauth2.client.autoconfigure.OAuth2ClientProperties[] 下的属性。
+相同的属性既适用于 Servlet 也适用于响应式 Web 应用程序。
+
+每个注册必须指定一个 OAuth 2 提供者。
+设置时，`spring.security.oauth2.client.registration.<registration-id>.provider` 属性的值用于指定注册的提供者。
+如果未设置 `provider` 属性，则使用注册的 ID 代替。
+以下示例展示了这两种方法：
+
+[configprops,yaml]
+----
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          my-client:
+            client-id: "abcd"
+            client-secret: "password"
+            provider: "example"
+          example:
+            client-id: "abcd"
+            client-secret: "password"
+----
+
+注册 `my-client` 和 `example` 都将使用 ID 为 `example` 的提供者。前者之所以如此，是因为 `spring.security.oauth2.client.registration.my-client.provider` 属性的值。后者之所以如此，是因为其 ID 为 `example`，并且该注册没有配置 `provider` 属性。
+
+指定的提供者可以是对使用 `spring.security.oauth2.client.provider.<provider-id>.*` 属性配置的提供者的引用，也可以是 xref:security/oauth2.adoc#security.oauth2.client.common-providers[known common providers] 之一。
+
+您可以在 `spring.security.oauth2.client` 前缀下注册多个 OAuth2 客户端和提供者，如下例所示：
+
+[configprops,yaml]
+----
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          my-login-client:
+            client-id: "abcd"
+            client-secret: "password"
+            client-name: "Client for OpenID Connect"
+            provider: "my-oauth-provider"
+            scope: "openid,profile,email,phone,address"
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-authentication-method: "client_secret_basic"
+            authorization-grant-type: "authorization_code"
+
+          my-client-1:
+            client-id: "abcd"
+            client-secret: "password"
+            client-name: "Client for user scope"
+            provider: "my-oauth-provider"
+            scope: "user"
+            redirect-uri: "{baseUrl}/authorized/user"
+            client-authentication-method: "client_secret_basic"
+            authorization-grant-type: "authorization_code"
+
+          my-client-2:
+            client-id: "abcd"
+            client-secret: "password"
+            client-name: "Client for email scope"
+            provider: "my-oauth-provider"
+            scope: "email"
+            redirect-uri: "{baseUrl}/authorized/email"
+            client-authentication-method: "client_secret_basic"
+            authorization-grant-type: "authorization_code"
+
+        provider:
+          my-oauth-provider:
+            authorization-uri: "https://my-auth-server.com/oauth2/authorize"
+            token-uri: "https://my-auth-server.com/oauth2/token"
+            user-info-uri: "https://my-auth-server.com/userinfo"
+            user-info-authentication-method: "header"
+            jwk-set-uri: "https://my-auth-server.com/oauth2/jwks"
+            user-name-attribute: "name"
+----
+
+在这个例子中，有三个注册项。按照声明顺序，它们的 ID 分别是 `my-login-client`、`my-client-1` 和 `my-client-2`。还有一个 ID 为 `my-oauth-provider` 的单一提供者。
+
+对于支持 https://openid.net/specs/openid-connect-discovery-1_0.html[OpenID Connect 发现] 的 OpenID Connect 提供者，配置可以进一步简化。提供者需要使用一个 `issuer-uri` 进行配置，该 URI 是其声称的 Issuer Identifier。例如，如果提供的 `issuer-uri` 是 `+https://example.com+`，那么将向 `+https://example.com/.well-known/openid-configuration+` 发起一个 "`OpenID Provider Configuration Request`"。结果预期是一个 "`OpenID Provider Configuration Response`"。以下示例展示了如何使用 `issuer-uri` 配置一个 OpenID Connect 提供者：
+
+[configprops,yaml]
+----
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc-provider:
+            issuer-uri: "https://dev-123456.oktapreview.com/oauth2/default/"
+----
+
+默认情况下，Spring Security 的 javadoc:org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter[] 仅处理匹配 `/login/oauth2/code/*` 的 URL。
+如果你想自定义 `redirect-uri` 以使用不同的模式，则需要提供配置来处理该自定义模式。
+例如，对于 Servlet 应用，你可以添加自己的 javadoc:org.springframework.security.web.SecurityFilterChain[]，如下所示：
+
+include-code::MyOAuthClientConfiguration[]
+
+提示：Spring Boot 自动配置了一个 javadoc:org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService[]，Spring Security 使用它来管理客户端注册。
+javadoc:org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService[] 功能有限，建议仅在开发环境中使用。
+对于生产环境，请考虑使用 javadoc:org.springframework.security.oauth2.client.JdbcOAuth2AuthorizedClientService[] 或创建你自己的 javadoc:org.springframework.security.oauth2.client.OAuth2AuthorizedClientService[] 实现。
+
+
+[[security.oauth2.client.common-providers]]
+=== 常见提供商的 OAuth2 客户端注册
+
+对于常见的 OAuth2 和 OpenID 提供商（Google、Github、Facebook 和 Okta），我们提供了一组提供商默认值。
+这些常见提供商的 ID 分别为 `google`、`github`、`facebook` 和 `okta`。
+
+如果你不需要自定义这些提供商，请将注册的 `provider` 属性设置为其中一个常见提供商的 ID。
+或者，你可以 xref:security/oauth2.adoc#security.oauth2.client[use a registration ID that matches the ID of the provider]。
+以下示例中的两个配置使用了常见的 `google` 提供商：
+
+[configprops,yaml]
+----
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          my-client:
+            client-id: "abcd"
+            client-secret: "password"
+            provider: "google"
+          google:
+            client-id: "abcd"
+            client-secret: "password"
+----
+
+[[security.oauth2.server]]
+== 资源服务器
+
+如果你的 classpath 上包含 `spring-security-oauth2-resource-server`，Spring Boot 可以设置一个 OAuth2 资源服务器。
+对于 JWT 配置，需要指定 JWK Set URI 或 OIDC Issuer URI，如下例所示：
+
+[configprops,yaml]
+----
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: "https://example.com/oauth2/default/v1/keys"
+----
+
+[configprops,yaml]
+----
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "https://dev-123456.oktapreview.com/oauth2/default/"
+----
+
+注意：如果授权服务器不支持 JWK Set URI，你可以使用用于验证 JWT 签名的公钥来配置资源服务器。
+这可以通过 configprop:spring.security.oauth2.resourceserver.jwt.public-key-location[] 属性完成，该属性的值需要指向一个包含 PEM 编码的 x509 格式公钥的文件。
+
+configprop:spring.security.oauth2.resourceserver.jwt.audiences[] 属性可用于指定 JWT 中 aud 声明的预期值。
+例如，要求 JWT 包含值为 `my-audience` 的 aud 声明：
+
+[configprops,yaml]
+----
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          audiences:
+            - "my-audience"
+----
+
+相同的属性适用于 Servlet 和响应式应用。
+或者，你可以为 Servlet 应用定义自己的 javadoc:org.springframework.security.oauth2.jwt.JwtDecoder[] bean，或为响应式应用定义 javadoc:org.springframework.security.oauth2.jwt.ReactiveJwtDecoder[]。
+
+在使用不透明令牌而非 JWT 的情况下，你可以配置以下属性通过内省来验证令牌：
+
+[configprops,yaml]
+----
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: "https://example.com/check-token"
+          client-id: "my-client-id"
+          client-secret: "my-client-secret"
+----
+
+同样，这些属性对于 Servlet 和响应式应用都适用。
+
+结果是一个自动配置的 introspection 器。可以是 javadoc:org.springframework.security.oauth2.server.resource.introspection.SpringOpaqueTokenIntrospector[]，或者在响应式应用中，是 javadoc:org.springframework.security.oauth2.server.resource.introspection.SpringReactiveOpaqueTokenIntrospector[]。
+这些自动配置的 introspection 器可以使用 javadoc:org.springframework.boot.security.oauth2.server.resource.autoconfigure.SpringOpaqueTokenIntrospectorBuilderCustomizer[] 和 javadoc:org.springframework.boot.security.oauth2.server.resource.autoconfigure.reactive.SpringReactiveOpaqueTokenIntrospectorBuilderCustomizer[] beans 分别进行自定义。
+
+要完全控制 introspection，请定义你自己的 javadoc:org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector[] 或 javadoc:org.springframework.security.oauth2.server.resource.introspection.ReactiveOpaqueTokenIntrospector[] bean。
+
+
+
+[[security.oauth2.authorization-server]]
+== 授权服务器
+
+如果你的 classpath 上有 `spring-security-oauth2-authorization-server`，你可以利用一些 auto-configuration 来设置基于 Servlet 的 OAuth2 授权服务器。
+
+你可以在 `spring.security.oauth2.authorizationserver.client` 前缀下注册多个 OAuth2 客户端，如下例所示：
+
+[configprops,yaml]
+----
+spring:
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          my-client-1:
+            registration:
+              client-id: "abcd"
+              client-secret: "{noop}secret1"
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris:
+                - "https://my-client-1.com/login/oauth2/code/abcd"
+                - "https://my-client-1.com/authorized"
+              scopes:
+                - "openid"
+                - "profile"
+                - "email"
+                - "phone"
+                - "address"
+            require-authorization-consent: true
+            token:
+              authorization-code-time-to-live: 5m
+              access-token-time-to-live: 10m
+              access-token-format: "reference"
+              reuse-refresh-tokens: false
+              refresh-token-time-to-live: 30m
+          my-client-2:
+            registration:
+              client-id: "efgh"
+              client-secret: "{noop}secret2"
+              client-authentication-methods:
+                - "client_secret_jwt"
+              authorization-grant-types:
+                - "client_credentials"
+              scopes:
+                - "user.read"
+                - "user.write"
+            jwk-set-uri: "https://my-client-2.com/jwks"
+	        token-endpoint-authentication-signing-algorithm: "RS256"
+----
+
+注意：`client-secret` 属性必须采用能够被配置的 javadoc:org.springframework.security.crypto.password.PasswordEncoder[] 匹配的格式。
+javadoc:org.springframework.security.crypto.password.PasswordEncoder[] 的默认实例通过 `PasswordEncoderFactories.createDelegatingPasswordEncoder()` 创建。
+
+auto-configuration Spring Boot 提供的 Spring 授权服务器旨在快速入门。
+大多数应用程序需要进行定制，并希望定义多个 bean 来覆盖 auto-configuration。
+
+以下组件可以定义为 bean 来覆盖特定于 Spring 授权服务器的 auto-configuration：
+
+* javadoc:org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository[]
+* javadoc:org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings[]
+* javadoc:org.springframework.security.web.SecurityFilterChain[]
+* `com.nimbusds.jose.jwk.source.JWKSource<com.nimbusds.jose.proc.SecurityContext>`
+* javadoc:org.springframework.security.oauth2.jwt.JwtDecoder[]
+
+提示：Spring Boot 自动配置了一个 javadoc:org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository[]，Spring 授权服务器使用它来管理已注册的客户端。
+javadoc:org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository[] 功能有限，我们建议仅在开发环境中使用。
+对于生产环境，请考虑使用 javadoc:org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository[] 或创建自己的 javadoc:org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository[] 实现。
+
+更多信息请参见 Spring 安全参考文档的 {url-spring-security-docs}/servlet/oauth2/authorization-server/getting-started.html[入门] 章节。

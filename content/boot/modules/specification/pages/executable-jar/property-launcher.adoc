@@ -1,0 +1,81 @@
+[[appendix.executable-jar.property-launcher]]
+= PropertiesLauncher 特性
+
+javadoc:org.springframework.boot.loader.launch.PropertiesLauncher[] 具有一些特殊功能，可通过外部属性（系统属性、环境变量、清单条目或 `loader.properties`）启用。下表描述了这些属性：
+
+|===
+| 键 | 用途
+
+| `loader.path`
+| 逗号分隔的类路径，例如 `lib,$\{HOME}/app/lib`。
+  前面的条目优先级更高，类似于 `javac` 命令行上的常规 `-classpath`。
+
+| `loader.home`
+| 用于解析 `loader.path` 中的相对路径。
+  例如，给定 `loader.path=lib`，则 `${loader.home}/lib` 是一个类路径位置（以及该目录中的所有 jar 文件）。
+  此属性还用于定位 `loader.properties` 文件，如下例所示 `file:///opt/app`。默认值为 `${user.dir}`。
+
+| `loader.args`
+| main 方法的默认参数（空格分隔）。
+
+| `loader.main`
+| 要启动的主类名称（例如 `com.app.Application`）。
+
+| `loader.config.name`
+| 属性文件的名称（例如 `launcher`）。
+  默认值为 `loader`。
+
+| `loader.config.location`
+| 属性文件的路径（例如 `classpath:loader.properties`）。
+  默认值为 `loader.properties`。
+
+| `loader.system`
+| 布尔标志，指示是否应将所有属性添加到系统属性。
+  默认值为 `false`。
+|===
+
+当指定为环境变量或清单条目时，应使用以下名称：
+
+|===
+| 键 | 清单条目 | 环境变量
+
+| `loader.path`
+| `Loader-Path`
+| `LOADER_PATH`
+
+| `loader.home`
+| `Loader-Home`
+| `LOADER_HOME`
+
+| `loader.args`
+| `Loader-Args`
+| `LOADER_ARGS`
+
+| `loader.main`
+| `Start-Class`
+| `LOADER_MAIN`
+
+| `loader.config.location`
+| `Loader-Config-Location`
+| `LOADER_CONFIG_LOCATION`
+
+| `loader.system`
+| `Loader-System`
+| `LOADER_SYSTEM`
+|===
+
+TIP: 构建插件在构建 uber jar 时会自动将 `Main-Class` 属性移动到 `Start-Class`。
+如果使用该功能，请通过 `Main-Class` 属性指定要启动的类名称，并省略 `Start-Class`。
+
+以下规则适用于使用 javadoc:org.springframework.boot.loader.launch.PropertiesLauncher[]：
+
+* 在 `loader.home` 中搜索 `loader.properties`，然后在类路径的根目录中搜索，最后在 `classpath:/BOOT-INF/classes` 中搜索。
+  使用第一个存在该名称文件的目录。
+* 仅当未指定 `loader.config.location` 时，`loader.home` 才是附加属性文件（覆盖默认值）的目录位置。
+* `loader.path` 可以包含目录（递归扫描 jar 和 zip 文件）、归档路径、归档内扫描 jar 文件的目录（例如 `dependencies.jar!/lib`）或通配符模式（用于默认 JVM 行为）。
+  归档路径可以相对于 `loader.home`，也可以使用 `jar:file:` 前缀位于文件系统中的任何位置。
+* `loader.path`（如果为空）默认为 `BOOT-INF/lib`（如果从归档运行，则表示本地目录或嵌套目录）。
+  因此，当未提供额外配置时，javadoc:org.springframework.boot.loader.launch.PropertiesLauncher[] 的行为与 javadoc:org.springframework.boot.loader.launch.JarLauncher[] 相同。
+* `loader.path` 不能用于配置 `loader.properties` 的位置（用于搜索后者的类路径是启动 javadoc:org.springframework.boot.loader.launch.PropertiesLauncher[] 时的 JVM 类路径）。
+* 在使用所有值之前，会从系统属性和环境变量以及属性文件本身进行占位符替换。
+* 属性的搜索顺序（在需要查找多个位置的情况下）是环境变量、系统属性、`loader.properties`、解压归档清单和归档清单。

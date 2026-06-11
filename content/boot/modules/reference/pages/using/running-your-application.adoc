@@ -1,0 +1,79 @@
+= 运行你的应用
+
+将应用打包为 jar 并使用嵌入式 HTTP 服务器的一大优势是，你可以像运行任何其他应用一样运行它。调试 Spring Boot 应用也是如此。你不需要任何特殊的 IDE 插件或扩展。
+
+注意：以下选项最适合在本地开发环境中运行应用。对于生产部署，请参阅 xref:reference:using/packaging-for-production.adoc[]。
+
+注意：本节仅涵盖基于 jar 的打包。如果你选择将应用打包为 war 文件，请参阅你的服务器和 IDE 文档。
+
+
+
+[[using.running-your-application.from-an-ide]]
+== 从 IDE 运行
+
+你可以从 IDE 中将 Spring Boot 应用作为 Java 应用运行。但是，你首先需要导入你的项目。导入步骤因你的 IDE 和构建系统而异。大多数 IDE 可以直接导入 Maven 项目。例如，Eclipse 用户可以从 `File` 菜单中选择 `Import...` -> `Existing Maven Projects`。
+
+如果你无法直接将项目导入 IDE，你可以使用构建插件生成 IDE 元数据。Maven 包含用于 https://maven.apache.org/plugins/maven-eclipse-plugin/[Eclipse] 和 https://maven.apache.org/plugins/maven-idea-plugin/[IntelliJ IDEA] 的插件。Gradle 为 {url-gradle-docs}/userguide.html[各种 IDE] 提供插件。
+
+提示：如果你不小心运行了两次 Web 应用，你会看到 "`Port already in use`" 错误。Spring Tools 用户可以使用 `Relaunch` 按钮而不是 `Run` 按钮，以确保任何现有实例都已关闭。
+
+
+
+[[using.running-your-application.as-a-packaged-application]]
+== 作为打包应用运行
+
+如果你使用 Spring Boot Maven 或 Gradle 插件创建可执行 jar，你可以使用 `java -jar` 运行你的应用，如下例所示：
+
+[source,shell]
+----
+$ java -jar target/myapplication-0.0.1-SNAPSHOT.jar
+----
+也可以启用远程调试支持来运行打包的应用程序。
+这样做可以让您将调试器附加到打包的应用程序上，如下例所示：
+
+[source,shell]
+----
+$ java -agentlib:jdwp=server=y,transport=dt_socket,address=8000,suspend=n \
+       -jar target/myapplication-0.0.1-SNAPSHOT.jar
+----
+[[using.running-your-application.with-the-maven-plugin]]
+== 使用 Maven 插件
+
+Spring Boot Maven 插件包含一个 `run` 目标，可用于快速编译和运行你的应用程序。
+应用程序以展开形式运行，就像在 IDE 中一样。
+以下示例展示了一个典型的 Maven 命令，用于运行 Spring Boot 应用程序：
+
+[source,shell]
+----
+$ mvn spring-boot:run
+----
+您可能还想使用 `MAVEN_OPTS` 操作系统环境变量，如下例所示：
+
+[source,shell]
+----
+$ export MAVEN_OPTS=-Xmx1024m
+----
+[[using.running-your-application.with-the-gradle-plugin]]
+== 使用 Gradle 插件
+
+Spring Boot Gradle 插件还包含一个 `bootRun` 任务，可用于以展开形式运行应用程序。
+每当你应用 `org.springframework.boot` 和 `java` 插件时，`bootRun` 任务就会被添加，如下例所示：
+
+[source,shell]
+----
+$ gradle bootRun
+----
+您可能还想使用 `JAVA_OPTS` 操作系统环境变量，如下例所示：
+
+[source,shell]
+----
+$ export JAVA_OPTS=-Xmx1024m
+----
+== 热替换
+
+由于 Spring Boot 应用程序是普通的 Java 应用程序，JVM 热替换应该开箱即用。
+JVM 热替换在可替换的字节码方面有些局限。
+对于更完整的解决方案，可以使用 https://www.jrebel.com/products/jrebel[JRebel]。
+
+`spring-boot-devtools` 模块还支持快速应用程序重启。
+详情请参阅 "`How-to Guides`" 中的 xref:how-to:hotswapping.adoc[] 部分。

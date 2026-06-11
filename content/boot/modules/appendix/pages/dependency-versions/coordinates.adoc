@@ -1,0 +1,7 @@
+[[appendix.dependency-versions.coordinates]]
+= 受管依赖坐标
+
+下表提供了 Spring Boot 在其 CLI（命令行界面）、Maven 依赖管理和 Gradle 插件中提供的所有依赖版本的详细信息。
+当你声明对这些构件之一的依赖而未声明版本时，将使用表中列出的版本。
+
+include::partial$dependency-versions/documented-coordinates.adoc[]

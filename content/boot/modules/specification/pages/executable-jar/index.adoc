@@ -1,0 +1,8 @@
+[appendix]
+[[appendix.executable-jar]]
+= 可执行 JAR 格式
+
+`spring-boot-loader` 模块让 Spring Boot 支持可执行的 jar 和 war 文件。
+如果你使用 Maven 插件或 Gradle 插件，可执行 jar 会自动生成，通常你不需要了解它们的工作原理。
+
+如果你需要从不同的构建系统创建可执行 jar，或者只是对底层技术感到好奇，本附录提供了一些背景知识。

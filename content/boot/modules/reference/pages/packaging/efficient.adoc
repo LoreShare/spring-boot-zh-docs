@@ -1,0 +1,34 @@
+[[packaging.efficient]]
+= 高效部署
+
+
+[[packaging.efficient.unpacking]]
+== 解压可执行 jar
+
+你可以使用可执行 jar 运行应用程序，但从嵌套 jar 中加载类会有较小的启动开销。
+根据 jar 的大小，从解压后的结构中运行应用程序更快，并且在生产环境中推荐这样做。
+某些 PaaS 实现也可能在运行前选择提取归档文件。
+例如，Cloud Foundry 就是这样操作的。
+
+Spring Boot 支持使用不同的布局将应用程序解压到目录中。
+默认布局是最高效的，并且对 xref:reference:packaging/aot-cache.adoc#packaging.aot-cache.aot-cache[AOT 缓存]（以及 xref:reference:packaging/aot-cache.adoc#packaging.aot-cache.cds[CDS]）友好。
+
+在此布局中，库被解压到 `lib/` 文件夹，而应用程序 jar 包含应用程序类和一个清单文件，该清单文件引用 `lib/` 文件夹中的库。
+
+要解压可执行 jar，请运行以下命令：
+
+[source,shell]
+----
+$ java -Djarmode=tools -jar my-app.jar extract
+----
+
+然后在生产环境中，你可以运行解压后的 jar：
+
+[source,shell]
+----
+$ java -jar my-app/my-app.jar
+----
+
+启动后，你不应期望在运行可执行 jar 和运行解压后的 jar 之间有任何执行时间上的差异。
+
+TIP: 运行 `java -Djarmode=tools -jar my-app.jar help extract` 可查看所有可能的选项。

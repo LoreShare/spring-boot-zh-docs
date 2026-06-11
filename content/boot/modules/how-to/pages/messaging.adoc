@@ -1,0 +1,18 @@
+[[howto.messaging]]
+= 消息
+
+Spring Boot 提供了多个 starter 来支持消息。
+本节回答在使用 Spring Boot 进行消息处理时出现的问题。
+
+
+
+[[howto.messaging.disable-transacted-jms-session]]
+== 禁用事务性 JMS 会话
+
+如果您的 JMS 代理不支持事务性会话，则必须完全禁用事务支持。
+如果您创建自己的 javadoc:org.springframework.jms.config.JmsListenerContainerFactory[]，则无需执行任何操作，因为默认情况下它不能是事务性的。
+如果您想使用 javadoc:org.springframework.boot.jms.autoconfigure.DefaultJmsListenerContainerFactoryConfigurer[] 来重用 Spring Boot 的默认配置，您可以按如下方式禁用事务性会话：
+
+include-code::MyJmsConfiguration[]
+
+前面的示例覆盖了默认工厂，并且应该应用于应用程序定义的任何其他工厂（如果有）。

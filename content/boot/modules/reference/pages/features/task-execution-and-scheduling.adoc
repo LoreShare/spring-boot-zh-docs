@@ -1,0 +1,134 @@
+= 任务执行与调度
+
+如果上下文中没有 javadoc:java.util.concurrent.Executor[] bean，Spring Boot 会自动配置一个 javadoc:org.springframework.core.task.AsyncTaskExecutor[]。
+当启用虚拟线程时（使用 Java 21+ 并将 configprop:spring.threads.virtual.enabled[] 设置为 `true`），这将是一个使用虚拟线程的 javadoc:org.springframework.core.task.SimpleAsyncTaskExecutor[]。
+否则，它将是一个具有合理默认值的 javadoc:org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor[]。
+
+自动配置的 javadoc:org.springframework.core.task.AsyncTaskExecutor[] 用于以下集成，除非定义了自定义的 javadoc:java.util.concurrent.Executor[] bean：
+
+- 使用 javadoc:org.springframework.scheduling.annotation.EnableAsync[format=annotation] 执行异步任务，除非定义了类型为 javadoc:org.springframework.scheduling.annotation.AsyncConfigurer[] 的 bean。
+- 在 Spring for GraphQL 中异步处理控制器方法返回的 javadoc:java.util.concurrent.Callable[] 值。
+- 在 Spring MVC 中异步处理请求。
+- 在 Spring WebFlux 中支持阻塞执行。
+- 用于 Spring WebSocket 中的入站和出站消息通道。
+- JPA 的引导执行器，基于 JPA 仓库的引导模式。
+- 用于 {url-spring-framework-docs}/core/beans/java/composing-configuration-classes.html#beans-java-startup-background[后台初始化] `ApplicationContext` 中 beans 的引导执行器。
+
+虽然这种方法在大多数场景下有效，但 Spring Boot 允许您覆盖自动配置的 javadoc:org.springframework.core.task.AsyncTaskExecutor[]。
+默认情况下，当注册了自定义的 javadoc:java.util.concurrent.Executor[] bean 时，自动配置的 javadoc:org.springframework.core.task.AsyncTaskExecutor[] 会退出，而自定义的 javadoc:java.util.concurrent.Executor[] 用于常规任务执行（通过 javadoc:org.springframework.scheduling.annotation.EnableAsync[format=annotation]）。
+
+然而，Spring MVC、Spring WebFlux 和 Spring GraphQL 都需要一个名为 `applicationTaskExecutor` 的 bean。
+对于 Spring MVC 和 Spring WebFlux，此 bean 必须是 javadoc:org.springframework.core.task.AsyncTaskExecutor[] 类型，而 Spring GraphQL 不强制此类型要求。
+
+Spring WebSocket 和 JPA 将使用 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，如果存在一个此类型的单个 bean 或定义了一个名为 `applicationTaskExecutor` 的 bean。
+
+最后，`ApplicationContext` 的引导执行器使用名为 `applicationTaskExecutor` 的 bean，除非定义了名为 `bootstrapExecutor` 的 bean。
+
+以下代码片段演示了如何注册一个自定义的 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，以用于 Spring MVC、Spring WebFlux、Spring GraphQL、Spring WebSocket、JPA 和 beans 的后台初始化。
+
+include-code::application/MyTaskExecutorConfiguration[]
+
+[NOTE]
+====
+如果应用上下文中没有 javadoc:org.springframework.context.annotation.Primary[format=annotation] bean 或名为 `taskExecutor` 的类型为 javadoc:java.util.concurrent.Executor[] 或 javadoc:org.springframework.scheduling.annotation.AsyncConfigurer[] 的 bean，则 `applicationTaskExecutor` bean 也将用于常规任务执行。
+====
+
+[WARNING]
+====
+如果既没有定义自动配置的 `AsyncTaskExecutor`，也没有定义 `applicationTaskExecutor` bean，则应用程序默认使用名为 `taskExecutor` 的 bean 进行常规任务执行（javadoc:org.springframework.scheduling.annotation.EnableAsync[format=annotation]），遵循 Spring Framework 的行为。
+然而，此 bean 不会用于 Spring MVC、Spring WebFlux、Spring GraphQL。
+但如果 bean 的类型是 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，它可能用于 Spring WebSocket 或 JPA。
+====
+
+如果您的应用程序需要多个 `Executor` beans 用于不同的集成，例如一个用于通过 javadoc:org.springframework.scheduling.annotation.EnableAsync[format=annotation] 进行常规任务执行，另一个用于 Spring MVC、Spring WebFlux、Spring WebSocket 和 JPA，您可以按如下方式配置它们。
+
+include-code::multiple/MyTaskExecutorConfiguration[]
+
+[TIP]
+====
+自动配置的 javadoc:org.springframework.boot.task.ThreadPoolTaskExecutorBuilder[] 或 javadoc:org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder[] 允许您轻松创建类型为 javadoc:org.springframework.core.task.AsyncTaskExecutor[] 的实例，这些实例复制了 auto-configuration 的默认行为。
+
+include-code::builder/MyTaskExecutorConfiguration[]
+====
+
+如果名为 bean 的 `taskExecutor` 不是一个选项，您可以将您的 bean 标记为 javadoc:org.springframework.context.annotation.Primary[format=annotation] 或定义一个 javadoc:org.springframework.scheduling.annotation.AsyncConfigurer[] bean 来指定负责通过 javadoc:org.springframework.scheduling.annotation.EnableAsync[format=annotation] 处理常规任务执行的 `Executor`。
+以下示例演示了如何实现这一点。
+
+include-code::async/MyTaskExecutorConfiguration[]
+
+要注册一个自定义的 javadoc:java.util.concurrent.Executor[] 同时保留自动配置的 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，您可以创建一个自定义的 javadoc:java.util.concurrent.Executor[] bean，并在其 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 中设置 `defaultCandidate=false` 属性，如下例所示：
+
+include-code::defaultcandidate/MyTaskExecutorConfiguration[]
+
+在这种情况下，您可以将自定义的 javadoc:java.util.concurrent.Executor[] 自动注入到其他组件中，同时保留自动配置的 javadoc:org.springframework.core.task.AsyncTaskExecutor[]。
+但是，请记得在 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] 旁边使用 javadoc:org.springframework.beans.factory.annotation.Qualifier[format=annotation] annotation。
+
+如果这对您来说不可行，您可以请求 Spring Boot 无论如何都自动配置一个 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，如下所示：
+
+[configprops,yaml]
+----
+spring:
+  task:
+    execution:
+      mode: force
+----
+
+自动配置的 javadoc:org.springframework.core.task.AsyncTaskExecutor[] 将自动用于所有集成，即使注册了自定义的 javadoc:java.util.concurrent.Executor[] bean，包括那些标记为 javadoc:org.springframework.context.annotation.Primary[format=annotation] 的。
+这些集成包括：
+
+- 异步任务执行（javadoc:org.springframework.scheduling.annotation.EnableAsync[format=annotation]），除非存在 javadoc:org.springframework.scheduling.annotation.AsyncConfigurer[] bean。
+- GraphQL 异步处理控制器方法中 javadoc:java.util.concurrent.Callable[] 返回值的 Spring。
+- Spring MVC 的异步请求处理。
+- Spring WebFlux 的阻塞执行支持。
+- 用于 Spring WebSocket 的入站和出站消息通道。
+- JPA 的引导执行器，基于 JPA 仓库的引导模式。
+- 用于 {url-spring-framework-docs}/core/beans/java/composing-configuration-classes.html#beans-java-startup-background[后台初始化] beans 在 `ApplicationContext` 中的引导执行器，除非定义了名为 `bootstrapExecutor` 的 bean。
+
+[TIP]
+====
+根据你的目标安排，你可以将 configprop:spring.task.execution.mode[] 设置为 `force` 以自动配置一个 `applicationTaskExecutor`，将你的 javadoc:java.util.concurrent.Executor[] 更改为 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，或者同时定义一个 javadoc:org.springframework.core.task.AsyncTaskExecutor[] 和一个包装自定义 javadoc:java.util.concurrent.Executor[] 的 javadoc:org.springframework.scheduling.annotation.AsyncConfigurer[]。
+====
+
+[WARNING]
+====
+当启用 `force` 模式时，`applicationTaskExecutor` 也将被配置用于常规任务执行，与 javadoc:org.springframework.scheduling.annotation.EnableAsync[format=annotation] 一起，即使存在 javadoc:org.springframework.context.annotation.Primary[format=annotation] bean 或名为 `taskExecutor` 的 bean（类型为 javadoc:java.util.concurrent.Executor[]）。
+覆盖常规任务的 `Executor` 的唯一方法是注册一个 javadoc:org.springframework.scheduling.annotation.AsyncConfigurer[] bean。
+====
+
+当自动配置 javadoc:org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor[] 时，线程池使用 8 个核心线程，这些线程可以根据负载增长和收缩。
+这些默认设置可以使用 `spring.task.execution` 命名空间进行微调，如下例所示：
+
+[configprops,yaml]
+----
+spring:
+  task:
+    execution:
+      pool:
+        max-size: 16
+        queue-capacity: 100
+        keep-alive: "10s"
+----
+
+这会将线程池改为使用有界队列，这样当队列满时（100个任务），线程池会增加到最多16个线程。
+池的收缩更为激进，因为线程在空闲10秒后就会被回收（而不是默认的60秒）。
+
+如果需要与定时任务执行关联（例如使用 javadoc:org.springframework.scheduling.annotation.EnableScheduling[format=annotation]），调度器也可以自动配置。
+
+如果启用了虚拟线程（使用 Java 21+ 并将 configprop:spring.threads.virtual.enabled[] 设置为 `true`），这将是一个使用虚拟线程的 javadoc:org.springframework.scheduling.concurrent.SimpleAsyncTaskScheduler[]。
+这个 javadoc:org.springframework.scheduling.concurrent.SimpleAsyncTaskScheduler[] 会忽略任何与池化相关的属性。
+
+如果未启用虚拟线程，它将是一个具有合理默认值的 javadoc:org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler[]。
+javadoc:org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler[] 默认使用一个线程，其设置可以通过 `spring.task.scheduling` 命名空间进行微调，如下例所示：
+
+[configprops,yaml]
+----
+spring:
+  task:
+    scheduling:
+      thread-name-prefix: "scheduling-"
+      pool:
+        size: 2
+----
+
+如果需要在上下文中创建自定义的执行器或调度器，可以使用 javadoc:org.springframework.boot.task.ThreadPoolTaskExecutorBuilder[] bean、javadoc:org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder[] bean、javadoc:org.springframework.boot.task.ThreadPoolTaskSchedulerBuilder[] bean 和 javadoc:org.springframework.boot.task.SimpleAsyncTaskSchedulerBuilder[]。
+javadoc:org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder[] 和 javadoc:org.springframework.boot.task.SimpleAsyncTaskSchedulerBuilder[] bean 会在启用虚拟线程时自动配置为使用虚拟线程（使用 Java 21+ 并将 configprop:spring.threads.virtual.enabled[] 设置为 `true`）。

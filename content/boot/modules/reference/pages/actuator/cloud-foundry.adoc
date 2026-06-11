@@ -1,0 +1,50 @@
+= Cloud Foundry 支持
+
+Spring Boot 的 `spring-boot-cloudfoundry` 模块（属于 `spring-boot-starter-cloudfoundry` 的一部分）包含额外的支持，当您部署到兼容的 Cloud Foundry 实例时，该支持会被激活。
+`/cloudfoundryapplication` 路径为所有 javadoc:org.springframework.boot.actuate.endpoint.annotation.Endpoint[format=annotation] beans 提供了一条替代的安全路由。
+
+扩展支持允许 Cloud Foundry 管理 UI（例如可用于查看已部署应用程序的 Web 应用程序）通过 Spring Boot actuator 信息进行增强。
+例如，应用程序状态页面可以包含完整的健康信息，而不是典型的“`running`”或“`stopped`”状态。
+
+注意：`/cloudfoundryapplication` 路径对普通用户不可直接访问。
+要使用 endpoint，您必须在请求中传递有效的 UAA 令牌。
+
+
+[[actuator.cloud-foundry.disable]]
+== 禁用扩展的 Cloud Foundry Actuator 支持
+
+如果您想完全禁用 `/cloudfoundryapplication` endpoints，可以将以下设置添加到您的 `application.properties` 文件中：
+
+[configprops,yaml]
+----
+management:
+  cloudfoundry:
+    enabled: false
+----
+[[actuator.cloud-foundry.ssl]]
+== Cloud Foundry 自签名证书
+
+默认情况下，`/cloudfoundryapplication` endpoints 的安全验证会对各种 Cloud Foundry 服务进行 SSL 调用。
+如果你的 Cloud Foundry UAA 或 Cloud Controller 服务使用自签名证书，则需要设置以下属性：
+
+[configprops,yaml]
+----
+management:
+  cloudfoundry:
+    skip-ssl-validation: true
+----
+[[actuator.cloud-foundry.custom-context-path]]
+== 自定义上下文路径
+
+如果服务器的上下文路径被配置为 `/` 以外的任何值，Cloud Foundry endpoints 将无法在应用程序的根路径下访问。
+例如，如果 `server.servlet.context-path=/app`，Cloud Foundry endpoints 可在 `/app/cloudfoundryapplication/*` 访问。
+
+如果你希望 Cloud Foundry endpoints 始终在 `/cloudfoundryapplication/*` 可用，无论服务器的上下文路径如何，你需要在应用程序中显式配置。
+配置因使用的 Web 服务器而异。
+对于 Tomcat，你可以添加以下配置：
+
+include-code::MyCloudFoundryConfiguration[]
+
+如果你使用基于 Webflux 的应用程序，可以使用以下配置：
+
+include-code::MyReactiveCloudFoundryConfiguration[]

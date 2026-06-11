@@ -1,0 +1,21 @@
+[[appendix.executable-jar.restrictions]]
+= 可执行 JAR 限制
+
+使用 Spring Boot Loader 打包的应用程序时，需要考虑以下限制：
+
+
+
+[[appendix.executable-jar-zip-entry-compression]]
+* Zip 条目压缩：
+嵌套 JAR 的 javadoc:java.util.zip.ZipEntry[] 必须使用 javadoc:java.util.zip.ZipEntry#STORED[] 方法保存。
+这是必需的，以便我们可以直接定位到嵌套 JAR 中的单个内容。
+嵌套 JAR 文件本身的内容仍然可以压缩，外部 JAR 中的任何其他条目也可以压缩。
+
+
+
+[[appendix.executable-jar-system-classloader]]
+* 系统类加载器：
+启动的应用程序在加载类时应使用 `Thread.getContextClassLoader()`（大多数库和框架默认这样做）。
+尝试使用 `ClassLoader.getSystemClassLoader()` 加载嵌套 JAR 类会失败。
+`java.util.Logging` 始终使用系统类加载器。
+因此，您应考虑使用不同的日志实现。

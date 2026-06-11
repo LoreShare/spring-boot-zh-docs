@@ -1,0 +1,11 @@
+[[howto]]
+= 操作指南
+
+本节回答了一些在使用 Spring Boot 时经常出现的常见“如何做……”问题。
+其覆盖范围并非详尽无遗，但确实涵盖了很多内容。
+
+如果你有我们未在此处涵盖的特定问题，可以查看 https://stackoverflow.com/tags/spring-boot[stackoverflow.com] 看看是否有人已经提供了答案。
+这也是提出新问题的好地方（请使用 `spring-boot` 标签）。
+
+我们也很乐意扩展本节。
+如果你想添加一个“操作指南”，请向我们发送一个 {url-github}[pull request]。

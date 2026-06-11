@@ -1,0 +1,67 @@
+[[packaging.aot-cache]]
+= AOT 缓存
+:page-aliases: class-data-sharing.adoc
+
+AOT 缓存是一种 https://openjdk.org/jeps/483[JVM 特性]，可以帮助减少 Java 应用程序的启动时间和内存占用。
+
+如果你尚未使用 Java 25 或更高版本，应阅读关于 CDS 的章节。
+CDS 是 AOT 缓存的前身，但工作原理类似。
+
+注意：Spring Boot 同时支持 CDS 和 AOT 缓存，但我们建议尽可能使用 AOT 缓存。
+
+
+
+[[packaging.aot-cache.aot-cache]]
+== AOT 缓存
+
+注意：Spring Boot 对 Java 25 及以上版本支持 AOT 缓存。
+如果你使用的是较早版本的 Java，则必须改用 CDS。
+
+要使用 AOT 缓存功能，应首先以解压形式对应用程序执行训练运行：
+
+[source,shell]
+----
+$ java -Djarmode=tools -jar my-app.jar extract --destination application
+$ cd application
+$ java -XX:AOTCacheOutput=app.aot -Dspring.context.exit=onRefresh -jar my-app.jar
+----
+
+这会创建一个 `app.aot` 缓存文件，只要应用程序未更新且使用相同的 Java 版本，该文件就可以重复使用。
+
+要使用缓存文件，需要在启动应用程序时添加一个额外的参数：
+
+[source,shell]
+----
+$ java -XX:AOTCache=app.aot -jar my-app.jar
+----
+
+NOTE: 你必须将缓存文件与应用程序的解压形式一起使用，否则它不会生效。
+
+
+
+[[packaging.aot-cache.cds]]
+== CDS
+
+NOTE: 如果你使用的是 Java 25 或更高版本，请改用 AOT 缓存而不是 CDS。
+
+要使用 CDS，你应首先在应用程序的解压形式上执行一次训练运行：
+
+[source,shell]
+----
+$ java -Djarmode=tools -jar my-app.jar extract --destination application
+$ cd application
+$ java -XX:ArchiveClassesAtExit=application.jsa -Dspring.context.exit=onRefresh -jar my-app.jar
+----
+
+这会创建一个 `application.jsa` 归档文件，只要应用程序未更新，该文件就可以重复使用。
+
+要使用该归档文件，需要在启动应用程序时添加一个额外参数：
+
+[source,shell]
+----
+$ java -XX:SharedArchiveFile=application.jsa -jar my-app.jar
+----
+
+NOTE: 你必须将缓存文件与应用程序的解压形式一起使用，否则它将不起作用。
+
+NOTE: 关于 CDS 的更多细节，请参考 https://docs.oracle.com/en/java/javase/17/vm/class-data-sharing.html[JDK 的类数据共享文档]。

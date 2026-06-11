@@ -1,0 +1,35 @@
+[[howto.docker-compose]]
+= Docker Compose
+
+本节包含与 Spring Boot 中 Docker Compose 支持相关的主题。
+
+
+
+[[howto.docker-compose.jdbc-url]]
+== 自定义 JDBC URL
+
+当将 javadoc:org.springframework.boot.jdbc.autoconfigure.JdbcConnectionDetails[] 与 Docker Compose 一起使用时，可以通过将 `org.springframework.boot.jdbc.parameters` 标签应用于服务来自定义 JDBC URL 的参数。例如：
+
+[source,yaml]
+----
+services:
+  postgres:
+    image: 'postgres:15.3'
+    environment:
+      - 'POSTGRES_USER=myuser'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_DB=mydb'
+    ports:
+      - '5432:5432'
+    labels:
+      org.springframework.boot.jdbc.parameters: 'ssl=true&sslmode=require'
+----
+有了这个 Docker Compose 文件，使用的 JDBC URL 是 `jdbc:postgresql://127.0.0.1:5432/mydb?ssl=true&sslmode=require`。
+
+[[howto.docker-compose.sharing-services]]
+== 在多个应用之间共享服务
+
+如果你想在多个应用之间共享服务，在其中一个应用中创建 `compose.yaml` 文件，然后在其他应用中使用配置属性 configprop:spring.docker.compose.file[] 来引用 `compose.yaml` 文件。
+你还应该将 configprop:spring.docker.compose.lifecycle-management[] 设置为 `start-only`，因为它默认为 `start-and-stop`，停止一个应用也会关闭其他仍在运行的应用的共享服务。
+将其设置为 `start-only` 不会在应用停止时停止共享服务，但需要注意的是，如果你关闭所有应用，服务仍会继续运行。
+你可以通过在包含 `compose.yaml` 文件的目录的命令行中运行 `docker compose stop` 来手动停止服务。

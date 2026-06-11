@@ -1,0 +1,71 @@
+= RSocket
+
+https://rsocket.io[RSocket] 是一种用于字节流传输的二进制协议。它通过单连接上的异步消息传递实现对称交互模型。
+
+Spring 框架的 `spring-messaging` 模块为客户端和服务端的 RSocket 请求方和响应方提供支持。有关更多详细信息，包括 RSocket 协议概述，请参阅 Spring 框架参考文档的 {url-spring-framework-docs}/rsocket.html#rsocket-spring[RSocket 章节]。
+
+[[messaging.rsocket.strategies-auto-configuration]]
+== RSocket 策略自动配置
+
+Spring Boot 自动配置一个 javadoc:org.springframework.messaging.rsocket.RSocketStrategies[] bean，提供编码和解码 RSocket 负载所需的所有基础设施。默认情况下，auto-configuration 会尝试按顺序配置以下内容：
+
+. https://cbor.io/[CBOR] 编解码器（使用 Jackson）
+. JSON 编解码器（使用 Jackson）
+
+`spring-boot-starter-rsocket` starter 提供了这两个依赖。有关自定义可能性的更多信息，请参阅 xref:features/json.adoc#features.json.jackson[Jackson support section]。
+
+开发者可以通过创建实现 javadoc:org.springframework.boot.rsocket.messaging.RSocketStrategiesCustomizer[] 接口的 beans 来自定义 javadoc:org.springframework.messaging.rsocket.RSocketStrategies[] 组件。请注意，它们的 javadoc:org.springframework.core.annotation.Order[format=annotation] 很重要，因为它决定了编解码器的顺序。
+
+[[messaging.rsocket.server-auto-configuration]]
+== RSocket 服务器自动配置
+
+Spring Boot 提供 RSocket 服务器 auto-configuration。所需依赖由 `spring-boot-starter-rsocket` 提供。
+
+Spring Boot 允许从 WebFlux 服务器通过 WebSocket 暴露 RSocket，或者搭建独立的 RSocket 服务器。这取决于应用程序的类型及其配置。
+
+对于 WebFlux 应用程序（即类型为 javadoc:org.springframework.boot.WebApplicationType#REACTIVE[]），仅当以下属性匹配时，RSocket 服务器才会接入 Web 服务器：
+
+[configprops,yaml]
+----
+spring:
+  rsocket:
+    server:
+      mapping-path: "/rsocket"
+      transport: "websocket"
+----
+WARNING: 将 RSocket 接入 Web 服务器仅支持 Reactor Netty，因为 RSocket 本身是基于该库构建的。
+
+或者，RSocket TCP 或 WebSocket 服务器会作为独立的嵌入式服务器启动。
+除了依赖要求外，唯一需要的配置是为该服务器定义一个端口：
+
+[configprops,yaml]
+----
+spring:
+  rsocket:
+    server:
+      port: 9898
+----
+[[messaging.rsocket.messaging]]
+== Spring 消息 RSocket 支持
+
+Spring Boot 将自动配置用于 RSocket 的 Spring 消息基础设施。
+
+这意味着 Spring Boot 将创建一个 javadoc:org.springframework.messaging.rsocket.annotation.support.RSocketMessageHandler[] bean，用于处理对你的应用程序的 RSocket 请求。
+
+提示：你可以使用 {url-spring-framework-docs}/web/webmvc/mvc-controller/ann-advice.html[`@ControllerAdvice`] 来处理异常。
+
+[[messaging.rsocket.requester]]
+== 使用 RSocketRequester 调用 RSocket 服务
+
+一旦在服务器和客户端之间建立了 javadoc:io.rsocket.RSocket[] 通道，任何一方都可以向另一方发送或接收请求。
+
+作为服务器，你可以在 RSocket javadoc:org.springframework.stereotype.Controller[format=annotation] 的任何处理器方法中注入一个 javadoc:org.springframework.messaging.rsocket.RSocketRequester[] 实例。
+作为客户端，你需要首先配置并建立 RSocket 连接。
+Spring Boot 会为这种情况自动配置一个 javadoc:org.springframework.messaging.rsocket.RSocketRequester$Builder[]，其中包含预期的编解码器，并应用任何 javadoc:org.springframework.messaging.rsocket.RSocketConnectorConfigurer[] bean。
+
+javadoc:org.springframework.messaging.rsocket.RSocketRequester$Builder[] 实例是一个原型 bean，这意味着每个注入点都会为你提供一个新实例。
+这是有意为之，因为该构建器是有状态的，你不应使用同一个实例创建具有不同设置的请求者。
+
+以下代码展示了一个典型示例：
+
+include-code::MyService[]

@@ -1,0 +1,17 @@
+[[actuator.http-exchanges]]
+= 记录 HTTP 交换
+
+你可以通过在应用配置中提供一个类型为 javadoc:org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository[] 的 bean 来启用 HTTP 交换的记录。
+为方便起见，Spring Boot 提供了 javadoc:org.springframework.boot.actuate.web.exchanges.InMemoryHttpExchangeRepository[]，默认情况下，它存储最近 100 个请求-响应交换。
+javadoc:org.springframework.boot.actuate.web.exchanges.InMemoryHttpExchangeRepository[] 与追踪解决方案相比有限，我们建议仅将其用于开发环境。
+对于生产环境，我们建议使用生产就绪的追踪或可观测性解决方案，例如 Zipkin 或 OpenTelemetry。
+或者，你可以创建自己的 javadoc:org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository[]。
+
+你可以使用 `httpexchanges` endpoint 来获取存储在 javadoc:org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository[] 中的请求-响应交换的信息。
+
+[[actuator.http-exchanges.custom]]
+== 自定义 HTTP 交换记录
+
+要自定义每个记录交换中包含的项，请使用 configprop:management.httpexchanges.recording.include[] 配置属性。
+
+要完全禁用记录，请将 configprop:management.httpexchanges.recording.enabled[] 设置为 `false`。

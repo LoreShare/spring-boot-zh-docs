@@ -1,0 +1,73 @@
+[appendix]
+[[appendix.deprecated-application-properties]]
+= 已弃用的应用程序属性
+
+以下已弃用的属性可以在您的 `application.properties` 文件、`application.yaml` 文件或作为命令行开关指定。
+这些属性的支持将在未来版本中移除，您应该迁移它们。
+
+[TIP]
+====
+Spring Boot 包含一个有用的 `spring-boot-properties-migrator` 工具，可帮助您迁移已弃用的属性。
+要使用属性迁移工具，请将以下依赖项添加到您的项目中：
+
+[tabs]
+======
+Maven::
++
+[source,xml]
+----
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-properties-migrator</artifactId>
+	<scope>runtime</scope>
+</dependency>
+----
+Gradle::
++
+[source,gradle]
+----
+runtimeOnly("org.springframework.boot:spring-boot-properties-migrator")
+----
+======
+
+一旦将该工具作为依赖添加到项目中，它不仅会在启动时分析应用程序的环境并打印诊断信息，还会在运行时临时迁移属性。
+
+请记住，在迁移完成后移除该依赖。
+====
+
+
+include::partial$deprecated-configuration-properties/actuator.adoc[]
+
+include::partial$deprecated-configuration-properties/cache.adoc[]
+
+include::partial$deprecated-configuration-properties/core.adoc[]
+
+include::partial$deprecated-configuration-properties/data-migration.adoc[]
+
+include::partial$deprecated-configuration-properties/data.adoc[]
+
+include::partial$deprecated-configuration-properties/devtools.adoc[]
+
+include::partial$deprecated-configuration-properties/docker-compose.adoc[]
+
+include::partial$deprecated-configuration-properties/integration.adoc[]
+
+include::partial$deprecated-configuration-properties/json.adoc[]
+
+include::partial$deprecated-configuration-properties/mail.adoc[]
+
+include::partial$deprecated-configuration-properties/rsocket.adoc[]
+
+include::partial$deprecated-configuration-properties/security.adoc[]
+
+include::partial$deprecated-configuration-properties/server.adoc[]
+
+include::partial$deprecated-configuration-properties/templating.adoc[]
+
+include::partial$deprecated-configuration-properties/testcontainers.adoc[]
+
+include::partial$deprecated-configuration-properties/testing.adoc[]
+
+include::partial$deprecated-configuration-properties/transaction.adoc[]
+
+include::partial$deprecated-configuration-properties/web.adoc[]
