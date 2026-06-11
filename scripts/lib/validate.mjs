@@ -439,6 +439,38 @@ function removeAllowedEnglish(text) {
   return cleaned;
 }
 
+function stripInlineCodeSegments(line) {
+  return line.split(/(`[^`\n]*`)/g)
+    .filter((segment) => !(segment.startsWith('`') && segment.endsWith('`')))
+    .join(' ');
+}
+
+export function findXrefVisibleTextIssues(content) {
+  const issues = [];
+  const lines = content.split(/\r?\n/);
+  let inDelimitedBlock = false;
+
+  lines.forEach((line, index) => {
+    const trimmed = line.trim();
+    if (trimmed === '----' || trimmed === '....' || trimmed === '++++') {
+      inDelimitedBlock = !inDelimitedBlock;
+      return;
+    }
+    if (inDelimitedBlock) {
+      return;
+    }
+    const visibleLine = stripInlineCodeSegments(line);
+    for (const match of visibleLine.matchAll(/\bxref:([A-Za-z0-9_./:-]*\.adoc#[A-Za-z0-9_.-]+|#[A-Za-z0-9_.-]+)\[\]/g)) {
+      issues.push(`第 ${index + 1} 行 anchor xref 缺少可见文本：${match[0]}`);
+    }
+    for (const match of visibleLine.matchAll(/\bxref:([A-Za-z0-9_./:-]*\.adoc#[A-Za-z0-9_.-]+|#[A-Za-z0-9_.-]+)(?=$|[\s。），),;:])/g)) {
+      issues.push(`第 ${index + 1} 行存在裸 xref，缺少 []：${match[0]}`);
+    }
+  });
+
+  return issues;
+}
+
 function getEnglishWords(text) {
   return [...text.matchAll(/\b[A-Za-z][A-Za-z'-]*\b/g)]
     .map((match) => match[0])
@@ -786,6 +818,10 @@ export function validateTranslatedPage({ relativePath, source, translated }) {
   }
 
   for (const issue of findMixedLanguageVisibleSegments(translated)) {
+    issues.push(`${relativePath}：${issue}`);
+  }
+
+  for (const issue of findXrefVisibleTextIssues(translated)) {
     issues.push(`${relativePath}：${issue}`);
   }
 

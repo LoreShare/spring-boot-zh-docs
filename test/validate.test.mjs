@@ -227,6 +227,22 @@ test('页面校验汇总 xref、代码块和术语问题', () => {
   ]);
 });
 
+test('页面校验能发现空 anchor xref 和裸 xref', () => {
+  const issues = validateTranslatedPage({
+    relativePath: 'modules/cli/pages/installation.adoc',
+    source: '',
+    translated: [
+      '请参阅 xref:ROOT:installing.adoc#getting-started.installing.cli[]。',
+      '在本文档后面部分介绍 xref:web/servlet.adoc#web.servlet.spring-mvc.static-content。',
+    ].join('\n'),
+  });
+
+  assert.deepEqual(issues, [
+    'modules/cli/pages/installation.adoc：第 1 行 anchor xref 缺少可见文本：xref:ROOT:installing.adoc#getting-started.installing.cli[]',
+    'modules/cli/pages/installation.adoc：第 2 行存在裸 xref，缺少 []：xref:web/servlet.adoc#web.servlet.spring-mvc.static-content',
+  ]);
+});
+
 test('允许 Java 和 Kotlin API xref 改为官方外部链接', () => {
   const issues = validateTranslatedPage({
     relativePath: 'modules/api/partials/nav-java-api.adoc',

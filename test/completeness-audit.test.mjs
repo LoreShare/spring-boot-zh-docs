@@ -133,6 +133,29 @@ test('构建产物审计能发现未渲染的 javadoc 宏', () => {
   assert.deepEqual(issues.map((issue) => issue.code), ['raw-javadoc-html']);
 });
 
+test('构建产物审计能发现原始 xref 可见文本和裸 xref', () => {
+  const files = new Map([
+    [
+      'build/site/example.html',
+      [
+        '<p><a href="../installing.html#getting-started.installing.cli" class="xref page">ROOT:installing.adoc#getting-started.installing.cli</a></p>',
+        '<p>在本文档后面部分介绍 xref:web/servlet.adoc#web.servlet.spring-mvc.static-content。</p>',
+      ].join('\n'),
+    ],
+  ]);
+
+  const issues = auditBuiltSiteHtml({
+    outputDir: 'build/site',
+    listFiles: () => [...files.keys()],
+    read: (file) => files.get(file),
+  });
+
+  assert.deepEqual(issues.map((issue) => issue.code), [
+    'raw-xref-label-html',
+    'raw-xref-html',
+  ]);
+});
+
 test('构建产物审计能发现未解析的 URL 属性', () => {
   const files = new Map([
     ['build/site/example.html', '<p>{url-spring-data-site}[Spring Data]</p>'],

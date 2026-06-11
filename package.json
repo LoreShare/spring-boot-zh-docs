@@ -11,6 +11,7 @@
     "translate:all": "node scripts/translate-all.mjs",
     "fill:generated-partials": "node scripts/fill-generated-partials.mjs",
     "sync:generated-content": "node scripts/sync-generated-content.mjs",
+    "normalize:xref-labels": "node scripts/normalize-xref-labels.mjs",
     "materialize:include-code": "node scripts/materialize-include-code.mjs",
     "audit:completeness": "node scripts/audit-completeness.mjs",
     "validate": "node scripts/validate.mjs",

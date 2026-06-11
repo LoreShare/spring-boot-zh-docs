@@ -383,6 +383,20 @@ export function auditBuiltSiteHtml({
         message: '构建产物仍包含未渲染的 javadoc 宏',
       }));
     }
+    if (/<a\b[^>]*class="[^"]*\bxref\b[^"]*\bpage\b[^"]*"[^>]*>\s*(?:[A-Za-z0-9_-]+:)?[A-Za-z0-9_./-]+\.adoc#[A-Za-z0-9_.-]+\s*<\/a>/.test(html)) {
+      issues.push(makeIssue({
+        code: 'raw-xref-label-html',
+        relativePath,
+        message: '构建产物把原始 xref 目标显示为链接文本',
+      }));
+    }
+    if (/\bxref:[A-Za-z0-9_./:-]+#[A-Za-z0-9_.-]+/.test(html)) {
+      issues.push(makeIssue({
+        code: 'raw-xref-html',
+        relativePath,
+        message: '构建产物仍包含未渲染的 xref 文本',
+      }));
+    }
     if (/\{url-[^}]+}/.test(html)) {
       issues.push(makeIssue({
         code: 'unresolved-url-attribute-html',
