@@ -8,6 +8,8 @@ import {
 } from 'node:fs';
 import path from 'node:path';
 
+import { getLatestContentRoot } from './site-versions.mjs';
+
 function toPosixPath(filePath) {
   return filePath.split(path.sep).join('/');
 }
@@ -61,7 +63,7 @@ function getPreviousNonEmptyLine(lines, index) {
 }
 
 export function resolvePartialOutputPath({
-  outputRoot = 'content/boot',
+  outputRoot = getLatestContentRoot(),
   relativePath,
   moduleName,
   partialPath,
@@ -127,7 +129,7 @@ export function buildGeneratedPartialContent({ partialPath, columnCount } = {}) 
 }
 
 export function collectMissingGeneratedPartials({
-  contentRoot = 'content/boot',
+  contentRoot = getLatestContentRoot(),
   files = listAsciiDocFiles(contentRoot),
   exists = existsSync,
   read = (file) => readFileSync(file, 'utf8'),
@@ -159,7 +161,7 @@ export function collectMissingGeneratedPartials({
 }
 
 export function ensureGeneratedPartials({
-  contentRoot = 'content/boot',
+  contentRoot = getLatestContentRoot(),
   files,
   exists = existsSync,
   read = (file) => readFileSync(file, 'utf8'),

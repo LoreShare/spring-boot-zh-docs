@@ -13,6 +13,7 @@ import {
   buildTranslationSources,
   getOutputPathForPage,
 } from './translate.mjs';
+import { getLatestContentRoot } from './site-versions.mjs';
 
 export const DEFAULT_COMPLETENESS_JSONL = 'reports/completeness-audit.jsonl';
 export const DEFAULT_COMPLETENESS_MARKDOWN = 'reports/completeness-audit.md';
@@ -376,7 +377,7 @@ export function auditBuiltSiteHtml({
 
 export function auditTranslationCompleteness({
   plan = buildFullTranslationPlan({ sources: buildTranslationSources() }),
-  outputRoot = 'content/boot',
+  outputRoot = getLatestContentRoot(),
   exists = existsSync,
   read = (file) => readFileSync(file, 'utf8'),
 } = {}) {

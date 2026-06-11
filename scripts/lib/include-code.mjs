@@ -6,6 +6,7 @@ import {
 import path from 'node:path';
 
 import { getCachedCodeExampleRoots } from './sync-source.mjs';
+import { getLatestContentRoot } from './site-versions.mjs';
 import {
   buildFullTranslationPlan,
   buildTranslationSources,
@@ -293,7 +294,7 @@ export function materializeIncludeCodeInContent({
 
 export function materializeTranslatedIncludeCode({
   plan = buildFullTranslationPlan({ sources: buildTranslationSources() }),
-  outputRoot = 'content/boot',
+  outputRoot = getLatestContentRoot(),
   codeExampleRoots = getCachedCodeExampleRoots(),
   exists = existsSync,
   read = (file) => readFileSync(file, 'utf8'),

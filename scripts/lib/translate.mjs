@@ -11,6 +11,7 @@ import {
 import path from 'node:path';
 
 import { getCachedAntoraRoot, getCachedAntoraRoots } from './sync-source.mjs';
+import { getLatestContentRoot } from './site-versions.mjs';
 
 export const DEFAULT_MODEL = 'deepseek-v4-flash';
 export const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
@@ -115,7 +116,7 @@ export function parseTranslationJson(rawText) {
   };
 }
 
-export function getOutputPathForPage(relativePath, outputRoot = 'content/boot') {
+export function getOutputPathForPage(relativePath, outputRoot = getLatestContentRoot()) {
   return `${outputRoot}/${relativePath}`;
 }
 
@@ -660,7 +661,7 @@ export async function translateContentWithRetries({
 
 export async function translateMvp({
   sourceRoot = getCachedAntoraRoot(),
-  outputRoot = 'content/boot',
+  outputRoot = getLatestContentRoot(),
   apiKey = readDeepSeekApiKey(),
   force = false,
   fetchImpl = globalThis.fetch,
@@ -714,7 +715,7 @@ export async function translateAll({
   sources = sourceRoot
     ? [{ sourceId: 'core', sourceRoot }]
     : buildTranslationSources(),
-  outputRoot = 'content/boot',
+  outputRoot = getLatestContentRoot(),
   apiKey = readDeepSeekApiKey(),
   force = false,
   fetchImpl = globalThis.fetch,

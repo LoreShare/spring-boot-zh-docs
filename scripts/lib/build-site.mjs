@@ -1,17 +1,11 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 
 import { auditBuiltSiteHtml as defaultAuditBuiltSiteHtml } from './completeness-audit.mjs';
+import { readSiteVersions } from './site-versions.mjs';
 
 const DEFAULT_SITE_URL = 'http://localhost:8080';
-
-export function readSiteVersions({
-  file = 'site-versions.json',
-  read = (filePath) => readFileSync(filePath, 'utf8'),
-} = {}) {
-  return JSON.parse(read(file));
-}
 
 export function createCompatibilityRedirectsForVersion(version) {
   return [

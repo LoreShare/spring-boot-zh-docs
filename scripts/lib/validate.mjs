@@ -11,6 +11,7 @@ import {
   getOutputPathForPage,
 } from './translate.mjs';
 import { auditTranslationCompleteness } from './completeness-audit.mjs';
+import { getLatestContentRoot } from './site-versions.mjs';
 
 export function collectXrefs(content) {
   return [...content.matchAll(/\bxref:([^\[\s]+)\[/g)].map((match) => match[1]);
@@ -521,7 +522,7 @@ export function findPartialIncludeTargets(content) {
 export function validatePartialIncludes({
   relativePath,
   translated,
-  outputRoot = 'content/boot',
+  outputRoot = getLatestContentRoot(),
   exists = existsSync,
 } = {}) {
   const issues = [];
@@ -545,7 +546,7 @@ function getPartialPath({ outputRoot, currentModuleName, moduleName, partialPath
 function resolveNavContent({
   relativePath = 'nav.adoc',
   moduleName = 'ROOT',
-  outputRoot = 'content/boot',
+  outputRoot = getLatestContentRoot(),
   exists = existsSync,
   read = (file) => readFileSync(file, 'utf8'),
   seen = new Set(),
@@ -629,7 +630,7 @@ export function findDuplicateTopLevelNavEntries(content) {
 }
 
 export function validateTopLevelNavigation({
-  outputRoot = 'content/boot',
+  outputRoot = getLatestContentRoot(),
   exists = existsSync,
   read = (file) => readFileSync(file, 'utf8'),
 } = {}) {
@@ -703,7 +704,7 @@ export function validateProjectSecrets({ files = listProjectFiles() } = {}) {
 
 export function validateMvpPages({
   sourceRoot = getCachedAntoraRoot(),
-  outputRoot = 'content/boot',
+  outputRoot = getLatestContentRoot(),
 } = {}) {
   const issues = [];
 
@@ -733,7 +734,7 @@ export function validateMvpPages({
 
 export function validateTranslatedFiles({
   sourceRoot = getCachedAntoraRoot(),
-  outputRoot = 'content/boot',
+  outputRoot = getLatestContentRoot(),
   plan = buildFullTranslationPlan({ sources: buildTranslationSources() }),
   exists = existsSync,
   read = (file) => readFileSync(file, 'utf8'),

@@ -52,7 +52,7 @@ npm run audit:completeness
 npm run build
 ```
 
-构建产物默认位于 `build/site/boot/4.1.0`。
+构建产物默认位于 latest 版本路径，例如 `build/site/boot/4.1.0`。
 构建脚本会同时生成以下无版本前缀兼容入口：
 
 ```text
