@@ -1,0 +1,7 @@
+* xref:index.adoc[,role=navtree-icon-home]
+* xref:documentation.adoc[文档概览,role=navtree-icon-book]
+* xref:community.adoc[社区,role=navtree-icon-question]
+* xref:system-requirements.adoc[系统要求,role=navtree-icon-server]
+* xref:installing.adoc[安装,role=navtree-icon-gift]
+* xref:upgrading.adoc[升级,role=navtree-icon-rocket]
+* xref:tutorial:index.adoc[教程]

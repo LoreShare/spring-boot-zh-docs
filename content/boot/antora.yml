@@ -1,0 +1,24 @@
+name: boot
+title: Spring Boot 中文文档
+version: '4.1.0'
+display_version: '4.1.0'
+start_page: ROOT:index.adoc
+nav:
+- modules/ROOT/partials/nav-root.adoc
+- modules/tutorial/partials/nav-tutorial.adoc
+asciidoc:
+  attributes:
+    artifact-release-type: release
+    build-and-artifact-release-type: opensource-release
+    build-type: oss
+    url-artifact-repository: https://repo.spring.io/release
+    url-github: https://github.com/spring-projects/spring-boot
+    url-github-raw: https://raw.githubusercontent.com/spring-projects/spring-boot/v4.1.0
+    url-github-wiki: https://github.com/spring-projects/spring-boot/wiki
+    url-gradle-docs: https://docs.gradle.org
+    url-spring-framework-docs: https://docs.spring.io/spring-framework/reference
+    version-dependency-management-plugin: 1.1.7
+    version-graal: '25'
+    version-native-build-tools: 1.1.1
+    version-spring-boot: 4.1.0
+    version-spring-framework: 7.0.8

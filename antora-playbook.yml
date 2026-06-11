@@ -1,0 +1,22 @@
+site:
+  title: Spring Boot 中文文档
+  url: http://localhost:8080
+  start_page: boot::index.adoc
+
+content:
+  sources:
+  - url: .
+    branches: HEAD
+    start_path: content/boot
+
+ui:
+  bundle:
+    url: https://github.com/antora/antora-ui-default/releases/download/v3.1.0/ui-bundle.zip
+    snapshot: true
+
+output:
+  dir: build/site
+
+runtime:
+  log:
+    failure_level: error
