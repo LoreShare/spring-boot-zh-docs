@@ -14,7 +14,23 @@ Spring Boot 在任何需要的地方重用你的 javadoc:javax.sql.DataSource[]�
 
 以下示例展示了如何在 bean 中定义数据源：
 
-include-code::custom/MyDataSourceConfiguration[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyDataSourceConfiguration {
+
+	@Bean
+	@ConfigurationProperties("app.datasource")
+	public SomeDataSource dataSource() {
+		return new SomeDataSource();
+	}
+
+}
+----
 
 以下示例展示了如何通过设置属性来定义数据源：
 
@@ -32,7 +48,26 @@ Spring Boot 还提供了一个名为 javadoc:org.springframework.boot.jdbc.DataS
 
 以下示例展示了如何使用 javadoc:org.springframework.boot.jdbc.DataSourceBuilder[] 创建数据源：
 
-include-code::builder/MyDataSourceConfiguration[]
+[source,java]
+----
+import javax.sql.DataSource;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyDataSourceConfiguration {
+
+	@Bean
+	@ConfigurationProperties("app.datasource")
+	public DataSource dataSource() {
+		return DataSourceBuilder.create().build();
+	}
+
+}
+----
 
 要运行使用该 javadoc:javax.sql.DataSource[] 的应用程序，您只需要连接信息。也可以提供特定于池的设置。有关更多详细信息，请检查将在运行时使用的实现。
 
@@ -52,7 +87,26 @@ app:
 要解决此问题，请使用构建器的 `type(Class)` 方法指定要构建的 javadoc:javax.sql.DataSource[] 类型，并更新方法的返回类型。
 例如，以下示例展示了如何使用 javadoc:org.springframework.boot.jdbc.DataSourceBuilder[] 创建一个 javadoc:com.zaxxer.hikari.HikariDataSource[]：
 
-include-code::simple/MyDataSourceConfiguration[]
+[source,java]
+----
+import com.zaxxer.hikari.HikariDataSource;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyDataSourceConfiguration {
+
+	@Bean
+	@ConfigurationProperties("app.datasource")
+	public HikariDataSource dataSource() {
+		return DataSourceBuilder.create().type(HikariDataSource.class).build();
+	}
+
+}
+----
 
 不幸的是，这个基本设置无法工作，因为 Hikari 没有 `url` 属性。
 相反，它有一个 `jdbc-url` 属性，这意味着您必须按如下方式重写配置：
@@ -71,7 +125,34 @@ app:
 你可以注入 Spring Boot 自动创建的 javadoc:org.springframework.boot.jdbc.autoconfigure.DataSourceProperties[]，但这会将你的配置分散在 `+spring.datasource.*+` 和 `+app.datasource.*+` 之间。
 为了避免这种情况，请定义一个带有自定义配置属性前缀的自定义 javadoc:org.springframework.boot.jdbc.autoconfigure.DataSourceProperties[]，如下例所示：
 
-include-code::configurable/MyDataSourceConfiguration[]
+[source,java]
+----
+import com.zaxxer.hikari.HikariDataSource;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.autoconfigure.DataSourceProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+
+@Configuration(proxyBeanMethods = false)
+public class MyDataSourceConfiguration {
+
+	@Bean
+	@Primary
+	@ConfigurationProperties("app.datasource")
+	public DataSourceProperties dataSourceProperties() {
+		return new DataSourceProperties();
+	}
+
+	@Bean
+	@ConfigurationProperties("app.datasource.configuration")
+	public HikariDataSource dataSource(DataSourceProperties properties) {
+		return properties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
+	}
+
+}
+----
 
 此设置等同于 Spring Boot 默认为你所做的，不同之处在于池的类型在代码中指定，其设置作为 `app.datasource.configuration.*` 属性暴露。
 javadoc:org.springframework.boot.jdbc.autoconfigure.DataSourceProperties[] 负责从 `url` 到 `jdbc-url` 的转换，因此你可以按如下方式配置它：
@@ -109,7 +190,28 @@ app:
 
 为了允许在需要的地方注入额外的 javadoc:javax.sql.DataSource[]，还需要使用 javadoc:org.springframework.beans.factory.annotation.Qualifier[format=annotation] 对其进行注解，如下例所示：
 
-include-code::MyAdditionalDataSourceConfiguration[]
+[source,java]
+----
+import com.zaxxer.hikari.HikariDataSource;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyAdditionalDataSourceConfiguration {
+
+	@Qualifier("second")
+	@Bean(defaultCandidate = false)
+	@ConfigurationProperties("app.datasource")
+	public HikariDataSource secondDataSource() {
+		return DataSourceBuilder.create().type(HikariDataSource.class).build();
+	}
+
+}
+----
 
 要使用额外的 javadoc:javax.sql.DataSource[]，请使用相同的 javadoc:org.springframework.beans.factory.annotation.Qualifier[format=annotation] 注解注入点。
 
@@ -134,7 +236,35 @@ app:
 更高级的、特定于实现的自动配置 javadoc:javax.sql.DataSource[] 配置可通过 `spring.datasource.configuration.*` 属性获得。
 您可以将相同的概念应用于额外的 javadoc:javax.sql.DataSource[]，如下例所示：
 
-include-code::MyCompleteAdditionalDataSourceConfiguration[]
+[source,java]
+----
+import com.zaxxer.hikari.HikariDataSource;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.autoconfigure.DataSourceProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyCompleteAdditionalDataSourceConfiguration {
+
+	@Qualifier("second")
+	@Bean(defaultCandidate = false)
+	@ConfigurationProperties("app.datasource")
+	public DataSourceProperties secondDataSourceProperties() {
+		return new DataSourceProperties();
+	}
+
+	@Qualifier("second")
+	@Bean(defaultCandidate = false)
+	@ConfigurationProperties("app.datasource.configuration")
+	public HikariDataSource secondDataSource(@Qualifier("second") DataSourceProperties dataSourceProperties) {
+		return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
+	}
+
+}
+----
 
 前面的示例使用与 Spring Boot 在 auto-configuration 中相同的逻辑配置了额外的数据源。
 请注意，`app.datasource.configuration.*` 属性提供了基于所选实现的高级设置。
@@ -165,7 +295,21 @@ Spring Boot 通过扫描 xref:reference:using/auto-configuration.adoc#using.auto
 Spring Boot 通过扫描 xref:reference:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration 包] 来确定您的 javadoc:jakarta.persistence.Entity[format=annotation] 定义的位置。
 要获得更多控制，请使用 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] annotation，如下例所示：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.persistence.autoconfigure.EntityScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+@EnableAutoConfiguration
+@EntityScan(basePackageClasses = City.class)
+public class MyApplication {
+
+	// ...
+
+}
+----
 
 
 [[howto.data-access.filter-scanned-entity-definitions]]
@@ -175,7 +319,22 @@ include-code::MyApplication[]
 这在测试中可能很有用，当只应考虑可用实体的子集时。
 在以下示例中，仅包含来自 `com.example.app.customer` 包的实体：
 
-include-code::MyEntityScanConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.persistenceunit.ManagedClassNameFilter;
+
+@Configuration(proxyBeanMethods = false)
+public class MyEntityScanConfiguration {
+
+	@Bean
+	public ManagedClassNameFilter entityScanFilter() {
+		return (className) -> className.startsWith("com.example.app.customer.");
+	}
+
+}
+----
 
 
 [[howto.data-access.jpa-properties]]
@@ -230,7 +389,32 @@ Hibernate 使用 {url-hibernate-userguide}#naming[两种不同的命名策略] �
 例如，`TelephoneNumber` 实体被映射到 `telephone_number` 表。
 如果你的模式需要混合大小写标识符，定义一个自定义的 javadoc:org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy[] bean，如下例所示：
 
-include-code::spring/MyHibernateConfiguration[]
+[source,java]
+----
+import org.hibernate.boot.model.naming.Identifier;
+import org.hibernate.boot.model.naming.PhysicalNamingStrategySnakeCaseImpl;
+import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyHibernateConfiguration {
+
+	@Bean
+	public PhysicalNamingStrategySnakeCaseImpl caseSensitivePhysicalNamingStrategy() {
+		return new PhysicalNamingStrategySnakeCaseImpl() {
+
+			@Override
+			public Identifier toPhysicalColumnName(Identifier logicalName, JdbcEnvironment jdbcEnvironment) {
+				return logicalName;
+			}
+
+		};
+	}
+
+}
+----
 
 如果你更喜欢使用 Hibernate 的默认值，设置以下属性：
 
@@ -244,7 +428,23 @@ spring:
 ----
 或者，你可以配置以下 bean：
 
-include-code::standard/MyHibernateConfiguration[]
+[source,java]
+----
+import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+class MyHibernateConfiguration {
+
+	@Bean
+	PhysicalNamingStrategyStandardImpl caseSensitivePhysicalNamingStrategy() {
+		return new PhysicalNamingStrategyStandardImpl();
+	}
+
+}
+----
 
 更多细节，请参阅 {code-spring-boot-hibernate-src}/autoconfigure/HibernateJpaAutoConfiguration.java[`HibernateJpaAutoConfiguration`] 和 {code-spring-boot-jpa-src}/autoconfigure/JpaBaseConfiguration.java[`JpaBaseConfiguration`]。
 
@@ -259,7 +459,25 @@ Hibernate {url-hibernate-userguide}#caching[二级缓存] 可以针对一系列�
 要通过 JCache 实现这一点，首先确保 `org.hibernate.orm:hibernate-jcache` 在 classpath 上可用。
 然后，添加一个 javadoc:org.springframework.boot.hibernate.autoconfigure.HibernatePropertiesCustomizer[] bean，如下例所示：
 
-include-code::MyHibernateSecondLevelCacheConfiguration[]
+[source,java]
+----
+import org.hibernate.cache.jcache.ConfigSettings;
+
+import org.springframework.boot.hibernate.autoconfigure.HibernatePropertiesCustomizer;
+import org.springframework.cache.jcache.JCacheCacheManager;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyHibernateSecondLevelCacheConfiguration {
+
+	@Bean
+	public HibernatePropertiesCustomizer hibernateSecondLevelCacheCustomizer(JCacheCacheManager cacheManager) {
+		return (properties) -> properties.put(ConfigSettings.CACHE_MANAGER, cacheManager.getCacheManager());
+	}
+
+}
+----
 
 这个定制器将配置 Hibernate 使用与应用程序相同的 javadoc:org.springframework.cache.CacheManager[]。
 也可以使用独立的 javadoc:org.springframework.cache.CacheManager[] 实例。
@@ -296,7 +514,62 @@ Spring Boot auto-configuration 会在存在该类型的 bean 时关闭其实体�
 你还可以重用 javadoc:org.springframework.boot.jpa.autoconfigure.JpaProperties[] 来绑定第二个 javadoc:jakarta.persistence.EntityManagerFactory[] 的设置。
 基于 xref:how-to:data-access.adoc#howto.data-access.configure-two-datasources[配置第二个 javadoc:javax.sql.DataSource[] 的示例]，可以定义第二个 javadoc:jakarta.persistence.EntityManagerFactory[]，如下例所示：
 
-include-code::MyAdditionalEntityManagerFactoryConfiguration[]
+[source,java]
+----
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jpa.EntityManagerFactoryBuilder;
+import org.springframework.boot.jpa.autoconfigure.JpaProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+
+@Configuration(proxyBeanMethods = false)
+public class MyAdditionalEntityManagerFactoryConfiguration {
+
+	@Qualifier("second")
+	@Bean(defaultCandidate = false)
+	@ConfigurationProperties("app.jpa")
+	public JpaProperties secondJpaProperties() {
+		return new JpaProperties();
+	}
+
+	@Qualifier("second")
+	@Bean(defaultCandidate = false)
+	public LocalContainerEntityManagerFactoryBean secondEntityManagerFactory(@Qualifier("second") DataSource dataSource,
+			@Qualifier("second") JpaProperties jpaProperties) {
+		EntityManagerFactoryBuilder builder = createEntityManagerFactoryBuilder(jpaProperties);
+		return builder.dataSource(dataSource).packages(Order.class).persistenceUnit("second").build();
+	}
+
+	private EntityManagerFactoryBuilder createEntityManagerFactoryBuilder(JpaProperties jpaProperties) {
+		JpaVendorAdapter jpaVendorAdapter = createJpaVendorAdapter(jpaProperties);
+		Function<DataSource, Map<String, ?>> jpaPropertiesFactory = (dataSource) -> createJpaProperties(dataSource,
+				jpaProperties.getProperties());
+		return new EntityManagerFactoryBuilder(jpaVendorAdapter, jpaPropertiesFactory, null);
+	}
+
+	private JpaVendorAdapter createJpaVendorAdapter(JpaProperties jpaProperties) {
+		// ... map JPA properties as needed
+		return new HibernateJpaVendorAdapter();
+	}
+
+	private Map<String, ?> createJpaProperties(DataSource dataSource, Map<String, ?> existingProperties) {
+		Map<String, ?> jpaProperties = new LinkedHashMap<>(existingProperties);
+		// ... map JPA properties that require the DataSource (e.g. DDL flags)
+		return jpaProperties;
+	}
+
+}
+----
 
 上面的示例使用限定符为 `@Qualifier("second")` 的 javadoc:javax.sql.DataSource[] bean 创建了一个 javadoc:jakarta.persistence.EntityManagerFactory[]。
 它扫描与 `Order` 位于同一包中的实体。
@@ -311,9 +584,29 @@ include-code::MyAdditionalEntityManagerFactoryConfiguration[]
 
 如果你使用 Spring Data，则需要相应地配置 javadoc:org.springframework.data.jpa.repository.config.EnableJpaRepositories[format=annotation]，如下例所示：
 
-include-code::OrderConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-include-code::CustomerConfiguration[]
+@Configuration(proxyBeanMethods = false)
+@EnableJpaRepositories(basePackageClasses = Order.class, entityManagerFactoryRef = "entityManagerFactory")
+public class OrderConfiguration {
+
+}
+----
+
+[source,java]
+----
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+@Configuration(proxyBeanMethods = false)
+@EnableJpaRepositories(basePackageClasses = Customer.class, entityManagerFactoryRef = "secondEntityManagerFactory")
+public class CustomerConfiguration {
+
+}
+----
 
 
 
@@ -375,7 +668,27 @@ Spring Boot 暴露了一组有用的属性（来自 `spring.data.rest` 命名空
 如果你自己配置组件，可以使用 javadoc:org.springframework.boot.jpa.autoconfigure.EntityManagerFactoryDependsOnPostProcessor[] 子类作为设置必要依赖的便捷方式。
 例如，如果你使用 Hibernate Search 并将 Elasticsearch 作为其索引管理器，则任何 javadoc:jakarta.persistence.EntityManagerFactory[] beans 都必须配置为依赖于 `elasticsearchClient` bean，如下例所示：
 
-include-code::ElasticsearchEntityManagerFactoryDependsOnPostProcessor[]
+[source,java]
+----
+import jakarta.persistence.EntityManagerFactory;
+
+import org.springframework.boot.jpa.autoconfigure.EntityManagerFactoryDependsOnPostProcessor;
+import org.springframework.stereotype.Component;
+
+/**
+ * {@link EntityManagerFactoryDependsOnPostProcessor} that ensures that
+ * {@link EntityManagerFactory} beans depend on the {@code elasticsearchClient} bean.
+ */
+@Component
+public class ElasticsearchEntityManagerFactoryDependsOnPostProcessor
+		extends EntityManagerFactoryDependsOnPostProcessor {
+
+	public ElasticsearchEntityManagerFactoryDependsOnPostProcessor() {
+		super("elasticsearchClient");
+	}
+
+}
+----
 
 
 

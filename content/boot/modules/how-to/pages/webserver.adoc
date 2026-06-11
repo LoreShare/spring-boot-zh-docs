@@ -140,7 +140,22 @@ spring:
 
 使用 `@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)` 的测试也可以通过使用 javadoc:org.springframework.boot.test.web.server.LocalServerPort[format=annotation] annotation 将实际端口注入到字段中，如下例所示：
 
-include-code::MyWebIntegrationTests[]
+[source,java]
+----
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.server.LocalServerPort;
+
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+class MyWebIntegrationTests {
+
+	@LocalServerPort
+	int port;
+
+	// ...
+
+}
+----
 
 [NOTE]
 ====
@@ -153,7 +168,31 @@ javadoc:org.springframework.boot.test.web.server.LocalServerPort[format=annotati
 
 启动 javadoc:org.springframework.boot.web.server.WebServer[]（例如 `@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)`）的测试可以使用 javadoc:org.springframework.boot.test.http.server.LocalTestWebServer[] 获取有关运行中服务器的信息，如下例所示：
 
-include-code::MyWebIntegrationTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.http.server.LocalTestWebServer;
+import org.springframework.context.ApplicationContext;
+
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+class MyWebIntegrationTests {
+
+	@Autowired
+	ApplicationContext context;
+
+	// ...
+
+	@Test
+	void test() {
+		String urlToTest = LocalTestWebServer.obtain(this.context).uri("/test");
+	}
+
+}
+----
 
 javadoc:org.springframework.boot.test.http.server.LocalTestWebServer[] 提供了对合适的 javadoc:org.springframework.web.util.UriBuilderFactory[] 的访问。它也可以自定义以在应用程序的子路径上构建此类实例。
 
@@ -328,7 +367,22 @@ Spring Boot 管理 `io.netty:netty-tcnative-boringssl-static` “uber jar” 的
 
 以下示例适用于 Tomcat 和 `spring-boot-starter-web`（servlet 栈）：
 
-include-code::MyTomcatWebServerCustomizer[]
+[source,java]
+----
+import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyTomcatWebServerCustomizer implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
+
+	@Override
+	public void customize(TomcatServletWebServerFactory factory) {
+		// customize the factory here
+	}
+
+}
+----
 
 注意：Spring Boot 内部使用该基础设施来自动配置服务器。
 自动配置的 javadoc:org.springframework.boot.web.server.WebServerFactoryCustomizer[] beans 的顺序为 `0`，并且将在任何用户定义的自定义器之前处理，除非它显式指定了其他顺序。
@@ -392,7 +446,24 @@ include-code::MyTomcatWebServerCustomizer[]
 正如 xref:webserver.adoc#howto.webserver.add-servlet-filter-listener.spring-bean[前面所述]，任何 javadoc:jakarta.servlet.Servlet[] 或 javadoc:jakarta.servlet.Filter[] beans 都会自动注册到 servlet 容器中。
 要禁用特定 javadoc:jakarta.servlet.Filter[] 或 javadoc:jakarta.servlet.Servlet[] bean 的注册，请为其创建注册 bean 并将其标记为已禁用，如下例所示：
 
-include-code::MyFilterConfiguration[]
+[source,java]
+----
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyFilterConfiguration {
+
+	@Bean
+	public FilterRegistrationBean<MyFilter> registration(MyFilter filter) {
+		FilterRegistrationBean<MyFilter> registration = new FilterRegistrationBean<>(filter);
+		registration.setEnabled(false);
+		return registration;
+	}
+
+}
+----
 
 [[howto.webserver.add-servlet-filter-listener.using-scanning]]
 === 通过类路径扫描添加 Servlet、Filter 和 Listener
@@ -491,14 +562,60 @@ NOTE: 你可以通过将 `internal-proxies` 设置为空来信任所有代理（
 
 你可以向 javadoc:org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory[] 添加一个 javadoc:org.apache.catalina.connector.Connector[]，从而允许多个连接器，包括 HTTP 和 HTTPS 连接器，如下例所示：
 
-include-code::MyTomcatConfiguration[]
+[source,java]
+----
+import org.apache.catalina.connector.Connector;
+
+import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyTomcatConfiguration {
+
+	@Bean
+	public WebServerFactoryCustomizer<TomcatServletWebServerFactory> connectorCustomizer() {
+		return (tomcat) -> tomcat.addAdditionalConnectors(createConnector());
+	}
+
+	private Connector createConnector() {
+		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+		connector.setPort(8081);
+		return connector;
+	}
+
+}
+----
 
 [[howto.webserver.enable-multiple-connectors.jetty]]
 === 使用 Jetty 配置多个连接器
 
 你可以通过在 javadoc:org.springframework.boot.jetty.ConfigurableJettyWebServerFactory[] 上添加 javadoc:org.springframework.boot.jetty.JettyServerCustomizer[] 来注册额外的 Jetty javadoc:org.eclipse.jetty.server.Connector[] 实例，如下例所示：
 
-include-code::MyJettyConfiguration[]
+[source,java]
+----
+import org.eclipse.jetty.server.ServerConnector;
+
+import org.springframework.boot.jetty.ConfigurableJettyWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyJettyConfiguration {
+
+	@Bean
+	public WebServerFactoryCustomizer<ConfigurableJettyWebServerFactory> connectorCustomizer() {
+		return (jetty) -> jetty.addServerCustomizers((server) -> {
+			ServerConnector connector = new ServerConnector(server);
+			connector.setPort(8081);
+			server.addConnector(connector);
+		});
+	}
+
+}
+----
 
 [[howto.webserver.enable-tomcat-mbean-registry]]
 == 启用 Tomcat 的 MBean 注册表
@@ -518,6 +635,21 @@ server:
 
 如果你想在使用嵌入式容器的 Spring Boot 应用中使用 javadoc:jakarta.websocket.server.ServerEndpoint[format=annotation]，你必须声明一个单独的 javadoc:org.springframework.web.socket.server.standard.ServerEndpointExporter[] javadoc:org.springframework.context.annotation.Bean[format=annotation]，如下例所示：
 
-include-code::MyWebSocketConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
+
+@Configuration(proxyBeanMethods = false)
+public class MyWebSocketConfiguration {
+
+	@Bean
+	public ServerEndpointExporter serverEndpointExporter() {
+		return new ServerEndpointExporter();
+	}
+
+}
+----
 
 上例中的 bean 会将所有带有 javadoc:jakarta.websocket.server.ServerEndpoint[format=annotation] 注解的 beans 注册到底层 WebSocket 容器中。当部署到独立的 Servlet 容器时，此角色由 Servlet 容器初始化器执行，不需要 javadoc:org.springframework.web.socket.server.standard.ServerEndpointExporter[] bean。

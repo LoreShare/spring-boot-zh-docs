@@ -174,7 +174,26 @@ JDBC 事务控制可以在不获取连接池连接或与数据库通信的情况
 
 Spring 的 javadoc:org.springframework.jdbc.core.JdbcTemplate[] 和 javadoc:org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate[] 类是自动配置的，你可以直接将它们自动装配到你自己的 beans 中，如下例所示：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final JdbcTemplate jdbcTemplate;
+
+	public MyBean(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	public void doSomething() {
+		/* @chomp:line this.jdbcTemplate ... */ this.jdbcTemplate.execute("delete from customer");
+	}
+
+}
+----
 
 你可以通过使用 `spring.jdbc.template.*` 属性来自定义模板的某些属性，如下例所示：
 
@@ -197,7 +216,26 @@ spring:
 Spring 的 javadoc:org.springframework.jdbc.core.simple.JdbcClient[] 会根据 javadoc:org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate[] 的存在自动配置。
 你也可以直接将其注入到自己的 beans 中，如下例所示：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final JdbcClient jdbcClient;
+
+	public MyBean(JdbcClient jdbcClient) {
+		this.jdbcClient = jdbcClient;
+	}
+
+	public void doSomething() {
+		/* @chomp:line this.jdbcClient ... */ this.jdbcClient.sql("delete from customer").update();
+	}
+
+}
+----
 
 如果你依赖 auto-configuration 来创建底层的 javadoc:org.springframework.jdbc.core.JdbcTemplate[]，那么使用 `spring.jdbc.template.*` 属性进行的任何自定义也会在客户端中生效。
 
@@ -227,7 +265,52 @@ Java 持久化 API 是一种标准技术，允许你将对象“`map`”到关�
 任何带有 javadoc:jakarta.persistence.Entity[format=annotation]、javadoc:jakarta.persistence.Embeddable[format=annotation] 或 javadoc:jakarta.persistence.MappedSuperclass[format=annotation] 注解的类都会被考虑。
 一个典型的实体类如下例所示：
 
-include-code::City[]
+[source,java]
+----
+import java.io.Serializable;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
+public class City implements Serializable {
+
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	@Column(nullable = false)
+	private String name;
+
+	@Column(nullable = false)
+	private String state;
+
+	// ... additional members, often include @OneToMany mappings
+
+	protected City() {
+		// no-args constructor required by JPA spec
+		// this one is protected since it should not be used directly
+	}
+
+	public City(String name, String state) {
+		this.name = name;
+		this.state = state;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public String getState() {
+		return this.state;
+	}
+
+	// ... etc
+
+}
+----
 
 提示：你可以通过使用 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] annotation 来自定义实体扫描位置。
 请参阅“`How-to Guides`”中的 xref:how-to:data-access.adoc#howto.data-access.separate-entity-definitions-from-spring-configuration[] 部分。
@@ -249,7 +332,21 @@ Spring Data 仓库通常继承自 javadoc:org.springframework.data.repository.Re
 
 以下示例展示了一个典型的 Spring Data 仓库接口定义：
 
-include-code::CityRepository[]
+[source,java]
+----
+import org.springframework.boot.docs.data.sql.jpaandspringdata.entityclasses.City;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.Repository;
+
+public interface CityRepository extends Repository<City, Long> {
+
+	Page<City> findAll(Pageable pageable);
+
+	City findByNameAndStateAllIgnoringCase(String name, String state);
+
+}
+----
 
 Spring Data JPA 仓库支持三种不同的引导模式：默认、延迟和惰性。
 要启用延迟或惰性引导，请将 configprop:spring.data.jpa.repositories.bootstrap-mode[] 属性分别设置为 `deferred` 或 `lazy`。
@@ -274,7 +371,20 @@ Spring Data JPA 仓库支持三种不同的引导模式：默认、延迟和惰�
 
 要使用 Spring Data Envers，请确保你的仓库继承自 javadoc:org.springframework.data.repository.history.RevisionRepository[]，如下例所示：
 
-include-code::CountryRepository[]
+[source,java]
+----
+import org.springframework.boot.docs.data.sql.jpaandspringdata.entityclasses.Country;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.history.RevisionRepository;
+
+public interface CountryRepository extends RevisionRepository<Country, Long, Integer>, Repository<Country, Long> {
+
+	Page<Country> findAll(Pageable pageable);
+
+}
+----
 
 注意：更多细节，请查看 {url-spring-data-jpa-docs}/envers.html[Spring Data Envers 参考文档]。
 
@@ -368,7 +478,37 @@ H2 控制台使用框架，并且由于它仅用于开发，因此不实现 CSRF
 
 在简单设置中，可以使用类似以下的 javadoc:org.springframework.security.web.SecurityFilterChain[]：
 
-include-code::DevProfileSecurityConfiguration[tag=!customizer]
+[source,java]
+----
+import org.springframework.boot.security.autoconfigure.web.servlet.PathRequest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Profile("dev")
+@Configuration(proxyBeanMethods = false)
+public class DevProfileSecurityConfiguration {
+
+	@Bean
+	@Order(Ordered.HIGHEST_PRECEDENCE)
+	SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) {
+		http.securityMatcher(PathRequest.toH2Console());
+		http.authorizeHttpRequests(yourCustomAuthorization());
+		http.csrf(CsrfConfigurer::disable);
+		http.headers((headers) -> headers.frameOptions(FrameOptionsConfig::sameOrigin));
+		return http.build();
+	}
+
+
+}
+----
 
 警告：H2 控制台仅用于开发期间。
 在生产环境中，禁用 CSRF 保护或允许网站使用框架可能会造成严重的安全风险。
@@ -425,13 +565,41 @@ jOOQ 提供的流式 API 通过 javadoc:org.jooq.DSLContext[] 接口启动。
 Spring Boot 自动配置一个 javadoc:org.jooq.DSLContext[] 作为 Spring Bean，并将其连接到你的应用程序 javadoc:javax.sql.DataSource[]。
 要使用 javadoc:org.jooq.DSLContext[]，你可以注入它，如下例所示：
 
-include-code::MyBean[tag=!method]
+[source,java]
+----
+import java.util.GregorianCalendar;
+import java.util.List;
+
+import org.jooq.DSLContext;
+
+import org.springframework.stereotype.Component;
+
+import static org.springframework.boot.docs.data.sql.jooq.dslcontext.Tables.AUTHOR;
+
+@Component
+public class MyBean {
+
+	private final DSLContext create;
+
+	public MyBean(DSLContext dslContext) {
+		this.create = dslContext;
+	}
+----
 
 TIP: jOOQ 手册倾向于使用名为 `create` 的变量来持有 javadoc:org.jooq.DSLContext[]。
 
 然后你可以使用 javadoc:org.jooq.DSLContext[] 来构建查询，如下例所示：
 
-include-code::MyBean[tag=method]
+[source,java]
+----
+	public List<GregorianCalendar> authorsBornAfter1980() {
+		return this.create.selectFrom(AUTHOR)
+			.where(AUTHOR.DATE_OF_BIRTH.greaterThan(new GregorianCalendar(1980, 0, 1)))
+			.fetch(AUTHOR.DATE_OF_BIRTH);
+	} // end::method[]
+
+}
+----
 
 
 [[data.sql.jooq.sqldialect]]
@@ -478,11 +646,51 @@ TIP: “`How-to Guides`”部分包含 xref:how-to:data-initialization.adoc#howt
 
 要自定义由 javadoc:io.r2dbc.spi.ConnectionFactory[] 创建的连接，即设置你不想（或无法）在中央数据库配置中配置的特定参数，你可以使用 javadoc:org.springframework.boot.r2dbc.autoconfigure.ConnectionFactoryOptionsBuilderCustomizer[] javadoc:org.springframework.context.annotation.Bean[format=annotation]。以下示例展示了如何手动覆盖数据库端口，同时其余选项从应用程序配置中获取：
 
-include-code::MyR2dbcConfiguration[]
+[source,java]
+----
+import io.r2dbc.spi.ConnectionFactoryOptions;
+
+import org.springframework.boot.r2dbc.autoconfigure.ConnectionFactoryOptionsBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyR2dbcConfiguration {
+
+	@Bean
+	public ConnectionFactoryOptionsBuilderCustomizer connectionFactoryPortCustomizer() {
+		return (builder) -> builder.option(ConnectionFactoryOptions.PORT, 5432);
+	}
+
+}
+----
 
 以下示例展示了如何设置一些 PostgreSQL 连接选项：
 
-include-code::MyPostgresR2dbcConfiguration[]
+[source,java]
+----
+import java.util.HashMap;
+import java.util.Map;
+
+import io.r2dbc.postgresql.PostgresqlConnectionFactoryProvider;
+
+import org.springframework.boot.r2dbc.autoconfigure.ConnectionFactoryOptionsBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyPostgresR2dbcConfiguration {
+
+	@Bean
+	public ConnectionFactoryOptionsBuilderCustomizer postgresCustomizer() {
+		Map<String, String> options = new HashMap<>();
+		options.put("lock_timeout", "30s");
+		options.put("statement_timeout", "60s");
+		return (builder) -> builder.option(PostgresqlConnectionFactoryProvider.OPTIONS, options);
+	}
+
+}
+----
 
 当 javadoc:io.r2dbc.spi.ConnectionFactory[] bean 可用时，常规的 JDBC javadoc:javax.sql.DataSource[] auto-configuration 会退出。如果你想保留 JDBC javadoc:javax.sql.DataSource[] auto-configuration，并且愿意在响应式应用中使用阻塞 JDBC API 的风险，可以在应用程序的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上添加 `@Import(DataSourceAutoConfiguration.class)` 以重新启用它。
 
@@ -512,7 +720,32 @@ include-code::MyPostgresR2dbcConfiguration[]
 
 javadoc:org.springframework.r2dbc.core.DatabaseClient[] bean 是自动配置的，你可以直接将其注入到你自己的 beans 中，如下例所示：
 
-include-code::MyBean[]
+[source,java]
+----
+import java.util.Map;
+
+import reactor.core.publisher.Flux;
+
+import org.springframework.r2dbc.core.DatabaseClient;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final DatabaseClient databaseClient;
+
+	public MyBean(DatabaseClient databaseClient) {
+		this.databaseClient = databaseClient;
+	}
+
+	// @fold:on // ...
+	public Flux<Map<String, Object>> someMethod() {
+		return this.databaseClient.sql("select * from user").fetch().all();
+	}
+	// @fold:off
+
+}
+----
 
 
 
@@ -530,6 +763,17 @@ Spring Data 仓库通常继承自 javadoc:org.springframework.data.repository.Re
 
 以下示例展示了一个典型的 Spring Data 仓库接口定义：
 
-include-code::CityRepository[]
+[source,java]
+----
+import reactor.core.publisher.Mono;
+
+import org.springframework.data.repository.Repository;
+
+public interface CityRepository extends Repository<City, Long> {
+
+	Mono<City> findByNameAndStateAllIgnoringCase(String name, String state);
+
+}
+----
 
 提示：我们只是浅尝辄止地介绍了 Spring Data R2DBC。有关完整详情，请参阅 {url-spring-data-r2dbc-docs}[Spring Data R2DBC 参考文档]。

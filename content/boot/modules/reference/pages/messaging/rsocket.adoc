@@ -68,4 +68,25 @@ javadoc:org.springframework.messaging.rsocket.RSocketRequester$Builder[] 实例�
 
 以下代码展示了一个典型示例：
 
-include-code::MyService[]
+[source,java]
+----
+import reactor.core.publisher.Mono;
+
+import org.springframework.messaging.rsocket.RSocketRequester;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MyService {
+
+	private final RSocketRequester rsocketRequester;
+
+	public MyService(RSocketRequester.Builder rsocketRequesterBuilder) {
+		this.rsocketRequester = rsocketRequesterBuilder.tcp("example.org", 9898);
+	}
+
+	public Mono<User> someRSocketCall(String name) {
+		return this.rsocketRequester.route("user").data(name).retrieveMono(User.class);
+	}
+
+}
+----

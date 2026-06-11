@@ -21,7 +21,28 @@ Spring Boot 正在配置该构建器以共享 HTTP 资源，并以与服务器�
 
 以下代码展示了一个典型示例：
 
-include-code::MyService[]
+[source,java]
+----
+import reactor.core.publisher.Mono;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@Service
+public class MyService {
+
+	private final WebClient webClient;
+
+	public MyService(WebClient.Builder webClientBuilder) {
+		this.webClient = webClientBuilder.baseUrl("https://example.org").build();
+	}
+
+	public Mono<Details> someRestCall(String name) {
+		return this.webClient.get().uri("/{name}/details", name).retrieve().bodyToMono(Details.class);
+	}
+
+}
+----
 
 
 [[io.rest-client.webclient.runtime]]
@@ -70,7 +91,24 @@ spring:
 
 例如，以下代码将使用配置了特定 javadoc:java.net.ProxySelector[] 的 JDK 客户端：
 
-include-code::MyConnectorHttpConfiguration[]
+[source,java]
+----
+import java.net.ProxySelector;
+
+import org.springframework.boot.http.client.reactive.ClientHttpConnectorBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyConnectorHttpConfiguration {
+
+	@Bean
+	ClientHttpConnectorBuilder<?> clientHttpConnectorBuilder(ProxySelector proxySelector) {
+		return ClientHttpConnectorBuilder.jdk().withHttpClientCustomizer((builder) -> builder.proxy(proxySelector));
+	}
+
+}
+----
 
 
 
@@ -99,7 +137,29 @@ javadoc:org.springframework.boot.webclient.autoconfigure.WebClientSsl[] 接口�
 
 以下代码显示了一个典型示例：
 
-include-code::MyService[]
+[source,java]
+----
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.webclient.autoconfigure.WebClientSsl;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@Service
+public class MyService {
+
+	private final WebClient webClient;
+
+	public MyService(WebClient.Builder webClientBuilder, WebClientSsl ssl) {
+		this.webClient = webClientBuilder.baseUrl("https://example.org").apply(ssl.fromBundle("mybundle")).build();
+	}
+
+	public Mono<Details> someRestCall(String name) {
+		return this.webClient.get().uri("/{name}/details", name).retrieve().bodyToMono(Details.class);
+	}
+
+}
+----
 
 
 
@@ -116,7 +176,26 @@ Spring Boot 使用 javadoc:org.springframework.boot.http.converter.autoconfigure
 
 以下代码显示了一个典型示例：
 
-include-code::MyService[]
+[source,java]
+----
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
+
+@Service
+public class MyService {
+
+	private final RestClient restClient;
+
+	public MyService(RestClient.Builder restClientBuilder) {
+		this.restClient = restClientBuilder.baseUrl("https://example.org").build();
+	}
+
+	public Details someRestCall(String name) {
+		return this.restClient.get().uri("/{name}/details", name).retrieve().body(Details.class);
+	}
+
+}
+----
 
 
 
@@ -147,11 +226,59 @@ javadoc:org.springframework.boot.restclient.autoconfigure.RestClientSsl[] 接口
 
 以下代码显示了一个典型示例：
 
-include-code::MyService[]
+[source,java]
+----
+import org.springframework.boot.restclient.autoconfigure.RestClientSsl;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
+
+@Service
+public class MyService {
+
+	private final RestClient restClient;
+
+	public MyService(RestClient.Builder restClientBuilder, RestClientSsl ssl) {
+		this.restClient = restClientBuilder.baseUrl("https://example.org").apply(ssl.fromBundle("mybundle")).build();
+	}
+
+	public Details someRestCall(String name) {
+		return this.restClient.get().uri("/{name}/details", name).retrieve().body(Details.class);
+	}
+
+}
+----
 
 如果你需要在 SSL 捆绑包之外应用其他自定义，你可以将 javadoc:org.springframework.boot.http.client.HttpClientSettings[] 类与 javadoc:org.springframework.boot.http.client.ClientHttpRequestFactoryBuilder[] 一起使用：
 
-include-code::settings/MyService[]
+[source,java]
+----
+import java.time.Duration;
+
+import org.springframework.boot.http.client.ClientHttpRequestFactoryBuilder;
+import org.springframework.boot.http.client.HttpClientSettings;
+import org.springframework.boot.ssl.SslBundles;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
+
+@Service
+public class MyService {
+
+	private final RestClient restClient;
+
+	public MyService(RestClient.Builder restClientBuilder, SslBundles sslBundles) {
+		HttpClientSettings settings = HttpClientSettings.ofSslBundle(sslBundles.getBundle("mybundle"))
+			.withReadTimeout(Duration.ofMinutes(2));
+		ClientHttpRequestFactory requestFactory = ClientHttpRequestFactoryBuilder.detect().build(settings);
+		this.restClient = restClientBuilder.baseUrl("https://example.org").requestFactory(requestFactory).build();
+	}
+
+	public Details someRestCall(String name) {
+		return this.restClient.get().uri("/{name}/details", name).retrieve().body(Details.class);
+	}
+
+}
+----
 
 
 
@@ -167,7 +294,27 @@ Spring Framework 的 javadoc:org.springframework.web.client.RestTemplate[] 类�
 
 以下代码显示了一个典型示例：
 
-include-code::MyService[]
+[source,java]
+----
+import org.springframework.boot.restclient.RestTemplateBuilder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class MyService {
+
+	private final RestTemplate restTemplate;
+
+	public MyService(RestTemplateBuilder restTemplateBuilder) {
+		this.restTemplate = restTemplateBuilder.build();
+	}
+
+	public Details someRestCall(String name) {
+		return this.restTemplate.getForObject("/{name}/details", Details.class, name);
+	}
+
+}
+----
 
 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[] 包含许多有用的方法，可用于快速配置 javadoc:org.springframework.web.client.RestTemplate[]。
 例如，要添加 BASIC 认证支持，你可以使用 `builder.basicAuthentication("user", "password").build()`。
@@ -187,14 +334,74 @@ javadoc:org.springframework.boot.restclient.RestTemplateBuilder[] 包含许多�
 
 以下示例显示了一个自定义器，它配置了对除 `192.168.0.5` 之外的所有主机使用代理：
 
-include-code::MyRestTemplateCustomizer[]
+[source,java]
+----
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.apache.hc.client5.http.impl.routing.DefaultProxyRoutePlanner;
+import org.apache.hc.client5.http.routing.HttpRoutePlanner;
+import org.apache.hc.core5.http.HttpException;
+import org.apache.hc.core5.http.HttpHost;
+import org.apache.hc.core5.http.protocol.HttpContext;
+
+import org.springframework.boot.restclient.RestTemplateCustomizer;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
+
+public class MyRestTemplateCustomizer implements RestTemplateCustomizer {
+
+	@Override
+	public void customize(RestTemplate restTemplate) {
+		HttpRoutePlanner routePlanner = new CustomRoutePlanner(new HttpHost("proxy.example.com"));
+		HttpClient httpClient = HttpClientBuilder.create().setRoutePlanner(routePlanner).build();
+		restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
+	}
+
+	static class CustomRoutePlanner extends DefaultProxyRoutePlanner {
+
+		CustomRoutePlanner(HttpHost proxy) {
+			super(proxy);
+		}
+
+		@Override
+		protected HttpHost determineProxy(HttpHost target, HttpContext context) throws HttpException {
+			if (target.getHostName().equals("192.168.0.5")) {
+				return null;
+			}
+			return super.determineProxy(target, context);
+		}
+
+	}
+
+}
+----
 
 最后，你可以定义自己的 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[] bean。
 这样做将替换自动配置的构建器。
 如果你希望任何 javadoc:org.springframework.boot.restclient.RestTemplateCustomizer[] bean 应用于你的自定义构建器（就像 auto-configuration 所做的那样），请使用 javadoc:org.springframework.boot.restclient.autoconfigure.RestTemplateBuilderConfigurer[] 进行配置。
 以下示例公开了一个 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[]，它与 Spring Boot 的 auto-configuration 所做的匹配，只是还指定了自定义的连接和读取超时：
 
-include-code::MyRestTemplateBuilderConfiguration[]
+[source,java]
+----
+import java.time.Duration;
+
+import org.springframework.boot.restclient.RestTemplateBuilder;
+import org.springframework.boot.restclient.autoconfigure.RestTemplateBuilderConfigurer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyRestTemplateBuilderConfiguration {
+
+	@Bean
+	public RestTemplateBuilder restTemplateBuilder(RestTemplateBuilderConfigurer configurer) {
+		return configurer.configure(new RestTemplateBuilder())
+			.connectTimeout(Duration.ofSeconds(5))
+			.readTimeout(Duration.ofSeconds(2));
+	}
+
+}
+----
 
 最极端（且很少使用）的选项是创建你自己的 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[] bean，而不使用配置器。
 除了替换自动配置的构建器之外，这还会阻止任何 javadoc:org.springframework.boot.restclient.RestTemplateCustomizer[] bean 被使用。
@@ -208,7 +415,29 @@ include-code::MyRestTemplateBuilderConfiguration[]
 
 如果你需要对 javadoc:org.springframework.web.client.RestTemplate[] 进行自定义 SSL 配置，你可以将 xref:features/ssl.adoc#features.ssl.bundles[SSL bundle] 应用于 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[]，如下例所示：
 
-include-code::MyService[]
+[source,java]
+----
+import org.springframework.boot.docs.io.restclient.resttemplate.Details;
+import org.springframework.boot.restclient.RestTemplateBuilder;
+import org.springframework.boot.ssl.SslBundles;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class MyService {
+
+	private final RestTemplate restTemplate;
+
+	public MyService(RestTemplateBuilder restTemplateBuilder, SslBundles sslBundles) {
+		this.restTemplate = restTemplateBuilder.sslBundle(sslBundles.getBundle("mybundle")).build();
+	}
+
+	public Details someRestCall(String name) {
+		return this.restTemplate.getForObject("/{name}/details", Details.class, name);
+	}
+
+}
+----
 
 
 
@@ -250,7 +479,25 @@ spring:
 
 例如，以下代码使用配置了特定 javadoc:java.net.ProxySelector[] 的 JDK 客户端：
 
-include-code::MyClientHttpConfiguration[]
+[source,java]
+----
+import java.net.ProxySelector;
+
+import org.springframework.boot.http.client.ClientHttpRequestFactoryBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyClientHttpConfiguration {
+
+	@Bean
+	ClientHttpRequestFactoryBuilder<?> clientHttpRequestFactoryBuilder(ProxySelector proxySelector) {
+		return ClientHttpRequestFactoryBuilder.jdk()
+			.withHttpClientCustomizer((builder) -> builder.proxy(proxySelector));
+	}
+
+}
+----
 
 
 
@@ -279,7 +526,22 @@ HTTP 服务接口通过使用带有 javadoc:org.springframework.web.service.anno
 
 例如，以下代码为 "`echo`" API 定义了一个 HTTP 服务，该 API 将返回一个包含请求回显的 JSON 对象。
 
-include-code::EchoService[]
+[source,java]
+----
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.service.annotation.HttpExchange;
+import org.springframework.web.service.annotation.PostExchange;
+
+@HttpExchange(url = "https://echo.zuplo.io")
+public interface EchoService {
+
+	@PostExchange
+	Map<?, ?> echo(@RequestBody Map<String, String> message);
+
+}
+----
 
 有关如何开发 HTTP 服务接口客户端的更多详细信息，请参阅 {url-spring-framework-docs}/integration/rest-clients.html#rest-http-service-client[Spring 框架参考文档]。
 
@@ -294,7 +556,22 @@ include-code::EchoService[]
 
 例如，以下配置将在 `com.example.myclients` 包中扫描 HTTP 服务接口：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.service.registry.ImportHttpServices;
+
+@SpringBootApplication
+@ImportHttpServices(basePackages = "com.example.myclients")
+public class MyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----
 
 
 
@@ -318,11 +595,39 @@ HTTP 服务组是一组共享共同特性的 HTTP 服务接口的集合。
 例如，假设我们上面的示例组织方式使得 `com.example.myclients` 包中的所有 HTTP 服务接口都属于 `echo` 组。
 我们首先从服务接口中移除硬编码的 URL：
 
-include-code::EchoService[]
+[source,java]
+----
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.service.annotation.PostExchange;
+
+public interface EchoService {
+
+	@PostExchange
+	Map<?, ?> echo(@RequestBody Map<String, String> message);
+
+}
+----
 
 然后我们可以编写：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.service.registry.ImportHttpServices;
+
+@SpringBootApplication
+@ImportHttpServices(group = "echo", basePackages = "com.example.myclients")
+public class MyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----
 
 最后，我们可以使用 `base-url` 属性将 `echo` 组链接到实际的 URL：
 
@@ -344,7 +649,23 @@ javadoc:org.springframework.web.service.registry.ImportHttpServices[format=annot
 
 例如：
 
-include-code::repeat/MyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.service.registry.ImportHttpServices;
+
+@SpringBootApplication
+@ImportHttpServices(group = "echo", types = EchoService.class)
+@ImportHttpServices(group = "other", types = OtherService.class)
+public class MyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----
 ====
 
 
@@ -397,7 +718,25 @@ spring:
 
 例如，以下配置将添加一个组定制器，为每个传出请求添加一个包含组名的 HTTP 头：
 
-include-code::MyHttpServiceGroupConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.support.RestClientHttpServiceGroupConfigurer;
+
+@Configuration(proxyBeanMethods = false)
+public class MyHttpServiceGroupConfiguration {
+
+	@Bean
+	RestClientHttpServiceGroupConfigurer myHttpServiceGroupConfigurer() {
+		return (groups) -> groups.forEachClient((group, clientBuilder) -> {
+			String groupName = group.name();
+			clientBuilder.defaultHeader("service-group", groupName);
+		});
+	}
+
+}
+----
 
 [[io.rest-client.httpservice.advanced-configuration]]
 === 高级配置
@@ -445,8 +784,49 @@ spring:
 
 过滤器可以应用于构建客户端时使用的 javadoc:org.springframework.boot.http.client.HttpClientSettings[]：
 
-include-code::MyService[]
+[source,java]
+----
+import org.springframework.boot.http.client.ClientHttpRequestFactoryBuilder;
+import org.springframework.boot.http.client.HttpClientSettings;
+import org.springframework.boot.http.client.InetAddressFilter;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
+
+@Service
+public class MyService {
+
+	private final RestClient restClient;
+
+	public MyService() {
+		InetAddressFilter onlyExternalAddresses = InetAddressFilter.externalAddresses();
+		HttpClientSettings settings = HttpClientSettings.defaults().withInetAddressFilter(onlyExternalAddresses);
+		ClientHttpRequestFactory requestFactory = ClientHttpRequestFactoryBuilder.jdk().build(settings);
+		this.restClient = RestClient.builder().requestFactory(requestFactory).baseUrl("https://example.org").build();
+	}
+
+	public Details someRestCall(String name) {
+		return this.restClient.get().uri("/{name}/details", name).retrieve().body(Details.class);
+	}
+
+}
+----
 
 或者，如果你希望将过滤器应用于所有自动配置的 HTTP 客户端构建器，也可以将其定义为 javadoc:org.springframework.context.annotation.Bean[format=annotation]：
 
-include-code::MyHttpClientConfiguration[]
+[source,java]
+----
+import org.springframework.boot.http.client.InetAddressFilter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyHttpClientConfiguration {
+
+	@Bean
+	public InetAddressFilter httpClientInetAddressFilter() {
+		return InetAddressFilter.of("192.168.1.0/24").andNot("192.168.1.1", "192.168.1.10");
+	}
+
+}
+----

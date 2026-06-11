@@ -9,7 +9,21 @@ Spring Boot 有许多包含 Spring MVC 的 starter。
 
 只要 Jackson 3 在 classpath 上，任何 Spring Boot 应用程序中的 javadoc:org.springframework.web.bind.annotation.RestController[format=annotation] 默认都应渲染 JSON 响应，如下例所示：
 
-include-code::MyController[]
+[source,java]
+----
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyController {
+
+	@RequestMapping("/thing")
+	public MyThing thing() {
+		return new MyThing();
+	}
+
+}
+----
 
 只要 `MyThing` 可以被 Jackson 3 序列化（对于普通 POJO 或 Groovy 对象来说确实如此），那么 `http://localhost:8080/thing` 默认会提供其 JSON 表示。
 请注意，在浏览器中，您有时可能会看到 XML 响应，因为浏览器倾向于发送偏好 XML 的 accept 头。
@@ -30,7 +44,27 @@ include-code::MyController[]
 ----
 如果 Jackson 的 XML 扩展不可用且 JAXB 可用，则可以在额外要求将 `MyThing` 注解为 javadoc:jakarta.xml.bind.annotation.XmlRootElement[format=annotation] 的情况下渲染 XML，如下例所示：
 
-include-code::MyThing[]
+[source,java]
+----
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class MyThing {
+
+	private String name;
+
+	// @fold:on // getters/setters ...
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	// @fold:off
+
+}
+----
 
 您需要确保 JAXB 库是项目的一部分，例如通过添加：
 

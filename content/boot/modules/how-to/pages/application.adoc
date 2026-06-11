@@ -75,7 +75,42 @@ org.springframework.boot.EnvironmentPostProcessor=com.example.YourEnvironmentPos
 该实现可以加载任意文件并将其添加到 javadoc:org.springframework.core.env.Environment[] 中。
 例如，以下示例从 classpath 加载一个 YAML 配置文件：
 
-include-code::MyEnvironmentPostProcessor[]
+[source,java]
+----
+import java.io.IOException;
+
+import org.springframework.boot.EnvironmentPostProcessor;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.env.YamlPropertySourceLoader;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.PropertySource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.util.Assert;
+
+public class MyEnvironmentPostProcessor implements EnvironmentPostProcessor {
+
+	private final YamlPropertySourceLoader loader = new YamlPropertySourceLoader();
+
+	@Override
+	public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+		Resource path = new ClassPathResource("com/example/myapp/config.yml");
+		PropertySource<?> propertySource = loadYaml(path);
+		environment.getPropertySources().addLast(propertySource);
+	}
+
+	private PropertySource<?> loadYaml(Resource path) {
+		Assert.isTrue(path.exists(), () -> "'path' [%s] must exist".formatted(path));
+		try {
+			return this.loader.load("custom-resource", path).get(0);
+		}
+		catch (IOException ex) {
+			throw new IllegalStateException("Failed to load yaml configuration from " + path, ex);
+		}
+	}
+
+}
+----
 
 提示：javadoc:org.springframework.core.env.Environment[] 已经准备好了 Spring Boot 默认加载的所有常用属性源。
 因此，可以从环境中获取文件的位置。

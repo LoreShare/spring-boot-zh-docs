@@ -96,11 +96,44 @@ spring:
 在外部配置中定义的属性会覆盖并替换通过 Java API 指定的值，但主要源（primary sources）除外。
 主要源是那些提供给 javadoc:org.springframework.boot.SpringApplication[] 构造函数的源：
 
-include-code::application/MyApplication[]
+[source,java]
+----
+import org.springframework.boot.Banner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication application = new SpringApplication(MyApplication.class);
+		application.setBannerMode(Banner.Mode.OFF);
+		application.run(args);
+	}
+
+}
+----
 
 或者提供给 `sources(...)` 的 javadoc:org.springframework.boot.builder.SpringApplicationBuilder[] 方法：
 
-include-code::builder/MyApplication[]
+[source,java]
+----
+import org.springframework.boot.Banner;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+
+public class MyApplication {
+
+	public static void main(String[] args) {
+		// @formatter:off
+		new SpringApplicationBuilder()
+			.bannerMode(Banner.Mode.OFF)
+			.sources(MyApplication.class)
+			.run(args);
+		// @formatter:on
+	}
+
+}
+----
 
 根据上述示例，如果我们有以下配置：
 

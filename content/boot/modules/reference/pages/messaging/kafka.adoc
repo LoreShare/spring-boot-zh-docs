@@ -25,7 +25,28 @@ TIP: 要在启动时创建一个主题，请添加一个类型为 javadoc:org.ap
 
 Spring 的 javadoc:org.springframework.kafka.core.KafkaTemplate[] 是自动配置的，您可以直接在您自己的 beans 中自动注入它，如下例所示：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final KafkaTemplate<String, String> kafkaTemplate;
+
+	public MyBean(KafkaTemplate<String, String> kafkaTemplate) {
+		this.kafkaTemplate = kafkaTemplate;
+	}
+
+	// @fold:on // ...
+	public void someMethod() {
+		this.kafkaTemplate.send("someTopic", "Hello");
+	}
+	// @fold:off
+
+}
+----
 
 注意：如果定义了属性 configprop:spring.kafka.producer.transaction-id-prefix[]，则会自动配置一个 javadoc:org.springframework.kafka.transaction.KafkaTransactionManager[]。
 此外，如果定义了 javadoc:org.springframework.kafka.support.converter.RecordMessageConverter[] bean，它会自动关联到自动配置的 javadoc:org.springframework.kafka.core.KafkaTemplate[]。
@@ -42,7 +63,21 @@ include-code::MyBean[]
 
 以下组件在 `someTopic` 主题上创建了一个监听器 endpoint：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	@KafkaListener(topics = "someTopic")
+	public void processMessage(String content) {
+		// ...
+	}
+
+}
+----
 
 如果定义了 javadoc:org.springframework.kafka.transaction.KafkaTransactionManager[] bean，它会自动关联到容器工厂。
 类似地，如果定义了 javadoc:org.springframework.kafka.listener.adapter.RecordFilterStrategy[]、javadoc:org.springframework.kafka.listener.CommonErrorHandler[]、javadoc:org.springframework.kafka.listener.AfterRollbackProcessor[] 或 javadoc:org.springframework.kafka.listener.ConsumerAwareRebalanceListener[] bean，它会自动关联到默认工厂。
@@ -71,7 +106,40 @@ Apache Kafka 的 Spring 提供了一个工厂 bean 来创建 javadoc:org.apache.
 
 要使用工厂 bean，将 javadoc:org.apache.kafka.streams.StreamsBuilder[] 注入到您的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 中，如下例所示：
 
-include-code::MyKafkaStreamsConfiguration[]
+[source,java]
+----
+import java.util.Locale;
+
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.KeyValue;
+import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.Produced;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.EnableKafkaStreams;
+
+@Configuration(proxyBeanMethods = false)
+@EnableKafkaStreams
+public class MyKafkaStreamsConfiguration {
+
+	@Bean
+	@SuppressWarnings({ "deprecation", "removal" })
+	public KStream<Integer, String> kStream(StreamsBuilder streamsBuilder) {
+		KStream<Integer, String> stream = streamsBuilder.stream("ks1In");
+		stream.map(this::uppercaseValue)
+			.to("ks1Out",
+					Produced.with(Serdes.Integer(), new org.springframework.kafka.support.serializer.JsonSerde<>()));
+		return stream;
+	}
+
+	private KeyValue<Integer, String> uppercaseValue(Integer key, String value) {
+		return new KeyValue<>(key, value.toUpperCase(Locale.getDefault()));
+	}
+
+}
+----
 
 默认情况下，由 javadoc:org.apache.kafka.streams.StreamsBuilder[] 对象管理的流会自动启动。
 您可以使用 configprop:spring.kafka.streams.auto-startup[] 属性自定义此行为。
@@ -154,11 +222,36 @@ Spring for Apache Kafka 提供了一种便捷的方式来测试带有嵌入式 A
 
 * 在测试类中提供一个系统属性，将嵌入式代理地址映射到 configprop:spring.kafka.bootstrap-servers[]：
 
-include-code::property/MyTest[tag=*]
+[source,java]
+----
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.kafka.test.EmbeddedKafkaBroker;
+
+@SpringBootTest
+class MyTest {
+
+	static {
+		System.setProperty(EmbeddedKafkaBroker.BROKER_LIST_PROPERTY, "spring.kafka.bootstrap-servers");
+	}
+
+}
+----
 
 * 在 javadoc:org.springframework.kafka.test.context.EmbeddedKafka[format=annotation] annotation 上配置属性名称：
 
-include-code::annotation/MyTest[]
+[source,java]
+----
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+
+@SpringBootTest
+@EmbeddedKafka(topics = "someTopic", bootstrapServersProperty = "spring.kafka.bootstrap-servers")
+class MyTest {
+
+	// ...
+
+}
+----
 
 * 在配置属性中使用占位符：
 

@@ -96,4 +96,28 @@ spring:
 如果你想自定义 AP 发起的登出请求发送到的 `url` 或 AP 发送登出响应到的 `response-url`，以使用不同的模式，则需要提供配置来处理该自定义模式。
 例如，对于 Servlet 应用程序，你可以添加自己的 javadoc:org.springframework.security.web.SecurityFilterChain[]，如下所示：
 
-include-code::MySamlRelyingPartyConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
+@Configuration(proxyBeanMethods = false)
+public class MySamlRelyingPartyConfiguration {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+		http.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated());
+		http.saml2Login(withDefaults());
+		http.saml2Logout((saml2) -> {
+			saml2.logoutRequest((request) -> request.logoutUrl("/SLOService.saml2"));
+			saml2.logoutResponse((response) -> response.logoutUrl("/SLOService.saml2"));
+		});
+		return http.build();
+	}
+
+}
+----

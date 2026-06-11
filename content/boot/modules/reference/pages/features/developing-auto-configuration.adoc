@@ -96,7 +96,34 @@ javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnClass[form
 
 为了处理这种情况，可以使用单独的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类来隔离条件，如下例所示：
 
-include-code::MyAutoConfiguration[]
+[source,java]
+----
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@AutoConfiguration
+// Some conditions ...
+public final class MyAutoConfiguration {
+
+	// Auto-configured beans ...
+
+	@Configuration(proxyBeanMethods = false)
+	@ConditionalOnClass(SomeService.class)
+	static class SomeServiceConfiguration {
+
+		@Bean
+		@ConditionalOnMissingBean
+		SomeService someService() {
+			return new SomeService();
+		}
+
+	}
+
+}
+----
 
 TIP: 如果你使用 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnClass[format=annotation] 或 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass[format=annotation] 作为元 annotation 的一部分来组合你自己的组合 annotations，你必须使用 `name`，因为在这种情况下引用类不会被处理。
 
@@ -109,7 +136,23 @@ javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnBean[forma
 
 当放置在 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法上时，目标类型默认为方法的返回类型，如下例所示：
 
-include-code::MyAutoConfiguration[]
+[source,java]
+----
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+
+@AutoConfiguration
+public final class MyAutoConfiguration {
+
+	@Bean
+	@ConditionalOnMissingBean
+	SomeService someService() {
+		return new SomeService();
+	}
+
+}
+----
 
 在前面的示例中，如果 javadoc:org.springframework.context.ApplicationContext[] 中尚未包含类型为 `SomeService` 的 bean，则将创建 `someService` bean。
 
@@ -170,7 +213,11 @@ WARNING: javadoc:org.springframework.boot.test.context.runner.ApplicationContext
 javadoc:org.springframework.boot.test.context.runner.ApplicationContextRunner[] 通常定义为测试类的字段，以收集基础、通用的配置。
 以下示例确保 `MyServiceAutoConfiguration` 始终被调用：
 
-include-code::MyServiceAutoConfigurationTests[tag=runner]
+[source,java]
+----
+	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+		.withConfiguration(AutoConfigurations.of(MyServiceAutoConfiguration.class));
+----
 
 TIP: 如果需要定义多个 auto-configurations，则无需对其声明进行排序，因为它们以与运行应用程序时完全相同的顺序被调用。
 
@@ -178,17 +225,65 @@ TIP: 如果需要定义多个 auto-configurations，则无需对其声明进行�
 例如，下面的示例调用用户配置（`UserConfiguration`）并检查 auto-configuration 是否正确回退。
 调用 `run` 提供了一个可与 AssertJ 一起使用的回调上下文。
 
-include-code::MyServiceAutoConfigurationTests[tag=test-user-config]
+[source,java]
+----
+	@Test
+	void defaultServiceBacksOff() {
+		this.contextRunner.withUserConfiguration(UserConfiguration.class).run((context) -> {
+			assertThat(context).hasSingleBean(MyService.class);
+			assertThat(context).getBean("myCustomService").isSameAs(context.getBean(MyService.class));
+		});
+	}
+
+	@Configuration(proxyBeanMethods = false)
+	static class UserConfiguration {
+
+		@Bean
+		MyService myCustomService() {
+			return new MyService("mine");
+		}
+
+	}
+----
 
 还可以轻松自定义 javadoc:org.springframework.core.env.Environment[]，如下例所示：
 
-include-code::MyServiceAutoConfigurationTests[tag=test-env]
+[source,java]
+----
+	@Test
+	void serviceNameCanBeConfigured() {
+		this.contextRunner.withPropertyValues("user.name=test123").run((context) -> {
+			assertThat(context).hasSingleBean(MyService.class);
+			assertThat(context.getBean(MyService.class).getName()).isEqualTo("test123");
+		});
+	}
+----
 
 runner 还可用于显示 javadoc:org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport[]。
 报告可以在 `INFO` 或 `DEBUG` 级别打印。
 以下示例展示了如何在 auto-configuration 测试中使用 javadoc:org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener[] 打印报告。
 
-include-code::MyConditionEvaluationReportingTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+
+import org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener;
+import org.springframework.boot.logging.LogLevel;
+import org.springframework.boot.test.context.runner.ApplicationContextRunner;
+
+class MyConditionEvaluationReportingTests {
+
+	@Test
+	void autoConfigTest() {
+		new ApplicationContextRunner()
+			.withInitializer(ConditionEvaluationReportLoggingListener.forLogLevel(LogLevel.INFO))
+			.run((context) -> {
+				// Test something...
+			});
+	}
+
+}
+----
 
 
 [[features.developing-auto-configuration.testing.simulating-a-web-context]]
@@ -204,7 +299,14 @@ include-code::MyConditionEvaluationReportingTests[]
 Spring Boot 附带了一个 javadoc:org.springframework.boot.test.context.FilteredClassLoader[]，可以轻松地被运行器使用。
 在以下示例中，我们断言如果 `MyService` 不存在，则 auto-configuration 被正确禁用：
 
-include-code::../MyServiceAutoConfigurationTests[tag=test-classloader]
+[source,java]
+----
+	@Test
+	void serviceIsIgnoredIfLibraryIsNotPresent() {
+		this.contextRunner.withClassLoader(new FilteredClassLoader(MyService.class))
+			.run((context) -> assertThat(context).doesNotHaveBean("myService"));
+	}
+----
 
 
 [[features.developing-auto-configuration.custom-starter]]
@@ -258,7 +360,45 @@ include-code::../MyServiceAutoConfigurationTests[tag=test-classloader]
 
 确保通过为每个属性添加字段 Javadoc 来记录配置键，如下例所示：
 
-include-code::AcmeProperties[]
+[source,java]
+----
+import java.time.Duration;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("acme")
+public class AcmeProperties {
+
+	/**
+	 * Whether to check the location of acme resources.
+	 */
+	private boolean checkLocation = true;
+
+	/**
+	 * Timeout for establishing a connection to the acme server.
+	 */
+	private Duration loginTimeout = Duration.ofSeconds(3);
+
+	// @fold:on // getters/setters ...
+	public boolean isCheckLocation() {
+		return this.checkLocation;
+	}
+
+	public void setCheckLocation(boolean checkLocation) {
+		this.checkLocation = checkLocation;
+	}
+
+	public Duration getLoginTimeout() {
+		return this.loginTimeout;
+	}
+
+	public void setLoginTimeout(Duration loginTimeout) {
+		this.loginTimeout = loginTimeout;
+	}
+	// @fold:off
+
+}
+----
 
 注意：你应该只使用纯文本编写 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 字段 Javadoc，因为它们在添加到 JSON 之前不会被处理。
 

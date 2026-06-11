@@ -58,11 +58,51 @@ management:
 ----
 您可以注册任意数量的 javadoc:org.springframework.boot.micrometer.metrics.autoconfigure.MeterRegistryCustomizer[] beans 来进一步配置注册表，例如在向注册表注册任何仪表之前应用公共标签：
 
-include-code::commontags/MyMeterRegistryConfiguration[]
+[source,java]
+----
+import io.micrometer.core.instrument.MeterRegistry;
+
+import org.springframework.boot.micrometer.metrics.autoconfigure.MeterRegistryCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyMeterRegistryConfiguration {
+
+	@Bean
+	public MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {
+		return (registry) -> registry.config().commonTags("region", "us-east-1");
+	}
+
+}
+----
 
 您可以通过更具体地指定泛型类型来对特定的注册表实现应用自定义：
 
-include-code::specifictype/MyMeterRegistryConfiguration[]
+[source,java]
+----
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.config.NamingConvention;
+import io.micrometer.graphite.GraphiteMeterRegistry;
+
+import org.springframework.boot.micrometer.metrics.autoconfigure.MeterRegistryCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyMeterRegistryConfiguration {
+
+	@Bean
+	public MeterRegistryCustomizer<GraphiteMeterRegistry> graphiteMetricsNamingConvention() {
+		return (registry) -> registry.config().namingConvention(this::name);
+	}
+
+	private String name(String name, Meter.Type type, String baseUnit) {
+		return /**/ NamingConvention.snakeCase.name(name, type, baseUnit);
+	}
+
+}
+----
 
 Spring Boot 还 xref:actuator/metrics.adoc#actuator.metrics.supported[配置内置的仪表化]，您可以通过配置或专用的 annotation 标记来控制这些仪表化。
 
@@ -319,7 +359,32 @@ Micrometer 提供了一个默认的 javadoc:io.micrometer.core.instrument.util.H
 要控制此行为，请定义自己的 javadoc:io.micrometer.graphite.GraphiteMeterRegistry[] 并提供自己的 javadoc:io.micrometer.core.instrument.util.HierarchicalNameMapper[]。
 除非您定义自己的 javadoc:io.micrometer.graphite.GraphiteConfig[] 和 javadoc:io.micrometer.core.instrument.Clock[] beans，否则会自动配置它们：
 
-include-code::MyGraphiteConfiguration[]
+[source,java]
+----
+import io.micrometer.core.instrument.Clock;
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.config.NamingConvention;
+import io.micrometer.core.instrument.util.HierarchicalNameMapper;
+import io.micrometer.graphite.GraphiteConfig;
+import io.micrometer.graphite.GraphiteMeterRegistry;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyGraphiteConfiguration {
+
+	@Bean
+	public GraphiteMeterRegistry graphiteMeterRegistry(GraphiteConfig config, Clock clock) {
+		return new GraphiteMeterRegistry(config, clock, this::toHierarchicalName);
+	}
+
+	private String toHierarchicalName(Meter.Id id, NamingConvention convention) {
+		return /**/ HierarchicalNameMapper.DEFAULT.toHierarchicalName(id, convention);
+	}
+
+}
+----
 ====
 
 
@@ -384,7 +449,32 @@ Micrometer 提供了一个默认的 javadoc:io.micrometer.core.instrument.util.H
 要控制此行为，请定义自己的 javadoc:io.micrometer.jmx.JmxMeterRegistry[] 并提供自己的 javadoc:io.micrometer.core.instrument.util.HierarchicalNameMapper[]。
 除非您定义自己的，否则会自动配置 javadoc:io.micrometer.jmx.JmxConfig[] 和 javadoc:io.micrometer.core.instrument.Clock[] beans：
 
-include-code::MyJmxConfiguration[]
+[source,java]
+----
+import io.micrometer.core.instrument.Clock;
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.config.NamingConvention;
+import io.micrometer.core.instrument.util.HierarchicalNameMapper;
+import io.micrometer.jmx.JmxConfig;
+import io.micrometer.jmx.JmxMeterRegistry;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyJmxConfiguration {
+
+	@Bean
+	public JmxMeterRegistry jmxMeterRegistry(JmxConfig config, Clock clock) {
+		return new JmxMeterRegistry(config, clock, this::toHierarchicalName);
+	}
+
+	private String toHierarchicalName(Meter.Id id, NamingConvention convention) {
+		return /**/ HierarchicalNameMapper.DEFAULT.toHierarchicalName(id, convention);
+	}
+
+}
+----
 ====
 
 
@@ -871,7 +961,23 @@ javadoc:io.micrometer.core.annotation.Timed[format=annotation] 包中的 annotat
 
 要替换默认指标标签，请定义一个 javadoc:io.micrometer.core.instrument.binder.mongodb.MongoCommandTagsProvider[] bean，如下例所示：
 
-include-code::MyCommandTagsProviderConfiguration[]
+[source,java]
+----
+import io.micrometer.core.instrument.binder.mongodb.MongoCommandTagsProvider;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyCommandTagsProviderConfiguration {
+
+	@Bean
+	public MongoCommandTagsProvider customCommandTagsProvider() {
+		return new CustomCommandTagsProvider();
+	}
+
+}
+----
 
 要禁用自动配置的命令指标，请设置以下属性：
 
@@ -907,7 +1013,23 @@ management:
 
 要替换默认的指标标签，定义一个 javadoc:io.micrometer.core.instrument.binder.mongodb.MongoConnectionPoolTagsProvider[] bean：
 
-include-code::MyConnectionPoolTagsProviderConfiguration[]
+[source,java]
+----
+import io.micrometer.core.instrument.binder.mongodb.MongoConnectionPoolTagsProvider;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyConnectionPoolTagsProviderConfiguration {
+
+	@Bean
+	public MongoConnectionPoolTagsProvider customConnectionPoolTagsProvider() {
+		return new CustomConnectionPoolTagsProvider();
+	}
+
+}
+----
 
 要禁用自动配置的连接池指标，设置以下属性：
 
@@ -945,11 +1067,44 @@ Jetty 的 javadoc:org.eclipse.jetty.server.Connector[] 实例的指标通过 Mic
 
 要注册自定义指标，请将 javadoc:io.micrometer.core.instrument.MeterRegistry[] 注入到你的组件中：
 
-include-code::MyBean[]
+[source,java]
+----
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final Dictionary dictionary;
+
+	public MyBean(MeterRegistry registry) {
+		this.dictionary = Dictionary.load();
+		registry.gauge("dictionary.size", Tags.empty(), this.dictionary.getWords().size());
+	}
+
+}
+----
 
 如果你的指标依赖于其他 beans，我们建议你使用 javadoc:io.micrometer.core.instrument.binder.MeterBinder[] 来注册它们：
 
-include-code::MyMeterBinderConfiguration[]
+[source,java]
+----
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.binder.MeterBinder;
+
+import org.springframework.context.annotation.Bean;
+
+public class MyMeterBinderConfiguration {
+
+	@Bean
+	public MeterBinder queueSize(Queue queue) {
+		return (registry) -> Gauge.builder("queueSize", queue::size).register(registry);
+	}
+
+}
+----
 
 使用 javadoc:io.micrometer.core.instrument.binder.MeterBinder[] 可以确保建立正确的依赖关系，并且在检索指标值时 bean 可用。
 如果你发现需要在多个组件或应用中重复检测一组指标，javadoc:io.micrometer.core.instrument.binder.MeterBinder[] 实现也会很有用。
@@ -964,7 +1119,23 @@ include-code::MyMeterBinderConfiguration[]
 
 例如，如果你想将所有以 `com.example` 开头的仪表 ID 中的 `mytag.region` 标签重命名为 `mytag.area`，可以这样做：
 
-include-code::MyMetricsFilterConfiguration[]
+[source,java]
+----
+import io.micrometer.core.instrument.config.MeterFilter;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyMetricsFilterConfiguration {
+
+	@Bean
+	public MeterFilter renameRegionTagMeterFilter() {
+		return MeterFilter.renameTag("com.example", "mytag.region", "mytag.area");
+	}
+
+}
+----
 
 注意：默认情况下，所有 javadoc:io.micrometer.core.instrument.config.MeterFilter[] beans 都会自动绑定到由 Spring 管理的 javadoc:io.micrometer.core.instrument.MeterRegistry[]。
 请确保使用由 Spring 管理的 javadoc:io.micrometer.core.instrument.MeterRegistry[] 注册你的指标，而不是使用 javadoc:io.micrometer.core.instrument.Metrics[] 上的任何静态方法。

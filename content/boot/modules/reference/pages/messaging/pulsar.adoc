@@ -94,7 +94,26 @@ Spring for Apache Pulsar 的 javadoc:org.springframework.pulsar.core.PulsarAdmin
 
 Spring 的 javadoc:org.springframework.pulsar.core.PulsarTemplate[] 是自动配置的，你可以使用它发送消息，如下例所示：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.pulsar.core.PulsarTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final PulsarTemplate<String> pulsarTemplate;
+
+	public MyBean(PulsarTemplate<String> pulsarTemplate) {
+		this.pulsarTemplate = pulsarTemplate;
+	}
+
+	public void someMethod() {
+		this.pulsarTemplate.send("someTopic", "Hello");
+	}
+
+}
+----
 
 javadoc:org.springframework.pulsar.core.PulsarTemplate[] 依赖于 javadoc:org.springframework.pulsar.core.PulsarProducerFactory[] 来创建底层的 Pulsar 生产者。
 Spring Boot auto-configuration 也提供了这个生产者工厂，默认情况下它会缓存创建的生产者。
@@ -114,7 +133,21 @@ Spring Boot auto-configuration 也提供了这个生产者工厂，默认情况�
 当 Apache Pulsar 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.pulsar.annotation.PulsarListener[format=annotation] 注解来创建一个监听器 endpoint。
 以下组件在 `someTopic` 主题上创建了一个监听器 endpoint：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.pulsar.annotation.PulsarListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	@PulsarListener(topics = "someTopic")
+	public void processMessage(String content) {
+		// ...
+	}
+
+}
+----
 
 Spring Boot auto-configuration 提供了 javadoc:org.springframework.pulsar.annotation.PulsarListener[] 所需的所有组件，例如 javadoc:org.springframework.pulsar.config.PulsarListenerContainerFactory[] 以及用于构造底层 Pulsar 消费者的消费者工厂。
 你可以通过指定任何以 `spring.pulsar.listener.\*` 和 `spring.pulsar.consumer.*` 为前缀的应用程序属性来配置这些组件。
@@ -136,7 +169,21 @@ Pulsar 读取器接口使应用程序能够手动管理游标。
 当 Apache Pulsar 基础设施存在时，任何 bean 都可以使用 javadoc:org.springframework.pulsar.annotation.PulsarReader[format=annotation] 注解来通过读取器消费消息。
 以下组件创建了一个读取器 endpoint，从 `someTopic` 主题的开头开始读取消息：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.pulsar.annotation.PulsarReader;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	@PulsarReader(topics = "someTopic", startMessageId = "earliest")
+	public void processMessage(String content) {
+		// ...
+	}
+
+}
+----
 
 javadoc:org.springframework.pulsar.annotation.PulsarReader[format=annotation] 依赖于 javadoc:org.springframework.pulsar.core.PulsarReaderFactory[] 来创建底层的 Pulsar 读取器。
 Spring Boot auto-configuration 提供了这个读取器工厂，可以通过设置任何以 `spring.pulsar.reader.*` 为前缀的应用程序属性来自定义。

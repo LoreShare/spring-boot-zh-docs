@@ -23,7 +23,34 @@ Spring Boot 提供了多个与 HTTP 客户端配合使用的 starter。
 要定制客户端对网络连接的处理，请提供一个 javadoc:org.springframework.http.client.reactive.ClientHttpConnector[] bean。
 以下示例配置了 60 秒的连接超时，并添加了一个 javadoc:io.netty.handler.timeout.ReadTimeoutHandler[]：
 
-include-code::MyReactorNettyClientConfiguration[]
+[source,java]
+----
+import io.netty.channel.ChannelOption;
+import io.netty.handler.timeout.ReadTimeoutHandler;
+import reactor.netty.http.client.HttpClient;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.ReactorResourceFactory;
+import org.springframework.http.client.reactive.ClientHttpConnector;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+
+@Configuration(proxyBeanMethods = false)
+public class MyReactorNettyClientConfiguration {
+
+	@Bean
+	ClientHttpConnector clientHttpConnector(ReactorResourceFactory resourceFactory) {
+		// @formatter:off
+		HttpClient httpClient = HttpClient.create(resourceFactory.getConnectionProvider())
+				.runOn(resourceFactory.getLoopResources())
+				.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 60000)
+				.doOnConnected((connection) -> connection.addHandlerLast(new ReadTimeoutHandler(60)));
+		return new ReactorClientHttpConnector(httpClient);
+		// @formatter:on
+	}
+
+}
+----
 
 提示：注意使用 javadoc:org.springframework.http.client.ReactorResourceFactory[] 来管理连接提供者和事件循环资源。
 这确保了接收请求的服务器和发出请求的客户端能够高效地共享资源。

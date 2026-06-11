@@ -76,7 +76,21 @@ Spring 应用程序由 Spring Bean 组成。
 
 如果我们以一个典型的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类为例：
 
-include-code::MyConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyConfiguration {
+
+	@Bean
+	public MyBean myBean() {
+		return new MyBean();
+	}
+
+}
+----
 
 bean 定义是通过解析 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类并查找 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法来创建的。
 在上面的例子中，我们为名为 `myBean` 的单例 bean 定义了一个 javadoc:org.springframework.beans.factory.config.BeanDefinition[]。
@@ -91,7 +105,48 @@ bean 定义是通过解析 javadoc:org.springframework.context.annotation.Config
 
 Spring AOT 过程会将上面的配置类转换为如下代码：
 
-include-code::MyConfiguration__BeanDefinitions[]
+[source,java]
+----
+import org.springframework.beans.factory.aot.BeanInstanceSupplier;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.RootBeanDefinition;
+
+/**
+ * Bean definitions for {@link MyConfiguration}.
+ */
+@SuppressWarnings("javadoc")
+public class MyConfiguration__BeanDefinitions {
+
+	/**
+	 * Get the bean definition for 'myConfiguration'.
+	 */
+	public static BeanDefinition getMyConfigurationBeanDefinition() {
+		Class<?> beanType = MyConfiguration.class;
+		RootBeanDefinition beanDefinition = new RootBeanDefinition(beanType);
+		beanDefinition.setInstanceSupplier(MyConfiguration::new);
+		return beanDefinition;
+	}
+
+	/**
+	 * Get the bean instance supplier for 'myBean'.
+	 */
+	private static BeanInstanceSupplier<MyBean> getMyBeanInstanceSupplier() {
+		return BeanInstanceSupplier.<MyBean>forFactoryMethod(MyConfiguration.class, "myBean")
+			.withGenerator((registeredBean) -> registeredBean.getBeanFactory().getBean(MyConfiguration.class).myBean());
+	}
+
+	/**
+	 * Get the bean definition for 'myBean'.
+	 */
+	public static BeanDefinition getMyBeanBeanDefinition() {
+		Class<?> beanType = MyBean.class;
+		RootBeanDefinition beanDefinition = new RootBeanDefinition(beanType);
+		beanDefinition.setInstanceSupplier(getMyBeanInstanceSupplier());
+		return beanDefinition;
+	}
+
+}
+----
 
 注意：生成的代码的确切性质可能因你的 bean 定义的性质而异。
 

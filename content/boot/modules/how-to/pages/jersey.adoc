@@ -12,7 +12,24 @@ Spring Security 可用于保护基于 Jersey 的 Web 应用程序，其方式与
 
 必须在应用程序的 javadoc:org.glassfish.jersey.server.ResourceConfig[] bean 上将 `jersey.config.server.response.setStatusOverSendError` 属性设置为 `true`，如下例所示：
 
-include-code::JerseySetStatusOverSendErrorConfig[]
+[source,java]
+----
+import java.util.Collections;
+
+import org.glassfish.jersey.server.ResourceConfig;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class JerseySetStatusOverSendErrorConfig extends ResourceConfig {
+
+	public JerseySetStatusOverSendErrorConfig() {
+		register(Endpoint.class);
+		setProperties(Collections.singletonMap("jersey.config.server.response.setStatusOverSendError", true));
+	}
+
+}
+----
 
 
 
@@ -23,4 +40,20 @@ include-code::JerseySetStatusOverSendErrorConfig[]
 首先，通过将 configprop:spring.jersey.type[] 应用程序属性配置为 `filter` 值，将 Jersey 配置为使用过滤器而不是 servlet。
 其次，配置你的 javadoc:org.glassfish.jersey.server.ResourceConfig[] 以转发会导致 404 的请求，如下例所示。
 
-include-code::JerseyConfig[]
+[source,java]
+----
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.servlet.ServletProperties;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class JerseyConfig extends ResourceConfig {
+
+	public JerseyConfig() {
+		register(Endpoint.class);
+		property(ServletProperties.FILTER_FORWARD_ON_404, true);
+	}
+
+}
+----

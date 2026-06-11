@@ -45,4 +45,23 @@ server:
 
 要配置 Spring Security 以要求所有（或部分）请求使用安全通道，可以考虑添加你自己的 javadoc:org.springframework.security.web.SecurityFilterChain[] bean，该 Bean 添加了以下 javadoc:org.springframework.security.config.annotation.web.builders.HttpSecurity[] 配置：
 
-include-code::MySecurityConfig[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class MySecurityConfig {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+		// Customize the application security ...
+		http.redirectToHttps(Customizer.withDefaults());
+		return http.build();
+	}
+
+}
+----

@@ -38,7 +38,28 @@ Spring Boot 为 https://github.com/redis/lettuce/[Lettuce] 和 https://github.co
 你可以像注入任何其他 Spring Bean 一样，注入一个自动配置的 javadoc:org.springframework.data.redis.connection.RedisConnectionFactory[]、javadoc:org.springframework.data.redis.core.StringRedisTemplate[] 或普通的 javadoc:org.springframework.data.redis.core.RedisTemplate[] 实例。
 以下列表展示了这样一个 bean 的示例：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final StringRedisTemplate template;
+
+	public MyBean(StringRedisTemplate template) {
+		this.template = template;
+	}
+
+	// @fold:on // ...
+	public Boolean someMethod() {
+		return this.template.hasKey("spring");
+	}
+	// @fold:off
+
+}
+----
 
 默认情况下，该实例尝试连接到 `localhost:6379` 上的 Redis 服务器。
 你可以使用 `spring.data.redis.*` 属性指定自定义连接详细信息，如下例所示：
@@ -106,7 +127,21 @@ spring:
 
 以下组件在 `someChannel` 频道上创建了一个监听器 endpoint：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.data.redis.annotation.RedisListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	@RedisListener("someChannel")
+	public void processMessage(String content) {
+		// ...
+	}
+
+}
+----
 
 提示：有关更多详细信息，请参阅 javadoc:org.springframework.data.redis.annotation.EnableRedisListeners[format=annotation] API 文档。
 
@@ -114,11 +149,46 @@ include-code::MyBean[]
 
 例如，以下示例暴露了另一个使用特定 javadoc:org.springframework.data.redis.connection.RedisConnectionFactory[] 的容器：
 
-include-code::custom/MyRedisConfiguration[]
+[source,java]
+----
+import org.springframework.boot.data.redis.autoconfigure.RedisMessageListenerContainerConfigurer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+
+@Configuration(proxyBeanMethods = false)
+public class MyRedisConfiguration {
+
+	@Bean
+	public RedisMessageListenerContainer myRedisMessageListenerContainer(
+			RedisMessageListenerContainerConfigurer configurer, RedisConnectionFactory connectionFactory) {
+		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+		configurer.configure(container, connectionFactory);
+		// ... custom configuration
+		return container;
+	}
+
+}
+----
 
 然后，可以在任何 javadoc:org.springframework.data.redis.annotation.RedisListener[format=annotation] 注解的方法中使用该容器，如下所示：
 
-include-code::custom/MyBean[]
+[source,java]
+----
+import org.springframework.data.redis.annotation.RedisListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	@RedisListener(topic = "someChannel", container = "myRedisMessageListenerContainer")
+	public void processMessage(String content) {
+		// ...
+	}
+
+}
+----
 
 [[data.nosql.mongodb]]
 == MongoDB
@@ -133,7 +203,33 @@ Spring Boot 为使用 MongoDB 提供了若干便利，包括 `spring-boot-starte
 默认情况下，该实例尝试连接到 `mongodb://localhost/test` 上的 MongoDB 服务器。
 以下示例展示了如何连接到 MongoDB 数据库：
 
-include-code::MyBean[]
+[source,java]
+----
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
+import org.springframework.data.mongodb.MongoDatabaseFactory;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final MongoDatabaseFactory mongo;
+
+	public MyBean(MongoDatabaseFactory mongo) {
+		this.mongo = mongo;
+	}
+
+	// @fold:on // ...
+	public MongoCollection<Document> someMethod() {
+		MongoDatabase db = this.mongo.getMongoDatabase();
+		return db.getCollection("users");
+	}
+	// @fold:off
+
+}
+----
 
 如果已定义了自己的 javadoc:{url-mongodb-driver-sync-javadoc}/com.mongodb.client.MongoClient[]，它将用于自动配置合适的 javadoc:org.springframework.data.mongodb.MongoDatabaseFactory[]。
 
@@ -209,7 +305,31 @@ auto-configuration 会在 Netty 可用且尚未自定义要使用的工厂时自
 {url-spring-data-mongodb-site}[Spring Data MongoDB] 提供了一个 javadoc:org.springframework.data.mongodb.core.MongoTemplate[] 类，其设计非常类似于 Spring 的 javadoc:org.springframework.jdbc.core.JdbcTemplate[]。
 与 javadoc:org.springframework.jdbc.core.JdbcTemplate[] 一样，Spring Boot 会自动配置一个 bean，以便你注入模板，如下所示：
 
-include-code::MyBean[]
+[source,java]
+----
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
+
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final MongoTemplate mongoTemplate;
+
+	public MyBean(MongoTemplate mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
+	}
+
+	// @fold:on // ...
+	public MongoCollection<Document> someMethod() {
+		return this.mongoTemplate.getCollection("users");
+	}
+	// @fold:off
+
+}
+----
 
 有关完整详细信息，请参阅 javadoc:org.springframework.data.mongodb.core.MongoOperations[] API 文档。
 
@@ -224,7 +344,20 @@ Spring Data 包含对 MongoDB 的仓库支持。
 事实上，Spring Data JPA 和 Spring Data MongoDB 共享相同的基础设施。
 你可以使用之前的 JPA 示例，假设 `City` 现在是 MongoDB 数据类而不是 JPA javadoc:jakarta.persistence.Entity[format=annotation]，它的工作方式相同，如下例所示：
 
-include-code::CityRepository[]
+[source,java]
+----
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.Repository;
+
+public interface CityRepository extends Repository<City, Long> {
+
+	Page<City> findAll(Pageable pageable);
+
+	City findByNameAndStateAllIgnoringCase(String name, String state);
+
+}
+----
 
 仓库和文档通过扫描发现。
 默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration packages]。
@@ -249,7 +382,39 @@ Spring Boot 为使用 Neo4j 提供了多种便利，包括 `spring-boot-starter-
 默认情况下，实例尝试使用 Bolt 协议连接到 `localhost:7687` 的 Neo4j 服务器。
 以下示例展示了如何注入一个 Neo4j javadoc:org.neo4j.driver.Driver[]，它允许你访问 javadoc:org.neo4j.driver.Session[] 等：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.Session;
+import org.neo4j.driver.Values;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final Driver driver;
+
+	public MyBean(Driver driver) {
+		this.driver = driver;
+	}
+
+	// @fold:on // ...
+	public String someMethod(String message) {
+		try (Session session = this.driver.session()) {
+			return session.executeWrite(
+					(transaction) -> transaction
+						.run("CREATE (a:Greeting) SET a.message = $message RETURN a.message + ', from node ' + id(a)",
+								Values.parameters("message", message))
+						.single()
+						.get(0)
+						.asString());
+		}
+	}
+	// @fold:off
+
+}
+----
 
 你可以使用 `spring.neo4j.*` 属性配置驱动的各个方面。
 以下示例展示了如何配置要使用的 URI 和凭据：
@@ -276,7 +441,16 @@ Spring Data 包含对 Neo4j 的仓库支持。
 Spring Data Neo4j 与 Spring Data JPA 共享通用基础设施，就像许多其他 Spring Data 模块一样。
 您可以沿用之前的 JPA 示例，将 `City` 定义为 Spring Data Neo4j javadoc:org.springframework.data.neo4j.core.schema.Node[format=annotation] 而不是 JPA javadoc:jakarta.persistence.Entity[format=annotation]，仓库抽象的工作方式相同，如下例所示：
 
-include-code::CityRepository[]
+[source,java]
+----
+import org.springframework.data.neo4j.repository.Neo4jRepository;
+
+public interface CityRepository extends Neo4jRepository<City, Long> {
+
+	City findOneByNameAndState(String name, String state);
+
+}
+----
 
 `spring-boot-starter-data-neo4j` starter 启用了仓库支持以及事务管理。
 Spring Boot 支持经典和响应式 Neo4j 仓库，分别使用 javadoc:org.springframework.data.neo4j.core.Neo4jTemplate[] 或 javadoc:org.springframework.data.neo4j.core.ReactiveNeo4jTemplate[] beans。
@@ -291,7 +465,26 @@ Spring Boot 支持经典和响应式 Neo4j 仓库，分别使用 javadoc:org.spr
 在使用响应式风格的应用程序中，不会自动配置 javadoc:org.springframework.transaction.ReactiveTransactionManager[]。
 要启用事务管理，必须在您的配置中定义以下 bean：
 
-include-code::MyNeo4jConfiguration[]
+[source,java]
+----
+import org.neo4j.driver.Driver;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.neo4j.core.ReactiveDatabaseSelectionProvider;
+import org.springframework.data.neo4j.core.transaction.ReactiveNeo4jTransactionManager;
+
+@Configuration(proxyBeanMethods = false)
+public class MyNeo4jConfiguration {
+
+	@Bean
+	public ReactiveNeo4jTransactionManager reactiveTransactionManager(Driver driver,
+			ReactiveDatabaseSelectionProvider databaseNameProvider) {
+		return new ReactiveNeo4jTransactionManager(driver, databaseNameProvider);
+	}
+
+}
+----
 ====
 
 
@@ -375,7 +568,28 @@ javadoc:org.springframework.data.elasticsearch.client.elc.ReactiveElasticsearchC
 有了这个配置，就可以像任何其他 Spring bean 一样注入
 javadoc:org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate[]，如下例所示：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final ElasticsearchTemplate template;
+
+	public MyBean(ElasticsearchTemplate template) {
+		this.template = template;
+	}
+
+	// @fold:on // ...
+	public boolean someMethod(String id) {
+		return this.template.exists(id, User.class);
+	}
+	// @fold:off
+
+}
+----
 
 在存在 `spring-data-elasticsearch` 和 Reactor 的情况下，Spring Boot 也可以自动配置一个 xref:data/nosql.adoc#data.nosql.elasticsearch.connecting-using-rest.reactiveclient[`ReactiveElasticsearchClient`] 和一个 javadoc:org.springframework.data.elasticsearch.client.elc.ReactiveElasticsearchTemplate[] 作为 beans。
 它们是其他 REST 客户端的响应式等价物。
@@ -485,7 +699,28 @@ Spring Boot 默认不会查找此类文件，但可以通过 `spring.cassandra.c
 
 以下代码清单展示了如何注入一个 Cassandra bean：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.data.cassandra.core.CassandraTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final CassandraTemplate template;
+
+	public MyBean(CassandraTemplate template) {
+		this.template = template;
+	}
+
+	// @fold:on // ...
+	public long someMethod() {
+		return this.template.count(User.class);
+	}
+	// @fold:off
+
+}
+----
 
 如果你添加自己的类型为 javadoc:org.springframework.data.cassandra.core.CassandraTemplate[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，它将替换默认的。
 
@@ -600,7 +835,28 @@ spring:
 ----
 以下示例展示了如何注入一个 javadoc:org.springframework.data.couchbase.core.CouchbaseTemplate[] bean：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.data.couchbase.core.CouchbaseTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final CouchbaseTemplate template;
+
+	public MyBean(CouchbaseTemplate template) {
+		this.template = template;
+	}
+
+	// @fold:on // ...
+	public String someMethod() {
+		return this.template.getBucketName();
+	}
+	// @fold:off
+
+}
+----
 
 你可以定义几个 beans 来覆盖 auto-configuration 提供的默认值：
 
@@ -611,7 +867,25 @@ include-code::MyBean[]
 为了避免在配置中硬编码这些名称，你可以重用 Spring Data Couchbase 提供的 javadoc:org.springframework.data.couchbase.config.BeanNames[]。
 例如，你可以自定义要使用的转换器，如下所示：
 
-include-code::MyCouchbaseConfiguration[]
+[source,java]
+----
+import org.assertj.core.util.Arrays;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.couchbase.config.BeanNames;
+import org.springframework.data.couchbase.core.convert.CouchbaseCustomConversions;
+
+@Configuration(proxyBeanMethods = false)
+public class MyCouchbaseConfiguration {
+
+	@Bean(BeanNames.COUCHBASE_CUSTOM_CONVERSIONS)
+	public CouchbaseCustomConversions myCustomConversions() {
+		return new CouchbaseCustomConversions(Arrays.asList(new MyConverter()));
+	}
+
+}
+----
 
 
 
@@ -662,7 +936,30 @@ Spring Data 包含对 LDAP 的仓库支持。
 你也可以像使用任何其他 Spring Bean 一样注入自动配置的 javadoc:org.springframework.ldap.core.LdapTemplate[] 实例，如下例所示：
 
 
-include-code::MyBean[]
+[source,java]
+----
+import java.util.List;
+
+import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final LdapTemplate template;
+
+	public MyBean(LdapTemplate template) {
+		this.template = template;
+	}
+
+	// @fold:on // ...
+	public List<User> someMethod() {
+		return this.template.findAll(User.class);
+	}
+	// @fold:off
+
+}
+----
 
 
 

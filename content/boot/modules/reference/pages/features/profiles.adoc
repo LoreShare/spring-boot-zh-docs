@@ -3,7 +3,19 @@
 Spring Profiles 提供了一种隔离应用程序配置部分的方法，使其仅在特定环境中可用。
 任何 javadoc:org.springframework.stereotype.Component[format=annotation]、javadoc:org.springframework.context.annotation.Configuration[format=annotation] 或 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 都可以通过 javadoc:org.springframework.context.annotation.Profile[format=annotation] 标记来限制其加载时机，如下例所示：
 
-include-code::ProductionConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+
+@Configuration(proxyBeanMethods = false)
+@Profile("production")
+public class ProductionConfiguration {
+
+	// ...
+
+}
+----
 
 注意：如果 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans 是通过 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 注册的，而不是自动扫描，则需要在具有 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] annotation 的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上指定 javadoc:org.springframework.context.annotation.Profile[format=annotation] annotation。
 如果 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 是通过扫描发现的，则 javadoc:org.springframework.context.annotation.Profile[format=annotation] 可以直接在 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类本身上指定。

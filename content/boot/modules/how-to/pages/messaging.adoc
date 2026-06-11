@@ -13,6 +13,30 @@ Spring Boot 提供了多个 starter 来支持消息。
 如果您创建自己的 javadoc:org.springframework.jms.config.JmsListenerContainerFactory[]，则无需执行任何操作，因为默认情况下它不能是事务性的。
 如果您想使用 javadoc:org.springframework.boot.jms.autoconfigure.DefaultJmsListenerContainerFactoryConfigurer[] 来重用 Spring Boot 的默认配置，您可以按如下方式禁用事务性会话：
 
-include-code::MyJmsConfiguration[]
+[source,java]
+----
+import jakarta.jms.ConnectionFactory;
+
+import org.springframework.boot.jms.ConnectionFactoryUnwrapper;
+import org.springframework.boot.jms.autoconfigure.DefaultJmsListenerContainerFactoryConfigurer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+
+@Configuration(proxyBeanMethods = false)
+public class MyJmsConfiguration {
+
+	@Bean
+	public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory,
+			DefaultJmsListenerContainerFactoryConfigurer configurer) {
+		DefaultJmsListenerContainerFactory listenerFactory = new DefaultJmsListenerContainerFactory();
+		configurer.configure(listenerFactory, ConnectionFactoryUnwrapper.unwrapCaching(connectionFactory));
+		listenerFactory.setTransactionManager(null);
+		listenerFactory.setSessionTransacted(false);
+		return listenerFactory;
+	}
+
+}
+----
 
 前面的示例覆盖了默认工厂，并且应该应用于应用程序定义的任何其他工厂（如果有）。

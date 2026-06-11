@@ -8,7 +8,21 @@ Spring 框架为应用程序透明地添加缓存提供了支持。其核心是�
 
 要为服务的操作添加缓存，请将相应的 annotation 添加到其方法中，如下例所示：
 
-include-code::MyMathService[]
+[source,java]
+----
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyMathService {
+
+	@Cacheable("piDecimals")
+	public int computePiDecimal(int precision) {
+		/**/ return 0;
+	}
+
+}
+----
 
 此示例演示了在可能代价高昂的操作上使用缓存。在调用 `computePiDecimal` 之前，抽象层会在 `piDecimals` 缓存中查找与 `precision` 参数匹配的条目。如果找到条目，缓存中的内容会立即返回给调用者，并且不会调用该方法。否则，该方法会被调用，并在返回值之前更新缓存。
 
@@ -43,7 +57,23 @@ include-code::MyMathService[]
 
 如果 javadoc:org.springframework.cache.CacheManager[] 由 Spring Boot 自动配置，你可以通过暴露一个实现 javadoc:org.springframework.boot.cache.autoconfigure.CacheManagerCustomizer[] 接口的 bean 来在其完全初始化之前进一步调整其配置。以下示例设置了一个标志，表示 `null` 值不应传递到底层映射：
 
-include-code::MyCacheManagerConfiguration[]
+[source,java]
+----
+import org.springframework.boot.cache.autoconfigure.CacheManagerCustomizer;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyCacheManagerConfiguration {
+
+	@Bean
+	public CacheManagerCustomizer<ConcurrentMapCacheManager> cacheManagerCustomizer() {
+		return (cacheManager) -> cacheManager.setAllowNullValues(false);
+	}
+
+}
+----
 
 注意：在前面的示例中，期望有一个自动配置的 javadoc:org.springframework.cache.concurrent.ConcurrentMapCacheManager[]。如果不是这种情况（要么你提供了自己的配置，要么自动配置了不同的缓存提供者），则根本不会调用自定义器。你可以拥有任意数量的自定义器，也可以使用 javadoc:org.springframework.core.annotation.Order[format=annotation] 或 javadoc:org.springframework.core.Ordered[] 对它们进行排序。
 
@@ -138,7 +168,32 @@ spring:
 如果您需要对配置进行更精细的控制，可以考虑注册一个 javadoc:org.springframework.boot.cache.autoconfigure.CouchbaseCacheManagerBuilderCustomizer[] bean。
 以下示例展示了一个自定义器，用于配置 `cache1` 和 `cache2` 的特定条目过期时间：
 
-include-code::MyCouchbaseCacheManagerConfiguration[]
+[source,java]
+----
+import java.time.Duration;
+
+import org.springframework.boot.cache.autoconfigure.CouchbaseCacheManagerBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.couchbase.cache.CouchbaseCacheConfiguration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyCouchbaseCacheManagerConfiguration {
+
+	@Bean
+	public CouchbaseCacheManagerBuilderCustomizer myCouchbaseCacheManagerBuilderCustomizer() {
+		// @formatter:off
+		return (builder) -> builder
+				.withCacheConfiguration("cache1", CouchbaseCacheConfiguration
+						.defaultCacheConfig().entryExpiry(Duration.ofSeconds(10)))
+				.withCacheConfiguration("cache2", CouchbaseCacheConfiguration
+						.defaultCacheConfig().entryExpiry(Duration.ofMinutes(1)));
+		// @formatter:on
+
+	}
+
+}
+----
 
 
 
@@ -166,7 +221,32 @@ TIP: 你可以通过添加自己的 javadoc:org.springframework.data.redis.cache
 如果你需要对配置进行更多控制，可以考虑注册一个 javadoc:org.springframework.boot.cache.autoconfigure.RedisCacheManagerBuilderCustomizer[] bean。
 以下示例展示了一个自定义器，它为 `cache1` 和 `cache2` 配置了特定的生存时间：
 
-include-code::MyRedisCacheManagerConfiguration[]
+[source,java]
+----
+import java.time.Duration;
+
+import org.springframework.boot.cache.autoconfigure.RedisCacheManagerBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyRedisCacheManagerConfiguration {
+
+	@Bean
+	public RedisCacheManagerBuilderCustomizer myRedisCacheManagerBuilderCustomizer() {
+		// @formatter:off
+		return (builder) -> builder
+				.withCacheConfiguration("cache1", RedisCacheConfiguration
+						.defaultCacheConfig().entryTtl(Duration.ofSeconds(10)))
+				.withCacheConfiguration("cache2", RedisCacheConfiguration
+						.defaultCacheConfig().entryTtl(Duration.ofMinutes(1)));
+		// @formatter:on
+
+	}
+
+}
+----
 
 
 [[io.caching.provider.caffeine]]
@@ -204,7 +284,27 @@ https://cache2k.org/[Cache2k] 是一个内存缓存。
 可以使用 javadoc:org.springframework.boot.cache.autoconfigure.Cache2kBuilderCustomizer[] bean 自定义缓存默认值。
 以下示例展示了一个自定义器，它将缓存容量配置为 200 个条目，过期时间为 5 分钟：
 
-include-code::MyCache2kDefaultsConfiguration[]
+[source,java]
+----
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.boot.cache.autoconfigure.Cache2kBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyCache2kDefaultsConfiguration {
+
+	@Bean
+	public Cache2kBuilderCustomizer myCache2kDefaultsCustomizer() {
+		// @formatter:off
+		return (builder) -> builder.entryCapacity(200)
+				.expireAfterWrite(5, TimeUnit.MINUTES);
+		// @formatter:on
+	}
+
+}
+----
 
 [[io.caching.provider.simple]]
 === Simple
@@ -243,7 +343,19 @@ spring:
 
 如果缓存是自动配置的，则有更多选项可用。测试可以使用 javadoc:org.springframework.boot.test.autoconfigure.core.AutoConfigureCache[format=annotation] 注解，将自动配置的 javadoc:org.springframework.cache.CacheManager[] 替换为无操作实现。
 
-include-code::MyIntegrationTests[]
+[source,java]
+----
+import org.springframework.boot.cache.test.autoconfigure.AutoConfigureCache;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+@AutoConfigureCache
+public class MyIntegrationTests {
+
+	// Tests use a no-op cache manager
+
+}
+----
 
 另一种选择是为自动配置的 javadoc:org.springframework.cache.CacheManager[] 强制使用无操作实现：
 

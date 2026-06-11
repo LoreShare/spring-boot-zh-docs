@@ -721,7 +721,21 @@ Spring Boot 中的结构化日志支持是可扩展的，允许您定义自己�
 为此，请实现 javadoc:org.springframework.boot.logging.structured.StructuredLogFormatter[] 接口。使用 Logback 时，泛型类型参数必须为 javadoc:ch.qos.logback.classic.spi.ILoggingEvent[]；使用 Log4j2 时，必须为 javadoc:org.apache.logging.log4j.core.LogEvent[]（这意味着您的实现与特定的日志系统绑定）。
 然后，您的实现会随日志事件被调用，并返回要记录的 javadoc:java.lang.String[]，如下例所示：
 
-include-code::MyCustomFormat[]
+[source,java]
+----
+import ch.qos.logback.classic.spi.ILoggingEvent;
+
+import org.springframework.boot.logging.structured.StructuredLogFormatter;
+
+class MyCustomFormat implements StructuredLogFormatter<ILoggingEvent> {
+
+	@Override
+	public String format(ILoggingEvent event) {
+		return "time=" + event.getInstant() + " level=" + event.getLevel() + " message=" + event.getMessage() + "\n";
+	}
+
+}
+----
 
 如示例所示，您可以返回任何格式，不一定是 JSON。
 

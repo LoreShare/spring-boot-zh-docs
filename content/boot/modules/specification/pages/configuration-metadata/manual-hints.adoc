@@ -17,7 +17,29 @@
 
 假设一个 `my.contexts` 将魔法 javadoc:java.lang.String[] 值映射到整数，如下例所示：
 
-include-code::MyProperties[]
+[source,java]
+----
+import java.util.Map;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("my")
+public class MyProperties {
+
+	private Map<String, Integer> contexts;
+
+	// @fold:on // getters/setters ...
+	public Map<String, Integer> getContexts() {
+		return this.contexts;
+	}
+
+	public void setContexts(Map<String, Integer> contexts) {
+		this.contexts = contexts;
+	}
+	// @fold:off
+
+}
+----
 
 魔法值（在此示例中）是 `sample1` 和 `sample2`。
 为了为键提供额外的内容辅助，您可以将以下 JSON 添加到 xref:configuration-metadata/annotation-processor.adoc#appendix.configuration-metadata.annotation-processor.adding-additional-metadata[模块的手动元数据]中：

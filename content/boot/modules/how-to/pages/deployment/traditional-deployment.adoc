@@ -13,7 +13,27 @@ WARNING: 由于 Spring WebFlux 并不严格依赖 Servlet API，且应用默认�
 这样做利用了 Spring Framework 的 Servlet 3.0 支持，并允许你在 Servlet 容器启动应用时进行配置。
 通常，你应该更新应用的主类以继承 javadoc:org.springframework.boot.web.servlet.support.SpringBootServletInitializer[]，如下例所示：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+@SpringBootApplication
+public class MyApplication extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(MyApplication.class);
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----
 
 下一步是更新构建配置，使项目生成 war 文件而不是 jar 文件。
 如果你使用 Maven 和 `spring-boot-starter-parent`（它会为你配置 Maven 的 war 插件），你只需修改 `pom.xml` 将打包方式改为 war，如下所示：
@@ -71,7 +91,28 @@ Spring MVC Web 应用程序通常可以先创建一个可部署的 war 应用程
 
 通过扩展 javadoc:org.springframework.boot.web.servlet.support.SpringBootServletInitializer[]（例如，在名为 `Application` 的类中）并添加 Spring Boot javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] annotation 来创建可部署的 war，使用类似于以下示例的代码：
 
-include-code::MyApplication[tag=!main]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+@SpringBootApplication
+public class MyApplication extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		// Customize the application or call application.sources(...) to add sources
+		// Since our example is itself a @Configuration class (through
+		// @SpringBootApplication)
+		// we actually do not need to override this method.
+		return application;
+	}
+
+
+}
+----
 
 请记住，无论你在 `sources` 中放什么，都只是一个 Spring javadoc:org.springframework.context.ApplicationContext[]。
 通常，任何已经能工作的东西在这里也应该能工作。
@@ -90,13 +131,42 @@ Spring javadoc:org.springframework.web.servlet.DispatcherServlet[] 和 Spring Se
 
 一旦 war 文件工作正常，你可以通过向 `Application` 添加一个 `main` 方法使其可执行，如下例所示：
 
-include-code::MyApplication[tag=main]
+[source,java]
+----
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+----
 
 [NOTE]
 ====
 如果你打算以 war 或可执行应用程序的方式启动你的应用程序，你需要在一个方法中共享构建器的自定义，该方法既可用于 javadoc:org.springframework.boot.web.servlet.support.SpringBootServletInitializer[] 回调，也可用于类似以下类的 `main` 方法：
 
-include-code::both/MyApplication[]
+[source,java]
+----
+import org.springframework.boot.Banner;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+@SpringBootApplication
+public class MyApplication extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return customizerBuilder(builder);
+	}
+
+	public static void main(String[] args) {
+		customizerBuilder(new SpringApplicationBuilder()).run(args);
+	}
+
+	private static SpringApplicationBuilder customizerBuilder(SpringApplicationBuilder builder) {
+		return builder.sources(MyApplication.class).bannerMode(Banner.Mode.OFF);
+	}
+
+}
+----
 ====
 
 应用程序可能属于多个类别：
@@ -127,7 +197,17 @@ include-code::both/MyApplication[]
 
 WebLogic 的典型初始化器应类似于以下示例：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.web.WebApplicationInitializer;
+
+@SpringBootApplication
+public class MyApplication extends SpringBootServletInitializer implements WebApplicationInitializer {
+
+}
+----
 
 如果你使用 Logback，你还需要告诉 WebLogic 优先使用打包的版本，而不是服务器预装的版本。
 你可以通过添加一个包含以下内容的 `WEB-INF/weblogic.xml` 文件来实现：

@@ -23,18 +23,55 @@ Spring Boot 会尝试通过查找 JNDI 路径（`java:/JmsXA` 或 `java:/XAConne
 使用 JTA 时，主要的 JMS javadoc:jakarta.jms.ConnectionFactory[] bean 是 XA 感知的，并参与分布式事务。
 您可以将其注入到您的 bean 中，而无需使用任何 javadoc:org.springframework.beans.factory.annotation.Qualifier[format=annotation]：
 
-include-code::primary/MyBean[]
+[source,java]
+----
+import jakarta.jms.ConnectionFactory;
+
+public class MyBean {
+
+	public MyBean(ConnectionFactory connectionFactory) {
+		// ...
+	}
+
+}
+----
 
 在某些情况下，您可能希望使用非 XA 的 javadoc:jakarta.jms.ConnectionFactory[] 来处理某些 JMS 消息。
 例如，您的 JMS 处理逻辑可能比 XA 超时时间更长。
 
 如果您想使用非 XA 的 javadoc:jakarta.jms.ConnectionFactory[]，可以使用 `nonXaJmsConnectionFactory` bean：
 
-include-code::nonxa/MyBean[]
+[source,java]
+----
+import jakarta.jms.ConnectionFactory;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+
+public class MyBean {
+
+	public MyBean(@Qualifier("nonXaJmsConnectionFactory") ConnectionFactory connectionFactory) {
+		// ...
+	}
+
+}
+----
 
 为了一致性，`jmsConnectionFactory` bean 也通过使用 bean 别名 `xaJmsConnectionFactory` 提供：
 
-include-code::xa/MyBean[]
+[source,java]
+----
+import jakarta.jms.ConnectionFactory;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+
+public class MyBean {
+
+	public MyBean(@Qualifier("xaJmsConnectionFactory") ConnectionFactory connectionFactory) {
+		// ...
+	}
+
+}
+----
 
 
 [[io.jta.supporting-embedded-transaction-manager]]

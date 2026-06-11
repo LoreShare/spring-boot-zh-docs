@@ -100,7 +100,35 @@ spring:
 如果你想自定义 `redirect-uri` 以使用不同的模式，则需要提供配置来处理该自定义模式。
 例如，对于 Servlet 应用程序，你可以添加自己的 javadoc:org.springframework.security.web.SecurityFilterChain[]，如下所示：
 
-include-code::MyOAuthClientConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration(proxyBeanMethods = false)
+@EnableWebSecurity
+public class MyOAuthClientConfiguration {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+		// @formatter:off
+		http.authorizeHttpRequests((requests) ->
+			requests.anyRequest().authenticated()
+		);
+		http.oauth2Login((login) ->
+			login.redirectionEndpoint((endpoint) ->
+				endpoint.baseUri("/login/oauth2/callback/*")
+			)
+		);
+		// @formatter:on
+		return http.build();
+	}
+
+}
+----
 
 提示：Spring Boot 自动配置了一个 javadoc:org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService[]，Spring Security 使用它来管理客户端注册。
 javadoc:org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService[] 功能有限，我们建议仅将其用于开发环境。

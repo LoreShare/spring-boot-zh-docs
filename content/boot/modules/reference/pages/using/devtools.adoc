@@ -179,7 +179,21 @@ spring:
 
 如果你需要_完全_禁用重启支持（例如，因为它与特定库不兼容），你需要在调用 `SpringApplication.run(...)` 之前将 configprop:spring.devtools.restart.enabled[] javadoc:java.lang.System[] 属性设置为 `false`，如下例所示：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MyApplication {
+
+	public static void main(String[] args) {
+		System.setProperty("spring.devtools.restart.enabled", "false");
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----
 
 [[using.devtools.restart.triggerfile]]
 === 使用触发文件

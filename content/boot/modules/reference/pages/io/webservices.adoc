@@ -23,11 +23,57 @@ spring:
 
 以下代码展示了一个典型示例：
 
-include-code::MyService[]
+[source,java]
+----
+import org.springframework.boot.webservices.client.WebServiceTemplateBuilder;
+import org.springframework.stereotype.Service;
+import org.springframework.ws.client.core.WebServiceTemplate;
+import org.springframework.ws.soap.client.core.SoapActionCallback;
+
+@Service
+public class MyService {
+
+	private final WebServiceTemplate webServiceTemplate;
+
+	public MyService(WebServiceTemplateBuilder webServiceTemplateBuilder) {
+		this.webServiceTemplate = webServiceTemplateBuilder.build();
+	}
+
+	public SomeResponse someWsCall(SomeRequest detailsReq) {
+		return (SomeResponse) this.webServiceTemplate.marshalSendAndReceive(detailsReq,
+				new SoapActionCallback("https://ws.example.com/action"));
+	}
+
+}
+----
 
 默认情况下，javadoc:org.springframework.boot.webservices.client.WebServiceTemplateBuilder[] 使用 classpath 上可用的 HTTP 客户端库检测合适的基于 HTTP 的 javadoc:org.springframework.ws.transport.WebServiceMessageSender[]。
 您还可以按如下方式自定义单个构建器的读取和连接超时：
 
-include-code::MyWebServiceTemplateConfiguration[]
+[source,java]
+----
+import java.time.Duration;
+
+import org.springframework.boot.http.client.HttpClientSettings;
+import org.springframework.boot.webservices.client.WebServiceMessageSenderFactory;
+import org.springframework.boot.webservices.client.WebServiceTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.ws.client.core.WebServiceTemplate;
+
+@Configuration(proxyBeanMethods = false)
+public class MyWebServiceTemplateConfiguration {
+
+	@Bean
+	public WebServiceTemplate webServiceTemplate(WebServiceTemplateBuilder builder) {
+		HttpClientSettings settings = HttpClientSettings.defaults()
+			.withConnectTimeout(Duration.ofSeconds(2))
+			.withReadTimeout(Duration.ofSeconds(2));
+		builder.httpMessageSenderFactory(WebServiceMessageSenderFactory.http(settings));
+		return builder.build();
+	}
+
+}
+----
 
 提示：如果没有应用特定的模板定制代码，您也可以更改所使用的 xref:io/rest-client.adoc#io.rest-client.clienthttprequestfactory.configuration[global HTTP client configuration]。

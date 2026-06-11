@@ -8,7 +8,18 @@
 
 javadoc:org.springframework.boot.test.context.ConfigDataApplicationContextInitializer[] 是一个 javadoc:org.springframework.context.ApplicationContextInitializer[]，你可以将其应用于测试以加载 Spring Boot `application.properties` 文件。当你不需要 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 提供的全部功能时，可以使用它，如下例所示：
 
-include-code::MyConfigFileTests[]
+[source,java]
+----
+import org.springframework.boot.test.context.ConfigDataApplicationContextInitializer;
+import org.springframework.test.context.ContextConfiguration;
+
+@ContextConfiguration(classes = Config.class, initializers = ConfigDataApplicationContextInitializer.class)
+class MyConfigFileTests {
+
+	// ...
+
+}
+----
 
 注意：单独使用 javadoc:org.springframework.boot.test.context.ConfigDataApplicationContextInitializer[] 并不提供对 `@Value("${...}")` 注入的支持。它的唯一工作是确保 `application.properties` 文件被加载到 Spring 的 javadoc:org.springframework.core.env.Environment[] 中。要支持 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation]，你需要额外配置一个 javadoc:org.springframework.context.support.PropertySourcesPlaceholderConfigurer[]，或者使用 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation]，它会自动为你配置一个。
 
@@ -18,7 +29,26 @@ include-code::MyConfigFileTests[]
 
 javadoc:org.springframework.boot.test.util.TestPropertyValues[] 允许你快速向 javadoc:org.springframework.core.env.ConfigurableEnvironment[] 或 javadoc:org.springframework.context.ConfigurableApplicationContext[] 添加属性。你可以使用 `key=value` 字符串调用它，如下所示：
 
-include-code::MyEnvironmentTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+
+import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.mock.env.MockEnvironment;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class MyEnvironmentTests {
+
+	@Test
+	void testPropertySources() {
+		MockEnvironment environment = new MockEnvironment();
+		TestPropertyValues.of("org=Spring", "name=Boot").applyTo(environment);
+		assertThat(environment.getProperty("name")).isEqualTo("Boot");
+	}
+
+}
+----
 
 
 [[testing.utilities.output-capture]]
@@ -26,7 +56,27 @@ include-code::MyEnvironmentTests[]
 
 javadoc:org.springframework.boot.test.system.OutputCaptureExtension[] 是一个 JUnit javadoc:org.junit.jupiter.api.extension.Extension[]，你可以用它来捕获 javadoc:java.lang.System#out[] 和 javadoc:java.lang.System#err[] 的输出。要使用它，请添加 `@ExtendWith(OutputCaptureExtension.class)` 并将 javadoc:org.springframework.boot.test.system.CapturedOutput[] 作为参数注入到测试类构造函数或测试方法中，如下所示：
 
-include-code::MyOutputCaptureTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@ExtendWith(OutputCaptureExtension.class)
+class MyOutputCaptureTests {
+
+	@Test
+	void testName(CapturedOutput output) {
+		System.out.println("Hello World!");
+		assertThat(output).contains("World");
+	}
+
+}
+----
 
 
 [[testing.utilities.test-rest-template]]
@@ -44,10 +94,77 @@ javadoc:org.springframework.boot.resttestclient.TestRestTemplate[] 是 Spring �
 
 javadoc:org.springframework.boot.resttestclient.TestRestTemplate[] 可以直接在你的集成测试中实例化，如下例所示：
 
-include-code::MyTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+
+import org.springframework.boot.resttestclient.TestRestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class MyTests {
+
+	private final TestRestTemplate template = new TestRestTemplate();
+
+	@Test
+	void testRequest() {
+		ResponseEntity<String> response = this.template.getForEntity("https://myhost.example.com/example",
+				String.class);
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+		// Other assertions to verify the response
+	}
+
+}
+----
 
 或者，如果你使用带有 `WebEnvironment.RANDOM_PORT` 或 `WebEnvironment.DEFINED_PORT` 的 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] annotation，你可以通过使用 javadoc:org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate[format=annotation] 注解测试类来注入一个完全配置的 javadoc:org.springframework.boot.resttestclient.TestRestTemplate[]。如有必要，可以通过 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[] bean 应用额外的自定义。
 
 任何未指定主机和端口的 URL 会自动连接到嵌入式服务器，如下例所示：
 
-include-code::MySpringBootTests[]
+[source,java]
+----
+import java.time.Duration;
+
+import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.restclient.RestTemplateBuilder;
+import org.springframework.boot.resttestclient.TestRestTemplate;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@AutoConfigureTestRestTemplate
+class MySpringBootTests {
+
+	@Autowired
+	private TestRestTemplate template;
+
+	@Test
+	void testRequest() {
+		ResponseEntity<String> response = this.template.getForEntity("/example", String.class);
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+		// Other assertions to verify the response
+	}
+
+	@TestConfiguration(proxyBeanMethods = false)
+	static class RestTemplateBuilderConfiguration {
+
+		@Bean
+		RestTemplateBuilder restTemplateBuilder() {
+			return new RestTemplateBuilder().connectTimeout(Duration.ofSeconds(1)).readTimeout(Duration.ofSeconds(1));
+		}
+
+	}
+
+}
+----

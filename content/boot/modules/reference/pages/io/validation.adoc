@@ -4,7 +4,23 @@
 
 例如，以下服务会触发第一个参数的验证，确保其大小在 8 到 10 之间：
 
-include-code::MyBean[]
+[source,java]
+----
+import jakarta.validation.constraints.Size;
+
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+@Service
+@Validated
+public class MyBean {
+
+	public Archive findByCodeAndAuthor(@Size(min = 8, max = 10) String code, Author author) {
+		return /**/ null;
+	}
+
+}
+----
 
 在解析约束消息中的 `+{parameters}+` 时，会使用应用程序的 javadoc:org.springframework.context.MessageSource[]。这允许你使用 xref:features/internationalization.adoc[应用程序的 `messages.properties` 文件] 来提供 Bean Validation 消息。一旦参数被解析，消息插值将使用 Bean Validation 的默认插值器完成。
 

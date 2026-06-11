@@ -9,7 +9,21 @@
 * javadoc:org.springframework.boot.SpringBootConfiguration[format=annotation]：启用上下文中额外 bean 的注册或额外配置类的导入。
 这是 Spring 标准 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 的替代方案，有助于在集成测试中进行 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.detecting-configuration[配置检测]。
 
-include-code::springapplication/MyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+// Same as @SpringBootConfiguration @EnableAutoConfiguration @ComponentScan
+@SpringBootApplication
+public class MyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----
 
 注意：javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 还提供了别名，用于自定义 javadoc:org.springframework.boot.autoconfigure.EnableAutoConfiguration[format=annotation] 和 javadoc:org.springframework.context.annotation.ComponentScan[format=annotation] 的属性。
 
@@ -18,7 +32,24 @@ include-code::springapplication/MyApplication[]
 这些特性都不是强制性的，您可以选择用它所启用的任何特性来替换这个单一的注解。
 例如，您可能不想在应用程序中使用组件扫描或配置属性扫描：
 
-include-code::individualannotations/MyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Import;
+
+@SpringBootConfiguration(proxyBeanMethods = false)
+@EnableAutoConfiguration
+@Import({ SomeConfiguration.class, AnotherConfiguration.class })
+public class MyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----
 
 在这个例子中，`MyApplication` 与其他任何 Spring Boot 应用程序一样，只是 javadoc:org.springframework.stereotype.Component[format=annotation] 注解的类和 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的类不会被自动检测到，用户定义的 bean 被显式导入（参见 javadoc:org.springframework.context.annotation.Import[format=annotation]）。
 ====

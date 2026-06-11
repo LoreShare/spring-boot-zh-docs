@@ -25,7 +25,34 @@ Spring Boot 为以下追踪器提供了 auto-configuration：
 
 回顾一下，我们的主应用程序代码如下所示：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@SpringBootApplication
+public class MyApplication {
+
+	private static final Log logger = LogFactory.getLog(MyApplication.class);
+
+	@RequestMapping("/")
+	String home() {
+		logger.info("home() has been called");
+		return "Hello World!";
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----
 
 注意：`home()` 方法中添加了一条日志语句，这将在后面变得重要。
 
@@ -203,7 +230,32 @@ management:
 
 你可以通过启动一个 observation 来创建自己的 span。为此，将 javadoc:io.micrometer.observation.ObservationRegistry[] 注入到你的组件中：
 
-include-code::CustomObservation[]
+[source,java]
+----
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
+
+import org.springframework.stereotype.Component;
+
+@Component
+class CustomObservation {
+
+	private final ObservationRegistry observationRegistry;
+
+	CustomObservation(ObservationRegistry observationRegistry) {
+		this.observationRegistry = observationRegistry;
+	}
+
+	void someOperation() {
+		Observation observation = Observation.createNotStarted("some-operation", this.observationRegistry);
+		observation.lowCardinalityKeyValue("some-tag", "some-value");
+		observation.observe(() -> {
+			// Business logic ...
+		});
+	}
+
+}
+----
 
 这将创建一个名为 "some-operation" 的 observation，并带有标签 "some-tag=some-value"。
 
@@ -214,7 +266,30 @@ include-code::CustomObservation[]
 
 你可以使用 javadoc:io.micrometer.tracing.Tracer[] API 创建 baggage：
 
-include-code::CreatingBaggage[]
+[source,java]
+----
+import io.micrometer.tracing.BaggageInScope;
+import io.micrometer.tracing.Tracer;
+
+import org.springframework.stereotype.Component;
+
+@Component
+class CreatingBaggage {
+
+	private final Tracer tracer;
+
+	CreatingBaggage(Tracer tracer) {
+		this.tracer = tracer;
+	}
+
+	void doSomething() {
+		try (BaggageInScope scope = this.tracer.createBaggageInScope("baggage1", "value1")) {
+			// Business logic
+		}
+	}
+
+}
+----
 
 此示例创建了一个名为 `baggage1`、值为 `value1` 的 baggage。
 如果你使用 W3C 传播，baggage 会自动通过网络传播。

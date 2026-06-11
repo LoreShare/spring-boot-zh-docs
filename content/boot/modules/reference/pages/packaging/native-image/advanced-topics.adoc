@@ -5,25 +5,118 @@
 
 Spring 提前编译引擎会自动为配置属性创建反射提示。然而，非内部类的嵌套配置属性*必须*使用 javadoc:org.springframework.boot.context.properties.NestedConfigurationProperty[format=annotation] 进行注解，否则它们将不会被检测到且无法绑定。
 
-include-code::MyProperties[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
+
+@ConfigurationProperties("my.properties")
+public class MyProperties {
+
+	private String name;
+
+	@NestedConfigurationProperty
+	private final Nested nested = new Nested();
+
+	// @fold:on // getters / setters...
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Nested getNested() {
+		return this.nested;
+	}
+	// @fold:off
+
+}
+----
 
 其中 `Nested` 为：
 
-include-code::Nested[]
+[source,java]
+----
+public class Nested {
+
+	private int number;
+
+	// @fold:on // getters / setters...
+	public int getNumber() {
+		return this.number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	// @fold:off
+
+}
+----
 
 上述示例为 `my.properties.name` 和 `my.properties.nested.number` 生成了配置属性。如果没有在 `nested` 字段上添加 javadoc:org.springframework.boot.context.properties.NestedConfigurationProperty[format=annotation] annotation，则 `my.properties.nested.number` 属性在 native image 中将无法绑定。你也可以在 getter 方法上添加注解。
 
 当使用构造函数绑定时，你需要在字段上添加 javadoc:org.springframework.boot.context.properties.NestedConfigurationProperty[format=annotation] 注解：
 
-include-code::MyPropertiesCtor[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
+
+@ConfigurationProperties("my.properties")
+public class MyPropertiesCtor {
+
+	private final String name;
+
+	@NestedConfigurationProperty
+	private final Nested nested;
+
+	public MyPropertiesCtor(String name, Nested nested) {
+		this.name = name;
+		this.nested = nested;
+	}
+
+	// @fold:on // getters / setters...
+	public String getName() {
+		return this.name;
+	}
+
+	public Nested getNested() {
+		return this.nested;
+	}
+	// @fold:off
+
+}
+----
 
 当使用记录时，你需要在参数上添加 javadoc:org.springframework.boot.context.properties.NestedConfigurationProperty[format=annotation] 注解：
 
-include-code::MyPropertiesRecord[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
+
+@ConfigurationProperties("my.properties")
+public record MyPropertiesRecord(String name, @NestedConfigurationProperty Nested nested) {
+
+}
+----
 
 当使用 Kotlin 时，你需要在数据类的参数上添加 javadoc:org.springframework.boot.context.properties.NestedConfigurationProperty[format=annotation] 注解：
 
-include-code::MyPropertiesKotlin[]
+[source,kotlin]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.boot.context.properties.NestedConfigurationProperty
+
+@ConfigurationProperties("my.properties")
+data class MyPropertiesKotlin(
+	val name: String,
+	@NestedConfigurationProperty val nested: Nested
+)
+----
 
 注意：请在所有情况下使用公共的 getter 和 setter，否则属性将无法绑定。
 
@@ -143,7 +236,35 @@ native image 追踪代理上可以设置更高级的选项，例如按调用者�
 如果您需要为反射、资源、序列化、代理使用等提供自己的提示，可以使用 javadoc:org.springframework.aot.hint.RuntimeHintsRegistrar[] API。
 创建一个实现 javadoc:org.springframework.aot.hint.RuntimeHintsRegistrar[] 接口的类，然后对提供的 javadoc:org.springframework.aot.hint.RuntimeHints[] 实例进行适当的调用：
 
-include-code::MyRuntimeHints[]
+[source,java]
+----
+import java.lang.reflect.Method;
+
+import org.springframework.aot.hint.ExecutableMode;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.util.ReflectionUtils;
+
+public class MyRuntimeHints implements RuntimeHintsRegistrar {
+
+	@Override
+	public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+		// Register method for reflection
+		Method method = ReflectionUtils.findMethod(MyClass.class, "sayHello", String.class);
+		hints.reflection().registerMethod(method, ExecutableMode.INVOKE);
+
+		// Register type for java serialization
+		hints.reflection().registerJavaSerialization(MySerializableClass.class);
+
+		// Register resources
+		hints.resources().registerPattern("my-resource.txt");
+
+		// Register proxy
+		hints.proxies().registerJdkProxy(MyInterface.class);
+	}
+
+}
+----
 
 然后，您可以在任何 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类（例如您的 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 注解的应用程序类）上使用 javadoc:org.springframework.context.annotation.ImportRuntimeHints[format=annotation] 来激活这些提示。
 
@@ -160,7 +281,27 @@ javadoc:org.springframework.aot.hint.predicate.RuntimeHintsPredicates[] API 可�
 
 如果您使用 AssertJ，您的测试将如下所示：
 
-include-code::MyRuntimeHintsTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.predicate.RuntimeHintsPredicates;
+import org.springframework.boot.docs.packaging.nativeimage.advanced.customhints.MyRuntimeHints;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class MyRuntimeHintsTests {
+
+	@Test
+	void shouldRegisterHints() {
+		RuntimeHints hints = new RuntimeHints();
+		new MyRuntimeHints().registerHints(hints, getClass().getClassLoader());
+		assertThat(RuntimeHintsPredicates.resource().forResource("my-resource.txt")).accepts(hints);
+	}
+
+}
+----
 
 
 [[packaging.native-image.advanced.custom-hints.static]]

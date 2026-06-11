@@ -51,7 +51,36 @@ spring:
 
 Spring 的 javadoc:org.springframework.amqp.core.AmqpTemplate[] 和 javadoc:org.springframework.amqp.core.AmqpAdmin[] 是自动配置的，您可以直接将它们注入到自己的 bean 中，如下例所示：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.amqp.core.AmqpAdmin;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final AmqpAdmin amqpAdmin;
+
+	private final AmqpTemplate amqpTemplate;
+
+	public MyBean(AmqpAdmin amqpAdmin, AmqpTemplate amqpTemplate) {
+		this.amqpAdmin = amqpAdmin;
+		this.amqpTemplate = amqpTemplate;
+	}
+
+	// @fold:on // ...
+	public void someMethod() {
+		this.amqpAdmin.getQueueInfo("someQueue");
+	}
+
+	public void someOtherMethod() {
+		this.amqpTemplate.convertAndSend("hello");
+	}
+	// @fold:off
+
+}
+----
 
 注意：javadoc:org.springframework.amqp.rabbit.core.RabbitMessagingTemplate[] 可以以类似的方式注入。
 如果定义了 javadoc:org.springframework.amqp.support.converter.MessageConverter[] bean，它将自动关联到自动配置的 javadoc:org.springframework.amqp.core.AmqpTemplate[]。
@@ -113,7 +142,21 @@ spring:
 
 以下示例组件在 `someQueue` 队列上创建了一个监听器 endpoint：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	@RabbitListener(queues = "someQueue")
+	public void processMessage(String content) {
+		// ...
+	}
+
+}
+----
 
 提示：有关更多详细信息，请参阅 javadoc:org.springframework.amqp.rabbit.annotation.EnableRabbit[format=annotation]。
 
@@ -123,11 +166,50 @@ include-code::MyBean[]
 
 例如，以下配置类暴露了另一个使用特定 javadoc:org.springframework.amqp.support.converter.MessageConverter[] 的工厂：
 
-include-code::custom/MyRabbitConfiguration[]
+[source,java]
+----
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.boot.amqp.autoconfigure.SimpleRabbitListenerContainerFactoryConfigurer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyRabbitConfiguration {
+
+	@Bean
+	public SimpleRabbitListenerContainerFactory myFactory(SimpleRabbitListenerContainerFactoryConfigurer configurer) {
+		SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+		ConnectionFactory connectionFactory = getCustomConnectionFactory();
+		configurer.configure(factory, connectionFactory);
+		factory.setMessageConverter(new MyMessageConverter());
+		return factory;
+	}
+
+	private ConnectionFactory getCustomConnectionFactory() {
+		return /**/ null;
+	}
+
+}
+----
 
 然后你可以在任何 javadoc:org.springframework.amqp.rabbit.annotation.RabbitListener[format=annotation] 注解的方法中使用该工厂，如下所示：
 
-include-code::custom/MyBean[]
+[source,java]
+----
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	@RabbitListener(queues = "someQueue", containerFactory = "myFactory")
+	public void processMessage(String content) {
+		// ...
+	}
+
+}
+----
 
 你可以启用重试来处理监听器抛出异常的情况。默认情况下，使用 javadoc:org.springframework.amqp.rabbit.retry.RejectAndDontRequeueRecoverer[]，但你可以定义自己的 javadoc:org.springframework.amqp.rabbit.retry.MessageRecoverer[]。当重试耗尽时，消息会被拒绝，并根据代理的配置丢弃或路由到死信交换机。默认情况下，重试是禁用的。你还可以通过声明 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitListenerRetrySettingsCustomizer[] bean 以编程方式自定义 javadoc:org.springframework.core.retry.RetryPolicy[]。
 

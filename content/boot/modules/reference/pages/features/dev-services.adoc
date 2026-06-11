@@ -397,7 +397,18 @@ spring:
 
 `TestMyApplication` 类可以使用 `SpringApplication.from(...)` 方法来启动实际应用程序：
 
-include-code::launch/TestMyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+
+public class TestMyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.from(MyApplication::main).run(args);
+	}
+
+}
+----
 
 你还需要定义要与应用程序一起启动的 javadoc:org.testcontainers.containers.Container[] 实例。为此，你需要确保 `spring-boot-testcontainers` 模块已作为 `test` 依赖项添加。完成后，你可以创建一个 javadoc:org.springframework.boot.test.context.TestConfiguration[format=annotation] 类，该类声明用于要启动的容器的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法。
 
@@ -405,7 +416,25 @@ include-code::launch/TestMyApplication[]
 
 一个典型的 Testcontainers 配置如下所示：
 
-include-code::test/MyContainersConfiguration[]
+[source,java]
+----
+import org.testcontainers.neo4j.Neo4jContainer;
+
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Bean;
+
+@TestConfiguration(proxyBeanMethods = false)
+public class MyContainersConfiguration {
+
+	@Bean
+	@ServiceConnection
+	public Neo4jContainer neo4jContainer() {
+		return new Neo4jContainer("neo4j:5");
+	}
+
+}
+----
 
 注意：javadoc:org.testcontainers.containers.Container[] beans 的生命周期由 Spring Boot 自动管理。容器将自动启动和停止。
 
@@ -413,7 +442,18 @@ include-code::test/MyContainersConfiguration[]
 
 定义测试配置后，你可以使用 `with(...)` 方法将其附加到测试启动器：
 
-include-code::test/TestMyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+
+public class TestMyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.from(MyApplication::main).with(MyContainersConfiguration.class).run(args);
+	}
+
+}
+----
 
 现在，你可以像启动任何常规 Java `main` 方法应用程序一样启动 `TestMyApplication`，以启动你的应用程序及其运行所需的容器。
 
@@ -427,7 +467,32 @@ include-code::test/TestMyApplication[]
 
 一个典型的配置如下所示：
 
-include-code::MyContainersConfiguration[]
+[source,java]
+----
+import org.testcontainers.mongodb.MongoDBContainer;
+
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.DynamicPropertyRegistrar;
+
+@TestConfiguration(proxyBeanMethods = false)
+public class MyContainersConfiguration {
+
+	@Bean
+	public MongoDBContainer mongoDbContainer() {
+		return new MongoDBContainer("mongo:5.0");
+	}
+
+	@Bean
+	public DynamicPropertyRegistrar mongoDbProperties(MongoDBContainer container) {
+		return (properties) -> {
+			properties.add("spring.mongodb.host", container::getHost);
+			properties.add("spring.mongodb.port", container::getFirstMappedPort);
+		};
+	}
+
+}
+----
 
 注意：只要可能，建议使用 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation]，然而，对于尚未支持 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] 的技术，动态属性可以作为一个有用的回退方案。
 
@@ -439,11 +504,40 @@ include-code::MyContainersConfiguration[]
 
 例如，以下 `MyContainers` 接口声明了 `mongo` 和 `neo4j` 容器：
 
-include-code::MyContainers[]
+[source,java]
+----
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.mongodb.MongoDBContainer;
+import org.testcontainers.neo4j.Neo4jContainer;
+
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+
+public interface MyContainers {
+
+	@Container
+	@ServiceConnection
+	MongoDBContainer mongoContainer = new MongoDBContainer("mongo:5.0");
+
+	@Container
+	@ServiceConnection
+	Neo4jContainer neo4jContainer = new Neo4jContainer("neo4j:5");
+
+}
+----
 
 如果你已经以这种方式定义了容器，或者你更喜欢这种风格，你可以导入这些声明类，而不是将容器定义为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法。为此，请将 javadoc:org.springframework.boot.testcontainers.context.ImportTestcontainers[format=annotation] annotation 添加到你的测试配置类：
 
-include-code::MyContainersConfiguration[]
+[source,java]
+----
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.testcontainers.context.ImportTestcontainers;
+
+@TestConfiguration(proxyBeanMethods = false)
+@ImportTestcontainers(MyContainers.class)
+public class MyContainersConfiguration {
+
+}
+----
 
 提示：如果你不打算使用 xref:testing/testcontainers.adoc#testing.testcontainers.service-connections[服务连接功能] 而想使用 xref:testing/testcontainers.adoc#testing.testcontainers.dynamic-properties[`@DynamicPropertySource`]，请从 javadoc:org.testcontainers.containers.Container[] 字段中移除 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] annotation。你还可以将 javadoc:org.springframework.test.context.DynamicPropertySource[format=annotation] 注解的方法添加到你的声明类中。
 
@@ -453,6 +547,26 @@ include-code::MyContainersConfiguration[]
 
 使用 devtools 时，你可以使用 javadoc:org.springframework.boot.devtools.restart.RestartScope[format=annotation] 注解 beans 和 bean 方法。当 devtools 重启应用程序时，此类 beans 不会被重新创建。这对于 javadoc:org.testcontainers.containers.Container[] beans 特别有用，因为尽管应用程序重启，它们仍保持其状态。
 
-include-code::MyContainersConfiguration[]
+[source,java]
+----
+import org.testcontainers.mongodb.MongoDBContainer;
+
+import org.springframework.boot.devtools.restart.RestartScope;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Bean;
+
+@TestConfiguration(proxyBeanMethods = false)
+public class MyContainersConfiguration {
+
+	@Bean
+	@RestartScope
+	@ServiceConnection
+	public MongoDBContainer mongoDbContainer() {
+		return new MongoDBContainer("mongo:5.0");
+	}
+
+}
+----
 
 警告：如果你使用 Gradle 并希望使用此功能，你需要将 `spring-boot-devtools` 依赖项的配置从 `developmentOnly` 更改为 `testAndDevelopmentOnly`。使用默认范围 `developmentOnly` 时，`bootTestRun` 任务将不会检测到代码中的更改，因为 devtools 未激活。

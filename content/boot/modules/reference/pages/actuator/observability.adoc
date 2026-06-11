@@ -6,7 +6,33 @@
 对于指标和追踪，Spring Boot 使用 {url-micrometer-docs}/observation[Micrometer Observation]。
 要创建你自己的观测（这将产生指标和追踪），你可以注入一个 javadoc:io.micrometer.observation.ObservationRegistry[]。
 
-include-code::MyCustomObservation[]
+[source,java]
+----
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyCustomObservation {
+
+	private final ObservationRegistry observationRegistry;
+
+	public MyCustomObservation(ObservationRegistry observationRegistry) {
+		this.observationRegistry = observationRegistry;
+	}
+
+	public void doSomething() {
+		Observation.createNotStarted("doSomething", this.observationRegistry)
+			.lowCardinalityKeyValue("locale", "en-US")
+			.highCardinalityKeyValue("userId", "42")
+			.observe(() -> {
+				// Execute business logic here
+			});
+	}
+
+}
+----
 
 注意：低基数标签会被添加到指标和追踪中，而高基数标签只会被添加到追踪中。
 
@@ -32,7 +58,22 @@ https://github.com/jdbc-observations/datasource-micrometer[Datasource Micrometer
 
 如果你自己配置 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，则需要注册一个 javadoc:org.springframework.core.task.support.ContextPropagatingTaskDecorator[] bean，如下例所示：
 
-include-code::ContextPropagationConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.support.ContextPropagatingTaskDecorator;
+
+@Configuration(proxyBeanMethods = false)
+class ContextPropagationConfiguration {
+
+	@Bean
+	ContextPropagatingTaskDecorator contextPropagatingTaskDecorator() {
+		return new ContextPropagatingTaskDecorator();
+	}
+
+}
+----
 
 关于观测的更多细节，请参阅 {url-micrometer-docs}/observation[Micrometer Observation 文档]。
 
@@ -76,7 +117,23 @@ management:
 如果你需要对观测的阻止进行更精细的控制，可以注册类型为 javadoc:io.micrometer.observation.ObservationPredicate[] 的 beans。
 仅当所有 javadoc:io.micrometer.observation.ObservationPredicate[] beans 对该观测返回 `true` 时，才会报告观测。
 
-include-code::MyObservationPredicate[]
+[source,java]
+----
+import io.micrometer.observation.Observation.Context;
+import io.micrometer.observation.ObservationPredicate;
+
+import org.springframework.stereotype.Component;
+
+@Component
+class MyObservationPredicate implements ObservationPredicate {
+
+	@Override
+	public boolean test(String name, Context context) {
+		return !name.contains("denied");
+	}
+
+}
+----
 
 前面的示例将阻止所有名称包含 "denied" 的观测。
 
@@ -341,7 +398,24 @@ Spring Boot 支持 https://opentelemetry.io/docs/specs/otel/configuration/sdk-en
 
 首先，添加对 `io.opentelemetry:opentelemetry-sdk-extension-autoconfigure` 的依赖以获取 https://opentelemetry.io/docs/languages/java/configuration/#zero-code-sdk-autoconfigure[OpenTelemetry 的零代码 SDK 自动配置模块]，然后添加以下配置：
 
-include-code::AutoConfiguredOpenTelemetrySdkConfiguration[]
+[source,java]
+----
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+class AutoConfiguredOpenTelemetrySdkConfiguration {
+
+	@Bean
+	OpenTelemetry autoConfiguredOpenTelemetrySdk() {
+		return AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
+	}
+
+}
+----
 
 
 
@@ -378,7 +452,42 @@ Spring Boot 不提供 `SdkMeterProvider` bean。
 我们强烈建议你使用 Micrometer 报告指标。
 如果你包含的依赖使用了 OpenTelemetry 的 `MeterProvider`，你可以在应用程序中包含以下配置来配置一个 `MeterProvider` bean，然后你需要将其连接到你的依赖中：
 
-include-code::OpenTelemetryMetricsConfiguration[]
+[source,java]
+----
+import java.time.Duration;
+
+import io.opentelemetry.exporter.otlp.http.metrics.OtlpHttpMetricExporter;
+import io.opentelemetry.sdk.metrics.SdkMeterProvider;
+import io.opentelemetry.sdk.metrics.export.MetricExporter;
+import io.opentelemetry.sdk.metrics.export.MetricReader;
+import io.opentelemetry.sdk.metrics.export.PeriodicMetricReader;
+import io.opentelemetry.sdk.resources.Resource;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+class OpenTelemetryMetricsConfiguration {
+
+	@Bean
+	OtlpHttpMetricExporter metricExporter() {
+		String endpoint = "http://localhost:4318/v1/metrics";
+		return OtlpHttpMetricExporter.builder().setEndpoint(endpoint).build();
+	}
+
+	@Bean
+	PeriodicMetricReader metricReader(MetricExporter exporter) {
+		Duration interval = Duration.ofMinutes(1);
+		return PeriodicMetricReader.builder(exporter).setInterval(interval).build();
+	}
+
+	@Bean
+	SdkMeterProvider meterProvider(Resource resource, MetricReader metricReader) {
+		return SdkMeterProvider.builder().registerMetricReader(metricReader).setResource(resource).build();
+	}
+
+}
+----
 
 此配置还通过 HTTP 启用 OTLP 指标导出。
 

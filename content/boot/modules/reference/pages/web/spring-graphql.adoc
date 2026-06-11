@@ -55,7 +55,22 @@ Spring Boot 检测此类 beans 并将其添加到 {url-spring-graphql-docs}/requ
 Spring Boot 会自动检测带有注解处理方法的 javadoc:org.springframework.stereotype.Controller[format=annotation] 类，并将其注册为 ``DataFetcher``。
 以下是我们问候查询的示例实现，使用 javadoc:org.springframework.stereotype.Controller[format=annotation] 类：
 
-include-code::GreetingController[]
+[source,java]
+----
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class GreetingController {
+
+	@QueryMapping
+	public String greeting(@Argument String name) {
+		return "Hello, " + name + "!";
+	}
+
+}
+----
 
 
 [[web.graphql.data-query]]
@@ -120,10 +135,25 @@ RSocket 也支持作为传输层，基于 WebSocket 或 TCP。
 
 Spring Boot 自动配置了一个 `RSocketGraphQlClient.Builder<?>` bean，你可以将其注入到你的组件中：
 
-include-code::RSocketGraphQlClientExample[tag=builder]
+[source,java]
+----
+@Component
+public class RSocketGraphQlClientExample {
+
+	private final RSocketGraphQlClient graphQlClient;
+
+	public RSocketGraphQlClientExample(RSocketGraphQlClient.Builder<?> builder) {
+		this.graphQlClient = builder.tcp("example.spring.io", 8181).route("graphql").build();
+	}
+----
 
 然后发送一个请求：
-include-code::RSocketGraphQlClientExample[tag=request]
+[source,java]
+----
+		Mono<Book> book = this.graphQlClient.document("{ bookById(id: \"book-1\"){ id name pageCount author } }")
+			.retrieve("bookById")
+			.toEntity(Book.class);
+----
 
 
 

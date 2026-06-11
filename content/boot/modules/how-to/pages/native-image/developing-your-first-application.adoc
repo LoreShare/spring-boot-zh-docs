@@ -18,7 +18,28 @@
 
 回顾一下，我们的主应用代码如下：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@SpringBootApplication
+public class MyApplication {
+
+	@RequestMapping("/")
+	String home() {
+		return "Hello World!";
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----
 
 此应用使用 Spring MVC 和嵌入式 Tomcat，这两者都经过测试并验证可与 GraalVM native images 一起使用。
 

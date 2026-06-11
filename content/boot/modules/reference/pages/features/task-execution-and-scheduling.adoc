@@ -26,7 +26,22 @@ Spring WebSocket 和 JPA 将使用 javadoc:org.springframework.core.task.AsyncTa
 
 以下代码片段演示了如何注册一个自定义的 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，以用于 Spring MVC、Spring WebFlux、Spring GraphQL、Spring WebSocket、JPA 和 beans 的后台初始化。
 
-include-code::application/MyTaskExecutorConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+
+@Configuration(proxyBeanMethods = false)
+public class MyTaskExecutorConfiguration {
+
+	@Bean("applicationTaskExecutor")
+	SimpleAsyncTaskExecutor applicationTaskExecutor() {
+		return new SimpleAsyncTaskExecutor("app-");
+	}
+
+}
+----
 
 [NOTE]
 ====
@@ -42,23 +57,112 @@ include-code::application/MyTaskExecutorConfiguration[]
 
 如果您的应用程序需要多个 `Executor` beans 用于不同的集成，例如一个用于通过 javadoc:org.springframework.scheduling.annotation.EnableAsync[format=annotation] 进行常规任务执行，另一个用于 Spring MVC、Spring WebFlux、Spring WebSocket 和 JPA，您可以按如下方式配置它们。
 
-include-code::multiple/MyTaskExecutorConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+@Configuration(proxyBeanMethods = false)
+public class MyTaskExecutorConfiguration {
+
+	@Bean("applicationTaskExecutor")
+	SimpleAsyncTaskExecutor applicationTaskExecutor() {
+		return new SimpleAsyncTaskExecutor("app-");
+	}
+
+	@Bean("taskExecutor")
+	ThreadPoolTaskExecutor taskExecutor() {
+		ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+		threadPoolTaskExecutor.setThreadNamePrefix("async-");
+		return threadPoolTaskExecutor;
+	}
+
+}
+----
 
 [TIP]
 ====
 自动配置的 javadoc:org.springframework.boot.task.ThreadPoolTaskExecutorBuilder[] 或 javadoc:org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder[] 允许您轻松创建类型为 javadoc:org.springframework.core.task.AsyncTaskExecutor[] 的实例，这些实例复制了 auto-configuration 的默认行为。
 
-include-code::builder/MyTaskExecutorConfiguration[]
+[source,java]
+----
+import org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+
+@Configuration(proxyBeanMethods = false)
+public class MyTaskExecutorConfiguration {
+
+	@Bean
+	SimpleAsyncTaskExecutor taskExecutor(SimpleAsyncTaskExecutorBuilder builder) {
+		return builder.build();
+	}
+
+}
+----
 ====
 
 如果名为 bean 的 `taskExecutor` 不是一个选项，您可以将您的 bean 标记为 javadoc:org.springframework.context.annotation.Primary[format=annotation] 或定义一个 javadoc:org.springframework.scheduling.annotation.AsyncConfigurer[] bean 来指定负责通过 javadoc:org.springframework.scheduling.annotation.EnableAsync[format=annotation] 处理常规任务执行的 `Executor`。
 以下示例演示了如何实现这一点。
 
-include-code::async/MyTaskExecutorConfiguration[]
+[source,java]
+----
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
+
+@Configuration(proxyBeanMethods = false)
+public class MyTaskExecutorConfiguration {
+
+	@Bean
+	AsyncConfigurer asyncConfigurer(ExecutorService executorService) {
+		return new AsyncConfigurer() {
+
+			@Override
+			public Executor getAsyncExecutor() {
+				return executorService;
+			}
+
+		};
+	}
+
+	@Bean
+	ExecutorService executorService() {
+		return Executors.newCachedThreadPool();
+	}
+
+}
+----
 
 要注册一个自定义的 javadoc:java.util.concurrent.Executor[] 同时保留自动配置的 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，您可以创建一个自定义的 javadoc:java.util.concurrent.Executor[] bean，并在其 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 中设置 `defaultCandidate=false` 属性，如下例所示：
 
-include-code::defaultcandidate/MyTaskExecutorConfiguration[]
+[source,java]
+----
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyTaskExecutorConfiguration {
+
+	@Bean(defaultCandidate = false)
+	@Qualifier("scheduledExecutorService")
+	ScheduledExecutorService scheduledExecutorService() {
+		return Executors.newSingleThreadScheduledExecutor();
+	}
+
+}
+----
 
 在这种情况下，您可以将自定义的 javadoc:java.util.concurrent.Executor[] 自动注入到其他组件中，同时保留自动配置的 javadoc:org.springframework.core.task.AsyncTaskExecutor[]。
 但是，请记得在 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] 旁边使用 javadoc:org.springframework.beans.factory.annotation.Qualifier[format=annotation] annotation。

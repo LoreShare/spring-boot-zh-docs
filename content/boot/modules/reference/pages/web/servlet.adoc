@@ -14,13 +14,103 @@ Spring MVC 允许你创建特殊的 javadoc:org.springframework.stereotype.Contr
 
 以下代码展示了一个典型的 javadoc:org.springframework.web.bind.annotation.RestController[format=annotation]，它提供 JSON 数据：
 
-include-code::MyRestController[]
+[source,java]
+----
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/users")
+public class MyRestController {
+
+	private final UserRepository userRepository;
+
+	private final CustomerRepository customerRepository;
+
+	public MyRestController(UserRepository userRepository, CustomerRepository customerRepository) {
+		this.userRepository = userRepository;
+		this.customerRepository = customerRepository;
+	}
+
+	@GetMapping("/{userId}")
+	public User getUser(@PathVariable Long userId) {
+		return this.userRepository.findById(userId).get();
+	}
+
+	@GetMapping("/{userId}/customers")
+	public List<Customer> getUserCustomers(@PathVariable Long userId) {
+		return this.userRepository.findById(userId).map(this.customerRepository::findByUser).get();
+	}
+
+	@DeleteMapping("/{userId}")
+	public void deleteUser(@PathVariable Long userId) {
+		this.userRepository.deleteById(userId);
+	}
+
+}
+----
 
 "`WebMvc.fn`"，即函数式变体，将路由配置与实际请求处理分离，如下例所示：
 
-include-code::MyRoutingConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.web.servlet.function.RequestPredicate;
+import org.springframework.web.servlet.function.RouterFunction;
+import org.springframework.web.servlet.function.ServerResponse;
 
-include-code::MyUserHandler[]
+import static org.springframework.web.servlet.function.RequestPredicates.accept;
+import static org.springframework.web.servlet.function.RouterFunctions.route;
+
+@Configuration(proxyBeanMethods = false)
+public class MyRoutingConfiguration {
+
+	private static final RequestPredicate ACCEPT_JSON = accept(MediaType.APPLICATION_JSON);
+
+	@Bean
+	public RouterFunction<ServerResponse> routerFunction(MyUserHandler userHandler) {
+		// @formatter:off
+		return route()
+				.GET("/{user}", ACCEPT_JSON, userHandler::getUser)
+				.GET("/{user}/customers", ACCEPT_JSON, userHandler::getUserCustomers)
+				.DELETE("/{user}", ACCEPT_JSON, userHandler::deleteUser)
+				.build();
+		// @formatter:on
+	}
+
+}
+----
+
+[source,java]
+----
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.function.ServerRequest;
+import org.springframework.web.servlet.function.ServerResponse;
+
+@Component
+public class MyUserHandler {
+
+	public ServerResponse getUser(ServerRequest request) {
+		/**/ return ServerResponse.ok().build();
+	}
+
+	public ServerResponse getUserCustomers(ServerRequest request) {
+		/**/ return ServerResponse.ok().build();
+	}
+
+	public ServerResponse deleteUser(ServerRequest request) {
+		/**/ return ServerResponse.ok().build();
+	}
+
+}
+----
 
 Spring MVC 是核心 Spring 框架的一部分，详细信息可在 {url-spring-framework-docs}/web/webmvc.html[参考文档] 中找到。
 此外，https://spring.io/guides 上还有几个涵盖 Spring MVC 的指南。
@@ -102,7 +192,59 @@ javadoc:org.springframework.boot.http.converter.autoconfigure.ServerHttpMessageC
 
 请参见以下示例：
 
-include-code::MyHttpMessageConvertersConfiguration[]
+[source,java]
+----
+import java.text.SimpleDateFormat;
+
+import tools.jackson.databind.json.JsonMapper;
+
+import org.springframework.boot.http.converter.autoconfigure.ClientHttpMessageConvertersCustomizer;
+import org.springframework.boot.http.converter.autoconfigure.ServerHttpMessageConvertersCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverters.ClientBuilder;
+import org.springframework.http.converter.HttpMessageConverters.ServerBuilder;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
+
+@Configuration(proxyBeanMethods = false)
+public class MyHttpMessageConvertersConfiguration {
+
+	@Bean
+	public ClientHttpMessageConvertersCustomizer myClientConvertersCustomizer() {
+		return (clientBuilder) -> clientBuilder.addCustomConverter(new AdditionalHttpMessageConverter())
+			.addCustomConverter(new AnotherHttpMessageConverter());
+	}
+
+	@Bean
+	public JacksonConverterCustomizer jacksonConverterCustomizer() {
+		JsonMapper jsonMapper = JsonMapper.builder().defaultDateFormat(new SimpleDateFormat("yyyy-MM")).build();
+		return new JacksonConverterCustomizer(jsonMapper);
+	}
+
+	// contribute a custom JSON converter to both client and server
+	static class JacksonConverterCustomizer
+			implements ClientHttpMessageConvertersCustomizer, ServerHttpMessageConvertersCustomizer {
+
+		private final JsonMapper jsonMapper;
+
+		JacksonConverterCustomizer(JsonMapper jsonMapper) {
+			this.jsonMapper = jsonMapper;
+		}
+
+		@Override
+		public void customize(ClientBuilder builder) {
+			builder.withJsonConverter(new JacksonJsonHttpMessageConverter(this.jsonMapper));
+		}
+
+		@Override
+		public void customize(ServerBuilder builder) {
+			builder.withJsonConverter(new JacksonJsonHttpMessageConverter(this.jsonMapper));
+		}
+
+	}
+
+}
+----
 
 
 
@@ -357,7 +499,36 @@ Spring MVC 可以使用 `application/problem+json` 媒体类型生成自定义�
 
 您也可以定义一个带有 javadoc:org.springframework.web.bind.annotation.ControllerAdvice[format=annotation] 注解的类，以自定义针对特定控制器和/或异常类型返回的 JSON 文档，如下例所示：
 
-include-code::MyControllerAdvice[]
+[source,java]
+----
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+@ControllerAdvice(basePackageClasses = SomeController.class)
+public class MyControllerAdvice extends ResponseEntityExceptionHandler {
+
+	@ResponseBody
+	@ExceptionHandler(MyException.class)
+	public ResponseEntity<?> handleControllerException(HttpServletRequest request, Throwable ex) {
+		HttpStatus status = getStatus(request);
+		return new ResponseEntity<>(new MyErrorBody(status.value(), ex.getMessage()), status);
+	}
+
+	private HttpStatus getStatus(HttpServletRequest request) {
+		Integer code = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+		HttpStatus status = HttpStatus.resolve(code);
+		return (status != null) ? status : HttpStatus.INTERNAL_SERVER_ERROR;
+	}
+
+}
+----
 
 在前面的示例中，如果与 `SomeController` 位于同一包中的控制器抛出了 `MyException`，则会使用 `MyErrorBody` POJO 的 JSON 表示，而不是 javadoc:org.springframework.boot.webmvc.error.ErrorAttributes[] 表示。
 
@@ -403,7 +574,30 @@ src/
 
 对于更复杂的映射，你还可以添加实现 beans 接口的 javadoc:org.springframework.boot.webmvc.autoconfigure.error.ErrorViewResolver[]，如下例所示：
 
-include-code::MyErrorViewResolver[]
+[source,java]
+----
+import java.util.Map;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.boot.webmvc.autoconfigure.error.ErrorViewResolver;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.ModelAndView;
+
+public class MyErrorViewResolver implements ErrorViewResolver {
+
+	@Override
+	public ModelAndView resolveErrorView(HttpServletRequest request, HttpStatus status, Map<String, Object> model) {
+		// Use the request or status to optionally return a ModelAndView
+		if (status == HttpStatus.INSUFFICIENT_STORAGE) {
+			// We could add custom model values here
+			return new ModelAndView("myview");
+		}
+		return null;
+	}
+
+}
+----
 
 你还可以使用常规的 Spring MVC 特性，例如 {url-spring-framework-docs}/web/webmvc/mvc-servlet/exceptionhandlers.html[`@ExceptionHandler` 方法] 和 {url-spring-framework-docs}/web/webmvc/mvc-controller/ann-advice.html[`@ControllerAdvice`]。
 然后，javadoc:org.springframework.boot.webmvc.error.ErrorController[] 会捕获所有未处理的异常。
@@ -415,11 +609,55 @@ include-code::MyErrorViewResolver[]
 对于不使用 Spring MVC 的应用程序，你可以使用 javadoc:org.springframework.boot.web.error.ErrorPageRegistrar[] 接口直接注册 javadoc:org.springframework.boot.web.error.ErrorPage[] 实例。
 此抽象直接与底层嵌入式 Servlet 容器一起工作，即使你没有 Spring MVC 的 javadoc:org.springframework.web.servlet.DispatcherServlet[] 也能工作。
 
-include-code::MyErrorPagesConfiguration[]
+[source,java]
+----
+import org.springframework.boot.web.error.ErrorPage;
+import org.springframework.boot.web.error.ErrorPageRegistrar;
+import org.springframework.boot.web.error.ErrorPageRegistry;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+
+@Configuration(proxyBeanMethods = false)
+public class MyErrorPagesConfiguration {
+
+	@Bean
+	public ErrorPageRegistrar errorPageRegistrar() {
+		return this::registerErrorPages;
+	}
+
+	private void registerErrorPages(ErrorPageRegistry registry) {
+		registry.addErrorPages(new ErrorPage(HttpStatus.BAD_REQUEST, "/400"));
+	}
+
+}
+----
 
 注意：如果你注册了一个路径最终由 javadoc:jakarta.servlet.Filter[] 处理的 javadoc:org.springframework.boot.web.error.ErrorPage[]（这在某些非 Spring Web 框架中很常见，例如 Jersey 和 Wicket），那么必须将 javadoc:jakarta.servlet.Filter[] 显式注册为 `ERROR` 调度器，如下例所示：
 
-include-code::MyFilterConfiguration[]
+[source,java]
+----
+import java.util.EnumSet;
+
+import jakarta.servlet.DispatcherType;
+
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyFilterConfiguration {
+
+	@Bean
+	public FilterRegistrationBean<MyFilter> myFilter() {
+		FilterRegistrationBean<MyFilter> registration = new FilterRegistrationBean<>(new MyFilter());
+		// ...
+		registration.setDispatcherTypes(EnumSet.allOf(DispatcherType.class));
+		return registration;
+	}
+
+}
+----
 
 请注意，默认的 javadoc:org.springframework.boot.web.servlet.FilterRegistrationBean[] 不包含 `ERROR` 调度器类型。
 
@@ -445,7 +683,30 @@ https://en.wikipedia.org/wiki/Cross-origin_resource_sharing[跨域资源共享] 
 在你的 Spring Boot 应用程序中使用 {url-spring-framework-docs}/web/webmvc-cors.html#mvc-cors-controller[控制器方法 CORS 配置] 和 javadoc:{url-spring-framework-javadoc}/org.springframework.web.bind.annotation.CrossOrigin[format=annotation] annotations 不需要任何特定配置。
 {url-spring-framework-docs}/web/webmvc-cors.html#mvc-cors-global[全局 CORS 配置] 可以通过注册一个带有自定义 `addCorsMappings(CorsRegistry)` 方法的 javadoc:org.springframework.web.servlet.config.annotation.WebMvcConfigurer[] bean 来定义，如下例所示：
 
-include-code::MyCorsConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration(proxyBeanMethods = false)
+public class MyCorsConfiguration {
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api/**");
+			}
+
+		};
+	}
+
+}
+----
 
 
 [[web.servlet.spring-mvc.api-versioning]]
@@ -491,7 +752,21 @@ Jersey 有一些原生的 Spring 支持，因此我们在 Spring Boot 中也为�
 
 要开始使用 Jersey，请将 `spring-boot-starter-jersey` 作为依赖项包含进来，然后你需要一个类型为 javadoc:org.glassfish.jersey.server.ResourceConfig[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，在其中注册所有 endpoints，如下例所示：
 
-include-code::MyJerseyConfig[]
+[source,java]
+----
+import org.glassfish.jersey.server.ResourceConfig;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyJerseyConfig extends ResourceConfig {
+
+	public MyJerseyConfig() {
+		register(MyEndpoint.class);
+	}
+
+}
+----
 
 警告：Jersey 对可执行归档的扫描支持相当有限。
 例如，它无法扫描 xref:how-to:deployment/installing.adoc[完全可执行 jar 文件] 中的包中的 endpoints，或在运行可执行 war 文件时扫描 `WEB-INF/classes` 中的 endpoints。
@@ -501,7 +776,24 @@ include-code::MyJerseyConfig[]
 
 所有注册的 endpoints 应该是一个带有 HTTP 资源 annotations（`@GET` 等）的 javadoc:org.springframework.stereotype.Component[format=annotation]，如下例所示：
 
-include-code::MyEndpoint[]
+[source,java]
+----
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+
+import org.springframework.stereotype.Component;
+
+@Component
+@Path("/hello")
+public class MyEndpoint {
+
+	@GET
+	public String message() {
+		return "Hello";
+	}
+
+}
+----
 
 由于 javadoc:org.springframework.boot.actuate.endpoint.annotation.Endpoint[format=annotation] 是一个 Spring javadoc:org.springframework.stereotype.Component[format=annotation]，其生命周期由 Spring 管理，你可以使用 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] annotation 注入依赖项，并使用 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotation 注入外部配置。
 默认情况下，Jersey servlet 被注册并映射到 `/*`。
@@ -600,7 +892,28 @@ javadoc:org.springframework.boot.web.server.servlet.context.ServletWebServerAppl
 另一种方法是在服务器启动后使用回调。
 这可以通过使用监听 javadoc:org.springframework.boot.context.event.ApplicationStartedEvent[] 的 javadoc:org.springframework.context.ApplicationListener[] 来实现，如下所示：
 
-include-code::MyDemoBean[]
+[source,java]
+----
+import jakarta.servlet.ServletContext;
+
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationListener;
+import org.springframework.web.context.WebApplicationContext;
+
+public class MyDemoBean implements ApplicationListener<ApplicationStartedEvent> {
+
+	@SuppressWarnings("unused")
+	private ServletContext servletContext;
+
+	@Override
+	public void onApplicationEvent(ApplicationStartedEvent event) {
+		ApplicationContext applicationContext = event.getApplicationContext();
+		this.servletContext = ((WebApplicationContext) applicationContext).getServletContext();
+	}
+
+}
+----
 
 
 [[web.servlet.embedded-container.customizing]]
@@ -650,7 +963,22 @@ javadoc:org.springframework.boot.web.server.servlet.CookieSameSiteSupplier[] 接
 有许多便捷的工厂方法和过滤器方法可用于快速匹配特定 cookie。
 例如，添加以下 bean 将自动为所有名称匹配正则表达式 `myapp.*` 的 cookie 应用 `SameSite` 为 `Lax`。
 
-include-code::MySameSiteConfiguration[]
+[source,java]
+----
+import org.springframework.boot.web.server.servlet.CookieSameSiteSupplier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MySameSiteConfiguration {
+
+	@Bean
+	public CookieSameSiteSupplier applicationCookieSameSiteSupplier() {
+		return CookieSameSiteSupplier.ofLax().whenHasNameMatching("myapp.*");
+	}
+
+}
+----
 
 
 [[web.servlet.embedded-container.customizing.encoding]]
@@ -681,12 +1009,44 @@ server:
 javadoc:org.springframework.boot.web.server.WebServerFactoryCustomizer[] 提供对 javadoc:org.springframework.boot.web.server.servlet.ConfigurableServletWebServerFactory[] 的访问，其中包含许多自定义设置方法。
 以下示例演示了以编程方式设置端口：
 
-include-code::MyWebServerFactoryCustomizer[]
+[source,java]
+----
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.server.servlet.ConfigurableServletWebServerFactory;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyWebServerFactoryCustomizer implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
+
+	@Override
+	public void customize(ConfigurableServletWebServerFactory server) {
+		server.setPort(9000);
+	}
+
+}
+----
 
 javadoc:org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory[]、javadoc:org.springframework.boot.jetty.servlet.JettyServletWebServerFactory[] 和 javadoc:org.springframework.boot.web.server.servlet.ConfigurableServletWebServerFactory[] 是 javadoc:org.springframework.boot.web.server.servlet.ConfigurableServletWebServerFactory[] 的专用变体，分别具有针对 Tomcat 和 Jetty 的额外自定义设置方法。
 以下示例展示了如何自定义提供对 Tomcat 特定配置选项的访问的 javadoc:org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory[]：
 
-include-code::MyTomcatWebServerFactoryCustomizer[]
+[source,java]
+----
+import java.time.Duration;
+
+import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyTomcatWebServerFactoryCustomizer implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
+
+	@Override
+	public void customize(TomcatServletWebServerFactory server) {
+		server.addConnectorCustomizers((connector) -> connector.setAsyncTimeout(Duration.ofSeconds(20).toMillis()));
+	}
+
+}
+----
 
 
 

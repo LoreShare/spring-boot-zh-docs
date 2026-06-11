@@ -141,7 +141,28 @@ spring:
 
 Spring 的 javadoc:org.springframework.jms.core.JmsClient[] 是自动配置的，你可以直接将其注入到自己的 bean 中，如下例所示：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.jms.core.JmsClient;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	private final JmsClient jmsClient;
+
+	public MyBean(JmsClient jmsClient) {
+		this.jmsClient = jmsClient;
+	}
+
+	// @fold:on // ...
+	public void someMethod() {
+		this.jmsClient.destination("myQueue").send("hello");
+	}
+	// @fold:off
+
+}
+----
 
 注意：javadoc:org.springframework.jms.core.JmsMessagingTemplate[] 可以以类似的方式注入，两者都使用传统的 javadoc:org.springframework.jms.core.JmsTemplate[]，该模板也可以被注入。
 如果定义了 javadoc:org.springframework.jms.support.destination.DestinationResolver[] 或 javadoc:org.springframework.jms.support.converter.MessageConverter[] bean，它会自动关联到自动配置的 javadoc:org.springframework.jms.core.JmsTemplate[]。
@@ -168,7 +189,21 @@ auto-configuration 使用 javadoc:org.springframework.boot.jms.ConnectionFactory
 
 以下组件在 `someQueue` 目标上创建了一个监听器 endpoint：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	@JmsListener(destination = "someQueue")
+	public void processMessage(String content) {
+		// ...
+	}
+
+}
+----
 
 提示：有关更多详细信息，请参阅 javadoc:org.springframework.jms.annotation.EnableJms[format=annotation] API 文档。
 
@@ -176,13 +211,50 @@ include-code::MyBean[]
 
 例如，以下示例暴露了另一个使用特定 javadoc:org.springframework.jms.support.converter.MessageConverter[] 的工厂：
 
-include-code::custom/MyJmsConfiguration[]
+[source,java]
+----
+import jakarta.jms.ConnectionFactory;
+
+import org.springframework.boot.jms.ConnectionFactoryUnwrapper;
+import org.springframework.boot.jms.autoconfigure.DefaultJmsListenerContainerFactoryConfigurer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+
+@Configuration(proxyBeanMethods = false)
+public class MyJmsConfiguration {
+
+	@Bean
+	public DefaultJmsListenerContainerFactory myFactory(DefaultJmsListenerContainerFactoryConfigurer configurer,
+			ConnectionFactory connectionFactory) {
+		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+		configurer.configure(factory, ConnectionFactoryUnwrapper.unwrapCaching(connectionFactory));
+		factory.setMessageConverter(new MyMessageConverter());
+		return factory;
+	}
+
+}
+----
 
 注意：在上面的示例中，自定义使用 javadoc:org.springframework.boot.jms.ConnectionFactoryUnwrapper[] 将原生连接工厂关联到消息监听器容器，方式与自动配置的工厂相同。
 
 然后你可以在任何使用 javadoc:org.springframework.jms.annotation.JmsListener[format=annotation] 注解的方法中使用该工厂，如下所示：
 
-include-code::custom/MyBean[]
+[source,java]
+----
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	@JmsListener(destination = "someQueue", containerFactory = "myFactory")
+	public void processMessage(String content) {
+		// ...
+	}
+
+}
+----
 
 类似于 `DefaultJmsListenerContainerFactoryConfigurer`，Spring Boot 也提供了一个 javadoc:org.springframework.boot.jms.autoconfigure.SimpleJmsListenerContainerFactoryConfigurer[]，你可以使用它来初始化一个 javadoc:org.springframework.jms.config.SimpleJmsListenerContainerFactory[] 并应用 auto-configuration 提供的相关设置。
 

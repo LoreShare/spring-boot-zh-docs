@@ -14,11 +14,50 @@ Testcontainers 提供的容器可以作为 beans 由 Spring Boot 管理。
 
 要将容器声明为 bean，请在你的测试配置中添加一个 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法：
 
-include-code::MyTestConfiguration[]
+[source,java]
+----
+import org.testcontainers.mongodb.MongoDBContainer;
+import org.testcontainers.utility.DockerImageName;
+
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+
+@TestConfiguration(proxyBeanMethods = false)
+class MyTestConfiguration {
+
+	@Bean
+	MongoDBContainer mongoDbContainer() {
+		return new MongoDBContainer(DockerImageName.parse("mongo:5.0"));
+	}
+
+}
+----
 
 然后，你可以通过在测试类中导入配置类来注入并使用该容器：
 
-include-code::MyIntegrationTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+import org.testcontainers.mongodb.MongoDBContainer;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+
+@SpringBootTest
+@Import(MyTestConfiguration.class)
+class MyIntegrationTests {
+
+	@Autowired
+	private MongoDBContainer mongo;
+
+	@Test
+	void myTest() {
+		/**/ System.out.println(this.mongo);
+	}
+
+}
+----
 
 提示：这种管理容器的方法通常与 xref:#testing.testcontainers.service-connections[服务连接 annotations] 结合使用。
 
@@ -34,7 +73,29 @@ Testcontainers 提供了一个 JUnit 扩展，可用于管理测试中的容器�
 
 javadoc:org.testcontainers.junit.jupiter.Testcontainers[format=annotation] annotation 可用于普通的 JUnit 测试，或与 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 结合使用：
 
-include-code::MyIntegrationTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.neo4j.Neo4jContainer;
+
+import org.springframework.boot.test.context.SpringBootTest;
+
+@Testcontainers
+@SpringBootTest
+class MyIntegrationTests {
+
+	@Container
+	static Neo4jContainer neo4j = new Neo4jContainer("neo4j:5");
+
+	@Test
+	void myTest() {
+		/**/ System.out.println(neo4j);
+	}
+
+}
+----
 
 上面的示例将在任何测试运行之前启动一个 Neo4j 容器。
 容器实例的生命周期由 Testcontainers 管理，如 {url-testcontainers-docs}/test_framework_integration/junit_5/#extension[其官方文档] 所述。
@@ -55,14 +116,39 @@ Testcontainers 的一个常见模式是将容器实例声明为接口中的静�
 
 例如，以下接口声明了两个容器，一个名为 `mongo`，类型为 javadoc:{url-testcontainers-mongodb-javadoc}/org.testcontainers.mongodb.MongoDBContainer[]，另一个名为 `neo4j`，类型为 javadoc:{url-testcontainers-neo4j-javadoc}/org.testcontainers.neo4j.Neo4jContainer[]：
 
-include-code::MyContainers[]
+[source,java]
+----
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.mongodb.MongoDBContainer;
+import org.testcontainers.neo4j.Neo4jContainer;
+
+interface MyContainers {
+
+	@Container
+	MongoDBContainer mongoContainer = new MongoDBContainer("mongo:5.0");
+
+	@Container
+	Neo4jContainer neo4jContainer = new Neo4jContainer("neo4j:5");
+
+}
+----
 
 当你以这种方式声明容器时，可以通过让测试类实现该接口来在多个测试中重用它们的配置。
 
 也可以在你的 Spring Boot 测试中使用相同的接口配置。
 为此，请在你的测试配置类中添加 javadoc:org.springframework.boot.testcontainers.context.ImportTestcontainers[format=annotation]：
 
-include-code::MyTestConfiguration[]
+[source,java]
+----
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.testcontainers.context.ImportTestcontainers;
+
+@TestConfiguration(proxyBeanMethods = false)
+@ImportTestcontainers(MyContainers.class)
+class MyTestConfiguration {
+
+}
+----
 
 
 
@@ -109,7 +195,31 @@ Spring Boot 的 auto-configuration 可以使用服务连接的详细信息来建
 
 使用 Testcontainers 时，可以通过在测试类中注释容器字段来自动为容器中运行的服务创建连接详细信息。
 
-include-code::MyIntegrationTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.neo4j.Neo4jContainer;
+
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+
+@Testcontainers
+@SpringBootTest
+class MyIntegrationTests {
+
+	@Container
+	@ServiceConnection
+	static Neo4jContainer neo4j = new Neo4jContainer("neo4j:5");
+
+	@Test
+	void myTest() {
+		/**/ System.out.println(neo4j);
+	}
+
+}
+----
 
 得益于 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation]，上述配置允许应用程序中的 Neo4j 相关 beans 与运行在 Testcontainers 管理的 Docker 容器中的 Neo4j 通信。
 这是通过自动定义一个 javadoc:org.springframework.boot.neo4j.autoconfigure.Neo4jConnectionDetails[] bean 来实现的，该 bean 随后被 Neo4j auto-configuration 使用，覆盖任何与连接相关的配置属性。
@@ -210,7 +320,25 @@ Docker 镜像名称的仓库部分忽略任何 registry 和版本。
 只要你使用类型化容器（如 javadoc:{url-testcontainers-neo4j-javadoc}/org.testcontainers.neo4j.Neo4jContainer[] 或 javadoc:{url-testcontainers-rabbitmq-javadoc}/org.testcontainers.rabbitmq.RabbitMQContainer[]），这就能正常工作。
 如果你使用 javadoc:org.testcontainers.containers.GenericContainer[]，例如下面示例中 Redis 的情况，这将停止工作：
 
-include-code::MyRedisConfiguration[]
+[source,java]
+----
+import org.testcontainers.containers.GenericContainer;
+
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Bean;
+
+@TestConfiguration(proxyBeanMethods = false)
+public class MyRedisConfiguration {
+
+	@Bean
+	@ServiceConnection(name = "redis")
+	public GenericContainer<?> redisContainer() {
+		return new GenericContainer<>("redis:7");
+	}
+
+}
+----
 
 Spring Boot 无法从 javadoc:org.testcontainers.containers.GenericContainer[] 判断使用了哪个容器镜像，因此必须使用 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] 的 `name` 属性来提供该提示。
 
@@ -225,7 +353,41 @@ Spring Boot 无法从 javadoc:org.testcontainers.containers.GenericContainer[] �
 你可以在支持的容器上使用 javadoc:org.springframework.boot.testcontainers.service.connection.Ssl[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.JksKeyStore[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.JksTrustStore[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.PemKeyStore[format=annotation] 和 javadoc:org.springframework.boot.testcontainers.service.connection.PemTrustStore[format=annotation] annotations 来为该服务连接启用 SSL 支持。
 请注意，你仍然需要自行在 Testcontainer 内部运行的服务上启用 SSL，annotations 仅在你的应用程序中配置客户端的 SSL。
 
-include-code::MyRedisWithSslIntegrationTests[]
+[source,java]
+----
+import com.redis.testcontainers.RedisContainer;
+import org.junit.jupiter.api.Test;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.testcontainers.service.connection.PemKeyStore;
+import org.springframework.boot.testcontainers.service.connection.PemTrustStore;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.data.redis.core.RedisOperations;
+
+@Testcontainers
+@SpringBootTest
+class MyRedisWithSslIntegrationTests {
+
+	@Container
+	@ServiceConnection
+	@PemKeyStore(certificate = "classpath:client.crt", privateKey = "classpath:client.key")
+	@PemTrustStore("classpath:ca.crt")
+	static RedisContainer redis = new SecureRedisContainer("redis:latest");
+
+	@Autowired
+	@SuppressWarnings("unused")
+	private RedisOperations<Object, Object> operations;
+
+	@Test
+	void testRedis() {
+		// ...
+	}
+
+}
+----
 
 上述代码使用 javadoc:org.springframework.boot.testcontainers.service.connection.PemKeyStore[format=annotation] annotation 将客户端证书和密钥加载到密钥库中，并使用 javadoc:org.springframework.boot.testcontainers.service.connection.PemTrustStore[format=annotation] annotation 将 CA 证书加载到信任库中。
 这将验证客户端对服务器的身份，并且信任库中的 CA 证书确保服务器证书有效且受信任。
@@ -246,7 +408,40 @@ SSL annotations 支持以下服务连接：
 `ElasticsearchContainer` 还支持自动检测服务器端 SSL。
 要使用此功能，请使用 javadoc:org.springframework.boot.testcontainers.service.connection.Ssl[format=annotation] 注解容器，如下例所示，然后 Spring Boot 会为你处理客户端 SSL 配置：
 
-include-code::MyElasticsearchWithSslIntegrationTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+import org.testcontainers.elasticsearch.ElasticsearchContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.data.elasticsearch.test.autoconfigure.DataElasticsearchTest;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.boot.testcontainers.service.connection.Ssl;
+import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
+
+@Testcontainers
+@DataElasticsearchTest
+class MyElasticsearchWithSslIntegrationTests {
+
+	@Ssl
+	@Container
+	@ServiceConnection
+	static ElasticsearchContainer elasticsearch = new ElasticsearchContainer(
+			"docker.elastic.co/elasticsearch/elasticsearch:8.17.2");
+
+	@Autowired
+	@SuppressWarnings("unused")
+	private ElasticsearchTemplate elasticsearchTemplate;
+
+	@Test
+	void testElasticsearch() {
+		// ...
+	}
+
+}
+----
 
 
 
@@ -256,6 +451,35 @@ include-code::MyElasticsearchWithSslIntegrationTests[]
 服务连接的一个稍显冗长但更灵活的替代方案是 javadoc:org.springframework.test.context.DynamicPropertySource[format=annotation]。
 静态 javadoc:org.springframework.test.context.DynamicPropertySource[format=annotation] 方法允许将动态属性值添加到 Spring 环境中。
 
-include-code::MyIntegrationTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.neo4j.Neo4jContainer;
+
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+
+@Testcontainers
+@SpringBootTest
+class MyIntegrationTests {
+
+	@Container
+	static Neo4jContainer neo4j = new Neo4jContainer("neo4j:5");
+
+	@Test
+	void myTest() {
+		// ...
+	}
+
+	@DynamicPropertySource
+	static void neo4jProperties(DynamicPropertyRegistry registry) {
+		registry.add("spring.neo4j.uri", neo4j::getBoltUrl);
+	}
+
+}
+----
 
 上述配置允许应用程序中与 Neo4j 相关的 beans 与运行在 Testcontainers 管理的 Docker 容器中的 Neo4j 通信。

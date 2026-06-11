@@ -28,7 +28,16 @@ TIP: 你只应添加一个 javadoc:org.springframework.boot.autoconfigure.Spring
 
 如果你发现某些你不想要的自动配置类正在被应用，可以使用 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 的 exclude 属性来禁用它们，如下例所示：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration;
+
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
+public class MyApplication {
+
+}
+----
 
 如果该类不在 classpath 上，你可以使用注解的 `excludeName` 属性并指定完全限定名。
 如果你更喜欢使用 javadoc:org.springframework.boot.autoconfigure.EnableAutoConfiguration[format=annotation] 而不是 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation]，`exclude` 和 `excludeName` 也可用。

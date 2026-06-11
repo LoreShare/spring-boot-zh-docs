@@ -53,4 +53,17 @@ com
 
 `MyApplication.java` 文件会声明 `main` 方法，以及基本的 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation]，如下所示：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----

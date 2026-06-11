@@ -12,15 +12,108 @@ Spring WebFlux 是 Spring Framework 5.0 中引入的新响应式 Web 框架。
 Spring WebFlux 有两种风格：函数式和基于 annotation 的。
 基于 annotation 的风格与 Spring MVC 模型非常接近，如下例所示：
 
-include-code::MyRestController[]
+[source,java]
+----
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/users")
+public class MyRestController {
+
+	private final UserRepository userRepository;
+
+	private final CustomerRepository customerRepository;
+
+	public MyRestController(UserRepository userRepository, CustomerRepository customerRepository) {
+		this.userRepository = userRepository;
+		this.customerRepository = customerRepository;
+	}
+
+	@GetMapping("/{userId}")
+	public Mono<User> getUser(@PathVariable Long userId) {
+		return this.userRepository.findById(userId);
+	}
+
+	@GetMapping("/{userId}/customers")
+	public Flux<Customer> getUserCustomers(@PathVariable Long userId) {
+		return this.userRepository.findById(userId).flatMapMany(this.customerRepository::findByUser);
+	}
+
+	@DeleteMapping("/{userId}")
+	public Mono<Void> deleteUser(@PathVariable Long userId) {
+		return this.userRepository.deleteById(userId);
+	}
+
+}
+----
 
 WebFlux 是 Spring Framework 的一部分，详细信息可在其 {url-spring-framework-docs}/web/webflux.html[参考文档] 中找到。
 
 "`WebFlux.fn`"，即函数式变体，将路由配置与请求的实际处理分离，如下例所示：
 
-include-code::MyRoutingConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.server.RequestPredicate;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
-include-code::MyUserHandler[]
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
+
+@Configuration(proxyBeanMethods = false)
+public class MyRoutingConfiguration {
+
+	private static final RequestPredicate ACCEPT_JSON = accept(MediaType.APPLICATION_JSON);
+
+	@Bean
+	public RouterFunction<ServerResponse> monoRouterFunction(MyUserHandler userHandler) {
+		// @formatter:off
+		return route()
+				.GET("/{user}", ACCEPT_JSON, userHandler::getUser)
+				.GET("/{user}/customers", ACCEPT_JSON, userHandler::getUserCustomers)
+				.DELETE("/{user}", ACCEPT_JSON, userHandler::deleteUser)
+				.build();
+		// @formatter:on
+	}
+
+}
+----
+
+[source,java]
+----
+import reactor.core.publisher.Mono;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+
+@Component
+public class MyUserHandler {
+
+	public Mono<ServerResponse> getUser(ServerRequest request) {
+		/**/ return ServerResponse.ok().build();
+	}
+
+	public Mono<ServerResponse> getUserCustomers(ServerRequest request) {
+		/**/ return ServerResponse.ok().build();
+	}
+
+	public Mono<ServerResponse> deleteUser(ServerRequest request) {
+		/**/ return ServerResponse.ok().build();
+	}
+
+}
+----
 
 "`WebFlux.fn`" 是 Spring Framework 的一部分，详细信息可在其 {url-spring-framework-docs}/web/webflux-functional.html[参考文档] 中找到。
 
@@ -88,7 +181,27 @@ Spring Boot 为编解码器提供了专用的配置属性 `+spring.http.codecs.*
 
 如果你需要添加或自定义编解码器，你可以创建一个自定义的 javadoc:org.springframework.boot.http.codec.CodecCustomizer[] 组件，如下例所示：
 
-include-code::MyCodecsConfiguration[]
+[source,java]
+----
+import org.springframework.boot.http.codec.CodecCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.codec.ServerSentEventHttpMessageReader;
+
+@Configuration(proxyBeanMethods = false)
+public class MyCodecsConfiguration {
+
+	@Bean
+	public CodecCustomizer myCodecCustomizer() {
+		return (configurer) -> {
+			configurer.registerDefaults(false);
+			configurer.customCodecs().register(new ServerSentEventHttpMessageReader());
+			// ...
+		};
+	}
+
+}
+----
 
 你还可以利用 xref:features/json.adoc#features.json.jackson.custom-serializers-and-deserializers[Boot 的自定义 JSON 序列化器和反序列化器]。
 
@@ -191,7 +304,51 @@ Spring WebFlux 可以生成带有 `application/problem+json` 媒体类型的自�
 
 要更改错误处理行为，你可以实现 javadoc:org.springframework.boot.webflux.error.ErrorWebExceptionHandler[] 并注册该类型的 bean 定义。由于 javadoc:org.springframework.boot.webflux.error.ErrorWebExceptionHandler[] 是相当底层的，Spring Boot 还提供了一个方便的 javadoc:org.springframework.boot.webflux.autoconfigure.error.AbstractErrorWebExceptionHandler[]，让你以 WebFlux 函数式方式处理错误，如下例所示：
 
-include-code::MyErrorWebExceptionHandler[]
+[source,java]
+----
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.autoconfigure.web.WebProperties;
+import org.springframework.boot.webflux.autoconfigure.error.AbstractErrorWebExceptionHandler;
+import org.springframework.boot.webflux.error.ErrorAttributes;
+import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.codec.ServerCodecConfigurer;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import org.springframework.web.reactive.function.server.ServerResponse.BodyBuilder;
+
+@Component
+public class MyErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
+
+	public MyErrorWebExceptionHandler(ErrorAttributes errorAttributes, WebProperties webProperties,
+			ApplicationContext applicationContext, ServerCodecConfigurer serverCodecConfigurer) {
+		super(errorAttributes, webProperties.getResources(), applicationContext);
+		setMessageReaders(serverCodecConfigurer.getReaders());
+		setMessageWriters(serverCodecConfigurer.getWriters());
+	}
+
+	@Override
+	protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
+		return RouterFunctions.route(this::acceptsXml, this::handleErrorAsXml);
+	}
+
+	private boolean acceptsXml(ServerRequest request) {
+		return request.headers().accept().contains(MediaType.APPLICATION_XML);
+	}
+
+	public Mono<ServerResponse> handleErrorAsXml(ServerRequest request) {
+		BodyBuilder builder = ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR);
+		// ... additional builder calls
+		return builder.build();
+	}
+
+}
+----
 
 为了更全面的了解，你也可以直接继承 javadoc:org.springframework.boot.webflux.autoconfigure.error.DefaultErrorWebExceptionHandler[] 并重写特定方法。
 
@@ -317,12 +474,44 @@ TIP: 请参见 javadoc:org.springframework.boot.web.server.autoconfigure.ServerP
 javadoc:org.springframework.boot.web.server.WebServerFactoryCustomizer[] 提供对 javadoc:org.springframework.boot.web.server.reactive.ConfigurableReactiveWebServerFactory[] 的访问，其中包含许多自定义设置方法。
 以下示例展示了以编程方式设置端口：
 
-include-code::MyWebServerFactoryCustomizer[]
+[source,java]
+----
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.server.reactive.ConfigurableReactiveWebServerFactory;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyWebServerFactoryCustomizer implements WebServerFactoryCustomizer<ConfigurableReactiveWebServerFactory> {
+
+	@Override
+	public void customize(ConfigurableReactiveWebServerFactory server) {
+		server.setPort(9000);
+	}
+
+}
+----
 
 javadoc:org.springframework.boot.jetty.reactive.JettyReactiveWebServerFactory[]、javadoc:org.springframework.boot.reactor.netty.NettyReactiveWebServerFactory[] 和 javadoc:org.springframework.boot.tomcat.reactive.TomcatReactiveWebServerFactory[] 是 javadoc:org.springframework.boot.web.server.reactive.ConfigurableReactiveWebServerFactory[] 的专用变体，分别具有 Jetty、Reactor Netty 和 Tomcat 的额外自定义设置方法。
 以下示例展示了如何自定义 javadoc:org.springframework.boot.reactor.netty.NettyReactiveWebServerFactory[]，它提供了对 Reactor Netty 特定配置选项的访问：
 
-include-code::MyNettyWebServerFactoryCustomizer[]
+[source,java]
+----
+import java.time.Duration;
+
+import org.springframework.boot.reactor.netty.NettyReactiveWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyNettyWebServerFactoryCustomizer implements WebServerFactoryCustomizer<NettyReactiveWebServerFactory> {
+
+	@Override
+	public void customize(NettyReactiveWebServerFactory factory) {
+		factory.addServerCustomizers((server) -> server.idleTimeout(Duration.ofSeconds(20)));
+	}
+
+}
+----
 
 
 [[web.reactive.reactive-server.customizing.direct]]

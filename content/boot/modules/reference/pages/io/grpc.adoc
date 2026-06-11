@@ -181,7 +181,25 @@ Spring gRPC 会自动将任何实现了 javadoc:io.grpc.BindableService[] 的 be
 以下示例展示了如何实现上述 `.proto` 文件中的 `HelloWorld` 服务。
 在此示例中，我们使用 javadoc:org.springframework.grpc.server.service.GrpcService[format=annotation] annotation，并假设代码位于一个会被组件扫描发现的包中：
 
-include-code::MyHelloWorldService[]
+[source,java]
+----
+import io.grpc.stub.StreamObserver;
+
+import org.springframework.grpc.server.service.GrpcService;
+
+@GrpcService
+public class MyHelloWorldService extends HelloWorldGrpc.HelloWorldImplBase {
+
+	@Override
+	public void sayHello(HelloRequest request, StreamObserver<HelloReply> responseObserver) {
+		String message = "Hello '%s'".formatted(request.getName());
+		HelloReply reply = HelloReply.newBuilder().setMessage(message).build();
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+}
+----
 
 如果应用程序使用了 `spring-boot-starter-grpc-server`，那么 Netty 将被用作服务器实现，监听端口 `9090`。
 
@@ -431,7 +449,29 @@ Spring Boot 为 javadoc:org.springframework.grpc.server.security.GrpcSecurity[] 
 
 为了帮助手动配置 Security，Spring Boot 为 gRPC 服务提供了请求匹配器。匹配器可用于 Servlet 和响应式栈。例如，以下配置将包含所有 gRPC 服务，但 "`special`" 除外。
 
-include-code::MySecurityConfiguration[]
+[source,java]
+----
+import org.springframework.boot.grpc.server.autoconfigure.security.web.servlet.GrpcRequest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
+@Configuration(proxyBeanMethods = false)
+public class MySecurityConfiguration {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+		http.securityMatcher(GrpcRequest.toAnyService().excluding("special"));
+		http.authorizeHttpRequests((requests) -> requests.anyRequest().hasRole("GRPC_ADMIN"));
+		http.httpBasic(withDefaults());
+		return http.build();
+	}
+
+}
+----
 
 注意：对于响应式匹配，请使用 javadoc:org.springframework.boot.grpc.server.autoconfigure.security.web.servlet.GrpcRequest[format=full]。
 
@@ -453,7 +493,22 @@ Spring Boot 提供了一个 `spring-boot-grpc-client` 模块和一个 `spring-bo
 
 以下是一个典型示例：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.grpc.client.ImportGrpcClients;
+
+@SpringBootApplication(proxyBeanMethods = false)
+@ImportGrpcClients(target = "hello", types = HelloWorldGrpc.HelloWorldBlockingStub.class)
+public class MyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----
 
 注意：如果你没有指定 `target`，则使用 "`default`"。
 
@@ -489,7 +544,31 @@ spring:
 
 例如，以下是将 `HelloWorldStub` 注入到 `ApplicationRunner` bean 中的示例：
 
-include-code::MyApplicationRunner[]
+[source,java]
+----
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.docs.io.grpc.client.stubbeans.HelloWorldGrpc.HelloWorldBlockingStub;
+import org.springframework.stereotype.Component;
+
+@Component
+class MyApplicationRunner implements ApplicationRunner {
+
+	private final HelloWorldBlockingStub helloStub;
+
+	MyApplicationRunner(HelloWorldGrpc.HelloWorldBlockingStub helloStub) {
+		this.helloStub = helloStub;
+	}
+
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		HelloRequest request = HelloRequest.newBuilder().setName("Spring").build();
+		HelloReply reply = this.helloStub.sayHello(request);
+		System.out.println(reply.getMessage());
+	}
+
+}
+----
 
 
 [[io.grpc.client.netty-shaded]]
@@ -632,7 +711,24 @@ Spring Boot 在 Micrometer 可用时提供 javadoc:io.micrometer.core.instrument
 一个常见的定制器用例是向构建器添加 {url-spring-grpc-docs}/client.html#_http_headers[安全拦截器]。
 例如，这里我们向匹配 "`hello`" 的目标添加 javadoc:org.springframework.grpc.client.interceptor.security.BearerTokenAuthenticationInterceptor[]：
 
-include-code::MyGrpcConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.grpc.client.GrpcChannelBuilderCustomizer;
+import org.springframework.grpc.client.interceptor.security.BasicAuthenticationInterceptor;
+
+@Configuration(proxyBeanMethods = false)
+public class MyGrpcConfiguration {
+
+	@Bean
+	GrpcChannelBuilderCustomizer<?> helloChannelCustomizer() {
+		return GrpcChannelBuilderCustomizer.matching("hello",
+				(builder) -> builder.intercept(new BasicAuthenticationInterceptor("user", "password")));
+	}
+
+}
+----
 
 [[grpc-testing]]
 == 测试 gRPC 应用程序
@@ -657,7 +753,34 @@ javadoc:org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTr
 
 以下示例展示了如何使用 javadoc:org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTransport[format=annotation] 测试 gRPC 服务器应用程序：
 
-include-code::MyGrpcTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTransport;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.grpc.client.ImportGrpcClients;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest
+@AutoConfigureTestGrpcTransport
+@ImportGrpcClients(types = HelloWorldGrpc.HelloWorldBlockingStub.class)
+class MyGrpcTests {
+
+	@Autowired
+	private HelloWorldGrpc.HelloWorldBlockingStub helloStub;
+
+	@Test
+	void sayHello() {
+		HelloRequest request = HelloRequest.newBuilder().setName("Spring").build();
+		HelloReply reply = this.helloStub.sayHello(request);
+		assertThat(reply.getMessage()).isEqualTo("Hello 'Spring'");
+	}
+
+}
+----
 
 [[grpc-testing-running-server]]
 === 使用运行中的服务器进行测试
@@ -670,6 +793,39 @@ include-code::MyGrpcTests[]
 
 以下是一个测试示例：
 
-include-code::MyGrpcIntegrationTests[]
+[source,java]
+----
+import io.grpc.ManagedChannel;
+import io.grpc.netty.NettyChannelBuilder;
+import org.junit.jupiter.api.Test;
+
+import org.springframework.boot.docs.io.grpc.testing.localserverport.HelloWorldGrpc.HelloWorldBlockingStub;
+import org.springframework.boot.grpc.test.autoconfigure.LocalGrpcServerPort;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest(properties = "spring.grpc.server.port=0")
+class MyGrpcIntegrationTests {
+
+	@LocalGrpcServerPort
+	private int port;
+
+	@Test
+	void sayHello() {
+		String target = "localhost:%s".formatted(this.port);
+		ManagedChannel channel = NettyChannelBuilder.forTarget(target).usePlaintext().build();
+		try {
+			HelloWorldBlockingStub hello = HelloWorldGrpc.newBlockingStub(channel);
+			HelloRequest request = HelloRequest.newBuilder().setName("Spring").build();
+			assertThat(hello.sayHello(request).getMessage()).isEqualTo("Hello 'Spring'");
+		}
+		finally {
+			channel.shutdown();
+		}
+	}
+
+}
+----
 
 // FIXME https://github.com/spring-projects/spring-grpc/issues/397

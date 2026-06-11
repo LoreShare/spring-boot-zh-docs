@@ -10,7 +10,31 @@ Spring Boot 包含许多测试工具和支持类，以及一个提供常见测�
 Spring Security 支持以特定用户身份运行测试。
 例如，下面代码片段中的测试将以具有 `ADMIN` 角色的已认证用户身份运行。
 
-include-code::MySecurityTests[]
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.assertj.MockMvcTester;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@WebMvcTest(UserController.class)
+class MySecurityTests {
+
+	@Autowired
+	private MockMvcTester mvc;
+
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	void requestProtectedUrlWithUser() {
+		assertThat(this.mvc.get().uri("/")).doesNotHaveFailed();
+	}
+
+}
+----
 
 Spring Security 提供了与 Spring MVC Test 的全面集成，在使用 javadoc:org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest[format=annotation] 切片和 javadoc:org.springframework.test.web.servlet.MockMvc[] 测试控制器时也可以使用此集成。
 
@@ -25,7 +49,34 @@ Spring Security 提供了与 Spring MVC Test 的全面集成，在使用 javadoc
 对于任何不是通过组件扫描创建的 bean，例如使用 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 创建的 bean，切片测试将无法将它们包含/排除在应用程序上下文之外。
 考虑这个示例：
 
-include-code::MyConfiguration[]
+[source,java]
+----
+import com.zaxxer.hikari.HikariDataSource;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration(proxyBeanMethods = false)
+public class MyConfiguration {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+		http.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated());
+		return http.build();
+	}
+
+	@Bean
+	@ConfigurationProperties("app.datasource.second")
+	public HikariDataSource secondDataSource() {
+		return DataSourceBuilder.create().type(HikariDataSource.class).build();
+	}
+
+}
+----
 
 对于具有上述 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类的应用程序的 javadoc:org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest[format=annotation]，您可能期望在应用程序上下文中拥有 javadoc:org.springframework.security.web.SecurityFilterChain[] bean，以便测试您的控制器 endpoint 是否得到正确保护。
 然而，`MyConfiguration` 不会被 @WebMvcTest 的组件扫描过滤器拾取，因为它不匹配过滤器指定的任何类型。
@@ -33,9 +84,45 @@ include-code::MyConfiguration[]
 这将加载 `MyConfiguration` 中的所有 bean，包括测试 Web 层时不需要的 javadoc:com.zaxxer.hikari.HikariDataSource[] bean。
 将配置类拆分为两个将允许仅导入安全配置。
 
-include-code::MySecurityConfiguration[]
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 
-include-code::MyDatasourceConfiguration[]
+@Configuration(proxyBeanMethods = false)
+public class MySecurityConfiguration {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+		http.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated());
+		return http.build();
+	}
+
+}
+----
+
+[source,java]
+----
+import com.zaxxer.hikari.HikariDataSource;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyDatasourceConfiguration {
+
+	@Bean
+	@ConfigurationProperties("app.datasource.second")
+	public HikariDataSource secondDataSource() {
+		return DataSourceBuilder.create().type(HikariDataSource.class).build();
+	}
+
+}
+----
 
 当需要将某个领域的 bean 包含在切片测试中时，使用单个配置类可能效率低下。
 相反，将应用程序的配置结构化为多个细粒度类，每个类包含特定领域的 bean，可以仅在特定切片测试中导入它们。

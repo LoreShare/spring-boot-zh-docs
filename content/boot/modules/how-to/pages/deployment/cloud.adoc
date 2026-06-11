@@ -96,7 +96,27 @@ acloudyspringtime    started           1/1         512M     1G     acloudyspring
 
 环境变量并不总是能提供最简单的 API，因此 Spring Boot 会自动提取它们并将数据扁平化为可通过 Spring 的 javadoc:org.springframework.core.env.Environment[] 抽象访问的属性，如下例所示：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean implements EnvironmentAware {
+
+	@SuppressWarnings("unused")
+	private String instanceId;
+
+	@Override
+	public void setEnvironment(Environment environment) {
+		this.instanceId = environment.getProperty("vcap.application.instance_id");
+	}
+
+	// ...
+
+}
+----
 
 所有 Cloud Foundry 属性都以 `vcap` 为前缀。
 您可以使用 `vcap` 属性来访问应用程序信息（例如应用程序的公共 URL）和服务信息（例如数据库凭据）。

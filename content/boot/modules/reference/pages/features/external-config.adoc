@@ -47,7 +47,21 @@ Spring Boot 使用一种非常特定的 javadoc:org.springframework.core.env.Pro
 
 举一个具体的例子，假设你开发了一个使用 `name` 属性的 javadoc:org.springframework.stereotype.Component[format=annotation]，如下例所示：
 
-include-code::MyBean[]
+[source,java]
+----
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyBean {
+
+	@Value("${name}")
+	private String name;
+
+	// ...
+
+}
+----
 
 在你的应用程序 classpath（例如，在你的 jar 内）上，你可以有一个 `application.properties` 文件，为 `name` 提供合理的默认属性值。
 在新环境中运行时，可以在 jar 外部提供一个 `application.properties` 文件来覆盖 `name`。
@@ -733,7 +747,84 @@ Spring Boot 提供了另一种处理属性的方法，它允许强类型的 bean
 
 可以将声明标准 JavaBean 属性的 bean 绑定，如下例所示：
 
-include-code::MyProperties[]
+[source,java]
+----
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("my.service")
+public class MyProperties {
+
+	private boolean enabled;
+
+	private InetAddress remoteAddress;
+
+	private final Security security = new Security();
+
+	// @fold:on // getters / setters...
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public InetAddress getRemoteAddress() {
+		return this.remoteAddress;
+	}
+
+	public void setRemoteAddress(InetAddress remoteAddress) {
+		this.remoteAddress = remoteAddress;
+	}
+
+	public Security getSecurity() {
+		return this.security;
+	}
+	// @fold:off
+
+	public static class Security {
+
+		private String username;
+
+		private String password;
+
+		private List<String> roles = new ArrayList<>(Collections.singleton("USER"));
+
+		// @fold:on // getters / setters...
+		public String getUsername() {
+			return this.username;
+		}
+
+		public void setUsername(String username) {
+			this.username = username;
+		}
+
+		public String getPassword() {
+			return this.password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+		public List<String> getRoles() {
+			return this.roles;
+		}
+
+		public void setRoles(List<String> roles) {
+			this.roles = roles;
+		}
+		// @fold:off
+
+	}
+
+}
+----
 
 上述 POJO 定义了以下属性：
 
@@ -769,7 +860,81 @@ include-code::MyProperties[]
 
 上一节中的示例可以以不可变的方式重写，如下例所示：
 
-include-code::MyProperties[]
+[source,java]
+----
+import java.net.InetAddress;
+import java.util.List;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
+@ConfigurationProperties("my.service")
+public class MyProperties {
+
+	// @fold:on // fields...
+	private final boolean enabled;
+
+	private final InetAddress remoteAddress;
+
+	private final Security security;
+
+	// @fold:off
+
+	public MyProperties(boolean enabled, InetAddress remoteAddress, Security security) {
+		this.enabled = enabled;
+		this.remoteAddress = remoteAddress;
+		this.security = security;
+	}
+
+	// @fold:on // getters...
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+
+	public InetAddress getRemoteAddress() {
+		return this.remoteAddress;
+	}
+
+	public Security getSecurity() {
+		return this.security;
+	}
+	// @fold:off
+
+	public static class Security {
+
+		// @fold:on // fields...
+		private final String username;
+
+		private final String password;
+
+		private final List<String> roles;
+
+		// @fold:off
+
+		public Security(String username, String password, @DefaultValue("USER") List<String> roles) {
+			this.username = username;
+			this.password = password;
+			this.roles = roles;
+		}
+
+		// @fold:on // getters...
+		public String getUsername() {
+			return this.username;
+		}
+
+		public String getPassword() {
+			return this.password;
+		}
+
+		public List<String> getRoles() {
+			return this.roles;
+		}
+		// @fold:off
+
+	}
+
+}
+----
 
 在这种设置中，存在单个参数化构造函数意味着应使用构造函数绑定。
 这意味着绑定器将找到一个包含你想要绑定的参数的构造函数。
@@ -780,7 +945,40 @@ Kotlin 开发人员可以使用空的 primary 构造函数来选择退出构造�
 
 例如：
 
-include-code::primaryconstructor/MyProperties[]
+[source,java]
+----
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("my")
+public class MyProperties {
+
+	// @fold:on // fields...
+	final MyBean myBean;
+
+	private String name;
+
+	// @fold:off
+
+	@Autowired
+	public MyProperties(MyBean myBean) {
+		this.myBean = myBean;
+	}
+
+	// @fold:on // getters / setters...
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	// @fold:off
+
+}
+----
 
 构造函数绑定可以与 records 一起使用。
 除非你的 record 有多个构造函数，否则无需使用 javadoc:org.springframework.boot.context.properties.bind.ConstructorBinding[format=annotation]。
@@ -858,7 +1056,71 @@ my.service.security=
 
 如果你希望始终绑定一个非空的 `Security` 实例，即使属性缺失，你可以使用一个空的 javadoc:org.springframework.boot.context.properties.bind.DefaultValue[format=annotation] annotation：
 
-include-code::nonnull/MyProperties[tag=*]
+[source,java]
+----
+import java.net.InetAddress;
+import java.util.List;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
+@ConfigurationProperties("my.service")
+public class MyProperties {
+
+	private final boolean enabled;
+
+	private final InetAddress remoteAddress;
+
+	private final Security security;
+
+	public MyProperties(boolean enabled, InetAddress remoteAddress, @DefaultValue Security security) {
+		this.enabled = enabled;
+		this.remoteAddress = remoteAddress;
+		this.security = security;
+	}
+
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+
+	public InetAddress getRemoteAddress() {
+		return this.remoteAddress;
+	}
+
+	public Security getSecurity() {
+		return this.security;
+	}
+
+	public static class Security {
+
+		private final String username;
+
+		private final String password;
+
+		private final List<String> roles;
+
+		public Security(String username, String password, @DefaultValue("USER") List<String> roles) {
+			this.username = username;
+			this.password = password;
+			this.roles = roles;
+		}
+
+		public String getUsername() {
+			return this.username;
+		}
+
+		public String getPassword() {
+			return this.password;
+		}
+
+		public List<String> getRoles() {
+			return this.roles;
+		}
+
+	}
+
+}
+----
 
 TIP: 使用 Kotlin 时，你需要将 `username` 和 `password` 参数声明为可空，因为它们没有默认值
 
@@ -884,15 +1146,43 @@ Spring Boot 提供了基础设施来绑定 javadoc:org.springframework.boot.cont
 在这些情况下，使用 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] annotation 指定要处理的类型列表。
 这可以在任何 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上完成，如下例所示：
 
-include-code::MyConfiguration[]
-include-code::SomeProperties[]
+[source,java]
+----
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+@EnableConfigurationProperties(SomeProperties.class)
+public class MyConfiguration {
+
+}
+----
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("some.properties")
+public class SomeProperties {
+
+}
+----
 
 要使用配置属性扫描，请将 javadoc:org.springframework.boot.context.properties.ConfigurationPropertiesScan[format=annotation] annotation 添加到你的应用程序中。
 通常，它被添加到使用 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 注解的主应用程序类上，但也可以添加到任何 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上。
 默认情况下，扫描将从声明 annotation 的类所在的包开始。
 如果你想定义要扫描的特定包，可以按如下示例操作：
 
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+
+@SpringBootApplication
+@ConfigurationPropertiesScan({ "com.example.app", "com.example.another" })
+public class MyApplication {
+
+}
+----
 
 [NOTE]
 ====
@@ -925,7 +1215,29 @@ my:
 ----
 要使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans，你可以像注入其他 bean 一样注入它们，如下例所示：
 
-include-code::MyService[]
+[source,java]
+----
+import org.springframework.stereotype.Service;
+
+@Service
+public class MyService {
+
+	private final MyProperties properties;
+
+	public MyService(MyProperties properties) {
+		this.properties = properties;
+	}
+
+	public void openConnection() {
+		Server server = new Server(this.properties.getRemoteAddress());
+		server.start();
+		// ...
+	}
+
+	// ...
+
+}
+----
 
 提示：使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 还可以生成元数据文件，IDE 可以利用这些文件为你自己的键提供自动补全。
 详情请参见 xref:specification:configuration-metadata/index.adoc[附录]。
@@ -940,7 +1252,23 @@ include-code::MyService[]
 
 要从 javadoc:org.springframework.core.env.Environment[] 属性配置 bean，请将 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 添加到其 bean 注册中，如下例所示：
 
-include-code::ThirdPartyConfiguration[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class ThirdPartyConfiguration {
+
+	@Bean
+	@ConfigurationProperties("another")
+	public AnotherComponent anotherComponent() {
+		return new AnotherComponent();
+	}
+
+}
+----
 
 任何使用 `another` 前缀定义的 JavaBean 属性都会以类似于前面 `SomeProperties` 示例的方式映射到该 `AnotherComponent` bean。
 
@@ -954,7 +1282,25 @@ Spring Boot 使用一些宽松的规则将 javadoc:org.springframework.core.env.
 
 例如，考虑以下 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类：
 
-include-code::MyPersonProperties[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("my.main-project.person")
+public class MyPersonProperties {
+
+	private String firstName;
+
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+}
+----
 
 使用上述代码，以下所有属性名称都可以使用：
 
@@ -1065,7 +1411,24 @@ Spring Boot 的宽松绑定规则尽可能设计为与这些命名限制兼容�
 
 javadoc:java.util.Map[] 中的键始终为小写，如下例所示：
 
-include-code::MyMapsProperties[]
+[source,java]
+----
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("my.props")
+public class MyMapsProperties {
+
+	private final Map<String, String> values = new HashMap<>();
+
+	public Map<String, String> getValues() {
+		return this.values;
+	}
+
+}
+----
 
 当设置 `MY_PROPS_VALUES_KEY=value` 时，`values` javadoc:java.util.Map[] 包含一个 `{"key"="value"}` 条目。
 
@@ -1088,7 +1451,24 @@ include-code::MyMapsProperties[]
 例如，假设一个 `MyPojo` 对象具有 `name` 和 `description` 属性，默认情况下它们是 `null`。
 以下示例从 `MyProperties` 暴露了一个 `MyPojo` 对象列表：
 
-include-code::list/MyProperties[]
+[source,java]
+----
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("my")
+public class MyProperties {
+
+	private final List<MyPojo> list = new ArrayList<>();
+
+	public List<MyPojo> getList() {
+		return this.list;
+	}
+
+}
+----
 
 考虑以下配置：
 
@@ -1138,7 +1518,24 @@ my:
 然而，对于多个源中的同一属性，使用优先级最高的那个。
 以下示例从 `MyProperties` 暴露了一个 `Map<String, MyPojo>`：
 
-include-code::map/MyProperties[]
+[source,java]
+----
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("my")
+public class MyProperties {
+
+	private final Map<String, MyPojo> map = new LinkedHashMap<>();
+
+	public Map<String, MyPojo> getMap() {
+		return this.map;
+	}
+
+}
+----
 
 考虑以下配置：
 
@@ -1194,7 +1591,42 @@ Spring Boot 对表示持续时间提供了专门支持。
 
 考虑以下示例：
 
-include-code::javabeanbinding/MyProperties[]
+[source,java]
+----
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.convert.DurationUnit;
+
+@ConfigurationProperties("my")
+public class MyProperties {
+
+	@DurationUnit(ChronoUnit.SECONDS)
+	private Duration sessionTimeout = Duration.ofSeconds(30);
+
+	private Duration readTimeout = Duration.ofMillis(1000);
+
+	// @fold:on // getters / setters...
+	public Duration getSessionTimeout() {
+		return this.sessionTimeout;
+	}
+
+	public void setSessionTimeout(Duration sessionTimeout) {
+		this.sessionTimeout = sessionTimeout;
+	}
+
+	public Duration getReadTimeout() {
+		return this.readTimeout;
+	}
+
+	public void setReadTimeout(Duration readTimeout) {
+		this.readTimeout = readTimeout;
+	}
+	// @fold:off
+
+}
+----
 
 要指定 30 秒的会话超时，`30`、`PT30S` 和 `30s` 都是等价的。
 500ms 的读取超时可以通过以下任一形式指定：`500`、`PT0.5S` 和 `500ms`。
@@ -1214,7 +1646,42 @@ include-code::javabeanbinding/MyProperties[]
 
 如果你更喜欢使用构造函数绑定，可以暴露相同的属性，如下例所示：
 
-include-code::constructorbinding/MyProperties[]
+[source,java]
+----
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.boot.convert.DurationUnit;
+
+@ConfigurationProperties("my")
+public class MyProperties {
+
+	// @fold:on // fields...
+	private final Duration sessionTimeout;
+
+	private final Duration readTimeout;
+
+	// @fold:off
+	public MyProperties(@DurationUnit(ChronoUnit.SECONDS) @DefaultValue("30s") Duration sessionTimeout,
+			@DefaultValue("1000ms") Duration readTimeout) {
+		this.sessionTimeout = sessionTimeout;
+		this.readTimeout = readTimeout;
+	}
+
+	// @fold:on // getters...
+	public Duration getSessionTimeout() {
+		return this.sessionTimeout;
+	}
+
+	public Duration getReadTimeout() {
+		return this.readTimeout;
+	}
+	// @fold:off
+
+}
+----
 
 提示：如果你正在升级 javadoc:java.lang.Long[] 属性，请确保在不是毫秒的情况下定义单位（使用 javadoc:org.springframework.boot.convert.DurationUnit[format=annotation]）。
 这样做可以在支持更丰富格式的同时提供透明的升级路径。
@@ -1249,7 +1716,41 @@ Spring 框架有一个 javadoc:org.springframework.util.unit.DataSize[] 值类�
 
 考虑以下示例：
 
-include-code::javabeanbinding/MyProperties[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.convert.DataSizeUnit;
+import org.springframework.util.unit.DataSize;
+import org.springframework.util.unit.DataUnit;
+
+@ConfigurationProperties("my")
+public class MyProperties {
+
+	@DataSizeUnit(DataUnit.MEGABYTES)
+	private DataSize bufferSize = DataSize.ofMegabytes(2);
+
+	private DataSize sizeThreshold = DataSize.ofBytes(512);
+
+	// @fold:on // getters/setters...
+	public DataSize getBufferSize() {
+		return this.bufferSize;
+	}
+
+	public void setBufferSize(DataSize bufferSize) {
+		this.bufferSize = bufferSize;
+	}
+
+	public DataSize getSizeThreshold() {
+		return this.sizeThreshold;
+	}
+
+	public void setSizeThreshold(DataSize sizeThreshold) {
+		this.sizeThreshold = sizeThreshold;
+	}
+	// @fold:off
+
+}
+----
 
 要指定 10 兆字节的缓冲区大小，`10` 和 `10MB` 是等价的。
 256 字节的大小阈值可以指定为 `256` 或 `256B`。
@@ -1267,7 +1768,41 @@ include-code::javabeanbinding/MyProperties[]
 
 如果你更喜欢使用构造函数绑定，可以暴露相同的属性，如下例所示：
 
-include-code::constructorbinding/MyProperties[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.boot.convert.DataSizeUnit;
+import org.springframework.util.unit.DataSize;
+import org.springframework.util.unit.DataUnit;
+
+@ConfigurationProperties("my")
+public class MyProperties {
+
+	// @fold:on // fields...
+	private final DataSize bufferSize;
+
+	private final DataSize sizeThreshold;
+
+	// @fold:off
+	public MyProperties(@DataSizeUnit(DataUnit.MEGABYTES) @DefaultValue("2MB") DataSize bufferSize,
+			@DefaultValue("512B") DataSize sizeThreshold) {
+		this.bufferSize = bufferSize;
+		this.sizeThreshold = sizeThreshold;
+	}
+
+	// @fold:on // getters...
+	public DataSize getBufferSize() {
+		return this.bufferSize;
+	}
+
+	public DataSize getSizeThreshold() {
+		return this.sizeThreshold;
+	}
+	// @fold:off
+
+}
+----
 
 提示：如果你正在升级 javadoc:java.lang.Long[] 属性，请确保在不是字节的情况下定义单位（使用 javadoc:org.springframework.boot.convert.DataSizeUnit[format=annotation]）。
 这样做可以在支持更丰富格式的同时提供透明的升级路径。
@@ -1292,14 +1827,94 @@ Spring Boot 尝试验证 javadoc:org.springframework.boot.context.properties.Con
 你可以直接在配置类上使用 JSR-303 `jakarta.validation` 约束 annotations。
 为此，请确保 classpath 上存在兼容的 JSR-303 实现，然后向字段添加约束 annotations，如下例所示：
 
-include-code::MyProperties[]
+[source,java]
+----
+import java.net.InetAddress;
+
+import jakarta.validation.constraints.NotNull;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
+
+@ConfigurationProperties("my.service")
+@Validated
+public class MyProperties {
+
+	@NotNull
+	private InetAddress remoteAddress;
+
+	// @fold:on // getters/setters...
+	public InetAddress getRemoteAddress() {
+		return this.remoteAddress;
+	}
+
+	public void setRemoteAddress(InetAddress remoteAddress) {
+		this.remoteAddress = remoteAddress;
+	}
+	// @fold:off
+
+}
+----
 
 提示：你也可以通过使用 javadoc:org.springframework.validation.annotation.Validated[format=annotation] 注解创建配置属性的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法来触发验证。
 
 要级联验证嵌套属性，相关字段必须使用 javadoc:jakarta.validation.Valid[format=annotation] 注解。
 以下示例基于前面的 `MyProperties` 示例：
 
-include-code::nested/MyProperties[]
+[source,java]
+----
+import java.net.InetAddress;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
+
+@ConfigurationProperties("my.service")
+@Validated
+public class MyProperties {
+
+	@NotNull
+	private InetAddress remoteAddress;
+
+	@Valid
+	private final Security security = new Security();
+
+	// @fold:on // getters/setters...
+	public InetAddress getRemoteAddress() {
+		return this.remoteAddress;
+	}
+
+	public void setRemoteAddress(InetAddress remoteAddress) {
+		this.remoteAddress = remoteAddress;
+	}
+
+	public Security getSecurity() {
+		return this.security;
+	}
+	// @fold:off
+
+	public static class Security {
+
+		@NotEmpty
+		private String username;
+
+		// @fold:on // getters/setters...
+		public String getUsername() {
+			return this.username;
+		}
+
+		public void setUsername(String username) {
+			this.username = username;
+		}
+		// @fold:off
+
+	}
+
+}
+----
 
 你还可以通过创建名为 `configurationPropertiesValidator` 的 bean 定义来添加自定义 Spring javadoc:org.springframework.validation.Validator[]。
 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法应声明为 `static`。

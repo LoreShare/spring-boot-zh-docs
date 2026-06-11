@@ -9,10 +9,57 @@
 
 以下示例展示了一个 javadoc:org.springframework.stereotype.Service[format=annotation] Bean，它使用构造器注入来获取所需的 `RiskAssessor` bean：
 
-include-code::singleconstructor/MyAccountService[]
+[source,java]
+----
+import org.springframework.stereotype.Service;
+
+@Service
+public class MyAccountService implements AccountService {
+
+	@SuppressWarnings("unused")
+	private final RiskAssessor riskAssessor;
+
+	public MyAccountService(RiskAssessor riskAssessor) {
+		this.riskAssessor = riskAssessor;
+	}
+
+	// ...
+
+}
+----
 
 如果一个 bean 有多个构造器，你需要使用 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] 标记希望 Spring 使用的那一个：
 
-include-code::multipleconstructors/MyAccountService[]
+[source,java]
+----
+import java.io.PrintStream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MyAccountService implements AccountService {
+
+	@SuppressWarnings("unused")
+	private final RiskAssessor riskAssessor;
+
+	@SuppressWarnings("unused")
+	private final PrintStream out;
+
+	@Autowired
+	public MyAccountService(RiskAssessor riskAssessor) {
+		this.riskAssessor = riskAssessor;
+		this.out = System.out;
+	}
+
+	public MyAccountService(RiskAssessor riskAssessor, PrintStream out) {
+		this.riskAssessor = riskAssessor;
+		this.out = out;
+	}
+
+	// ...
+
+}
+----
 
 TIP: 注意，使用构造器注入可以让 `riskAssessor` 字段被标记为 `final`，表明它之后不能被修改。

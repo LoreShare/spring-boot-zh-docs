@@ -234,7 +234,29 @@ NOTE: 在设置 `management.endpoints.web.exposure.include` 之前，请确保�
 
 一个典型的 Spring Security 配置可能类似于以下示例：
 
-include-code::typical/MySecurityConfiguration[]
+[source,java]
+----
+import org.springframework.boot.security.autoconfigure.actuate.web.servlet.EndpointRequest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
+@Configuration(proxyBeanMethods = false)
+public class MySecurityConfiguration {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+		http.securityMatcher(EndpointRequest.toAnyEndpoint());
+		http.authorizeHttpRequests((requests) -> requests.anyRequest().hasRole("ENDPOINT_ADMIN"));
+		http.httpBasic(withDefaults());
+		return http.build();
+	}
+
+}
+----
 
 前面的示例使用 `EndpointRequest.toAnyEndpoint()` 将请求匹配到任何 endpoint，然后确保所有请求都具有 `ENDPOINT_ADMIN` 角色。
 javadoc:org.springframework.boot.security.autoconfigure.actuate.web.servlet.EndpointRequest[] 上还提供了其他几个匹配器方法。
@@ -257,7 +279,26 @@ management:
 
 此外，如果存在 Spring Security，则需要添加自定义安全配置，允许对 endpoints 进行未经身份验证的访问，如下例所示：
 
-include-code::exposeall/MySecurityConfiguration[]
+[source,java]
+----
+import org.springframework.boot.security.autoconfigure.actuate.web.servlet.EndpointRequest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration(proxyBeanMethods = false)
+public class MySecurityConfiguration {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+		http.securityMatcher(EndpointRequest.toAnyEndpoint());
+		http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());
+		return http.build();
+	}
+
+}
+----
 
 注意：在前两个示例中，配置仅适用于 actuator endpoints。
 由于在存在任何 javadoc:org.springframework.security.web.SecurityFilterChain[] bean 时，Spring Boot 的安全配置会完全退出，因此您需要配置一个额外的 javadoc:org.springframework.security.web.SecurityFilterChain[] bean，其中包含适用于应用程序其余部分的规则。
@@ -384,7 +425,13 @@ Actuator 将使用它进行 JSON 处理。
 
 以下示例暴露了一个返回自定义对象的读操作：
 
-include-code::MyEndpoint[tag=read]
+[source,java]
+----
+	@ReadOperation
+	public CustomData getData() {
+		return new CustomData("test", 5);
+	}
+----
 
 你还可以通过使用 javadoc:org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpoint[format=annotation] 或 javadoc:org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint[format=annotation] 编写特定技术的 endpoints。
 这些 endpoints 仅限于各自的技术。
@@ -418,7 +465,13 @@ Kotlin 空安全也受支持。
 ----
 你可以使用它来调用一个接受 `String name` 和 `int counter` 参数的写操作，如下例所示：
 
-include-code::../MyEndpoint[tag=write]
+[source,java]
+----
+	@WriteOperation
+	public void updateData(String name, int counter) {
+		// injects "test" and 42
+	}
+----
 
 提示：由于 endpoints 与技术无关，方法签名中只能指定简单类型。
 特别地，不支持声明一个具有 javadoc:liquibase.report.CustomData[] 类型且定义了 `name` 和 `counter` 属性的单个参数。
@@ -668,7 +721,31 @@ javadoc:org.springframework.boot.health.contributor.CompositeHealthContributor[]
 javadoc:org.springframework.boot.health.contributor.Health[] 响应应包含一个状态，并可选择包含要显示的附加详细信息。
 以下代码显示了一个示例 javadoc:org.springframework.boot.health.contributor.HealthIndicator[] 实现：
 
-include-code::MyHealthIndicator[]
+[source,java]
+----
+import org.springframework.boot.health.contributor.Health;
+import org.springframework.boot.health.contributor.HealthIndicator;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyHealthIndicator implements HealthIndicator {
+
+	@Override
+	public Health health() {
+		int errorCode = check();
+		if (errorCode != 0) {
+			return Health.down().withDetail("Error Code", errorCode).build();
+		}
+		return Health.up().build();
+	}
+
+	private int check() {
+		// perform some specific health check
+		return /**/ 0;
+	}
+
+}
+----
 
 注意：给定 javadoc:org.springframework.boot.health.contributor.HealthIndicator[] 的标识符是 bean 的名称，如果存在，则去掉 javadoc:org.springframework.boot.health.contributor.HealthIndicator[] 后缀。
 在前面的示例中，健康信息可在名为 `my` 的条目中获得。
@@ -746,7 +823,32 @@ management:
 要从响应式 API 提供自定义健康信息，你可以注册实现 javadoc:org.springframework.boot.health.contributor.ReactiveHealthIndicator[] 接口的 Spring beans。
 以下代码展示了一个 javadoc:org.springframework.boot.health.contributor.ReactiveHealthIndicator[] 实现示例：
 
-include-code::MyReactiveHealthIndicator[]
+[source,java]
+----
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.health.contributor.Health;
+import org.springframework.boot.health.contributor.ReactiveHealthIndicator;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyReactiveHealthIndicator implements ReactiveHealthIndicator {
+
+	@Override
+	public Mono<Health> health() {
+		// @formatter:off
+		return doHealthCheck().onErrorResume((exception) ->
+			Mono.just(new Health.Builder().down(exception).build()));
+		// @formatter:on
+	}
+
+	private Mono<Health> doHealthCheck() {
+		// perform some specific health check
+		return /**/ null;
+	}
+
+}
+----
 
 提示：要自动处理错误，请考虑继承 javadoc:org.springframework.boot.health.contributor.AbstractReactiveHealthIndicator[]。
 
@@ -1198,7 +1300,24 @@ management:
 
 以下示例贡献了一个带有单个值的 `example` 条目：
 
-include-code::MyInfoContributor[]
+[source,java]
+----
+import java.util.Collections;
+
+import org.springframework.boot.actuate.info.Info;
+import org.springframework.boot.actuate.info.InfoContributor;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyInfoContributor implements InfoContributor {
+
+	@Override
+	public void contribute(Info.Builder builder) {
+		builder.withDetail("example", Collections.singletonMap("key", "value"));
+	}
+
+}
+----
 
 如果您访问 `info` endpoint，您应该会看到包含以下额外条目的响应：
 

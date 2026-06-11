@@ -223,7 +223,37 @@ server:
 例如，假设 `my.app.target` 属性令人困惑，并已重命名为 `my.app.name`。
 以下示例展示了如何处理这种情况：
 
-include-code::MyProperties[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
+
+@ConfigurationProperties("my.app")
+public class MyProperties {
+
+	private String name;
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Deprecated
+	@DeprecatedConfigurationProperty(replacement = "my.app.name", since = "1.2.0")
+	public String getTarget() {
+		return this.name;
+	}
+
+	@Deprecated
+	public void setTarget(String target) {
+		this.name = target;
+	}
+
+}
+----
 
 注意：无法设置 `level`。
 `warning` 始终是假设的，因为代码仍在处理该属性。

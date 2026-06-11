@@ -84,4 +84,27 @@ management:
 Logback 和 Log4j 的 `OpenTelemetryAppender` 都需要访问 javadoc:io.opentelemetry.api.OpenTelemetry[] 实例才能正常运行。
 该实例必须在应用程序启动时通过编程方式设置，可以像这样完成：
 
-include-code::OpenTelemetryAppenderInitializer[]
+[source,java]
+----
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender;
+
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
+
+@Component
+class OpenTelemetryAppenderInitializer implements InitializingBean {
+
+	private final OpenTelemetry openTelemetry;
+
+	OpenTelemetryAppenderInitializer(OpenTelemetry openTelemetry) {
+		this.openTelemetry = openTelemetry;
+	}
+
+	@Override
+	public void afterPropertiesSet() {
+		OpenTelemetryAppender.install(this.openTelemetry);
+	}
+
+}
+----

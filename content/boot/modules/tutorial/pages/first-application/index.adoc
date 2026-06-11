@@ -275,7 +275,28 @@ dependencies {
 默认情况下，Maven 和 Gradle 从 `src/main/java` 编译源代码，因此你需要创建该目录结构，然后添加一个名为 `src/main/java/com/example/MyApplication.java` 的文件，其中包含以下代码：
 
 [chomp_package_replacement=com.example]
-include-code::MyApplication[]
+[source,java]
+----
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@SpringBootApplication
+public class MyApplication {
+
+	@RequestMapping("/")
+	String home() {
+		return "Hello World!";
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyApplication.class, args);
+	}
+
+}
+----
 
 虽然这里的代码不多，但涉及的内容却不少。
 在接下来的几节中，我们将逐步介绍重要的部分。

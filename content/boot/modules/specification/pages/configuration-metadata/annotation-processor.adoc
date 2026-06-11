@@ -89,7 +89,56 @@ annotation 处理器还支持使用 javadoc:{url-lombok-javadoc}/lombok.Data[for
 
 考虑以下示例：
 
-include-code::MyServerProperties[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("my.server")
+public class MyServerProperties {
+
+	/**
+	 * Name of the server.
+	 */
+	private String name;
+
+	/**
+	 * IP address to listen to.
+	 */
+	private String ip = "127.0.0.1";
+
+	/**
+	 * Port to listener to.
+	 */
+	private int port = 9797;
+
+	// @fold:on // getters/setters ...
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getIp() {
+		return this.ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public int getPort() {
+		return this.port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+	// @fold:off
+
+}
+----
 
 这会暴露三个属性，其中 `my.server.name` 没有默认值，`my.server.ip` 和 `my.server.port` 分别默认为 `"127.0.0.1"` 和 `9797`。
 字段上的 Javadoc 用于填充 `description` 属性。
@@ -112,7 +161,47 @@ annotation 处理器应用多种启发式方法从源代码模型中提取默认
 对于无法检测默认值的情况，应提供 xref:configuration-metadata/annotation-processor.adoc#appendix.configuration-metadata.annotation-processor.adding-additional-metadata[手动元数据]。
 考虑以下示例：
 
-include-code::MyMessagingProperties[]
+[source,java]
+----
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("my.messaging")
+public class MyMessagingProperties {
+
+	private List<String> addresses = new ArrayList<>(Arrays.asList("a", "b"));
+
+	private ContainerType containerType = ContainerType.SIMPLE;
+
+	// @fold:on // getters/setters ...
+	public List<String> getAddresses() {
+		return this.addresses;
+	}
+
+	public void setAddresses(List<String> addresses) {
+		this.addresses = addresses;
+	}
+
+	public ContainerType getContainerType() {
+		return this.containerType;
+	}
+
+	public void setContainerType(ContainerType containerType) {
+		this.containerType = containerType;
+	}
+	// @fold:off
+
+	public enum ContainerType {
+
+		SIMPLE, DIRECT
+
+	}
+
+}
+----
 
 为了记录上述类中属性的默认值，你可以将以下内容添加到 xref:configuration-metadata/annotation-processor.adoc#appendix.configuration-metadata.annotation-processor.adding-additional-metadata[模块的手动元数据]：
 
@@ -136,7 +225,63 @@ include-code::MyMessagingProperties[]
 
 annotation 处理器会自动将内部类视为嵌套属性。与其在命名空间的根目录下记录 `ip` 和 `port`，不如为其创建一个子命名空间。考虑以下更新后的示例：
 
-include-code::MyServerProperties[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties("my.server")
+public class MyServerProperties {
+
+	private String name;
+
+	private Host host;
+
+	// @fold:on // getters/setters ...
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Host getHost() {
+		return this.host;
+	}
+
+	public void setHost(Host host) {
+		this.host = host;
+	}
+	// @fold:off
+
+	public static class Host {
+
+		private String ip;
+
+		private int port;
+
+		// @fold:on // getters/setters ...
+		public String getIp() {
+			return this.ip;
+		}
+
+		public void setIp(String ip) {
+			this.ip = ip;
+		}
+
+		public int getPort() {
+			return this.port;
+		}
+
+		public void setPort(int port) {
+			this.port = port;
+		}
+		// @fold:off
+
+	}
+
+}
+----
 
 前面的示例为 `my.server.name`、`my.server.host.ip` 和 `my.server.host.port` 属性生成了元数据信息。你可以在字段或 getter 方法上使用 javadoc:org.springframework.boot.context.properties.NestedConfigurationProperty[format=annotation] annotation 来指示一个常规（非内部）类应被视为嵌套类。
 
@@ -149,7 +294,43 @@ include-code::MyServerProperties[]
 
 为了处理这种情况，在包含 `Host` 类型的模块中添加 annotation 处理器，并使用 javadoc:org.springframework.boot.context.properties.ConfigurationPropertiesSource[format=annotation] 对其进行注解：
 
-include-code::Host[]
+[source,java]
+----
+import org.springframework.boot.context.properties.ConfigurationPropertiesSource;
+
+@ConfigurationPropertiesSource
+public class Host {
+
+	/**
+	 * IP address to listen to.
+	 */
+	private String ip = "127.0.0.1";
+
+	/**
+	 * Port to listener to.
+	 */
+	private int port = 9797;
+
+	// @fold:on // getters/setters ...
+	public String getIp() {
+		return this.ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public int getPort() {
+		return this.port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+	// @fold:off
+
+}
+----
 
 这会在 `META-INF/spring/configuration-metadata/com.example.Host.json` 中为 `Host` 生成元数据，并且当 annotation 处理器处理此类类型时，会自动重用该元数据。
 
