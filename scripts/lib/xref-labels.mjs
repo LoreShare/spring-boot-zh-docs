@@ -56,17 +56,13 @@ function collectAnchors(line) {
   return [...line.matchAll(/\[\[([^\]\n]+)]]/g)].map((match) => match[1].trim()).filter(Boolean);
 }
 
-function findNextHeadingTitle(lines, startIndex) {
-  for (let index = startIndex; index < lines.length; index += 1) {
-    const match = lines[index].match(/^=+\s+(.+)$/);
-    if (match) {
-      return stripHeadingMarkup(match[1]);
-    }
-    if (lines[index].trim() && !/^\[\[/.test(lines[index].trim())) {
-      return undefined;
-    }
+function slugifyImplicitAnchorSegment(title) {
+  const cleaned = stripHeadingMarkup(title);
+  if (/[\u4e00-\u9fff]/.test(cleaned)) {
+    return undefined;
   }
-  return undefined;
+  const slug = cleaned.toLowerCase().replace(/[^a-z0-9]+/g, '');
+  return slug || undefined;
 }
 
 export function buildXrefTitleIndex({
@@ -88,17 +84,53 @@ export function buildXrefTitleIndex({
       titleIndex.set(pageKey, stripHeadingMarkup(pageTitleLine.replace(/^=\s+/, '')));
     }
 
+    const headingStack = [];
+    let pendingAnchors = [];
     for (let index = 0; index < lines.length; index += 1) {
       const anchors = collectAnchors(lines[index]);
-      if (anchors.length === 0) {
+      if (anchors.length > 0) {
+        pendingAnchors.push(...anchors);
+      }
+
+      const blockTitleMatch = lines[index].match(/^\.(.+)$/);
+      if (blockTitleMatch && pendingAnchors.length > 0) {
+        const title = stripHeadingMarkup(blockTitleMatch[1]);
+        for (const anchor of pendingAnchors) {
+          titleIndex.set(`${pageKey}#${anchor}`, title);
+        }
+        pendingAnchors = [];
         continue;
       }
-      const title = findNextHeadingTitle(lines, index + 1);
-      if (!title) {
+
+      const headingMatch = lines[index].match(/^(=+)\s+(.+)$/);
+      if (!headingMatch) {
         continue;
       }
-      for (const anchor of anchors) {
-        titleIndex.set(`${pageKey}#${anchor}`, title);
+
+      const level = headingMatch[1].length;
+      const title = stripHeadingMarkup(headingMatch[2]);
+      while (headingStack.length > 0 && headingStack[headingStack.length - 1].level >= level) {
+        headingStack.pop();
+      }
+
+      let currentAnchor;
+      if (pendingAnchors.length > 0) {
+        for (const anchor of pendingAnchors) {
+          titleIndex.set(`${pageKey}#${anchor}`, title);
+        }
+        currentAnchor = pendingAnchors[pendingAnchors.length - 1];
+        pendingAnchors = [];
+      } else if (headingStack.length > 0) {
+        const parentAnchor = headingStack[headingStack.length - 1].anchor;
+        const segment = slugifyImplicitAnchorSegment(title);
+        if (parentAnchor && segment) {
+          currentAnchor = `${parentAnchor}.${segment}`;
+          titleIndex.set(`${pageKey}#${currentAnchor}`, title);
+        }
+      }
+
+      if (currentAnchor) {
+        headingStack.push({ level, anchor: currentAnchor });
       }
     }
   }

@@ -28,6 +28,34 @@ test('能从页面标题和 anchor 标题建立 xref 标题索引', () => {
         '',
       ].join('\n'),
     ],
+    [
+      'content/modules/reference/pages/actuator/metrics.adoc',
+      [
+        '= 指标',
+        '',
+        '[[actuator.metrics.export]]',
+        '== 支持的监控系统',
+        '',
+        '[[actuator.metrics.export.appoptics]]',
+        '=== AppOptics',
+        '',
+        '=== Atlas',
+        '',
+      ].join('\n'),
+    ],
+    [
+      'content/modules/reference/pages/using/devtools.adoc',
+      [
+        '= Developer Tools',
+        '',
+        '[[using.devtools.restart.restart-vs-reload]]',
+        '.重启与重新加载',
+        '****',
+        '正文',
+        '****',
+        '',
+      ].join('\n'),
+    ],
   ]);
 
   const titleIndex = buildXrefTitleIndex({
@@ -39,6 +67,8 @@ test('能从页面标题和 anchor 标题建立 xref 标题索引', () => {
   assert.equal(titleIndex.get('ROOT:installing.adoc'), '安装 Spring Boot');
   assert.equal(titleIndex.get('ROOT:installing.adoc#getting-started.installing.cli'), '安装 Spring Boot CLI');
   assert.equal(titleIndex.get('reference:web/servlet.adoc#web.servlet.spring-mvc.static-content'), '静态内容');
+  assert.equal(titleIndex.get('reference:actuator/metrics.adoc#actuator.metrics.export.atlas'), 'Atlas');
+  assert.equal(titleIndex.get('reference:using/devtools.adoc#using.devtools.restart.restart-vs-reload'), '重启与重新加载');
 });
 
 test('能补齐空 anchor xref 和裸 xref 的可见文本', () => {
