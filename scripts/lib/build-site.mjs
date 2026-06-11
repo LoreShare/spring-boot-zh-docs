@@ -1,23 +1,36 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 
 import { auditBuiltSiteHtml as defaultAuditBuiltSiteHtml } from './completeness-audit.mjs';
 
-export const COMPATIBILITY_REDIRECTS = [
-  {
-    aliasPath: 'maven-plugin/index.html',
-    targetPath: 'boot/4.1.0/maven-plugin/index.html',
-  },
-  {
-    aliasPath: 'gradle-plugin/index.html',
-    targetPath: 'boot/4.1.0/gradle-plugin/index.html',
-  },
-  {
-    aliasPath: 'api/rest/actuator/index.html',
-    targetPath: 'boot/4.1.0/api/rest/actuator/index.html',
-  },
-];
+const DEFAULT_SITE_URL = 'http://localhost:8080';
+
+export function readSiteVersions({
+  file = 'site-versions.json',
+  read = (filePath) => readFileSync(filePath, 'utf8'),
+} = {}) {
+  return JSON.parse(read(file));
+}
+
+export function createCompatibilityRedirectsForVersion(version) {
+  return [
+    {
+      aliasPath: 'maven-plugin/index.html',
+      targetPath: `boot/${version}/maven-plugin/index.html`,
+    },
+    {
+      aliasPath: 'gradle-plugin/index.html',
+      targetPath: `boot/${version}/gradle-plugin/index.html`,
+    },
+    {
+      aliasPath: 'api/rest/actuator/index.html',
+      targetPath: `boot/${version}/api/rest/actuator/index.html`,
+    },
+  ];
+}
+
+export const COMPATIBILITY_REDIRECTS = createCompatibilityRedirectsForVersion(readSiteVersions().latest);
 
 function toPosixPath(filePath) {
   return filePath.split(path.sep).join('/');
@@ -63,12 +76,32 @@ export function createCompatibilityRedirects({
   return created;
 }
 
+function trimTrailingSlash(value) {
+  return value.replace(/\/+$/, '');
+}
+
+export function resolveSiteUrl({
+  env = process.env,
+  defaultUrl = DEFAULT_SITE_URL,
+} = {}) {
+  const value = env.SITE_URL || defaultUrl;
+  return trimTrailingSlash(value.trim());
+}
+
+export function buildAntoraArgs({
+  playbook = 'antora-playbook.yml',
+  siteUrl = resolveSiteUrl(),
+} = {}) {
+  return ['generate', playbook, '--url', siteUrl];
+}
+
 export function runAntoraBuild({
   playbook = 'antora-playbook.yml',
   command = 'antora',
   spawn = spawnSync,
+  siteUrl = resolveSiteUrl(),
 } = {}) {
-  const result = spawn(command, [playbook], {
+  const result = spawn(command, buildAntoraArgs({ playbook, siteUrl }), {
     stdio: 'inherit',
     shell: false,
   });
@@ -80,6 +113,17 @@ export function runAntoraBuild({
   if (result.status !== 0) {
     throw new Error(`Antora 构建退出码异常：${result.status}`);
   }
+}
+
+export function createNoJekyllFile({
+  outputDir = 'build/site',
+  mkdir = (directory) => mkdirSync(directory, { recursive: true }),
+  write = (file, content) => writeFileSync(file, content),
+} = {}) {
+  mkdir(outputDir);
+  const file = path.join(outputDir, '.nojekyll');
+  write(file, '');
+  return toPosixPath(file);
 }
 
 export function validateBuiltSiteHtml({
@@ -100,6 +144,7 @@ export function validateBuiltSiteHtml({
 export function buildSite(options = {}) {
   runAntoraBuild(options);
   const created = createCompatibilityRedirects(options);
+  created.push(createNoJekyllFile(options));
   validateBuiltSiteHtml(options);
   return created;
 }
