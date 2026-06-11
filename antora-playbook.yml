@@ -9,6 +9,10 @@ content:
     branches: HEAD
     start_path: content/boot
 
+asciidoc:
+  extensions:
+  - ./extensions/javadoc-inline-macro.cjs
+
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable

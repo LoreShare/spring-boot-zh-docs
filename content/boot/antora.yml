@@ -11,11 +11,100 @@ asciidoc:
     build-and-artifact-release-type: opensource-release
     build-type: oss
     url-artifact-repository: https://repo.spring.io/release
+    url-ant-docs: https://ant.apache.org/manual
+    url-buildpacks-docs: https://buildpacks.io/docs
+    url-cyclonedx-docs-gradle-plugin: https://github.com/CycloneDX/cyclonedx-gradle-plugin
+    url-cyclonedx-docs-maven-plugin: https://github.com/CycloneDX/cyclonedx-maven-plugin
+    url-dependency-management-plugin-docs: https://docs.spring.io/dependency-management-plugin/docs/current/reference/html/
+    url-dependency-management-plugin-site: https://github.com/spring-gradle-plugins/dependency-management-plugin
+    url-download-liberica-nik: https://bell-sw.com/pages/downloads/native-image-kit/
+    url-dynatrace-docs-shortlink: https://docs.dynatrace.com/docs/shortlink
+    url-git-commit-id-maven-plugin: https://github.com/git-commit-id/git-commit-id-maven-plugin
     url-github: https://github.com/spring-projects/spring-boot
     url-github-raw: https://raw.githubusercontent.com/spring-projects/spring-boot/v4.1.0
     url-github-wiki: https://github.com/spring-projects/spring-boot/wiki
+    url-graal-docs-native-image: https://www.graalvm.org/latest/reference-manual/native-image/
     url-gradle-docs: https://docs.gradle.org
+    url-gradle-docs-application-plugin: https://docs.gradle.org/current/userguide/application_plugin.html
+    url-gradle-docs-groovy-plugin: https://docs.gradle.org/current/userguide/groovy_plugin.html
+    url-gradle-docs-java-plugin: https://docs.gradle.org/current/userguide/java_plugin.html
+    url-gradle-docs-war-plugin: https://docs.gradle.org/current/userguide/war_plugin.html
+    url-gradle-dsl: https://docs.gradle.org/current/dsl
+    url-gradle-javadoc: https://docs.gradle.org/current/javadoc
+    url-graphql-java-javadoc: https://javadoc.io/doc/com.graphql-java/graphql-java/latest
+    url-hibernate-userguide: https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html
+    url-jooq-docs: https://www.jooq.org/doc/latest/manual
+    url-kotlin-docs: https://kotlinlang.org/docs
+    url-kotlin-docs-kotlin-plugin: https://kotlinlang.org/docs/gradle-configure-project.html
+    url-lettuce-docs: https://redis.github.io/lettuce/
+    url-liquibase-javadoc: https://javadoc.io/doc/org.liquibase/liquibase-core/latest
+    url-log4j2-docs: https://logging.apache.org/log4j/2.x/manual
+    url-lombok-javadoc: https://projectlombok.org/api
+    url-micrometer-docs: https://docs.micrometer.io/micrometer/reference
+    url-micrometer-docs-concepts: https://docs.micrometer.io/micrometer/reference/concepts
+    url-micrometer-docs-implementations: https://docs.micrometer.io/micrometer/reference/implementations
+    url-micrometer-docs-observation: https://docs.micrometer.io/micrometer/reference/observation
+    url-micrometer-site: https://micrometer.io
+    url-micrometer-tracing-docs: https://docs.micrometer.io/tracing/reference
+    url-mongodb-driver-core-javadoc: https://mongodb.github.io/mongo-java-driver/5.6/apidocs/driver-core
+    url-mongodb-driver-sync-javadoc: https://mongodb.github.io/mongo-java-driver/5.6/apidocs/driver-sync
+    url-native-build-tools-docs-gradle-plugin: https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html
+    url-native-build-tools-docs-maven-plugin: https://graalvm.github.io/native-build-tools/latest/maven-plugin.html
+    url-paketo-docs: https://paketo.io/docs
+    url-paketo-docs-java-buildpack: https://paketo.io/docs/howto/java/
+    url-protobuf-docs-gradle-plugin: https://github.com/google/protobuf-gradle-plugin
+    url-quartz-javadoc: https://www.quartz-scheduler.org/api/2.5.x
+    url-spring-batch-docs: https://docs.spring.io/spring-batch/reference
+    url-spring-batch-site: https://spring.io/projects/spring-batch
+    url-spring-boot-for-apache-geode-docs: https://docs.spring.io/spring-boot-data-geode-build/current/reference/html5
+    url-spring-boot-for-apache-geode-site: https://spring.io/projects/spring-boot-data-geode
+    url-spring-data-cassandra-docs: https://docs.spring.io/spring-data/cassandra/reference
+    url-spring-data-cassandra-site: https://spring.io/projects/spring-data-cassandra
+    url-spring-data-couchbase-docs: https://docs.spring.io/spring-data/couchbase/reference
+    url-spring-data-couchbase-site: https://spring.io/projects/spring-data-couchbase
+    url-spring-data-elasticsearch-docs: https://docs.spring.io/spring-data/elasticsearch/reference
+    url-spring-data-elasticsearch-site: https://spring.io/projects/spring-data-elasticsearch
+    url-spring-data-envers-site: https://spring.io/projects/spring-data-envers
+    url-spring-data-geode-site: https://spring.io/projects/spring-data-geode
+    url-spring-data-jdbc-docs: https://docs.spring.io/spring-data/relational/reference
+    url-spring-data-jpa-docs: https://docs.spring.io/spring-data/jpa/reference
+    url-spring-data-jpa-site: https://spring.io/projects/spring-data-jpa
+    url-spring-data-ldap-docs: https://docs.spring.io/spring-data/ldap/reference
+    url-spring-data-ldap-site: https://spring.io/projects/spring-data-ldap
+    url-spring-data-mongodb-docs: https://docs.spring.io/spring-data/mongodb/reference
+    url-spring-data-mongodb-site: https://spring.io/projects/spring-data-mongodb
+    url-spring-data-neo4j-docs: https://docs.spring.io/spring-data/neo4j/reference
+    url-spring-data-neo4j-site: https://spring.io/projects/spring-data-neo4j
+    url-spring-data-r2dbc-docs: https://docs.spring.io/spring-data/relational/reference
+    url-spring-data-redis-site: https://spring.io/projects/spring-data-redis
+    url-spring-data-site: https://spring.io/projects/spring-data
     url-spring-framework-docs: https://docs.spring.io/spring-framework/reference
+    url-spring-framework-javadoc: https://docs.spring.io/spring-framework/docs/7.0.x/javadoc-api
+    url-spring-framework-site: https://spring.io/projects/spring-framework
+    url-spring-graphql-docs: https://docs.spring.io/spring-graphql/reference
+    url-spring-grpc-docs: https://docs.spring.io/spring-grpc/reference
+    url-spring-integration-docs: https://docs.spring.io/spring-integration/reference
+    url-spring-integration-site: https://spring.io/projects/spring-integration
+    url-spring-kafka-docs: https://docs.spring.io/spring-kafka/reference
+    url-spring-pulsar-docs: https://docs.spring.io/spring-pulsar/reference
+    url-spring-pulsar-site: https://spring.io/projects/spring-pulsar
+    url-spring-restdocs-site: https://spring.io/projects/spring-restdocs
+    url-spring-security-docs: https://docs.spring.io/spring-security/reference
+    url-spring-security-site: https://spring.io/projects/spring-security
+    url-spring-session-site: https://spring.io/projects/spring-session
+    url-spring-webservices-docs: https://docs.spring.io/spring-ws/docs/current/reference/html/
+    url-testcontainers-docs: https://java.testcontainers.org/
+    url-testcontainers-jdbc-javadoc: https://javadoc.io/doc/org.testcontainers/jdbc/latest
+    url-testcontainers-mariadb-javadoc: https://javadoc.io/doc/org.testcontainers/mariadb/latest
+    url-testcontainers-mongodb-javadoc: https://javadoc.io/doc/org.testcontainers/mongodb/latest
+    url-testcontainers-mssqlserver-javadoc: https://javadoc.io/doc/org.testcontainers/mssqlserver/latest
+    url-testcontainers-mysql-javadoc: https://javadoc.io/doc/org.testcontainers/mysql/latest
+    url-testcontainers-neo4j-javadoc: https://javadoc.io/doc/org.testcontainers/neo4j/latest
+    url-testcontainers-oracle-xe-javadoc: https://javadoc.io/doc/org.testcontainers/oracle-xe/latest
+    url-testcontainers-postgresql-javadoc: https://javadoc.io/doc/org.testcontainers/postgresql/latest
+    url-testcontainers-pulsar-javadoc: https://javadoc.io/doc/org.testcontainers/pulsar/latest
+    url-testcontainers-rabbitmq-javadoc: https://javadoc.io/doc/org.testcontainers/rabbitmq/latest
+    url-tomcat-docs: https://tomcat.apache.org/tomcat-11.0-doc
     version-dependency-management-plugin: 1.1.7
     version-graal: '25'
     version-native-build-tools: 1.1.1
