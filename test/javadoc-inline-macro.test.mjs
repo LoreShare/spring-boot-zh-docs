@@ -61,6 +61,30 @@ test('Javadoc 宏支持目标中的 URL 属性前缀', () => {
   );
 });
 
+test('Javadoc 宏支持现有文档中的第三方 API 包', () => {
+  const cases = [
+    [
+      'com.zaxxer.hikari.HikariDataSource',
+      'https://javadoc.io/doc/com.zaxxer/HikariCP/latest/com/zaxxer/hikari/HikariDataSource.html',
+      'HikariDataSource',
+    ],
+    [
+      'com.fasterxml.jackson.databind.ObjectMapper',
+      'https://javadoc.io/doc/com.fasterxml.jackson.core/jackson-databind/latest/com/fasterxml/jackson/databind/ObjectMapper.html',
+      'ObjectMapper',
+    ],
+    [
+      'org.junit.jupiter.api.BeforeEach',
+      'https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/BeforeEach.html',
+      'BeforeEach',
+    ],
+  ];
+
+  for (const [target, href, text] of cases) {
+    assert.deepEqual(resolveJavadocReference({ target }), { href, text });
+  }
+});
+
 test('Javadoc 宏渲染 HTML 时会转义文本并保留外部链接属性', () => {
   const html = renderJavadocLink({
     target: 'org.springframework.boot.SpringApplication',
