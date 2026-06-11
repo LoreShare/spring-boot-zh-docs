@@ -1,0 +1,37 @@
+= Spring 集成图（`integrationgraph`）
+
+`integrationgraph` endpoint 暴露了一个包含所有 Spring 集成组件的图。
+
+
+
+[[integrationgraph.retrieving]]
+== 检索 Spring 集成图
+
+要检索应用程序的信息，向 `/actuator/integrationgraph` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/integrationgraph/graph/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/integrationgraph/graph/http-response.adoc[]
+
+
+
+[[integrationgraph.retrieving.response-structure]]
+=== 响应结构
+
+响应包含应用程序中使用的所有 Spring 集成组件以及它们之间的链接。
+有关结构的更多信息，请参阅 {url-spring-integration-docs}/graph.html[参考文档]。
+
+
+
+[[integrationgraph.rebuilding]]
+== 重建 Spring 集成图
+
+要重建暴露的图，向 `/actuator/integrationgraph` 发送 `POST` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/integrationgraph/rebuild/curl-request.adoc[]
+
+这将导致一个 `204 - No Content` 响应：
+
+include::partial$rest/actuator/integrationgraph/rebuild/http-response.adoc[]

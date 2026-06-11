@@ -1,0 +1,66 @@
+[[metrics]]
+= 指标 (`metrics`)
+
+`metrics` endpoint 提供对应用程序指标的访问，用于诊断应用程序已记录的指标。
+此 endpoint 不应在生产环境中被“抓取”或用作指标后端。
+其目的是显示当前注册的指标，以便用户查看可用的指标、它们的当前值，以及触发某些操作是否会导致某些值发生变化。
+如果您想通过应用程序收集的指标来诊断应用程序，应使用 xref:reference:actuator/metrics.adoc[外部指标后端]。
+在这种情况下，`metrics` endpoint 仍然可能有用。
+
+[[metrics.retrieving-names]]
+== 检索指标名称
+
+要检索可用指标的名称，向 `/actuator/metrics` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/metrics/names/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/metrics/names/http-response.adoc[]
+
+[[metrics.retrieving-names.response-structure]]
+=== 响应结构
+
+响应包含指标名称的详细信息。下表描述了响应的结构：
+
+[cols="3,1,2"]
+include::partial$rest/actuator/metrics/names/response-fields.adoc[]
+
+[[metrics.retrieving-metric]]
+== 检索指标
+
+要检索一个指标，向 `/actuator/metrics/{metric.name}` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/metrics/metric/curl-request.adoc[]
+
+前面的示例检索名为 `jvm.memory.max` 的指标的信息。
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/metrics/metric/http-response.adoc[]
+
+[[metrics.retrieving-metric.query-parameters]]
+=== 查询参数
+
+endpoint 使用查询参数通过其标签 xref:rest/actuator/metrics.adoc#metrics.drilling-down[深入] 指标。下表显示了支持的单个查询参数：
+
+[cols="2,4"]
+include::partial$rest/actuator/metrics/metric-with-tags/query-parameters.adoc[]
+
+[[metrics.retrieving-metric.response-structure]]
+=== 响应结构
+
+响应包含指标的详细信息。下表描述了响应的结构：
+
+include::partial$rest/actuator/metrics/metric/response-fields.adoc[]
+
+[[metrics.drilling-down]]
+== 深入分析
+
+要深入分析一个指标，向 `/actuator/metrics/{metric.name}` 发送 `GET` 请求，并使用 `tag` 查询参数，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/metrics/metric-with-tags/curl-request.adoc[]
+
+前面的示例检索 `jvm.memory.max` 指标，其中 `area` 标签的值为 `nonheap`，`id` 属性的值为 `Compressed Class Space`。
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/metrics/metric-with-tags/http-response.adoc[]

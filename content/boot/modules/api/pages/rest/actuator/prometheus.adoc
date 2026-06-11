@@ -1,0 +1,43 @@
+[[prometheus]]
+= Prometheus (`prometheus`)
+
+`prometheus` endpoint 以 Prometheus 服务器抓取所需的格式提供 Spring Boot 应用程序的指标。
+
+[[prometheus.retrieving]]
+== 检索所有指标
+
+要检索所有指标，请向 `/actuator/prometheus` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/prometheus/all/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/prometheus/all/http-response.adoc[]
+
+默认响应内容类型为 `text/plain;version=0.0.4`。
+当使用适当的 `Accept` 头调用时，endpoint 也可以生成 `application/openmetrics-text;version=1.0.0`，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/prometheus/openmetrics/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/prometheus/openmetrics/http-response.adoc[]
+
+[[prometheus.retrieving.query-parameters]]
+=== 查询参数
+
+endpoint 使用查询参数来限制其返回的样本。下表显示了支持的查询参数：
+
+[cols="2,4"]
+include::partial$rest/actuator/prometheus/names/query-parameters.adoc[]
+
+[[prometheus.retrieving-names]]
+== 检索过滤后的指标
+
+要检索匹配特定名称的指标，请向 `/actuator/prometheus` 发送 `GET` 请求，并带上 `includedNames` 查询参数，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/prometheus/names/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/prometheus/names/http-response.adoc[]

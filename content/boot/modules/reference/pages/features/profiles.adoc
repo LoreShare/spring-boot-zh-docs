@@ -5,8 +5,8 @@ Spring Profiles 提供了一种隔离应用程序配置部分的方法，使其�
 
 include-code::ProductionConfiguration[]
 
-注意：如果 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans 是通过 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 注册而非自动扫描，则需要在具有 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] annotation 的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上指定 javadoc:org.springframework.context.annotation.Profile[format=annotation] annotation。
-在扫描 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 的情况下，javadoc:org.springframework.context.annotation.Profile[format=annotation] 可以直接在 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类本身上指定。
+注意：如果 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans 是通过 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 注册的，而不是自动扫描，则需要在具有 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] annotation 的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上指定 javadoc:org.springframework.context.annotation.Profile[format=annotation] annotation。
+如果 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 是通过扫描发现的，则 javadoc:org.springframework.context.annotation.Profile[format=annotation] 可以直接在 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类本身上指定。
 
 您可以使用 configprop:spring.profiles.active[] javadoc:org.springframework.core.env.Environment[] 属性来指定哪些 profiles 处于激活状态。
 您可以通过本章前面描述的任何方式指定该属性。
@@ -29,8 +29,8 @@ spring:
   profiles:
     default: "none"
 ----
-`spring.profiles.active` 和 `spring.profiles.default` 只能用于非 profile 特定的文档中。
-这意味着它们不能通过 `spring.config.activate.on-profile` 包含在 xref:features/external-config.adoc#features.external-config.files.profile-specific[profile specific files] 或 xref:features/external-config.adoc#features.external-config.files.activation-properties[documents activated] 中。
+`spring.profiles.active` 和 `spring.profiles.default` 只能在非 profile 特定的文档中使用。
+这意味着它们不能包含在 xref:features/external-config.adoc#features.external-config.files.profile-specific[profile 特定文件] 或由 `spring.config.activate.on-profile` 激活的 xref:features/external-config.adoc#features.external-config.files.activation-properties[文档] 中。
 
 例如，第二个文档配置是无效的：
 
@@ -49,19 +49,19 @@ spring:
   profiles:
     active: "metrics"
 ----
-The configprop:spring.profiles.active[] property follows the same ordering rules as other properties.
-The highest javadoc:org.springframework.core.env.PropertySource[] wins.
-This means that you can specify active profiles in `application.properties` and then *replace* them by using the command line switch.
+configprop:spring.profiles.active[] 属性遵循与其他属性相同的排序规则。
+最高优先级的 javadoc:org.springframework.core.env.PropertySource[] 会生效。
+这意味着你可以在 `application.properties` 中指定 active profiles，然后通过命令行开关 *替换* 它们。
 
-TIP: See xref:features/external-config.adoc#features.external-config.order[the "`Externalized Configuration`"] for more details on the order in which property sources are considered.
+TIP: 关于属性源的考虑顺序，请参阅 xref:features/external-config.adoc#features.external-config.order[“外部化配置”]了解更多详细信息。
 
 [NOTE]
 ====
-By default, profile names in Spring Boot may contain letters, numbers, or permitted characters (`-`, `_`, `.`, `+`, `@`).
-In addition, they can only start and end with a letter or number.
+默认情况下，Spring Boot 中的 profile 名称可以包含字母、数字或允许的字符（`-`、`_`、`.`、`+`、`@`）。
+此外，它们只能以字母或数字开头和结尾。
 
-This restriction helps to prevent common parsing issues.
-if, however, you prefer more flexible profile names you can set configprop:spring.profiles.validate[] to `false` in your `application.properties` or `application.yaml` file:
+此限制有助于防止常见的解析问题。
+但是，如果你希望使用更灵活的 profile 名称，可以在 `application.properties` 或 `application.yaml` 文件中将 configprop:spring.profiles.validate[] 设置为 `false`：
 
 [configprops,yaml]
 ----
@@ -71,12 +71,12 @@ spring:
 ----
 ====
 
-[[features.profiles.adding-active-profiles]]
+[[features.profiles.additional-active-profiles]]
 == 添加活跃 Profile
 
-有时，拥有 *添加* 到活跃 profiles 而非替换它们的属性会很有用。
+有时，使用 *添加* 到活跃 profiles 而非替换它们的属性会很有用。
 configprop:spring.profiles.include[] 属性可用于在 configprop:spring.profiles.active[] 属性激活的 profiles 之上添加活跃 profiles。
-javadoc:org.springframework.boot.SpringApplication[] 入口点也提供了一个 Java API 用于设置额外的 profiles。
+javadoc:org.springframework.boot.SpringApplication[] 入口点也提供了 Java API 用于设置额外的 profiles。
 请参阅 javadoc:org.springframework.boot.SpringApplication[] 中的 `setAdditionalProfiles()` 方法。
 
 例如，当运行具有以下属性的应用程序时，即使使用 `--spring.profiles.active` 开关运行，common 和 local profiles 也会被激活：
@@ -91,12 +91,13 @@ spring:
 ----
 NOTE: 包含的 profiles 会在任何 configprop:spring.profiles.active[] profiles 之前添加。
 
-TIP: configprop:spring.profiles.include[] 属性会针对每个属性源进行处理，因此列表的常规 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.merging-complex-types[complex type merging rules] 不适用。
+TIP: configprop:spring.profiles.include[] 属性会针对每个属性源进行处理，因此通常的 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.merging-complex-types[复杂类型合并规则] 不适用于列表。
 
-WARNING: 与 `spring.profiles.active` 类似，`spring.profiles.include` 只能用于非 profile 特定的文档中。
-这意味着它不能通过 `spring.config.activate.on-profile` 包含在 xref:features/external-config.adoc#features.external-config.files.profile-specific[profile specific files] 或 xref:features/external-config.adoc#features.external-config.files.activation-properties[documents activated] 中。
+WARNING: 与 `spring.profiles.active` 类似，`spring.profiles.include` 只能用于非 profile 特定的文档。
+这意味着它不能包含在 xref:features/external-config.adoc#features.external-config.files.profile-specific[profile 特定文件] 或 xref:features/external-config.adoc#features.external-config.files.activation-properties[由 `spring.config.activate.on-profile` 激活的文档] 中。
 
-在 xref:features/profiles.adoc#features.profiles.groups[next section] 中描述的 Profile 组也可以用于在给定 profile 处于活动状态时添加活动的 profiles。
+下一节 xref:features/profiles.adoc#features.profiles.groups[描述] 的 Profile 组也可用于在给定 profile 激活时添加活跃的 profiles。
+
 
 [[features.profiles.groups]]
 == Profile 组
@@ -107,7 +108,7 @@ WARNING: 与 `spring.profiles.active` 类似，`spring.profiles.include` 只能�
 为帮助解决此问题，Spring Boot 允许你定义 profile 组。
 profile 组允许你为一组相关的 profiles 定义一个逻辑名称。
 
-例如，我们可以创建一个 `production` 组，该组由我们的 `proddb` 和 `prodmq` profiles 组成。
+例如，我们可以创建一个 `production` 组，其中包含我们的 `proddb` 和 `prodmq` profiles。
 
 [configprops,yaml]
 ----
@@ -118,21 +119,21 @@ spring:
       - "proddb"
       - "prodmq"
 ----
-我们的应用程序现在可以使用 `--spring.profiles.active=production` 一次性激活 `production`、`proddb` 和 `prodmq` profiles。
+现在，我们可以使用 `--spring.profiles.active=production` 一次性激活 `production`、`proddb` 和 `prodmq` profiles 来启动应用程序。
 
-WARNING: 与 `spring.profiles.active` 和 `spring.profiles.include` 类似，`spring.profiles.group` 只能用于非 profile 特定的文档。
-这意味着它不能通过 `spring.config.activate.on-profile` 包含在 xref:features/external-config.adoc#features.external-config.files.profile-specific[profile specific files] 或 xref:features/external-config.adoc#features.external-config.files.activation-properties[documents activated] 中。
+WARNING: 与 `spring.profiles.active` 和 `spring.profiles.include` 类似，`spring.profiles.group` 只能用于非 profile 特定的文档中。
+这意味着它不能包含在 xref:features/external-config.adoc#features.external-config.files.profile-specific[profile 特定文件] 或由 `spring.config.activate.on-profile` 激活的 xref:features/external-config.adoc#features.external-config.files.activation-properties[文档] 中。
 
 
 [[features.profiles.programmatically-setting-profiles]]
 == 编程方式设置 Profile
 
-您可以在应用程序运行之前通过调用 `SpringApplication.setAdditionalProfiles(...)` 以编程方式设置活动的 profiles。
-也可以使用 Spring 的 javadoc:org.springframework.core.env.ConfigurableEnvironment[] 接口激活 profiles。
+您可以在应用程序运行前调用 `SpringApplication.setAdditionalProfiles(...)` 以编程方式设置活动的 profiles。
+也可以使用 Spring 的 javadoc:org.springframework.core.env.ConfigurableEnvironment[] 接口来激活 profiles。
 
 
 [[features.profiles.profile-specific-configuration-files]]
 == Profile 特定的配置文件
 
-`application.properties`（或 `application.yaml`）以及通过 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 引用的文件的 Profile 特定变体都被视为文件并加载。
+`application.properties`（或 `application.yaml`）以及通过 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 引用的文件的 Profile 特定变体都会被视作文件并加载。
 详情请参见 xref:features/external-config.adoc#features.external-config.files.profile-specific[]。

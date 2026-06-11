@@ -1,0 +1,31 @@
+:navtitle: Actuator
+[[overview]]
+= Actuator REST API
+
+本文档描述了 Spring Boot Actuator 的 Web endpoints。
+
+在继续之前，您应阅读以下主题：
+
+* xref:#overview.endpoint-urls[]
+* xref:#overview.timestamps[]
+
+注意：为了获得下面记录的正确的 JSON 响应，必须提供 Jackson。
+
+
+[[overview.endpoint-urls]]
+== URLs
+
+默认情况下，所有 Web endpoints 都在路径 `/actuator` 下可用，URL 格式为 `/actuator/\{id}`。可以通过使用 `management.endpoints.web.base-path` 属性来配置 `/actuator` 基础路径，如下例所示：
+
+[source,properties]
+----
+management.endpoints.web.base-path=/manage
+----
+前面的 `application.properties` 示例将 endpoint URL 的形式从
+`/actuator/\{id}` 改为 `/manage/\{id}`。例如，URL `info` endpoint 将变为
+`/manage/info`。
+
+[[overview.timestamps]]
+== 时间戳
+
+所有由 endpoints 消费的时间戳，无论是作为查询参数还是请求体中的内容，都必须按照 https://en.wikipedia.org/wiki/ISO_8601[ISO 8601] 中规定的偏移日期和时间格式进行格式化。

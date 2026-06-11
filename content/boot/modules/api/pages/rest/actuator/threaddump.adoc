@@ -1,0 +1,38 @@
+[[threaddump]]
+= 线程转储 (`threaddump`)
+
+`threaddump` endpoint 提供来自应用程序 JVM 的线程转储。
+
+
+[[threaddump.retrieving-json]]
+== 以 JSON 格式检索线程转储
+
+要以 JSON 格式检索线程转储，请向 `/actuator/threaddump` 发送 `GET` 请求，并带上适当的 `Accept` 头，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/threaddump/json/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/threaddump/json/http-response.adoc[]
+
+
+[[threaddump.retrieving-json.response-structure]]
+=== 响应结构
+
+响应包含 JVM 线程的详细信息。
+下表描述了响应的结构：
+
+[cols="3,1,2"]
+include::partial$rest/actuator/threaddump/json/response-fields.adoc[]
+
+
+[[threaddump.retrieving-text]]
+== 以文本格式检索线程转储
+
+要以文本格式检索线程转储，请向 `/actuator/threaddump` 发送 `GET` 请求，该请求接受 `text/plain`，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/threaddump/text/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/threaddump/text/http-response.adoc[]

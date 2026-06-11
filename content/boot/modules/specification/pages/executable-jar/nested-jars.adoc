@@ -1,21 +1,19 @@
 [[appendix.executable-jar.nested-jars]]
 = 嵌套 JARs
 
-Java 没有提供任何标准方式来加载嵌套的 jar 文件（即自身包含在另一个 jar 中的 jar 文件）。
-如果你需要分发一个无需解压即可从命令行运行的自包含应用程序，这可能会带来问题。
+Java 没有提供任何标准方式来加载嵌套的 jar 文件（即自身包含在 jar 中的 jar 文件）。
+如果你需要分发一个自包含的、无需解压即可从命令行运行的应用，这可能会带来问题。
 
 为了解决这个问题，许多开发者使用 "`shaded`" jar。
 一个 shaded jar 将所有 jar 中的所有类打包到一个单一的 "`uber jar`" 中。
-shaded jar 的问题在于，很难看出你的应用程序中实际包含了哪些库。
+shaded jar 的问题在于，很难看出你的应用中实际使用了哪些库。
 如果多个 jar 中使用了相同的文件名（但内容不同），这也可能带来问题。
 Spring Boot 采用了一种不同的方法，让你可以直接嵌套 jar。
-
-
 
 [[appendix.executable-jar.nested-jars.jar-structure]]
 == 可执行 Jar 文件结构
 
-Spring Boot Loader 兼容的 jar 文件应按以下方式结构化：
+Spring Boot Loader 兼容的 jar 文件应按以下方式构建：
 
 [source]
 ----
@@ -37,13 +35,13 @@ example.jar
        +-dependency1.jar
        +-dependency2.jar
 ----
-Application classes should be placed in a nested `BOOT-INF/classes` directory.
-Dependencies should be placed in a nested `BOOT-INF/lib` directory.
+应用程序类应放置在嵌套的 `BOOT-INF/classes` 目录中。
+依赖项应放置在嵌套的 `BOOT-INF/lib` 目录中。
 
 [[appendix.executable-jar.nested-jars.war-structure]]
 == 可执行 War 文件结构
 
-Spring Boot Loader 兼容的 war 文件应按以下方式组织：
+Spring Boot Loader 兼容的 war 文件应按以下方式构建：
 
 [source]
 ----
@@ -78,10 +76,10 @@ example.war
 
 Spring Boot Loader 兼容的 jar 和 war 归档可以在 `BOOT-INF/` 目录下包含额外的索引文件。
 可以为 jar 和 war 提供 `classpath.idx` 文件，它指定了 jar 应添加到 classpath 的顺序。
-`layers.idx` 文件只能用于 jar，它允许将 jar 拆分为逻辑层，用于 Docker/OCI 镜像创建。
+`layers.idx` 文件只能用于 jar，它允许将 jar 拆分为逻辑层以用于 Docker/OCI 镜像创建。
 
 索引文件遵循 YAML 兼容的语法，以便第三方工具可以轻松解析。
-然而，这些文件在内部 _不_ 作为 YAML 解析，并且必须按照下面描述的精确格式编写才能被使用。
+然而，这些文件在内部 _不_ 作为 YAML 解析，并且必须严格按照下面描述的格式编写才能被使用。
 
 
 [[appendix.executable-jar.nested-jars.classpath-index]]
@@ -89,7 +87,7 @@ Spring Boot Loader 兼容的 jar 和 war 归档可以在 `BOOT-INF/` 目录下�
 
 classpath 索引文件可以放置在 `BOOT-INF/classpath.idx` 中。
 通常，它由 Spring Boot 的 Maven 和 Gradle 构建插件自动生成。
-它提供了一个 jar 名称列表（包括目录），按照它们应添加到 classpath 的顺序排列。
+它提供了一个 jar 名称列表（包括目录），按它们应添加到 classpath 的顺序排列。
 当由构建插件生成时，此 classpath 顺序与构建系统用于运行和测试应用程序的顺序一致。
 每行必须以短横线空格（`"-&#183;"`）开头，名称必须用双引号括起来。
 
@@ -108,7 +106,7 @@ example.jar
        +-dependency1.jar
        +-dependency2.jar
 ----
-索引文件看起来像这样：
+索引文件如下所示：
 
 [source]
 ----
@@ -116,7 +114,7 @@ example.jar
 - "BOOT-INF/lib/dependency1.jar"
 ----
 NOTE: Spring Boot 仅在 jar 或 war 文件通过 `java -jar` 执行时使用 classpath 索引文件。
-在 IDE 中运行应用程序或使用 Maven 的 `spring-boot:run` 或 Gradle 的 `bootRun` 时，不会使用它。
+在 IDE 中运行应用程序或使用 Maven 的 `spring-boot:run` 或 Gradle 的 `bootRun` 时不会使用它。
 
 NOTE: 启用可重现构建时，classpath 索引文件中的条目按字母顺序排序。
 
@@ -125,10 +123,10 @@ NOTE: 启用可重现构建时，classpath 索引文件中的条目按字母顺�
 == 层索引
 
 层索引文件可以放在 `BOOT-INF/layers.idx` 中。
-它提供了层列表以及 jar 中应包含在这些层中的部分。
-层按应添加到 Docker/OCI 镜像的顺序写入。
-层名称以带破折号空格（`"-&#183;"`）前缀和冒号（`":"`）后缀的引号字符串形式写入。
-层内容是文件或目录名称，以带空格空格破折号空格（`"&#183;&#183;-&#183;"`）前缀的引号字符串形式写入。
+它提供了层列表以及应包含在其中的 jar 部分。
+层按应添加到 Docker/OCI 镜像的顺序编写。
+层名称写为带引号的字符串，前缀为短横线空格 (`"-&#183;"`)，后缀为冒号 (`":"`)。
+层内容是文件或目录名称，写为带引号的字符串，前缀为空格空格短横线空格 (`"&#183;&#183;-&#183;"`)。
 目录名称以 `/` 结尾，文件名称不以 `/` 结尾。
 使用目录名称时，表示该目录中的所有文件都在同一层中。
 

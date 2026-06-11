@@ -1,0 +1,81 @@
+= Health (`health`)
+
+`health` endpoint 提供关于应用程序健康状况的详细信息。
+
+
+
+[[health.retrieving]]
+== 检索应用程序的健康状况
+
+要检索应用程序的健康状况，向 `/actuator/health` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/health/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/health/http-response.adoc[]
+
+
+
+[[health.retrieving.response-structure]]
+=== 响应结构
+
+响应包含应用程序健康状况的详细信息。
+下表描述了响应的结构：
+
+[cols="2,1,3"]
+include::partial$rest/actuator/health/response-fields.adoc[]
+
+注意：上述响应字段适用于 V3 API。
+如果需要返回 V2 JSON，应使用 accept 标头或 `application/vnd.spring-boot.actuator.v2+json`
+
+
+
+[[health.retrieving-component]]
+== 检索组件的健康状况
+
+要检索应用程序健康状况中特定组件的健康状况，向 `/actuator/health/\{component}` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/health/component/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/health/component/http-response.adoc[]
+
+
+
+[[health.retrieving-component.response-structure]]
+=== 响应结构
+
+响应包含应用程序健康状况中特定组件的健康状况的详细信息。
+下表描述了响应的结构：
+
+[cols="2,1,3"]
+include::partial$rest/actuator/health/component/response-fields.adoc[]
+
+
+
+[[health.retrieving-component-nested]]
+== 检索嵌套组件的健康状况
+
+如果某个特定组件包含其他嵌套组件（如上例中的 `broker` 指示器），则可以通过向 `/actuator/health/\{component}/\{subcomponent}` 发送 `GET` 请求来检索此类嵌套组件的健康状况，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/health/instance/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/health/instance/http-response.adoc[]
+
+应用程序健康状况的组件可以根据应用程序的健康指示器及其分组方式任意深度嵌套。
+健康 endpoint 支持 URL 中任意数量的 `/\{component}` 标识符，以允许检索任意深度的组件的健康状况。
+
+
+
+[[health.retrieving-component-nested.response-structure]]
+=== 响应结构
+
+响应包含应用程序特定组件实例的健康状况的详细信息。
+下表描述了响应的结构：
+
+[cols="2,1,3"]
+include::partial$rest/actuator/health/instance/response-fields.adoc[]

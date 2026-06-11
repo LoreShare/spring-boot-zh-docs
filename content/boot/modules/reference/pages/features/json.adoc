@@ -6,98 +6,179 @@ Spring Boot 提供了与以下 JSON 映射库的集成：
 - Jackson 2
 - Gson
 - JSON-B
-- Kotlin Serialization
+- Spring Boot 序列化
 
-Jackson 3 是首选和默认的库。
+Jackson 3 是首选且默认的库。
 
 对 Jackson 2 的支持已弃用，并将在未来的 Spring Boot 4.x 版本中移除。
 提供它纯粹是为了简化从 Jackson 2 到 Jackson 3 的迁移，不应长期依赖。
 
 
 
-[[features.json.jackson]]
 == Jackson 3
 
-提供了 Jackson 3 的自动配置，Jackson 是 `spring-boot-starter-json` 的一部分。
-当 Jackson 在 classpath 上时，会自动配置一个 javadoc:tools.jackson.databind.json.JsonMapper[] bean。
-提供了几个用于 xref:how-to:spring-mvc.adoc#howto.spring-mvc.customize-jackson-jsonmapper[customizing the configuration of the javadoc:tools.jackson.databind.json.JsonMapper[]] 的配置属性。
+为 Jackson 3 提供了 auto-configuration，并且 Jackson 是 spring-boot-starter-json 的一部分。
+当 Jackson 在 classpath 上时，会自动配置一个 Jackson2ObjectMapperBuilder bean。
+提供了几个配置属性，用于 xref:how-to:spring-mvc.adoc#howto.spring-mvc.customize-jackson-jsonmapper[自定义 javadoc:tools.jackson.databind.json.JsonMapper[] 的配置]。
 
 
 
-[[features.json.jackson.custom-serializers-and-deserializers]]
 === 自定义序列化器和反序列化器
 
-如果你使用 Jackson 来序列化和反序列化 JSON 数据，你可能想编写自己的 javadoc:tools.jackson.databind.ValueSerializer[] 和 javadoc:tools.jackson.databind.ValueDeserializer[] 类。
-自定义序列化器通常是 https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers[registered with Jackson through a module]，但 Spring Boot 提供了一个替代的 javadoc:org.springframework.boot.jackson.JacksonComponent[format=annotation] annotation，使得直接注册 Spring Bean 更容易。
+如果你使用 Jackson 来序列化和反序列化 JSON 数据，你可能想编写自己的 JsonSerializer 和 JsonDeserializer 类。
+自定义序列化器通常 link:https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers[通过模块注册到 Jackson]，但 Spring Boot 提供了一个替代的 @JsonComponent annotation，使得直接注册 Spring bean 更容易。
 
-你可以直接在 javadoc:tools.jackson.databind.ValueSerializer[]、javadoc:tools.jackson.databind.ValueDeserializer[] 或 javadoc:tools.jackson.databind.KeyDeserializer[] 实现上使用 javadoc:org.springframework.boot.jackson.JacksonComponent[format=annotation] annotation。
+你可以直接在 JsonSerializer、JsonDeserializer 或 KeyDeserializer 实现上使用 @JsonComponent annotation。
 你也可以在包含序列化器/反序列化器作为内部类的类上使用它，如下例所示：
 
-include-code::MyJacksonComponent[]
+[source,java,indent=0]
+----
+import java.io.IOException;
 
-javadoc:org.springframework.context.ApplicationContext[] 中的所有 javadoc:org.springframework.boot.jackson.JacksonComponent[format=annotation] bean 都会自动注册到 Jackson。
-由于 javadoc:org.springframework.boot.jackson.JacksonComponent[format=annotation] 使用了 javadoc:org.springframework.stereotype.Component[format=annotation] 元注解，因此适用常规的组件扫描规则。
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 
-Spring Boot 还提供了 javadoc:org.springframework.boot.jackson.ObjectValueSerializer[] 和 javadoc:org.springframework.boot.jackson.ObjectValueDeserializer[] 基类，它们在序列化对象时提供了标准 Jackson 版本的有用替代方案。
-详情请参阅 API 文档中的 javadoc:org.springframework.boot.jackson.ObjectValueSerializer[] 和 javadoc:org.springframework.boot.jackson.ObjectValueDeserializer[]。
+import org.springframework.boot.jackson.JsonComponent;
 
-上面的例子可以重写为使用 javadoc:org.springframework.boot.jackson.ObjectValueSerializer[] 和 javadoc:org.springframework.boot.jackson.ObjectValueDeserializer[]，如下所示：
+@JsonComponent
+public class Example {
 
-include-code::object/MyJacksonComponent[]
+    public static class Serializer extends JsonSerializer<SomeObject> {
+
+        @Override
+        public void serialize(SomeObject value, JsonGenerator gen, SerializerProvider serializers)
+                throws IOException {
+            gen.writeStringField("name", value.getName());
+        }
+
+    }
+
+    public static class Deserializer extends JsonDeserializer<SomeObject> {
+
+        @Override
+        public SomeObject deserialize(JsonParser parser, DeserializationContext context)
+                throws IOException {
+            ObjectCodec codec = parser.getCodec();
+            com.fasterxml.jackson.databind.node.ObjectNode tree = codec.readTree(parser);
+            return new SomeObject(tree.get("name").textValue());
+        }
+
+    }
+
+}
+----
+
+ApplicationContext 中的所有 @JsonComponent bean 都会自动注册到 Jackson。
+由于 @JsonComponent 使用了 @Component 元 annotation，因此适用常规的组件扫描规则。
+
+Spring Boot 还提供了 JsonObjectSerializer 和 JsonObjectDeserializer 基类，它们在序列化对象时提供了标准 Jackson 版本的有用替代方案。
+有关详细信息，请参阅 API 文档中的 JsonObjectSerializer 和 JsonObjectDeserializer。
+
+上面的示例可以重写为使用 JsonObjectSerializer 和 JsonObjectDeserializer，如下所示：
+
+[source,java,indent=0]
+----
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import org.springframework.boot.jackson.JsonComponent;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
+import org.springframework.boot.jackson.JsonObjectSerializer;
+
+@JsonComponent
+public class Example {
+
+    public static class Serializer extends JsonObjectSerializer<SomeObject> {
+
+        @Override
+        protected void serializeObject(SomeObject value, JsonGenerator jgen, SerializerProvider provider)
+                throws IOException {
+            jgen.writeStringField("name", value.getName());
+        }
+
+    }
+
+    public static class Deserializer extends JsonObjectDeserializer<SomeObject> {
+
+        @Override
+        protected SomeObject deserializeObject(JsonParser parser, DeserializationContext context, ObjectNode tree)
+                throws IOException {
+            return new SomeObject(nullSafeValue(tree.get("name"), String.class));
+        }
+
+    }
+
+}
+----
 
 
 
-[[features.json.jackson.mixins]]
 === Mixins
 
-Jackson 支持 mixins，可用于将额外的 annotation 混合到目标类上已声明的 annotation 中。
-Spring Boot 的 Jackson auto-configuration 会扫描你的应用程序包，查找使用 javadoc:org.springframework.boot.jackson.JacksonMixin[format=annotation] 注解的类，并将它们注册到自动配置的 javadoc:tools.jackson.databind.json.JsonMapper[]。
-注册由 Spring Boot 的 javadoc:org.springframework.boot.jackson.JacksonMixinModule[] 执行。
-
-
-
-[[features.json.jackson2]]
-== Jackson 2
-
-`spring-boot-jackson2` 模块提供了对 Jackson 2 的已弃用 auto-configuration。
-当此模块在 classpath 上时，会自动配置一个 javadoc:com.fasterxml.jackson.databind.ObjectMapper[] bean。
-提供了几个 `+spring.jackson2.*+` 配置属性用于自定义配置。
-要获得更多控制，可以定义一个或多个 javadoc:org.springframework.boot.jackson2.autoconfigure.Jackson2ObjectMapperBuilderCustomizer[] bean。
-
-当 Jackson 3 和 Jackson 2 同时存在时，可以使用各种配置属性来指示首选 Jackson 2：
-
-- configprop:spring.graphql.rsocket.preferred-json-mapper[]
-- configprop:spring.http.codecs.preferred-json-mapper[]（由 Spring WebFlux 和响应式 HTTP 客户端使用）
-- configprop:spring.http.converters.preferred-json-mapper[]（由 Spring MVC 和命令式 HTTP 客户端使用）
-- configprop:spring.rsocket.preferred-mapper[]
-- configprop:spring.websocket.messaging.preferred-json-mapper[]
-
-在每种情况下，将相关属性设置为 `jackson2` 以指示首选 Jackson 2。
-
-
-
-[[features.json.gson]]
-== Gson
-
-提供了 Gson 的自动配置。
-当 Gson 在 classpath 上时，会自动配置一个 javadoc:com.google.gson.Gson[] bean。
-提供了几个 `+spring.gson.*+` 配置属性用于自定义配置。
-要获得更多控制，可以使用一个或多个 javadoc:org.springframework.boot.gson.autoconfigure.GsonBuilderCustomizer[] bean。
-
-
-
-[[features.json.json-b]]
-== JSON-B
-
-提供了 JSON-B 的自动配置。
-当 JSON-B API 及其实现位于 classpath 上时，会自动配置一个 javadoc:jakarta.json.bind.Jsonb[] bean。
-首选的 JSON-B 实现是 Eclipse Yasson，并提供了其依赖管理。
+Jackson 支持 mixin，可用于将额外的 annotation 混合到目标类已声明的 annotation 中。
+Spring Boot 的 Jackson auto-configuration 将扫描应用程序的包，查找带有 @JsonMixin annotation 的类，并将它们注册到 auto-configured ObjectMapper。
+注册由 Spring Boot 的 JsonMixinModule 执行。
 
 
 
 [[features.json.kotlin-serialization]]
 == Kotlin Serialization
 
-提供了 Kotlin Serialization 的自动配置。
-当 `kotlinx-serialization-json` 在 classpath 上时，会自动配置一个 https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json/[Json] bean。
+提供 Kotlin Serialization 的 auto-configuration。
+当 `kotlinx-serialization-json` 位于 classpath 上时，会自动配置一个 https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json/[Json] bean。
 提供了几个 `+spring.kotlinx.serialization.json.*+` 配置属性用于自定义配置。
+
+
+
+== Jackson 2
+
+已弃用的 Jackson 2 支持由 spring-boot-starter-json 模块提供。
+当此模块在 classpath 上时，会自动配置一个 Jackson2ObjectMapperBuilder bean。
+提供了几个 spring.jackson.* 配置属性用于自定义配置。
+为了获得更多控制，可以定义一个或多个 Jackson2ObjectMapperBuilderCustomizer bean。
+
+当 Jackson 3 和 Jackson 2 都存在时，可以使用各种配置属性来指示首选 Jackson 2：
+
+- spring.mvc.converters.preferred-json-mapper
+- spring.codec.preferred-json-mapper（由 Spring WebFlux 和响应式 HTTP 客户端使用）
+- spring.http.converters.preferred-json-mapper（由 Spring MVC 和命令式 HTTP 客户端使用）
+- spring.jooq.sql-dialect
+- spring.data.rest.default-media-type
+
+在每种情况下，将相关属性设置为 jackson-2 以指示首选 Jackson 2。
+
+
+
+== Gson
+
+为 Gson 提供了自动配置。
+当 Gson 在 classpath 上时，会自动配置一个 Gson bean。
+提供了几个 spring.gson.* 配置属性用于自定义配置。
+为了获得更多控制，可以使用一个或多个 GsonBuilderCustomizer bean。
+
+
+
+== JSON-B
+
+为 JSON-B 提供了自动配置。
+当 JSON-B API 及其实现位于 classpath 上时，会自动配置一个 Jsonb bean。
+首选的 JSON-B 实现是 Eclipse Yasson，为其提供了依赖管理。
+
+
+
+== Spring Boot 序列化
+
+为 Spring Boot 序列化提供了自动配置。
+当 spring-boot-starter-json 在 classpath 上时，会自动配置一个 link:https://docs.spring.io/spring-boot/api/java/org/springframework/boot/json/Json.html[Json] bean。
+提供了几个 spring.boot.json.* 配置属性用于自定义配置。

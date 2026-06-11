@@ -1,0 +1,23 @@
+= Liquibase (`liquibase`)
+
+`liquibase` endpoint 提供由 Liquibase 应用的数据库变更集信息。
+
+[[liquibase.retrieving]]
+== 检索变更
+
+要检索变更，向 `/actuator/liquibase` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/liquibase/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/liquibase/http-response.adoc[]
+
+[[liquibase.retrieving.response-structure]]
+=== 响应结构
+
+响应包含应用程序的 Liquibase 变更集的详细信息。
+下表描述了响应的结构：
+
+[cols="2,1,3"]
+include::partial$rest/actuator/liquibase/response-fields.adoc[]

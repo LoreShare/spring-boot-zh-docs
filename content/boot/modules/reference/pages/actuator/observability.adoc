@@ -1,4 +1,3 @@
-[[actuator.observability]]
 = 可观测性
 
 可观测性是指从外部观察运行系统内部状态的能力。
@@ -12,11 +11,11 @@ include-code::MyCustomObservation[]
 注意：低基数标签会被添加到指标和追踪中，而高基数标签只会被添加到追踪中。
 
 类型为 javadoc:io.micrometer.observation.ObservationPredicate[]、javadoc:io.micrometer.observation.GlobalObservationConvention[]、javadoc:io.micrometer.observation.ObservationFilter[] 和 javadoc:io.micrometer.observation.ObservationHandler[] 的 bean 会自动注册到 javadoc:io.micrometer.observation.ObservationRegistry[] 上。
-你还可以注册任意数量的 javadoc:org.springframework.boot.micrometer.observation.autoconfigure.ObservationRegistryCustomizer[] bean 来进一步配置注册表。
+你还可以额外注册任意数量的 javadoc:org.springframework.boot.micrometer.observation.autoconfigure.ObservationRegistryCustomizer[] beans 来进一步配置注册表。
 
-提示：JDBC 的可观测性可以通过一个单独的项目进行配置。
+提示：JDBC 的可观测性可以通过一个独立项目进行配置。
 https://github.com/jdbc-observations/datasource-micrometer[Datasource Micrometer 项目] 提供了一个 Spring Boot starter，当调用 JDBC 操作时会自动创建观测。
-更多信息请阅读 https://jdbc-observations.github.io/datasource-micrometer/docs/current/docs/html/[参考文档]。
+更多信息请参阅 https://jdbc-observations.github.io/datasource-micrometer/docs/current/docs/html/[参考文档]。
 
 提示：R2DBC 的可观测性内置于 Spring Boot 中。
 要启用它，请将 `io.r2dbc:r2dbc-proxy` 依赖添加到你的项目中。
@@ -27,11 +26,11 @@ https://github.com/jdbc-observations/datasource-micrometer[Datasource Micrometer
 
 可观测性支持依赖于 https://github.com/micrometer-metrics/context-propagation[Context Propagation 库] 来在线程和响应式管道之间转发当前观测。
 默认情况下，javadoc:java.lang.ThreadLocal[] 值不会在响应式操作符中自动恢复。
-此行为由 configprop:spring.reactor.context-propagation[] 属性控制，可以设置为 `auto` 以启用自动传播。
+此行为由 configprop:spring.reactor.context-propagation[] 属性控制，可设置为 `auto` 以启用自动传播。
 
-如果你在使用 javadoc:org.springframework.scheduling.annotation.Async[format=annotation] 方法，并且 javadoc:org.springframework.core.task.AsyncTaskExecutor[] 是自动配置的，你需要使用 configprop:spring.task.execution.propagate-context[] 属性选择启用上下文传播。
+如果你在使用 javadoc:org.springframework.scheduling.annotation.Async[format=annotation] 方法并且 javadoc:org.springframework.core.task.AsyncTaskExecutor[] 是自动配置的，你需要通过 configprop:spring.task.execution.propagate-context[] 属性选择启用上下文传播。
 
-如果你自己配置 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，那么你需要注册一个 javadoc:org.springframework.core.task.support.ContextPropagatingTaskDecorator[] bean，如下例所示：
+如果你自己配置 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，则需要注册一个 javadoc:org.springframework.core.task.support.ContextPropagatingTaskDecorator[] bean，如下例所示：
 
 include-code::ContextPropagationConfiguration[]
 
@@ -42,7 +41,7 @@ include-code::ContextPropagationConfiguration[]
 == 通用标签
 
 通用标签通常用于对运行环境进行维度下钻，例如主机、实例、区域、堆栈等。
-通用标签会作为低基数标签应用于所有观测，并且可以配置，如下例所示：
+通用标签作为低基数标签应用于所有观测，并且可以进行配置，如下例所示：
 
 [configprops,yaml]
 ----
@@ -52,10 +51,7 @@ management:
       region: "us-east-1"
       stack: "prod"
 ----
-
-前面的示例为所有观测值分别添加了值为 `us-east-1` 和 `prod` 的 `region` 和 `stack` 标签。
-
-
+前面的示例分别向所有观测值添加了值为 `us-east-1` 和 `prod` 的 `region` 和 `stack` 标签。
 
 [[actuator.observability.preventing-observations]]
 == 阻止观测
@@ -73,65 +69,60 @@ management:
         denied:
           prefix: false
 ----
-
 前面的示例将阻止所有名称以 `denied.prefix` 或 `another.denied.prefix` 开头的观测。
 
 提示：如果你想阻止 Spring Security 报告观测，请将属性 configprop:management.observations.enable.spring.security[] 设置为 `false`。
 
-如果你需要对观测的阻止进行更精细的控制，可以注册类型为 javadoc:io.micrometer.observation.ObservationPredicate[] 的 bean。
-仅当所有 javadoc:io.micrometer.observation.ObservationPredicate[] bean 对该观测返回 `true` 时，才会报告观测。
+如果你需要对观测的阻止进行更精细的控制，可以注册类型为 javadoc:io.micrometer.observation.ObservationPredicate[] 的 beans。
+仅当所有 javadoc:io.micrometer.observation.ObservationPredicate[] beans 对该观测返回 `true` 时，才会报告观测。
 
 include-code::MyObservationPredicate[]
 
 前面的示例将阻止所有名称包含 "denied" 的观测。
 
 
-
 [[actuator.observability.annotations]]
-== Micrometer 观测注解支持
+== Micrometer Observation 注解支持
 
-要启用对可观测性 annotation（如 javadoc:io.micrometer.observation.annotation.Observed[format=annotation]、javadoc:io.micrometer.core.annotation.Timed[format=annotation]、javadoc:io.micrometer.core.annotation.Counted[format=annotation]、javadoc:io.micrometer.core.aop.MeterTag[format=annotation] 和 javadoc:io.micrometer.tracing.annotation.NewSpan[format=annotation]）的扫描，请将属性 configprop:management.observations.annotations.enabled[] 设置为 `true`。
+要启用对诸如 javadoc:io.micrometer.observation.annotation.Observed[format=annotation]、javadoc:io.micrometer.core.annotation.Timed[format=annotation]、javadoc:io.micrometer.core.annotation.Counted[format=annotation]、javadoc:io.micrometer.core.aop.MeterTag[format=annotation] 和 javadoc:io.micrometer.tracing.annotation.NewSpan[format=annotation] 等可观测性 annotations 的扫描，请将 configprop:management.observations.annotations.enabled[] 属性设置为 `true`。
 还需要依赖 `org.aspectj:aspectjweaver`，它是 `spring-boot-starter-aspectj` 的一部分。
 此功能由 Micrometer 直接支持。
 请参考 {url-micrometer-docs-concepts}/timers.html#_the_timed_annotation[Micrometer]、{url-micrometer-docs-observation}/components.html#micrometer-observation-annotations[Micrometer Observation] 和 {url-micrometer-tracing-docs}/api.html#_aspect_oriented_programming[Micrometer Tracing] 参考文档。
 
-注意：当你对已经进行过仪器化的方法或类（例如 xref:reference:actuator/metrics.adoc#actuator.metrics.supported.spring-data-repository[Spring Data repositories] 或 xref:reference:actuator/metrics.adoc#actuator.metrics.supported.spring-mvc[Spring MVC controllers]）添加注解时，你会得到重复的观测。
-在这种情况下，你可以使用 xref:reference:actuator/observability.adoc#actuator.observability.preventing-observations[properties] 或 javadoc:io.micrometer.observation.ObservationPredicate[] 禁用自动仪器化，并依赖你的 annotation，或者移除你的 annotation。
-
+注意：当你对已经进行过仪器化的方法或类（例如 xref:reference:actuator/metrics.adoc#actuator.metrics.supported.spring-data-repository[Spring Data 仓库] 或 xref:reference:actuator/metrics.adoc#actuator.metrics.supported.spring-mvc[Spring MVC 控制器]）添加注解时，将会得到重复的观测。
+在这种情况下，你可以使用 xref:reference:actuator/observability.adoc#actuator.observability.preventing-observations[属性] 或 javadoc:io.micrometer.observation.ObservationPredicate[] 禁用自动仪器化，并依赖你的 annotations，或者你可以移除你的 annotations。
 
 
 [[actuator.observability.opentelemetry]]
 == OpenTelemetry 支持
 
 注意：在你的应用程序中有多种方式支持 https://opentelemetry.io/[OpenTelemetry]。
-你可以使用 https://opentelemetry.io/docs/zero-code/java/agent/[OpenTelemetry Java Agent] 或 https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/[OpenTelemetry Spring Boot Starter]，
-这些由 OTel 社区支持；指标和追踪使用 OTel 库定义的语义约定。
+你可以使用 https://opentelemetry.io/docs/zero-code/java/agent/[OpenTelemetry Java Agent] 或 https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/[OpenTelemetry Spring Boot Starter]，它们由 OTel 社区支持；指标和追踪使用 OTel 库定义的语义约定。
 本文档描述了由 Spring 团队官方支持的 OpenTelemetry，使用 Micrometer 和 OTLP 导出器；
 指标和追踪使用 Spring 项目文档中描述的语义约定，例如 {url-spring-framework-docs}/integration/observability.html[Spring Framework]。
 
 Spring Boot 的 actuator 模块包含对 OpenTelemetry 的基本支持。
 
-它提供了一个类型为 javadoc:io.opentelemetry.api.OpenTelemetry[] 的 bean，并且如果应用程序上下文中存在类型为 javadoc:io.opentelemetry.sdk.trace.SdkTracerProvider[]、javadoc:io.opentelemetry.context.propagation.ContextPropagators[]、javadoc:io.opentelemetry.sdk.logs.SdkLoggerProvider[] 或 javadoc:io.opentelemetry.sdk.metrics.SdkMeterProvider[] 的 bean，它们会自动注册。
+它提供了一个类型为 javadoc:io.opentelemetry.api.OpenTelemetry[] 的 bean，并且如果应用程序上下文中存在类型为 javadoc:io.opentelemetry.sdk.trace.SdkTracerProvider[]、javadoc:io.opentelemetry.context.propagation.ContextPropagators[]、javadoc:io.opentelemetry.sdk.logs.SdkLoggerProvider[] 或 javadoc:io.opentelemetry.sdk.metrics.SdkMeterProvider[] 的 beans，它们会自动注册。
 此外，它还提供了一个 javadoc:io.opentelemetry.sdk.resources.Resource[] bean。
 自动配置的 javadoc:io.opentelemetry.sdk.resources.Resource[] 的属性可以通过 configprop:management.opentelemetry.resource-attributes[] 配置属性进行配置。
-自动配置的属性将与来自 `OTEL_RESOURCE_ATTRIBUTES` 和 `OTEL_SERVICE_NAME` 环境变量的属性合并，其中通过配置属性配置的属性优先于环境变量中的属性。
+自动配置的属性将与来自 `OTEL_RESOURCE_ATTRIBUTES` 和 `OTEL_SERVICE_NAME` 环境变量的属性合并，通过配置属性配置的属性优先于环境变量中的属性。
+
 
 如果你定义了自己的 javadoc:io.opentelemetry.sdk.resources.Resource[] bean，则情况不再如此。
 
 注意：Spring Boot 不提供 OpenTelemetry 指标或日志的自动导出。
-仅当与 xref:actuator/tracing.adoc[Micrometer Tracing] 一起使用时，才会自动配置导出 OpenTelemetry 追踪。
-
+仅当与 xref:actuator/tracing.adoc[Micrometer Tracing] 一起使用时，才会自动配置 OpenTelemetry 追踪的导出。
 
 
 [[actuator.observability.opentelemetry.disabling]]
 === 禁用 OpenTelemetry
 
-可以通过将属性 configprop:management.opentelemetry.enabled[] 设置为 `false` 来禁用 OpenTelemetry 支持。
-这类似于 https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/#general-sdk-configuration[`OTEL_SDK_DISABLED`] 环境变量（但取反）：当 SDK 被禁用时，指标、追踪和日志将使用空操作实现。
-上下文传播器不受影响，继续正常工作。
+可以通过将 configprop:management.opentelemetry.enabled[] 属性设置为 `false` 来禁用 OpenTelemetry 支持。
+其行为类似于 https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/#general-sdk-configuration[`OTEL_SDK_DISABLED`] 环境变量（但取反）：当 SDK 被禁用时，指标、追踪和日志将使用无操作实现。
+上下文传播器不受影响，继续正常运行。
 
 注意：请记住，Spring Boot 不使用 OpenTelemetry 的指标功能，因此即使禁用 OpenTelemetry，指标可能仍然启用。
-
 
 
 [[actuator.observability.opentelemetry.environment-variables]]
@@ -139,8 +130,8 @@ Spring Boot 的 actuator 模块包含对 OpenTelemetry 的基本支持。
 
 Spring Boot 支持 https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/[OpenTelemetry SDK 环境变量] 的一个子集。
 这些环境变量在启动时自动映射到 Spring Boot 配置属性。
-当环境变量具有信号特定变体（例如 `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT`）和通用变体（`OTEL_EXPORTER_OTLP_ENDPOINT`）时，信号特定变体优先并直接使用。
-当使用通用变体作为回退时，信号特定路径（`v1/traces`、`v1/metrics` 或 `v1/logs`）会附加到其后。
+当环境变量具有特定于信号的变体（例如 `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT`）和通用变体（`OTEL_EXPORTER_OTLP_ENDPOINT`）时，特定于信号的变体优先并直接使用。
+当使用通用变体作为回退时，特定于信号的路径（`v1/traces`、`v1/metrics` 或 `v1/logs`）会附加到它后面。
 例如，设置 `OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4318` 会导致追踪的 `http://collector:4318/v1/traces`。
 
 可以通过将 configprop:management.opentelemetry.map-environment-variables[] 设置为 `false` 来禁用此映射。
@@ -197,7 +188,7 @@ Spring Boot 支持 https://opentelemetry.io/docs/specs/otel/configuration/sdk-en
 | configprop:management.otlp.metrics.export.step[]
 
 | `OTEL_METRICS_EXPORTER`
-| configprop:management.otlp.metrics.export.enabled[]（仅 `otlp` 启用 OTLP 导出；其他值禁用但不启用替代导出器）
+| configprop:management.otlp.metrics.export.enabled[]（仅 `otlp` 启用 OTLP 导出；其他值禁用它但不启用替代导出器）
 
 | `OTEL_EXPORTER_OTLP_METRICS_CERTIFICATE` / `OTEL_EXPORTER_OTLP_CERTIFICATE`
 | configprop:management.otlp.metrics.export.ssl.bundle[]（自动配置的 SSL 包）
@@ -244,7 +235,7 @@ Spring Boot 支持 https://opentelemetry.io/docs/specs/otel/configuration/sdk-en
 | configprop:management.opentelemetry.tracing.export.max-batch-size[]
 
 | `OTEL_TRACES_EXPORTER`
-| configprop:management.tracing.export.otlp.enabled[]（仅 `otlp` 启用 OTLP 导出；其他值禁用但不启用替代导出器）
+| configprop:management.tracing.export.otlp.enabled[]（仅 `otlp` 启用 OTLP 导出；其他值禁用它但不启用替代导出器）
 
 | `OTEL_SPAN_ATTRIBUTE_VALUE_LENGTH_LIMIT` / `OTEL_ATTRIBUTE_VALUE_LENGTH_LIMIT`
 | configprop:management.opentelemetry.tracing.limits.max-attribute-value-length[]
@@ -309,7 +300,7 @@ Spring Boot 支持 https://opentelemetry.io/docs/specs/otel/configuration/sdk-en
 | configprop:management.opentelemetry.logging.export.max-batch-size[]
 
 | `OTEL_LOGS_EXPORTER`
-| configprop:management.logging.export.otlp.enabled[] (only `otlp` enables OTLP export; other values disable it but do not enable alternative exporters)
+| configprop:management.logging.export.otlp.enabled[] (仅 `otlp` 启用 OTLP 导出；其他值禁用导出，但不启用替代导出器)
 
 | `OTEL_LOGRECORD_ATTRIBUTE_VALUE_LENGTH_LIMIT` / `OTEL_ATTRIBUTE_VALUE_LENGTH_LIMIT`
 | configprop:management.opentelemetry.logging.limits.max-attribute-value-length[]
@@ -318,86 +309,85 @@ Spring Boot 支持 https://opentelemetry.io/docs/specs/otel/configuration/sdk-en
 | configprop:management.opentelemetry.logging.limits.max-attributes[]
 
 | `OTEL_EXPORTER_OTLP_LOGS_CERTIFICATE` / `OTEL_EXPORTER_OTLP_CERTIFICATE`
-| configprop:management.opentelemetry.logging.export.otlp.ssl.bundle[] (auto-configured SSL bundle)
+| configprop:management.opentelemetry.logging.export.otlp.ssl.bundle[] (自动配置的 SSL 包)
 
 | `OTEL_EXPORTER_OTLP_LOGS_CLIENT_KEY` / `OTEL_EXPORTER_OTLP_CLIENT_KEY`
-| configprop:management.opentelemetry.logging.export.otlp.ssl.bundle[] (auto-configured SSL bundle)
+| configprop:management.opentelemetry.logging.export.otlp.ssl.bundle[] (自动配置的 SSL 包)
 
 | `OTEL_EXPORTER_OTLP_LOGS_CLIENT_CERTIFICATE` / `OTEL_EXPORTER_OTLP_CLIENT_CERTIFICATE`
-| configprop:management.opentelemetry.logging.export.otlp.ssl.bundle[] (auto-configured SSL bundle)
+| configprop:management.opentelemetry.logging.export.otlp.ssl.bundle[] (自动配置的 SSL 包)
 |===
 
 [[actuator.observability.opentelemetry.environment-variables.resource]]
-==== Resource
+==== 资源
 
-The following environment variables configure the OpenTelemetry resource:
+以下环境变量配置 OpenTelemetry 资源：
 
 * https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/#general-sdk-configuration[`OTEL_RESOURCE_ATTRIBUTES`]
 * https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/#general-sdk-configuration[`OTEL_SERVICE_NAME`]
 
-NOTE: The `OTEL_RESOURCE_ATTRIBUTES` environment variable consists of a list of key-value pairs.
-For example: `key1=value1,key2=value2,key3=spring%20boot`.
-All attribute values are treated as strings, and any characters outside the baggage-octet range must be **percent-encoded**.
+注意：`OTEL_RESOURCE_ATTRIBUTES` 环境变量由一系列键值对组成。
+例如：`key1=value1,key2=value2,key3=spring%20boot`。
+所有属性值都被视为字符串，任何超出 baggage-octet 范围的字符必须进行 **百分号编码**。
 
 [[actuator.observability.opentelemetry.environment-variables.unsupported]]
-==== Unsupported Environment Variables
+==== 不支持的环境变量
 
-Other environment variables as described in https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/[the OpenTelemetry documentation] are not supported.
+其他在 https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/[OpenTelemetry 文档] 中描述的环境变量不受支持。
 
-If you want all environment variables specified by OpenTelemetry's SDK to be effective, you have to supply your own `OpenTelemetry` bean.
+如果你希望 OpenTelemetry SDK 指定的所有环境变量都生效，你必须提供自己的 `OpenTelemetry` bean。
 
-WARNING: Doing this will switch off Spring Boot's OpenTelemetry auto-configuration and may break the built-in observability functionality.
+警告：这样做将关闭 Spring Boot 的 OpenTelemetry auto-configuration，并可能破坏内置的可观测性功能。
 
-First, add a dependency to `io.opentelemetry:opentelemetry-sdk-extension-autoconfigure` to get https://opentelemetry.io/docs/languages/java/configuration/#zero-code-sdk-autoconfigure[OpenTelemetry's zero-code SDK autoconfigure module], then add this configuration:
+首先，添加对 `io.opentelemetry:opentelemetry-sdk-extension-autoconfigure` 的依赖以获取 https://opentelemetry.io/docs/languages/java/configuration/#zero-code-sdk-autoconfigure[OpenTelemetry 的零代码 SDK 自动配置模块]，然后添加以下配置：
 
 include-code::AutoConfiguredOpenTelemetrySdkConfiguration[]
 
 
 
 [[actuator.observability.opentelemetry.logging]]
-=== Logging
+=== 日志
 
-The javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingAutoConfiguration[] configures OpenTelemetry's javadoc:io.opentelemetry.sdk.logs.SdkLoggerProvider[].
-Exporting logs via OTLP is supported through the javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingAutoConfiguration[], which enables OTLP log exporting over HTTP or gRPC.
+javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.OpenTelemetryLoggingAutoConfiguration[] 配置 OpenTelemetry 的 javadoc:io.opentelemetry.sdk.logs.SdkLoggerProvider[]。
+通过 OTLP 导出日志由 javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingAutoConfiguration[] 支持，它通过 HTTP 或 gRPC 启用 OTLP 日志导出。
 
-NOTE: If you need to apply advanced customizations to OTLP log record exporters, consider registering javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpHttpLogRecordExporterBuilderCustomizer[] or javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpGrpcLogRecordExporterBuilderCustomizer[] beans.
-These will be invoked before the creation of the javadoc:io.opentelemetry.exporter.otlp.http.logs.OtlpHttpLogRecordExporter[] or javadoc:io.opentelemetry.exporter.otlp.logs.OtlpGrpcLogRecordExporter[].
-The customizers take precedence over anything applied by the auto-configuration.
+注意：如果你需要对 OTLP 日志记录导出器应用高级自定义，请考虑注册 javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpHttpLogRecordExporterBuilderCustomizer[] 或 javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpGrpcLogRecordExporterBuilderCustomizer[] beans。
+这些将在创建 javadoc:io.opentelemetry.exporter.otlp.http.logs.OtlpHttpLogRecordExporter[] 或 javadoc:io.opentelemetry.exporter.otlp.logs.OtlpGrpcLogRecordExporter[] 之前被调用。
+自定义器优先于 auto-configuration 应用的任何内容。
 
-However, while there is a `SdkLoggerProvider` bean, Spring Boot doesn't support bridging logs to this bean out of the box.
-This can be done with 3rd-party log bridges, as described in the xref:reference:actuator/loggers.adoc#actuator.loggers.opentelemetry[Logging with OpenTelemetry] section.
+然而，虽然存在 `SdkLoggerProvider` bean，但 Spring Boot 默认不支持将日志桥接到此 bean。
+这可以通过第三方日志桥接器完成，如 xref:reference:actuator/loggers.adoc#actuator.loggers.opentelemetry[使用 OpenTelemetry 进行日志记录] 部分所述。
 
 
 
 [[actuator.observability.opentelemetry.metrics]]
-=== Metrics
+=== 指标
 
-The choice of metrics in the Spring portfolio is Micrometer, which means that metrics are not collected and exported through the OpenTelemetry's javadoc:io.opentelemetry.sdk.metrics.SdkMeterProvider[].
-Spring Boot doesn't provide a `SdkMeterProvider` bean.
+Spring 产品组合中的指标选择是 Micrometer，这意味着指标不是通过 OpenTelemetry 的 javadoc:io.opentelemetry.sdk.metrics.SdkMeterProvider[] 收集和导出的。
+Spring Boot 不提供 `SdkMeterProvider` bean。
 
+然而，Micrometer 指标可以通过 OTLP 导出到任何支持 OpenTelemetry 的后端，使用 javadoc:io.micrometer.registry.otlp.OtlpMeterRegistry[]，如 xref:reference:actuator/metrics.adoc#actuator.metrics.export.otlp[使用 OTLP 的指标] 部分所述。
 
-However, Micrometer metrics can be exported via OTLP to any OpenTelemetry capable backend using the javadoc:io.micrometer.registry.otlp.OtlpMeterRegistry[], as described in the xref:reference:actuator/metrics.adoc#actuator.metrics.export.otlp[Metrics with OTLP] section.
-
-NOTE: Micrometer's OTLP registry doesn't use the `Resource` bean, but setting `OTEL_RESOURCE_ATTRIBUTES`, `OTEL_SERVICE_NAME` or configprop:management.opentelemetry.resource-attributes[] works.
+注意：Micrometer 的 OTLP 注册表不使用 `Resource` bean，但设置 `OTEL_RESOURCE_ATTRIBUTES`、`OTEL_SERVICE_NAME` 或 configprop:management.opentelemetry.resource-attributes[] 是有效的。
 
 [[actuator.observability.opentelemetry.metrics.api-and-sdk]]
-==== Metrics via the OpenTelemetry API and SDK
+==== 通过 OpenTelemetry API 和 SDK 的指标
 
-If you or a dependency you include make use of OpenTelemetry's javadoc:io.opentelemetry.api.metrics.MeterProvider[], those metrics are not exported.
+如果你或你包含的依赖使用了 OpenTelemetry 的 javadoc:io.opentelemetry.api.metrics.MeterProvider[]，这些指标不会被导出。
 
-We strongly recommend that you report your metrics with Micrometer.
-If a dependency you include uses OpenTelemetry's `MeterProvider`, you can include this configuration in your application to configure a `MeterProvider` bean, which you then have to wire into your dependency:
+我们强烈建议你使用 Micrometer 报告指标。
+如果你包含的依赖使用了 OpenTelemetry 的 `MeterProvider`，你可以在应用程序中包含以下配置来配置一个 `MeterProvider` bean，然后你需要将其连接到你的依赖中：
 
 include-code::OpenTelemetryMetricsConfiguration[]
 
-This configuration also enables metrics export via OTLP over HTTP.
+此配置还通过 HTTP 启用 OTLP 指标导出。
 
 
 
 [[actuator.observability.opentelemetry.tracing]]
-=== Tracing
+=== 链路追踪
 
-If Micrometer tracing is used, the javadoc:org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingAutoConfiguration[] configures OpenTelemetry's javadoc:io.opentelemetry.sdk.trace.SdkTracerProvider[].
-Exporting traces through OTLP is enabled by the javadoc:org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingAutoConfiguration[], which supports exporting traces with OTLP over HTTP or gRPC.
+如果使用了 Micrometer 链路追踪，javadoc:org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.OpenTelemetryTracingAutoConfiguration[] 配置 OpenTelemetry 的 javadoc:io.opentelemetry.sdk.trace.SdkTracerProvider[]。
+通过 OTLP 导出链路追踪由 javadoc:org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingAutoConfiguration[] 启用，它支持通过 HTTP 或 gRPC 使用 OTLP 导出链路追踪。
 
-We strongly recommend using the Micrometer Observation or Tracing API instead of using the OpenTelemetry API directly.
+我们强烈建议使用 Micrometer Observation 或 Tracing API，而不是直接使用 OpenTelemetry API。

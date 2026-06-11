@@ -5,11 +5,11 @@
 例如，`health` 被暴露为 `/actuator/health`。
 
 提示：Actuator 原生支持 Spring MVC、Spring WebFlux 和 Jersey。
-如果 Jersey 和 Spring MVC 都可用，则使用 Spring MVC。
+如果同时存在 Jersey 和 Spring MVC，则使用 Spring MVC。
 
-注意：Jackson 是必需的依赖项，以便获得 xref:api:rest/actuator/index.adoc[API documentation] 中记录的正确的 JSON 响应。
+注意：Jackson 是必需的依赖项，以便获得 xref:api:rest/actuator/index.adoc[API 文档] 中所述的正确 JSON 响应。
 对于 Spring MVC 和 Spring WebFlux，应使用 Jackson 3。
-Jersey 还没有 Jackson 3 模块，因此你需要使用 Jackson 2。
+Jersey 尚未提供 Jackson 3 模块，因此你需要使用 Jackson 2。
 
 
 [[actuator.monitoring.customizing-management-server-context-path]]
@@ -26,10 +26,10 @@ management:
     web:
       base-path: "/manage"
 ----
-前面的 `application.properties` 示例将 endpoint 从 `/actuator/\{id}` 改为 `/manage/\{id}`（例如，`/manage/info`）。
+前面的 `application.properties` 示例将 endpoint 从 `/actuator/\{id}` 更改为 `/manage/\{id}`（例如，`/manage/info`）。
 
-注意：除非管理端口已配置为 xref:actuator/monitoring.adoc#actuator.monitoring.customizing-management-server-port[expose endpoints by using a different HTTP port]，否则 `management.endpoints.web.base-path` 是相对于 `server.servlet.context-path`（对于 Servlet Web 应用程序）或 `spring.webflux.base-path`（对于响应式 Web 应用程序）的。
-如果配置了 `management.server.port`，则 `management.endpoints.web.base-path` 是相对于 `management.server.base-path` 的。
+注意：除非管理端口已配置为 xref:actuator/monitoring.adoc#actuator.monitoring.customizing-management-server-port[通过不同的 HTTP 端口暴露 endpoints]，否则 `management.endpoints.web.base-path` 相对于 `server.servlet.context-path`（对于 Servlet Web 应用程序）或 `spring.webflux.base-path`（对于响应式 Web 应用程序）。
+如果配置了 `management.server.port`，则 `management.endpoints.web.base-path` 相对于 `management.server.base-path`。
 
 如果要将 endpoints 映射到不同的路径，可以使用 configprop:management.endpoints.web.path-mapping[] 属性。
 
@@ -47,9 +47,9 @@ management:
 == 自定义管理服务器端口
 
 对于基于云的部署，使用默认 HTTP 端口暴露管理 endpoints 是一个明智的选择。
-但是，如果你的应用程序运行在自己的数据中心内，你可能更倾向于使用不同的 HTTP 端口来暴露 endpoints。
+但是，如果您的应用程序在您自己的数据中心内运行，您可能更倾向于使用不同的 HTTP 端口暴露 endpoints。
 
-你可以设置 configprop:management.server.port[] 属性来更改 HTTP 端口，如下例所示：
+您可以设置 configprop:management.server.port[] 属性来更改 HTTP 端口，如下例所示：
 
 [configprops,yaml]
 ----
@@ -101,10 +101,10 @@ management:
 [[actuator.monitoring.customizing-management-server-address]]
 == 自定义管理服务器地址
 
-你可以通过设置 configprop:management.server.address[] 属性来自定义管理 endpoints 可用的地址。
-如果你只想监听内部或面向运维的网络，或者只监听来自 `localhost` 的连接，这样做会很有用。
+您可以通过设置 configprop:management.server.address[] 属性来自定义管理 endpoints 可用的地址。
+如果您只想在内部或面向运维的网络中监听，或者只监听来自 `localhost` 的连接，这样做会很有用。
 
-注意：仅当端口与主服务器端口不同时，你才能监听不同的地址。
+注意：仅当端口与主服务器端口不同时，您才能在不同的地址上监听。
 
 以下 `application.properties` 示例不允许远程管理连接：
 
@@ -115,10 +115,9 @@ management:
     port: 8081
     address: "127.0.0.1"
 ----
-[[actuator.monitoring.disabling-http-endpoints]]
 == 禁用 HTTP 端点
 
-如果你不想通过 HTTP 暴露 endpoints，可以将管理端口设置为 `-1`，如下例所示：
+如果您不想通过 HTTP 暴露 endpoints，可以将管理端口设置为 `-1`，如下例所示：
 
 [configprops,yaml]
 ----

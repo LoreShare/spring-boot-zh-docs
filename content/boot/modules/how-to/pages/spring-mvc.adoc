@@ -7,7 +7,7 @@ Spring Boot 有许多包含 Spring MVC 的 starter。
 
 == 编写 JSON REST 服务
 
-只要 Jackson 3 在 classpath 上，Spring Boot 应用程序中的任何 javadoc:org.springframework.web.bind.annotation.RestController[format=annotation] 默认都应渲染 JSON 响应，如下例所示：
+只要 Jackson 3 在 classpath 上，任何 Spring Boot 应用程序中的 javadoc:org.springframework.web.bind.annotation.RestController[format=annotation] 默认都应渲染 JSON 响应，如下例所示：
 
 include-code::MyController[]
 
@@ -28,7 +28,7 @@ include-code::MyController[]
 	<artifactId>jackson-dataformat-xml</artifactId>
 </dependency>
 ----
-如果 Jackson 的 XML 扩展不可用而 JAXB 可用，则可以通过额外要求将 `MyThing` 注解为 javadoc:jakarta.xml.bind.annotation.XmlRootElement[format=annotation] 来渲染 XML，如下例所示：
+如果 Jackson 的 XML 扩展不可用且 JAXB 可用，则可以在额外要求将 `MyThing` 注解为 javadoc:jakarta.xml.bind.annotation.XmlRootElement[format=annotation] 的情况下渲染 XML，如下例所示：
 
 include-code::MyThing[]
 
@@ -43,12 +43,13 @@ include-code::MyThing[]
 ----
 NOTE: 要让服务器返回 XML 而非 JSON，你可能需要发送一个 `Accept: text/xml` 头（或使用浏览器）。
 
+
 [[howto.spring-mvc.customize-jackson-jsonmapper]]
 == 自定义 Jackson JsonMapper
 
 你可以通过环境变量配置 javadoc:tools.jackson.databind.json.JsonMapper[]。
-Jackson 提供了一套丰富的开/关特性，可用于配置其处理的各个方面。
-这些特性在几个枚举（Jackson 中）中描述，这些枚举映射到环境中的属性：
+Jackson 提供了一系列开/关特性，可用于配置其处理的各个方面。
+这些特性在几个枚举（Jackson 中）中描述，并映射到环境中的属性：
 
 |===
 | 枚举 | 属性 | 值
@@ -91,37 +92,38 @@ Jackson 提供了一套丰富的开/关特性，可用于配置其处理的各�
 |===
 
 例如，要启用漂亮打印，设置 `spring.jackson.serialization.indent_output=true`。
-注意，由于使用了 xref:reference:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding[relaxed binding]，`indent_output` 的大小写不必与对应的枚举常量匹配，后者是 `INDENT_OUTPUT`。
+注意，由于使用了 xref:reference:features/external-config.adoc#features.external-config.typesafe-configuration-properties.relaxed-binding[宽松绑定]，`indent_output` 的大小写不必与对应的枚举常量（即 `INDENT_OUTPUT`）的大小写匹配。
 
 这种基于环境的配置应用于自动配置的 javadoc:tools.jackson.databind.json.JsonMapper$Builder[] bean，并适用于使用构建器创建的任何映射器，包括自动配置的 javadoc:tools.jackson.databind.json.JsonMapper[] bean。
 
-为了简化在以前使用 Jackson 2 的应用程序中的迁移，自动配置的 `JsonMapper` 可以配置为使用尽可能接近 Spring Boot 用于 Jackson 2 的默认值。要启用这些默认值，设置 configprop:spring.jackson.use-jackson2-defaults[] 为 `true`。
+为了简化在以前使用 Jackson 2 的应用程序中的迁移，自动配置的 `JsonMapper` 可以配置为使用尽可能接近 Spring Boot 用于 Jackson 2 的默认值。要启用这些默认值，请将 configprop:spring.jackson.use-jackson2-defaults[] 设置为 `true`。
 
 上下文的 javadoc:tools.jackson.databind.json.JsonMapper$Builder[] 可以通过一个或多个 javadoc:org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer[] beans 进行自定义。
-这样的自定义器 beans 可以排序（Boot 自己的自定义器顺序为 0），允许在 Boot 的自定义之前和之后应用额外的自定义。
-此外，构建器使用的 `JsonFactory` 及其创建的映射器可以通过一个或多个 javadoc:org.springframework.boot.jackson.autoconfigure.JsonFactoryBuilderCustomizer[] beans 进行自定义。
+这样的自定义器 beans 可以排序（Boot 自己的自定义器顺序为 0），从而允许在 Boot 的自定义之前和之后应用额外的自定义。
+此外，构建器及其创建的映射器所使用的 `JsonFactory` 可以通过一个或多个 javadoc:org.springframework.boot.jackson.autoconfigure.JsonFactoryBuilderCustomizer[] beans 进行自定义。
 各种 `spring.jackson.factory` 属性也可用于配置工厂。
 
 任何类型为 javadoc:tools.jackson.databind.JacksonModule[] 的 beans 都会自动注册到自动配置的 javadoc:tools.jackson.databind.json.JsonMapper$Builder[]，并应用于它创建的任何 javadoc:tools.jackson.databind.json.JsonMapper[] 实例。
 这为在应用程序中添加新功能时贡献自定义模块提供了一种应用程序范围的机制。
 
-任何参与 Java `ServiceLoader` 机制的模块默认会被发现并添加到自动配置的 javadoc:tools.jackson.databind.json.JsonMapper$Builder[]。要禁用此行为，设置 configprop:spring.jackson.find-and-add-modules[] 为 `false`。
+任何参与 Java `ServiceLoader` 机制的模块默认都会被找到并添加到自动配置的 javadoc:tools.jackson.databind.json.JsonMapper$Builder[]。要禁用此行为，请将 configprop:spring.jackson.find-and-add-modules[] 设置为 `false`。
 
 如果你想完全替换默认的 javadoc:tools.jackson.databind.json.JsonMapper[]，要么定义一个该类型的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，要么如果你更喜欢基于构建器的方法，定义一个 javadoc:tools.jackson.databind.json.JsonMapper$Builder[] javadoc:org.springframework.context.annotation.Bean[format=annotation]。
-当定义一个 javadoc:tools.jackson.databind.json.JsonMapper[] bean 时，建议将其标记为 javadoc:org.springframework.context.annotation.Primary[format=annotation]，因为它将替换的 auto-configuration 的 javadoc:tools.jackson.databind.json.JsonMapper[] 是 javadoc:org.springframework.context.annotation.Primary[format=annotation]。
+在定义 javadoc:tools.jackson.databind.json.JsonMapper[] bean 时，建议将其标记为 javadoc:org.springframework.context.annotation.Primary[format=annotation]，因为它将替换的 auto-configuration 的 javadoc:tools.jackson.databind.json.JsonMapper[] 是 javadoc:org.springframework.context.annotation.Primary[format=annotation]。
 注意，无论哪种情况，这样做都会禁用 javadoc:tools.jackson.databind.json.JsonMapper[] 的所有 auto-configuration。
 
-如果你提供任何类型为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]s，它们会替换 MVC 配置中的默认值。
+如果你提供任何类型为 javadoc:org.springframework.http.converter.json.JacksonJsonHttpMessageConverter[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，它们会替换 MVC 配置中的默认值。
 此外，还提供了一个类型为 javadoc:org.springframework.boot.http.converter.autoconfigure.HttpMessageConverters[] 的便利 bean（如果你使用默认的 MVC 配置，它始终可用）。
 它有一些有用的方法来访问默认和用户增强的消息转换器。
 
-更多详情请参见 xref:spring-mvc.adoc#howto.spring-mvc.customize-responsebody-rendering[] 部分和 {code-spring-boot-webmvc-src}/autoconfigure/WebMvcAutoConfiguration.java[`WebMvcAutoConfiguration`] 源代码。
+有关更多详细信息，请参阅 xref:spring-mvc.adoc#howto.spring-mvc.customize-responsebody-rendering[] 部分和 {code-spring-boot-webmvc-src}/autoconfigure/WebMvcAutoConfiguration.java[`WebMvcAutoConfiguration`] 源代码。
+
 
 [[howto.spring-mvc.customize-responsebody-rendering]]
 == 自定义 @ResponseBody 渲染
 
 Spring 使用 javadoc:org.springframework.boot.http.converter.autoconfigure.HttpMessageConverters[] 来渲染 javadoc:org.springframework.web.bind.annotation.ResponseBody[format=annotation]（或来自 javadoc:org.springframework.web.bind.annotation.RestController[format=annotation] 的响应）。
-你可以通过添加 beans 在 Spring Boot 上下文中添加适当类型的转换器。
+你可以通过在 Spring Boot 上下文中添加适当类型的 beans 来贡献额外的转换器。
 如果你添加的 bean 是默认情况下也会包含的类型（例如用于 JSON 转换的 javadoc:org.springframework.http.converter.json.JacksonJsonHttpMessageConverter[]），它会替换默认值。
 提供了一个类型为 javadoc:org.springframework.boot.http.converter.autoconfigure.HttpMessageConverters[] 的便利 bean，如果你使用默认的 MVC 配置，它始终可用。
 它有一些有用的方法来访问默认和用户增强的消息转换器（例如，如果你想手动将它们注入到自定义的 javadoc:org.springframework.web.client.RestTemplate[] 中，这会很有用）。
@@ -130,21 +132,23 @@ Spring 使用 javadoc:org.springframework.boot.http.converter.autoconfigure.Http
 然而，与正常的 MVC 不同，你只能提供你需要的额外转换器（因为 Spring Boot 使用相同的机制来贡献其默认值）。
 最后，如果你通过提供自己的 javadoc:org.springframework.web.servlet.config.annotation.EnableWebMvc[format=annotation] 配置来选择退出默认的 Spring Boot MVC 配置，你可以完全控制并使用 `getMessageConverters` 从 javadoc:org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport[] 手动完成所有操作。
 
-更多详情请参见 {code-spring-boot-webmvc-src}/autoconfigure/WebMvcAutoConfiguration.java[`WebMvcAutoConfiguration`] 源代码。
+有关更多详细信息，请参阅 {code-spring-boot-webmvc-src}/autoconfigure/WebMvcAutoConfiguration.java[`WebMvcAutoConfiguration`] 源代码。
+
 
 [[howto.spring-mvc.multipart-file-uploads]]
 == 处理多部分文件上传
 
 Spring Boot 采用 servlet 5 javadoc:jakarta.servlet.http.Part[] API 来支持文件上传。
 默认情况下，Spring Boot 配置 Spring MVC，每个文件最大 1MB，单个请求中文件数据最大 10MB。
-你可以通过 javadoc:org.springframework.boot.servlet.autoconfigure.MultipartProperties[] 类中暴露的属性覆盖这些值、中间数据存储的位置（例如，到 `/tmp` 目录）以及数据刷新到磁盘的阈值。
-例如，如果你想指定文件无限制，将 configprop:spring.servlet.multipart.max-file-size[] 属性设置为 `-1`。
+你可以通过使用 javadoc:org.springframework.boot.servlet.autoconfigure.MultipartProperties[] 类中暴露的属性来覆盖这些值、中间数据存储的位置（例如，到 `/tmp` 目录）以及数据刷新到磁盘的阈值。
+例如，如果你想指定文件无限制，请将 configprop:spring.servlet.multipart.max-file-size[] 属性设置为 `-1`。
 
-当你希望在 Spring MVC 控制器处理方法中将多部分编码的文件数据作为 javadoc:org.springframework.web.bind.annotation.RequestParam[format=annotation] 注解的参数（类型为 javadoc:org.springframework.web.multipart.MultipartFile[]）接收时，多部分支持非常有用。
+当你希望在 Spring MVC 控制器处理方法中将多部分编码的文件数据作为类型为 javadoc:org.springframework.web.multipart.MultipartFile[] 的 javadoc:org.springframework.web.bind.annotation.RequestParam[format=annotation] 注解参数接收时，多部分支持非常有用。
 
-更多详情请参见 {code-spring-boot-servlet-src}/autoconfigure/MultipartAutoConfiguration.java[`MultipartAutoConfiguration`] 源代码。
+有关更多详细信息，请参阅 {code-spring-boot-servlet-src}/autoconfigure/MultipartAutoConfiguration.java[`MultipartAutoConfiguration`] 源代码。
 
 NOTE: 建议使用容器内置的多部分上传支持，而不是引入额外的依赖，如 Apache Commons File Upload。
+
 
 [[howto.spring-mvc.switch-off-dispatcherservlet]]
 == 关闭 Spring MVC DispatcherServlet
@@ -161,63 +165,65 @@ spring:
 ----
 如果你有额外的 servlet，可以为每个 servlet 声明一个类型为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 或 javadoc:jakarta.servlet.Servlet[] 的 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[]，Spring Boot 会透明地将它们注册到容器中。
 也可以使用 javadoc:org.springframework.boot.web.servlet.ServletRegistration[format=annotation] 作为基于 annotation 的替代方案来替代 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[]。
-因为 servlet 是以这种方式注册的，它们可以映射到 javadoc:org.springframework.web.servlet.DispatcherServlet[] 的子上下文而不调用它。
+由于 servlet 以这种方式注册，它们可以被映射到 javadoc:org.springframework.web.servlet.DispatcherServlet[] 的子上下文中，而无需调用它。
 
-自己配置 javadoc:org.springframework.boot.webmvc.autoconfigure.DispatcherServletPath[] 并不常见，但如果确实需要这样做，还必须提供一个类型为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 的 javadoc:org.springframework.boot.webmvc.autoconfigure.DispatcherServletPath[] 来提供自定义 javadoc:org.springframework.web.servlet.DispatcherServlet[] 的路径。
+自己配置 javadoc:org.springframework.boot.webmvc.autoconfigure.DispatcherServletPath[] 并不常见，但如果确实需要这样做，还必须提供一个类型为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 的 javadoc:org.springframework.boot.webmvc.autoconfigure.DispatcherServletPath[]，以提供自定义 javadoc:org.springframework.web.servlet.DispatcherServlet[] 的路径。
+
 
 
 [[howto.spring-mvc.switch-off-default-configuration]]
-== 关闭默认的 MVC 配置
+== 关闭默认 MVC 配置
 
-完全控制 MVC 配置的最简单方法是提供你自己的带有 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 注解的 javadoc:org.springframework.web.servlet.config.annotation.EnableWebMvc[format=annotation] annotation。
+完全控制 MVC 配置的最简单方法是提供你自己的 javadoc:org.springframework.context.annotation.Configuration[format=annotation]，并带有 javadoc:org.springframework.web.servlet.config.annotation.EnableWebMvc[format=annotation] annotation。
 这样做会将所有 MVC 配置交到你手中。
 
 
-[[howto.spring-mvc.customize-view-resolvers]]
-== 自定义 ViewResolver
 
-javadoc:org.springframework.web.servlet.ViewResolver[] 是 Spring MVC 的核心组件，将 javadoc:org.springframework.stereotype.Controller[format=annotation] 中的视图名称转换为实际的 javadoc:org.springframework.web.servlet.View[] 实现。
+[[howto.spring-mvc.customize-view-resolvers]]
+== 自定义 ViewResolvers
+
+javadoc:org.springframework.web.servlet.ViewResolver[] 是 Spring MVC 的核心组件，它将 javadoc:org.springframework.stereotype.Controller[format=annotation] 中的视图名称转换为实际的 javadoc:org.springframework.web.servlet.View[] 实现。
 请注意，视图解析器主要用于 UI 应用程序，而不是 REST 风格的服务（javadoc:org.springframework.web.servlet.View[] 不用于渲染 javadoc:org.springframework.web.bind.annotation.ResponseBody[format=annotation]）。
-有许多 javadoc:org.springframework.web.servlet.ViewResolver[] 的实现可供选择，Spring 本身对于应该使用哪一种没有意见。
+有许多 javadoc:org.springframework.web.servlet.ViewResolver[] 的实现可供选择，Spring 本身对于应该使用哪个没有意见。
 另一方面，Spring Boot 会根据它在 classpath 和应用程序上下文中找到的内容，为你安装一个或两个。
-javadoc:org.springframework.web.servlet.DispatcherServlet[] 使用它在应用程序上下文中找到的所有解析器，依次尝试每个解析器直到获得结果。
-如果你添加自己的解析器，必须注意顺序以及你的解析器添加的位置。
+javadoc:org.springframework.web.servlet.DispatcherServlet[] 使用它在应用程序上下文中找到的所有解析器，依次尝试每个解析器，直到获得结果。
+如果你添加自己的解析器，则必须注意顺序以及你的解析器添加的位置。
 
 javadoc:org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration[] 将以下 javadoc:org.springframework.web.servlet.ViewResolver[] beans 添加到你的上下文中：
 
-* 一个名为 '`defaultViewResolver`' 的 javadoc:org.springframework.web.servlet.view.InternalResourceViewResolver[]。
-  它通过使用 `DefaultServlet`（包括静态资源和 JSP 页面，如果你使用的话）来定位可以渲染的物理资源。
-  它对视图名称应用前缀和后缀，然后在 servlet 上下文中查找具有该路径的物理资源（默认值均为空，但可以通过 `spring.mvc.view.prefix` 和 `spring.mvc.view.suffix` 进行外部配置）。
+* 一个名为 'javadoc:org.springframework.web.servlet.view.InternalResourceViewResolver[]' 的 `defaultViewResolver`。
+  它通过使用 `DefaultServlet`（包括静态资源和 JSP 页面，如果你使用的话）来定位可渲染的物理资源。
+  它会对视图名称应用前缀和后缀，然后在 servlet 上下文中查找具有该路径的物理资源（默认值均为空，但可通过 `spring.mvc.view.prefix` 和 `spring.mvc.view.suffix` 进行外部配置）。
   你可以通过提供相同类型的 bean 来覆盖它。
-* 一个名为 '`beanNameViewResolver`' 的 javadoc:org.springframework.web.servlet.view.BeanNameViewResolver[]。
+* 一个名为 'javadoc:org.springframework.web.servlet.view.BeanNameViewResolver[]' 的 `beanNameViewResolver`。
   这是视图解析器链中的一个有用成员，它会拾取任何与正在解析的 javadoc:org.springframework.web.servlet.View[] 同名的 beans。
   通常不需要覆盖或替换它。
-* 仅当实际存在类型为 javadoc:org.springframework.web.servlet.View[] 的 beans 时，才会添加一个名为 '`viewResolver`' 的 javadoc:org.springframework.web.servlet.view.ContentNegotiatingViewResolver[]。
+* 仅当实际存在类型为 javadoc:org.springframework.web.servlet.view.ContentNegotiatingViewResolver[] 的 beans 时，才会添加一个名为 '`viewResolver`' 的 javadoc:org.springframework.web.servlet.View[]。
   这是一个复合解析器，委托给所有其他解析器，并尝试匹配客户端发送的 '`Accept`' HTTP 头。
-  有一个有用的 https://spring.io/blog/2013/06/03/content-negotiation-using-views[blog about javadoc:org.springframework.web.servlet.view.ContentNegotiatingViewResolver[]] 你可能想学习更多，你也可以查看源代码了解细节。
-  你可以通过定义一个名为 '`viewResolver`' 的 bean 来关闭自动配置的 javadoc:org.springframework.web.servlet.view.ContentNegotiatingViewResolver[]。
-* 如果你使用 Thymeleaf，你还会有一个名为 '`thymeleafViewResolver`' 的 javadoc:org.thymeleaf.spring6.view.ThymeleafViewResolver[]。
-  它通过用前缀和后缀包围视图名称来查找资源。
+  有一篇有用的 https://spring.io/blog/2013/06/03/content-negotiation-using-views[关于 javadoc:org.springframework.web.servlet.view.ContentNegotiatingViewResolver[] 的博客] 你可能想学习一下，你也可以查看源代码了解详情。
+  你可以通过定义一个名为 'javadoc:org.springframework.web.servlet.view.ContentNegotiatingViewResolver[]' 的 bean 来关闭自动配置的 `viewResolver`。
+* 如果你使用 Thymeleaf，你还会有一个名为 'javadoc:org.thymeleaf.spring6.view.ThymeleafViewResolver[]' 的 `thymeleafViewResolver`。
+  它通过使用前缀和后缀包围视图名称来查找资源。
   前缀是 `spring.thymeleaf.prefix`，后缀是 `spring.thymeleaf.suffix`。
   前缀和后缀的默认值分别为 '`classpath:/templates/`' 和 '`.html`'。
   你可以通过提供相同名称的 bean 来覆盖 javadoc:org.thymeleaf.spring6.view.ThymeleafViewResolver[]。
-* 如果你使用 FreeMarker，你还会有一个名为 '`freeMarkerViewResolver`' 的 javadoc:org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver[]。
-  它通过用前缀和后缀包围视图名称，在加载路径（外部化为 `spring.freemarker.templateLoaderPath`，默认值为 '`classpath:/templates/`'）中查找资源。
+* 如果你使用 FreeMarker，你还会有一个名为 'javadoc:org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver[]' 的 `freeMarkerViewResolver`。
+  它通过使用前缀和后缀包围视图名称，在加载器路径（外部化为 `spring.freemarker.templateLoaderPath`，默认值为 '`classpath:/templates/`'）中查找资源。
   前缀外部化为 `spring.freemarker.prefix`，后缀外部化为 `spring.freemarker.suffix`。
   前缀和后缀的默认值分别为空和 '`.ftlh`'。
   你可以通过提供相同名称的 bean 来覆盖 javadoc:org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver[]。
   可以通过定义一个类型为 javadoc:org.springframework.boot.freemarker.autoconfigure.FreeMarkerVariablesCustomizer[] 的 bean 来自定义 FreeMarker 变量。
-* 如果你使用 Groovy 模板（实际上，如果 `groovy-templates` 在你的 classpath 上），你还会有一个名为 '`groovyMarkupViewResolver`' 的 javadoc:org.springframework.web.servlet.view.groovy.GroovyMarkupViewResolver[]。
-  它通过用前缀和后缀（外部化为 `spring.groovy.template.prefix` 和 `spring.groovy.template.suffix`）包围视图名称，在加载路径中查找资源。
+* 如果你使用 Groovy 模板（实际上，如果 `groovy-templates` 在你的 classpath 上），你还会有一个名为 'javadoc:org.springframework.web.servlet.view.groovy.GroovyMarkupViewResolver[]' 的 `groovyMarkupViewResolver`。
+  它通过使用前缀和后缀（外部化为 `spring.groovy.template.prefix` 和 `spring.groovy.template.suffix`）包围视图名称，在加载器路径中查找资源。
   前缀和后缀的默认值分别为 '`classpath:/templates/`' 和 '`.tpl`'。
   你可以通过提供相同名称的 bean 来覆盖 javadoc:org.springframework.web.servlet.view.groovy.GroovyMarkupViewResolver[]。
-* 如果你使用 Mustache，你还会有一个名为 '`mustacheViewResolver`' 的 javadoc:org.springframework.boot.mustache.servlet.view.MustacheViewResolver[]。
-  它通过用前缀和后缀包围视图名称来查找资源。
+* 如果你使用 Mustache，你还会有一个名为 'javadoc:org.springframework.boot.mustache.servlet.view.MustacheViewResolver[]' 的 `mustacheViewResolver`。
+  它通过使用前缀和后缀包围视图名称来查找资源。
   前缀是 `spring.mustache.prefix`，后缀是 `spring.mustache.suffix`。
   前缀和后缀的默认值分别为 '`classpath:/templates/`' 和 '`.mustache`'。
   你可以通过提供相同名称的 bean 来覆盖 javadoc:org.springframework.boot.mustache.servlet.view.MustacheViewResolver[]。
 
-更多细节，请参见以下章节：
+更多详情，请参见以下章节：
 
 * {code-spring-boot-webmvc-src}/autoconfigure/WebMvcAutoConfiguration.java[`WebMvcAutoConfiguration`]
 * {code-spring-boot-thymeleaf-src}/autoconfigure/ThymeleafAutoConfiguration.java[`ThymeleafAutoConfiguration`]
@@ -225,10 +231,11 @@ javadoc:org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration[] 
 * {code-spring-boot-groovy-templates-src}/autoconfigure/GroovyTemplateAutoConfiguration.java[`GroovyTemplateAutoConfiguration`]
 
 
+
 [[howto.spring-mvc.customize-whitelabel-error-page]]
 == 自定义 '`whitelabel`' 错误页面
 
-Spring Boot 安装了一个 '`whitelabel`' 错误页面，如果你遇到服务器错误，在浏览器客户端中会看到该页面（使用 JSON 和其他媒体类型的机器客户端应该会看到带有正确错误代码的合理响应）。
+Spring Boot 安装了一个 '`whitelabel`' 错误页面，当遇到服务器错误时，浏览器客户端会看到该页面（机器客户端消费 JSON 和其他媒体类型时，应看到带有正确错误代码的合理响应）。
 
 注意：将 configprop:spring.web.error.whitelabel.enabled[] 设置为 `false` 可以关闭默认错误页面。
 这样做会恢复你正在使用的 servlet 容器的默认设置。
@@ -237,8 +244,8 @@ Spring Boot 安装了一个 '`whitelabel`' 错误页面，如果你遇到服务�
 用自己的错误页面覆盖默认错误页面取决于你使用的模板技术。
 例如，如果你使用 Thymeleaf，可以添加一个 `error.html` 模板。
 如果你使用 FreeMarker，可以添加一个 `error.ftlh` 模板。
-通常，你需要一个解析名称为 `error` 的 javadoc:org.springframework.web.servlet.View[]，或者一个处理 `/error` 路径的 javadoc:org.springframework.stereotype.Controller[format=annotation]。
-除非你替换了一些默认配置，否则你应该在你的 javadoc:org.springframework.context.ApplicationContext[] 中找到一个 javadoc:org.springframework.web.servlet.view.BeanNameViewResolver[]，因此一个名为 `error` 的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 是实现这一点的一种方式。
+通常，你需要一个解析名称为 javadoc:org.springframework.web.servlet.View[] 的 `error`，或者一个处理 javadoc:org.springframework.stereotype.Controller[format=annotation] 路径的 `/error`。
+除非你替换了一些默认配置，否则你应该在你的 javadoc:org.springframework.web.servlet.view.BeanNameViewResolver[] 中找到一个 javadoc:org.springframework.context.ApplicationContext[]，因此一个名为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 的 `error` 是实现这一点的一种方式。
 更多选项请参见 {code-spring-boot-webmvc-src}/autoconfigure/error/ErrorMvcAutoConfiguration.java[`ErrorMvcAutoConfiguration`]。
 
-另请参阅关于 xref:reference:web/servlet.adoc#web.servlet.spring-mvc.error-handling[] 的章节，了解如何在 servlet 容器中注册处理程序的详细信息。
+有关如何在 servlet 容器中注册处理程序的详细信息，另请参见 xref:reference:web/servlet.adoc#web.servlet.spring-mvc.error-handling[] 部分。

@@ -1,6 +1,6 @@
 = Spring Batch
 
-Spring Boot 提供了若干便利来使用 {url-spring-batch-site}[Spring Batch]，包括在启动时运行 Job。
+Spring Boot 为使用 Spring Batch 提供了若干便利，包括在启动时运行 Job。
 
 构建批处理应用时，可以自动配置以下存储：
 
@@ -8,7 +8,7 @@ Spring Boot 提供了若干便利来使用 {url-spring-batch-site}[Spring Batch]
 * JDBC
 * MongoDB
 
-每种存储都有特定的额外设置。
+每种存储都有特定的附加设置。
 例如，可以自定义 JDBC 存储的表前缀，如下例所示：
 
 [configprops,yaml]
@@ -18,7 +18,6 @@ spring:
     jdbc:
       table-prefix: "CUSTOM_"
 ----
-
 当使用 MongoDB 存储时，你可以启用 Spring Batch 作业仓库模式（集合和索引）的初始化：
 
 [configprops,yaml]
@@ -30,10 +29,9 @@ spring:
         schema:
           initialize: true
 ----
-
-要禁用 Spring Boot 的 auto-configuration 并完全控制 Spring Batch 的配置，请将 javadoc:org.springframework.batch.core.configuration.annotation.EnableBatchProcessing[format=annotation] 添加到你的一个 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类中，或者继承 javadoc:org.springframework.batch.core.configuration.support.DefaultBatchConfiguration[]。
+要禁用 Spring Boot 的 auto-configuration 并完全控制 Spring Batch 的配置，请将 javadoc:org.springframework.batch.core.configuration.annotation.EnableBatchProcessing[format=annotation] 添加到你的一个 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类中，或扩展 javadoc:org.springframework.batch.core.configuration.support.DefaultBatchConfiguration[]。
 这将导致 auto-configuration 退出，包括初始化 Spring Batch 的数据库模式（JDBC 或 MongoDB）。
-然后可以使用 `@Enable*JobRepository` annotation 的属性（而不是之前描述的配置属性）来配置 Spring Batch。
+然后可以使用 `@Enable*JobRepository` annotation 的属性（而不是先前描述的配置属性）来配置 Spring Batch。
 
 要了解有关手动配置 Spring Batch 的更多信息，请参阅以下 API 文档：
 
@@ -48,10 +46,9 @@ spring:
 [[io.spring-batch.running-jobs-on-startup]]
 == 启动时运行 Spring Batch 作业
 
-当 Spring Boot 自动配置 Spring Batch 时，如果在应用程序上下文中找到单个 javadoc:org.springframework.batch.core.job.Job[] bean，它将在启动时执行（有关详细信息，请参阅 javadoc:org.springframework.boot.batch.autoconfigure.JobLauncherApplicationRunner[]）。
-如果找到多个 javadoc:org.springframework.batch.core.job.Job[] bean，则必须使用 configprop:spring.batch.job.name[] 指定要执行的作业。
+当 Spring Boot 自动配置 Spring Batch 时，如果在应用程序上下文中找到单个 javadoc:org.springframework.batch.core.job.Job[] bean，它将在启动时执行（有关详细信息，请参阅 javadoc:org.springframework.boot.batch.autoconfigure.JobLauncherApplicationRunner[]）。\n如果找到多个 javadoc:org.springframework.batch.core.job.Job[] beans，则必须使用 configprop:spring.batch.job.name[] 指定要执行的作业。
 
-你可以禁用运行在应用程序上下文中找到的 javadoc:org.springframework.batch.core.job.Job[]，如下例所示：
+你可以禁用在应用程序上下文中找到的 javadoc:org.springframework.batch.core.job.Job[] 的运行，如下例所示：
 
 [configprops,yaml]
 ----
@@ -60,5 +57,4 @@ spring:
     job:
       enabled: false
 ----
-
-有关更多详细信息，请参阅 {code-spring-boot-batch-src}/autoconfigure/BatchAutoConfiguration.java[`BatchAutoConfiguration`]、{code-spring-boot-batch-jdbc-src}/autoconfigure/BatchJdbcAutoConfiguration.java[`BatchJdbcAutoConfiguration`] 和 {code-spring-boot-batch-data-mongodb-src}/autoconfigure/BatchDataMongoAutoConfiguration.java[`BatchDataMongoAutoConfiguration`]。
+有关更多详细信息，请参见 {code-spring-boot-batch-src}/autoconfigure/BatchAutoConfiguration.java[`BatchAutoConfiguration`]、{code-spring-boot-batch-jdbc-src}/autoconfigure/BatchJdbcAutoConfiguration.java[`BatchJdbcAutoConfiguration`] 和 {code-spring-boot-batch-data-mongodb-src}/autoconfigure/BatchDataMongoAutoConfiguration.java[`BatchDataMongoAutoConfiguration`]。

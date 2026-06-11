@@ -1,4 +1,4 @@
-= Metrics
+= 指标
 
 Spring Boot Actuator 为 {url-micrometer-site}[Micrometer] 提供依赖管理和 auto-configuration，Micrometer 是一个应用指标门面，支持 {url-micrometer-docs}[众多监控系统]，包括：
 
@@ -20,18 +20,15 @@ Spring Boot Actuator 为 {url-micrometer-site}[Micrometer] 提供依赖管理和
 - xref:actuator/metrics.adoc#actuator.metrics.export.stackdriver[]
 - xref:actuator/metrics.adoc#actuator.metrics.export.statsd[]
 
-TIP: 要了解更多关于 Micrometer 的功能，请参阅其 {url-micrometer-docs}[参考文档]，特别是 {url-micrometer-docs-concepts}[概念部分]。
+提示：要了解 Micrometer 的更多功能，请参阅其 {url-micrometer-docs}[参考文档]，特别是 {url-micrometer-docs-concepts}[概念部分]。
 
 
 [[actuator.metrics.getting-started]]
 == 入门
 
-Spring Boot 自动配置一个复合的 javadoc:io.micrometer.core.instrument.MeterRegistry[]，并为在 classpath 上找到的每个受支持实现向复合体添加一个注册表。
-在运行时 classpath 中依赖 `micrometer-registry-\{system}` 就足以让 Spring Boot 配置注册表。
+Spring Boot 自动配置一个复合的 javadoc:io.micrometer.core.instrument.MeterRegistry[]，并为在 classpath 上找到的每个受支持实现向该复合体添加一个注册表。在运行时 classpath 中依赖 `micrometer-registry-\{system}` 就足以让 Spring Boot 配置注册表。
 
-大多数注册表共享共同特性。
-例如，即使 Micrometer 注册表实现在 classpath 上，你也可以禁用特定注册表。
-以下示例禁用了 Datadog：
+大多数注册表共享通用功能。例如，即使 Micrometer 注册表实现在 classpath 上，你也可以禁用某个特定的注册表。以下示例禁用了 Datadog：
 
 [configprops,yaml]
 ----
@@ -41,7 +38,7 @@ management:
       export:
         enabled: false
 ----
-您也可以禁用所有注册表，除非注册表特定的属性另有说明，如下例所示：
+您还可以禁用所有注册表，除非注册表特定属性另有说明，如下例所示：
 
 [configprops,yaml]
 ----
@@ -51,7 +48,7 @@ management:
       export:
         enabled: false
 ----
-Spring Boot 还会将所有自动配置的注册表添加到 javadoc:io.micrometer.core.instrument.Metrics[] 类上的全局静态复合注册表中，除非你明确告知它不要这样做：
+Spring Boot 还会将所有自动配置的注册表添加到 javadoc:io.micrometer.core.instrument.Metrics[] 类上的全局静态复合注册表中，除非你明确告诉它不要这样做：
 
 [configprops,yaml]
 ----
@@ -59,7 +56,7 @@ management:
   metrics:
     use-global-registry: false
 ----
-您可以在注册表中注册任何数量的 javadoc:org.springframework.boot.micrometer.metrics.autoconfigure.MeterRegistryCustomizer[] beans 来进一步配置注册表，例如在向注册表注册任何仪表之前应用公共标签：
+您可以注册任意数量的 javadoc:org.springframework.boot.micrometer.metrics.autoconfigure.MeterRegistryCustomizer[] beans 来进一步配置注册表，例如在向注册表注册任何仪表之前应用公共标签：
 
 include-code::commontags/MyMeterRegistryConfiguration[]
 
@@ -67,7 +64,7 @@ include-code::commontags/MyMeterRegistryConfiguration[]
 
 include-code::specifictype/MyMeterRegistryConfiguration[]
 
-Spring Boot 还 xref:actuator/metrics.adoc#actuator.metrics.supported[configures built-in instrumentation] 您可以通过配置或专用的 annotation 标记来控制。
+Spring Boot 还 xref:actuator/metrics.adoc#actuator.metrics.supported[配置内置的仪表化]，您可以通过配置或专用的 annotation 标记来控制这些仪表化。
 
 
 [[actuator.metrics.export]]
@@ -90,11 +87,10 @@ management:
       export:
         api-token: "YOUR_TOKEN"
 ----
-
 === Atlas
 
 默认情况下，指标会导出到本地机器上运行的 {url-micrometer-docs-implementations}/atlas[Atlas]。
-你可以提供 https://github.com/Netflix/atlas[Atlas server] 的位置：
+你可以提供 https://github.com/Netflix/atlas[Atlas 服务器]的位置：
 
 [configprops,yaml]
 ----
@@ -106,7 +102,7 @@ management:
 ----
 === Datadog
 
-Datadog 注册表定期将指标推送到 https://www.datadoghq.com[datadoghq]。
+Datadog 注册表会定期将指标推送到 https://www.datadoghq.com[datadoghq]。
 要将指标导出到 {url-micrometer-docs-implementations}/datadog[Datadog]，您必须提供 API 密钥：
 
 [configprops,yaml]
@@ -117,7 +113,7 @@ management:
       export:
         api-key: "YOUR_KEY"
 ----
-如果你额外提供了一个应用键（可选），那么计量器描述、类型和基本单位等元数据也会被导出：
+如果您还提供了应用程序密钥（可选），那么计量器描述、类型和基本单位等元数据也将被导出：
 
 [configprops,yaml]
 ----
@@ -129,7 +125,7 @@ management:
         application-key: "YOUR_APPLICATION_KEY"
 ----
 默认情况下，指标会发送到 Datadog US https://docs.datadoghq.com/getting_started/site[site] (`https://api.datadoghq.com`)。
-如果你的 Datadog 项目托管在其他站点上，或者你需要通过代理发送指标，请相应地配置 URI：
+如果你的 Datadog 项目托管在其他站点之一，或者你需要通过代理发送指标，请相应地配置 URI：
 
 [configprops,yaml]
 ----
@@ -139,7 +135,7 @@ management:
       export:
         uri: "https://api.datadoghq.eu"
 ----
-您也可以更改向 Datadog 发送指标的间隔：
+您还可以更改向 Datadog 发送指标的间隔：
 
 [configprops,yaml]
 ----
@@ -152,16 +148,16 @@ management:
 [[actuator.metrics.export.dynatrace]]
 === Dynatrace
 
-Dynatrace 提供了两个指标摄取 API，两者都已为 {url-micrometer-docs-implementations}/dynatrace[Micrometer] 实现。
+Dynatrace 提供了两个指标摄取 API，两者均已为 {url-micrometer-docs-implementations}/dynatrace[Micrometer] 实现。
 你可以在 {url-dynatrace-docs-shortlink}/micrometer-metrics-ingest[此处] 找到关于 Micrometer 指标摄取的 Dynatrace 文档。
 
-`v1` 命名空间中的配置属性仅在导出到 {url-dynatrace-docs-shortlink}/api-metrics[Timeseries v1 API] 时适用。
+`v1` 命名空间中的配置属性仅适用于导出到 {url-dynatrace-docs-shortlink}/api-metrics[Timeseries v1 API] 时。
 对 V1 API 的支持已弃用。
 
-`v2` 命名空间中的配置属性仅在导出到 {url-dynatrace-docs-shortlink}/api-metrics-v2-post-datapoints[Metrics v2 API] 时适用。
+`v2` 命名空间中的配置属性仅适用于导出到 {url-dynatrace-docs-shortlink}/api-metrics-v2-post-datapoints[Metrics v2 API] 时。
 
 请注意，此集成一次只能导出到 `v1` 或 `v2` 版本的 API，强烈建议使用 `v2`，因为 v1 API 已弃用。
-如果在 `device-id`（v1 必需但 v2 不使用）在 `v1` 命名空间中设置，则指标将导出到 `v1` endpoint。
+如果在 `device-id`（v1 必需但 v2 不使用）命名空间中设置了 `v1`，则指标将导出到 `v1` endpoint。
 否则，假定为 `v2`。
 
 [[actuator.metrics.export.dynatrace.v2-api]]
@@ -177,24 +173,24 @@ Dynatrace auto-configuration 适用于由 OneAgent 或 Dynatrace Operator for Ku
 **本地 OneAgent：** 如果主机上运行了 OneAgent，则指标会自动导出到 {url-dynatrace-docs-shortlink}/local-api[本地 OneAgent 摄取 endpoint]。
 摄取 endpoint 将指标转发到 Dynatrace 后端。
 
-**Dynatrace Kubernetes Operator：** 在安装了 Dynatrace Operator 的 Kubernetes 中运行时，注册表会自动从 operator 中获取你的 endpoint URI 和 API 令牌。
+**Dynatrace Kubernetes Operator：** 在 Kubernetes 中运行并安装了 Dynatrace Operator 时，注册表会自动从 operator 中获取你的 endpoint URI 和 API 令牌。
 
 这是默认行为，除了依赖 `io.micrometer:micrometer-registry-dynatrace` 之外，无需特殊设置。
 
 [[actuator.metrics.export.dynatrace.v2-api.manual-config]]
 ===== 手动配置
 
-如果没有可用的 auto-configuration，则需要 {url-dynatrace-docs-shortlink}/api-metrics-v2-post-datapoints[Metrics v2 API] 的 endpoint 和 API 令牌。
+如果没有 auto-configuration，则需要 {url-dynatrace-docs-shortlink}/api-metrics-v2-post-datapoints[Metrics v2 API] 的 endpoint 和一个 API 令牌。
 {url-dynatrace-docs-shortlink}/api-authentication[API 令牌] 必须具有 "`Ingest metrics`"（`metrics.ingest`）权限。
-我们建议将令牌的范围限制为此一个权限。
-你必须确保 endpoint URI 包含路径（例如，`/api/v2/metrics/ingest`）：
+我们建议将令牌的作用域限制为此权限。
+你必须确保 endpoint URI 包含路径（例如 `/api/v2/metrics/ingest`）：
 
 Metrics API v2 摄取 endpoint 的 URL 根据你的部署选项而不同：
 
 * SaaS：`+https://{your-environment-id}.live.dynatrace.com/api/v2/metrics/ingest+`
 * 托管部署：`+https://{your-domain}/e/{your-environment-id}/api/v2/metrics/ingest+`
 
-下面的示例使用 `example` 环境 ID 配置指标导出：
+以下示例使用 `example` 环境 ID 配置指标导出：
 
 [configprops,yaml]
 ----
@@ -205,10 +201,10 @@ management:
         uri: "https://example.live.dynatrace.com/api/v2/metrics/ingest"
         api-token: "YOUR_TOKEN"
 ----
-使用 Dynatrace v2 API 时，以下可选功能可用（更多详情请参见 {url-dynatrace-docs-shortlink}/micrometer-metrics-ingest#dt-configuration-properties[Dynatrace 文档]）：
+使用 Dynatrace v2 API 时，可以使用以下可选功能（更多详情请参阅 {url-dynatrace-docs-shortlink}/micrometer-metrics-ingest#dt-configuration-properties[Dynatrace 文档]）：
 
 * 指标键前缀：设置一个前缀，该前缀会添加到所有导出的指标键之前。
-* 使用 Dynatrace 元数据丰富：如果运行了 OneAgent 或 Dynatrace 操作器，则使用额外的元数据（例如，关于主机、进程或 Pod）丰富指标。
+* 使用 Dynatrace 元数据丰富：如果运行了 OneAgent 或 Dynatrace 操作器，则使用额外的元数据（例如关于主机、进程或 Pod 的元数据）丰富指标。
 * 默认维度：指定键值对，这些键值对会添加到所有导出的指标中。
 如果使用 Micrometer 指定了相同键的标签，它们会覆盖默认维度。
 * 使用 Dynatrace Summary 仪器：在某些情况下，Micrometer Dynatrace 注册表创建的指标会被拒绝。
@@ -219,7 +215,7 @@ management:
 使用 `export-meter-metadata` 开关关闭此功能。
 
 可以不指定 URI 和 API 令牌，如下例所示。
-在此场景中，使用自动配置的 endpoint：
+在这种情况下，使用自动配置的 endpoint：
 
 [configprops,yaml]
 ----
@@ -237,12 +233,12 @@ management:
           use-dynatrace-summary-instruments: true # (default: true)
           export-meter-metadata: true             # (default: true)
 ----
-[[actuator.metrics.export.dynatrace.v1-api]]
+
 ==== v1 API（已弃用）
 
-Dynatrace v1 API 指标注册表通过 {url-dynatrace-docs-shortlink}/api-metrics[Timeseries v1 API] 定期将指标推送到配置的 URI。
+Dynatrace v1 API 指标注册表通过使用 {url-dynatrace-docs-shortlink}/api-metrics[Timeseries v1 API] 定期将指标推送到配置的 URI。
 为了向后兼容现有设置，当设置了 `device-id`（v1 必需，但 v2 中不使用）时，指标将导出到 Timeseries v1 endpoint。
-要将指标导出到 {url-micrometer-docs-implementations}/dynatrace[Dynatrace]，必须提供 API 令牌、设备 ID 和 URI：
+要将指标导出到 {url-micrometer-docs-implementations}/dynatrace[Dynatrace]，必须提供您的 API 令牌、设备 ID 和 URI：
 
 [configprops%novalidate,yaml]
 ----
@@ -258,7 +254,7 @@ management:
 对于 v1 API，您必须指定不带路径的基础环境 URI，因为 v1 endpoint 路径会自动添加。
 
 [[actuator.metrics.export.dynatrace.version-independent-settings]]
-==== 版本无关设置
+==== 版本无关的设置
 
 除了 API endpoint 和令牌之外，您还可以更改向 Dynatrace 发送指标的间隔。
 默认导出间隔为 `60s`。
@@ -272,7 +268,7 @@ management:
       export:
         step: "30s"
 ----
-您可以在 {url-micrometer-docs-implementations}/dynatrace[Micrometer 文档] 和 {url-dynatrace-docs-shortlink}/micrometer-metrics-ingest[Dynatrace 文档] 中找到有关如何为 Micrometer 设置 Dynatrace 导出器的更多信息。
+您可以在 {url-micrometer-docs-implementations}/dynatrace[Micrometer 文档]和 {url-dynatrace-docs-shortlink}/micrometer-metrics-ingest[Dynatrace 文档]中找到有关为 Micrometer 设置 Dynatrace 导出器的更多信息。
 
 [[actuator.metrics.export.elastic]]
 === Elastic
@@ -291,7 +287,7 @@ management:
 === Ganglia
 
 默认情况下，指标会导出到本地机器上运行的 {url-micrometer-docs-implementations}/ganglia[Ganglia]。
-你可以提供 http://ganglia.sourceforge.net[Ganglia server] 主机和端口，如下例所示：
+你可以提供 http://ganglia.sourceforge.net[Ganglia 服务器] 的主机和端口，如下例所示：
 
 [configprops,yaml]
 ----
@@ -302,11 +298,10 @@ management:
         host: "ganglia.example.com"
         port: 9649
 ----
-[[actuator.metrics.export.graphite]]
 === Graphite
 
-默认情况下，指标会导出到本地机器上运行的 {url-micrometer-docs-implementations}/graphite[Graphite]。
-你可以提供 https://graphiteapp.org[Graphite server] 主机和端口，如下例所示：
+默认情况下，指标会导出到运行在本地机器上的 {url-micrometer-docs-implementations}/graphite[Graphite]。
+你可以提供 https://graphiteapp.org[Graphite 服务器] 的主机和端口，如下例所示：
 
 [configprops,yaml]
 ----
@@ -321,8 +316,8 @@ Micrometer 提供了一个默认的 javadoc:io.micrometer.core.instrument.util.H
 
 [TIP]
 ====
-要控制此行为，请定义你自己的 javadoc:io.micrometer.graphite.GraphiteMeterRegistry[] 并提供你自己的 javadoc:io.micrometer.core.instrument.util.HierarchicalNameMapper[]。
-除非你定义了自己的 javadoc:io.micrometer.graphite.GraphiteConfig[] 和 javadoc:io.micrometer.core.instrument.Clock[] beans，否则会提供自动配置的版本：
+要控制此行为，请定义自己的 javadoc:io.micrometer.graphite.GraphiteMeterRegistry[] 并提供自己的 javadoc:io.micrometer.core.instrument.util.HierarchicalNameMapper[]。
+除非您定义自己的 javadoc:io.micrometer.graphite.GraphiteConfig[] 和 javadoc:io.micrometer.core.instrument.Clock[] beans，否则会自动配置它们：
 
 include-code::MyGraphiteConfiguration[]
 ====
@@ -332,7 +327,7 @@ include-code::MyGraphiteConfiguration[]
 === Humio
 
 默认情况下，Humio 注册表会定期将指标推送到 https://cloud.humio.com。
-要将指标导出到 SaaS {url-micrometer-docs-implementations}/humio[Humio]，你必须提供你的 API 令牌：
+要将指标导出到 SaaS {url-micrometer-docs-implementations}/humio[Humio]，您必须提供您的 API 令牌：
 
 [configprops,yaml]
 ----
@@ -342,7 +337,7 @@ management:
       export:
         api-token: "YOUR_TOKEN"
 ----
-您还应该配置一个或多个标签来标识指标推送到的数据源：
+您还应该配置一个或多个标签，以标识指标推送到的数据源：
 
 [configprops,yaml]
 ----
@@ -354,12 +349,11 @@ management:
           alpha: "a"
           bravo: "b"
 ----
-[[actuator.metrics.export.influx]]
 === Influx
 
-默认情况下，指标会导出到本地机器上运行且使用默认配置的 {url-micrometer-docs-implementations}/influx[Influx] v1 实例。
-要导出指标到 InfluxDB v2，请配置用于写入指标的 `org`、`bucket` 和认证 `token`。
-您可以通过以下方式提供要使用的 https://www.influxdata.com[Influx server] 的位置：
+默认情况下，指标会导出到本地机器上使用默认配置运行的 {url-micrometer-docs-implementations}/influx[Influx] v1 实例。
+要导出指标到 InfluxDB v2，请配置用于写入指标的 `org`、`bucket` 和身份验证 `token`。
+您可以通过以下方式提供要使用的 https://www.influxdata.com[Influx 服务器] 的位置：
 
 [configprops,yaml]
 ----
@@ -369,10 +363,9 @@ management:
       export:
         uri: "https://influx.example.com:8086"
 ----
-[[actuator.metrics.export.jmx]]
 === JMX
 
-Micrometer 提供了到 {url-micrometer-docs-implementations}/jmx[JMX] 的分层映射，主要作为一种廉价且可移植的方式来本地查看指标。
+Micrometer 提供了到 {url-micrometer-docs-implementations}/jmx[JMX] 的分层映射，主要作为一种廉价且可移植的方式在本地查看指标。
 默认情况下，指标会导出到 `metrics` JMX 域。
 你可以通过以下方式指定要使用的域：
 
@@ -384,12 +377,12 @@ management:
       export:
         domain: "com.example.app.metrics"
 ----
-Micrometer 提供了一个默认的 javadoc:io.micrometer.core.instrument.util.HierarchicalNameMapper[]，用于控制维度化的仪表 ID 如何 {url-micrometer-docs-implementations}/jmx#_hierarchical_name_mapping[映射为扁平层次名称]。
+Micrometer 提供了一个默认的 javadoc:io.micrometer.core.instrument.util.HierarchicalNameMapper[]，用于控制维度化的仪表 ID 如何 {url-micrometer-docs-implementations}/jmx#_hierarchical_name_mapping[映射为扁平的分层名称]。
 
 [TIP]
 ====
 要控制此行为，请定义自己的 javadoc:io.micrometer.jmx.JmxMeterRegistry[] 并提供自己的 javadoc:io.micrometer.core.instrument.util.HierarchicalNameMapper[]。
-除非您定义自己的 beans，否则会自动配置 javadoc:io.micrometer.jmx.JmxConfig[] 和 javadoc:io.micrometer.core.instrument.Clock[]：
+除非您定义自己的，否则会自动配置 javadoc:io.micrometer.jmx.JmxConfig[] 和 javadoc:io.micrometer.core.instrument.Clock[] beans：
 
 include-code::MyJmxConfiguration[]
 ====
@@ -399,7 +392,7 @@ include-code::MyJmxConfiguration[]
 === KairosDB
 
 默认情况下，指标会导出到本地机器上运行的 {url-micrometer-docs-implementations}/kairos[KairosDB]。
-您可以通过以下方式指定要使用的 https://kairosdb.github.io/[KairosDB server] 的位置：
+您可以通过以下方式提供要使用的 https://kairosdb.github.io/[KairosDB 服务器] 的位置：
 
 [configprops,yaml]
 ----
@@ -409,7 +402,6 @@ management:
       export:
         uri: "https://kairosdb.example.com:8080/api/v1/datapoints"
 ----
-[[actuator.metrics.export.newrelic]]
 === New Relic
 
 New Relic 注册表会定期将指标推送到 {url-micrometer-docs-implementations}/new-relic[New Relic]。
@@ -424,7 +416,7 @@ management:
         api-key: "YOUR_KEY"
         account-id: "YOUR_ACCOUNT_ID"
 ----
-您也可以更改向 New Relic 发送指标的间隔：
+您还可以更改向 New Relic 发送指标的间隔：
 
 [configprops,yaml]
 ----
@@ -434,7 +426,7 @@ management:
       export:
         step: "30s"
 ----
-By default, metrics are published through REST calls, but you can also use the Java Agent API if you have it on the classpath:
+默认情况下，指标通过 REST 调用发布，但如果你在 classpath 上拥有 Java Agent API，也可以使用它：
 
 [configprops,yaml]
 ----
@@ -444,13 +436,13 @@ management:
       export:
         client-provider-type: "insights-agent"
 ----
-最后，您可以通过定义自己的 javadoc:io.micrometer.newrelic.NewRelicClientProvider[] bean 来完全控制。
+最后，你可以通过定义自己的 javadoc:io.micrometer.newrelic.NewRelicClientProvider[] bean 来完全控制。
 
 [[actuator.metrics.export.otlp]]
 === OTLP
 
 默认情况下，指标通过 {url-micrometer-docs-implementations}/otlp[OpenTelemetry 协议 (OTLP)] 导出到本地机器上运行的消费者。
-要导出到其他位置，请使用 configprop:management.otlp.metrics.export.url[] 提供 https://opentelemetry.io/[OTLP metrics endpoint] 的位置：
+要导出到其他位置，请使用 configprop:management.otlp.metrics.export.url[] 提供 https://opentelemetry.io/[OTLP 指标 endpoint] 的位置：
 
 [configprops,yaml]
 ----
@@ -462,22 +454,21 @@ management:
 ----
 自定义头信息（例如用于认证）也可以使用 configprop:management.otlp.metrics.export.headers.*[] 属性提供。
 
-如果存在 `OtlpMetricsSender` bean，它将被配置在 `OtlpMeterRegistry` 上，该 Spring Boot 由自动配置提供。
+如果存在 `OtlpMetricsSender` bean，它将被配置在 Spring Boot 自动配置的 `OtlpMeterRegistry` 上。
 
-https://opentelemetry.io/docs/specs/otel/metrics/data-model/#exemplars[OTLP Exemplars] 也受支持。
-要启用此功能，应存在一个 javadoc:io.micrometer.registry.otlp.ExemplarContextProvider[] bean。
+https://opentelemetry.io/docs/specs/otel/metrics/data-model/#exemplars[OTLP 示例] 也受支持。
+要启用此功能，需要存在一个 javadoc:io.micrometer.registry.otlp.ExemplarContextProvider[] bean。
 如果你使用 xref:actuator/tracing.adoc[Micrometer Tracing]，这将为你自动配置。
-默认情况下，只有采样的跟踪被包含为示例。
+默认情况下，只有采样的追踪会被包含为示例。
 你可以使用 configprop:management.tracing.exemplars.include[] 属性控制此行为。
-
 
 [[actuator.metrics.export.prometheus]]
 === Prometheus
 
-{url-micrometer-docs-implementations}/prometheus[Prometheus] 期望抓取或轮询单个应用实例以获取指标。
-Spring Boot 在 `/actuator/prometheus` 处提供了一个 actuator endpoint，以呈现具有适当格式的 https://prometheus.io[Prometheus scrape]。
+{url-micrometer-docs-implementations}/prometheus[Prometheus] 期望轮询或抓取单个应用实例以获取指标。
+Spring Boot 在 `/actuator/prometheus` 处提供了一个 actuator endpoint，以向 https://prometheus.io[Prometheus 抓取] 提供适当格式的数据。
 
-提示：默认情况下，endpoint 不可用，必须暴露。有关更多详细信息，请参见 xref:actuator/endpoints.adoc#actuator.endpoints.exposing[exposing endpoints]。
+提示：默认情况下，endpoint 不可用，必须暴露。有关更多详细信息，请参阅 xref:actuator/endpoints.adoc#actuator.endpoints.exposing[暴露 endpoints]。
 
 以下示例 `scrape_config` 添加到 `prometheus.yml`：
 
@@ -489,18 +480,18 @@ scrape_configs:
   static_configs:
   - targets: ["HOST:PORT"]
 ----
-也支持。
+也支持 https://prometheus.io/docs/prometheus/latest/feature_flags/#exemplars-storage[Prometheus Exemplars]。
 要启用此功能，需要存在一个 javadoc:io.prometheus.metrics.tracer.common.SpanContext[] bean。
-如果您正在使用已弃用的 Prometheus simpleclient 支持并希望启用该功能，则需要存在一个 javadoc:io.prometheus.client.exemplars.tracer.common.SpanContextSupplier[] bean。
-如果您使用 {url-micrometer-tracing-docs}[Micrometer Tracing]，则会为您自动配置，但如果您愿意，也可以随时创建自己的。
-默认情况下，只有采样的跟踪作为示例包含在内。
-您可以使用 configprop:management.tracing.exemplars.include[] 属性控制此行为。
-值 `all` 不受 Prometheus 支持。
-请检查 https://prometheus.io/docs/prometheus/latest/feature_flags/#exemplars-storage[Prometheus Docs]，因为此功能需要在 Prometheus 端显式启用，并且仅支持使用 https://github.com/OpenObservability/OpenMetrics/blob/v1.0.0/specification/OpenMetrics.md#exemplars[OpenMetrics] 格式。
+如果你使用的是已弃用的 Prometheus simpleclient 支持并希望启用该功能，则需要存在一个 javadoc:io.prometheus.client.exemplars.tracer.common.SpanContextSupplier[] bean。
+如果你使用 {url-micrometer-tracing-docs}[Micrometer Tracing]，这将自动为你配置，但你也可以随时创建自己的。
+默认情况下，仅包含采样跟踪作为示例。
+你可以使用 configprop:management.tracing.exemplars.include[] 属性控制此行为。
+Prometheus 不支持值 `all`。
+请查看 https://prometheus.io/docs/prometheus/latest/feature_flags/#exemplars-storage[Prometheus 文档]，因为此功能需要在 Prometheus 端显式启用，并且仅支持使用 https://github.com/OpenObservability/OpenMetrics/blob/v1.0.0/specification/OpenMetrics.md#exemplars[OpenMetrics] 格式。
 
-对于可能存活时间不足以被抓取的临时或批处理作业，您可以使用 https://github.com/prometheus/pushgateway[Prometheus Pushgateway] 支持将指标暴露给 Prometheus。
+对于可能存活时间不足以被抓取的临时或批处理作业，你可以使用 https://github.com/prometheus/pushgateway[Prometheus Pushgateway] 支持将指标暴露给 Prometheus。
 
-要启用 Prometheus Pushgateway 支持，请将以下依赖项添加到您的项目中：
+要启用 Prometheus Pushgateway 支持，请将以下依赖添加到你的项目中：
 
 [source,xml]
 ----
@@ -509,21 +500,21 @@ scrape_configs:
 	<artifactId>prometheus-metrics-exporter-pushgateway</artifactId>
 </dependency>
 ----
-当 classpath 上存在 Prometheus Pushgateway 依赖，并且 configprop:management.prometheus.metrics.export.pushgateway.enabled[] 属性设置为 `true` 时，会自动配置一个 javadoc:org.springframework.boot.micrometer.metrics.export.prometheus.PrometheusPushGatewayManager[] bean。
-它负责将指标推送到 Prometheus Pushgateway。
+当 Prometheus Pushgateway 依赖存在于 classpath 上且 configprop:management.prometheus.metrics.export.pushgateway.enabled[] 属性设置为 `true` 时，会自动配置一个 javadoc:org.springframework.boot.micrometer.metrics.export.prometheus.PrometheusPushGatewayManager[] bean。
+这负责管理向 Prometheus Pushgateway 推送指标。
 
-你可以通过 `management.prometheus.metrics.export.pushgateway` 下的属性来调整 javadoc:org.springframework.boot.micrometer.metrics.export.prometheus.PrometheusPushGatewayManager[]。
-对于高级配置，你还可以提供自己的 javadoc:org.springframework.boot.micrometer.metrics.export.prometheus.PrometheusPushGatewayManager[] bean。
+您可以通过 `management.prometheus.metrics.export.pushgateway` 下的属性来调整 javadoc:org.springframework.boot.micrometer.metrics.export.prometheus.PrometheusPushGatewayManager[]。
+对于高级配置，您还可以提供自己的 javadoc:org.springframework.boot.micrometer.metrics.export.prometheus.PrometheusPushGatewayManager[] bean。
 
 
 [[actuator.metrics.export.simple]]
-=== Simple
+=== 简单
 
-Micrometer 附带一个简单的内存后端，当没有配置其他注册表时，它会自动作为后备使用。
-这让你可以在 xref:actuator/metrics.adoc#actuator.metrics.endpoint[metrics endpoint] 中查看收集到的指标。
+Micrometer 自带一个简单的内存后端，如果没有配置其他注册表，它会自动作为后备使用。
+这使您可以在 xref:actuator/metrics.adoc#actuator.metrics.endpoint[指标 endpoint] 中查看收集的指标。
 
-一旦你使用任何其他可用的后端，内存后端就会自动禁用。
-你也可以显式禁用它：
+一旦您使用任何其他可用的后端，内存后端就会自行禁用。
+您也可以显式禁用它：
 
 [configprops,yaml]
 ----
@@ -536,7 +527,7 @@ management:
 === Stackdriver
 
 Stackdriver 注册表会定期将指标推送到 https://cloud.google.com/stackdriver/[Stackdriver]。
-要将指标导出到 SaaS {url-micrometer-docs-implementations}/stackdriver[Stackdriver]，您必须提供您的 Google Cloud 项目 ID：
+要将指标导出到 SaaS {url-micrometer-docs-implementations}/stackdriver[Stackdriver]，你必须提供你的 Google Cloud 项目 ID：
 
 [configprops,yaml]
 ----
@@ -546,7 +537,7 @@ management:
       export:
         project-id: "my-project"
 ----
-You can also change the interval at which metrics are sent to Stackdriver:
+您还可以更改向 Stackdriver 发送指标的间隔：
 
 [configprops,yaml]
 ----
@@ -556,7 +547,7 @@ management:
       export:
         step: "30s"
 ----
-[[actuator.metrics.export.statsd]]
+
 === StatsD
 
 StatsD 注册表会主动通过 UDP 将指标推送到 StatsD 代理。
@@ -573,7 +564,7 @@ management:
         port: 9125
         protocol: "udp"
 ----
-You can also change the StatsD line protocol to use (it defaults to Datadog):
+您也可以更改 StatsD 行协议（默认为 Datadog）：
 
 [configprops,yaml]
 ----
@@ -585,7 +576,7 @@ management:
 ----
 == 支持的指标和计量器
 
-Spring Boot 为多种技术提供自动计量器注册。在大多数情况下，默认配置会提供合理的指标，这些指标可以发布到任何受支持的监控系统。
+Spring Boot 为多种技术提供了自动的计量器注册。在大多数情况下，默认配置会提供合理的指标，这些指标可以发布到任何支持的监控系统。
 
 [[actuator.metrics.supported.jvm]]
 === JVM 指标
@@ -597,7 +588,7 @@ Spring Boot 为多种技术提供自动计量器注册。在大多数情况下�
 * 各种内存和缓冲池详情
 * 与垃圾收集相关的统计信息
 * 线程利用率
-* https://docs.micrometer.io/micrometer/reference/reference/jvm.html#_java_21_metrics[Virtual threads statistics]（为此，`io.micrometer:micrometer-java21` 必须位于 classpath 上）
+* https://docs.micrometer.io/micrometer/reference/reference/jvm.html#_java_21_metrics[虚拟线程统计]（为此，`io.micrometer:micrometer-java21` 必须在 classpath 上）
 * 已加载和已卸载的类数量
 * JVM 版本信息
 * JIT 编译时间
@@ -637,7 +628,7 @@ Spring Boot 为多种技术提供自动计量器注册。在大多数情况下�
 [[actuator.metrics.supported.jms]]
 === JMS 指标
 
-自动配置启用对所有可用的 javadoc:org.springframework.jms.core.JmsTemplate[] beans 和 javadoc:org.springframework.jms.annotation.JmsListener[format=annotation] 注解方法的检测。这将分别生成 `"jms.message.publish"` 和 `"jms.message.process"` 指标。有关生成的观测的更多信息，请参阅 {url-spring-framework-docs}/integration/observability.html#observability.jms[Spring 框架参考文档]。
+自动配置启用对所有可用的 javadoc:org.springframework.jms.core.JmsTemplate[] beans 和 javadoc:org.springframework.jms.annotation.JmsListener[format=annotation] 注解方法的检测。这将分别产生 `"jms.message.publish"` 和 `"jms.message.process"` 指标。有关生成的观测的更多信息，请参阅 {url-spring-framework-docs}/integration/observability.html#observability.jms[Spring 框架参考文档]。
 
 注意：使用 javadoc:org.springframework.jms.core.JmsTemplate[] bean 的 javadoc:org.springframework.jms.core.JmsClient[] 和 javadoc:org.springframework.jms.core.JmsMessagingTemplate[] 也会被检测。
 
@@ -648,9 +639,9 @@ Spring Boot 为多种技术提供自动计量器注册。在大多数情况下�
 
 有关生成的观测的更多信息，请参阅 {url-spring-framework-docs}/integration/observability.html#observability.http-server.servlet[Spring 框架参考文档]。
 
-要添加到默认标签，请提供一个扩展自 javadoc:org.springframework.http.server.observation.DefaultServerRequestObservationConvention[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，该扩展来自 `org.springframework.http.server.observation` 包。要替换默认标签，请提供一个实现 javadoc:org.springframework.http.server.observation.ServerRequestObservationConvention[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
+要添加默认标签，请提供一个扩展自 javadoc:org.springframework.http.server.observation.DefaultServerRequestObservationConvention[]（来自 `org.springframework.http.server.observation` 包）的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。要替换默认标签，请提供一个实现 javadoc:org.springframework.http.server.observation.ServerRequestObservationConvention[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
 
-提示：在某些情况下，Web 控制器中处理的异常不会记录为请求指标标签。应用程序可以通过 xref:web/servlet.adoc#web.servlet.spring-mvc.error-handling[setting handled exceptions as request attributes] 选择加入并记录异常。
+提示：在某些情况下，Web 控制器中处理的异常不会记录为请求指标标签。应用程序可以通过 xref:web/servlet.adoc#web.servlet.spring-mvc.error-handling[将处理的异常设置为请求属性] 来选择记录异常。
 
 默认情况下，所有请求都会被处理。要自定义过滤器，请提供一个实现 `FilterRegistrationBean<ServerHttpObservationFilter>` 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
 
@@ -661,9 +652,9 @@ Spring Boot 为多种技术提供自动计量器注册。在大多数情况下�
 
 有关生成的观测的更多信息，请参阅 {url-spring-framework-docs}/integration/observability.html#observability.http-server.reactive[Spring 框架参考文档]。
 
-要添加到默认标签，请提供一个扩展自 javadoc:org.springframework.http.server.reactive.observation.DefaultServerRequestObservationConvention[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，该扩展来自 `org.springframework.http.server.reactive.observation` 包。要替换默认标签，请提供一个实现 javadoc:org.springframework.http.server.reactive.observation.ServerRequestObservationConvention[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
+要添加默认标签，请提供一个扩展自 javadoc:org.springframework.http.server.reactive.observation.DefaultServerRequestObservationConvention[]（来自 `org.springframework.http.server.reactive.observation` 包）的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。要替换默认标签，请提供一个实现 javadoc:org.springframework.http.server.reactive.observation.ServerRequestObservationConvention[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
 
-提示：在某些情况下，控制器和处理函数中处理的异常不会记录为请求指标标签。应用程序可以通过 xref:web/reactive.adoc#web.reactive.webflux.error-handling[setting handled exceptions as request attributes] 选择加入并记录异常。
+提示：在某些情况下，控制器和处理函数中处理的异常不会记录为请求指标标签。应用程序可以通过 xref:web/reactive.adoc#web.reactive.webflux.error-handling[将处理的异常设置为请求属性] 来选择记录异常。
 
 [[actuator.metrics.supported.jersey]]
 === Jersey 服务器指标
@@ -682,14 +673,14 @@ Spring Boot 为多种技术提供自动计量器注册。在大多数情况下�
 | 请求的方法（例如，`GET` 或 `POST`）
 
 | `outcome`
-| 基于响应状态码的请求结果。
+| 请求的结果，基于响应的状态码。
   1xx 为 `INFORMATIONAL`，2xx 为 `SUCCESS`，3xx 为 `REDIRECTION`，4xx 为 `CLIENT_ERROR`，5xx 为 `SERVER_ERROR`
 
 | `status`
 | 响应的 HTTP 状态码（例如，`200` 或 `500`）
 
 | `uri`
-| 可能的情况下，变量替换前的请求 URI 模板（例如，`/api/person/\{id}`）
+| 请求的 URI 模板（在变量替换之前），如果可能（例如，`/api/person/\{id}`）
 |===
 
 要自定义标签，请提供一个实现 javadoc:io.micrometer.core.instrument.binder.jersey.server.JerseyObservationConvention[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
@@ -697,7 +688,7 @@ Spring Boot 为多种技术提供自动计量器注册。在大多数情况下�
 [[actuator.metrics.supported.ssl]]
 === SSL 捆绑包指标
 
-Spring Boot Actuator 发布关于 SSL 捆绑包的过期指标。指标 `ssl.chain.expiry` 以秒为单位计量密钥库和信任库中每个证书链的到期日期。如果链已过期，此数字将为负数。此指标使用以下信息进行标记：
+Spring Boot Actuator 发布关于 SSL 捆绑包的过期指标。指标 `ssl.chain.expiry` 以秒为单位测量密钥库和信任库中每个证书链的过期日期。如果链已过期，此数字将为负数。此指标使用以下信息进行标记：
 
 |===
 | 标签 | 描述
@@ -706,7 +697,7 @@ Spring Boot Actuator 发布关于 SSL 捆绑包的过期指标。指标 `ssl.cha
 | 包含证书链的捆绑包名称
 
 | `certificate`
-| 链中最早到期的证书的序列号（十六进制格式）
+| 链中最早过期的证书的序列号（十六进制格式）
 
 | `chain`
 | 证书链的名称。
@@ -730,68 +721,68 @@ Spring Boot Actuator 管理对 javadoc:org.springframework.web.client.RestTempla
 
 有关生成的观测的更多信息，请参阅 {url-spring-framework-docs}/integration/observability.html#observability.http-client[Spring 框架参考文档]。
 
-要自定义使用 javadoc:org.springframework.web.client.RestTemplate[] 或 javadoc:org.springframework.web.client.RestClient[] 时的标签，请提供一个实现 javadoc:org.springframework.http.client.observation.ClientRequestObservationConvention[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，该实现来自 `org.springframework.http.client.observation` 包。要自定义使用 javadoc:org.springframework.web.reactive.function.client.WebClient[] 时的标签，请提供一个实现 javadoc:org.springframework.web.reactive.function.client.ClientRequestObservationConvention[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，该实现来自 `org.springframework.web.reactive.function.client` 包。
+要自定义使用 javadoc:org.springframework.web.client.RestTemplate[] 或 javadoc:org.springframework.web.client.RestClient[] 时的标签，请提供一个实现 javadoc:org.springframework.http.client.observation.ClientRequestObservationConvention[]（来自 `org.springframework.http.client.observation` 包）的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。要自定义使用 javadoc:org.springframework.web.reactive.function.client.WebClient[] 时的标签，请提供一个实现 javadoc:org.springframework.web.reactive.function.client.ClientRequestObservationConvention[]（来自 `org.springframework.web.reactive.function.client` 包）的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
 
 [[actuator.metrics.supported.tomcat]]
 === Tomcat 指标
 
-自动配置仅在 MBean javadoc:org.apache.tomcat.util.modeler.Registry[] 启用时启用对 Tomcat 的检测。默认情况下，MBean 注册表是禁用的，但您可以通过将 configprop:server.tomcat.mbeanregistry.enabled[] 设置为 `true` 来启用它。
+自动配置仅在启用 MBean javadoc:org.apache.tomcat.util.modeler.Registry[] 时启用对 Tomcat 的检测。默认情况下，MBean 注册表是禁用的，但您可以通过将 configprop:server.tomcat.mbeanregistry.enabled[] 设置为 `true` 来启用它。
 
 Tomcat 指标以 `tomcat.` 计量器名称发布。
 
 [[actuator.metrics.supported.cache]]
 === 缓存指标
 
-自动配置在启动时启用对所有可用的 javadoc:org.springframework.cache.Cache[] 实例的检测，指标以 `cache` 为前缀。缓存检测针对一组基本指标进行了标准化。此外，还提供特定于缓存的指标。
+自动配置在启动时启用对所有可用的 javadoc:org.springframework.cache.Cache[] 实例的检测，指标以 `cache` 为前缀。缓存检测针对一组基本指标进行了标准化。此外，还提供了特定于缓存的指标。
 
 支持以下缓存库：
 
 * Cache2k
 * Caffeine
 * Hazelcast
-* 任何符合 JCache (JSR-107) 的实现
+* 任何兼容的 JCache（JSR-107）实现
 * Redis
 
-警告：应为 auto-configuration 启用指标以使其被拾取。有关更多详细信息，请参阅您使用的缓存库的文档。
+警告：应为 auto-configuration 启用指标以拾取它们。有关更多详细信息，请参阅您正在使用的缓存库的文档。
 
-指标通过缓存名称和 javadoc:org.springframework.cache.CacheManager[] 的名称进行标记，后者派生自 bean 名称。
+指标通过缓存的名称和 javadoc:org.springframework.cache.CacheManager[] 的名称进行标记，后者派生自 bean 名称。
 
 注意：只有启动时配置的缓存才会绑定到注册表。对于未在缓存配置中定义的缓存，例如在启动阶段之后动态或以编程方式创建的缓存，需要显式注册。提供了一个 javadoc:org.springframework.boot.cache.metrics.CacheMetricsRegistrar[] bean 来简化该过程。
 
 [[actuator.metrics.supported.spring-batch]]
 === Spring 批处理指标
 
-参见 {url-spring-batch-docs}/monitoring-and-metrics.html[Spring 批处理参考文档]。
+请参阅 {url-spring-batch-docs}/monitoring-and-metrics.html[Spring 批处理参考文档]。
 
 
 [[actuator.metrics.supported.spring-graphql]]
 === Spring GraphQL 指标
 
-参见 {url-spring-graphql-docs}/observability.html[Spring GraphQL 参考文档]。
+请参阅 {url-spring-graphql-docs}/observability.html[Spring GraphQL 参考文档]。
 
 
 [[actuator.metrics.supported.jdbc]]
 === DataSource 指标
 
 自动配置会启用对所有可用 javadoc:javax.sql.DataSource[] 对象的指标检测，指标前缀为 `jdbc.connections`。
-数据源检测会生成仪表，表示池中当前活跃、空闲、最大允许和最小允许的连接数。
+数据源检测会产生表示连接池中当前活跃、空闲、最大允许和最小允许连接数的计量器。
 
-指标还会根据 bean 名称计算出的 javadoc:javax.sql.DataSource[] 名称进行标记。
+指标还会根据基于 bean 名称计算的 javadoc:javax.sql.DataSource[] 名称进行标记。
 
 提示：默认情况下，Spring Boot 为所有受支持的数据源提供元数据。
 如果您喜欢的数据源不受支持，可以添加额外的 javadoc:org.springframework.boot.jdbc.metadata.DataSourcePoolMetadataProvider[] beans。
-参见 javadoc:org.springframework.boot.jdbc.autoconfigure.DataSourcePoolMetadataProvidersConfiguration[] 中的示例。
+请参阅 javadoc:org.springframework.boot.jdbc.autoconfigure.DataSourcePoolMetadataProvidersConfiguration[] 获取示例。
 
 此外，Hikari 特定的指标会以 `hikaricp` 前缀暴露。
-每个指标都会根据池的名称进行标记（您可以通过 `spring.datasource.name` 控制）。
+每个指标都按池名称进行标记（您可以通过 `spring.datasource.name` 控制池名称）。
 
 
 [[actuator.metrics.supported.hibernate]]
 === Hibernate 指标
 
-如果 `org.hibernate.orm:hibernate-micrometer` 在 classpath 上，则所有启用了统计信息的可用 Hibernate javadoc:jakarta.persistence.EntityManagerFactory[] 实例都会以名为 `hibernate` 的指标进行检测。
+如果 `org.hibernate.orm:hibernate-micrometer` 在 classpath 上，所有启用了统计信息的可用 Hibernate javadoc:jakarta.persistence.EntityManagerFactory[] 实例都会以名为 `hibernate` 的指标进行检测。
 
-指标还会根据 bean 名称派生的 javadoc:jakarta.persistence.EntityManagerFactory[] 名称进行标记。
+指标还会根据从 bean 名称派生的 javadoc:jakarta.persistence.EntityManagerFactory[] 名称进行标记。
 
 要启用统计信息，标准 JPA 属性 `hibernate.generate_statistics` 必须设置为 `true`。
 您可以在自动配置的 javadoc:jakarta.persistence.EntityManagerFactory[] 上启用该属性：
@@ -803,20 +794,15 @@ spring:
     properties:
       "[hibernate.generate_statistics]": true
 ----
-[[actuator.metrics.supported.spring-data-repository]]
-=== Spring 数据仓库指标
+=== Spring Data Repository 指标
 
-自动配置会启用对所有 Spring Data javadoc:org.springframework.data.repository.Repository[] 方法调用的度量。
-默认情况下，指标以名称 `spring.data.repository.invocations` 生成。
-你可以通过设置 configprop:management.metrics.data.repository.metric-name[] 属性来自定义名称。
+自动配置会启用对所有 Spring Data Repository 方法调用的监控。默认情况下，生成的指标名称为 `spring.data.repository.invocations`。您可以通过设置 configprop:management.metrics.data.repository.metric-name[] 属性来自定义名称。
 
-来自 `io.micrometer.core.annotation` 包的 javadoc:io.micrometer.core.annotation.Timed[format=annotation] annotation 在 javadoc:org.springframework.data.repository.Repository[] 接口和方法上受支持。
-如果你不想记录所有 javadoc:org.springframework.data.repository.Repository[] 调用的指标，可以将 configprop:management.metrics.data.repository.autotime.enabled[] 设置为 `false`，并仅使用 javadoc:io.micrometer.core.annotation.Timed[format=annotation] annotations。
+javadoc:io.micrometer.core.annotation.Timed[format=annotation] 包中的 annotation 支持在 javadoc:org.springframework.data.repository.Repository[] 接口和方法上使用。如果您不想记录所有 javadoc:org.springframework.data.repository.Repository[] 调用的指标，可以将 configprop:management.metrics.data.repository.autotime.enabled[] 设置为 `false`，并仅使用 javadoc:io.micrometer.core.annotation.Timed[format=annotation] annotations。
 
-注意：带有 `longTask = true` 的 javadoc:io.micrometer.core.annotation.Timed[format=annotation] annotation 会为该方法启用长任务计时器。
-长任务计时器需要单独的指标名称，并且可以与短任务计时器叠加使用。
+注意：带有 `longTask = true` 的 javadoc:io.micrometer.core.annotation.Timed[format=annotation] annotation 会为该方法启用长任务计时器。长任务计时器需要单独的指标名称，并且可以与短任务计时器叠加使用。
 
-默认情况下，与仓库调用相关的指标会带有以下标签：
+默认情况下，Repository 调用相关的指标会带有以下标签：
 
 |===
 | 标签 | 描述
@@ -825,7 +811,7 @@ spring:
 | 源 javadoc:org.springframework.data.repository.Repository[] 的简单类名。
 
 | `method`
-| 被调用的 javadoc:org.springframework.data.repository.Repository[] 方法的名称。
+| 被调用的 javadoc:org.springframework.data.repository.Repository[] 方法名称。
 
 | `state`
 | 结果状态（`SUCCESS`、`ERROR`、`CANCELED` 或 `RUNNING`）。
@@ -834,34 +820,31 @@ spring:
 | 调用中抛出的任何异常的简单类名。
 |===
 
-要替换默认标签，请提供一个实现了 javadoc:org.springframework.boot.data.metrics.RepositoryTagsProvider[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
+要替换默认标签，请提供一个实现 javadoc:org.springframework.boot.data.metrics.RepositoryTagsProvider[] 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]。
 
 
 [[actuator.metrics.supported.rabbitmq]]
 === RabbitMQ 指标
 
-自动配置会启用对所有可用的 RabbitMQ 连接工厂的度量，指标名称为 `rabbitmq`。
+自动配置会启用对所有可用 RabbitMQ 连接工厂的监控，指标名称为 `rabbitmq`。
 
 
 [[actuator.metrics.supported.spring-integration]]
-=== Spring 集成指标
+=== Spring Integration 指标
 
-Spring Integration 在 javadoc:io.micrometer.core.instrument.MeterRegistry[] bean 可用时自动提供 {url-spring-integration-docs}/metrics.html#micrometer-integration[Micrometer 支持]。
-指标以 `spring.integration.` 仪表名称发布。
+当 javadoc:io.micrometer.core.instrument.MeterRegistry[] bean 可用时，Spring Integration 会自动提供 {url-spring-integration-docs}/metrics.html#micrometer-integration[Micrometer 支持]。指标以 `spring.integration.` 计量器名称发布。
 
 
 [[actuator.metrics.supported.kafka]]
 === Kafka 指标
 
-自动配置会分别为自动配置的消费者工厂和生产者工厂注册一个 javadoc:org.springframework.kafka.core.MicrometerConsumerListener[] 和 javadoc:org.springframework.kafka.core.MicrometerProducerListener[]。
-它还会为 javadoc:org.springframework.kafka.config.StreamsBuilderFactoryBean[] 注册一个 javadoc:org.springframework.kafka.streams.KafkaStreamsMicrometerListener[]。
-更多详情，请参阅 Spring Kafka 文档的 {url-spring-kafka-docs}/kafka/micrometer.html#micrometer-native[Micrometer 原生指标] 部分。
+自动配置会分别为自动配置的消费者工厂和生产者工厂注册一个 javadoc:org.springframework.kafka.core.MicrometerConsumerListener[] 和 javadoc:org.springframework.kafka.core.MicrometerProducerListener[]。它还会为 javadoc:org.springframework.kafka.config.StreamsBuilderFactoryBean[] 注册一个 javadoc:org.springframework.kafka.streams.KafkaStreamsMicrometerListener[]。更多详情，请参阅 Spring Kafka 文档的 {url-spring-kafka-docs}/kafka/micrometer.html#micrometer-native[Micrometer 原生指标] 部分。
 
 
 [[actuator.metrics.supported.mongodb]]
 === MongoDB 指标
 
-本节简要描述 MongoDB 的可用指标。
+本节简要介绍 MongoDB 的可用指标。
 
 
 [[actuator.metrics.supported.mongodb.command]]
@@ -869,8 +852,7 @@ Spring Integration 在 javadoc:io.micrometer.core.instrument.MeterRegistry[] bea
 
 自动配置会为自动配置的 javadoc:{url-mongodb-driver-sync-javadoc}/com.mongodb.client.MongoClient[] 注册一个 javadoc:io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener[]。
 
-对于发送到底层 MongoDB 驱动程序的每个命令，都会创建一个名为 `mongodb.driver.commands` 的计时器指标。
-默认情况下，每个指标都带有以下标签：
+对于发送到底层 MongoDB 驱动程序的每个命令，都会创建一个名为 `mongodb.driver.commands` 的计时器指标。默认情况下，每个指标都带有以下标签：
 |===
 | 标签 | 描述
 
@@ -906,13 +888,13 @@ management:
 
 自动配置会向自动配置的 javadoc:{url-mongodb-driver-sync-javadoc}/com.mongodb.client.MongoClient[] 注册一个 javadoc:io.micrometer.core.instrument.binder.mongodb.MongoMetricsConnectionPoolListener[]。
 
-为连接池创建了以下 gauge 指标：
+为连接池创建以下 gauge 指标：
 
-* `mongodb.driver.pool.size` 报告连接池的当前大小，包括空闲和正在使用的连接。
+* `mongodb.driver.pool.size` 报告连接池的当前大小，包括空闲和正在使用的成员。
 * `mongodb.driver.pool.checkedout` 报告当前正在使用的连接数。
-* `mongodb.driver.pool.waitqueuesize` 报告从连接池获取连接时的等待队列当前大小。
+* `mongodb.driver.pool.waitqueuesize` 报告从池中获取连接时的等待队列当前大小。
 
-默认情况下，每个指标都带有以下标签：
+每个指标默认带有以下标签：
 |===
 | 标签 | 描述
 
@@ -923,11 +905,11 @@ management:
 | 连接池对应的服务器地址。
 |===
 
-要替换默认的指标标签，请定义一个 javadoc:io.micrometer.core.instrument.binder.mongodb.MongoConnectionPoolTagsProvider[] bean：
+要替换默认的指标标签，定义一个 javadoc:io.micrometer.core.instrument.binder.mongodb.MongoConnectionPoolTagsProvider[] bean：
 
 include-code::MyConnectionPoolTagsProviderConfiguration[]
 
-要禁用自动配置的连接池指标，请设置以下属性：
+要禁用自动配置的连接池指标，设置以下属性：
 
 [configprops,yaml]
 ----
@@ -937,7 +919,6 @@ management:
       connectionpool:
         enabled: false
 ----
-[[actuator.metrics.supported.neo4j]]
 === Neo4j 指标
 
 自动配置会为自动配置的 javadoc:org.neo4j.driver.Driver[] 注册一个 javadoc:org.neo4j.driver.observation.micrometer.MicrometerObservationProvider[]。
@@ -948,8 +929,8 @@ management:
 [[actuator.metrics.supported.jetty]]
 === Jetty 指标
 
-自动配置通过使用 Micrometer 的 javadoc:io.micrometer.core.instrument.binder.jetty.JettyServerThreadPoolMetrics[] 来绑定 Jetty 的 javadoc:org.eclipse.jetty.util.thread.ThreadPool[] 的指标。
-Jetty 的 javadoc:org.eclipse.jetty.server.Connector[] 实例的指标通过使用 Micrometer 的 javadoc:io.micrometer.core.instrument.binder.jetty.JettyConnectionMetrics[] 来绑定，并且当 configprop:server.ssl.enabled[] 设置为 `true` 时，还会使用 Micrometer 的 javadoc:io.micrometer.core.instrument.binder.jetty.JettySslHandshakeMetrics[]。
+自动配置通过 Micrometer 的 javadoc:io.micrometer.core.instrument.binder.jetty.JettyServerThreadPoolMetrics[] 绑定 Jetty 的 javadoc:org.eclipse.jetty.util.thread.ThreadPool[] 的指标。
+Jetty 的 javadoc:org.eclipse.jetty.server.Connector[] 实例的指标通过 Micrometer 的 javadoc:io.micrometer.core.instrument.binder.jetty.JettyConnectionMetrics[] 绑定，并且当 configprop:server.ssl.enabled[] 设置为 `true` 时，还会通过 Micrometer 的 javadoc:io.micrometer.core.instrument.binder.jetty.JettySslHandshakeMetrics[] 绑定。
 
 
 [[actuator.metrics.supported.redis]]
@@ -971,9 +952,9 @@ include-code::MyBean[]
 include-code::MyMeterBinderConfiguration[]
 
 使用 javadoc:io.micrometer.core.instrument.binder.MeterBinder[] 可以确保建立正确的依赖关系，并且在检索指标值时 bean 可用。
-如果你发现需要在多个组件或应用程序中重复检测一组指标，javadoc:io.micrometer.core.instrument.binder.MeterBinder[] 实现也会很有用。
+如果你发现需要在多个组件或应用中重复检测一组指标，javadoc:io.micrometer.core.instrument.binder.MeterBinder[] 实现也会很有用。
 
-注意：默认情况下，所有 javadoc:io.micrometer.core.instrument.binder.MeterBinder[] beans 的指标都会自动绑定到 Spring 管理的 javadoc:io.micrometer.core.instrument.MeterRegistry[]。
+注意：默认情况下，所有 javadoc:io.micrometer.core.instrument.binder.MeterBinder[] beans 的指标都会自动绑定到由 Spring 管理的 javadoc:io.micrometer.core.instrument.MeterRegistry[]。
 
 
 [[actuator.metrics.customizing]]
@@ -981,20 +962,20 @@ include-code::MyMeterBinderConfiguration[]
 
 如果你需要对特定的 javadoc:io.micrometer.core.instrument.Meter[] 实例应用自定义设置，可以使用 javadoc:io.micrometer.core.instrument.config.MeterFilter[] 接口。
 
-例如，如果你想将所有以 `com.example` 开头的仪表 ID 的 `mytag.region` 标签重命名为 `mytag.area`，可以执行以下操作：
+例如，如果你想将所有以 `com.example` 开头的仪表 ID 中的 `mytag.region` 标签重命名为 `mytag.area`，可以这样做：
 
 include-code::MyMetricsFilterConfiguration[]
 
-注意：默认情况下，所有 javadoc:io.micrometer.core.instrument.config.MeterFilter[] beans 都会自动绑定到 Spring 管理的 javadoc:io.micrometer.core.instrument.MeterRegistry[]。
-请确保使用 Spring 管理的 javadoc:io.micrometer.core.instrument.MeterRegistry[] 注册你的指标，而不是使用 javadoc:io.micrometer.core.instrument.Metrics[] 上的任何静态方法。
-这些方法使用的是全局注册表，不受 Spring 管理。
+注意：默认情况下，所有 javadoc:io.micrometer.core.instrument.config.MeterFilter[] beans 都会自动绑定到由 Spring 管理的 javadoc:io.micrometer.core.instrument.MeterRegistry[]。
+请确保使用由 Spring 管理的 javadoc:io.micrometer.core.instrument.MeterRegistry[] 注册你的指标，而不是使用 javadoc:io.micrometer.core.instrument.Metrics[] 上的任何静态方法。
+这些方法使用的是全局注册表，它不受 Spring 管理。
 
 
 [[actuator.metrics.customizing.common-tags]]
 === 通用标签
 
 通用标签通常用于对操作环境进行维度下钻，例如主机、实例、区域、堆栈等。
-通用标签应用于所有仪表，并且可以配置，如下例所示：
+通用标签会应用于所有仪表，并且可以配置，如下例所示：
 
 [configprops,yaml]
 ----
@@ -1004,18 +985,18 @@ management:
       region: "us-east-1"
       stack: "prod"
 ----
-前面的示例将 `region` 和 `stack` 标签分别添加到所有值为 `us-east-1` 和 `prod` 的 meter 上。
+前面的示例为所有值为 `us-east-1` 和 `prod` 的仪表分别添加了 `region` 和 `stack` 标签。
 
-注意：如果使用 Graphite，通用标签的顺序很重要。
-由于使用这种方法无法保证通用标签的顺序，建议 Graphite 用户改为定义自定义的 javadoc:io.micrometer.core.instrument.config.MeterFilter[]。
+注意：如果使用 Graphite，公共标签的顺序很重要。
+由于使用此方法无法保证公共标签的顺序，建议 Graphite 用户定义一个自定义的 javadoc:io.micrometer.core.instrument.config.MeterFilter[]。
 
 
 [[actuator.metrics.customizing.per-meter-properties]]
-=== 按 Meter 属性
+=== 按仪表属性
 
-除了 javadoc:io.micrometer.core.instrument.config.MeterFilter[] beans 之外，你还可以使用属性对每个 meter 应用有限的定制。
-按 meter 的定制使用 Spring Boot 的 javadoc:org.springframework.boot.micrometer.metrics.autoconfigure.PropertiesMeterFilter[] 应用于任何以给定名称开头的 meter ID。
-以下示例过滤掉所有 ID 以 `example.remote` 开头的 meter。
+除了 javadoc:io.micrometer.core.instrument.config.MeterFilter[] beans 之外，您还可以使用属性对每个仪表应用有限的定制。
+按仪表定制通过 Spring Boot 的 javadoc:org.springframework.boot.micrometer.metrics.autoconfigure.PropertiesMeterFilter[] 应用于所有以给定名称开头的仪表 ID。
+以下示例过滤掉所有 ID 以 `example.remote` 开头的仪表。
 
 [configprops,yaml]
 ----
@@ -1048,11 +1029,10 @@ management:
 | 通过将最近样本累积在环形缓冲区中，并在可配置的过期时间后轮转，以及可配置的缓冲区长度，给予最近样本更大的权重。
 
 | configprop:management.metrics.distribution.slo[]
-| 发布由服务级别目标定义的桶的累积直方图。
+| 发布由服务级别目标定义的累积直方图桶。
 |===
 
 有关 `percentiles-histogram`、`percentiles` 和 `slo` 背后概念的更多详细信息，请参阅 Micrometer 文档的 {url-micrometer-docs-concepts}/histogram-quantiles.html[直方图和百分位数] 部分。
-
 
 
 [[actuator.metrics.endpoint]]
@@ -1060,29 +1040,28 @@ management:
 
 Spring Boot 提供了一个 `metrics` endpoint，您可以使用它进行诊断，以检查应用程序收集的指标。
 endpoint 默认不可用，必须暴露。
-有关更多详细信息，请参阅 xref:actuator/endpoints.adoc#actuator.endpoints.exposing[exposing endpoints]。
+有关更多详细信息，请参阅 xref:actuator/endpoints.adoc#actuator.endpoints.exposing[暴露 endpoints]。
 
 导航到 `/actuator/metrics` 会显示可用仪表名称的列表。
 您可以通过提供仪表名称作为选择器来深入查看特定仪表的信息——例如，`/actuator/metrics/jvm.memory.max`。
 
 [TIP]
 ====
-您在此处使用的名称应与代码中使用的名称匹配，而不是在命名约定规范化后用于发送到的监控系统的名称。
+您在此处使用的名称应与代码中使用的名称匹配，而不是在将其发送到监控系统时经过命名约定规范化后的名称。
 换句话说，如果 `jvm.memory.max` 由于蛇形命名约定在 Prometheus 中显示为 `jvm_memory_max`，您在 `metrics` endpoint 中检查仪表时仍应使用 `jvm.memory.max` 作为选择器。
 ====
 
-您还可以在 URL 末尾添加任意数量的 `tag=KEY:VALUE` 查询参数，以对仪表进行维度钻取——例如，`/actuator/metrics/jvm.memory.max?tag=area:nonheap`。
+您还可以在 URL 末尾添加任意数量的 `tag=KEY:VALUE` 查询参数，以对仪表进行维度深入分析——例如，`/actuator/metrics/jvm.memory.max?tag=area:nonheap`。
 
 [TIP]
 ====
-报告的测量值是所有与仪表名称和已应用标签匹配的仪表统计信息的 _总和_。
+报告的测量值是所有与仪表名称和任何已应用标签匹配的仪表统计信息的 _总和_。
 在前面的示例中，返回的 `Value` 统计信息是堆的“`Code Cache`”、“`Compressed Class Space`”和“`Metaspace`”区域的最大内存占用之和。
 如果您只想查看“`Metaspace`”的最大大小，可以添加一个额外的 `tag=id:Metaspace`——即 `/actuator/metrics/jvm.memory.max?tag=area:nonheap&tag=id:Metaspace`。
 ====
 
 
-
 [[actuator.metrics.micrometer-observation]]
-== 与 Micrometer Observation 集成
+== 与 Micrometer 观测的集成
 
-一个 javadoc:io.micrometer.core.instrument.observation.DefaultMeterObservationHandler[] 会自动注册到 javadoc:io.micrometer.observation.ObservationRegistry[] 上，它会为每个完成的 observation 创建指标。
+一个 javadoc:io.micrometer.core.instrument.observation.DefaultMeterObservationHandler[] 会自动注册到 javadoc:io.micrometer.observation.ObservationRegistry[] 上，它会为每个完成的观测创建指标。

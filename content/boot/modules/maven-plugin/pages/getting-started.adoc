@@ -1,0 +1,21 @@
+[[getting-started]]
+= 入门指南
+
+要使用 Spring Boot Maven 插件，请在 `plugins` 的 `pom.xml` 部分中包含相应的 XML，如下例所示：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$getting-started/pom.xml[tags=getting-started]
+----
+ifeval::["{build-type}" == "commercial"]
+该插件发布到 Spring 商业仓库。你需要配置构建以访问此仓库。通常通过本地制品仓库来镜像 Spring 商业仓库的内容。或者，虽然不推荐，也可以直接访问 Spring 商业仓库。无论哪种情况，请参阅 https://docs.vmware.com/en/Tanzu-Spring-Runtime/Commercial/Tanzu-Spring-Runtime/spring-enterprise-subscription.html[Tanzu Spring Runtime 文档] 了解更多详情。
+endif::[]
+
+ifeval::["{build-type}" == "opensource"]
+如果你使用里程碑或快照版本，还需要添加相应的 `pluginRepository` 元素，如下所示：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$getting-started/plugin-repositories-pom.xml[tags=plugin-repositories]
+----
+endif::[]

@@ -1,3 +1,4 @@
+[[build-tool-plugins.antlib]]
 = Spring Boot AntLib 模块
 
 Spring Boot AntLib 模块为 Apache Ant 提供基本的 Spring Boot 支持。
@@ -18,12 +19,13 @@ Spring Boot AntLib 模块为 Apache Ant 提供基本的 Spring Boot 支持。
 ----
 $ ant -lib <directory containing spring-boot-antlib-{version-spring-boot}.jar>
 ----
-TIP: "`Using Spring Boot`" 部分包含了一个更完整的 xref:reference:using/build-systems.adoc#using.build-systems.ant[using Apache Ant with `spring-boot-antlib`] 示例。
+TIP: "`Using Spring Boot`" 部分包含一个更完整的示例，展示了 xref:reference:using/build-systems.adoc#using.build-systems.ant[将 Apache Ant 与 `spring-boot-antlib` 结合使用]。
+
 
 [[build-tool-plugins.antlib.tasks]]
 == Spring Boot Ant 任务
 
-一旦声明了 `spring-boot-antlib` 命名空间，以下附加任务可用：
+一旦声明了 `spring-boot-antlib` 命名空间，就可以使用以下附加任务：
 
 * xref:antlib.adoc#build-tool-plugins.antlib.tasks.exejar[]
 * xref:antlib.adoc#build-tool-plugins.antlib.findmainclass[]
@@ -32,12 +34,12 @@ TIP: "`Using Spring Boot`" 部分包含了一个更完整的 xref:reference:usin
 [[build-tool-plugins.antlib.tasks.exejar]]
 === 使用 "`exejar`" 任务
 
-你可以使用 `exejar` 任务来创建一个 Spring Boot 可执行 jar。
+你可以使用 `exejar` 任务来创建 Spring Boot 可执行 jar。
 该任务支持以下属性：
 
 [cols="1,2,2"]
 |====
-| 属性 | 描述 | 是否必需
+| 属性 | 描述 | 必需
 
 | `destfile`
 | 要创建的目标 jar 文件
@@ -49,7 +51,7 @@ TIP: "`Using Spring Boot`" 部分包含了一个更完整的 xref:reference:usin
 
 | `start-class`
 | 要运行的主应用程序类
-| 否 _（默认是第一个找到的声明了 `main` 方法的类）_
+| 否 _（默认是第一个声明 `main` 方法的类）_
 |====
 
 以下嵌套元素可用于该任务：
@@ -59,7 +61,7 @@ TIP: "`Using Spring Boot`" 部分包含了一个更完整的 xref:reference:usin
 | 元素 | 描述
 
 | `resources`
-| 一个或多个 {url-ant-docs}/Types/resources.html#collection[资源集合]，描述一组 {url-ant-docs}/Types/resources.html[资源]，这些资源应添加到创建的 +jar+ 文件的内容中。
+| 一个或多个 {url-ant-docs}/Types/resources.html#collection[资源集合]，描述一组应添加到创建的 +jar+ 文件内容中的 {url-ant-docs}/Types/resources.html[资源]。
 
 | `lib`
 | 一个或多个 {url-ant-docs}/Types/resources.html#collection[资源集合]，应添加到构成应用程序运行时依赖 classpath 的 jar 库集合中。
@@ -69,7 +71,7 @@ TIP: "`Using Spring Boot`" 部分包含了一个更完整的 xref:reference:usin
 [[build-tool-plugins.antlib.tasks.examples]]
 === 示例
 
-本节展示了两个 Ant 任务示例。
+本节展示两个 Ant 任务示例。
 
 .指定 +start-class+
 [source,xml]
@@ -97,7 +99,7 @@ TIP: "`Using Spring Boot`" 部分包含了一个更完整的 xref:reference:usin
 == 使用 "`findmainclass`" 任务
 
 `findmainclass` 任务被 `exejar` 内部用于定位声明 `main` 的类。
-如有必要，你也可以在构建中直接使用此任务。
+如有必要，你也可以直接在构建中使用此任务。
 支持以下属性：
 
 [cols="1,2,2"]
@@ -127,12 +129,12 @@ TIP: "`Using Spring Boot`" 部分包含了一个更完整的 xref:reference:usin
 ----
 <findmainclass classesroot="target/classes" />
 ----
-.查找与设置
+.查找和设置
 [source,xml]
 ----
 <findmainclass classesroot="target/classes" property="main-class" />
 ----
-.覆盖和设置
+.覆盖并设置
 [source,xml]
 ----
 <findmainclass mainclass="com.example.MainClass" property="main-class" />

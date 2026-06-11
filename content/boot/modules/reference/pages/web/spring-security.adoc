@@ -1,13 +1,8 @@
 = Spring Security
 
-如果 classpath 上存在 Spring Security，则 Web 应用程序默认是安全的。
-这包括保护 Spring Boot 的 Actuator endpoint。
-Spring Boot 依赖 Spring Security 的内容协商策略来决定使用基于表单的登录还是 HTTP Basic 认证。
-要为 Web 应用程序添加方法级安全，你还可以使用所需的设置添加 javadoc:org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity[format=short]。
-更多信息可以在 Spring Security 参考指南中找到。
+如果 {url-spring-security-site}[Spring Security] 在 classpath 上，则 Web 应用程序默认是安全的。这包括保护 Spring Boot 的 `/error` 执行器端点。Spring Boot 依赖 Spring Security 的内容协商策略来决定使用 `httpBasic` 还是 `formLogin`。要为 Web 应用程序添加方法级安全，您还可以使用所需的设置添加 javadoc:org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity[format=annotation]。更多信息可以在 {url-spring-security-docs}/servlet/authorization/method-security.html[Spring Security 参考指南] 中找到。
 
-默认的 javadoc:org.springframework.security.core.userdetails.UserDetailsService[] 只有一个用户。
-用户名为 user，密码是随机的，并在应用程序启动时以 INFO 级别打印，如下例所示：
+默认的 javadoc:org.springframework.security.core.userdetails.UserDetailsService[] 有一个单一用户。用户名为 `user`，密码是随机的，并在应用程序启动时以 WARN 级别打印，如下例所示：
 
 [source]
 ----
@@ -15,19 +10,18 @@ Using generated security password: 78fa095d-3f4c-48b1-ad50-e24c31d5cf35
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 ----
+NOTE: 如果微调日志配置，请确保 `org.springframework.boot.security.autoconfigure` 类别设置为记录 `WARN` 级别的消息。
+否则，默认密码不会打印出来。
 
-注意：如果对日志配置进行了微调，请确保 `org.springframework.boot.security.autoconfigure` 类别设置为记录 `WARN` 级别的消息。
-否则，默认密码将不会打印。
-
-可以通过提供 `spring.security.user.name` 和 `spring.security.user.password` 来更改用户名和密码。
+您可以通过提供 `spring.security.user.name` 和 `spring.security.user.password` 来更改用户名和密码。
 
 在 Web 应用程序中默认获得的基本功能包括：
 
-* 一个 javadoc:org.springframework.security.core.userdetails.UserDetailsService[]（在 WebFlux 应用程序中为 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[]）bean，具有内存存储和一个带有生成密码的单一用户（参见 javadoc:org.springframework.boot.security.autoconfigure.SecurityProperties$User[] 了解该用户的属性）。
-* 基于表单的登录或 HTTP Basic 安全（取决于请求中的 `Accept` 标头），适用于整个应用程序（包括 actuator endpoints，如果 actuator 在 classpath 上）。
-* 一个 javadoc:org.springframework.security.authentication.DefaultAuthenticationEventPublisher[]，用于发布认证事件。
+* 一个 javadoc:org.springframework.security.core.userdetails.UserDetailsService[]（或 WebFlux 应用程序中的 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[]）bean，具有内存存储和一个带有生成密码的单一用户（参见 javadoc:org.springframework.boot.security.autoconfigure.SecurityProperties$User[] 了解用户的属性）。
+* 基于表单的登录或 HTTP Basic 安全（取决于请求中的 `Accept` 标头）适用于整个应用程序（如果 actuator 在 classpath 上，则包括 actuator endpoints）。
+* 一个用于发布身份验证事件的 javadoc:org.springframework.security.authentication.DefaultAuthenticationEventPublisher[]。
 
-可以通过添加一个 bean 来提供不同的 javadoc:org.springframework.security.authentication.AuthenticationEventPublisher[]。
+您可以通过添加一个 bean 来提供不同的 javadoc:org.springframework.security.authentication.AuthenticationEventPublisher[]。
 
 
 
@@ -35,52 +29,52 @@ This generated password is for development use only. Your security configuration
 == MVC 安全
 
 默认安全配置在 javadoc:org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration[] 和 javadoc:org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration[] 中实现。
-javadoc:org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration[] 导入 `SpringBootWebSecurityConfiguration` 用于 Web 安全，而 javadoc:org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration[] 用于认证。
+javadoc:org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration[] 导入 `SpringBootWebSecurityConfiguration` 用于 Web 安全，以及 javadoc:org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration[] 用于身份验证。
 
 要完全关闭默认的 Web 应用程序安全配置（包括 Actuator 安全），或组合多个 Spring Security 组件（如 OAuth2 Client 和 Resource Server），请添加一个类型为 javadoc:org.springframework.security.web.SecurityFilterChain[] 的 bean（这样做不会禁用 javadoc:org.springframework.security.core.userdetails.UserDetailsService[] 配置）。
 要同时关闭 javadoc:org.springframework.security.core.userdetails.UserDetailsService[] 配置，请添加一个类型为 javadoc:org.springframework.security.core.userdetails.UserDetailsService[]、javadoc:org.springframework.security.authentication.AuthenticationProvider[] 或 javadoc:org.springframework.security.authentication.AuthenticationManager[] 的 bean。
 
-当以下任一 Spring Security 模块位于 classpath 上时，javadoc:org.springframework.security.core.userdetails.UserDetailsService[] 的 auto-configuration 也会退出：
+当以下任何 Spring Security 模块位于 classpath 上时，javadoc:org.springframework.security.core.userdetails.UserDetailsService[] 的 auto-configuration 也会退出：
 
 - `spring-security-oauth2-client`
 - `spring-security-oauth2-resource-server`
 - `spring-security-saml2-service-provider`
 
-要结合这些依赖项之一或多个使用 javadoc:org.springframework.security.core.userdetails.UserDetailsService[]，请定义自己的 javadoc:org.springframework.security.provisioning.InMemoryUserDetailsManager[] bean。
+要除了这些依赖项中的一个或多个之外还使用 javadoc:org.springframework.security.core.userdetails.UserDetailsService[]，请定义您自己的 javadoc:org.springframework.security.provisioning.InMemoryUserDetailsManager[] bean。
 
 可以通过添加自定义的 javadoc:org.springframework.security.web.SecurityFilterChain[] bean 来覆盖访问规则。
-Spring Boot 提供了便捷方法，可用于覆盖 actuator endpoints 和静态资源的访问规则。
+Spring Boot 提供了可用于覆盖 actuator endpoints 和静态资源访问规则的便捷方法。
 javadoc:org.springframework.boot.security.autoconfigure.actuate.web.servlet.EndpointRequest[] 可用于创建基于 configprop:management.endpoints.web.base-path[] 属性的 javadoc:org.springframework.security.web.util.matcher.RequestMatcher[]。
-javadoc:org.springframework.boot.security.autoconfigure.web.servlet.PathRequest[] 可用于为常用位置的资源创建 javadoc:org.springframework.security.web.util.matcher.RequestMatcher[]。
+javadoc:org.springframework.boot.security.autoconfigure.web.servlet.PathRequest[] 可用于为常用位置中的资源创建 javadoc:org.springframework.security.web.util.matcher.RequestMatcher[]。
 
 
 
 [[web.security.spring-webflux]]
 == WebFlux 安全
 
-与 Spring MVC 应用程序类似，可以通过添加 `spring-boot-starter-security` 依赖来保护 WebFlux 应用程序。
+与 Spring MVC 应用程序类似，您可以通过添加 `spring-boot-starter-security` 依赖项来保护 WebFlux 应用程序。
 默认安全配置在 javadoc:org.springframework.boot.security.autoconfigure.web.reactive.ReactiveWebSecurityAutoConfiguration[] 和 javadoc:org.springframework.boot.security.autoconfigure.ReactiveUserDetailsServiceAutoConfiguration[] 中实现。
-除了响应式 Web 应用程序外，当使用 RSocket 时，后者也会自动配置。
+除了响应式 Web 应用程序之外，当使用 RSocket 时，后者也会自动配置。
 javadoc:org.springframework.boot.security.autoconfigure.web.reactive.ReactiveWebSecurityAutoConfiguration[] 导入 `WebFluxSecurityConfiguration` 用于 Web 安全。
-javadoc:org.springframework.boot.security.autoconfigure.ReactiveUserDetailsServiceAutoConfiguration[] 自动配置认证。
+javadoc:org.springframework.boot.security.autoconfigure.ReactiveUserDetailsServiceAutoConfiguration[] 自动配置身份验证。
 
 要完全关闭默认的 Web 应用程序安全配置（包括 Actuator 安全），请添加一个类型为 javadoc:org.springframework.security.web.server.WebFilterChainProxy[] 的 bean（这样做不会禁用 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[] 配置）。
 要同时关闭 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[] 配置，请添加一个类型为 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[] 或 javadoc:org.springframework.security.authentication.ReactiveAuthenticationManager[] 的 bean。
 
-当以下任一 Spring Security 模块位于 classpath 上时，auto-configuration 也会退出：
+当以下任何 Spring Security 模块位于 classpath 上时，auto-configuration 也会退出：
 
 - `spring-security-oauth2-client`
 - `spring-security-oauth2-resource-server`
 
-要结合这些依赖项之一或多个使用 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[]，请定义自己的 javadoc:org.springframework.security.core.userdetails.MapReactiveUserDetailsService[] bean。
+要除了这些依赖项中的一个或多个之外还使用 javadoc:org.springframework.security.core.userdetails.ReactiveUserDetailsService[]，请定义您自己的 javadoc:org.springframework.security.core.userdetails.MapReactiveUserDetailsService[] bean。
 
 可以通过添加自定义的 javadoc:org.springframework.security.web.server.SecurityWebFilterChain[] bean 来配置访问规则以及多个 Spring Security 组件（如 OAuth 2 Client 和 Resource Server）的使用。
-Spring Boot 提供了便捷方法，可用于覆盖 actuator endpoints 和静态资源的访问规则。
+Spring Boot 提供了可用于覆盖 actuator endpoints 和静态资源访问规则的便捷方法。
 javadoc:org.springframework.boot.security.autoconfigure.actuate.web.reactive.EndpointRequest[] 可用于创建基于 configprop:management.endpoints.web.base-path[] 属性的 javadoc:org.springframework.security.web.server.util.matcher.ServerWebExchangeMatcher[]。
 
-javadoc:org.springframework.boot.security.autoconfigure.web.reactive.PathRequest[] 可用于为常用位置的资源创建 javadoc:org.springframework.security.web.server.util.matcher.ServerWebExchangeMatcher[]。
+javadoc:org.springframework.boot.security.autoconfigure.web.reactive.PathRequest[] 可用于为常用位置中的资源创建 javadoc:org.springframework.security.web.server.util.matcher.ServerWebExchangeMatcher[]。
 
-例如，可以通过添加如下内容来自定义安全配置：
+例如，您可以通过添加如下内容来自定义安全配置：
 
 include-code::MyWebFluxSecurityConfiguration[]
 
@@ -90,12 +84,12 @@ include-code::MyWebFluxSecurityConfiguration[]
 == [[web.security.oauth2.client]][[web.security.oauth2.client.common-providers]][[web.security.oauth2.server]][[web.security.oauth2.authorization-server]]OAuth2
 
 https://oauth.net/2/[OAuth2] 是一个广泛使用的授权框架。
-有关如何配置 OAuth2 并在 Web 应用程序中使用它的详细信息，请参阅 xref:security/oauth2.adoc#security.oauth2["`OAuth2`" section] 中的“`Security`”部分。
+有关如何配置 OAuth2 并将其与 Web 应用程序一起使用的详细信息，请参阅 xref:security/oauth2.adoc#security.oauth2["`OAuth2`" 部分]（位于 "`Security`" 下）。
 
 
 
 [[web.security.saml2]]
 == [[web.security.saml2.build]][[web.security.saml2.build.maven]][[web.security.saml2.build.gradle]][[web.security.saml2.relying-party]]SAML 2.0
 
-https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html[SAML v2.0] 是一种广泛采用的用于在线业务伙伴之间交换安全信息的框架。
-有关如何配置 SAML 2.0 并在 Web 应用程序中使用它的详细信息，请参阅 xref:security/saml2.adoc#security.saml2["`SAML 2.0`" section] 中的“`Security`”部分。
+https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html[SAML v2.0] 是一个广泛采用的框架，用于在线业务伙伴之间交换安全信息。
+有关如何配置 SAML 2.0 并将其与 Web 应用程序一起使用的详细信息，请参阅 xref:security/saml2.adoc#security.saml2["`SAML 2.0`" 部分]（位于 "`Security`" 下）。

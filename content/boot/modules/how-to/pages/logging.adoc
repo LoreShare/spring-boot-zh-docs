@@ -1,11 +1,10 @@
-[[howto.logging]]
 = 日志
 
-Spring Boot 没有强制性的日志依赖，除了 Commons Logging API，它通常由 Spring Framework 的 `spring-jcl` 模块提供。
-要使用 https://logback.qos.ch[Logback]，你需要将其和 `spring-jcl` 添加到 classpath 中。
-推荐的方式是通过 starters，它们都依赖于 `spring-boot-starter-logging`。
-对于 Web 应用程序，你只需要 `spring-boot-starter-web`，因为它会传递性地依赖日志 starter。
-如果你使用 Maven，以下依赖会为你添加日志：
+Spring Boot 没有强制性的日志依赖，除了 Commons Logging API，它通常由 Spring 框架的 `spring-jcl` 模块提供。
+要使用 https://logback.qos.ch[Logback]，你需要在 classpath 上包含它和 `spring-jcl`。
+推荐的方式是通过 starters，它都依赖于 `spring-boot-starter-logging`。
+对于 Web 应用程序，你只需要 `spring-boot-starter-web`，因为它传递性地依赖于日志 starter。
+如果你使用 Maven，以下依赖会为你添加日志支持：
 
 [source,xml]
 ----
@@ -14,11 +13,10 @@ Spring Boot 没有强制性的日志依赖，除了 Commons Logging API，它通
 	<artifactId>spring-boot-starter-web</artifactId>
 </dependency>
 ----
-
-Spring Boot 有一个 javadoc:org.springframework.boot.logging.LoggingSystem[] 抽象，它尝试根据 classpath 的内容来配置日志。
+Spring Boot 有一个 javadoc:org.springframework.boot.logging.LoggingSystem[] 抽象，它尝试根据 classpath 的内容来配置日志记录。
 如果 Logback 可用，则它是首选。
 
-如果你只需要对日志进行更改，即设置各种日志记录器的级别，你可以在 `application.properties` 中使用 "logging.level" 前缀来实现，如下例所示：
+如果你只需要对日志记录进行的更改是设置各种日志记录器的级别，你可以在 `application.properties` 中使用 "logging.level" 前缀来实现，如下例所示：
 
 [configprops,yaml]
 ----
@@ -27,37 +25,35 @@ logging:
     org.springframework.web: "debug"
     org.hibernate: "error"
 ----
+您还可以使用 `logging.file.name` 设置日志写入文件的位置（除了控制台之外）。
 
-你也可以通过使用 `logging.file.name` 来设置日志文件的写入位置（除了控制台之外）。
-
-要配置日志系统更细粒度的设置，你需要使用 javadoc:org.springframework.boot.logging.LoggingSystem[] 所支持的原生配置格式。
-默认情况下，Spring Boot 会从其默认位置（例如 Logback 的 `classpath:logback.xml`）加载原生配置，但你可以通过使用 configprop:logging.config[] 属性来设置配置文件的位置。
-
+要配置日志系统更细粒度的设置，您需要使用相关 javadoc:org.springframework.boot.logging.LoggingSystem[] 支持的原生配置格式。
+默认情况下，Spring Boot 从系统的默认位置（例如 Logback 的 `classpath:logback.xml`）获取原生配置，但您可以使用 configprop:logging.config[] 属性设置配置文件的位置。
 
 
 [[howto.logging.logback]]
 == 配置 Logback 进行日志记录
 
-如果你需要对 logback 应用超出 `application.properties` 所能实现的自定义，你需要添加一个标准的 logback 配置文件。
-你可以将 `logback.xml` 文件添加到 classpath 的根目录，以便 logback 能够找到它。
-如果你想使用 Spring Boot xref:reference:features/logging.adoc#features.logging.logback-extensions[]，你也可以使用 `logback-spring.xml`。
+如果您需要对 logback 应用超出 `application.properties` 所能实现的自定义，则需要添加标准的 logback 配置文件。
+您可以将 `logback.xml` 文件添加到 classpath 的根目录，以便 logback 找到它。
+如果您想使用 Spring Boot xref:reference:features/logging.adoc#features.logging.logback-extensions[]，也可以使用 `logback-spring.xml`。
 
-提示：Logback 文档有一个 https://logback.qos.ch/manual/configuration.html[专门介绍配置的章节]，其中详细介绍了配置。
+提示：Logback 文档有一个 https://logback.qos.ch/manual/configuration.html[专门介绍配置的部分]，其中详细介绍了配置。
 
-Spring Boot 提供了许多 logback 配置，可以 `include` 到你自己的配置中。
-这些包含项旨在允许重新应用某些常见的 Spring Boot 约定。
+Spring Boot 提供了许多 logback 配置，可以在您自己的配置中 `included`。
+这些包含旨在允许重新应用某些常见的 Spring Boot 约定。
 
-以下文件位于 `org/springframework/boot/logging/logback/` 下：
+以下文件在 `org/springframework/boot/logging/logback/` 下提供：
 
 * `defaults.xml` - 提供转换规则、模式属性和常见的日志记录器配置。
-* `console-appender.xml` - 使用 `CONSOLE_LOG_PATTERN` 添加一个 javadoc:ch.qos.logback.core.ConsoleAppender[]。
-* `structured-console-appender.xml` - 使用 `CONSOLE_LOG_STRUCTURED_FORMAT` 中的结构化日志添加一个 javadoc:ch.qos.logback.core.ConsoleAppender[]。
-* `file-appender.xml` - 使用 `FILE_LOG_PATTERN` 和 `ROLLING_FILE_NAME_PATTERN` 以及适当的设置添加一个 javadoc:ch.qos.logback.core.rolling.RollingFileAppender[]。
-* `structured-file-appender.xml` - 使用 `ROLLING_FILE_NAME_PATTERN` 以及 `FILE_LOG_STRUCTURED_FORMAT` 中的结构化日志添加一个 javadoc:ch.qos.logback.core.rolling.RollingFileAppender[]。
+* `console-appender.xml` - 使用 `CONSOLE_LOG_PATTERN` 添加 javadoc:ch.qos.logback.core.ConsoleAppender[]。
+* `structured-console-appender.xml` - 使用 `CONSOLE_LOG_STRUCTURED_FORMAT` 中的结构化日志记录添加 javadoc:ch.qos.logback.core.ConsoleAppender[]。
+* `file-appender.xml` - 使用 `FILE_LOG_PATTERN` 和 `ROLLING_FILE_NAME_PATTERN` 以及适当的设置添加 javadoc:ch.qos.logback.core.rolling.RollingFileAppender[]。
+* `structured-file-appender.xml` - 使用 `ROLLING_FILE_NAME_PATTERN` 在 `FILE_LOG_STRUCTURED_FORMAT` 中进行结构化日志记录添加 javadoc:ch.qos.logback.core.rolling.RollingFileAppender[]。
 
-此外，还提供了一个遗留的 `base.xml` 文件，用于与早期版本的 Spring Boot 兼容。
+此外，还提供了旧版 `base.xml` 文件，用于与早期版本的 Spring Boot 兼容。
 
-一个典型的自定义 `logback.xml` 文件看起来像这样：
+一个典型的自定义 `logback.xml` 文件如下所示：
 
 [source,xml]
 ----
@@ -71,29 +67,28 @@ Spring Boot 提供了许多 logback 配置，可以 `include` 到你自己的配
 	<logger name="org.springframework.web" level="DEBUG"/>
 </configuration>
 ----
+您的 Logback 配置文件还可以利用 javadoc:org.springframework.boot.logging.LoggingSystem[] 为您创建的系统属性：
 
-你的 Logback 配置文件也可以使用由 javadoc:org.springframework.boot.logging.LoggingSystem[] 为你创建的系统属性：
-
-* `${PID}`：当前进程 ID。
-* `${LOG_FILE}`：是否在 Boot 的外部配置中设置了 `logging.file.name`。
-* `${LOG_PATH}`：是否在 Boot 的外部配置中设置了 `logging.file.path`（表示日志文件存放的目录）。
-* `${LOG_EXCEPTION_CONVERSION_WORD}`：是否在 Boot 的外部配置中设置了 `logging.exception-conversion-word`。
-* `${ROLLING_FILE_NAME_PATTERN}`：是否在 Boot 的外部配置中设置了 `logging.pattern.rolling-file-name`。
+* `$\{PID}`：当前进程 ID。
+* `$\{LOG_FILE}`：是否在 Boot 的外部配置中设置了 `logging.file.name`。
+* `$\{LOG_PATH}`：是否在 Boot 的外部配置中设置了 `logging.file.path`（表示日志文件存放的目录）。
+* `$\{LOG_EXCEPTION_CONVERSION_WORD}`：是否在 Boot 的外部配置中设置了 `logging.exception-conversion-word`。
+* `$\{ROLLING_FILE_NAME_PATTERN}`：是否在 Boot 的外部配置中设置了 `logging.pattern.rolling-file-name`。
 
 Spring Boot 还通过使用自定义的 Logback 转换器，在控制台（但不在日志文件中）提供了一些漂亮的 ANSI 彩色终端输出。
-有关示例，请参见 `defaults.xml` 配置中的 `CONSOLE_LOG_PATTERN`。
+有关示例，请参阅 `CONSOLE_LOG_PATTERN` 中的 `defaults.xml` 配置。
 
-如果 Groovy 在 classpath 上，你也可以使用 `logback.groovy` 来配置 Logback。
-如果存在，此设置优先。
+如果 Groovy 在 classpath 上，您也应该能够使用 `logback.groovy` 配置 Logback。
+如果存在，此设置将被优先考虑。
 
-注意：Groovy 配置不支持 Spring 扩展。
+注意：Spring 扩展不支持 Groovy 配置。
 任何 `logback-spring.groovy` 文件都不会被检测到。
 
 
 [[howto.logging.logback.file-only-output]]
 === 配置 Logback 仅输出到文件
 
-如果你想禁用控制台日志，仅输出到文件，你需要一个自定义的 `logback-spring.xml`，它导入 `file-appender.xml` 但不导入 `console-appender.xml`，如下例所示：
+如果您想禁用控制台日志记录并仅将输出写入文件，则需要一个自定义的 `logback-spring.xml`，它导入 `file-appender.xml` 但不导入 `console-appender.xml`，如下例所示：
 
 [source,xml]
 ----
@@ -107,8 +102,7 @@ Spring Boot 还通过使用自定义的 Logback 转换器，在控制台（但�
 	</root>
 </configuration>
 ----
-
-你还需要将 `logging.file.name` 添加到 `application.properties` 或 `application.yaml` 中，如下例所示：
+您还需要将 `logging.file.name` 添加到您的 `application.properties` 或 `application.yaml` 中，如下例所示：
 
 [configprops,yaml]
 ----
@@ -116,18 +110,14 @@ logging:
   file:
     name: "myapplication.log"
 ----
-
-
-
-[[howto.logging.log4j]]
 == 配置 Log4j 进行日志记录
 
-如果 classpath 中存在 https://logging.apache.org/log4j/2.x/[Log4j 2]，Spring Boot 支持使用它进行日志配置。
-如果你使用 starter 来组装依赖，则必须排除 Logback 并改用 Log4j 2。
-如果你不使用 starter，则除了 Log4j 2 之外，还需要提供（至少）`spring-jcl`。
+Spring Boot 支持使用 https://logging.apache.org/log4j/2.x/[Log4j 2] 进行日志配置，前提是它位于 classpath 上。
+如果你使用 starters 来组装依赖，你必须排除 Logback，然后改用 Log4j 2。
+如果你不使用 starters，你需要在 Log4j 2 之外至少提供 `spring-jcl`。
 
-推荐的方式是通过 starter，尽管这需要一些调整。
-以下示例展示了如何在 Maven 中设置 starter：
+推荐的路径是通过 starters，尽管它需要一些调整。
+以下示例展示了如何在 Maven 中设置 starters：
 
 [source,xml]
 ----
@@ -150,10 +140,9 @@ logging:
 	<artifactId>spring-boot-starter-log4j2</artifactId>
 </dependency>
 ----
-
-Gradle 提供了几种不同的方式来设置 starter。
-一种方式是使用 {url-gradle-docs}/resolution_rules.html#sec:module-replacement[模块替换]。
-为此，声明对 Log4j 2 starter 的依赖，并告诉 Gradle 任何默认日志 starter 的出现都应被 Log4j 2 starter 替换，如下例所示：
+Gradle 提供了几种不同的方式来设置 starters。
+一种方式是使用 {url-gradle-docs}/resolution_rules.html#sec:module-replacement[module replacement]。
+为此，声明对 Log4j 2 starter 的依赖，并告诉 Gradle 所有默认日志 starter 的出现都应被替换为 Log4j 2 starter，如下例所示：
 
 [source,gradle]
 ----
@@ -166,11 +155,9 @@ dependencies {
 	}
 }
 ----
+NOTE: Log4j starters 将常见日志记录需求（例如让 Tomcat 使用 `java.util.logging` 但通过 Log4j 2 配置输出）的依赖项集中在一起。
 
-注意: Log4j 启动器将常见日志记录需求（例如让 Tomcat 使用 `java.util.logging` 但通过 Log4j 2 配置输出）的依赖项集中在一起。
-
-注意: 为了确保使用 `java.util.logging` 执行的调试日志被路由到 Log4j 2，请通过将 `java.util.logging.manager` 系统属性设置为 `org.apache.logging.log4j.jul.LogManager` 来配置其 https://logging.apache.org/log4j/2.x/log4j-jul.html[JDK 日志适配器]。
-
+NOTE: 为确保使用 `java.util.logging` 执行的调试日志记录被路由到 Log4j 2，请通过将 `java.util.logging.manager` 系统属性设置为 `org.apache.logging.log4j.jul.LogManager` 来配置其 https://logging.apache.org/log4j/2.x/log4j-jul.html[JDK 日志适配器]。
 
 
 [[howto.logging.log4j.yaml-or-json-config]]
@@ -193,16 +180,15 @@ dependencies {
 |===
 
 
-
 [[howto.logging.log4j.composite-configuration]]
 === 使用复合配置配置 Log4j 2
 
-Log4j 2 支持将多个配置文件合并为一个复合配置。
+Log4j 2 支持将多个配置文件合并为单个复合配置。
 要在 Spring Boot 中使用此支持，请使用一个或多个辅助配置文件的位置配置 configprop:logging.log4j2.config.override[]。
-辅助配置文件将与主配置合并，无论主配置的来源是 Spring Boot 的默认值、标准位置（如 `log4j.xml`），还是由 configprop:logging.config[] 属性配置的位置。
+辅助配置文件将与主配置合并，无论主配置的来源是 Spring Boot 的默认值、标准位置（例如 `log4j.xml`）还是由 configprop:logging.config[] 属性配置的位置。
 
 [NOTE]
 ====
-Log4j2 覆盖配置文件位置可以加上 `optional:` 前缀。
-例如，`optional:classpath:log4j2-override.xml` 表示仅当资源存在时才加载 `log4j2-override.xml`。
+Log4j2 覆盖配置文件位置可以以 `optional:` 为前缀。
+例如，`optional:classpath:log4j2-override.xml` 表示仅当资源存在时才应加载 `log4j2-override.xml`。
 ====

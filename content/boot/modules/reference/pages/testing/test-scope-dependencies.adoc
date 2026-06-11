@@ -1,16 +1,14 @@
-[[testing.test-scope-dependencies]]
 = 测试作用域依赖
 
 `spring-boot-starter-test` starter（位于 `test` `scope` 中）包含以下提供的库：
 
-* https://junit.org[JUnit]：Java 应用程序单元测试的事实标准。
-* {url-spring-framework-docs}/testing/integration.html[Spring Test] 和 Spring Boot Test：为 Spring Boot 应用程序提供的实用程序和集成测试支持。
-* https://assertj.github.io/doc/[AssertJ]：一个流畅的断言库。
-* https://github.com/hamcrest/JavaHamcrest[Hamcrest]：一个匹配器对象库（也称为约束或谓词）。
-* https://site.mockito.org/[Mockito]：一个 Java 模拟框架。
-* https://github.com/skyscreamer/JSONassert[JSONassert]：一个用于 JSON 的断言库。
-* https://github.com/jayway/JsonPath[JsonPath]：用于 JSON 的 XPath。
-* https://github.com/awaitility/awaitility[Awaitility]：一个用于测试异步系统的库。
+* https://junit.org[JUnit]：单元测试 Java 应用程序的事实标准。
+* {url-spring-framework-docs}/testing/integration.html[Spring 测试] 和 Spring Boot 测试：用于 Spring Boot 应用程序的实用程序和集成测试支持。
+* https://assertj.github.io/doc/[AssertJ]：流式断言库。
+* https://github.com/hamcrest/JavaHamcrest[Hamcrest]：匹配器对象（也称为约束或谓词）库。
+* https://site.mockito.org/[Mockito]：Java 模拟框架。
+* https://github.com/skyscreamer/JSONassert[JSONassert]：JSON 断言库。
+* https://github.com/jayway/JsonPath[JsonPath]：JSON 的 XPath。
+* https://github.com/awaitility/awaitility[Awaitility]：用于测试异步系统的库。
 
-我们通常认为这些常见库在编写测试时很有用。
-如果这些库不适合您的需求，您可以自行添加额外的测试依赖。
+我们通常认为这些常见库在编写测试时很有用。如果这些库不适合你的需求，你可以自行添加额外的测试依赖。

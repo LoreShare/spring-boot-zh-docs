@@ -1,6 +1,7 @@
+[[packaging.container-images.dockerfiles]]
 = Dockerfiles
 
-虽然只需在 `Dockerfile` 中添加几行代码就能将 Spring Boot uber jar 转换为 Docker 镜像，但使用 xref:packaging/container-images/efficient-images.adoc#packaging.container-images.efficient-images.layering[layering feature] 会生成一个优化后的镜像。当你创建包含层索引文件的 jar 时，`spring-boot-jarmode-tools` jar 会作为依赖添加到你的 jar 中。有了这个 jar 在 classpath 上，你可以以一种特殊模式启动应用程序，该模式允许引导代码运行与应用程序完全不同的内容，例如，提取层的内容。
+虽然只需在 `Dockerfile` 中添加几行代码就可以将 Spring Boot uber jar 转换为 Docker 镜像，但使用 xref:packaging/container-images/efficient-images.adoc#packaging.container-images.efficient-images.layering[分层功能] 将产生一个优化的镜像。当你创建一个包含层索引文件的 jar 时，`spring-boot-jarmode-tools` jar 将作为依赖项添加到你的 jar 中。有了 classpath 上的这个 jar，你可以以一种特殊模式启动你的应用程序，该模式允许引导代码运行与你的应用程序完全不同的东西，例如，提取层的东西。
 
 以下是如何使用 `tools` jar 模式启动你的 jar：
 
@@ -20,8 +21,8 @@ Available commands:
   list-layers  List layers from the jar that can be extracted
   help         Help about any command
 ----
-The `extract` command can be used to easily split the application into layers to be added to the `Dockerfile`.
-Here is an example of a `Dockerfile` using `jarmode`.
+The `extract` 命令可用于轻松地将应用程序拆分为多个层，以便添加到 `Dockerfile`。
+以下是一个使用 `jarmode` 的 `Dockerfile` 示例。
 
 [source,dockerfile]
 ----
@@ -31,25 +32,25 @@ include::reference:partial$dockerfile[]
 # This layout is efficient to start up and AOT cache (and CDS) friendly
 ENTRYPOINT ["java", "-jar", "application.jar"]
 ----
-假设上述 `Dockerfile` 位于当前目录中，可以使用 `docker build .` 构建 Docker 镜像，或者可选地指定应用程序 jar 的路径，如下例所示：
+假设上述 `Dockerfile` 位于当前目录中，则可以使用 `docker build .` 构建 Docker 镜像，或者可选地指定应用程序 jar 的路径，如下例所示：
 
 [source,shell]
 ----
 $ docker build --build-arg JAR_FILE=path/to/myapp.jar .
 ----
 这是一个多阶段 `Dockerfile`。
-构建阶段提取了稍后需要的目录。
+构建阶段提取稍后需要的目录。
 每个 `COPY` 命令都与 jarmode 提取的层相关。
 
-当然，可以编写一个不使用 `jarmode` 的 `Dockerfile`。
+当然，也可以在不使用 `jarmode` 的情况下编写 `Dockerfile`。
 你可以使用 `unzip` 和 `mv` 的某种组合将内容移动到正确的层，但 `jarmode` 简化了这一点。
-此外，由 `jarmode` 创建的布局默认对 AOT 缓存（和 CDS）友好。
+此外，由 `jarmode` 创建的布局开箱即用，对 AOT 缓存（和 CDS）友好。
 
 
 [[packaging.container-images.dockerfiles.aot-cache]]
 == AOT 缓存
 
-如果你使用的是 Java 25 或更高版本，并且希望额外启用 xref:reference:packaging/aot-cache.adoc#packaging.aot-cache.aot-cache[AOT cache]，你可以使用这个 `Dockerfile`：
+如果你使用的是 Java 25 或更高版本，并且希望额外启用 xref:reference:packaging/aot-cache.adoc#packaging.aot-cache.aot-cache[AOT 缓存]，可以使用此 `Dockerfile`：
 [source,dockerfile]
 ----
 include::reference:partial$dockerfile[]
@@ -62,8 +63,8 @@ RUN java -XX:AOTCacheOutput=app.aot -Dspring.context.exit=onRefresh -jar applica
 # This layout is efficient to start up and AOT cache friendly
 ENTRYPOINT ["java", "-XX:AOTCache=app.aot", "-jar", "application.jar"]
 ----
-这与上面的 `Dockerfile` 基本相同。
-作为最后步骤，它通过执行一次训练运行来创建 AOT 缓存文件，并将 AOT 缓存参数传递给 `java -jar`。
+这与上述 `Dockerfile` 基本相同。
+作为最后步骤，它通过执行训练运行来创建 AOT 缓存文件，并将 AOT 缓存参数传递给 `java -jar`。
 
 
 [[packaging.container-images.dockerfiles.cds]]
@@ -85,6 +86,6 @@ RUN java -XX:ArchiveClassesAtExit=application.jsa -Dspring.context.exit=onRefres
 ENTRYPOINT ["java", "-XX:SharedArchiveFile=application.jsa", "-jar", "application.jar"]
 ----
 这与上面的 `Dockerfile` 基本相同。
-作为最后步骤，它通过执行一次训练运行来创建 CDS 归档，并将 CDS 参数传递给 `java -jar`。
+作为最后步骤，它通过执行训练运行创建 CDS 存档，并将 CDS 参数传递给 `java -jar`。
 
-注意：如果你使用的是 Java 25 或更高版本，我们建议使用 AOT 缓存而不是 CDS。
+注意：如果您使用的是 Java 25 或更高版本，我们建议使用 AOT 缓存而不是 CDS。

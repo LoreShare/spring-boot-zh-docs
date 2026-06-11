@@ -1,0 +1,123 @@
+[[loggers]]
+= 日志记录器 (`loggers`)
+
+`loggers` endpoint 提供对应用程序日志记录器及其级别配置的访问。
+
+
+[[loggers.all]]
+== 检索所有日志记录器
+
+要检索应用程序的日志记录器，向 `/actuator/loggers` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/loggers/all/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/loggers/all/http-response.adoc[]
+
+
+[[loggers.all.response-structure]]
+=== 响应结构
+
+响应包含应用程序日志记录器的详细信息。
+下表描述了响应的结构：
+
+[cols="3,1,3"]
+include::partial$rest/actuator/loggers/all/response-fields.adoc[]
+
+
+[[loggers.single]]
+== 检索单个日志记录器
+
+要检索单个日志记录器，向 `/actuator/loggers/{logger.name}` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/loggers/single/curl-request.adoc[]
+
+前面的示例检索名为 `com.example` 的日志记录器的信息。
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/loggers/single/http-response.adoc[]
+
+
+[[loggers.single.response-structure]]
+=== 响应结构
+
+响应包含所请求日志记录器的详细信息。
+下表描述了响应的结构：
+
+[cols="3,1,3"]
+include::partial$rest/actuator/loggers/single/response-fields.adoc[]
+
+
+[[loggers.group]]
+== 检索单个组
+
+要检索单个组，向 `/actuator/loggers/{group.name}` 发送 `GET` 请求，
+如下面的 curl 示例所示：
+
+include::partial$rest/actuator/loggers/group/curl-request.adoc[]
+
+前面的示例检索名为 `test` 的日志记录器组的信息。
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/loggers/group/http-response.adoc[]
+
+
+[[loggers.group.response-structure]]
+=== 响应结构
+
+响应包含所请求组的详细信息。
+下表描述了响应的结构：
+
+[cols="3,1,3"]
+include::partial$rest/actuator/loggers/group/response-fields.adoc[]
+
+
+[[loggers.setting-level]]
+== 设置日志级别
+
+要设置日志记录器的级别，向 `/actuator/loggers/{logger.name}` 发送 `POST` 请求，请求体为 JSON，指定日志记录器的配置级别，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/loggers/set/curl-request.adoc[]
+
+前面的示例将 `com.example` 日志记录器的 `configuredLevel` 设置为 `DEBUG`。
+
+
+[[loggers.setting-level.request-structure]]
+=== 请求结构
+
+请求指定日志记录器的期望级别。
+下表描述了请求的结构：
+
+[cols="3,1,3"]
+include::partial$rest/actuator/loggers/set/request-fields.adoc[]
+
+
+[[loggers.group-setting-level]]
+== 设置组的日志级别
+
+要设置日志记录器组的级别，向 `/actuator/loggers/{group.name}` 发送 `POST` 请求，请求体为 JSON，指定日志记录器组的配置级别，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/loggers/setGroup/curl-request.adoc[]
+
+前面的示例将 `test` 日志记录器组的 `configuredLevel` 设置为 `DEBUG`。
+
+
+[[loggers.group-setting-level.request-structure]]
+=== 请求结构
+
+请求指定日志记录器组的期望级别。
+下表描述了请求的结构：
+
+[cols="3,1,3"]
+include::partial$rest/actuator/loggers/set/request-fields.adoc[]
+
+
+[[loggers.clearing-level]]
+== 清除日志级别
+
+要清除日志记录器的级别，向 `/actuator/loggers/{logger.name}` 发送 `POST` 请求，请求体为 JSON，包含一个空对象，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/loggers/clear/curl-request.adoc[]
+
+前面的示例清除 `com.example` 日志记录器的配置级别。

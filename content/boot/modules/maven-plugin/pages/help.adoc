@@ -1,0 +1,4 @@
+= 帮助信息
+`help` 目标是一个标准目标，用于显示插件功能的信息。
+
+include::partial$goals/help.adoc[leveloffset=+1]

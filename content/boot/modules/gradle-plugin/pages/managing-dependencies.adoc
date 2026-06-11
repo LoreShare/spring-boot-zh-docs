@@ -1,0 +1,229 @@
+= 管理依赖
+
+要管理 Spring Boot 应用程序中的依赖，你可以应用 {url-dependency-management-plugin-site}[`io.spring.dependency-management`] 插件，或者使用 Gradle 的原生 bom 支持。前者的主要好处是它提供了基于属性的受管版本定制，而使用后者可能会带来更快的构建。
+
+[[managing-dependencies.dependency-management-plugin]]
+== 使用依赖管理插件管理依赖
+
+当你应用 {url-dependency-management-plugin-site}[`io.spring.dependency-management`] 插件时，Spring Boot 的插件会自动 xref:reacting.adoc#reacting-to-other-plugins.dependency-management[导入 `spring-boot-dependencies` bom]，该 bom 来自你正在使用的 Spring Boot 版本。这提供了与 Maven 用户所享受的类似的依赖管理体验。例如，它允许你在声明 bom 中管理的依赖时省略版本号。要使用此功能，以通常的方式声明依赖，但省略版本号：
+
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/dependencies.gradle[tags=dependencies]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/dependencies.gradle.kts[tags=dependencies]
+----
+======
+
+
+
+[[managing-dependencies.dependency-management-plugin.customizing]]
+=== 自定义受管版本
+
+当应用依赖管理插件时，会自动导入的 `spring-boot-dependencies` bom 使用属性来控制其管理的依赖版本。
+浏览 Spring Boot 参考文档中的 xref:appendix:dependency-versions/properties.adoc[依赖版本属性] 部分，获取这些属性的完整列表。
+
+要自定义受管版本，请设置其对应的属性。
+例如，要自定义由 `slf4j.version` 属性控制的 SLF4J 版本：
+
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/custom-version.gradle[tags=custom-version]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/custom-version.gradle.kts[tags=custom-version]
+----
+======
+
+WARNING: 每个 Spring Boot 版本都是针对一组特定的第三方依赖项设计和测试的。
+覆盖版本可能会导致兼容性问题，应谨慎操作。
+
+
+
+[[managing-dependencies.dependency-management-plugin.using-in-isolation]]
+=== 单独使用 Spring Boot 的依赖管理
+
+Spring Boot 的依赖管理可以在不应用 Spring Boot 插件的情况下在项目中使用。
+`SpringBootPlugin` 类提供了一个 `BOM_COORDINATES` 常量，可用于导入 bom，而无需知道其 group ID、artifact ID 或版本。
+
+首先，配置项目依赖 Spring Boot 插件但不应用它：
+
+ifeval::["{build-type}" == "commercial"]
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/depend-on-plugin-commercial.gradle[]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/depend-on-plugin-commercial.gradle.kts[]
+----
+== 管理依赖
+
+endif::[]
+
+ifeval::["{build-and-artifact-release-type}" == "opensource-release"]
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/depend-on-plugin-release.gradle[]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/depend-on-plugin-release.gradle.kts[]
+----
+endif::[]
+
+ifeval::["{build-and-artifact-release-type}" == "opensource-milestone"]
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/depend-on-plugin-milestone.gradle[]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/depend-on-plugin-release.gradle.kts[]
+----
+== 管理依赖
+
+endif::[]
+
+ifeval::["{build-and-artifact-release-type}" == "opensource-snapshot"]
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/depend-on-plugin-snapshot.gradle[]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/depend-on-plugin-release.gradle.kts[]
+----
+endif::[]
+
+Spring Boot 插件对依赖管理插件的依赖意味着你可以使用依赖管理插件，而无需声明对其的依赖。
+这也意味着你将自动使用与 Spring Boot 相同版本的依赖管理插件。
+
+应用依赖管理插件，然后配置它以导入 Spring Boot 的 bom：
+
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/configure-bom.gradle[tags=configure-bom]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/configure-bom.gradle.kts[tags=configure-bom]
+----
+======
+
+上面的 Kotlin 代码有点笨拙。
+这是因为我们使用了命令式的方式来应用依赖管理插件。
+
+我们可以通过从根父项目应用插件，或者像对 Spring Boot 插件那样使用 `plugins` 块来使代码不那么笨拙。
+这种方法的一个缺点是它迫使我们指定依赖管理插件的版本：
+
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/configure-bom-with-plugins.gradle.kts[tags=configure-bom]
+----
+[[managing-dependencies.dependency-management-plugin.learning-more]]
+=== 了解更多
+
+要了解依赖管理插件的更多功能，请参阅其 {url-dependency-management-plugin-docs}[文档]。
+
+[[managing-dependencies.gradle-bom-support]]
+== 使用 Gradle 的 Bom 支持管理依赖
+
+Gradle 允许通过将 bom 声明为 `platform` 或 `enforcedPlatform` 依赖来管理项目的版本。
+`platform` 依赖将 bom 中的版本视为建议，依赖图中的其他版本和约束可能导致使用不同于 bom 中声明的依赖版本。
+`enforcedPlatform` 依赖将 bom 中的版本视为要求，它们将覆盖依赖图中找到的任何其他版本。
+
+`SpringBootPlugin` 类提供了一个 `BOM_COORDINATES` 常量，可用于声明对 Spring Boot 的 bom 的依赖，而无需知道其 group ID、artifact ID 或版本，如下例所示：
+
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/configure-platform.gradle[tags=configure-platform]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/configure-platform.gradle.kts[tags=configure-platform]
+----
+======
+
+平台或强制平台只会约束声明它的配置或从声明它的配置扩展而来的配置中的版本。
+因此，可能需要在多个配置中声明相同的依赖。
+
+
+
+[[managing-dependencies.gradle-bom-support.customizing]]
+=== 自定义托管版本
+
+使用 Gradle 的 bom 支持时，不能使用 `spring-boot-dependencies` 中的属性来控制其管理的依赖的版本。
+相反，必须使用 Gradle 提供的机制之一。
+其中一种机制是解析策略。
+SLF4J 的所有模块都在 `org.slf4j` 组中，因此可以通过配置该组中的每个依赖使用特定版本来控制其版本，如下例所示：
+
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/custom-version-with-platform.gradle[tags=custom-version]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$managing-dependencies/custom-version-with-platform.gradle.kts[tags=custom-version]
+----
+======
+
+WARNING: 每个 Spring Boot 版本都是针对一组特定的第三方依赖项设计和测试的。
+覆盖版本可能会导致兼容性问题，应谨慎操作。

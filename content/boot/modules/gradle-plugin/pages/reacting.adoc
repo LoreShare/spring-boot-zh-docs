@@ -1,0 +1,109 @@
+[[reacting-to-other-plugins]]
+= 响应其他插件
+
+当应用其他插件时，Spring Boot 插件会通过修改项目配置来做出响应。
+本节描述这些修改。
+
+
+[[reacting-to-other-plugins.java]]
+== 响应 Java 插件
+
+当 Gradle 的 {url-gradle-docs-java-plugin}[`java` 插件] 应用于项目时，Spring Boot 插件会：
+
+1. 创建一个名为 `bootJar` 的 {apiref-gradle-plugin-boot-jar}[`BootJar`] 任务，该任务将为项目创建一个可执行的 uber jar。
+   jar 将包含主源集运行时 classpath 上的所有内容；类打包在 `BOOT-INF/classes` 中，jar 打包在 `BOOT-INF/lib` 中。
+2. 配置 `assemble` 任务依赖于 `bootJar` 任务。
+3. 配置 `jar` 任务使用 `plain` 作为其归档分类器的约定。
+4. 创建一个名为 `bootBuildImage` 的 {apiref-gradle-plugin-boot-build-image}[`BootBuildImage`] 任务，该任务将使用 https://buildpacks.io[buildpack] 创建 OCI 镜像。
+5. 创建一个名为 `bootRun` 的 {apiref-gradle-plugin-boot-run}[`BootRun`] 任务，可用于使用 `main` 源集查找主方法并提供其运行时 classpath 来运行应用程序。
+6. 创建一个名为 `bootTestRun` 的 {apiref-gradle-plugin-boot-run}[`BootRun`] 任务，可用于使用 `test` 源集查找主方法并提供其运行时 classpath 来运行应用程序。
+7. 创建一个名为 `bootArchives` 的配置，包含 `bootJar` 任务产生的工件。
+8. 创建一个名为 `developmentOnly` 的配置，用于仅在开发时需要的依赖项，例如 Spring Boot 的 Devtools，并且不应打包到可执行 jar 和 war 中。
+9. 创建一个名为 `testAndDevelopmentOnly` 的配置，用于仅在开发时以及编写和运行测试时需要的依赖项，并且不应打包到可执行 jar 和 war 中。
+10. 创建一个名为 `productionRuntimeClasspath` 的配置。它等同于 `runtimeClasspath` 减去仅出现在 `developmentOnly` 或 `testDevelopmentOnly` 配置中的依赖项。
+11. 配置所有未设置编码的 `JavaCompile` 任务使用 `UTF-8`。
+12. 配置所有 `JavaCompile` 任务使用 `-parameters` 编译器参数。
+
+
+[[reacting-to-other-plugins.kotlin]]
+== 响应 Kotlin 插件
+
+当 {url-kotlin-docs-kotlin-plugin}[Kotlin 的 Gradle 插件] 应用于项目时，Spring Boot 插件会：
+
+1. 将 Spring Boot 依赖管理中使用的 Kotlin 版本与插件版本对齐。
+   这是通过设置 `kotlin.version` 属性为与 Kotlin 插件版本匹配的值来实现的。
+2. 配置所有 `KotlinCompile` 任务使用 `-java-parameters` 编译器参数。
+
+
+[[reacting-to-other-plugins.war]]
+== 响应 War 插件
+
+当 Gradle 的 {url-gradle-docs-war-plugin}[`war` 插件] 应用于项目时，Spring Boot 插件会：
+
+1. 创建一个名为 `bootWar` 的 {apiref-gradle-plugin-boot-war}[`BootWar`] 任务，该任务将为项目创建一个可执行的 fat war。
+   除了标准打包外，`providedRuntime` 配置中的所有内容都将打包在 `WEB-INF/lib-provided` 中。
+2. 配置 `assemble` 任务依赖于 `bootWar` 任务。
+3. 配置 `war` 任务使用 `plain` 作为其归档分类器的约定。
+4. 配置 `bootArchives` 配置包含 `bootWar` 任务产生的工件。
+
+
+[[reacting-to-other-plugins.dependency-management]]
+== 响应依赖管理插件
+
+当 {url-dependency-management-plugin-site}[`io.spring.dependency-management` 插件] 应用于项目时，Spring Boot 插件会自动导入 `spring-boot-dependencies` bom。
+
+
+[[reacting-to-other-plugins.application]]
+== 响应 Application 插件
+
+当 Gradle 的 {url-gradle-docs-application-plugin}[`application` 插件] 应用于项目时，Spring Boot 插件会：
+
+1. 创建一个名为 `bootStartScripts` 的 `CreateStartScripts` 任务，该任务将创建启动 `bootArchives` 配置中工件的脚本，使用 `java -jar`。
+   该任务配置为使用 `applicationDefaultJvmArgs` 属性作为其 `defaultJvmOpts` 属性的约定。
+2. 创建一个名为 `boot` 的新发行版，并配置其 `lib` 目录中包含 `bootArchives` 配置中的工件，`bin` 目录中包含启动脚本。
+3. 配置 `bootRun` 任务使用 `mainClassName` 属性作为其 `main` 属性的约定。
+4. 配置 `bootRun` 和 `bootTestRun` 任务使用 `applicationDefaultJvmArgs` 属性作为其 `jvmArgs` 属性的约定。
+5. 配置 `bootJar` 任务使用 `mainClassName` 属性作为其清单中 `Start-Class` 条目的约定。
+6. 配置 `bootWar` 任务使用 `mainClassName` 属性作为其清单中 `Start-Class` 条目的约定。
+
+
+[[reacting-to-other-plugins.nbt]]
+== 响应 GraalVM Native Image 插件
+
+当 {url-native-build-tools-docs-gradle-plugin}[GraalVM Native Image 插件] 应用于项目时，Spring Boot 插件会：
+
+. 应用 `org.springframework.boot.aot` 插件，该插件会：
+.. 注册 `aot` 和 `aotTest` 源集。
+.. 注册一个名为 `processAot` 的 `ProcessAot` 任务，该任务将为 `aot` 源集中的应用程序生成 AOT 优化的源代码。
+.. 配置 `aot` 源集的 Java 编译和处理资源任务依赖于 `processAot`。
+.. 注册一个名为 `processTestAot` 的 `ProcessTestAot` 任务，该任务将为 `aotTest` 源集中的应用程序测试生成 AOT 优化的源代码。
+.. 配置 `aotTest` 源集的 Java 编译和处理资源任务依赖于 `processTestAot`。
+. 将 `aot` 源集的输出添加到 `main` GraalVM 原生二进制的 classpath 中。
+. 将 `aotTest` 源集的输出添加到 `test` GraalVM 原生二进制的 classpath 中。
+. 配置 GraalVM 扩展以禁用 Toolchain 检测。
+. 配置 `bootJar` 任务在其 jar 中包含 `collectReachabilityMetadata` 任务产生的可达性元数据。
+. 配置 `bootJar` 任务添加 `Spring-Boot-Native-Processed: true` 清单条目。
+
+
+[[reacting-to-other-plugins.cyclonedx]]
+== 响应 CycloneDX 插件
+
+当 {url-cyclonedx-docs-gradle-plugin}[CycloneDX 插件] 应用于项目时，Spring Boot 插件会：
+
+. 配置 `cyclonedxBom` 任务：
+.. 使用 `application` 项目类型。
+.. 输出 JSON 格式的 SBOM 到 `application.cdx.json` 文件。
+.. 禁用 XML 格式的 SBOM。
+.. 禁用完整的许可证文本。
+. 将 SBOM 添加到生成的 jar 或 war 文件中的 `META-INF/sbom` 下。
+. 将 `Sbom-Format` 和 `Sbom-Location` 添加到 jar 或 war 文件的清单中。
+
+
+[[reacting-to-other-plugins.protobuf]]
+== 响应 Protobuf 插件
+
+当 {url-protobuf-docs-gradle-plugin}[Protobuf 插件] 应用于项目时，Spring Boot 插件会：
+
+. 配置 `protoc` 使用工件 `com.google.protobuf:protoc`，将其版本与运行时 classpath 上的 Protobuf 依赖项版本对齐。
+. 配置 `grpc` 插件使用工件 `io.grpc:protoc-gen-grpc-java`，将其版本与运行时 classpath 上的 gRPC 依赖项版本对齐。
+. 配置所有生成 proto 任务的 `grpc` 插件，使用选项 `@generated=omit`。

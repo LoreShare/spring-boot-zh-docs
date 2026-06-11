@@ -1,0 +1,27 @@
+= 计划任务 (`scheduledtasks`)
+
+`scheduledtasks` endpoint 提供有关应用程序计划任务的信息。
+
+
+
+[[scheduled-tasks.retrieving]]
+== 检索计划任务
+
+要检索计划任务，请向 `/actuator/scheduledtasks` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/scheduled-tasks/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/scheduled-tasks/http-response.adoc[]
+
+
+
+[[scheduled-tasks.retrieving.response-structure]]
+=== 响应结构
+
+响应包含应用程序计划任务的详细信息。
+下表描述了响应的结构：
+
+[cols="2,1,3"]
+include::partial$rest/actuator/scheduled-tasks/response-fields.adoc[]

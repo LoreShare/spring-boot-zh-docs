@@ -1,16 +1,11 @@
 = 验证
 
-只要 JSR-303 实现（例如 Hibernate Validator，通常由 `spring-boot-starter-validation` 提供）位于 classpath 上，Bean Validation 1.1 支持的方法验证功能就会自动启用。
-这使得 bean 方法可以在其参数和/或返回值上使用 `jakarta.validation` 约束进行注解。
-带有此类注解方法的目标类需要在类型级别使用 javadoc:org.springframework.validation.annotation.Validated[format=annotation] annotation 进行注解，以便搜索其方法中的内联约束 annotation。
+只要 classpath 上存在 JSR-303 实现（例如 Hibernate Validator，通常由 `spring-boot-starter-validation` 提供），Bean Validation 1.1 支持的方法验证功能就会自动启用。这使得 bean 方法可以在其参数和/或返回值上使用 `jakarta.validation` 约束进行注解。带有此类注解方法的目标类需要在类型级别使用 javadoc:org.springframework.validation.annotation.Validated[format=annotation] annotation 进行注解，以便搜索其方法的内联约束 annotations。
 
 例如，以下服务会触发第一个参数的验证，确保其大小在 8 到 10 之间：
 
 include-code::MyBean[]
 
-在解析约束消息中的 `+{parameters}+` 时，会使用应用程序的 javadoc:org.springframework.context.MessageSource[]。
-这允许你使用 xref:features/internationalization.adoc[your application's `messages.properties` files] 作为 Bean Validation 消息。
-参数解析完成后，消息插值将使用 Bean Validation 的默认插值器完成。
+在解析约束消息中的 `+{parameters}+` 时，会使用应用程序的 javadoc:org.springframework.context.MessageSource[]。这允许你使用 xref:features/internationalization.adoc[应用程序的 `messages.properties` 文件] 来提供 Bean Validation 消息。一旦参数被解析，消息插值将使用 Bean Validation 的默认插值器完成。
 
-要自定义用于构建 javadoc:jakarta.validation.ValidatorFactory[] 的 javadoc:jakarta.validation.Configuration[]，请定义一个 javadoc:org.springframework.boot.validation.autoconfigure.ValidationConfigurationCustomizer[] bean。
-当定义了多个自定义 bean 时，它们会根据其 javadoc:org.springframework.core.annotation.Order[format=annotation] annotation 或 javadoc:org.springframework.core.Ordered[] 实现按顺序调用。
+要自定义用于构建 javadoc:jakarta.validation.ValidatorFactory[] 的 javadoc:jakarta.validation.Configuration[]，请定义一个 javadoc:org.springframework.boot.validation.autoconfigure.ValidationConfigurationCustomizer[] bean。当定义了多个自定义器 beans 时，它们会根据其 javadoc:org.springframework.core.annotation.Order[format=annotation] annotation 或 javadoc:org.springframework.core.Ordered[] 实现按顺序调用。

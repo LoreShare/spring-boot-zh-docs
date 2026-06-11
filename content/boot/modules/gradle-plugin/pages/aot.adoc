@@ -1,0 +1,63 @@
+= 提前处理
+
+Spring AOT 是一种在构建时分析代码以生成优化版本的过程。它最常用于帮助生成 GraalVM native images。
+
+`org.springframework.boot.aot` Gradle 插件提供了可用于对应用程序和测试代码执行 AOT 处理的任务。当应用 {url-native-build-tools-docs-gradle-plugin}[GraalVM Native Image 插件]时，该插件会自动应用：
+
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$aot/apply-native-image-plugin.gradle[]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$aot/apply-native-image-plugin.gradle.kts[]
+----
+======
+
+如果你希望在 JVM 上 xref:reference:packaging/aot.adoc[运行一个经过 AOT 处理的应用程序] 而不是作为 native image，请直接应用 `org.springframework.boot.aot` 插件：
+
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$aot/apply-aot-plugin.gradle[]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$aot/apply-aot-plugin.gradle.kts[]
+----
+======
+
+[[processing-applications]]
+== 处理应用程序
+
+基于你的 `@SpringBootApplication` 注解的主类，`processAot` 任务生成一个持久化的视图，其中包含将在运行时贡献的 beans，以便尽可能直接地进行 bean 实例化。
+可以使用回调对工厂进行额外的后处理。
+例如，这些回调用于生成必要的反射配置，以便 GraalVM 在 native image 中初始化上下文。
+
+由于 `BeanFactory` 在构建时完全准备好，条件也会被评估。
+这与常规 Spring Boot 应用程序在运行时所做的相比有一个重要区别。
+例如，如果你想选择加入或退出某些特性，你需要配置构建时使用的环境来实现。
+为此，`processAot` 任务是一个 {url-gradle-dsl}/org.gradle.api.tasks.JavaExec.html[`JavaExec`] 任务，可以根据需要配置环境变量、系统属性和参数。
+
+GraalVM Native Image 插件的 `nativeCompile` 任务会自动配置为使用 `processAot` 任务的输出。
+
+[[processing-tests]]
+== 处理测试
+
+AOT 引擎可以应用于使用 Spring 的测试上下文框架的 JUnit 5 测试。
+合适的测试由 `processTestAot` 任务处理，以生成 `ApplicationContextInitializer` 代码。
+与应用程序 AOT 处理一样，`BeanFactory` 在构建时完全准备好。
+与 `processAot` 一样，`processTestAot` 任务是 `JavaExec` 子类，可以根据需要配置以影响此处理。
+
+GraalVM Native Image 插件的 `nativeTest` 任务会自动配置为使用 `processAot` 和 `processTestAot` 任务的输出。

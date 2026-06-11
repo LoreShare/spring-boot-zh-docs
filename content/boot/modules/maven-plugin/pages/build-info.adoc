@@ -1,0 +1,17 @@
+[[build-info]]
+= 与 Actuator 集成
+
+Spring Boot Actuator 会在存在 `META-INF/build-info.properties` 文件时显示构建相关信息。
+`build-info` 目标会生成包含项目坐标和构建时间的此类文件。
+它还允许你添加任意数量的附加属性，如下例所示：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$build-info/pom.xml[tags=build-info]
+----
+此配置将在预期位置生成一个 `build-info.properties`，并包含三个额外的键。
+
+注意：`java.version` 预期是项目中可用的常规属性。
+它将按预期进行插值。
+
+include::partial$goals/build-info.adoc[leveloffset=+1]

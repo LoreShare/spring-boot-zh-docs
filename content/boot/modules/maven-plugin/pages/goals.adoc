@@ -1,0 +1,5 @@
+= 目标
+
+Spring Boot 插件具有以下目标：
+
+include::partial$goals/overview.adoc[]

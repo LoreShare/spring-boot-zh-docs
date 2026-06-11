@@ -1,52 +1,57 @@
 = Testcontainers
 
-https://www.testcontainers.org/[Testcontainers] 库提供了一种管理在 Docker 容器内运行的服务的方式。
+https://www.testcontainers.org/[Testcontainers] 库提供了一种管理在 Docker 容器中运行的服务的方式。
 它与 JUnit 集成，允许你编写一个测试类，在任何测试运行之前启动一个容器。
 Testcontainers 对于编写与真实后端服务（如 MySQL、MongoDB、Cassandra 等）通信的集成测试特别有用。
 
-在接下来的章节中，我们将描述一些你可以用来将 Testcontainers 集成到测试中的方法。
+在接下来的章节中，我们将描述一些可以用来将 Testcontainers 集成到测试中的方法。
 
 
+[[testing.testcontainers.spring-beans]]
 == 使用 Spring Bean
 
-Testcontainers 提供的容器可以作为 bean 由 Spring Boot 管理。
+Testcontainers 提供的容器可以作为 beans 由 Spring Boot 管理。
 
-要将容器声明为 bean，请向测试配置中添加一个 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法：
+要将容器声明为 bean，请在你的测试配置中添加一个 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法：
 
 include-code::MyTestConfiguration[]
 
-然后，你可以通过在测试类中导入配置类来注入并使用容器：
+然后，你可以通过在测试类中导入配置类来注入并使用该容器：
 
 include-code::MyIntegrationTests[]
 
-TIP: 这种管理容器的方法通常与 xref:#testing.testcontainers.service-connections[service connection annotations] 结合使用。
+提示：这种管理容器的方法通常与 xref:#testing.testcontainers.service-connections[服务连接 annotations] 结合使用。
 
 
+
+[[testing.testcontainers.junit-extension]]
 == 使用 JUnit 扩展
 
-Testcontainers 提供了一个 JUnit 扩展，可用于在测试中管理容器。
-该扩展通过在测试类上应用 Testcontainers 的 javadoc:org.testcontainers.junit.jupiter.Testcontainers[format=annotation] annotation 来激活。
+Testcontainers 提供了一个 JUnit 扩展，可用于管理测试中的容器。
+该扩展通过将 Testcontainers 的 javadoc:org.testcontainers.junit.jupiter.Testcontainers[format=annotation] annotation 应用于测试类来激活。
 
 然后，你可以在静态容器字段上使用 javadoc:org.testcontainers.junit.jupiter.Container[format=annotation] annotation。
 
-javadoc:org.testcontainers.junit.jupiter.Testcontainers[format=annotation] annotation 可以用于普通的 JUnit 测试，或与 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 结合使用：
+javadoc:org.testcontainers.junit.jupiter.Testcontainers[format=annotation] annotation 可用于普通的 JUnit 测试，或与 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 结合使用：
 
 include-code::MyIntegrationTests[]
 
 上面的示例将在任何测试运行之前启动一个 Neo4j 容器。
 容器实例的生命周期由 Testcontainers 管理，如 {url-testcontainers-docs}/test_framework_integration/junit_5/#extension[其官方文档] 所述。
 
-使用 JUnit 扩展时，容器实例在测试类运行后（对于静态字段）或每个测试方法后（对于非静态字段）停止。
-当与 Spring Boot 测试一起使用时，这可能会导致问题，因为 Spring 的 TestContext 框架可能会在停止点之后缓存 javadoc:org.springframework.context.ApplicationContext[]，并将其重用于具有相同配置的另一个测试类或方法。
-如果缓存的应用程序上下文包含依赖于已停止容器的 bean，则后续测试或 bean 销毁回调可能会失败。
-因此，当应用程序上下文应在其缓存期间保持可用时，应优先使用 xref:#testing.testcontainers.spring-beans[managing containers as Spring beans] 或 xref:#testing.testcontainers.importing-configuration-interfaces[importing container declarations]。
+使用 JUnit 扩展时，容器实例会在测试类运行后（对于静态字段）或每个测试方法后（对于非静态字段）停止。
+当与 Spring Boot 测试一起使用时，这可能会导致问题，因为 Spring 的 TestContext 框架可能会缓存 javadoc:org.springframework.context.ApplicationContext[] 超过该点，并将其重用于具有相同配置的另一个测试类或方法。
+如果缓存的应用程序上下文包含依赖于已停止容器的 beans，则后续测试或 bean 销毁回调可能会失败。
+因此，当应用程序上下文应在其缓存期间保持可用时，应优先使用 xref:#testing.testcontainers.spring-beans[将容器管理为 Spring beans] 或 xref:#testing.testcontainers.importing-configuration-interfaces[导入容器声明]。
 
-NOTE: 在大多数情况下，你还需要额外配置应用程序以连接到容器中运行的服务。
+注意：在大多数情况下，你还需要配置应用程序以连接到容器中运行的服务。
 
 
+
+[[testing.testcontainers.importing-configuration-interfaces]]
 == 导入容器配置接口
 
-使用 Testcontainers 的一个常见模式是将容器实例声明为接口中的静态字段。
+Testcontainers 的一个常见模式是将容器实例声明为接口中的静态字段。
 
 例如，以下接口声明了两个容器，一个名为 `mongo`，类型为 javadoc:{url-testcontainers-mongodb-javadoc}/org.testcontainers.mongodb.MongoDBContainer[]，另一个名为 `neo4j`，类型为 javadoc:{url-testcontainers-neo4j-javadoc}/org.testcontainers.neo4j.Neo4jContainer[]：
 
@@ -55,60 +60,64 @@ include-code::MyContainers[]
 当你以这种方式声明容器时，可以通过让测试类实现该接口来在多个测试中重用它们的配置。
 
 也可以在你的 Spring Boot 测试中使用相同的接口配置。
-为此，请向测试配置类添加 javadoc:org.springframework.boot.testcontainers.context.ImportTestcontainers[format=annotation]：
+为此，请在你的测试配置类中添加 javadoc:org.springframework.boot.testcontainers.context.ImportTestcontainers[format=annotation]：
 
 include-code::MyTestConfiguration[]
 
 
+
+[[testing.testcontainers.lifecycle]]
 == 托管容器的生命周期
 
-如果你使用了 Testcontainers 提供的 annotation 和扩展，那么容器实例的生命周期完全由 Testcontainers 管理。
-请参考 {url-testcontainers-docs}[官方 Testcontainers 文档] 获取信息。
+如果你使用了 Testcontainers 提供的 annotations 和扩展，那么容器实例的生命周期完全由 Testcontainers 管理。
+请参考 {url-testcontainers-docs}[官方 Testcontainers 文档] 获取相关信息。
 
-当容器作为 bean 由 Spring 管理时，它们的生命周期由 Spring 管理：
+当容器作为 beans 由 Spring 管理时，它们的生命周期由 Spring 管理：
 
-* 容器 bean 在所有其他 bean 之前创建并启动。
+* 容器 beans 在所有其他 beans 之前创建并启动。
 
-* 容器 bean 在所有其他 bean 销毁后停止。
+* 容器 beans 在所有其他 beans 销毁之后停止。
 
-此过程确保任何依赖于容器提供功能的 bean 可以使用这些功能。
+此过程确保任何依赖于容器提供功能的 beans 可以使用这些功能。
 它还确保在容器仍然可用时进行清理。
 
-TIP: 当你的应用程序 bean 依赖于容器的功能时，优先将容器配置为 Spring bean，以确保正确的生命周期行为。
+提示：当你的应用程序 beans 依赖于容器的功能时，优先将容器配置为 Spring beans 以确保正确的生命周期行为。
 
-NOTE: 让容器由 Testcontainers 管理而不是作为 Spring bean 管理，无法保证 bean 和容器的关闭顺序。
-可能会发生容器在依赖于容器功能的 bean 清理之前关闭的情况。
-这可能导致客户端 bean 抛出异常，例如由于连接丢失。
-当应用程序上下文应在其缓存期间保持可用时，优先将容器管理为 Spring bean，或使用 javadoc:org.springframework.boot.testcontainers.context.ImportTestcontainers[format=annotation] 导入容器声明。
+注意：由 Testcontainers 管理容器而不是作为 Spring beans 并不能保证 beans 和容器关闭的顺序。
+可能会发生容器在依赖于容器功能的 beans 被清理之前关闭的情况。
+这可能导致客户端 beans 抛出异常，例如由于连接丢失。
+当应用程序上下文应在其缓存期间保持可用时，优先将容器管理为 Spring beans 或使用 javadoc:org.springframework.boot.testcontainers.context.ImportTestcontainers[format=annotation] 导入容器声明。
 
-容器 bean 在由 Spring 的 TestContext 框架管理的每个应用程序上下文中创建并启动一次。
-有关 TestContext 框架如何管理底层应用程序上下文及其中的 bean 的详细信息，请参考 {url-spring-framework-docs}[Spring 框架文档]。
+容器 beans 在由 Spring 的 TestContext 框架管理的每个应用程序上下文中创建并启动一次。
+有关 TestContext 框架如何管理底层应用程序上下文及其中的 beans 的详细信息，请参考 {url-spring-framework-docs}[Spring 框架文档]。
 
-容器 bean 作为 TestContext 框架标准应用程序上下文关闭过程的一部分被停止。
+容器 beans 作为 TestContext 框架标准应用程序上下文关闭过程的一部分被停止。
 当应用程序上下文关闭时，容器也会关闭。
-这通常在使用该特定缓存应用程序上下文的所有测试执行完毕后发生。
+这通常发生在使用该特定缓存应用程序上下文的所有测试执行完毕后。
 也可能更早发生，具体取决于 TestContext 框架中配置的缓存行为。
 
-NOTE: 单个测试容器实例可以（并且经常）在多个测试类的测试执行期间保留。
+注意：单个测试容器实例可以（并且经常）跨多个测试类的测试执行保留。
 
 
+
+[[testing.testcontainers.service-connections]]
 == 服务连接
 
 服务连接是到任何远程服务的连接。
-Spring Boot 的 auto-configuration 可以消费服务连接的详细信息，并使用它们建立到远程服务的连接。
+Spring Boot 的 auto-configuration 可以使用服务连接的详细信息来建立到远程服务的连接。
 这样做时，连接详细信息优先于任何与连接相关的配置属性。
 
 使用 Testcontainers 时，可以通过在测试类中注释容器字段来自动为容器中运行的服务创建连接详细信息。
 
 include-code::MyIntegrationTests[]
 
-得益于 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation]，上述配置允许应用程序中的 Neo4j 相关 bean 与运行在 Testcontainers 管理的 Docker 容器中的 Neo4j 通信。
+得益于 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation]，上述配置允许应用程序中的 Neo4j 相关 beans 与运行在 Testcontainers 管理的 Docker 容器中的 Neo4j 通信。
 这是通过自动定义一个 javadoc:org.springframework.boot.neo4j.autoconfigure.Neo4jConnectionDetails[] bean 来实现的，该 bean 随后被 Neo4j auto-configuration 使用，覆盖任何与连接相关的配置属性。
 
-NOTE: 你需要添加 `spring-boot-testcontainers` 模块作为测试依赖，以便将服务连接与 Testcontainers 一起使用。
+注意：你需要添加 `spring-boot-testcontainers` 模块作为测试依赖项，以便将服务连接与 Testcontainers 一起使用。
 
-服务连接 annotation 由注册到 `spring.factories` 的 javadoc:org.springframework.boot.testcontainers.service.connection.ContainerConnectionDetailsFactory[] 类处理。
-一个 javadoc:org.springframework.boot.testcontainers.service.connection.ContainerConnectionDetailsFactory[] 可以根据特定的 javadoc:org.testcontainers.containers.Container[] 子类或 Docker 镜像名称创建一个 javadoc:org.springframework.boot.autoconfigure.service.connection.ConnectionDetails[] bean。
+服务连接 annotations 由注册到 `spring.factories` 的 javadoc:org.springframework.boot.testcontainers.service.connection.ContainerConnectionDetailsFactory[] 类处理。
+javadoc:org.springframework.boot.testcontainers.service.connection.ContainerConnectionDetailsFactory[] 可以根据特定的 javadoc:org.testcontainers.containers.Container[] 子类或 Docker 镜像名称创建 javadoc:org.springframework.boot.autoconfigure.service.connection.ConnectionDetails[] bean。
 
 以下服务连接工厂在 `spring-boot-testcontainers` jar 中提供：
 
@@ -116,7 +125,7 @@ NOTE: 你需要添加 `spring-boot-testcontainers` 模块作为测试依赖，�
 | 连接详细信息 | 匹配条件
 
 | javadoc:org.springframework.boot.activemq.autoconfigure.ActiveMQConnectionDetails[]
-| 名为 "symptoma/activemq" 的容器或 javadoc:org.testcontainers.activemq.ActiveMQContainer[]
+| 名为 "symptoma/activemq" 或 javadoc:org.testcontainers.activemq.ActiveMQContainer[] 的容器
 
 | javadoc:org.springframework.boot.artemis.autoconfigure.ArtemisConnectionDetails[]
 | 类型为 javadoc:org.testcontainers.activemq.ArtemisContainer[] 的容器
@@ -140,7 +149,7 @@ NOTE: 你需要添加 `spring-boot-testcontainers` 模块作为测试依赖，�
 | 类型为 javadoc:org.testcontainers.kafka.KafkaContainer[]、javadoc:org.testcontainers.kafka.ConfluentKafkaContainer[] 或 javadoc:org.testcontainers.redpanda.RedpandaContainer[] 的容器
 
 | javadoc:org.springframework.boot.ldap.autoconfigure.LdapConnectionDetails[]
-| 名为 "osixia/openldap" 的容器或类型为 javadoc:org.testcontainers.ldap.LLdapContainer[] 的容器
+| 名为 "osixia/openldap" 或类型为 javadoc:org.testcontainers.ldap.LLdapContainer[] 的容器
 
 | javadoc:org.springframework.boot.liquibase.autoconfigure.LiquibaseConnectionDetails[]
 | 类型为 javadoc:{url-testcontainers-jdbc-javadoc}/org.testcontainers.containers.JdbcDatabaseContainer[] 的容器
@@ -152,28 +161,28 @@ NOTE: 你需要添加 `spring-boot-testcontainers` 模块作为测试依赖，�
 | 类型为 javadoc:{url-testcontainers-neo4j-javadoc}/org.testcontainers.neo4j.Neo4jContainer[] 的容器
 
 | javadoc:org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLoggingConnectionDetails[]
-| 名为 "otel/opentelemetry-collector-contrib" 的容器或类型为 javadoc:org.testcontainers.grafana.LgtmStackContainer[] 的容器
+| 名为 "otel/opentelemetry-collector-contrib" 或类型为 javadoc:org.testcontainers.grafana.LgtmStackContainer[] 的容器
 
 | javadoc:org.springframework.boot.micrometer.metrics.autoconfigure.export.otlp.OtlpMetricsConnectionDetails[]
-| 名为 "otel/opentelemetry-collector-contrib" 的容器或类型为 javadoc:org.testcontainers.grafana.LgtmStackContainer[] 的容器
+| 名为 "otel/opentelemetry-collector-contrib" 或类型为 javadoc:org.testcontainers.grafana.LgtmStackContainer[] 的容器
 
 | javadoc:org.springframework.boot.micrometer.tracing.opentelemetry.autoconfigure.otlp.OtlpTracingConnectionDetails[]
-| 名为 "otel/opentelemetry-collector-contrib" 的容器或类型为 javadoc:org.testcontainers.grafana.LgtmStackContainer[] 的容器
+| 名为 "otel/opentelemetry-collector-contrib" 或类型为 javadoc:org.testcontainers.grafana.LgtmStackContainer[] 的容器
 
 | javadoc:org.springframework.boot.pulsar.autoconfigure.PulsarConnectionDetails[]
 | 类型为 javadoc:{url-testcontainers-pulsar-javadoc}/org.testcontainers.pulsar.PulsarContainer[] 的容器
 
 | javadoc:org.springframework.boot.r2dbc.autoconfigure.R2dbcConnectionDetails[]
-| 类型为
-javadoc:org.testcontainers.clickhouse.ClickHouseContainer[] 的容器
-javadoc:{url-testcontainers-mariadb-javadoc}/org.testcontainers.mariadb.MariaDBContainer[], javadoc:{url-testcontainers-mssqlserver-javadoc}/org.testcontainers.mssqlserver.MSSQLServerContainer[], javadoc:{url-testcontainers-mysql-javadoc}/org.testcontainers.mysql.MySQLContainer[],
-javadoc:org.testcontainers.oracle.OracleContainer[OracleContainer (free)], javadoc:{url-testcontainers-oracle-xe-javadoc}/org.testcontainers.containers.OracleContainer[OracleContainer (XE)] 或 javadoc:{url-testcontainers-postgresql-javadoc}/org.testcontainers.postgresql.PostgreSQLContainer[]
+| 类型为 javadoc:org.testcontainers.clickhouse.ClickHouseContainer[] 的容器
+|===
+javadoc:{url-testcontainers-mariadb-javadoc}/org.testcontainers.mariadb.MariaDBContainer[]、javadoc:{url-testcontainers-mssqlserver-javadoc}/org.testcontainers.mssqlserver.MSSQLServerContainer[]、javadoc:{url-testcontainers-mysql-javadoc}/org.testcontainers.mysql.MySQLContainer[]、
+javadoc:org.testcontainers.oracle.OracleContainer[OracleContainer (free)]、javadoc:{url-testcontainers-oracle-xe-javadoc}/org.testcontainers.containers.OracleContainer[OracleContainer (XE)] 或 javadoc:{url-testcontainers-postgresql-javadoc}/org.testcontainers.postgresql.PostgreSQLContainer[]
 
 | javadoc:org.springframework.boot.amqp.autoconfigure.RabbitConnectionDetails[]
 | 类型为 javadoc:{url-testcontainers-rabbitmq-javadoc}/org.testcontainers.rabbitmq.RabbitMQContainer[] 的容器
 
 | javadoc:org.springframework.boot.amqp.autoconfigure.RabbitStreamConnectionDetails[]
-| 类型为 javadoc:{url-testcontainers-rabbitmq-javadoc}/org.testcontainers.rabbitmq.RabbitMQContainer[] 的容器，且 `@ServiceConnection` `type` 属性包含 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitStreamConnectionDetails[]
+| 当 `@ServiceConnection` `type` 属性包含 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitStreamConnectionDetails[] 时，类型为 javadoc:{url-testcontainers-rabbitmq-javadoc}/org.testcontainers.rabbitmq.RabbitMQContainer[] 的容器
 
 | javadoc:org.springframework.boot.data.redis.autoconfigure.DataRedisConnectionDetails[]
 | 类型为 javadoc:com.redis.testcontainers.RedisContainer[] 或 javadoc:com.redis.testcontainers.RedisStackContainer[] 的容器，或名为 "redis"、"redis/redis-stack" 或 "redis/redis-stack-server" 的容器
@@ -184,47 +193,47 @@ javadoc:org.testcontainers.oracle.OracleContainer[OracleContainer (free)], javad
 
 [TIP]
 ====
-默认情况下，除了 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitStreamConnectionDetails[] 之外，对于给定的 javadoc:org.testcontainers.containers.Container[]，将创建所有适用的连接详细信息 bean。
-例如，一个 javadoc:{url-testcontainers-postgresql-javadoc}/org.testcontainers.postgresql.PostgreSQLContainer[] 将同时创建 javadoc:org.springframework.boot.jdbc.autoconfigure.JdbcConnectionDetails[] 和 javadoc:org.springframework.boot.r2dbc.autoconfigure.R2dbcConnectionDetails[]。
+默认情况下，除 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitStreamConnectionDetails[] 外，所有适用的连接细节 beans 都会为给定的 javadoc:org.testcontainers.containers.Container[] 创建。
+例如，一个 javadoc:{url-testcontainers-postgresql-javadoc}/org.testcontainers.postgresql.PostgreSQLContainer[] 会同时创建 javadoc:org.springframework.boot.jdbc.autoconfigure.JdbcConnectionDetails[] 和 javadoc:org.springframework.boot.r2dbc.autoconfigure.R2dbcConnectionDetails[]。
 
-如果只想创建适用类型的子集，可以使用 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] 的 `type` 属性。
+如果你只想创建适用类型的子集，可以使用 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] 的 `type` 属性。
 
-要从 javadoc:{url-testcontainers-rabbitmq-javadoc}/org.testcontainers.rabbitmq.RabbitMQContainer[] 创建 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitStreamConnectionDetails[] bean，必须使用 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] 的 `type` 属性选择加入。
+要从 javadoc:{url-testcontainers-rabbitmq-javadoc}/org.testcontainers.rabbitmq.RabbitMQContainer[] 创建 javadoc:org.springframework.boot.amqp.autoconfigure.RabbitStreamConnectionDetails[] bean，你必须使用 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] 的 `type` 属性选择加入。
 容器还必须暴露端口 5552，即 RabbitMQ streams 端口。
 ====
 
-默认情况下，使用 `Container.getDockerImageName().getRepository()` 来获取用于查找连接详细信息的名称。
-Docker 镜像名称的仓库部分会忽略任何注册表和版本。
-只要 Spring Boot 能够获取 javadoc:org.testcontainers.containers.Container[] 的实例，这种方式就有效，例如在上面的示例中使用 `static` 字段时。
+默认情况下，使用 `Container.getDockerImageName().getRepository()` 来获取用于查找连接细节的名称。
+Docker 镜像名称的仓库部分忽略任何 registry 和版本。
+只要 Spring Boot 能够获取 javadoc:org.testcontainers.containers.Container[] 的实例，这就能正常工作，就像上面示例中使用 `static` 字段的情况。
 
-如果使用 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法，Spring Boot 不会调用 bean 方法来获取 Docker 镜像名称，因为这会导致急切初始化问题。
-相反，bean 方法的返回类型用于确定应使用哪个连接详细信息。
-只要使用类型化容器（如 javadoc:{url-testcontainers-neo4j-javadoc}/org.testcontainers.neo4j.Neo4jContainer[] 或 javadoc:{url-testcontainers-rabbitmq-javadoc}/org.testcontainers.rabbitmq.RabbitMQContainer[]），这种方式就有效。
-如果使用 javadoc:org.testcontainers.containers.GenericContainer[]（例如 Redis，如下例所示），则此方式失效：
+如果你使用 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法，Spring Boot 不会调用 bean 方法来获取 Docker 镜像名称，因为这会导致急切初始化问题。
+相反，bean 方法的返回类型用于找出应该使用哪个连接细节。
+只要你使用类型化容器（如 javadoc:{url-testcontainers-neo4j-javadoc}/org.testcontainers.neo4j.Neo4jContainer[] 或 javadoc:{url-testcontainers-rabbitmq-javadoc}/org.testcontainers.rabbitmq.RabbitMQContainer[]），这就能正常工作。
+如果你使用 javadoc:org.testcontainers.containers.GenericContainer[]，例如下面示例中 Redis 的情况，这将停止工作：
 
 include-code::MyRedisConfiguration[]
 
 Spring Boot 无法从 javadoc:org.testcontainers.containers.GenericContainer[] 判断使用了哪个容器镜像，因此必须使用 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] 的 `name` 属性来提供该提示。
 
-还可以使用 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] 的 `name` 属性来覆盖将使用的连接详细信息，例如在使用自定义镜像时。
-如果使用 Docker 镜像 `registry.mycompany.com/mirror/myredis`，则应使用 `@ServiceConnection(name="redis")` 来确保创建 javadoc:org.springframework.boot.data.redis.autoconfigure.DataRedisConnectionDetails[]。
+你也可以使用 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] 的 `name` 属性来覆盖将使用哪个连接细节，例如在使用自定义镜像时。
+如果你使用 Docker 镜像 `registry.mycompany.com/mirror/myredis`，你应该使用 `@ServiceConnection(name="redis")` 来确保创建 javadoc:org.springframework.boot.data.redis.autoconfigure.DataRedisConnectionDetails[]。
 
 
 
 [[testing.testcontainers.service-connections.ssl]]
-=== 服务连接的 SSL
+=== 使用服务连接的 SSL
 
-可以在支持的容器上使用 javadoc:org.springframework.boot.testcontainers.service.connection.Ssl[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.JksKeyStore[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.JksTrustStore[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.PemKeyStore[format=annotation] 和 javadoc:org.springframework.boot.testcontainers.service.connection.PemTrustStore[format=annotation] annotation，以启用该服务连接的 SSL 支持。
-请注意，您仍然需要自行在 Testcontainer 内部运行的服务上启用 SSL，annotation 仅在应用程序中配置客户端的 SSL。
+你可以在支持的容器上使用 javadoc:org.springframework.boot.testcontainers.service.connection.Ssl[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.JksKeyStore[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.JksTrustStore[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.PemKeyStore[format=annotation] 和 javadoc:org.springframework.boot.testcontainers.service.connection.PemTrustStore[format=annotation] annotations 来为该服务连接启用 SSL 支持。
+请注意，你仍然需要自行在 Testcontainer 内部运行的服务上启用 SSL，annotations 仅在你的应用程序中配置客户端的 SSL。
 
 include-code::MyRedisWithSslIntegrationTests[]
 
 上述代码使用 javadoc:org.springframework.boot.testcontainers.service.connection.PemKeyStore[format=annotation] annotation 将客户端证书和密钥加载到密钥库中，并使用 javadoc:org.springframework.boot.testcontainers.service.connection.PemTrustStore[format=annotation] annotation 将 CA 证书加载到信任库中。
-这将使客户端向服务器进行身份验证，并且信任库中的 CA 证书确保服务器证书有效且受信任。
+这将验证客户端对服务器的身份，并且信任库中的 CA 证书确保服务器证书有效且受信任。
 
 此示例中的 `SecureRedisContainer` 是 `RedisContainer` 的自定义子类，它将证书复制到正确的位置，并使用启用 SSL 的命令行参数调用 `redis-server`。
 
-以下服务连接支持 SSL annotation：
+SSL annotations 支持以下服务连接：
 
 * Cassandra
 * Couchbase
@@ -235,8 +244,8 @@ include-code::MyRedisWithSslIntegrationTests[]
 * RabbitMQ Streams
 * Redis
 
-`ElasticsearchContainer` 还额外支持服务器端 SSL 的自动检测。
-要使用此功能，请使用 javadoc:org.springframework.boot.testcontainers.service.connection.Ssl[format=annotation] 注解容器，如下例所示，Spring Boot 将为您处理客户端 SSL 配置：
+`ElasticsearchContainer` 还支持自动检测服务器端 SSL。
+要使用此功能，请使用 javadoc:org.springframework.boot.testcontainers.service.connection.Ssl[format=annotation] 注解容器，如下例所示，然后 Spring Boot 会为你处理客户端 SSL 配置：
 
 include-code::MyElasticsearchWithSslIntegrationTests[]
 
@@ -246,8 +255,8 @@ include-code::MyElasticsearchWithSslIntegrationTests[]
 == 动态属性
 
 服务连接的一个稍显冗长但更灵活的替代方案是 javadoc:org.springframework.test.context.DynamicPropertySource[format=annotation]。
-静态的 javadoc:org.springframework.test.context.DynamicPropertySource[format=annotation] 方法允许向 Spring Environment 添加动态属性值。
+静态 javadoc:org.springframework.test.context.DynamicPropertySource[format=annotation] 方法允许将动态属性值添加到 Spring 环境中。
 
 include-code::MyIntegrationTests[]
 
-上述配置允许应用程序中与 Neo4j 相关的 bean 与运行在 Testcontainers 管理的 Docker 容器中的 Neo4j 进行通信。
+上述配置允许应用程序中与 Neo4j 相关的 beans 与运行在 Testcontainers 管理的 Docker 容器中的 Neo4j 通信。

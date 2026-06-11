@@ -1,0 +1,114 @@
+= 提前处理
+
+Spring AOT 是一个在构建时分析你的应用程序并生成其优化版本的过程。
+这是在 native image 中运行 Spring `ApplicationContext` 的必需步骤。
+
+注意：有关 Spring Boot 中 GraalVM 原生镜像支持的概述，请查看 xref:reference:packaging/native-image/index.adoc[参考文档]。
+
+Spring Boot Maven 插件提供了可用于对应用程序和测试代码执行 AOT 处理的目标。
+
+
+[[aot.processing-applications]]
+== 处理应用程序
+
+要配置你的应用程序使用此功能，请为 `process-aot` 目标添加一个执行，如下例所示：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$aot/pom.xml[tags=aot]
+----
+由于 `BeanFactory` 在构建时已完全准备好，因此也会评估条件。
+这与常规 Spring Boot 应用在运行时所做的操作有一个重要区别。
+例如，如果你想选择启用或禁用某些功能，你需要配置构建时使用的环境来实现。
+为此，`process-aot` 目标与 xref:run.adoc[run 目标] 共享许多属性。
+
+
+[[aot.processing-applications.using-the-native-profile]]
+=== 使用原生 Profile
+
+如果你使用 `spring-boot-starter-parent` 作为项目的 `parent`，可以使用 `native` profile 来简化构建 native image 所需的步骤。
+
+`native` profile 配置以下内容：
+
+* 当 Spring Boot Maven 插件应用于项目时，执行 `process-aot`。
+* 适当的设置，以便 xref:build-image.adoc[build-image] 生成 native image。
+* 为 {url-native-build-tools-docs-maven-plugin}[Native Build Tools Maven 插件] 提供合理的默认值，特别是：
+** 确保插件使用原始 classpath，而不是主 jar 文件，因为它不理解我们重新打包的 jar 格式。
+** 验证是否有合适的 GraalVM 版本可用。
+** 下载第三方可达性元数据。
+
+[WARNING]
+====
+使用原始 classpath 意味着 native image 不知道生成的 `MANIFEST.MF`。
+如果你需要在 native image 中读取清单的内容，例如获取应用程序的实现版本，请配置 `classesDirectory` 选项以使用常规 jar。
+====
+
+要受益于 `native` profile，代表应用程序的模块应定义两个插件，如下例所示：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$aot-native/pom.xml[tags=aot-native]
+----
+单个项目可以在命令行上使用 xref:how-to:native-image/developing-your-first-application.adoc#howto.native-image.developing-your-first-application.buildpacks.maven[Cloud Native Buildpacks] 或 xref:how-to:native-image/developing-your-first-application.adoc#howto.native-image.developing-your-first-application.native-build-tools.maven[Native Image Build Tools] 触发 native image 的生成。
+
+要在多模块项目中使用 `native` profile，您可以创建 `native` profile 的自定义，以便调用您偏好的技术。
+
+要在 `package` 阶段绑定 Cloud Native Buildpacks，请将以下内容添加到多模块项目的根 POM 中：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$aot-native-profile-buildpacks/pom.xml[tags=profile]
+----
+下面的示例对 Native Build Tools 执行相同的操作：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$aot-native-profile-nbt/pom.xml[tags=profile]
+----
+一旦上述配置就绪，你就可以构建多模块项目并在相关子模块中生成 native image，如下例所示：
+
+[source,shell]
+----
+$ mvn package -Pnative
+----
+NOTE: 一个“相关”子模块是指代表一个 Spring Boot 应用程序的模块。
+此类模块必须按上述方式定义 Native Build Tools 和 Spring Boot 插件。
+
+include::partial$goals/process-aot.adoc[leveloffset=+1]
+
+
+
+[[aot.processing-tests]]
+== 处理测试
+
+AOT 引擎可以应用于使用 Spring 测试上下文框架的 JUnit 5 测试。
+这些测试由 AOT 引擎处理，然后在 native image 中执行。
+
+NOTE: 当使用 `maven.test.skip` 属性跳过常规测试时，测试不会被处理。
+
+与 <<aot.processing-applications.using-the-native-profile,for production code>> 类似，`spring-boot-starter-parent` 定义了一个 `nativeTest` profile，可用于简化在 native image 中执行测试所需的步骤。
+
+`nativeTest` profile 配置以下内容：
+
+* 当项目应用 Spring Boot Maven 插件时，执行 `process-test-aot`。
+* 当项目应用 {url-native-build-tools-docs-maven-plugin}[Native Build Tools Maven 插件] 时，执行 `test`。
+该执行定义了合理的默认值，特别是：
+** 确保插件使用原始的 classpath，而不是主 jar 文件，因为它不理解我们重新打包的 jar 格式。
+** 验证是否存在合适的 GraalVM 版本。
+** 下载第三方可达性元数据。
+
+要受益于 `nativeTest` profile，代表应用程序的模块应定义两个插件，如下例所示：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$aot-native/pom.xml[tags=aot-native]
+----
+一旦上述配置在每个需要此功能的模块中就位，你就可以构建多模块项目并在相关子模块中以 native image 执行测试，如下例所示：
+
+[source,shell]
+----
+$ mvn test -PnativeTest
+----
+NOTE: 与应用程序 AOT 处理一样，`BeanFactory` 在构建时已完全准备好。
+
+include::partial$goals/process-test-aot.adoc[leveloffset=+1]

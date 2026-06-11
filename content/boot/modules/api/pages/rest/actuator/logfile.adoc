@@ -1,0 +1,29 @@
+[[logfile]]
+= 日志文件 (`logfile`)
+
+`logfile` endpoint 提供对应用程序日志文件内容的访问。
+
+[[logfile.retrieving]]
+== 检索日志文件
+
+要检索日志文件，向 `/actuator/logfile` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/logfile/entire/curl-request.adoc[]
+
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/logfile/entire/http-response.adoc[]
+
+[[logfile.retrieving-part]]
+== 检索部分日志文件
+
+注意：使用 Jersey 时不支持检索部分日志文件。
+
+要检索部分日志文件，通过使用 `Range` 头向 `/actuator/logfile` 发送 `GET` 请求，如下面的 curl 示例所示：
+
+include::partial$rest/actuator/logfile/range/curl-request.adoc[]
+
+前面的示例检索日志文件的前 1024 字节。
+得到的响应类似于以下内容：
+
+include::partial$rest/actuator/logfile/range/http-response.adoc[]

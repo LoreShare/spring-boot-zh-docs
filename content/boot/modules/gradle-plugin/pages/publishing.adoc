@@ -1,0 +1,36 @@
+[[publishing-your-application]]
+= 发布你的应用程序
+
+
+[[publishing-your-application.maven-publish]]
+== 使用 Maven-publish 插件发布
+
+要发布你的 Spring Boot jar 或 war，请使用 `MavenPublication` 上的 `artifact` 方法将其添加到发布中。
+将产生你想要发布的制品的任务传递给 `artifact` 方法。
+例如，要发布默认 `bootJar` 任务产生的制品：
+
+[tabs]
+======
+Groovy::
++
+[source,groovy,indent=0,subs="verbatim,attributes"]
+----
+include::example$publishing/maven-publish.gradle[tags=publishing]
+----
+Kotlin::
++
+[source,kotlin,indent=0,subs="verbatim,attributes"]
+----
+include::example$publishing/maven-publish.gradle.kts[tags=publishing]
+----
+======
+
+
+
+[[publishing-your-application.distribution]]
+== 使用 Application 插件分发
+
+当应用 {url-gradle-docs-application-plugin}[`application` 插件]时，会创建一个名为 `boot` 的分发。
+该分发包含由 `bootJar` 或 `bootWar` 任务生成的归档文件，以及用于在类 Unix 平台和 Windows 上启动它的脚本。
+Zip 和 tar 分发可分别通过 `bootDistZip` 和 `bootDistTar` 任务构建。
+要使用 `application` 插件，必须将其 `mainClassName` 属性配置为应用程序主类的名称。

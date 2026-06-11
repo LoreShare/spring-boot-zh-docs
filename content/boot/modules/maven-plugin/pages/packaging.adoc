@@ -1,0 +1,264 @@
+= 打包可执行归档
+
+该插件可以创建包含应用程序所有依赖项的可执行归档（jar 文件和 war 文件），然后可以通过 `java -jar` 运行。
+
+打包可执行归档由 `repackage` 目标执行，如下例所示：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/repackage-pom.xml[tags=repackage]
+----
+WARNING: `repackage` 目标不适用于在命令行单独使用，因为它操作的是 `package` 阶段生成的源 `jar`（或 `war`）。
+要在命令行使用此目标，必须包含 `package` 阶段：`mvn package spring-boot:repackage`。
+
+TIP: 如果你使用 `spring-boot-starter-parent`，此类执行已通过 `repackage` 执行 ID 预配置，因此只需添加插件定义即可。
+
+上述示例重新打包了在 Maven 生命周期的 package 阶段构建的 `jar` 或 `war` 归档，包括项目中定义的任何 `provided` 依赖。
+如果需要排除某些依赖，可以使用 `exclude` 选项之一；更多详情请参见 xref:packaging.adoc#packaging.examples.exclude-dependency[依赖排除]。
+
+原始（即不可执行）构件默认重命名为 `.original`，但也可以使用自定义分类器保留原始构件。
+
+注意：`maven-war-plugin` 的 `outputFileNameMapping` 功能目前不受支持。
+
+`spring-boot-devtools` 和 `spring-boot-docker-compose` 模块默认自动排除（你可以使用 `excludeDevtools` 和 `excludeDockerCompose` 属性控制）。
+为了使其与 `war` 打包配合使用，`spring-boot-devtools` 和 `spring-boot-docker-compose` 依赖必须设置为 `optional` 或具有 `provided` 作用域。
+还要注意，可选依赖默认不包含在内。
+如果你将这些模块定义为可选，还需要将 `includeOptional` 属性设置为 `true`。
+
+该插件会重写你的清单文件，特别是管理 `Main-Class` 和 `Start-Class` 条目。
+如果默认值不适用，你需要在 Spring Boot 插件中配置值，而不是在 jar 插件中。
+清单中的 `Main-Class` 由 Spring Boot 插件的 `layout` 属性控制，如下例所示：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/non-default-pom.xml[tags=non-default]
+----
+`layout` 属性默认使用由归档类型（`jar` 或 `war`）决定的值。可用的 layout 如下：
+
+* `JAR`：常规的可执行 JAR layout。
+* `WAR`：可执行 WAR layout。`provided` 依赖会放入 `WEB-INF/lib-provided`，以避免 `war` 部署到 Servlet 容器时发生冲突。
+* `ZIP`（`DIR` 的别名）：类似于使用 `PropertiesLauncher` 的 `JAR` layout。
+* `NONE`：打包所有依赖和项目资源。不打包 bootstrap loader。
+
+
+[[packaging.layers]]
+== 分层 Jar 或 War
+
+重新打包的 jar 将应用程序的类和依赖分别放在 `BOOT-INF/classes` 和 `BOOT-INF/lib` 中。
+类似地，可执行的 war 将应用程序的类放在 `WEB-INF/classes` 中，依赖放在 `WEB-INF/lib` 和 `WEB-INF/lib-provided` 中。
+对于需要从 jar 或 war 的内容构建 Docker 镜像的情况，进一步分离这些目录以便它们可以写入不同的层是很有用的。
+
+分层归档使用与常规重新打包的 jar 或 war 相同的布局，但包含一个额外的元数据文件来描述每一层。
+
+默认情况下，定义了以下层：
+
+* `dependencies`：用于版本不包含 `SNAPSHOT` 的任何依赖。
+* `spring-boot-loader`：用于加载器类。
+* `snapshot-dependencies`：用于版本包含 `SNAPSHOT` 的任何依赖。
+* `application`：用于本地模块依赖、应用程序类和资源。
+
+模块依赖通过查看当前构建中的所有模块来识别。
+如果模块依赖仅因为已安装到 Maven 的本地缓存且不属于当前构建而可解析，则将其识别为常规依赖。
+
+层的顺序很重要，因为它决定了当应用程序部分更改时，先前层被缓存的可能性。
+默认顺序是 `dependencies`、`spring-boot-loader`、`snapshot-dependencies`、`application`。
+最不可能更改的内容应首先添加，然后是更可能更改的层。
+
+重新打包的归档默认包含 `layers.idx` 文件。
+要禁用此功能，可以按以下方式操作：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/disable-layers-pom.xml[tags=disable-layers]
+----
+[[packaging.layers.configuration]]
+=== 自定义层配置
+
+根据你的应用，你可能希望调整层的创建方式并添加新层。
+这可以通过从文件或 classpath 加载的配置来实现。
+
+要使用配置文件，请按如下方式注册：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/custom-layers-pom.xml[tags=custom-layers]
+----
+或者，可以通过指定 classpath 的名称来加载配置。
+插件 classpath 上的 `META-INF/spring/layers/<name>.xml` 处应存在匹配的文件。
+包含配置的 jar 可以作为插件依赖项添加，如下所示：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/custom-layers-classpath-pom.xml[tags=custom-layers-classpath]
+----
+在上面的示例中，`META-INF/spring/layers/custom.xml` 应可在插件的 classpath 上使用。
+
+配置文件描述了如何将归档文件拆分为多个层，以及这些层的顺序。
+以下示例展示了如何显式定义上述默认顺序：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/layers.xml[tags=layers]
+----
+The `layers` XML 格式分为三个部分定义：
+
+* `<application>` 块定义了应用程序类和资源应如何分层。
+* `<dependencies>` 块定义了依赖项应如何分层。
+* `<layerOrder>` 块定义了各层的写入顺序。
+
+在 `<application>` 和 `<dependencies>` 部分内部使用嵌套的 `<into>` 块来为某一层声明内容。
+这些块按照定义的顺序从上到下求值。
+未被较早块声明的任何内容仍可供后续块考虑。
+
+`<into>` 块使用嵌套的 `<include>` 和 `<exclude>` 元素来声明内容。
+`<application>` 部分使用 Ant 风格路径匹配来处理包含/排除表达式。
+`<dependencies>` 部分使用 `group:artifact[:version]` 模式。
+它还提供了 `<includeModuleDependencies />` 和 `<excludeModuleDependencies />` 元素，可用于包含或排除本地模块依赖项。
+
+如果未定义 `<include>`，则所有内容（未被较早块声明的）都被考虑。
+
+如果未定义 `<exclude>`，则不应用任何排除。
+
+查看上面的 `<dependencies>` 示例，我们可以看到第一个 `<into>` 将为 `application.layer` 层声明所有模块依赖项。
+下一个 `<into>` 将为 `snapshot-dependencies` 层声明所有 SNAPSHOT 依赖项。
+最后一个 `<into>` 将为 `dependencies` 层声明剩余的任何内容（在本例中，任何不是 SNAPSHOT 的依赖项）。
+
+`<application>` 块具有类似的规则。
+首先为 `spring-boot-loader` 层声明 `org/springframework/boot/loader/**` 内容。
+然后为 `application` 层声明任何剩余的类和资源。
+
+注意：`<into>` 块定义的顺序通常与层写入的顺序不同。
+因此，必须始终包含 `<layerOrder>` 元素，并且 _必须_ 覆盖所有 `<into>` 块引用的层。
+
+include::partial$goals/repackage.adoc[leveloffset=+1]
+
+
+[[packaging.examples]]
+== 示例
+
+
+[[packaging.examples.custom-classifier]]
+=== 自定义分类器
+
+默认情况下，`repackage` 目标会用重新打包后的工件替换原始工件。
+对于代表应用程序的模块来说，这是一种合理的行为，但如果你的模块被用作另一个模块的依赖项，则需要为重新打包的工件提供一个分类器。
+原因是应用程序类被打包在 `BOOT-INF/classes` 中，因此依赖模块无法加载重新打包的 jar 的类。
+
+如果是这种情况，或者你希望保留原始工件并将重新打包的工件附加一个不同的分类器，请按以下示例配置插件：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/different-classifier-pom.xml[tags=different-classifier]
+----
+如果您使用 `spring-boot-starter-parent`，则 `repackage` 目标会在 id 为 `repackage` 的执行中自动执行。
+在此设置中，只需指定配置，如下例所示：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/repackage-configuration-pom.xml[tags=repackage-configuration]
+----
+此配置将生成两个构件：原始构件和由 repackage 目标生成的重新打包的对应构件。
+两者都将被透明地安装/部署。
+
+如果您希望以与主构件相同的方式重新打包次要构件，也可以使用相同的配置。
+以下配置安装/部署一个带有重新打包应用程序的 `task` 分类构件：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/classified-artifact-pom.xml[tags=classified-artifact]
+----
+由于 `maven-jar-plugin` 和 `spring-boot-maven-plugin` 在同一阶段运行，因此必须首先定义 jar 插件（以便它在 repackage 目标之前运行）。同样，如果您使用 `spring-boot-starter-parent`，则可以简化为：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/jar-plugin-first-pom.xml[tags=jar-plugin-first]
+----
+[[packaging.examples.custom-name]]
+=== 自定义名称
+
+如果你希望重新打包后的 JAR 文件使用与项目的 `artifactId` 属性不同的本地名称，可以使用标准的 `finalName`，如下例所示：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/custom-name-pom.xml[tags=custom-name]
+----
+此配置将在 `target/my-app.jar` 中生成重新打包的制品。
+
+[[packaging.examples.local-artifact]]
+=== 本地重新打包的制品
+
+默认情况下，`repackage` 目标会用可执行制品替换原始制品。
+如果你只需要部署原始的 jar，但仍能使用常规文件名运行应用程序，请按如下方式配置插件：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/local-repackaged-artifact-pom.xml[tags=local-repackaged-artifact]
+----
+此配置生成两个构件：原始构件和由 `repackage` 目标生成的可执行构件。
+只有原始构件会被安装/部署。
+
+[[packaging.examples.custom-layout]]
+=== 自定义布局
+
+Spring Boot 使用在附加 jar 文件中定义的自定义布局工厂重新打包此项目的 jar 文件，该附加 jar 文件作为构建插件的依赖提供：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/custom-layout-pom.xml[tags=custom-layout]
+----
+布局工厂作为 `LayoutFactory`（来自 `spring-boot-loader-tools`）的一个实现提供，并在 pom 中显式指定。
+如果在插件 classpath 上只有一个自定义的 `LayoutFactory`，并且它被列在 `META-INF/spring.factories` 中，则无需在插件配置中显式设置它。
+
+如果设置了显式的 xref:#packaging.repackage-goal.parameter-details.layout-factory[layout]，则始终忽略布局工厂。
+
+[[packaging.examples.exclude-dependency]]
+=== 依赖排除
+
+默认情况下，`repackage` 和 `run` 目标都会包含项目中定义的任何 `provided` 依赖。
+Spring Boot 项目应将 `provided` 依赖视为运行应用程序所需的“容器”依赖。
+一般来说，Spring Boot 项目不用作依赖，因此不太可能有任何 `optional` 依赖。
+当项目确实有可选依赖时，它们也会被 `repackage` 和 `run` 目标包含。
+
+其中一些依赖可能根本不需要，应从可执行 jar 中排除。
+为了一致性，它们在运行应用程序时也不应存在。
+
+有两种方法可以排除依赖，使其不被打包/在运行时使用：
+
+* 排除由 `groupId` 和 `artifactId` 标识的特定工件，如果需要，可选择使用 `classifier`。
+* 排除属于给定 `groupId` 的任何工件。
+
+以下示例排除了 `com.example:module1`，并且仅排除该工件：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/exclude-artifact-pom.xml[tags=exclude-artifact]
+----
+此示例排除了属于 `com.example` 组的任何工件：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/exclude-artifact-group-pom.xml[tags=exclude-artifact-group]
+----
+[[packaging.examples.layered-archive-tools]]
+=== JAR 工具
+
+当创建分层 jar 或 war 时，`spring-boot-jarmode-tools` jar 将作为依赖项添加到您的归档中。
+将此 jar 放在 classpath 上后，您可以在特殊模式下启动应用程序，该模式允许引导代码运行与应用程序完全不同的内容，例如，提取层的内容。
+如果您希望排除此依赖项，可以通过以下方式实现：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/exclude-dependency-pom.xml[tags=exclude-dependency]
+----
+[[packaging.examples.custom-layers-configuration]]
+=== 自定义层配置
+
+默认设置将依赖项分为快照和非快照，但您可能有更复杂的规则。
+例如，您可能希望将项目中特定于公司的依赖项隔离到专用层中。
+以下 `layers.xml` 配置展示了这样一种设置：
+
+[source,xml,indent=0,subs="verbatim,attributes"]
+----
+include::example$packaging/layers-configuration.xml[tags=layers-configuration]
+----
+上述配置创建了一个额外的 `company-dependencies` 层，其中包含所有 groupId 为 `com.acme` 的库。
