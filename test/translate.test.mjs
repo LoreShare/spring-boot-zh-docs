@@ -275,18 +275,18 @@ test('术语保护不匹配普通单词内部的短缩写', () => {
   assert.match(restored, /endpoints/);
 });
 
-test('DeepSeek 响应缺少占位符时拒绝响应', async () => {
+test('DeepSeek 响应缺少代码块占位符时拒绝响应', async () => {
   await assert.rejects(
     () => requestTranslation({
       apiKey: 'fake-key',
       relativePath: 'modules/reference/pages/web/spring-hateoas.adoc',
-      source: 'Spring Boot provides auto-configuration.',
+      source: '----\n$ java -jar app.jar\n----\n\nRun the app.',
       fetchImpl: async () => ({
         ok: true,
         json: async () => ({
           choices: [{
             message: {
-              content: '{"translated_adoc":"Spring Boot 提供自动配置。","warnings":[],"protected_terms":[]}',
+              content: '{"translated_adoc":"运行应用。","warnings":[],"protected_terms":[]}',
             },
           }],
           usage: {

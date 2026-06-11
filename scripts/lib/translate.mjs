@@ -371,6 +371,7 @@ export async function requestTranslation({
 
   const translation = parseTranslationJson(content);
   const missingPlaceholders = prepared.placeholders
+    .filter((placeholder) => placeholder.startsWith('@@CODE_BLOCK_'))
     .filter((placeholder) => !translation.translated_adoc.includes(placeholder));
   if (missingPlaceholders.length > 0) {
     throw new Error(`DeepSeek 响应缺少占位符：${missingPlaceholders.join('、')}`);
