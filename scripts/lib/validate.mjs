@@ -67,43 +67,139 @@ function buildTermPattern(term) {
 }
 
 const ALLOWED_ENGLISH_WORDS = new Set([
+  'amazon',
+  'ant',
   'actuator',
   'annotation',
   'annotations',
+  'apache',
   'aot',
   'api',
   'apis',
+  'auditing',
   'bean',
   'beans',
+  'boot',
   'buildpack',
   'buildpacks',
+  'cassandra',
+  'chocolatey',
   'classpath',
+  'cli',
+  'cloud',
+  'cloudcaptain',
+  'compose',
+  'cookie',
+  'couchbase',
+  'cors',
+  'data',
   'docker',
+  'dockerfile',
   'endpoint',
   'endpoints',
+  'elasticsearch',
+  'exchanges',
+  'flyway',
+  'foundry',
   'gradle',
   'graalvm',
+  'hateoas',
+  'hibernate',
   'http',
   'https',
+  'id',
+  'image',
+  'images',
+  'infinispan',
+  'integration',
+  'ivy',
   'jar',
   'java',
   'javadoc',
+  'jdbc',
+  'jpa',
+  'jersey',
+  'jetty',
+  'jms',
+  'jmx',
+  'jooq',
   'json',
+  'jsonassert',
+  'jsonpath',
+  'junit',
+  'kafka',
   'kotlin',
+  'ldap',
+  'liquibase',
+  'livereload',
   'maven',
+  'metrics',
+  'micrometer',
+  'mongodb',
+  'mvc',
+  'native',
+  'neo4j',
+  'netty',
+  'nosql',
   'oci',
+  'oauth2',
+  'openshift',
+  'paketo',
+  'process',
   'plugin',
   'plugins',
   'profile',
   'profiles',
+  'pulsar',
+  'quartz',
+  'r2dbc',
+  'reactor',
+  'redis',
   'rest',
+  'runtime',
+  'saml',
+  'scoop',
+  'security',
+  'servlet',
+  'session',
+  'services',
+  'spock',
   'spring',
+  'sql',
+  'ssl',
   'starter',
   'starters',
+  'tanzu',
+  'testcontainers',
+  'tomcat',
+  'tools',
+  'undertow',
   'war',
+  'web',
+  'webflux',
+  'websocket',
+  'websockets',
+  'windows',
   'xml',
   'yaml',
 ]);
+
+const ALLOWED_ENGLISH_PHRASES = [
+  'Apache Ant',
+  'Calendar Interval',
+  'Commons Logging',
+  'Commons Logging API',
+  'Daily Time Interval',
+  'Dispatcher Handlers',
+  'Dispatcher Servlets',
+  'Elastic Common Schema',
+  'Homebrew',
+  'Mac',
+  'Not Found',
+  'No Content',
+  'Bad Request',
+  'Spring Cloud Vault',
+];
 
 const COMMON_ENGLISH_WORDS = new Set([
   'a',
@@ -147,10 +243,11 @@ function splitMacroLabelAndAttributes(body) {
 
 function exposeTranslatableMacroLabels(line) {
   const macroPattern = /\b(?:xref|link):{1,2}[^\s\[]+\[((?:[^\[\]\n]|\[[^\]\n]*\])*)\]|https?:\/\/[^\s\[]+\[((?:[^\[\]\n]|\[[^\]\n]*\])*)\]/g;
+  const attributeUrlPattern = /\{[-\w.]+\}[^\s\[]*\[((?:[^\[\]\n]|\[[^\]\n]*\])*)\]/g;
   return line.replace(macroPattern, (...args) => {
     const label = args[1] ?? args[2] ?? '';
     return ` ${splitMacroLabelAndAttributes(label).label} `;
-  });
+  }).replace(attributeUrlPattern, (_match, label) => ` ${splitMacroLabelAndAttributes(label).label} `);
 }
 
 function removeProtectedInlineText(line) {
@@ -158,12 +255,19 @@ function removeProtectedInlineText(line) {
     .replace(/`[^`\n]*`/g, ' ')
     .replace(/\b[a-z][a-z0-9-]*:{1,2}[^\s\[]+\[(?:[^\[\]\n]|\[[^\]\n]*\])*\]/gi, ' ')
     .replace(/https?:\/\/\S+/g, ' ')
+    .replace(/\S*(?:[/#]|\.[A-Za-z0-9])\S*/g, ' ')
+    .replace(/\b(?:yyyy|MM|dd|HH|mm|ss|SSS|Z|T)\b/g, ' ')
+    .replace(/\b[A-Z][A-Z0-9_]{1,}\b/g, ' ')
+    .replace(/\b[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+\b/g, ' ')
     .replace(/\[\[[^\]\n]+\]\]|\[#[-\w.]+\]|\{[-\w.]+\}|^\[[^\]\n]+\]$/gi, ' ')
     .replace(/[.#*_+=|:;,[\]{}()<>"\\/]/g, ' ');
 }
 
 function removeAllowedEnglish(text) {
   let cleaned = text;
+  for (const phrase of ALLOWED_ENGLISH_PHRASES) {
+    cleaned = cleaned.replace(buildTermPattern(phrase), ' ');
+  }
   for (const term of PROTECTED_TERMS) {
     cleaned = cleaned.replace(buildTermPattern(term), ' ');
   }
@@ -197,6 +301,7 @@ function isHighConfidenceEnglish(text) {
 
   const normalizedWords = words.map((word) => word.toLowerCase());
   return words.length >= 5
+    || (words.length >= 2 && normalizedWords.some((word) => COMMON_ENGLISH_WORDS.has(word)))
     || (words.length >= 3 && normalizedWords.some((word) => COMMON_ENGLISH_WORDS.has(word)))
     || isLikelyEnglishTitle(words);
 }

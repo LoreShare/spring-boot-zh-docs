@@ -70,6 +70,7 @@ test('能找出代码块外的高置信度英文残留', () => {
       'This section describes how to use the plugin.',
       '',
       '请参阅 xref:appendix:test-auto-configuration/index.adoc[found in the appendix]。',
+      '请参阅 xref:maven-plugin:using.adoc[Using the Plugin]。',
       '',
       '`This code should stay in English`',
       '',
@@ -82,7 +83,38 @@ test('能找出代码块外的高置信度英文残留', () => {
     [
       '第 1 行存在疑似未翻译英文：This section describes how to use the plugin',
       '第 3 行存在疑似未翻译英文：found in the appendix',
+      '第 4 行存在疑似未翻译英文：Using the Plugin',
     ],
+  );
+});
+
+test('英文残留校验忽略技术专名和外部链接目标', () => {
+  assert.deepEqual(
+    findUntranslatedEnglishSegments([
+      '你应该始终确保运行的是 {url-github-wiki}/Supported-Versions[受支持的 Spring Boot 版本]。',
+      '如果你开发 Spring Boot Web 应用程序，请查看 Spring MVC、Jersey、Spring WebFlux 和 Spring Session。',
+      '更多详情请参阅 Spring 框架参考文档中的 {url-spring-framework-docs}/testing/testcontext-framework/tx.html#testcontext-tx-enabling-transactions[相关章节]。',
+      '* *GraalVM Native Images：* xref:reference:packaging/native-image/index.adoc[简介]',
+      '详见 {url-gradle-javadoc}/org/gradle/api/tasks/JavaExec.html#setArgsString(java.lang.String)[`JavaExec.setArgsString` 的 javadoc]。',
+    ].join('\n')),
+    [],
+  );
+});
+
+test('英文残留校验忽略专有名词、状态码和格式片段', () => {
+  assert.deepEqual(
+    findUntranslatedEnglishSegments([
+      '如果你使用 Mac 并且使用 https://brew.sh/[Homebrew]，可以通过以下命令安装 Spring Boot CLI：',
+      '=== Dispatcher Servlets 响应结构',
+      '=== Daily Time Interval 触发器响应结构',
+      '默认情况下，Spring Boot 使用状态码“UP”、“DOWN”、“OUT_OF_SERVICE”和“UNKNOWN”。',
+      '如果不返回值，响应状态将为 404（Not Found）。',
+      'Spring Boot 使用 https://commons.apache.org/logging[Commons Logging] 进行所有内部日志记录。',
+      '如果你需要一种安全的方式来存储凭据和密码，https://cloud.spring.io/spring-cloud-vault/[Spring Cloud Vault] 项目提供支持。',
+      "|java.time 的 yyyy-MM-dd HH:mm:ss、yyyy-MM-dd'T'HH:mm:ss 和 yyyy-MM-dd HH:mm:ssZ",
+      '要启用结构化日志，请使用 xref:#features.logging.structured.ecs[Elastic Common Schema (ECS)]。',
+    ].join('\n')),
+    [],
   );
 });
 
