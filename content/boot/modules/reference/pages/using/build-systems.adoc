@@ -27,7 +27,7 @@ WARNING：Spring Boot 的每个版本都与一个基础版本的 Spring 框架�
 要了解如何将 Spring Boot 与 Maven 一起使用，请参阅 Spring Boot 的 Maven 插件的文档：
 
 * xref:maven-plugin:index.adoc[Reference]
-* xref:maven-plugin:api/java/index.html[API]
+* https://docs.spring.io/spring-boot/4.1.0/maven-plugin/api/java/[API,role=link-external, window=_blank]
 
 
 [[using.build-systems.gradle]]
@@ -36,7 +36,7 @@ WARNING：Spring Boot 的每个版本都与一个基础版本的 Spring 框架�
 要了解如何将 Spring Boot 与 Gradle 一起使用，请参阅 Spring Boot 的 Gradle 插件的文档：
 
 * xref:gradle-plugin:index.adoc[Reference]
-* xref:gradle-plugin:api/java/index.html[API]
+* https://docs.spring.io/spring-boot/4.1.0/gradle-plugin/api/java/[API,role=link-external, window=_blank]
 
 
 [[using.build-systems.ant]]

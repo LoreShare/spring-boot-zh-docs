@@ -1,2 +1,2 @@
 * Kotlin APIs
-** xref:api:kotlin/index.html[Spring Boot,role=link-external, window=_blank]
+** https://docs.spring.io/spring-boot/4.1.0/api/kotlin/[Spring Boot,role=link-external, window=_blank]

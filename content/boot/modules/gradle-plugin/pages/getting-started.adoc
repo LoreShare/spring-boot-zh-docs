@@ -25,6 +25,7 @@ Kotlin::
 ----
 include::example$getting-started/apply-plugin-commercial.gradle.kts[]
 ----
+======
 endif::[]
 
 
@@ -85,6 +86,7 @@ Kotlin::
 ----
 include::example$getting-started/apply-plugin-release.gradle.kts[]
 ----
+======
 endif::[]
 
 ifeval::["{build-and-artifact-release-type}" == "opensource-snapshot"]
@@ -124,6 +126,9 @@ Kotlin::
 ----
 include::example$getting-started/apply-plugin-release.gradle.kts[]
 ----
+======
+endif::[]
+
 孤立应用时，该插件对项目所做的更改很少。
 相反，该插件会检测何时应用了其他某些插件并做出相应反应。
 例如，当应用 `java` 插件时，会自动配置用于构建可执行 jar 的任务。

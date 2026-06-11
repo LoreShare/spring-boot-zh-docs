@@ -293,6 +293,7 @@ Kotlin::
 ----
 include::example$packaging/boot-jar-layered-disabled.gradle.kts[tags=layered]
 ----
+======
 当创建分层 jar 或 war 时，`spring-boot-jarmode-tools` jar 将作为依赖项添加到您的归档中。将此 jar 放在 classpath 上，您可以在特殊模式下启动应用程序，该模式允许引导代码运行与应用程序完全不同的内容，例如，提取层的内容。如果您希望排除此依赖项，可以通过以下方式实现：
 
 [tabs]
