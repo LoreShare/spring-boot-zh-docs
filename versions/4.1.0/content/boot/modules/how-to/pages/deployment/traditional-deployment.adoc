@@ -89,7 +89,7 @@ TIP: `providedRuntime` 优于 Gradle 的 `compileOnly` 配置。
 要将现有的非 Web Spring 应用程序转换为 Spring Boot 应用程序，请替换创建 javadoc:org.springframework.context.ApplicationContext[] 的代码，并替换为对 javadoc:org.springframework.boot.SpringApplication[] 或 javadoc:org.springframework.boot.builder.SpringApplicationBuilder[] 的调用。
 Spring MVC Web 应用程序通常可以先创建一个可部署的 war 应用程序，然后再迁移到可执行的 war 或 jar。
 
-通过扩展 javadoc:org.springframework.boot.web.servlet.support.SpringBootServletInitializer[]（例如，在名为 `Application` 的类中）并添加 Spring Boot javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] annotation 来创建可部署的 war，使用类似于以下示例的代码：
+通过扩展 javadoc:org.springframework.boot.web.servlet.support.SpringBootServletInitializer[]（例如，在名为 `Application` 的类中）并添加 Spring Boot javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 注解来创建可部署的 war，使用类似于以下示例的代码：
 
 [source,java]
 ----

@@ -1,6 +1,6 @@
 = 测试
 
-Spring Boot 提供了一些实用工具和 annotations，以帮助测试您的应用程序。
+Spring Boot 提供了一些实用工具和注解，以帮助测试您的应用程序。
 
 测试支持由两个通用模块提供——`spring-boot-test` 包含核心项，`spring-boot-test-autoconfigure` 支持测试中的自动配置——以及几个专注于特定功能的 `-test` 模块，这些模块为特定特性提供测试支持。
 

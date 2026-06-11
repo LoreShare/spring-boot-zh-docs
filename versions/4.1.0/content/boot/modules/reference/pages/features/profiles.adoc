@@ -17,7 +17,7 @@ public class ProductionConfiguration {
 }
 ----
 
-注意：如果 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans 是通过 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 注册的，而不是自动扫描，则需要在具有 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] annotation 的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上指定 javadoc:org.springframework.context.annotation.Profile[format=annotation] annotation。
+注意：如果 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] beans 是通过 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 注册的，而不是自动扫描，则需要在具有 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 注解的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上指定 javadoc:org.springframework.context.annotation.Profile[format=annotation] 注解。
 如果 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 是通过扫描发现的，则 javadoc:org.springframework.context.annotation.Profile[format=annotation] 可以直接在 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类本身上指定。
 
 您可以使用 configprop:spring.profiles.active[] javadoc:org.springframework.core.env.Environment[] 属性来指定哪些 profiles 处于激活状态。

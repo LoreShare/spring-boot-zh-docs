@@ -21,7 +21,7 @@
 |
 
 |[[application-properties.json.spring.gson.exclude-fields-without-expose-annotation]]xref:#application-properties.json.spring.gson.exclude-fields-without-expose-annotation[`+spring.gson.exclude-fields-without-expose-annotation+`]
-|+++是否排除所有没有“Expose”annotation的字段，使其不参与序列化或反序列化。+++
+|+++是否排除所有没有“Expose”注解的字段，使其不参与序列化或反序列化。+++
 |
 
 |[[application-properties.json.spring.gson.field-naming-policy]]xref:#application-properties.json.spring.gson.field-naming-policy[`+spring.gson.field-naming-policy+`]
@@ -229,7 +229,7 @@
 |`+false+`
 
 |[[application-properties.json.spring.kotlinx.serialization.json.use-alternative-names]]xref:#application-properties.json.spring.kotlinx.serialization.json.use-alternative-names[`+spring.kotlinx.serialization.json.use-alternative-names+`]
-|+++Json 实例是否使用 JsonNames annotation。+++
+|+++Json 实例是否使用 JsonNames 注解。+++
 |`+true+`
 
 |===

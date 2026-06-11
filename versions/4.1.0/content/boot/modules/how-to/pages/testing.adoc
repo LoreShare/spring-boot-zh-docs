@@ -46,7 +46,7 @@ Spring Security 提供了与 Spring MVC Test 的全面集成，在使用 javadoc
 == 为包含在切片测试中而结构化 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类
 
 切片测试通过将 Spring Framework 的组件扫描限制为基于其类型的有限组件集来工作。
-对于任何不是通过组件扫描创建的 bean，例如使用 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 创建的 bean，切片测试将无法将它们包含/排除在应用程序上下文之外。
+对于任何不是通过组件扫描创建的 bean，例如使用 javadoc:org.springframework.context.annotation.Bean[format=annotation] 注解创建的 bean，切片测试将无法将它们包含/排除在应用程序上下文之外。
 考虑这个示例：
 
 [source,java]

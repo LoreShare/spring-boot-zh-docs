@@ -284,7 +284,7 @@ Spring Data 可以创建各种风格的 javadoc:org.springframework.data.reposit
 要开始使用，请创建一些仓库接口来处理您的 javadoc:jakarta.persistence.Entity[format=annotation] 对象。
 
 Spring Boot 通过扫描 xref:reference:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包] 来确定您的 javadoc:org.springframework.data.repository.Repository[] 实现的位置。
-要获得更多控制，请使用来自 Spring Data 的 `@Enable…Repositories` annotations。
+要获得更多控制，请使用来自 Spring Data 的 `@Enable…Repositories` 注解。
 
 有关 Spring Data 的更多信息，请参阅 {url-spring-data-site}[Spring Data 项目页面]。
 
@@ -293,7 +293,7 @@ Spring Boot 通过扫描 xref:reference:using/auto-configuration.adoc#using.auto
 == 将 @Entity 定义与 Spring 配置分离
 
 Spring Boot 通过扫描 xref:reference:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包] 来确定您的 javadoc:jakarta.persistence.Entity[format=annotation] 定义的位置。
-要获得更多控制，请使用 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] annotation，如下例所示：
+要获得更多控制，请使用 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] 注解，如下例所示：
 
 [source,java]
 ----
@@ -625,13 +625,13 @@ public class CustomerConfiguration {
 
 Spring Data JPA 和 Spring Data Mongo 都可以自动为你创建 javadoc:org.springframework.data.repository.Repository[] 实现。
 如果它们同时存在于 classpath 上，你可能需要做一些额外的配置来告诉 Spring Boot 要创建哪些仓库。
-最明确的方法是使用标准的 Spring Data javadoc:org.springframework.data.jpa.repository.config.EnableJpaRepositories[format=annotation] 和 javadoc:org.springframework.data.mongodb.repository.config.EnableMongoRepositories[format=annotation] annotations，并提供你的 javadoc:org.springframework.data.repository.Repository[] 接口的位置。
+最明确的方法是使用标准的 Spring Data javadoc:org.springframework.data.jpa.repository.config.EnableJpaRepositories[format=annotation] 和 javadoc:org.springframework.data.mongodb.repository.config.EnableMongoRepositories[format=annotation] 注解，并提供你的 javadoc:org.springframework.data.repository.Repository[] 接口的位置。
 
 还有一些标志（`+spring.data.*.repositories.enabled+` 和 `+spring.data.*.repositories.type+`）可用于在外部配置中打开和关闭自动配置的仓库。
 例如，如果你想关闭 Mongo 仓库但仍使用自动配置的 javadoc:org.springframework.data.mongodb.core.MongoTemplate[]，这样做很有用。
 
 其他自动配置的 Spring Data 仓库类型（Elasticsearch、Redis 等）也存在同样的障碍和特性。
-要使用它们，请相应地更改 annotations 和标志的名称。
+要使用它们，请相应地更改注解和标志的名称。
 
 
 

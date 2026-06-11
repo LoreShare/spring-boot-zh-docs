@@ -2,11 +2,11 @@
 
 Spring 框架为应用程序透明地添加缓存提供了支持。其核心是，抽象层将缓存应用于方法，从而根据缓存中的可用信息减少执行次数。缓存逻辑是透明应用的，不会对调用者造成任何干扰。更多详情，请参阅 Spring 框架参考文档的 {url-spring-framework-docs}/integration/cache.html[相关章节]。
 
-只要通过 javadoc:org.springframework.cache.annotation.EnableCaching[format=annotation] annotation 启用了缓存支持，Spring Boot 就会自动配置缓存基础设施。
+只要通过 javadoc:org.springframework.cache.annotation.EnableCaching[format=annotation] 注解启用了缓存支持，Spring Boot 就会自动配置缓存基础设施。
 
 提示：避免将 javadoc:org.springframework.cache.annotation.EnableCaching[format=annotation] 添加到主方法的应用程序类中。这样做会使缓存成为强制功能，包括 xref:io/caching.adoc#io.caching.testing[在运行测试套件时]。
 
-要为服务的操作添加缓存，请将相应的 annotation 添加到其方法中，如下例所示：
+要为服务的操作添加缓存，请将相应的注解添加到其方法中，如下例所示：
 
 [source,java]
 ----
@@ -26,7 +26,7 @@ public class MyMathService {
 
 此示例演示了在可能代价高昂的操作上使用缓存。在调用 `computePiDecimal` 之前，抽象层会在 `piDecimals` 缓存中查找与 `precision` 参数匹配的条目。如果找到条目，缓存中的内容会立即返回给调用者，并且不会调用该方法。否则，该方法会被调用，并在返回值之前更新缓存。
 
-注意：你也可以透明地使用标准 JSR-107 (JCache) annotations（例如 javadoc:javax.cache.annotation.CacheResult[format=annotation]）。但是，我们强烈建议你不要混合使用 Spring Cache 和 JCache annotations。
+注意：你也可以透明地使用标准 JSR-107 (JCache) 注解（例如 javadoc:javax.cache.annotation.CacheResult[format=annotation]）。但是，我们强烈建议你不要混合使用 Spring Cache 和 JCache 注解。
 
 如果你没有添加任何特定的缓存库，Spring Boot 会自动配置一个 xref:io/caching.adoc#io.caching.provider.simple[简单提供者]，它使用内存中的并发映射。当需要缓存时（例如前面示例中的 `piDecimals`），此提供者会为你创建它。简单提供者并不真正推荐用于生产环境，但它非常适合入门和确保你理解这些特性。当你决定使用哪个缓存提供者后，请务必阅读其文档，以了解如何配置应用程序使用的缓存。几乎所有提供者都要求你显式配置应用程序中使用的每个缓存。有些提供者提供了一种通过 configprop:spring.cache.cache-names[] 属性自定义默认缓存的方法。
 

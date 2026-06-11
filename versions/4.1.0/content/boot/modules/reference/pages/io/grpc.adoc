@@ -179,7 +179,7 @@ Spring gRPC 会自动将任何实现了 javadoc:io.grpc.BindableService[] 的 be
 提示：更多详情请参见 {url-spring-grpc-docs}/server.html#_create_a_grpc_service[Spring gRPC 文档]。
 
 以下示例展示了如何实现上述 `.proto` 文件中的 `HelloWorld` 服务。
-在此示例中，我们使用 javadoc:org.springframework.grpc.server.service.GrpcService[format=annotation] annotation，并假设代码位于一个会被组件扫描发现的包中：
+在此示例中，我们使用 javadoc:org.springframework.grpc.server.service.GrpcService[format=annotation] 注解，并假设代码位于一个会被组件扫描发现的包中：
 
 [source,java]
 ----
@@ -436,7 +436,7 @@ TIP: 你也可以将 configprop:spring.grpc.server.health.schedule.enabled[] 设
 
 Spring gRPC 包含一些特性，允许你使用 Spring Security 声明式地保护基于 Netty 的服务器应用程序。这遵循了与保护常规 Web 应用程序类似的模式。
 
-Spring Boot 为 javadoc:org.springframework.grpc.server.security.GrpcSecurity[] 和 javadoc:org.springframework.grpc.server.security.SecurityGrpcExceptionHandler[] beans 提供了自动配置。通常，gRPC 应用程序随后通过在你的 gRPC 服务 beans 上使用 javadoc:org.springframework.security.access.prepost.PreAuthorize[format=annotation] annotations，或使用 javadoc:org.springframework.grpc.server.security.AuthenticationProcessInterceptor[] bean 来保护。
+Spring Boot 为 javadoc:org.springframework.grpc.server.security.GrpcSecurity[] 和 javadoc:org.springframework.grpc.server.security.SecurityGrpcExceptionHandler[] beans 提供了自动配置。通常，gRPC 应用程序随后通过在你的 gRPC 服务 beans 上使用 javadoc:org.springframework.security.access.prepost.PreAuthorize[format=annotation] 注解，或使用 javadoc:org.springframework.grpc.server.security.AuthenticationProcessInterceptor[] bean 来保护。
 
 更多详情，请参阅 {url-spring-grpc-docs}/server.html#_declarative_security_with_spring_security[Spring gRPC 文档]。
 
@@ -487,7 +487,7 @@ https://oauth.net/2/[OAuth2] 是一个广泛使用的授权框架。Spring Boot 
 
 Spring Boot 提供了一个 `spring-boot-grpc-client` 模块和一个 `spring-boot-starter-grpc-client` starter POM，你可以用于客户端应用程序。
 
-客户端可以通过从它们的 `.proto` 文件生成的 "`stub`" 类中导入一个或多个来调用远程 gRPC 服务。你可以使用 javadoc:org.springframework.grpc.client.ImportGrpcClients[format=annotation] annotation 来导入你想要使用的存根类。
+客户端可以通过从它们的 `.proto` 文件生成的 "`stub`" 类中导入一个或多个来调用远程 gRPC 服务。你可以使用 javadoc:org.springframework.grpc.client.ImportGrpcClients[format=annotation] 注解来导入你想要使用的存根类。
 
 每个导入都包含一个 `target`，它可以是逻辑通道名称，也可以是远程服务器的基本 URL。我们通常建议使用通道名称而不是硬编码目标。
 
@@ -540,7 +540,7 @@ spring:
 
 === 使用 Stub Bean
 
-当你的 javadoc:org.springframework.grpc.client.ImportGrpcClients[format=annotation] annotations 就绪，并且属性已编写完成后，你可以像使用任何其他 bean 一样使用 stub。
+当你的 javadoc:org.springframework.grpc.client.ImportGrpcClients[format=annotation] 注解就绪，并且属性已编写完成后，你可以像使用任何其他 bean 一样使用 stub。
 
 例如，以下是将 `HelloWorldStub` 注入到 `ApplicationRunner` bean 中的示例：
 
@@ -738,7 +738,7 @@ public class MyGrpcConfiguration {
 [[grpc-testing-in-process]]
 === 使用进程内测试传输
 
-javadoc:org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTransport[format=annotation] annotation 允许你快速将 gRPC 通信通道替换为专门用于测试的进程内通道。
+javadoc:org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTransport[format=annotation] 注解允许你快速将 gRPC 通信通道替换为专门用于测试的进程内通道。
 与常规的进程内通道不同，这些测试通道不需要任何配置。
 
 使用测试 gRPC 传输意味着你不需要实际监听网络端口来启动应用程序。
@@ -748,8 +748,8 @@ javadoc:org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTr
 
 * 配置测试 javadoc:org.springframework.grpc.server.GrpcServerFactory[] / javadoc:org.springframework.grpc.client.GrpcChannelFactory[] beans
 * 禁用任何 gRPC servlet 注册。
-* 禁用 javadoc:org.springframework.grpc.server.GrpcServerFactory[] bean auto-configuration。
-* 禁用 javadoc:org.springframework.grpc.client.GrpcChannelFactory[] bean auto-configuration。
+* 禁用 javadoc:org.springframework.grpc.server.GrpcServerFactory[] bean 自动配置。
+* 禁用 javadoc:org.springframework.grpc.client.GrpcChannelFactory[] bean 自动配置。
 
 以下示例展示了如何使用 javadoc:org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTransport[format=annotation] 测试 gRPC 服务器应用程序：
 
@@ -789,7 +789,7 @@ class MyGrpcTests {
 这将确保你可以在任何环境中运行测试，并且不会意外调用真实服务。
 
 要使用随机端口启动 gRPC 服务器，请将 configprop:spring.grpc.server.port[] 设置为 `0`。
-你可以使用 javadoc:org.springframework.boot.grpc.test.autoconfigure.LocalGrpcServerPort[format=annotation] annotation 来获取服务器启动的实际端口。
+你可以使用 javadoc:org.springframework.boot.grpc.test.autoconfigure.LocalGrpcServerPort[format=annotation] 注解来获取服务器启动的实际端口。
 
 以下是一个测试示例：
 

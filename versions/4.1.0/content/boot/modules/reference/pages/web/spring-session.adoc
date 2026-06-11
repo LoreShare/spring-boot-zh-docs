@@ -1,6 +1,6 @@
 = Spring Session
 
-Spring Boot 为多种数据存储提供 {url-spring-session-site}[Spring Session] auto-configuration。
+Spring Boot 为多种数据存储提供 {url-spring-session-site}[Spring Session] 自动配置。
 对于每种数据存储，都提供了特定的 Spring Boot starter。
 
 在构建 Servlet Web 应用程序时，以下存储可以自动配置：
@@ -31,4 +31,4 @@ spring:
 你可以通过 `@Enable*HttpSession`（Servlet）或 `@EnableRedisWebSession`（Reactive）来控制 Spring Session 的配置。
 这将导致自动配置退出。
 或者，直接依赖相关的 Spring Session 模块，而不是使用 Spring Boot 的 starter 之一来配置 Spring Session。
-无论采用哪种方法，都可以使用 annotation 的属性（而非之前描述的配置属性）来配置 Spring Session。
+无论采用哪种方法，都可以使用注解的属性（而非之前描述的配置属性）来配置 Spring Session。

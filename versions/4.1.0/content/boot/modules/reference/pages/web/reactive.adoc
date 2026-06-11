@@ -9,8 +9,8 @@ Spring Boot 通过为 Spring Webflux 提供自动配置，简化了响应式 Web
 Spring WebFlux 是 Spring Framework 5.0 中引入的新响应式 Web 框架。
 与 Spring MVC 不同，它不需要 Servlet API，完全异步且非阻塞，并通过 https://projectreactor.io/[Reactor 项目] 实现了 https://www.reactive-streams.org/[Reactive Streams] 规范。
 
-Spring WebFlux 有两种风格：函数式和基于 annotation 的。
-基于 annotation 的风格与 Spring MVC 模型非常接近，如下例所示：
+Spring WebFlux 有两种风格：函数式和基于注解的。
+基于注解的风格与 Spring MVC 模型非常接近，如下例所示：
 
 [source,java]
 ----

@@ -9,7 +9,7 @@
 |
 
 |[[application-properties.grpc.spring.grpc.client.channelfactory.enabled]]xref:#application-properties.grpc.spring.grpc.client.channelfactory.enabled[`+spring.grpc.client.channelfactory.enabled+`]
-|+++是否启用 gRPC 通道工厂 bean auto-configuration。+++
+|+++是否启用 gRPC 通道工厂 bean 自动配置。+++
 |`+true+`
 
 |[[application-properties.grpc.spring.grpc.client.enabled]]xref:#application-properties.grpc.spring.grpc.client.enabled[`+spring.grpc.client.enabled+`]
@@ -33,7 +33,7 @@
 |`+true+`
 
 |[[application-properties.grpc.spring.grpc.server.factory.enabled]]xref:#application-properties.grpc.spring.grpc.server.factory.enabled[`+spring.grpc.server.factory.enabled+`]
-|+++是否启用 gRPC 服务器工厂 bean auto-configuration。+++
+|+++是否启用 gRPC 服务器工厂 bean 自动配置。+++
 |`+true+`
 
 |[[application-properties.grpc.spring.grpc.server.health.enabled]]xref:#application-properties.grpc.spring.grpc.server.health.enabled[`+spring.grpc.server.health.enabled+`]

@@ -59,7 +59,7 @@ class MyIntegrationTests {
 }
 ----
 
-提示：这种管理容器的方法通常与 xref:#testing.testcontainers.service-connections[服务连接 annotations] 结合使用。
+提示：这种管理容器的方法通常与 xref:#testing.testcontainers.service-connections[服务连接注解] 结合使用。
 
 
 
@@ -67,11 +67,11 @@ class MyIntegrationTests {
 == 使用 JUnit 扩展
 
 Testcontainers 提供了一个 JUnit 扩展，可用于管理测试中的容器。
-该扩展通过将 Testcontainers 的 javadoc:org.testcontainers.junit.jupiter.Testcontainers[format=annotation] annotation 应用于测试类来激活。
+该扩展通过将 Testcontainers 的 javadoc:org.testcontainers.junit.jupiter.Testcontainers[format=annotation] 注解应用于测试类来激活。
 
-然后，你可以在静态容器字段上使用 javadoc:org.testcontainers.junit.jupiter.Container[format=annotation] annotation。
+然后，你可以在静态容器字段上使用 javadoc:org.testcontainers.junit.jupiter.Container[format=annotation] 注解。
 
-javadoc:org.testcontainers.junit.jupiter.Testcontainers[format=annotation] annotation 可用于普通的 JUnit 测试，或与 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 结合使用：
+javadoc:org.testcontainers.junit.jupiter.Testcontainers[format=annotation] 注解可用于普通的 JUnit 测试，或与 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 结合使用：
 
 [source,java]
 ----
@@ -155,7 +155,7 @@ class MyTestConfiguration {
 [[testing.testcontainers.lifecycle]]
 == 托管容器的生命周期
 
-如果你使用了 Testcontainers 提供的 annotations 和扩展，那么容器实例的生命周期完全由 Testcontainers 管理。
+如果你使用了 Testcontainers 提供的注解和扩展，那么容器实例的生命周期完全由 Testcontainers 管理。
 请参考 {url-testcontainers-docs}[官方 Testcontainers 文档] 获取相关信息。
 
 当容器作为 beans 由 Spring 管理时，它们的生命周期由 Spring 管理：
@@ -226,7 +226,7 @@ class MyIntegrationTests {
 
 注意：你需要添加 `spring-boot-testcontainers` 模块作为测试依赖项，以便将服务连接与 Testcontainers 一起使用。
 
-服务连接 annotations 由注册到 `spring.factories` 的 javadoc:org.springframework.boot.testcontainers.service.connection.ContainerConnectionDetailsFactory[] 类处理。
+服务连接注解由注册到 `spring.factories` 的 javadoc:org.springframework.boot.testcontainers.service.connection.ContainerConnectionDetailsFactory[] 类处理。
 javadoc:org.springframework.boot.testcontainers.service.connection.ContainerConnectionDetailsFactory[] 可以根据特定的 javadoc:org.testcontainers.containers.Container[] 子类或 Docker 镜像名称创建 javadoc:org.springframework.boot.autoconfigure.service.connection.ConnectionDetails[] bean。
 
 以下服务连接工厂在 `spring-boot-testcontainers` jar 中提供：
@@ -350,8 +350,8 @@ Spring Boot 无法从 javadoc:org.testcontainers.containers.GenericContainer[] �
 [[testing.testcontainers.service-connections.ssl]]
 === 使用服务连接的 SSL
 
-你可以在支持的容器上使用 javadoc:org.springframework.boot.testcontainers.service.connection.Ssl[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.JksKeyStore[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.JksTrustStore[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.PemKeyStore[format=annotation] 和 javadoc:org.springframework.boot.testcontainers.service.connection.PemTrustStore[format=annotation] annotations 来为该服务连接启用 SSL 支持。
-请注意，你仍然需要自行在 Testcontainer 内部运行的服务上启用 SSL，annotations 仅在你的应用程序中配置客户端的 SSL。
+你可以在支持的容器上使用 javadoc:org.springframework.boot.testcontainers.service.connection.Ssl[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.JksKeyStore[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.JksTrustStore[format=annotation]、javadoc:org.springframework.boot.testcontainers.service.connection.PemKeyStore[format=annotation] 和 javadoc:org.springframework.boot.testcontainers.service.connection.PemTrustStore[format=annotation] 注解来为该服务连接启用 SSL 支持。
+请注意，你仍然需要自行在 Testcontainer 内部运行的服务上启用 SSL，注解仅在你的应用程序中配置客户端的 SSL。
 
 [source,java]
 ----
@@ -389,12 +389,12 @@ class MyRedisWithSslIntegrationTests {
 }
 ----
 
-上述代码使用 javadoc:org.springframework.boot.testcontainers.service.connection.PemKeyStore[format=annotation] annotation 将客户端证书和密钥加载到密钥库中，并使用 javadoc:org.springframework.boot.testcontainers.service.connection.PemTrustStore[format=annotation] annotation 将 CA 证书加载到信任库中。
+上述代码使用 javadoc:org.springframework.boot.testcontainers.service.connection.PemKeyStore[format=annotation] 注解将客户端证书和密钥加载到密钥库中，并使用 javadoc:org.springframework.boot.testcontainers.service.connection.PemTrustStore[format=annotation] 注解将 CA 证书加载到信任库中。
 这将验证客户端对服务器的身份，并且信任库中的 CA 证书确保服务器证书有效且受信任。
 
 此示例中的 `SecureRedisContainer` 是 `RedisContainer` 的自定义子类，它将证书复制到正确的位置，并使用启用 SSL 的命令行参数调用 `redis-server`。
 
-SSL annotations 支持以下服务连接：
+SSL 注解支持以下服务连接：
 
 * Cassandra
 * Couchbase

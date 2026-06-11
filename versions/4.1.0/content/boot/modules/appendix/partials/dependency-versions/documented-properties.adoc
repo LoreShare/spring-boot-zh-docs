@@ -163,7 +163,7 @@
 | `Jakarta Activation`
 | `jakarta-activation.version`
 
-| `Jakarta Annotation`
+| `Jakarta 注解`
 | `jakarta-annotation.version`
 
 | `Jakarta Inject`

@@ -312,7 +312,7 @@ public class City implements Serializable {
 }
 ----
 
-提示：你可以通过使用 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] annotation 来自定义实体扫描位置。
+提示：你可以通过使用 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] 注解来自定义实体扫描位置。
 请参阅“`How-to Guides`”中的 xref:how-to:data-access.adoc#howto.data-access.separate-entity-definitions-from-spring-configuration[] 部分。
 
 
@@ -430,11 +430,11 @@ spring:
 == Spring Data JDBC
 
 Spring Data 包含对 JDBC 的 Repository 支持，并会自动为 javadoc:org.springframework.data.repository.CrudRepository[] 上的方法生成 SQL。
-对于更高级的查询，提供了 javadoc:org.springframework.data.jdbc.repository.query.Query[format=annotation] annotation。
+对于更高级的查询，提供了 javadoc:org.springframework.data.jdbc.repository.query.Query[format=annotation] 注解。
 
 Spring Boot 会在 classpath 上存在必要依赖时自动配置 Spring Data 的 JDBC Repository。
 可以通过在项目中添加一个对 `spring-boot-starter-data-jdbc` 的单一依赖来引入它们。
-如有必要，你可以通过向应用程序添加 javadoc:org.springframework.data.jdbc.repository.config.EnableJdbcRepositories[format=annotation] annotation 或 javadoc:org.springframework.data.jdbc.repository.config.AbstractJdbcConfiguration[] 子类来控制 Spring Data JDBC 的配置。
+如有必要，你可以通过向应用程序添加 javadoc:org.springframework.data.jdbc.repository.config.EnableJdbcRepositories[format=annotation] 注解或 javadoc:org.springframework.data.jdbc.repository.config.AbstractJdbcConfiguration[] 子类来控制 Spring Data JDBC 的配置。
 
 如果你将 Spring Data JDBC 与 xref:packaging/aot.adoc[提前处理]（针对 JVM 或 native image）一起使用，建议进行一些额外配置。
 为了防止在 AOT 处理期间需要数据库连接，请定义一个适合应用程序数据库的 `JdbcDialect` bean。
@@ -692,7 +692,7 @@ public class MyPostgresR2dbcConfiguration {
 }
 ----
 
-当 javadoc:io.r2dbc.spi.ConnectionFactory[] bean 可用时，常规的 JDBC javadoc:javax.sql.DataSource[] 自动配置会退出。如果你想保留 JDBC javadoc:javax.sql.DataSource[] auto-configuration，并且愿意在响应式应用中使用阻塞 JDBC API 的风险，可以在应用程序的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上添加 `@Import(DataSourceAutoConfiguration.class)` 以重新启用它。
+当 javadoc:io.r2dbc.spi.ConnectionFactory[] bean 可用时，常规的 JDBC javadoc:javax.sql.DataSource[] 自动配置会退出。如果你想保留 JDBC javadoc:javax.sql.DataSource[] 自动配置，并且愿意在响应式应用中使用阻塞 JDBC API 的风险，可以在应用程序的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上添加 `@Import(DataSourceAutoConfiguration.class)` 以重新启用它。
 
 [[data.sql.r2dbc.embedded]]
 === 嵌入式数据库支持

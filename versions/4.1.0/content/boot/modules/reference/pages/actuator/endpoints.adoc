@@ -438,7 +438,7 @@ Actuator 将使用它进行 JSON 处理。
 例如，javadoc:org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint[format=annotation] 仅通过 HTTP 暴露，而不通过 JMX。
 
 你可以通过使用 javadoc:org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension[format=annotation] 和 javadoc:org.springframework.boot.actuate.endpoint.jmx.annotation.EndpointJmxExtension[format=annotation] 编写特定技术的扩展。
-这些 annotations 允许你提供特定技术的操作来增强现有的端点。
+这些注解允许你提供特定技术的操作来增强现有的端点。
 一个端点每种类型最多只能有一个扩展。
 
 最后，如果你需要访问 Web 框架特定的功能，你可以实现 servlet 或 Spring javadoc:org.springframework.stereotype.Controller[format=annotation] 和 javadoc:org.springframework.web.bind.annotation.RestController[format=annotation] endpoints，代价是它们不能通过 JMX 或在使用不同 Web 框架时使用。
@@ -537,7 +537,7 @@ javadoc:org.springframework.boot.actuate.endpoint.annotation.Endpoint[format=ann
 [[actuator.endpoints.implementing-custom.web.produces-predicates]]
 ==== 产生
 
-谓词的 `produces` 子句可以由 javadoc:org.springframework.boot.actuate.endpoint.annotation.DeleteOperation[format=annotation]、javadoc:org.springframework.boot.actuate.endpoint.annotation.ReadOperation[format=annotation] 和 javadoc:org.springframework.boot.actuate.endpoint.annotation.WriteOperation[format=annotation] annotations 的 `produces` 属性决定。
+谓词的 `produces` 子句可以由 javadoc:org.springframework.boot.actuate.endpoint.annotation.DeleteOperation[format=annotation]、javadoc:org.springframework.boot.actuate.endpoint.annotation.ReadOperation[format=annotation] 和 javadoc:org.springframework.boot.actuate.endpoint.annotation.WriteOperation[format=annotation] 注解的 `produces` 属性决定。
 该属性是可选的。
 如果未使用，`produces` 子句会自动确定。
 

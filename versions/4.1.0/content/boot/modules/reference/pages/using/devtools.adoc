@@ -241,7 +241,7 @@ https://spring.io/tools[Spring Tools for Eclipse] 和 https://www.jetbrains.com/
 默认情况下，IDE 中任何打开的项目都使用“`restart`”类加载器加载，而任何常规的 `.jar` 文件都使用“`base`”类加载器加载。
 如果你使用 `mvn spring-boot:run` 或 `gradle bootRun`，情况也是如此：包含你的 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 的项目使用“`restart`”类加载器加载，而其他所有内容使用“`base`”类加载器加载。
 classpath 在启动应用时打印在控制台上，这有助于识别任何有问题的条目。
-反射使用的类，尤其是 annotations，可能会在启动时被加载到父（固定）类加载器中，早于使用它们的应用类，这可能导致它们无法被应用中的 Spring 检测到。
+反射使用的类，尤其是注解，可能会在启动时被加载到父（固定）类加载器中，早于使用它们的应用类，这可能导致它们无法被应用中的 Spring 检测到。
 
 你可以通过创建 `META-INF/spring-devtools.properties` 文件来指示 Spring Boot 使用不同的类加载器加载项目的部分内容。
 `spring-devtools.properties` 文件可以包含以 `restart.exclude` 和 `restart.include` 为前缀的属性。

@@ -104,7 +104,7 @@ public class MyMeterRegistryConfiguration {
 }
 ----
 
-Spring Boot 还 xref:actuator/metrics.adoc#actuator.metrics.supported[配置内置的仪表化]，您可以通过配置或专用的 annotation 标记来控制这些仪表化。
+Spring Boot 还 xref:actuator/metrics.adoc#actuator.metrics.supported[配置内置的仪表化]，您可以通过配置或专用的注解标记来控制这些仪表化。
 
 
 [[actuator.metrics.export]]
@@ -888,9 +888,9 @@ spring:
 
 自动配置会启用对所有 Spring Data Repository 方法调用的监控。默认情况下，生成的指标名称为 `spring.data.repository.invocations`。您可以通过设置 configprop:management.metrics.data.repository.metric-name[] 属性来自定义名称。
 
-javadoc:io.micrometer.core.annotation.Timed[format=annotation] 包中的 annotation 支持在 javadoc:org.springframework.data.repository.Repository[] 接口和方法上使用。如果您不想记录所有 javadoc:org.springframework.data.repository.Repository[] 调用的指标，可以将 configprop:management.metrics.data.repository.autotime.enabled[] 设置为 `false`，并仅使用 javadoc:io.micrometer.core.annotation.Timed[format=annotation] annotations。
+javadoc:io.micrometer.core.annotation.Timed[format=annotation] 包中的注解支持在 javadoc:org.springframework.data.repository.Repository[] 接口和方法上使用。如果您不想记录所有 javadoc:org.springframework.data.repository.Repository[] 调用的指标，可以将 configprop:management.metrics.data.repository.autotime.enabled[] 设置为 `false`，并仅使用 javadoc:io.micrometer.core.annotation.Timed[format=annotation] 注解。
 
-注意：带有 `longTask = true` 的 javadoc:io.micrometer.core.annotation.Timed[format=annotation] annotation 会为该方法启用长任务计时器。长任务计时器需要单独的指标名称，并且可以与短任务计时器叠加使用。
+注意：带有 `longTask = true` 的 javadoc:io.micrometer.core.annotation.Timed[format=annotation] 注解会为该方法启用长任务计时器。长任务计时器需要单独的指标名称，并且可以与短任务计时器叠加使用。
 
 默认情况下，Repository 调用相关的指标会带有以下标签：
 

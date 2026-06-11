@@ -198,7 +198,7 @@ spring:
       path: "/mypath"
 ----
 如果你有额外的 servlet，可以为每个 servlet 声明一个类型为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 或 javadoc:jakarta.servlet.Servlet[] 的 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[]，Spring Boot 会透明地将它们注册到容器中。
-也可以使用 javadoc:org.springframework.boot.web.servlet.ServletRegistration[format=annotation] 作为基于 annotation 的替代方案来替代 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[]。
+也可以使用 javadoc:org.springframework.boot.web.servlet.ServletRegistration[format=annotation] 作为基于注解的替代方案来替代 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[]。
 由于 servlet 以这种方式注册，它们可以被映射到 javadoc:org.springframework.web.servlet.DispatcherServlet[] 的子上下文中，而无需调用它。
 
 自己配置 javadoc:org.springframework.boot.webmvc.autoconfigure.DispatcherServletPath[] 并不常见，但如果确实需要这样做，还必须提供一个类型为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 的 javadoc:org.springframework.boot.webmvc.autoconfigure.DispatcherServletPath[]，以提供自定义 javadoc:org.springframework.web.servlet.DispatcherServlet[] 的路径。
@@ -208,7 +208,7 @@ spring:
 [[howto.spring-mvc.switch-off-default-configuration]]
 == 关闭默认 MVC 配置
 
-完全控制 MVC 配置的最简单方法是提供你自己的 javadoc:org.springframework.context.annotation.Configuration[format=annotation]，并带有 javadoc:org.springframework.web.servlet.config.annotation.EnableWebMvc[format=annotation] annotation。
+完全控制 MVC 配置的最简单方法是提供你自己的 javadoc:org.springframework.context.annotation.Configuration[format=annotation]，并带有 javadoc:org.springframework.web.servlet.config.annotation.EnableWebMvc[format=annotation] 注解。
 这样做会将所有 MVC 配置交到你手中。
 
 

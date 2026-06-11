@@ -3,7 +3,7 @@
 Spring Boot 允许你将配置外部化，从而可以在不同环境中使用相同的应用程序代码。
 你可以使用多种外部配置源，包括 Java 属性文件、YAML 文件、环境变量和命令行参数。
 
-属性值可以通过使用 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotation 直接注入到你的 beans 中，通过 Spring 的 javadoc:org.springframework.core.env.Environment[] 抽象访问，或者通过 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties[绑定到结构化对象]。
+属性值可以通过使用 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] 注解直接注入到你的 beans 中，通过 Spring 的 javadoc:org.springframework.core.env.Environment[] 抽象访问，或者通过 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties[绑定到结构化对象]。
 
 Spring Boot 使用一种非常特定的 javadoc:org.springframework.core.env.PropertySource[] 顺序，旨在允许合理的值覆盖。
 后面的属性源可以覆盖前面定义的值。
@@ -12,7 +12,7 @@ Spring Boot 使用一种非常特定的 javadoc:org.springframework.core.env.Pro
 源按以下顺序考虑：
 
 . 默认属性（通过设置 javadoc:org.springframework.boot.SpringApplication#setDefaultProperties(java.util.Map)[] 指定）。
-. 在你的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上的 javadoc:org.springframework.context.annotation.PropertySource[format=annotation] annotations。
+. 在你的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上的 javadoc:org.springframework.context.annotation.PropertySource[format=annotation] 注解。
   请注意，此类属性源直到应用程序上下文刷新时才会添加到 javadoc:org.springframework.core.env.Environment[] 中。
   这对于配置某些属性（如 `+logging.*+` 和 `+spring.main.*+`）来说太晚了，这些属性在刷新开始之前就已读取。
 . 配置数据（例如 `application.properties` 文件）。
@@ -25,9 +25,9 @@ Spring Boot 使用一种非常特定的 javadoc:org.springframework.core.env.Pro
 . 来自 `SPRING_APPLICATION_JSON` 的属性（嵌入在环境变量或系统属性中的内联 JSON）。
 . 命令行参数。
 . 测试中的 `properties` 属性。
-  可在 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 和 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-tests[用于测试应用程序特定切片的测试 annotations] 上使用。
-. 测试中的 javadoc:org.springframework.test.context.DynamicPropertySource[format=annotation] annotations。
-. 测试上的 javadoc:org.springframework.test.context.TestPropertySource[format=annotation] annotations。
+  可在 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 和 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-tests[用于测试应用程序特定切片的测试注解] 上使用。
+. 测试中的 javadoc:org.springframework.test.context.DynamicPropertySource[format=annotation] 注解。
+. 测试上的 javadoc:org.springframework.test.context.TestPropertySource[format=annotation] 注解。
 . 当 devtools 激活时，`$HOME/.config/spring-boot` 目录中的 xref:using/devtools.adoc#using.devtools.globalsettings[Devtools 全局设置属性]。
 
 配置数据文件按以下顺序考虑：
@@ -585,7 +585,7 @@ spring.config.activate.on-cloud-platform=kubernetes
 提示：多文档属性文件通常与激活属性（如 `spring.config.activate.on-profile`）结合使用。
 详情请参见 xref:features/external-config.adoc#features.external-config.files.activation-properties[下一节]。
 
-警告：不能通过 javadoc:org.springframework.context.annotation.PropertySource[format=annotation] 或 javadoc:org.springframework.test.context.TestPropertySource[format=annotation] annotations 加载多文档属性文件。
+警告：不能通过 javadoc:org.springframework.context.annotation.PropertySource[format=annotation] 或 javadoc:org.springframework.test.context.TestPropertySource[format=annotation] 注解加载多文档属性文件。
 
 
 [[features.external-config.files.activation-properties]]
@@ -687,7 +687,7 @@ my.servers[1]=another.example.com
 TIP: 使用 `[index]` 表示法的属性可以绑定到 Java 的 javadoc:java.util.List[] 或 javadoc:java.util.Set[] 对象，通过 Spring Boot 的 javadoc:org.springframework.boot.context.properties.bind.Binder[] 类。
 更多详情请参见下面的 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties[] 部分。
 
-WARNING: YAML 文件不能通过使用 javadoc:org.springframework.context.annotation.PropertySource[format=annotation] 或 javadoc:org.springframework.test.context.TestPropertySource[format=annotation] annotations 加载。
+WARNING: YAML 文件不能通过使用 javadoc:org.springframework.context.annotation.PropertySource[format=annotation] 或 javadoc:org.springframework.test.context.TestPropertySource[format=annotation] 注解加载。
 因此，如果你需要以这种方式加载值，你需要使用 properties 文件。
 
 
@@ -736,7 +736,7 @@ Spring Boot 支持为环境属性设置前缀。
 [[features.external-config.typesafe-configuration-properties]]
 == 类型安全的配置属性
 
-使用 `@Value("$\{property}")` annotation 来注入配置属性有时会很繁琐，尤其是在处理多个属性或数据具有层次结构时。
+使用 `@Value("$\{property}")` 注解来注入配置属性有时会很繁琐，尤其是在处理多个属性或数据具有层次结构时。
 Spring Boot 提供了另一种处理属性的方法，它允许强类型的 beans 管理和验证应用程序的配置。
 
 提示：另请参阅 xref:features/external-config.adoc#features.external-config.typesafe-configuration-properties.vs-value-annotation[javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] 与类型安全配置属性之间的差异]。
@@ -835,7 +835,7 @@ public class MyProperties {
 * `my.service.security.password`。
 * `my.service.security.roles`，包含一个 javadoc:java.lang.String[] 集合，默认为 `USER`。
 
-提示：要在属性名称中使用保留关键字（如 `my.service.import`），请在属性的字段上使用 javadoc:org.springframework.boot.context.properties.bind.Name[format=annotation] annotation。
+提示：要在属性名称中使用保留关键字（如 `my.service.import`），请在属性的字段上使用 javadoc:org.springframework.boot.context.properties.bind.Name[format=annotation] 注解。
 
 注意：映射到 Spring Boot 中可用的 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类的属性（通过属性文件、YAML 文件、环境变量和其他机制配置）是公共 API，但类本身的访问器（getter/setter）不应直接使用。
 
@@ -938,7 +938,7 @@ public class MyProperties {
 
 在这种设置中，存在单个参数化构造函数意味着应使用构造函数绑定。
 这意味着绑定器将找到一个包含你想要绑定的参数的构造函数。
-如果你的类有多个构造函数，可以使用 javadoc:org.springframework.boot.context.properties.bind.ConstructorBinding[format=annotation] annotation 来指定用于构造函数绑定的构造函数。
+如果你的类有多个构造函数，可以使用 javadoc:org.springframework.boot.context.properties.bind.ConstructorBinding[format=annotation] 注解来指定用于构造函数绑定的构造函数。
 
 要选择退出类的构造函数绑定，必须使用 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] 注解参数化构造函数或将其设为 `private`。
 Kotlin 开发人员可以使用空的 primary 构造函数来选择退出构造函数绑定。
@@ -995,14 +995,14 @@ public class MyProperties {
 因此，它不太适合配置属性注入。
 为了与其他类型的属性保持一致，如果你确实声明了一个 javadoc:java.util.Optional[] 属性且没有值，则将绑定 `null` 而不是空的 javadoc:java.util.Optional[]。
 
-提示：要在属性名称中使用保留关键字（如 `my.service.import`），请在构造函数参数上使用 javadoc:org.springframework.boot.context.properties.bind.Name[format=annotation] annotation。
+提示：要在属性名称中使用保留关键字（如 `my.service.import`），请在构造函数参数上使用 javadoc:org.springframework.boot.context.properties.bind.Name[format=annotation] 注解。
 
 
 [[features.external-config.typesafe-configuration-properties.constructor-binding.default-values]]
 ==== @DefaultValue 和绑定
 
 可以使用 javadoc:org.springframework.boot.context.properties.bind.DefaultValue[format=annotation] 在构造函数参数和 record 组件上指定默认值。
-转换服务将用于将 annotation 的 javadoc:java.lang.String[] 字符串值强制转换为缺失属性的目标类型。
+转换服务将用于将注解的 javadoc:java.lang.String[] 字符串值强制转换为缺失属性的目标类型。
 
 在上面的 `MyProperties` 示例中，你可以看到嵌套的 `Security` 类对 `roles` 参数使用了 `@DefaultValue("USER")`。
 这意味着如果定义了 `security` 属性，但未定义 `roles`，则将绑定默认值 `"USER"`。
@@ -1054,7 +1054,7 @@ my.service.security=
 将被绑定为 `new MyProperties(true, null, new Security(null, null, List.of("USER")))`
 ====
 
-如果你希望始终绑定一个非空的 `Security` 实例，即使属性缺失，你可以使用一个空的 javadoc:org.springframework.boot.context.properties.bind.DefaultValue[format=annotation] annotation：
+如果你希望始终绑定一个非空的 `Security` 实例，即使属性缺失，你可以使用一个空的 javadoc:org.springframework.boot.context.properties.bind.DefaultValue[format=annotation] 注解：
 
 [source,java]
 ----
@@ -1143,7 +1143,7 @@ Spring Boot 提供了基础设施来绑定 javadoc:org.springframework.boot.cont
 你可以逐个类地启用配置属性，或者启用类似于组件扫描的配置属性扫描。
 
 有时，使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的类可能不适合扫描，例如，如果你正在开发自己的自动配置或者你想有条件地启用它们。
-在这些情况下，使用 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] annotation 指定要处理的类型列表。
+在这些情况下，使用 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 注解指定要处理的类型列表。
 这可以在任何 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上完成，如下例所示：
 
 [source,java]
@@ -1167,9 +1167,9 @@ public class SomeProperties {
 }
 ----
 
-要使用配置属性扫描，请将 javadoc:org.springframework.boot.context.properties.ConfigurationPropertiesScan[format=annotation] annotation 添加到你的应用程序中。
+要使用配置属性扫描，请将 javadoc:org.springframework.boot.context.properties.ConfigurationPropertiesScan[format=annotation] 注解添加到你的应用程序中。
 通常，它被添加到使用 javadoc:org.springframework.boot.autoconfigure.SpringBootApplication[format=annotation] 注解的主应用程序类上，但也可以添加到任何 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类上。
-默认情况下，扫描将从声明 annotation 的类所在的包开始。
+默认情况下，扫描将从声明注解的类所在的包开始。
 如果你想定义要扫描的特定包，可以按如下示例操作：
 
 [source,java]
@@ -1186,8 +1186,8 @@ public class MyApplication {
 
 [NOTE]
 ====
-当 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] bean 通过配置属性扫描或 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 注册时，bean 有一个约定名称：`<prefix>-<fqn>`，其中 `<prefix>` 是在 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] annotation 中指定的环境键前缀，`<fqn>` 是 bean 的全限定名。
-如果 annotation 没有提供任何前缀，则只使用 bean 的全限定名。
+当 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] bean 通过配置属性扫描或 javadoc:org.springframework.boot.context.properties.EnableConfigurationProperties[format=annotation] 注册时，bean 有一个约定名称：`<prefix>-<fqn>`，其中 `<prefix>` 是在 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解中指定的环境键前缀，`<fqn>` 是 bean 的全限定名。
+如果注解没有提供任何前缀，则只使用 bean 的全限定名。
 
 假设它在 `com.example.app` 包中，上面 `SomeProperties` 示例的 bean 名称是 `some.properties-com.example.app.SomeProperties`。
 ====
@@ -1322,7 +1322,7 @@ public class MyPersonProperties {
 | 大写格式，推荐在系统环境变量中使用。
 |===
 
-注意：annotation 的 `prefix` 值 _必须_ 是短横线分隔格式（小写且由 `-` 分隔，例如 `my.main-project.person`）。
+注意：注解的 `prefix` 值 _必须_ 是短横线分隔格式（小写且由 `-` 分隔，例如 `my.main-project.person`）。
 
 .按属性源的宽松绑定规则
 [cols="2,4,4"]
@@ -1824,8 +1824,8 @@ my:
 === @ConfigurationProperties 验证
 
 Spring Boot 尝试验证 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类，只要它们被 Spring 的 javadoc:org.springframework.validation.annotation.Validated[format=annotation] 注解注解。
-你可以直接在配置类上使用 JSR-303 `jakarta.validation` 约束 annotations。
-为此，请确保 classpath 上存在兼容的 JSR-303 实现，然后向字段添加约束 annotations，如下例所示：
+你可以直接在配置类上使用 JSR-303 `jakarta.validation` 约束注解。
+为此，请确保 classpath 上存在兼容的 JSR-303 实现，然后向字段添加约束注解，如下例所示：
 
 [source,java]
 ----
@@ -1928,7 +1928,7 @@ javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法应
 [[features.external-config.typesafe-configuration-properties.vs-value-annotation]]
 === @ConfigurationProperties 与 @Value
 
-javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotation 是一个核心容器特性，它不提供与类型安全配置属性相同的功能。
+javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] 注解是一个核心容器特性，它不提供与类型安全配置属性相同的功能。
 下表总结了 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 和 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] 支持的特性：
 
 [cols="4,2,2"]

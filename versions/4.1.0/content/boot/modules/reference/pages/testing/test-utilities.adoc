@@ -119,7 +119,7 @@ class MyTests {
 }
 ----
 
-或者，如果你使用带有 `WebEnvironment.RANDOM_PORT` 或 `WebEnvironment.DEFINED_PORT` 的 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] annotation，你可以通过使用 javadoc:org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate[format=annotation] 注解测试类来注入一个完全配置的 javadoc:org.springframework.boot.resttestclient.TestRestTemplate[]。如有必要，可以通过 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[] bean 应用额外的自定义。
+或者，如果你使用带有 `WebEnvironment.RANDOM_PORT` 或 `WebEnvironment.DEFINED_PORT` 的 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 注解，你可以通过使用 javadoc:org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate[format=annotation] 注解测试类来注入一个完全配置的 javadoc:org.springframework.boot.resttestclient.TestRestTemplate[]。如有必要，可以通过 javadoc:org.springframework.boot.restclient.RestTemplateBuilder[] bean 应用额外的自定义。
 
 任何未指定主机和端口的 URL 会自动连接到嵌入式服务器，如下例所示：
 

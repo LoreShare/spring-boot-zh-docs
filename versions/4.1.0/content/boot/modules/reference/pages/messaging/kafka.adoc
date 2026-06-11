@@ -95,7 +95,7 @@ public class MyBean {
 == Kafka Streams
 
 Apache Kafka 的 Spring 提供了一个工厂 bean 来创建 javadoc:org.apache.kafka.streams.StreamsBuilder[] 对象并管理其流的生命周期。
-只要 `kafka-streams` 在 classpath 上并且通过 javadoc:org.springframework.kafka.annotation.EnableKafkaStreams[format=annotation] annotation 启用了 Kafka Streams，Spring Boot 就会自动配置所需的 javadoc:org.springframework.kafka.config.KafkaStreamsConfiguration[] bean。
+只要 `kafka-streams` 在 classpath 上并且通过 javadoc:org.springframework.kafka.annotation.EnableKafkaStreams[format=annotation] 注解启用了 Kafka Streams，Spring Boot 就会自动配置所需的 javadoc:org.springframework.kafka.config.KafkaStreamsConfiguration[] bean。
 
 启用 Kafka Streams 意味着必须设置应用程序 ID 和引导服务器。
 前者可以使用 `spring.kafka.streams.application-id` 进行配置，如果未设置则默认为 `spring.application.name`。
@@ -237,7 +237,7 @@ class MyTest {
 }
 ----
 
-* 在 javadoc:org.springframework.kafka.test.context.EmbeddedKafka[format=annotation] annotation 上配置属性名称：
+* 在 javadoc:org.springframework.kafka.test.context.EmbeddedKafka[format=annotation] 注解上配置属性名称：
 
 [source,java]
 ----

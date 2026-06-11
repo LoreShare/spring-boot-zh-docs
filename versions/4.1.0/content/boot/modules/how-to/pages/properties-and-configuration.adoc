@@ -301,5 +301,5 @@ Spring Boot 在运行时将来自 `application.properties`（或 YAML 文件及�
 一个运行中的、具有 Actuator 特性的应用程序有一个 `configprops` 端点，它显示通过 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 可用的所有已绑定和可绑定的属性。
 
 附录包含一个 xref:appendix:application-properties/index.adoc[`application.properties`] 示例，其中列出了 Spring Boot 支持的最常见属性。
-最终列表来自搜索源代码中的 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 和 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotations，以及偶尔使用的 javadoc:org.springframework.boot.context.properties.bind.Binder[]。
+最终列表来自搜索源代码中的 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 和 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] 注解，以及偶尔使用的 javadoc:org.springframework.boot.context.properties.bind.Binder[]。
 关于加载属性的确切顺序的更多信息，请参见 xref:reference:features/external-config.adoc[]。

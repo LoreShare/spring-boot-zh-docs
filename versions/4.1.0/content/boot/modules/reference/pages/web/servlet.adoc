@@ -10,7 +10,7 @@
 
 {url-spring-framework-docs}/web/webmvc.html[Spring Web MVC 框架]（通常称为 "`Spring MVC`"）是一个丰富的 "`model view controller`" Web 框架。
 Spring MVC 允许你创建特殊的 javadoc:org.springframework.stereotype.Controller[format=annotation] 或 javadoc:org.springframework.web.bind.annotation.RestController[format=annotation] beans 来处理传入的 HTTP 请求。
-控制器中的方法通过使用 javadoc:org.springframework.web.bind.annotation.RequestMapping[format=annotation] annotations 映射到 HTTP。
+控制器中的方法通过使用 javadoc:org.springframework.web.bind.annotation.RequestMapping[format=annotation] 注解映射到 HTTP。
 
 以下代码展示了一个典型的 javadoc:org.springframework.web.bind.annotation.RestController[format=annotation]，它提供 JSON 数据：
 
@@ -150,7 +150,7 @@ Spring Boot 提供了适用于大多数应用的 Spring MVC 的自动配置。
 === Spring MVC 转换服务
 
 Spring MVC 使用与用于转换 `application.properties` 或 `application.yaml` 文件中的值不同的 javadoc:org.springframework.core.convert.ConversionService[]。
-这意味着 javadoc:java.time.Period[]、javadoc:java.time.Duration[] 和 javadoc:org.springframework.util.unit.DataSize[] 转换器不可用，并且 javadoc:org.springframework.boot.convert.DurationUnit[format=annotation] 和 javadoc:org.springframework.boot.convert.DataSizeUnit[format=annotation] annotations 将被忽略。
+这意味着 javadoc:java.time.Period[]、javadoc:java.time.Duration[] 和 javadoc:org.springframework.util.unit.DataSize[] 转换器不可用，并且 javadoc:org.springframework.boot.convert.DurationUnit[format=annotation] 和 javadoc:org.springframework.boot.convert.DataSizeUnit[format=annotation] 注解将被忽略。
 
 如果你想自定义 Spring MVC 使用的 javadoc:org.springframework.core.convert.ConversionService[]，你可以提供一个带有 `addFormatters` 方法的 javadoc:org.springframework.web.servlet.config.annotation.WebMvcConfigurer[] bean。
 在此方法中，你可以注册任何你喜欢的转换器，或者委托给 javadoc:org.springframework.boot.convert.ApplicationConversionService[] 上可用的静态方法。
@@ -376,7 +376,7 @@ Spring Boot 支持静态和模板化的欢迎页面。
 [[web.servlet.spring-mvc.content-negotiation]]
 === 路径匹配与内容协商
 
-Spring MVC 可以通过检查请求路径并将其与应用程序中定义的映射（例如，Controller 方法上的 javadoc:org.springframework.web.bind.annotation.GetMapping[format=annotation] annotations）进行匹配，将传入的 HTTP 请求映射到处理程序。
+Spring MVC 可以通过检查请求路径并将其与应用程序中定义的映射（例如，Controller 方法上的 javadoc:org.springframework.web.bind.annotation.GetMapping[format=annotation] 注解）进行匹配，将传入的 HTTP 请求映射到处理程序。
 
 Spring Boot 默认选择禁用后缀模式匹配，这意味着像 `"GET /projects/spring-boot.json"` 这样的请求将不会匹配到 `@GetMapping("/projects/spring-boot")` 映射。
 这被认为是 {url-spring-framework-docs}/web/webmvc/mvc-controller/ann-requestmapping.html#mvc-ann-requestmapping-suffix-pattern-match[Spring MVC 应用程序的最佳实践]。
@@ -680,7 +680,7 @@ public class MyFilterConfiguration {
 https://en.wikipedia.org/wiki/Cross-origin_resource_sharing[跨域资源共享] (CORS) 是一个 https://www.w3.org/TR/cors/[W3C 规范]，由 https://caniuse.com/#feat=cors[大多数浏览器] 实现，它允许你以灵活的方式指定哪些跨域请求是授权的，而不是使用一些不太安全且功能较弱的方法，例如 IFRAME 或 JSONP。
 
 从 4.2 版本开始，Spring MVC {url-spring-framework-docs}/web/webmvc-cors.html[支持 CORS]。
-在你的 Spring Boot 应用程序中使用 {url-spring-framework-docs}/web/webmvc-cors.html#mvc-cors-controller[控制器方法 CORS 配置] 和 javadoc:{url-spring-framework-javadoc}/org.springframework.web.bind.annotation.CrossOrigin[format=annotation] annotations 不需要任何特定配置。
+在你的 Spring Boot 应用程序中使用 {url-spring-framework-docs}/web/webmvc-cors.html#mvc-cors-controller[控制器方法 CORS 配置] 和 javadoc:{url-spring-framework-javadoc}/org.springframework.web.bind.annotation.CrossOrigin[format=annotation] 注解不需要任何特定配置。
 {url-spring-framework-docs}/web/webmvc-cors.html#mvc-cors-global[全局 CORS 配置] 可以通过注册一个带有自定义 `addCorsMappings(CorsRegistry)` 方法的 javadoc:org.springframework.web.servlet.config.annotation.WebMvcConfigurer[] bean 来定义，如下例所示：
 
 [source,java]
@@ -774,7 +774,7 @@ public class MyJerseyConfig extends ResourceConfig {
 
 对于更高级的自定义，你还可以注册任意数量的实现 javadoc:org.springframework.boot.jersey.autoconfigure.ResourceConfigCustomizer[] 的 beans。
 
-所有注册的端点应该是一个带有 HTTP 资源 annotations（`@GET` 等）的 javadoc:org.springframework.stereotype.Component[format=annotation]，如下例所示：
+所有注册的端点应该是一个带有 HTTP 资源注解（`@GET` 等）的 javadoc:org.springframework.stereotype.Component[format=annotation]，如下例所示：
 
 [source,java]
 ----
@@ -795,7 +795,7 @@ public class MyEndpoint {
 }
 ----
 
-由于 javadoc:org.springframework.boot.actuate.endpoint.annotation.Endpoint[format=annotation] 是一个 Spring javadoc:org.springframework.stereotype.Component[format=annotation]，其生命周期由 Spring 管理，你可以使用 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] annotation 注入依赖项，并使用 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotation 注入外部配置。
+由于 javadoc:org.springframework.boot.actuate.endpoint.annotation.Endpoint[format=annotation] 是一个 Spring javadoc:org.springframework.stereotype.Component[format=annotation]，其生命周期由 Spring 管理，你可以使用 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] 注解注入依赖项，并使用 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] 注解注入外部配置。
 默认情况下，Jersey servlet 被注册并映射到 `/*`。
 你可以通过向 javadoc:org.glassfish.jersey.server.ResourceConfig[] 添加 javadoc:jakarta.ws.rs.ApplicationPath[format=annotation] 来更改映射。
 
@@ -834,13 +834,13 @@ servlet 和过滤器注册都可以通过使用 `spring.jersey.init.*` 指定属
 过滤器映射到 `+/*+`。
 
 如果基于约定的映射不够灵活，你可以使用 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[]、javadoc:org.springframework.boot.web.servlet.FilterRegistrationBean[] 和 javadoc:org.springframework.boot.web.servlet.ServletListenerRegistrationBean[] 类进行完全控制。
-如果你更喜欢 annotations 而不是 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[] 和 javadoc:org.springframework.boot.web.servlet.FilterRegistrationBean[]，你也可以使用 javadoc:org.springframework.boot.web.servlet.ServletRegistration[format=annotation] 和 javadoc:org.springframework.boot.web.servlet.FilterRegistration[format=annotation] 作为替代。
+如果你更喜欢注解而不是 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[] 和 javadoc:org.springframework.boot.web.servlet.FilterRegistrationBean[]，你也可以使用 javadoc:org.springframework.boot.web.servlet.ServletRegistration[format=annotation] 和 javadoc:org.springframework.boot.web.servlet.FilterRegistration[format=annotation] 作为替代。
 
 通常可以保持过滤器 beans 无序。
 如果需要特定顺序，你应该使用 javadoc:org.springframework.core.annotation.Order[format=annotation] 注解 javadoc:jakarta.servlet.Filter[]，或使其实现 javadoc:org.springframework.core.Ordered[]。
 你不能通过使用 javadoc:org.springframework.core.annotation.Order[format=annotation] 注解其 bean 方法来配置 javadoc:jakarta.servlet.Filter[] 的顺序。
 如果你无法更改 javadoc:jakarta.servlet.Filter[] 类以添加 javadoc:org.springframework.core.annotation.Order[format=annotation] 或实现 javadoc:org.springframework.core.Ordered[]，你必须为 javadoc:jakarta.servlet.Filter[] 定义一个 javadoc:org.springframework.boot.web.servlet.FilterRegistrationBean[]，并使用 `setOrder(int)` 方法设置注册 bean 的顺序。
-或者，如果你更喜欢 annotations，你也可以使用 javadoc:org.springframework.boot.web.servlet.FilterRegistration[format=annotation] 并设置 `order` 属性。
+或者，如果你更喜欢注解，你也可以使用 javadoc:org.springframework.boot.web.servlet.FilterRegistration[format=annotation] 并设置 `order` 属性。
 避免配置在 `Ordered.HIGHEST_PRECEDENCE` 处读取请求体的过滤器，因为它可能与你应用程序的字符编码配置相冲突。
 如果 servlet 过滤器包装了请求，则应将其配置为小于或等于 `OrderedFilter.REQUEST_WRAPPER_FILTER_MAX_ORDER` 的顺序。
 

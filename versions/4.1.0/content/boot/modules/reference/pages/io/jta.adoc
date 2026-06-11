@@ -5,7 +5,7 @@ Spring Boot 通过使用从 JNDI 获取的事务管理器，支持跨多个 XA �
 当检测到 JTA 环境时，Spring 的 javadoc:org.springframework.transaction.jta.JtaTransactionManager[] 用于管理事务。
 自动配置的 JMS、DataSource 和 JPA bean 会升级以支持 XA 事务。
 您可以使用标准的 Spring 惯用法（例如 javadoc:org.springframework.transaction.annotation.Transactional[format=annotation]）来参与分布式事务。
-如果您处于 JTA 环境中但仍想使用本地事务，可以将 configprop:spring.jta.enabled[] 属性设置为 `false` 以禁用 JTA auto-configuration。
+如果您处于 JTA 环境中但仍想使用本地事务，可以将 configprop:spring.jta.enabled[] 属性设置为 `false` 以禁用 JTA 自动配置。
 
 
 [[io.jta.jakartaee]]

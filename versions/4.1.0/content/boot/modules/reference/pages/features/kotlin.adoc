@@ -17,7 +17,7 @@ Spring Boot 通过利用其他 Spring 项目（如 Spring Framework、Spring Dat
 Spring Boot 至少需要 Kotlin 2.2.x，并通过依赖管理管理合适的 Kotlin 版本。
 要使用 Kotlin，`org.jetbrains.kotlin:kotlin-stdlib` 和 `org.jetbrains.kotlin:kotlin-reflect` 必须存在于 classpath 上。
 
-Kotlin 2.2.x 引入了 https://kotlinlang.org/docs/whatsnew22.html#new-defaulting-rules-for-use-site-annotation-targets[关于将 annotations 传播到参数、字段和属性的新默认规则]。为了避免相关警告并使用可能在即将发布的版本中成为 Kotlin 默认行为的内容，建议配置 `-Xannotation-default-target=param-property` 编译器标志。
+Kotlin 2.2.x 引入了 https://kotlinlang.org/docs/whatsnew22.html#new-defaulting-rules-for-use-site-annotation-targets[关于将注解传播到参数、字段和属性的新默认规则]。为了避免相关警告并使用可能在即将发布的版本中成为 Kotlin 默认行为的内容，建议配置 `-Xannotation-default-target=param-property` 编译器标志。
 
 由于 https://discuss.kotlinlang.org/t/classes-final-by-default/166[Kotlin 类默认是 final 的]，你可能希望配置 {url-kotlin-docs}/compiler-plugins.html#spring-support[kotlin-spring] 插件，以自动打开带有 Spring 注解的类，使其能够被代理。
 
@@ -36,7 +36,7 @@ Kotlin 的关键特性之一是 {url-kotlin-docs}/null-safety.html[空安全]。
 这有助于消除常见的错误来源，而无需支付像 javadoc:java.util.Optional[] 这样的包装器的成本。
 Kotlin 还允许使用可空值进行函数式构造，如 https://www.baeldung.com/kotlin-null-safety[这份关于 Kotlin 空安全的综合指南]所述。
 
-尽管 Spring Framework 不允许在其类型系统中表达空安全，但大多数 Spring 项目通过 https://jspecify.dev/[JSpecify] annotations 提供 {url-spring-framework-docs}/core/null-safety.html[空安全]。
+尽管 Spring Framework 不允许在其类型系统中表达空安全，但大多数 Spring 项目通过 https://jspecify.dev/[JSpecify] 注解提供 {url-spring-framework-docs}/core/null-safety.html[空安全]。
 
 从 Spring Boot 2.1 开始，Spring Boot 强制严格处理来自 `org.jspecify.annotations` 包的空性注解。
 
@@ -117,7 +117,7 @@ data class KotlinExampleProperties(
 特别是，依赖值类的默认值将无法与配置属性绑定一起使用。
 在这种情况下，应改用数据类。
 
-提示：要使用 annotation 处理器生成 xref:specification:configuration-metadata/annotation-processor.adoc[你自己的元数据]，{url-kotlin-docs}/kapt.html[应配置 `kapt`] 并添加 `spring-boot-configuration-processor` 依赖。
+提示：要使用注解处理器生成 xref:specification:configuration-metadata/annotation-processor.adoc[你自己的元数据]，{url-kotlin-docs}/kapt.html[应配置 `kapt`] 并添加 `spring-boot-configuration-processor` 依赖。
 请注意，由于 kapt 提供的模型限制，某些功能（例如检测默认值或已弃用的项）无法正常工作。
 
 
@@ -127,10 +127,10 @@ data class KotlinExampleProperties(
 
 虽然可以使用 JUnit 4 测试 Kotlin 代码，但默认提供并推荐使用 JUnit 6。
 JUnit 6 允许测试类实例化一次并用于该类的所有测试。
-这使得可以在非静态方法上使用 javadoc:org.junit.jupiter.api.BeforeAll[format=annotation] 和 javadoc:org.junit.jupiter.api.AfterAll[format=annotation] annotations，这非常适合 Kotlin。
+这使得可以在非静态方法上使用 javadoc:org.junit.jupiter.api.BeforeAll[format=annotation] 和 javadoc:org.junit.jupiter.api.AfterAll[format=annotation] 注解，这非常适合 Kotlin。
 
 要模拟 Kotlin 类，推荐使用 https://mockk.io/[MockK]。
-如果你需要 Mockito 特定的 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.mocking-beans[`@MockitoBean` 和 javadoc:org.springframework.test.context.bean.override.mockito.MockitoSpyBean[format=annotation] annotations] 的 `MockK` 等价物，可以使用 https://github.com/Ninja-Squad/springmockk[SpringMockK]，它提供了类似的 `@MockkBean` 和 `@SpykBean` annotations。
+如果你需要 Mockito 特定的 xref:testing/spring-boot-applications.adoc#testing.spring-boot-applications.mocking-beans[`@MockitoBean` 和 javadoc:org.springframework.test.context.bean.override.mockito.MockitoSpyBean[format=annotation] 注解] 的 `MockK` 等价物，可以使用 https://github.com/Ninja-Squad/springmockk[SpringMockK]，它提供了类似的 `@MockkBean` 和 `@SpykBean` 注解。
 
 
 

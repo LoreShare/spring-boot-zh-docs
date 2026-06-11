@@ -219,7 +219,7 @@ server:
 这仍然以弃用的方式支持，但不应再使用。
 如果没有可用的原因和替换，则应设置一个空的 `deprecation` 对象。
 
-弃用也可以通过代码声明性地指定，方法是将 javadoc:org.springframework.boot.context.properties.DeprecatedConfigurationProperty[format=annotation] annotation 添加到暴露弃用属性的 getter 上。
+弃用也可以通过代码声明性地指定，方法是将 javadoc:org.springframework.boot.context.properties.DeprecatedConfigurationProperty[format=annotation] 注解添加到暴露弃用属性的 getter 上。
 例如，假设 `my.app.target` 属性令人困惑，并已重命名为 `my.app.name`。
 以下示例展示了如何处理这种情况：
 

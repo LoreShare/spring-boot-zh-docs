@@ -138,7 +138,7 @@ spring:
 
 您可以从日志输出或通过 javadoc:org.springframework.boot.web.server.context.WebServerApplicationContext[] 的 javadoc:org.springframework.boot.web.server.WebServer[] 访问服务器运行的端口。获取该值并确保其已初始化的最佳方法是添加一个类型为 `ApplicationListener<WebServerInitializedEvent>` 的 javadoc:org.springframework.context.annotation.Bean[format=annotation]，并在事件发布时从中提取容器。
 
-使用 `@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)` 的测试也可以通过使用 javadoc:org.springframework.boot.test.web.server.LocalServerPort[format=annotation] annotation 将实际端口注入到字段中，如下例所示：
+使用 `@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)` 的测试也可以通过使用 javadoc:org.springframework.boot.test.web.server.LocalServerPort[format=annotation] 注解将实际端口注入到字段中，如下例所示：
 
 [source,java]
 ----
@@ -159,7 +159,7 @@ class MyWebIntegrationTests {
 
 [NOTE]
 ====
-javadoc:org.springframework.boot.test.web.server.LocalServerPort[format=annotation] 是 `@Value("${local.server.port}")` 的元 annotation。
+javadoc:org.springframework.boot.test.web.server.LocalServerPort[format=annotation] 是 `@Value("${local.server.port}")` 的元注解。
 不要尝试在常规应用程序中注入端口。正如我们刚才所见，该值仅在容器初始化后才设置。与测试相反，应用程序代码回调处理得较早（在实际值可用之前）。
 ====
 
@@ -430,7 +430,7 @@ public class MyTomcatWebServerCustomizer implements WebServerFactoryCustomizer<T
 你可以通过在首次使用时延迟初始化 beans 而不是在初始化时初始化来绕过此类限制。
 
 对于过滤器和 servlet，你还可以通过添加 javadoc:org.springframework.boot.web.servlet.FilterRegistrationBean[] 或 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[] 来添加映射和初始化参数，以替代或补充底层组件。
-你还可以使用 javadoc:org.springframework.boot.web.servlet.ServletRegistration[format=annotation] 和 javadoc:org.springframework.boot.web.servlet.FilterRegistration[format=annotation] 作为基于 annotation 的替代方案，以替代 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[] 和 javadoc:org.springframework.boot.web.servlet.FilterRegistrationBean[]。
+你还可以使用 javadoc:org.springframework.boot.web.servlet.ServletRegistration[format=annotation] 和 javadoc:org.springframework.boot.web.servlet.FilterRegistration[format=annotation] 作为基于注解的替代方案，以替代 javadoc:org.springframework.boot.web.servlet.ServletRegistrationBean[] 和 javadoc:org.springframework.boot.web.servlet.FilterRegistrationBean[]。
 
 [NOTE]
 ====

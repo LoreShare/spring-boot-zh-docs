@@ -39,17 +39,17 @@ Spring Boot 自动配置会尽力“`do the right thing`”，但有时事情会
 阅读代码时，请记住以下经验法则：
 
 * 查找名为 `+*AutoConfiguration+` 的类并阅读其源代码。
-  特别注意 `+@Conditional*+` annotation，以了解它们启用了哪些功能以及何时启用。
+  特别注意 `+@Conditional*+` 注解，以了解它们启用了哪些功能以及何时启用。
   在命令行或系统属性 `-Ddebug` 中添加 `--debug`，以在控制台上获取应用程序中所有自动配置决策的日志。
   在启用了 actuator 的正在运行的应用程序中，查看 `conditions` 端点（`/actuator/conditions` 或等效的 JMX）以获取相同的信息。
 * 查找 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 类（例如 javadoc:org.springframework.boot.web.server.autoconfigure.ServerProperties[]），并从那里读取可用的外部配置选项。
-  javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] annotation 有一个 `name` 属性，作为外部属性的前缀。
+  javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解有一个 `name` 属性，作为外部属性的前缀。
   因此，javadoc:org.springframework.boot.web.server.autoconfigure.ServerProperties[] 具有 `prefix="server"`，其配置属性为 `server.port`、`server.address` 等。
   在启用了 actuator 的正在运行的应用程序中，查看 `configprops` 端点。
 * 查找 javadoc:org.springframework.boot.context.properties.bind.Binder[] 上 `bind` 方法的使用，以宽松的方式从 javadoc:org.springframework.core.env.Environment[] 中显式提取配置值。
   它通常与前缀一起使用。
-* 查找直接绑定到 javadoc:org.springframework.core.env.Environment[] 的 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotation。
-* 查找 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnExpression[format=annotation] annotation，它们根据 SpEL 表达式（通常使用从 javadoc:org.springframework.core.env.Environment[] 解析的占位符进行评估）来开启或关闭功能。
+* 查找直接绑定到 javadoc:org.springframework.core.env.Environment[] 的 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] 注解。
+* 查找 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnExpression[format=annotation] 注解，它们根据 SpEL 表达式（通常使用从 javadoc:org.springframework.core.env.Environment[] 解析的占位符进行评估）来开启或关闭功能。
 
 [[howto.application.customize-the-environment-or-application-context]]
 == 在 ApplicationContext 启动前自定义环境或 ApplicationContext

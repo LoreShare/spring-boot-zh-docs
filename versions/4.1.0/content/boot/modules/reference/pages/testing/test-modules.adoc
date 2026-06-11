@@ -67,7 +67,7 @@ Spring Boot 提供了几个专注于特定功能的 `-test` 模块：
 |测试使用 Spring Security 的应用。
 
 |`spring-boot-webserver-test`
-|测试使用 `WebServer` 实现的应用。提供 `@AutoconfigureWebServer` annotation。
+|测试使用 `WebServer` 实现的应用。提供 `@AutoconfigureWebServer` 注解。
 
 |`spring-boot-webclient-test`
 |测试使用 `WebClient` 的应用。提供 `@WebClientTest` 测试切片。

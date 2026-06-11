@@ -1,5 +1,5 @@
 = 测试切片
 
-下表列出了可用于测试应用程序切片的各种 `@...Test` annotation，以及它们默认导入的自动配置：
+下表列出了可用于测试应用程序切片的各种 `@...Test` 注解，以及它们默认导入的自动配置：
 
 include::partial$slices/documented-slices.adoc[]

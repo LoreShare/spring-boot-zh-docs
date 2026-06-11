@@ -47,7 +47,7 @@ GraalVM 原生镜像是提前生成的，这意味着原生应用程序和基于
 封闭世界假设意味着，除了 xref:packaging/native-image/introducing-graalvm-native-images.adoc#packaging.native-image.introducing-graalvm-native-images.key-differences-with-jvm-deployments[GraalVM 本身造成的限制] 之外，还有以下限制：
 
 * 应用程序中定义的 beans 不能在运行时更改，这意味着：
-- Spring javadoc:org.springframework.context.annotation.Profile[format=annotation] annotation 和 profile 特定的配置 xref:how-to:aot.adoc#howto.aot.conditions[有限制]。
+- Spring javadoc:org.springframework.context.annotation.Profile[format=annotation] 注解和 profile 特定的配置 xref:how-to:aot.adoc#howto.aot.conditions[有限制]。
 - 如果创建 bean 则会更改的属性不受支持（例如，javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnProperty[format=annotation] 和 `.enabled` 属性）。
 
 当这些限制到位时，Spring 可以在构建时执行提前处理，并生成 GraalVM 可以使用的额外资产。
@@ -174,7 +174,7 @@ Spring AOT 将为你的所有 bean 定义生成这样的代码。
 除了生成源文件之外，Spring AOT 引擎还会生成 GraalVM 使用的提示文件。
 提示文件包含 JSON 数据，描述了 GraalVM 应如何处理无法通过直接检查代码来理解的事物。
 
-例如，你可能在私有方法上使用 Spring annotation。
+例如，你可能在私有方法上使用 Spring 注解。
 Spring 将需要使用反射来调用私有方法，即使在 GraalVM 上也是如此。
 当出现这种情况时，Spring 可以写入反射提示，以便 GraalVM 知道即使私有方法没有被直接调用，它仍然需要在 native image 中可用。
 

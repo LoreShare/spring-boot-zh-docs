@@ -1,12 +1,12 @@
 [[appendix.configuration-metadata.annotation-processor]]
 = 使用注解处理器生成自己的元数据
 
-你可以通过使用 `spring-boot-configuration-processor` jar 轻松地从带有 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的项生成自己的配置元数据文件。该 jar 包含一个 Java annotation 处理器，它会在项目编译时被调用。
+你可以通过使用 `spring-boot-configuration-processor` jar 轻松地从带有 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的项生成自己的配置元数据文件。该 jar 包含一个 Java 注解处理器，它会在项目编译时被调用。
 
 [[appendix.configuration-metadata.annotation-processor.configuring]]
 == 配置注解处理器
 
-当使用 Maven 构建时，配置编译器插件（3.12.0 或更高版本）以将 `spring-boot-configuration-processor` 添加到 annotation 处理器路径：
+当使用 Maven 构建时，配置编译器插件（3.12.0 或更高版本）以将 `spring-boot-configuration-processor` 添加到注解处理器路径：
 
 [source,xml]
 ----
@@ -45,14 +45,14 @@ tasks.named('compileJava') {
 	inputs.files(tasks.named('processResources'))
 }
 ----
-此依赖确保在编译期间运行 annotation 处理器时，额外的元数据可用。
+此依赖确保在编译期间运行注解处理器时，额外的元数据可用。
 
 [NOTE]
 ====
-如果你在项目中使用 AspectJ，需要确保 annotation 处理器只运行一次。
+如果你在项目中使用 AspectJ，需要确保注解处理器只运行一次。
 有几种方法可以实现这一点。
-使用 Maven，你可以显式配置 `maven-apt-plugin`，并仅在那里添加对 annotation 处理器的依赖。
-你也可以让 AspectJ 插件运行所有处理，并在 `maven-compiler-plugin` 配置中禁用 annotation 处理，如下所示：
+使用 Maven，你可以显式配置 `maven-apt-plugin`，并仅在那里添加对注解处理器的依赖。
+你也可以让 AspectJ 插件运行所有处理，并在 `maven-compiler-plugin` 配置中禁用注解处理，如下所示：
 
 [source,xml]
 ----
@@ -68,8 +68,8 @@ tasks.named('compileJava') {
 
 [NOTE]
 ====
-如果你在项目中使用 Lombok，需要确保其 annotation 处理器在 `spring-boot-configuration-processor` 之前运行。
-使用 Maven 时，通过 Maven 编译器插件的 `annotationProcessors` 属性按所需顺序列出 annotation 处理器。
+如果你在项目中使用 Lombok，需要确保其注解处理器在 `spring-boot-configuration-processor` 之前运行。
+使用 Maven 时，通过 Maven 编译器插件的 `annotationProcessors` 属性按所需顺序列出注解处理器。
 使用 Gradle 时，在 `annotationProcessor` 配置中按所需顺序声明依赖。
 ====
 
@@ -80,12 +80,12 @@ tasks.named('compileJava') {
 
 处理器会拾取所有使用 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的类和方法的。它也会拾取使用 javadoc:org.springframework.boot.context.properties.ConfigurationPropertiesSource[format=annotation] 注解的类。
 
-注意：不支持使用这些 annotations 进行元注解的自定义 annotations。
+注意：不支持使用这些注解进行元注解的自定义注解。
 
 如果类有一个带参数的构造函数，除非该构造函数使用 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] 注解，否则会为每个构造函数参数创建一个属性。
 如果类有一个显式使用 javadoc:org.springframework.boot.context.properties.bind.ConstructorBinding[format=annotation] 注解的构造函数，则会为该构造函数的每个参数创建一个属性。
 否则，通过标准 getter 和 setter 的存在来发现属性，并对集合和映射类型进行特殊处理（即使只存在 getter 也能检测到）。
-annotation 处理器还支持使用 javadoc:{url-lombok-javadoc}/lombok.Data[format=annotation]、javadoc:{url-lombok-javadoc}/lombok.Value[format=annotation]、javadoc:{url-lombok-javadoc}/lombok.Getter[format=annotation] 和 javadoc:{url-lombok-javadoc}/lombok.Setter[format=annotation] 这些 javadoc 格式的 lombok annotations。
+注解处理器还支持使用 javadoc:{url-lombok-javadoc}/lombok.Data[format=annotation]、javadoc:{url-lombok-javadoc}/lombok.Value[format=annotation]、javadoc:{url-lombok-javadoc}/lombok.Getter[format=annotation] 和 javadoc:{url-lombok-javadoc}/lombok.Setter[format=annotation] 这些 javadoc 格式的 lombok 注解。
 
 考虑以下示例：
 
@@ -151,12 +151,12 @@ public class MyServerProperties {
 
 如果你使用带有记录类的 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation]，则记录组件的描述应通过类级别的 Javadoc 标签 `@param` 提供（记录类中没有显式的实例字段来放置常规的字段级 Javadoc）。
 
-annotation 处理器应用多种启发式方法从源代码模型中提取默认值。
+注解处理器应用多种启发式方法从源代码模型中提取默认值。
 仅当类型作为正在编译的源代码可用时，才能提取默认值。
 当类型仅作为依赖中的编译类可用时，不会提取默认值。
 此外，默认值必须静态提供。
 特别地，不要引用另一个类中定义的常量。
-另外，annotation 处理器无法自动检测 ``Collections`` 的默认值。
+另外，注解处理器无法自动检测 ``Collections`` 的默认值。
 
 对于无法检测默认值的情况，应提供 xref:configuration-metadata/annotation-processor.adoc#appendix.configuration-metadata.annotation-processor.adding-additional-metadata[手动元数据]。
 考虑以下示例：
@@ -223,7 +223,7 @@ public class MyMessagingProperties {
 [[appendix.configuration-metadata.annotation-processor.automatic-metadata-generation.nested-properties]]
 === 嵌套属性
 
-annotation 处理器会自动将内部类视为嵌套属性。与其在命名空间的根目录下记录 `ip` 和 `port`，不如为其创建一个子命名空间。考虑以下更新后的示例：
+注解处理器会自动将内部类视为嵌套属性。与其在命名空间的根目录下记录 `ip` 和 `port`，不如为其创建一个子命名空间。考虑以下更新后的示例：
 
 [source,java]
 ----
@@ -283,16 +283,16 @@ public class MyServerProperties {
 }
 ----
 
-前面的示例为 `my.server.name`、`my.server.host.ip` 和 `my.server.host.port` 属性生成了元数据信息。你可以在字段或 getter 方法上使用 javadoc:org.springframework.boot.context.properties.NestedConfigurationProperty[format=annotation] annotation 来指示一个常规（非内部）类应被视为嵌套类。
+前面的示例为 `my.server.name`、`my.server.host.ip` 和 `my.server.host.port` 属性生成了元数据信息。你可以在字段或 getter 方法上使用 javadoc:org.springframework.boot.context.properties.NestedConfigurationProperty[format=annotation] 注解来指示一个常规（非内部）类应被视为嵌套类。
 
 提示：这对集合和映射没有影响，因为这些类型会被自动识别，并且会为每个类型生成一个单一的元数据属性。
 
 [[appendix.configuration-metadata.annotation-processor.automatic-metadata-generation.source]]
 === 配置属性源
 
-如果在另一个模块中定义的类型被用于 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的类型中，某些元数据元素无法自动发现。重复上面的示例，如果 `Host` 位于另一个模块中，则完整的元数据不可用，因为 annotation 处理器无法访问 `Host` 的源代码。
+如果在另一个模块中定义的类型被用于 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的类型中，某些元数据元素无法自动发现。重复上面的示例，如果 `Host` 位于另一个模块中，则完整的元数据不可用，因为注解处理器无法访问 `Host` 的源代码。
 
-为了处理这种情况，在包含 `Host` 类型的模块中添加 annotation 处理器，并使用 javadoc:org.springframework.boot.context.properties.ConfigurationPropertiesSource[format=annotation] 对其进行注解：
+为了处理这种情况，在包含 `Host` 类型的模块中添加注解处理器，并使用 javadoc:org.springframework.boot.context.properties.ConfigurationPropertiesSource[format=annotation] 对其进行注解：
 
 [source,java]
 ----
@@ -332,7 +332,7 @@ public class Host {
 }
 ----
 
-这会在 `META-INF/spring/configuration-metadata/com.example.Host.json` 中为 `Host` 生成元数据，并且当 annotation 处理器处理此类类型时，会自动重用该元数据。
+这会在 `META-INF/spring/configuration-metadata/com.example.Host.json` 中为 `Host` 生成元数据，并且当注解处理器处理此类类型时，会自动重用该元数据。
 
 你也可以注解一个位于其他模块中的父类，该父类被 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] 注解的类型所继承。
 
@@ -342,7 +342,7 @@ public class Host {
 == 添加额外的元数据
 
 Spring Boot 的配置文件处理非常灵活，通常可能存在未绑定到 javadoc:org.springframework.boot.context.properties.ConfigurationProperties[format=annotation] bean 的属性。你可能还需要调整现有键的某些属性，或者完全忽略该键。
-为了支持此类情况并允许您提供自定义“提示”，annotation 处理器会自动将 `META-INF/additional-spring-configuration-metadata.json` 中的条目合并到主元数据文件中。
+为了支持此类情况并允许您提供自定义“提示”，注解处理器会自动将 `META-INF/additional-spring-configuration-metadata.json` 中的条目合并到主元数据文件中。
 
 在为某个类型生成源元数据时，您还可以在 `META-INF/spring/configuration/metadata/com.example.SomeType.json` 中为该类型编写自定义元数据，例如 `com.example.SomeType`。
 

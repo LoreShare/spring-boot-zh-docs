@@ -1101,7 +1101,7 @@
 |`+https://insights-collector.newrelic.com+`
 
 |[[application-properties.actuator.management.observations.annotations.enabled]]xref:#application-properties.actuator.management.observations.annotations.enabled[`+management.observations.annotations.enabled+`]
-|+++是否启用Micrometer auto-configuration的annotations。+++
+|+++是否启用Micrometer 自动配置的注解。+++
 |`+false+`
 
 |[[application-properties.actuator.management.observations.enable]]xref:#application-properties.actuator.management.observations.enable[`+management.observations.enable.*+`]

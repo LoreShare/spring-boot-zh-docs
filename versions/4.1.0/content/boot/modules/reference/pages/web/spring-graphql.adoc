@@ -101,7 +101,7 @@ GraphQL HTTP 端点默认位于 HTTP POST `/graphql`。
 路径可以通过 configprop:spring.graphql.http.path[] 自定义。
 
 提示：Spring MVC 和 Spring WebFlux 的 HTTP 端点由 `RouterFunction` bean 提供，其 javadoc:org.springframework.core.annotation.Order[format=annotation] 为 `0`。
-如果您定义了自己的 `RouterFunction` beans，可能需要添加适当的 javadoc:org.springframework.core.annotation.Order[format=annotation] annotations 以确保它们正确排序。
+如果您定义了自己的 `RouterFunction` beans，可能需要添加适当的 javadoc:org.springframework.core.annotation.Order[format=annotation] 注解以确保它们正确排序。
 
 GraphQL WebSocket 端点默认关闭。要启用它：
 

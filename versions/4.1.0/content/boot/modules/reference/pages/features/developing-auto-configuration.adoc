@@ -13,9 +13,9 @@
 == 理解自动配置的 Bean
 
 实现自动配置的类使用 javadoc:org.springframework.boot.autoconfigure.AutoConfiguration[format=annotation] 进行注解。
-这个 annotation 本身是元注解了 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 的，使得自动配置成为标准的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类。
-额外的 javadoc:org.springframework.context.annotation.Conditional[format=annotation] annotations 用于约束自动配置何时应该应用。
-通常，自动配置类使用 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnClass[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean[format=annotation] annotations。
+这个注解本身是元注解了 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 的，使得自动配置成为标准的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类。
+额外的 javadoc:org.springframework.context.annotation.Conditional[format=annotation] 注解用于约束自动配置何时应该应用。
+通常，自动配置类使用 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnClass[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean[format=annotation] 注解。
 这确保了自动配置仅在找到相关类且你尚未声明自己的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 时应用。
 
 你可以浏览 {code-spring-boot-autoconfigure-src}[`spring-boot-autoconfigure`] 的源代码，查看 Spring 提供的核心 javadoc:org.springframework.boot.autoconfigure.AutoConfiguration[format=annotation] 类（参见 {code-spring-boot}/core/spring-boot-autoconfigure/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports[`META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`] 文件）。
@@ -41,13 +41,13 @@ com.mycorp.libx.autoconfigure.LibXWebAutoConfiguration
 注意：自动配置必须仅通过在导入文件中命名来加载。
 确保它们定义在特定的包空间中，并且永远不是组件扫描的目标。
 此外，自动配置类不应启用组件扫描来查找其他组件。
-应改用特定的 javadoc:org.springframework.context.annotation.Import[format=annotation] annotations。
+应改用特定的 javadoc:org.springframework.context.annotation.Import[format=annotation] 注解。
 
-如果你的配置需要按特定顺序应用，可以在 javadoc:org.springframework.boot.autoconfigure.AutoConfiguration[format=annotation] annotation 上使用 `before`、`beforeName`、`after` 和 `afterName` 属性，或使用专用的 javadoc:org.springframework.boot.autoconfigure.AutoConfigureBefore[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.AutoConfigureAfter[format=annotation] annotations。
+如果你的配置需要按特定顺序应用，可以在 javadoc:org.springframework.boot.autoconfigure.AutoConfiguration[format=annotation] 注解上使用 `before`、`beforeName`、`after` 和 `afterName` 属性，或使用专用的 javadoc:org.springframework.boot.autoconfigure.AutoConfigureBefore[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.AutoConfigureAfter[format=annotation] 注解。
 例如，如果你提供特定于 Web 的配置，你的类可能需要在 javadoc:org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration[] 之后应用。
 
 如果你希望对某些不应直接相互了解的自动配置进行排序，也可以使用 javadoc:org.springframework.boot.autoconfigure.AutoConfigureOrder[format=annotation]。
-该 annotation 与常规的 javadoc:org.springframework.core.annotation.Order[format=annotation] annotation 具有相同的语义，但为自动配置类提供了专用的顺序。
+该注解与常规的 javadoc:org.springframework.core.annotation.Order[format=annotation] 注解具有相同的语义，但为自动配置类提供了专用的顺序。
 
 与标准的 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类一样，自动配置类应用的顺序仅影响其 beans 定义的顺序。
 这些 beans 随后创建的顺序不受影响，并由每个 bean 的依赖关系和任何 javadoc:org.springframework.context.annotation.DependsOn[format=annotation] 关系决定。
@@ -72,11 +72,11 @@ NOTE: `AutoConfiguration.imports` 文件也应更新为 _仅_ 引用替换类。
 [[features.developing-auto-configuration.condition-annotations]]
 == 条件注解
 
-你几乎总是希望在你的自动配置类上包含一个或多个 javadoc:org.springframework.context.annotation.Conditional[format=annotation] annotations。
-javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean[format=annotation] annotation 是一个常见的例子，它允许开发者在不满意默认值时覆盖自动配置。
+你几乎总是希望在你的自动配置类上包含一个或多个 javadoc:org.springframework.context.annotation.Conditional[format=annotation] 注解。
+javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean[format=annotation] 注解是一个常见的例子，它允许开发者在不满意默认值时覆盖自动配置。
 
-Spring Boot 包含许多 javadoc:org.springframework.context.annotation.Conditional[format=annotation] annotations，你可以通过注解 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类或单个 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法在自己的代码中重用它们。
-这些 annotations 包括：
+Spring Boot 包含许多 javadoc:org.springframework.context.annotation.Conditional[format=annotation] 注解，你可以通过注解 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类或单个 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法在自己的代码中重用它们。
+这些注解包括：
 
 * xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.class-conditions[]
 * xref:features/developing-auto-configuration.adoc#features.developing-auto-configuration.condition-annotations.bean-conditions[]
@@ -88,8 +88,8 @@ Spring Boot 包含许多 javadoc:org.springframework.context.annotation.Conditio
 [[features.developing-auto-configuration.condition-annotations.class-conditions]]
 === 类条件
 
-javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnClass[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass[format=annotation] annotations 允许根据特定类的存在与否来包含 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类。
-由于 annotation 元数据是通过 https://asm.ow2.io/[ASM] 解析的，你可以使用 `value` 属性引用真实类，即使该类可能实际上并不出现在运行应用程序的 classpath 上。
+javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnClass[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass[format=annotation] 注解允许根据特定类的存在与否来包含 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类。
+由于注解元数据是通过 https://asm.ow2.io/[ASM] 解析的，你可以使用 `value` 属性引用真实类，即使该类可能实际上并不出现在运行应用程序的 classpath 上。
 如果你更愿意使用 javadoc:java.lang.String[] 值指定类名，也可以使用 `name` 属性。
 
 此机制不适用于 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法，因为通常返回类型是条件的目标：在方法上的条件应用之前，JVM 将加载该类并可能处理方法引用，如果该类不存在则会失败。
@@ -125,12 +125,12 @@ public final class MyAutoConfiguration {
 }
 ----
 
-TIP: 如果你使用 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnClass[format=annotation] 或 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass[format=annotation] 作为元 annotation 的一部分来组合你自己的组合 annotations，你必须使用 `name`，因为在这种情况下引用类不会被处理。
+TIP: 如果你使用 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnClass[format=annotation] 或 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass[format=annotation] 作为元注解的一部分来组合你自己的组合注解，你必须使用 `name`，因为在这种情况下引用类不会被处理。
 
 [[features.developing-auto-configuration.condition-annotations.bean-conditions]]
 === Bean 条件
 
-javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnBean[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean[format=annotation] annotations 允许根据特定 beans 的存在与否来包含 bean。
+javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnBean[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean[format=annotation] 注解允许根据特定 beans 的存在与否来包含 bean。
 你可以使用 `value` 属性按类型指定 beans，或使用 `name` 按名称指定 beans。
 `search` 属性允许你限制搜索 beans 时应考虑的 javadoc:org.springframework.context.ApplicationContext[] 层次结构。
 
@@ -157,10 +157,10 @@ public final class MyAutoConfiguration {
 在前面的示例中，如果 javadoc:org.springframework.context.ApplicationContext[] 中尚未包含类型为 `SomeService` 的 bean，则将创建 `someService` bean。
 
 TIP: 你需要非常小心 bean 定义添加的顺序，因为这些条件是基于已处理的内容进行评估的。
-因此，我们建议仅在自动配置类上使用 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnBean[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean[format=annotation] annotations（因为保证这些类在任何用户定义的 bean 定义添加之后加载）。
+因此，我们建议仅在自动配置类上使用 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnBean[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean[format=annotation] 注解（因为保证这些类在任何用户定义的 bean 定义添加之后加载）。
 
 NOTE: javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnBean[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean[format=annotation] 不会阻止 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类的创建。
-在类级别使用这些条件与在每个包含的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法上标记 annotation 的唯一区别在于，如果条件不匹配，前者会阻止将 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类注册为 bean。
+在类级别使用这些条件与在每个包含的 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法上标记注解的唯一区别在于，如果条件不匹配，前者会阻止将 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类注册为 bean。
 
 TIP: 在声明 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法时，请在方法的返回类型中提供尽可能多的类型信息。
 例如，如果你的 bean 的具体类实现了一个接口，则 bean 方法的返回类型应该是具体类而不是接口。
@@ -169,34 +169,34 @@ TIP: 在声明 javadoc:org.springframework.context.annotation.Bean[format=annota
 [[features.developing-auto-configuration.condition-annotations.property-conditions]]
 === 属性条件
 
-javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnProperty[format=annotation] annotation 允许根据 Spring Environment 属性包含配置。
+javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnProperty[format=annotation] 注解允许根据 Spring Environment 属性包含配置。
 使用 `prefix` 和 `name` 属性指定要检查的属性。
 默认情况下，任何存在且不等于 `false` 的属性都匹配。
-还有一个专门为布尔属性设计的 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty[format=annotation] annotation。
-使用这两个 annotations，你还可以通过 `havingValue` 和 `matchIfMissing` 属性创建更高级的检查。
+还有一个专门为布尔属性设计的 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty[format=annotation] 注解。
+使用这两个注解，你还可以通过 `havingValue` 和 `matchIfMissing` 属性创建更高级的检查。
 
 如果在 `name` 属性中给出了多个名称，则所有属性都必须通过测试才能使条件匹配。
 
 [[features.developing-auto-configuration.condition-annotations.resource-conditions]]
 === 资源条件
 
-javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnResource[format=annotation] annotation 允许仅在特定资源存在时包含配置。
+javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnResource[format=annotation] 注解允许仅在特定资源存在时包含配置。
 可以使用通常的 Spring 约定指定资源，如下例所示：`file:/home/user/test.dat`。
 
 [[features.developing-auto-configuration.condition-annotations.web-application-conditions]]
 === Web 应用程序条件
 
-javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebApplication[format=annotation] annotations 允许根据应用程序是否为 Web 应用程序来包含配置。
+javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebApplication[format=annotation] 注解允许根据应用程序是否为 Web 应用程序来包含配置。
 基于 servlet 的 Web 应用程序是任何使用 Spring javadoc:org.springframework.web.context.WebApplicationContext[]、定义 `session` 作用域或具有 javadoc:org.springframework.web.context.ConfigurableWebEnvironment[] 的应用程序。
 响应式 Web 应用程序是任何使用 javadoc:org.springframework.boot.web.context.reactive.ReactiveWebApplicationContext[] 或具有 javadoc:org.springframework.boot.web.context.reactive.ConfigurableReactiveWebEnvironment[] 的应用程序。
 
-javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnWarDeployment[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnNotWarDeployment[format=annotation] annotations 允许根据应用程序是否为部署到 servlet 容器的传统 WAR 应用程序来包含配置。
+javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnWarDeployment[format=annotation] 和 javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnNotWarDeployment[format=annotation] 注解允许根据应用程序是否为部署到 servlet 容器的传统 WAR 应用程序来包含配置。
 此条件不匹配使用嵌入式 Web 服务器运行的应用程序。
 
 [[features.developing-auto-configuration.condition-annotations.spel-conditions]]
 === SpEL 表达式条件
 
-javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnExpression[format=annotation] annotation 允许根据 {url-spring-framework-docs}/core/expressions.html[SpEL 表达式] 的结果包含配置。
+javadoc:org.springframework.boot.autoconfigure.condition.ConditionalOnExpression[format=annotation] 注解允许根据 {url-spring-framework-docs}/core/expressions.html[SpEL 表达式] 的结果包含配置。
 
 NOTE: 在表达式中引用 bean 将导致该 bean 在上下文刷新处理中非常早地被初始化。
 因此，该 bean 将不符合后处理条件（例如配置属性绑定），并且其状态可能不完整。
@@ -426,10 +426,10 @@ public class AcmeProperties {
 提示：你应该将库的依赖标记为可选，以便更容易地将 `autoconfigure` 模块包含到你的项目中。
 如果这样做，库不会被提供，默认情况下 Spring Boot 会回退。
 
-Spring Boot 使用 annotation 处理器将自动配置上的条件收集到元数据文件（`META-INF/spring-autoconfigure-metadata.properties`）中。
+Spring Boot 使用注解处理器将自动配置上的条件收集到元数据文件（`META-INF/spring-autoconfigure-metadata.properties`）中。
 如果该文件存在，它将用于急切地过滤不匹配的自动配置，从而改善启动时间。
 
-当使用 Maven 构建时，配置编译器插件（3.12.0 或更高版本）以将 `spring-boot-autoconfigure-processor` 添加到 annotation 处理器路径：
+当使用 Maven 构建时，配置编译器插件（3.12.0 或更高版本）以将 `spring-boot-autoconfigure-processor` 添加到注解处理器路径：
 
 [source,xml]
 ----

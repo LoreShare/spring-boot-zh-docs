@@ -10,21 +10,21 @@
 将作业详情存储在 SQL 数据库中的批处理应用需要一个 javadoc:javax.sql.DataSource[] bean。
 默认情况下需要一个 javadoc:javax.sql.DataSource[] bean。
 要让 Spring Batch 使用不同于应用主数据源的 javadoc:javax.sql.DataSource[]，请声明一个 javadoc:javax.sql.DataSource[] bean，并用 javadoc:org.springframework.boot.batch.jdbc.autoconfigure.BatchDataSource[format=annotation] 注解其 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法。
-如果这样做并且需要两个数据源（例如通过保留自动配置的主 javadoc:javax.sql.DataSource[]），请将 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 的 `defaultCandidate` 属性设置为 `false`。
+如果这样做并且需要两个数据源（例如通过保留自动配置的主 javadoc:javax.sql.DataSource[]），请将 javadoc:org.springframework.context.annotation.Bean[format=annotation] 注解的 `defaultCandidate` 属性设置为 `false`。
 
 
 
 == 指定批处理事务管理器
 
 与 xref:batch.adoc#howto.batch.specifying-a-data-source[] 类似，你可以通过用 javadoc:org.springframework.boot.batch.autoconfigure.BatchTransactionManager[format=annotation] 注解其 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法，定义一个用于批处理的 javadoc:org.springframework.transaction.PlatformTransactionManager[]。
-如果这样做并且需要两个事务管理器（例如通过保留自动配置的 javadoc:org.springframework.transaction.PlatformTransactionManager[]），请将 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 的 `defaultCandidate` 属性设置为 `false`。
+如果这样做并且需要两个事务管理器（例如通过保留自动配置的 javadoc:org.springframework.transaction.PlatformTransactionManager[]），请将 javadoc:org.springframework.context.annotation.Bean[format=annotation] 注解的 `defaultCandidate` 属性设置为 `false`。
 
 
 
 == 指定批处理任务执行器
 
 与 xref:batch.adoc#howto.batch.specifying-a-data-source[] 类似，你可以通过用 javadoc:org.springframework.boot.batch.autoconfigure.BatchTaskExecutor[format=annotation] 注解其 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法，定义一个用于批处理的 javadoc:org.springframework.core.task.TaskExecutor[]。
-如果这样做并且需要两个任务执行器（例如通过保留自动配置的 javadoc:org.springframework.core.task.TaskExecutor[]），请将 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 的 `defaultCandidate` 属性设置为 `false`。
+如果这样做并且需要两个任务执行器（例如通过保留自动配置的 javadoc:org.springframework.core.task.TaskExecutor[]），请将 javadoc:org.springframework.context.annotation.Bean[format=annotation] 注解的 `defaultCandidate` 属性设置为 `false`。
 
 
 

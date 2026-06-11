@@ -141,7 +141,7 @@ public class MyTaskExecutorConfiguration {
 }
 ----
 
-要注册一个自定义的 javadoc:java.util.concurrent.Executor[] 同时保留自动配置的 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，您可以创建一个自定义的 javadoc:java.util.concurrent.Executor[] bean，并在其 javadoc:org.springframework.context.annotation.Bean[format=annotation] annotation 中设置 `defaultCandidate=false` 属性，如下例所示：
+要注册一个自定义的 javadoc:java.util.concurrent.Executor[] 同时保留自动配置的 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，您可以创建一个自定义的 javadoc:java.util.concurrent.Executor[] bean，并在其 javadoc:org.springframework.context.annotation.Bean[format=annotation] 注解中设置 `defaultCandidate=false` 属性，如下例所示：
 
 [source,java]
 ----
@@ -165,7 +165,7 @@ public class MyTaskExecutorConfiguration {
 ----
 
 在这种情况下，您可以将自定义的 javadoc:java.util.concurrent.Executor[] 自动注入到其他组件中，同时保留自动配置的 javadoc:org.springframework.core.task.AsyncTaskExecutor[]。
-但是，请记得在 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] 旁边使用 javadoc:org.springframework.beans.factory.annotation.Qualifier[format=annotation] annotation。
+但是，请记得在 javadoc:org.springframework.beans.factory.annotation.Autowired[format=annotation] 旁边使用 javadoc:org.springframework.beans.factory.annotation.Qualifier[format=annotation] 注解。
 
 如果这对您来说不可行，您可以请求 Spring Boot 无论如何都自动配置一个 javadoc:org.springframework.core.task.AsyncTaskExecutor[]，如下所示：
 

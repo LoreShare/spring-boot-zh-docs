@@ -360,7 +360,7 @@ public interface CityRepository extends Repository<City, Long> {
 ----
 
 仓库和文档通过扫描发现。
-默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration packages]。
+默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包]。
 你可以分别使用 javadoc:org.springframework.data.mongodb.repository.config.EnableMongoRepositories[format=annotation] 和 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] 自定义查找仓库和文档的位置。
 
 TIP: 有关 Spring Data MongoDB 的完整详细信息，包括其丰富的对象映射技术，请参阅其 {url-spring-data-mongodb-docs}[参考文档]。
@@ -604,7 +604,7 @@ Spring Data 包含对 Elasticsearch 的仓库支持。
 你可以使用前面的 JPA 示例，并假设 `City` 现在是 Elasticsearch 的 javadoc:org.springframework.data.elasticsearch.annotations.Document[format=annotation] 类而不是 JPA 的 javadoc:jakarta.persistence.Entity[format=annotation]，它将以相同的方式工作。
 
 仓库和文档通过扫描发现。
-默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[auto-configuration packages]。
+默认情况下，扫描 xref:using/auto-configuration.adoc#using.auto-configuration.packages[自动配置包]。
 你可以分别使用 javadoc:org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories[format=annotation] 和 javadoc:org.springframework.boot.persistence.autoconfigure.EntityScan[format=annotation] 自定义查找仓库和文档的位置。
 
 提示：有关 Spring Data Elasticsearch 的完整详细信息，请参阅 {url-spring-data-elasticsearch-docs}[参考文档]。

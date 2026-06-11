@@ -52,7 +52,7 @@ GraalVM 原生构建工具包含在 native image 中运行测试的能力。
 
 Spring 框架包含用于运行测试的提前处理支持。
 所有常见的 Spring 测试功能都适用于 native image 测试。
-例如，你可以继续使用 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] annotation。
+例如，你可以继续使用 javadoc:org.springframework.boot.test.context.SpringBootTest[format=annotation] 注解。
 你也可以使用 Spring Boot xref:reference:testing/spring-boot-applications.adoc#testing.spring-boot-applications.autoconfigured-tests[test slices] 仅测试应用程序的特定部分。
 
 Spring 框架的原生测试支持按以下方式工作：

@@ -525,7 +525,7 @@ public interface MyContainers {
 }
 ----
 
-如果你已经以这种方式定义了容器，或者你更喜欢这种风格，你可以导入这些声明类，而不是将容器定义为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法。为此，请将 javadoc:org.springframework.boot.testcontainers.context.ImportTestcontainers[format=annotation] annotation 添加到你的测试配置类：
+如果你已经以这种方式定义了容器，或者你更喜欢这种风格，你可以导入这些声明类，而不是将容器定义为 javadoc:org.springframework.context.annotation.Bean[format=annotation] 方法。为此，请将 javadoc:org.springframework.boot.testcontainers.context.ImportTestcontainers[format=annotation] 注解添加到你的测试配置类：
 
 [source,java]
 ----
@@ -539,7 +539,7 @@ public class MyContainersConfiguration {
 }
 ----
 
-提示：如果你不打算使用 xref:testing/testcontainers.adoc#testing.testcontainers.service-connections[服务连接功能] 而想使用 xref:testing/testcontainers.adoc#testing.testcontainers.dynamic-properties[`@DynamicPropertySource`]，请从 javadoc:org.testcontainers.containers.Container[] 字段中移除 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] annotation。你还可以将 javadoc:org.springframework.test.context.DynamicPropertySource[format=annotation] 注解的方法添加到你的声明类中。
+提示：如果你不打算使用 xref:testing/testcontainers.adoc#testing.testcontainers.service-connections[服务连接功能] 而想使用 xref:testing/testcontainers.adoc#testing.testcontainers.dynamic-properties[`@DynamicPropertySource`]，请从 javadoc:org.testcontainers.containers.Container[] 字段中移除 javadoc:org.springframework.boot.testcontainers.service.connection.ServiceConnection[format=annotation] 注解。你还可以将 javadoc:org.springframework.test.context.DynamicPropertySource[format=annotation] 注解的方法添加到你的声明类中。
 
 
 [[features.dev-services.testcontainers.at-development-time.devtools]]

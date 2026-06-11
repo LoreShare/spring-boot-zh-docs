@@ -1,6 +1,6 @@
 = Web Services
 
-Spring Boot 提供了 Web Services auto-configuration，因此您只需定义您的 javadoc:org.springframework.ws.server.endpoint.annotation.Endpoint[format=annotation] bean。
+Spring Boot 提供了 Web Services 自动配置，因此您只需定义您的 javadoc:org.springframework.ws.server.endpoint.annotation.Endpoint[format=annotation] bean。
 
 {url-spring-webservices-docs}[Spring Web Services 特性] 可以通过 `spring-boot-starter-webservices` 模块轻松访问。
 

@@ -31,7 +31,7 @@ spring:
 ----
 要禁用 Spring Boot 的自动配置并完全控制 Spring Batch 的配置，请将 javadoc:org.springframework.batch.core.configuration.annotation.EnableBatchProcessing[format=annotation] 添加到你的一个 javadoc:org.springframework.context.annotation.Configuration[format=annotation] 类中，或扩展 javadoc:org.springframework.batch.core.configuration.support.DefaultBatchConfiguration[]。
 这将导致自动配置退出，包括初始化 Spring Batch 的数据库模式（JDBC 或 MongoDB）。
-然后可以使用 `@Enable*JobRepository` annotation 的属性（而不是先前描述的配置属性）来配置 Spring Batch。
+然后可以使用 `@Enable*JobRepository` 注解的属性（而不是先前描述的配置属性）来配置 Spring Batch。
 
 要了解有关手动配置 Spring Batch 的更多信息，请参阅以下 API 文档：
 

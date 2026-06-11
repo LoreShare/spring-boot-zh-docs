@@ -56,7 +56,7 @@ public class Nested {
 }
 ----
 
-上述示例为 `my.properties.name` 和 `my.properties.nested.number` 生成了配置属性。如果没有在 `nested` 字段上添加 javadoc:org.springframework.boot.context.properties.NestedConfigurationProperty[format=annotation] annotation，则 `my.properties.nested.number` 属性在 native image 中将无法绑定。你也可以在 getter 方法上添加注解。
+上述示例为 `my.properties.name` 和 `my.properties.nested.number` 生成了配置属性。如果没有在 `nested` 字段上添加 javadoc:org.springframework.boot.context.properties.NestedConfigurationProperty[format=annotation] 注解，则 `my.properties.nested.number` 属性在 native image 中将无法绑定。你也可以在 getter 方法上添加注解。
 
 当使用构造函数绑定时，你需要在字段上添加 javadoc:org.springframework.boot.context.properties.NestedConfigurationProperty[format=annotation] 注解：
 

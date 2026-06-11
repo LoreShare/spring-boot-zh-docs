@@ -79,7 +79,7 @@ spring:
   main:
     lazy-initialization: true
 ----
-TIP: 如果希望在对应用程序的其余部分使用惰性初始化时，对某些 beans 禁用惰性初始化，可以使用 `@Lazy(false)` annotation 显式地将其 lazy 属性设置为 false。
+TIP: 如果希望在对应用程序的其余部分使用惰性初始化时，对某些 beans 禁用惰性初始化，可以使用 `@Lazy(false)` 注解显式地将其 lazy 属性设置为 false。
 
 
 [[features.spring-application.banner]]
@@ -410,7 +410,7 @@ public class MyBean {
 ----
 
 提示：Spring Boot 还会向 Spring javadoc:org.springframework.core.env.Environment[] 注册一个 javadoc:org.springframework.core.env.CommandLinePropertySource[]。
-这使您也可以通过使用 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] annotation 注入单个应用程序参数。
+这使您也可以通过使用 javadoc:org.springframework.beans.factory.annotation.Value[format=annotation] 注解注入单个应用程序参数。
 
 
 
@@ -442,7 +442,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
 }
 ----
 
-如果定义了多个必须以特定顺序调用的 javadoc:org.springframework.boot.CommandLineRunner[] 或 javadoc:org.springframework.boot.ApplicationRunner[] beans，您可以额外实现 javadoc:org.springframework.core.Ordered[] 接口或使用 javadoc:org.springframework.core.annotation.Order[] annotation。
+如果定义了多个必须以特定顺序调用的 javadoc:org.springframework.boot.CommandLineRunner[] 或 javadoc:org.springframework.boot.ApplicationRunner[] beans，您可以额外实现 javadoc:org.springframework.core.Ordered[] 接口或使用 javadoc:org.springframework.core.annotation.Order[] 注解。
 
 
 
@@ -450,7 +450,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
 == 应用程序退出
 
 每个 javadoc:org.springframework.boot.SpringApplication[] 都会向 JVM 注册一个关闭钩子，以确保 javadoc:org.springframework.context.ApplicationContext[] 在退出时优雅关闭。
-所有标准的 Spring 生命周期回调（例如 javadoc:org.springframework.beans.factory.DisposableBean[] 接口或 javadoc:jakarta.annotation.PreDestroy[format=annotation] annotation）都可以使用。
+所有标准的 Spring 生命周期回调（例如 javadoc:org.springframework.beans.factory.DisposableBean[] 接口或 javadoc:jakarta.annotation.PreDestroy[format=annotation] 注解）都可以使用。
 
 此外，如果 beans 希望在调用 `SpringApplication.exit()` 时返回特定的退出代码，可以实现 javadoc:org.springframework.boot.ExitCodeGenerator[] 接口。
 然后可以将此退出代码传递给 `System.exit()` 以将其作为状态代码返回，如下例所示：
@@ -481,7 +481,7 @@ public class MyApplication {
 当遇到此类异常时，Spring Boot 返回由实现的 `getExitCode()` 方法提供的退出代码。
 
 如果存在多个 javadoc:org.springframework.boot.ExitCodeGenerator[]，则使用生成的第一个非零退出代码。
-要控制生成器的调用顺序，请额外实现 javadoc:org.springframework.core.Ordered[] 接口或使用 javadoc:org.springframework.core.annotation.Order[] annotation。
+要控制生成器的调用顺序，请额外实现 javadoc:org.springframework.core.Ordered[] 接口或使用 javadoc:org.springframework.core.annotation.Order[] 注解。
 
 
 

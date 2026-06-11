@@ -26,9 +26,9 @@ Jackson 3 是首选且默认的库。
 === 自定义序列化器和反序列化器
 
 如果你使用 Jackson 来序列化和反序列化 JSON 数据，你可能想编写自己的 JsonSerializer 和 JsonDeserializer 类。
-自定义序列化器通常 link:https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers[通过模块注册到 Jackson]，但 Spring Boot 提供了一个替代的 @JsonComponent annotation，使得直接注册 Spring bean 更容易。
+自定义序列化器通常 link:https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers[通过模块注册到 Jackson]，但 Spring Boot 提供了一个替代的 @JsonComponent 注解，使得直接注册 Spring bean 更容易。
 
-你可以直接在 JsonSerializer、JsonDeserializer 或 KeyDeserializer 实现上使用 @JsonComponent annotation。
+你可以直接在 JsonSerializer、JsonDeserializer 或 KeyDeserializer 实现上使用 @JsonComponent 注解。
 你也可以在包含序列化器/反序列化器作为内部类的类上使用它，如下例所示：
 
 [source,java,indent=0]
@@ -74,7 +74,7 @@ public class Example {
 ----
 
 ApplicationContext 中的所有 @JsonComponent bean 都会自动注册到 Jackson。
-由于 @JsonComponent 使用了 @Component 元 annotation，因此适用常规的组件扫描规则。
+由于 @JsonComponent 使用了 @Component 元注解，因此适用常规的组件扫描规则。
 
 Spring Boot 还提供了 JsonObjectSerializer 和 JsonObjectDeserializer 基类，它们在序列化对象时提供了标准 Jackson 版本的有用替代方案。
 有关详细信息，请参阅 API 文档中的 JsonObjectSerializer 和 JsonObjectDeserializer。
@@ -126,8 +126,8 @@ public class Example {
 
 === Mixins
 
-Jackson 支持 mixin，可用于将额外的 annotation 混合到目标类已声明的 annotation 中。
-Spring Boot 的 Jackson 自动配置将扫描应用程序的包，查找带有 @JsonMixin annotation 的类，并将它们注册到 auto-configured ObjectMapper。
+Jackson 支持 mixin，可用于将额外的注解混合到目标类已声明的注解中。
+Spring Boot 的 Jackson 自动配置将扫描应用程序的包，查找带有 @JsonMixin 注解的类，并将它们注册到 auto-configured ObjectMapper。
 注册由 Spring Boot 的 JsonMixinModule 执行。
 
 

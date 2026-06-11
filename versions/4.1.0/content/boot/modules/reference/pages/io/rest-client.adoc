@@ -17,7 +17,7 @@ javadoc:org.springframework.web.reactive.function.client.WebClient[] 接口提�
 
 Spring Boot 为你创建并预配置了一个原型 javadoc:org.springframework.web.reactive.function.client.WebClient$Builder[] bean。
 强烈建议你将其注入到你的组件中，并使用它来创建 javadoc:org.springframework.web.reactive.function.client.WebClient[] 实例。
-Spring Boot 正在配置该构建器以共享 HTTP 资源，并以与服务器端相同的方式反映编解码器设置（参见 xref:web/reactive.adoc#web.reactive.webflux.httpcodecs[WebFlux HTTP codecs auto-configuration]），等等。
+Spring Boot 正在配置该构建器以共享 HTTP 资源，并以与服务器端相同的方式反映编解码器设置（参见 xref:web/reactive.adoc#web.reactive.webflux.httpcodecs[WebFlux HTTP codecs 自动配置]），等等。
 
 以下代码展示了一个典型示例：
 
@@ -551,8 +551,8 @@ public interface EchoService {
 === 导入 HTTP 服务
 
 为了将 HTTP 服务接口用作客户端，你需要导入它。
-实现此目的的一种方法是使用 javadoc:org.springframework.web.service.registry.ImportHttpServices[format=annotation] annotation，通常在主应用程序类上使用。
-你可以使用 annotation 导入特定类，或从特定包扫描要导入的类。
+实现此目的的一种方法是使用 javadoc:org.springframework.web.service.registry.ImportHttpServices[format=annotation] 注解，通常在主应用程序类上使用。
+你可以使用注解导入特定类，或从特定包扫描要导入的类。
 
 例如，以下配置将在 `com.example.myclients` 包中扫描 HTTP 服务接口：
 
@@ -578,7 +578,7 @@ public class MyApplication {
 [[io.rest-client.httpservice.groups]]
 === 服务客户端组
 
-在生产应用程序中，将绝对 URL 硬编码在 javadoc:org.springframework.web.service.annotation.HttpExchange[format=annotation] annotation 中通常并不理想。
+在生产应用程序中，将绝对 URL 硬编码在 javadoc:org.springframework.web.service.annotation.HttpExchange[format=annotation] 注解中通常并不理想。
 相反，你通常希望为 HTTP 服务客户端在代码中提供一个逻辑名称，然后根据该名称从属性中查找 URL。
 
 HTTP 服务客户端允许你通过将它们注册到命名组来实现这一点。
@@ -741,7 +741,7 @@ public class MyHttpServiceGroupConfiguration {
 [[io.rest-client.httpservice.advanced-configuration]]
 === 高级配置
 
-除了 javadoc:org.springframework.web.service.registry.ImportHttpServices[format=annotation] annotation 之外，Spring 框架还提供了一个 javadoc:org.springframework.web.service.registry.AbstractHttpServiceRegistrar[] 类。
+除了 javadoc:org.springframework.web.service.registry.ImportHttpServices[format=annotation] 注解之外，Spring 框架还提供了一个 javadoc:org.springframework.web.service.registry.AbstractHttpServiceRegistrar[] 类。
 你可以 javadoc:org.springframework.context.annotation.Import[format=annotation] 自己的该类扩展以执行编程式配置。
 更多详情，请参阅 {url-spring-framework-docs}/integration/rest-clients.html#rest-http-service-client-group-config[Spring 框架参考文档]。
 
