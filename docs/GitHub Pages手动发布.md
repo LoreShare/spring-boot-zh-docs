@@ -72,6 +72,17 @@ versions/4.2.0/content/boot
 
 README 和公开页面说明应把本站定位为 Spring Boot 中文站：当前提供 Spring Boot `4.1.0` 最新稳定版中文化内容，后续 Spring Boot 发布新的稳定版后新增对应中文版本，并继续保留历史 GA 版本。
 
+## README 展示约定
+
+README 是 GitHub 仓库首页，优先服务第一次进入项目的读者：
+
+- 开头必须直接说明本站是 Spring Boot 非官方中文站，当前提供 Spring Boot `4.1.0` 最新稳定版中文化内容。
+- 在线访问入口必须放在靠前位置，并包含 Pages 首页和当前最新稳定版文档入口。
+- README 必须展示站点效果截图，截图资源保存到仓库固定路径，不能引用本机临时文件。
+- README 必须引用 Spring Boot 官方支持页面 `https://spring.io/projects/spring-boot#support`，并列出当前可见的主要 GA 分支支持周期，方便读者判断要查阅哪个版本。
+- README 不再展示“当前范围”式的长清单；翻译范围、构建细节和已知限制由 `docs/构建配置.md`、`docs/验收记录.md` 等维护文档承载。
+- README 不得出现真实 DeepSeek API key，只能说明密钥来自环境变量或 `.env`。
+
 ## 构建地址
 
 本地构建默认站点地址为：
