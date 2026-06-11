@@ -3,7 +3,13 @@ import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 
 import { getCachedAntoraRoot } from './sync-source.mjs';
-import { MVP_PAGES, PROTECTED_TERMS, getOutputPathForPage } from './translate.mjs';
+import {
+  MVP_PAGES,
+  PROTECTED_TERMS,
+  buildFullTranslationPlan,
+  getOutputPathForPage,
+  listSourceFiles,
+} from './translate.mjs';
 
 export function collectXrefs(content) {
   return [...content.matchAll(/\bxref:([^\[\s]+)\[/g)].map((match) => match[1]);
@@ -102,9 +108,44 @@ export function validateMvpPages({
   return issues;
 }
 
+export function validateTranslatedFiles({
+  sourceRoot = getCachedAntoraRoot(),
+  outputRoot = 'content/boot',
+  plan = buildFullTranslationPlan({ files: listSourceFiles(sourceRoot) }),
+  exists = existsSync,
+  read = (file) => readFileSync(file, 'utf8'),
+} = {}) {
+  const issues = [];
+
+  for (const item of plan) {
+    const sourcePath = path.join(sourceRoot, item.relativePath);
+    const outputPath = getOutputPathForPage(item.relativePath, outputRoot);
+
+    if (!exists(sourcePath)) {
+      issues.push(`${item.relativePath}：找不到上游页面 ${sourcePath}`);
+      continue;
+    }
+
+    if (!exists(outputPath)) {
+      issues.push(`${item.relativePath}：找不到译文页面 ${outputPath}`);
+      continue;
+    }
+
+    if (item.action === 'translate') {
+      issues.push(...validateTranslatedPage({
+        relativePath: item.relativePath,
+        source: read(sourcePath),
+        translated: read(outputPath),
+      }));
+    }
+  }
+
+  return issues;
+}
+
 export function validateAll() {
   return [
-    ...validateMvpPages(),
+    ...validateTranslatedFiles(),
     ...validateProjectSecrets(),
   ];
 }

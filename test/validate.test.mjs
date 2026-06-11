@@ -6,6 +6,7 @@ import {
   detectSecrets,
   findMissingProtectedTerms,
   hasBalancedListingBlocks,
+  validateTranslatedFiles,
   validateTranslatedPage,
 } from '../scripts/lib/validate.mjs';
 
@@ -45,5 +46,28 @@ test('页面校验汇总 xref、代码块和术语问题', () => {
     'modules/ROOT/pages/index.adoc：listing/source 代码块分隔符数量不成对',
     'modules/ROOT/pages/index.adoc：缺少 xref 目标 installing.adoc',
     'modules/ROOT/pages/index.adoc：缺少不翻译术语 Spring Boot',
+  ]);
+});
+
+test('全量校验按翻译计划检查所有输出文件', () => {
+  const files = {
+    'source/modules/ROOT/pages/index.adoc': 'Spring Boot\nxref:installing.adoc[]\n',
+    'output/modules/ROOT/pages/index.adoc': 'Spring Boot\nxref:installing.adoc[]\n',
+    'source/modules/ROOT/pages/missing.adoc': 'Spring Boot\n',
+  };
+
+  const issues = validateTranslatedFiles({
+    sourceRoot: 'source',
+    outputRoot: 'output',
+    plan: [
+      { relativePath: 'modules/ROOT/pages/index.adoc', action: 'translate' },
+      { relativePath: 'modules/ROOT/pages/missing.adoc', action: 'translate' },
+    ],
+    exists: (file) => Object.hasOwn(files, file),
+    read: (file) => files[file],
+  });
+
+  assert.deepEqual(issues, [
+    'modules/ROOT/pages/missing.adoc：找不到译文页面 output/modules/ROOT/pages/missing.adoc',
   ]);
 });
