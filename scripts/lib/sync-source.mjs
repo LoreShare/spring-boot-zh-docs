@@ -12,6 +12,16 @@ export const ANTORA_SOURCE_PATHS = [
   'build-plugin/spring-boot-gradle-plugin/src/docs/antora',
   'documentation/spring-boot-actuator-docs/src/docs/antora',
 ];
+export const CODE_EXAMPLE_SOURCE_PATHS = [
+  'documentation/spring-boot-docs/src/main/java',
+  'documentation/spring-boot-docs/src/main/kotlin',
+  'documentation/spring-boot-docs/src/test/java',
+  'documentation/spring-boot-docs/src/test/resources',
+];
+export const SPARSE_CHECKOUT_PATHS = [
+  ...ANTORA_SOURCE_PATHS,
+  ...CODE_EXAMPLE_SOURCE_PATHS,
+];
 
 export function getCachedAntoraRoot(cacheDir = CACHE_DIR) {
   return `${cacheDir}/${ANTORA_SOURCE_PATH}`;
@@ -21,6 +31,10 @@ export function getCachedAntoraRoots(cacheDir = CACHE_DIR) {
   return ANTORA_SOURCE_PATHS.map((antoraSourcePath) => `${cacheDir}/${antoraSourcePath}`);
 }
 
+export function getCachedCodeExampleRoots(cacheDir = CACHE_DIR) {
+  return CODE_EXAMPLE_SOURCE_PATHS.map((sourcePath) => `${cacheDir}/${sourcePath}`);
+}
+
 export function buildSyncSteps({
   cacheDir = CACHE_DIR,
   cacheGitExists = existsSync(path.join(cacheDir, '.git')),
@@ -28,7 +42,13 @@ export function buildSyncSteps({
   repository = UPSTREAM_REPOSITORY,
   ref = UPSTREAM_REF,
   antoraSourcePaths = ANTORA_SOURCE_PATHS,
+  codeExampleSourcePaths = CODE_EXAMPLE_SOURCE_PATHS,
 } = {}) {
+  const sparseCheckoutPaths = [
+    ...antoraSourcePaths,
+    ...codeExampleSourcePaths,
+  ];
+
   if (!cacheGitExists) {
     return [
       {
@@ -38,7 +58,7 @@ export function buildSyncSteps({
       },
       {
         command: 'git',
-        args: ['sparse-checkout', 'set', ...antoraSourcePaths],
+        args: ['sparse-checkout', 'set', ...sparseCheckoutPaths],
         cwd: cacheDir,
       },
     ];
@@ -57,7 +77,7 @@ export function buildSyncSteps({
     },
     {
       command: 'git',
-      args: ['sparse-checkout', 'set', ...antoraSourcePaths],
+      args: ['sparse-checkout', 'set', ...sparseCheckoutPaths],
       cwd: cacheDir,
     },
   ];
@@ -94,9 +114,17 @@ export function syncSource({ cacheDir = CACHE_DIR } = {}) {
     }
   }
 
+  for (const codeExampleSourcePath of CODE_EXAMPLE_SOURCE_PATHS) {
+    const sourceRoot = path.join(cacheDir, codeExampleSourcePath);
+    if (!existsSync(sourceRoot)) {
+      throw new Error(`同步后未找到官方示例源码目录：${sourceRoot}`);
+    }
+  }
+
   return {
     cacheDir,
     antoraRoot: getCachedAntoraRoot(cacheDir),
     antoraRoots: getCachedAntoraRoots(cacheDir),
+    codeExampleRoots: getCachedCodeExampleRoots(cacheDir),
   };
 }

@@ -4,8 +4,11 @@ import test from 'node:test';
 import {
   ANTORA_SOURCE_PATH,
   ANTORA_SOURCE_PATHS,
+  CODE_EXAMPLE_SOURCE_PATHS,
+  SPARSE_CHECKOUT_PATHS,
   buildSyncSteps,
   getCachedAntoraRoot,
+  getCachedCodeExampleRoots,
 } from '../scripts/lib/sync-source.mjs';
 
 test('新缓存目录使用稀疏克隆并设置所有 Antora 文档路径', () => {
@@ -30,7 +33,7 @@ test('新缓存目录使用稀疏克隆并设置所有 Antora 文档路径', () 
     },
     {
       command: 'git',
-      args: ['sparse-checkout', 'set', ...ANTORA_SOURCE_PATHS],
+      args: ['sparse-checkout', 'set', ...SPARSE_CHECKOUT_PATHS],
       cwd: '.cache/spring-boot-v4.1.0',
     },
   ]);
@@ -55,7 +58,7 @@ test('已有缓存目录拉取上游并重新设置所有稀疏路径', () => {
     },
     {
       command: 'git',
-      args: ['sparse-checkout', 'set', ...ANTORA_SOURCE_PATHS],
+      args: ['sparse-checkout', 'set', ...SPARSE_CHECKOUT_PATHS],
       cwd: '.cache/spring-boot-v4.1.0',
     },
   ]);
@@ -70,9 +73,27 @@ test('同步范围包含生成站点缺失的插件和 REST API 文档源', () =
   ]);
 });
 
+test('同步范围包含 include-code 需要的官方示例源码', () => {
+  assert.deepEqual(CODE_EXAMPLE_SOURCE_PATHS, [
+    'documentation/spring-boot-docs/src/main/java',
+    'documentation/spring-boot-docs/src/main/kotlin',
+    'documentation/spring-boot-docs/src/test/java',
+    'documentation/spring-boot-docs/src/test/resources',
+  ]);
+});
+
 test('能得到缓存中的 Antora 根目录', () => {
   assert.equal(
     getCachedAntoraRoot('.cache/spring-boot-v4.1.0'),
     '.cache/spring-boot-v4.1.0/documentation/spring-boot-docs/src/docs/antora',
   );
+});
+
+test('能得到缓存中的官方示例源码根目录', () => {
+  assert.deepEqual(getCachedCodeExampleRoots('.cache/spring-boot-v4.1.0'), [
+    '.cache/spring-boot-v4.1.0/documentation/spring-boot-docs/src/main/java',
+    '.cache/spring-boot-v4.1.0/documentation/spring-boot-docs/src/main/kotlin',
+    '.cache/spring-boot-v4.1.0/documentation/spring-boot-docs/src/test/java',
+    '.cache/spring-boot-v4.1.0/documentation/spring-boot-docs/src/test/resources',
+  ]);
 });
