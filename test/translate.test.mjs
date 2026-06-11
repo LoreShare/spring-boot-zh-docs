@@ -50,6 +50,21 @@ test('提示词包含默认保护术语和 AsciiDoc 保护要求', () => {
   assert.match(messages[1].content, /modules\/ROOT\/pages\/installing\.adoc/);
 });
 
+test('上下文普通词不作为全局保护术语', () => {
+  assert.ok(!PROTECTED_TERMS.includes('endpoint'));
+  assert.ok(!PROTECTED_TERMS.includes('auto-configuration'));
+  assert.ok(!PROTECTED_TERMS.includes('annotation'));
+
+  const prepared = prepareSourceForTranslation([
+    '`conditions` endpoint reports auto-configuration outcomes.',
+    'Use javadoc:org.example.Demo[format=annotation] annotation.',
+  ].join('\n'));
+
+  assert.match(prepared.source, /endpoint reports auto-configuration outcomes/);
+  assert.match(prepared.source, /annotation\./);
+  assert.doesNotMatch(prepared.source, /@@TERM_\d+@@ reports @@TERM_\d+@@ outcomes/);
+});
+
 test('解析纯 JSON 或 fenced JSON 响应', () => {
   assert.deepEqual(
     parseTranslationJson('{"translated_adoc":"= 标题","warnings":[],"protected_terms":["Spring Boot"]}'),
@@ -427,11 +442,12 @@ test('术语保护不匹配普通单词内部的短缩写', () => {
 
   assert.match(prepared.source, /WARNING/);
   assert.doesNotMatch(prepared.source, /@@TERM_\d+@@NING/);
+  assert.match(prepared.source, /servlet endpoints/);
 
-  const restored = prepared.restore('WARNING: 部署 @@TERM_0@@ files 到 servlet @@TERM_1@@。');
+  const restored = prepared.restore('WARNING: 部署 @@TERM_0@@ files 到 servlet 端点。');
 
   assert.match(restored, /WAR/);
-  assert.match(restored, /endpoints/);
+  assert.match(restored, /servlet 端点/);
 });
 
 test('DeepSeek 响应缺少代码块占位符时拒绝响应', async () => {
