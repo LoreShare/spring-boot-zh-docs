@@ -223,6 +223,27 @@ test('发送翻译前保护代码块和不翻译术语并可恢复', () => {
   assert.match(restored, /endpoint/);
 });
 
+test('保护嵌套 xref 和 javadoc 宏', () => {
+  const source = [
+    'Several properties are provided for xref:how-to:spring-mvc.adoc#howto.spring-mvc.customize-jackson-jsonmapper[customizing the javadoc:tools.jackson.databind.json.JsonMapper[]].',
+    'Use javadoc:org.springframework.boot.jackson.JacksonComponent[format=annotation] annotation with auto-configuration.',
+  ].join('\n');
+
+  const prepared = prepareSourceForTranslation(source);
+
+  assert.doesNotMatch(prepared.source, /xref:how-to:spring-mvc/);
+  assert.doesNotMatch(prepared.source, /javadoc:org\.springframework/);
+  assert.doesNotMatch(prepared.source, /format=annotation/);
+
+  const restored = prepared.restore('@@ADOC_TOKEN_0@@\n使用 @@ADOC_TOKEN_1@@ @@TERM_0@@ 和 @@TERM_1@@。');
+
+  assert.match(restored, /xref:how-to:spring-mvc\.adoc#howto\.spring-mvc\.customize-jackson-jsonmapper/);
+  assert.match(restored, /javadoc:tools\.jackson\.databind\.json\.JsonMapper\[\]/);
+  assert.match(restored, /javadoc:org\.springframework\.boot\.jackson\.JacksonComponent\[format=annotation\]/);
+  assert.match(restored, /annotation/);
+  assert.match(restored, /auto-configuration/);
+});
+
 test('只包含受保护内容的分块直接保留原文', async () => {
   const calls = [];
   const source = [

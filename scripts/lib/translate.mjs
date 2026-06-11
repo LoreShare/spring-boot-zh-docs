@@ -169,7 +169,7 @@ export function prepareSourceForTranslation(source) {
   const blockPattern = /(^|\n)----\n[\s\S]*?\n----(?=\n|$)/g;
   const blockProtection = replaceWithPlaceholders(source, blockPattern, 'CODE_BLOCK');
 
-  const adocPattern = /`[^`\n]+`|xref:[^\s\[]+\[[^\]\n]*\]|link:[^\s\[]+\[[^\]\n]*\]|include::[^\[\n]+\[[^\]\n]*\]|image::[^\[\n]+\[[^\]\n]*\]|\[\[[^\]\n]+\]\]|\[#[-\w.]+\]|\{[-\w.]+\}/g;
+  const adocPattern = /`[^`\n]+`|\b[a-z][a-z0-9-]*:{1,2}[^\s\[]+\[(?:[^\[\]\n]|\[[^\]\n]*\])*\]|\[\[[^\]\n]+\]\]|\[#[-\w.]+\]|\{[-\w.]+\}|^\[[^\]\n]+\]$/gim;
   const adocProtection = replaceWithPlaceholders(blockProtection.replaced, adocPattern, 'ADOC_TOKEN');
 
   const termProtection = replaceWithPlaceholders(

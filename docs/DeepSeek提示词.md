@@ -25,7 +25,7 @@
 - `xref:`、`link:`、`include::`、`image::`、`ifdef::`、`endif::` 等 AsciiDoc 语法。
 - `{attribute}`、`[[anchor]]`、`[#anchor]`。
 - 术语表中的不翻译术语。
-- 脚本发送给 DeepSeek 前会把 listing/source 代码块、inline code、AsciiDoc 引用宏/链接宏、anchors、attributes 和不翻译术语替换为 `@@CODE_BLOCK_N@@`、`@@ADOC_TOKEN_N@@`、`@@TERM_N@@` 占位符。
+- 脚本发送给 DeepSeek 前会把 listing/source 代码块、inline code、AsciiDoc 通用宏（例如 `xref:`、`javadoc:`、`configprop:`、`include-code::`）、anchors、attributes 和不翻译术语替换为 `@@CODE_BLOCK_N@@`、`@@ADOC_TOKEN_N@@`、`@@TERM_N@@` 占位符。
 - DeepSeek 必须原样保留这些占位符；脚本收到响应后再恢复原文。
 
 ## 错误处理
