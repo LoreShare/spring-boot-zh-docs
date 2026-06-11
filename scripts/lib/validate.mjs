@@ -45,8 +45,32 @@ export function detectSecrets(content) {
   return [...new Set(content.match(/\bsk-[A-Za-z0-9_-]{20,}\b/g) ?? [])];
 }
 
+function escapeRegex(source) {
+  return source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function buildTermPattern(term) {
+  const pluralizableTerms = new Set([
+    'bean',
+    'starter',
+    'auto-configuration',
+    'annotation',
+    'profile',
+    'endpoint',
+    'native image',
+    'JAR',
+    'WAR',
+  ]);
+  return new RegExp(
+    `(?<![A-Za-z0-9])${escapeRegex(term)}${pluralizableTerms.has(term) ? 's?' : ''}(?![A-Za-z0-9])`,
+  );
+}
+
 export function findMissingProtectedTerms(source, translated) {
-  return PROTECTED_TERMS.filter((term) => source.includes(term) && !translated.includes(term));
+  return PROTECTED_TERMS.filter((term) => {
+    const pattern = buildTermPattern(term);
+    return pattern.test(source) && !pattern.test(translated);
+  });
 }
 
 export function validateTranslatedPage({ relativePath, source, translated }) {

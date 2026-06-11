@@ -46,6 +46,16 @@ test('能找出译文中缺失的不翻译术语', () => {
     findMissingProtectedTerms('Spring Boot and Actuator', 'Spring Boot 和执行器'),
     ['Actuator'],
   );
+
+  assert.deepEqual(
+    findMissingProtectedTerms('WARNING: keep going', '警告：继续'),
+    [],
+  );
+
+  assert.deepEqual(
+    findMissingProtectedTerms('Deploy WAR files to endpoints', '部署文件到端点'),
+    ['WAR', 'endpoint'],
+  );
 });
 
 test('页面校验汇总 xref、代码块和术语问题', () => {
