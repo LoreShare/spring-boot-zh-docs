@@ -25,7 +25,7 @@ export function hasBalancedListingBlocks(content) {
 
 function isCodeBlockAttribute(line) {
   const trimmed = line.trim();
-  return /^\[(source|listing)(,|\])/.test(trimmed) || /^\[subs=/.test(trimmed);
+  return /^\[(source|listing|configprops)(,|\])/.test(trimmed) || /^\[subs=/.test(trimmed);
 }
 
 export function findCodeBlockAttributesWithoutDelimiter(content) {

@@ -33,6 +33,11 @@ test('能识别代码块属性后缺少分隔符', () => {
     findCodeBlockAttributesWithoutDelimiter('[source,dockerfile]\ninclude::reference:partial$dockerfile[]'),
     [1],
   );
+
+  assert.deepEqual(
+    findCodeBlockAttributesWithoutDelimiter('[configprops,yaml]\nspring:\n  main:\n    banner-mode: "off"'),
+    [1],
+  );
 });
 
 test('能识别疑似真实密钥', () => {
