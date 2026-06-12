@@ -109,6 +109,14 @@ build/site/.nojekyll
 
 该文件用于避免 GitHub Pages 按 Jekyll 规则忽略 Antora 的 `_` 静态资源目录。
 
+Search Console 使用“网址前缀资源”验证 `https://loreshare.github.io/spring-boot-zh-docs/` 时，优先使用 HTML 文件验证。验证文件必须放在仓库的 `site-root/` 目录中，并由构建脚本复制到 `build/site/` 根目录，确保线上可以通过如下地址直接访问：
+
+```text
+https://loreshare.github.io/spring-boot-zh-docs/google993ab8b0f305f2d5.html
+```
+
+验证通过后不能删除该文件，否则 Search Console 后续可能重新校验失败。
+
 公开发布的 HTML 不允许出现本机路径或 `file://` 编辑链接。当前 playbook 关闭 Antora 默认的远程编辑地址，构建脚本会删除默认 UI 回退生成的本地 `Edit this Page` 链接，并在产物审计中阻止这类链接残留。如果后续需要恢复编辑入口，必须改为指向 GitHub 仓库源码的 HTTPS 地址。
 
 ## 密钥规则
