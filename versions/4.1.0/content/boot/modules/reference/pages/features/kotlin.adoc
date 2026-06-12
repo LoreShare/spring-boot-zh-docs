@@ -117,7 +117,7 @@ data class KotlinExampleProperties(
 特别是，依赖值类的默认值将无法与配置属性绑定一起使用。
 在这种情况下，应改用数据类。
 
-提示：要使用注解处理器生成 xref:specification:configuration-metadata/annotation-processor.adoc[你自己的元数据]，{url-kotlin-docs}/kapt.html[应配置 `kapt`] 并添加 `spring-boot-configuration-processor` 依赖。
+提示：要使用注解处理器生成 xref:specification:configuration-metadata/annotation-processor.adoc[你自己的元数据]，link:{url-kotlin-docs}/kapt.html[应配置 `kapt`] 并添加 `spring-boot-configuration-processor` 依赖。
 请注意，由于 kapt 提供的模型限制，某些功能（例如检测默认值或已弃用的项）无法正常工作。
 
 

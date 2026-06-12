@@ -186,7 +186,7 @@ app:
 一个关键区别是，javadoc:javax.sql.DataSource[] javadoc:org.springframework.context.annotation.Bean[format=annotation] 必须使用 `defaultCandidate=false` 声明。
 这可以防止自动配置的 javadoc:javax.sql.DataSource[] 回退。
 
-注意：{url-spring-framework-docs}/core/beans/dependencies/factory-autowire.html#beans-factory-autowire-candidate[Spring 框架参考文档] 更详细地描述了此功能。
+注意：link:{url-spring-framework-docs}/core/beans/dependencies/factory-autowire.html#beans-factory-autowire-candidate[Spring 框架参考文档] 更详细地描述了此功能。
 
 为了允许在需要的地方注入额外的 javadoc:javax.sql.DataSource[]，还需要使用 javadoc:org.springframework.beans.factory.annotation.Qualifier[format=annotation] 对其进行注解，如下例所示：
 
@@ -576,7 +576,7 @@ public class MyAdditionalEntityManagerFactoryConfiguration {
 可以使用 `app.jpa` 命名空间映射额外的 JPA 属性。
 使用 `@Bean(defaultCandidate=false)` 允许定义 `secondJpaProperties` 和 `secondEntityManagerFactory` beans，而不会干扰自动配置的同类型 beans。
 
-注意：{url-spring-framework-docs}/core/beans/dependencies/factory-autowire.html#beans-factory-autowire-candidate[Spring Framework 参考文档] 更详细地描述了此功能。
+注意：link:{url-spring-framework-docs}/core/beans/dependencies/factory-autowire.html#beans-factory-autowire-candidate[Spring Framework 参考文档] 更详细地描述了此功能。
 
 你应该为任何需要 JPA 访问的额外数据源提供类似的配置。
 为了完整起见，你还需要为每个 javadoc:jakarta.persistence.EntityManagerFactory[] 配置一个 javadoc:org.springframework.orm.jpa.JpaTransactionManager[]。

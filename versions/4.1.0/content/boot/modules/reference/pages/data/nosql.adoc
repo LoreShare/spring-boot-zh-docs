@@ -12,7 +12,7 @@ Spring Data 提供了额外的项目，帮助你访问多种 NoSQL 技术，包�
 * {url-spring-data-redis-site}[Redis]
 
 其中，Spring Boot 为 Cassandra、Couchbase、Elasticsearch、LDAP、MongoDB、Neo4J 和 Redis 提供了自动配置。
-此外，{url-spring-boot-for-apache-geode-site}[Spring Boot for Apache Geode] 提供了 {url-spring-boot-for-apache-geode-docs}#geode-repositories[Apache Geode 的自动配置]。
+此外，link:{url-spring-boot-for-apache-geode-site}[Spring Boot for Apache Geode] 提供了 {url-spring-boot-for-apache-geode-docs}#geode-repositories[Apache Geode 的自动配置]。
 你可以使用其他项目，但必须自行配置它们。
 请参阅 {url-spring-data-site} 上的相应参考文档。
 

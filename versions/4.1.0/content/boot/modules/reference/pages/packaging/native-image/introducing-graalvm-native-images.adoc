@@ -31,7 +31,7 @@ GraalVM 原生镜像是提前生成的，这意味着原生应用程序和基于
 除了这些区别之外，Spring 使用一个称为 xref:packaging/native-image/introducing-graalvm-native-images.adoc#packaging.native-image.introducing-graalvm-native-images.understanding-aot-processing[Spring 提前处理] 的过程，这带来了进一步的限制。
 请务必至少阅读下一节的开头部分以了解这些限制。
 
-提示：{url-graal-docs-native-image}/metadata/Compatibility/[原生镜像兼容性指南] 部分提供了关于 GraalVM 限制的更多细节。
+提示：link:{url-graal-docs-native-image}/metadata/Compatibility/[原生镜像兼容性指南] 部分提供了关于 GraalVM 限制的更多细节。
 
 
 

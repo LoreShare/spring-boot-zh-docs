@@ -334,7 +334,7 @@ include::example$packaging-oci-image/paketo-pom.xml[tags=paketo]
 ----
 === 运行时 JVM 配置
 
-Paketo Java 构建包通过设置 `JAVA_TOOL_OPTIONS` 环境变量来{url-paketo-docs-java-buildpack}/#runtime-jvm-configuration[配置 JVM 运行时环境]。可以修改构建包提供的 `JAVA_TOOL_OPTIONS` 值，以自定义应用镜像在容器中启动时的 JVM 运行时行为。
+Paketo Java 构建包通过设置 `JAVA_TOOL_OPTIONS` 环境变量来link:{url-paketo-docs-java-buildpack}/#runtime-jvm-configuration[配置 JVM 运行时环境]。可以修改构建包提供的 `JAVA_TOOL_OPTIONS` 值，以自定义应用镜像在容器中启动时的 JVM 运行时行为。
 
 应存储在镜像中并应用于每次部署的环境变量修改，可以按照 {url-paketo-docs}/buildpacks/configuration/#environment-variables[Paketo 文档] 中的描述进行设置，如下例所示：
 

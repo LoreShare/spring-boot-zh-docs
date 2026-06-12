@@ -11,7 +11,7 @@ Maven 用户可以从 `spring-boot-starter-parent` 项目继承以获得合理�
 * 执行 xref:maven-plugin:packaging.adoc#packaging.repackage-goal[`repackage` 目标]，带有 `repackage` 执行 ID。
 * 一个 `native` profile，配置构建以能够生成本地镜像。
 * 合理的 https://maven.apache.org/plugins/maven-resources-plugin/examples/filter.html[资源过滤]。
-* 合理的插件配置（{url-git-commit-id-maven-plugin}[`Git Commit Id Plugin`] 和 https://maven.apache.org/plugins/maven-shade-plugin/[shade]）。
+* 合理的插件配置（link:{url-git-commit-id-maven-plugin}[`Git Commit Id Plugin`] 和 https://maven.apache.org/plugins/maven-shade-plugin/[shade]）。
 * 针对 `application.properties` 和 `application.yml` 的合理资源过滤，包括 profile 特定文件（例如，`application-dev.properties` 和 `application-dev.yml`）。
 
 注意：由于 `application.properties` 和 `application.yml` 文件接受 Spring 风格的占位符（`${...}`），Maven 过滤被改为使用 `@..@` 占位符。

@@ -144,7 +144,7 @@ class MyObservationPredicate implements ObservationPredicate {
 要启用对诸如 javadoc:io.micrometer.observation.annotation.Observed[format=annotation]、javadoc:io.micrometer.core.annotation.Timed[format=annotation]、javadoc:io.micrometer.core.annotation.Counted[format=annotation]、javadoc:io.micrometer.core.aop.MeterTag[format=annotation] 和 javadoc:io.micrometer.tracing.annotation.NewSpan[format=annotation] 等可观测性注解的扫描，请将 configprop:management.observations.annotations.enabled[] 属性设置为 `true`。
 还需要依赖 `org.aspectj:aspectjweaver`，它是 `spring-boot-starter-aspectj` 的一部分。
 此功能由 Micrometer 直接支持。
-请参考 {url-micrometer-docs-concepts}/timers.html#_the_timed_annotation[Micrometer]、{url-micrometer-docs-observation}/components.html#micrometer-observation-annotations[Micrometer Observation] 和 {url-micrometer-tracing-docs}/api.html#_aspect_oriented_programming[Micrometer Tracing] 参考文档。
+请参考 {url-micrometer-docs-concepts}/timers.html#_the_timed_annotation[Micrometer]、link:{url-micrometer-docs-observation}/components.html#micrometer-observation-annotations[Micrometer Observation] 和 {url-micrometer-tracing-docs}/api.html#_aspect_oriented_programming[Micrometer Tracing] 参考文档。
 
 注意：当你对已经进行过仪器化的方法或类（例如 xref:reference:actuator/metrics.adoc#actuator.metrics.supported.spring-data-repository[Spring Data 仓库] 或 xref:reference:actuator/metrics.adoc#actuator.metrics.supported.spring-mvc[Spring MVC 控制器]）添加注解时，将会得到重复的观测。
 在这种情况下，你可以使用 xref:reference:actuator/observability.adoc#actuator.observability.preventing-observations[属性] 或 javadoc:io.micrometer.observation.ObservationPredicate[] 禁用自动仪器化，并依赖你的注解，或者你可以移除你的注解。

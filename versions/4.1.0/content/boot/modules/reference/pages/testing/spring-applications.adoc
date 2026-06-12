@@ -11,4 +11,4 @@
 Spring Framework 包含一个专门的测试模块用于此类集成测试。
 你可以直接声明对 `org.springframework:spring-test` 的依赖，或者使用 `spring-boot-starter-test` starter 来传递性地引入它。
 
-如果你之前没有使用过 `spring-test` 模块，你应该先阅读 Spring Framework 参考文档中的{url-spring-framework-docs}/testing.html[相关章节]。
+如果你之前没有使用过 `spring-test` 模块，你应该先阅读 Spring Framework 参考文档中的link:{url-spring-framework-docs}/testing.html[相关章节]。
