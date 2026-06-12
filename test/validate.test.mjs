@@ -263,6 +263,27 @@ test('允许 Java 和 Kotlin API xref 改为官方外部链接', () => {
   assert.deepEqual(issues, []);
 });
 
+test('页面校验能发现中文正文中不会渲染的裸 URL 宏', () => {
+  const issues = validateTranslatedPage({
+    relativePath: 'modules/maven-plugin/pages/index.adoc',
+    source: '',
+    translated: [
+      '除了本用户指南外，https://docs.spring.io/spring-boot/4.1.0/maven-plugin/api/java/[API 文档,role=link-external, window=_blank] 也可用。',
+      '响应式关系数据库连接（https://r2dbc.io[R2DBC]）项目将响应式编程 API 引入关系数据库。',
+      '可以使用https://docs.couchbase.com/server/current/manage/manage-security/configure-client-certificates.html[客户端证书]代替用户名和密码进行身份验证。',
+      '显式 link:https://example.com/[链接] 可以正常渲染。',
+      '列表项开头的 URL 宏允许保留：',
+      '* https://docs.spring.io/spring-boot/4.1.0/api/java/[Spring Boot,role=link-external, window=_blank]',
+    ].join('\n'),
+  });
+
+  assert.deepEqual(issues, [
+    'modules/maven-plugin/pages/index.adoc：第 1 行风险裸 URL 宏可能不会渲染，请改用显式 link: 宏：https://docs.spring.io/spring-boot/4.1.0/maven-plugin/api/java/[API 文档,role=link-external, window=_blank]',
+    'modules/maven-plugin/pages/index.adoc：第 2 行风险裸 URL 宏可能不会渲染，请改用显式 link: 宏：https://r2dbc.io[R2DBC]',
+    'modules/maven-plugin/pages/index.adoc：第 3 行风险裸 URL 宏可能不会渲染，请改用显式 link: 宏：https://docs.couchbase.com/server/current/manage/manage-security/configure-client-certificates.html[客户端证书]',
+  ]);
+});
+
 test('能解析并校验 partial include 目标', () => {
   assert.deepEqual(
     findPartialIncludeTargets('include::partial$goals/overview.adoc[]\ninclude::api:partial$nav-rest-api.adoc[]'),

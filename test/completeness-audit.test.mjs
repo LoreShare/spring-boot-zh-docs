@@ -170,6 +170,29 @@ test('构建产物审计能发现未解析的 URL 属性', () => {
   assert.deepEqual(issues.map((issue) => issue.code), ['unresolved-url-attribute-html']);
 });
 
+test('构建产物审计能发现未渲染的 URL 宏', () => {
+  const files = new Map([
+    [
+      'build/site/example.html',
+      [
+        '<p>除了本用户指南外，https://docs.spring.io/spring-boot/4.1.0/maven-plugin/api/java/[API 文档,role=link-external, window=_blank] 也可用。</p>',
+        '<p>响应式关系数据库连接（link:https://r2dbc.io[R2DBC]）项目。</p>',
+      ].join('\n'),
+    ],
+  ]);
+
+  const issues = auditBuiltSiteHtml({
+    outputDir: 'build/site',
+    listFiles: () => [...files.keys()],
+    read: (file) => files.get(file),
+  });
+
+  assert.deepEqual(issues.map((issue) => issue.code), [
+    'raw-url-macro-html',
+    'raw-url-macro-html',
+  ]);
+});
+
 test('构建产物审计能发现本机编辑链接残留', () => {
   const files = new Map([
     [
