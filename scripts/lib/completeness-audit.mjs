@@ -345,6 +345,18 @@ function hasHeaderlessLayoutRules(html) {
   ].every((pattern) => pattern.test(html));
 }
 
+function removeHtmlCodeFragments(html) {
+  return html
+    .replace(/<pre\b[\s\S]*?<\/pre>/gi, ' ')
+    .replace(/<code\b[\s\S]*?<\/code>/gi, ' ');
+}
+
+function findRawUrlMacrosInHtml(html) {
+  const searchableHtml = removeHtmlCodeFragments(html);
+  return [...searchableHtml.matchAll(/\b(?:link:)?https?:\/\/[^\s<\[]+\[(?:[^\]\n<]|\[[^\]\n<]*\])*\]/g)]
+    .map((match) => match[0]);
+}
+
 export function auditBuiltSiteHtml({
   outputDir = 'build/site',
   listFiles = () => listHtmlFiles(outputDir),
@@ -402,6 +414,13 @@ export function auditBuiltSiteHtml({
         code: 'unresolved-url-attribute-html',
         relativePath,
         message: '构建产物包含未解析的 URL 属性',
+      }));
+    }
+    for (const rawUrlMacro of findRawUrlMacrosInHtml(html)) {
+      issues.push(makeIssue({
+        code: 'raw-url-macro-html',
+        relativePath,
+        message: `构建产物仍包含未渲染的 URL 宏：${rawUrlMacro}`,
       }));
     }
     if (/<div class="edit-this-page"><a href="file:\/\/\/[^"]+">Edit this Page<\/a><\/div>/.test(html)) {

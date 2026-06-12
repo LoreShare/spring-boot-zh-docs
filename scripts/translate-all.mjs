@@ -4,6 +4,7 @@ import { parsePathsOption, translateAll } from './lib/translate.mjs';
 import { ensureGeneratedPartials } from './lib/generated-partials.mjs';
 import { translateGeneratedContent } from './lib/generated-content.mjs';
 import { normalizeXrefLabelFiles } from './lib/xref-labels.mjs';
+import { normalizeUrlMacroFiles } from './lib/url-macros.mjs';
 
 const force = process.argv.includes('--force');
 const selectedPaths = parsePathsOption();
@@ -51,7 +52,8 @@ try {
   const generatedSkipped = generatedResults.filter((result) => result.status === 'skipped').length;
   ensureGeneratedPartials();
   const normalizedXrefs = normalizeXrefLabelFiles();
-  console.log(`全量处理完成：翻译 ${translated} 个，复制 ${copied} 个，跳过 ${skipped} 个；生成型内容翻译 ${generatedTranslated} 个，复制 ${generatedCopied} 个，后处理 ${generatedPostprocessed} 个，跳过 ${generatedSkipped} 个；xref 可见文本归一化 ${normalizedXrefs.length} 个文件`);
+  const normalizedUrlMacros = normalizeUrlMacroFiles();
+  console.log(`全量处理完成：翻译 ${translated} 个，复制 ${copied} 个，跳过 ${skipped} 个；生成型内容翻译 ${generatedTranslated} 个，复制 ${generatedCopied} 个，后处理 ${generatedPostprocessed} 个，跳过 ${generatedSkipped} 个；xref 可见文本归一化 ${normalizedXrefs.length} 个文件；URL 宏归一化 ${normalizedUrlMacros.length} 个文件`);
 } catch (error) {
   console.error(`全量翻译失败：${error.message}`);
   process.exitCode = 1;

@@ -13,6 +13,7 @@ import {
 import { auditTranslationCompleteness } from './completeness-audit.mjs';
 import { getLatestContentRoot } from './site-versions.mjs';
 import { containsGeneratedPlaceholder } from './generated-content.mjs';
+import { findRiskyNakedUrlMacrosInContent } from './url-macros.mjs';
 
 export function collectXrefs(content) {
   return [...content.matchAll(/\bxref:([^\[\s]+)\[/g)].map((match) => match[1]);
@@ -823,6 +824,10 @@ export function validateTranslatedPage({ relativePath, source, translated }) {
 
   for (const issue of findXrefVisibleTextIssues(translated)) {
     issues.push(`${relativePath}：${issue}`);
+  }
+
+  for (const issue of findRiskyNakedUrlMacrosInContent(translated)) {
+    issues.push(`${relativePath}：第 ${issue.lineNumber} 行风险裸 URL 宏可能不会渲染，请改用显式 link: 宏：${issue.macro}`);
   }
 
   return issues;
