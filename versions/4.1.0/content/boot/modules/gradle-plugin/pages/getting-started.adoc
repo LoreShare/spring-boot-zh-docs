@@ -30,7 +30,7 @@ endif::[]
 
 
 ifeval::["{build-and-artifact-release-type}" == "opensource-release"]
-该插件已https://plugins.gradle.org/plugin/org.springframework.boot[发布到 Gradle 的插件门户]，并可通过 `plugins` 块应用：
+该插件已link:https://plugins.gradle.org/plugin/org.springframework.boot[发布到 Gradle 的插件门户]，并可通过 `plugins` 块应用：
 
 [tabs]
 ======

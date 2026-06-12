@@ -22,7 +22,7 @@ Java 的 javadoc:javax.sql.DataSource[] 接口提供了处理数据库连接的�
 
 提示：“`How-to Guides`”部分包含 xref:how-to:data-initialization.adoc[关于如何初始化数据库的部分]。
 
-Spring Boot 可以自动配置嵌入式 https://www.h2database.com[H2]、https://hsqldb.org/[HSQL] 和 https://db.apache.org/derby/[Derby]（已弃用）数据库。
+Spring Boot 可以自动配置嵌入式 https://www.h2database.com[H2]、link:https://hsqldb.org/[HSQL] 和 https://db.apache.org/derby/[Derby]（已弃用）数据库。
 你无需提供任何连接 URL。
 你只需包含一个对你想要使用的嵌入式数据库的构建依赖。
 如果 classpath 上有多个嵌入式数据库，请设置 configprop:spring.datasource.embedded-database-connection[] 配置属性来控制使用哪一个。
@@ -519,7 +519,7 @@ public class DevProfileSecurityConfiguration {
 [[data.sql.jooq]]
 == 使用 jOOQ
 
-jOOQ（面向对象的查询，https://www.jooq.org/[jOOQ]）是 https://www.datageekery.com/[Data Geekery] 的一款流行产品，它从你的数据库生成 Java 代码，并让你通过其流畅的 API 构建类型安全的 SQL 查询。
+jOOQ（面向对象的查询，link:https://www.jooq.org/[jOOQ]）是 https://www.datageekery.com/[Data Geekery] 的一款流行产品，它从你的数据库生成 Java 代码，并让你通过其流畅的 API 构建类型安全的 SQL 查询。
 商业版和开源版都可以与 Spring Boot 一起使用。
 jOOQ 需要 Java 21 或更高版本。
 
@@ -623,7 +623,7 @@ NOTE: Spring Boot 只能自动配置 jOOQ 开源版本支持的方言。
 [[data.sql.r2dbc]]
 == 使用 R2DBC
 
-响应式关系数据库连接（https://r2dbc.io[R2DBC]）项目将响应式编程 API 引入关系数据库。
+响应式关系数据库连接（link:https://r2dbc.io[R2DBC]）项目将响应式编程 API 引入关系数据库。
 R2DBC 的 javadoc:io.r2dbc.spi.Connection[] 提供了一种使用非阻塞数据库连接的标准方法。
 连接通过使用 javadoc:io.r2dbc.spi.ConnectionFactory[] 来提供，类似于 jdbc 中的 javadoc:javax.sql.DataSource[]。
 

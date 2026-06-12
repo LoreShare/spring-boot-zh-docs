@@ -122,7 +122,7 @@ public class MyBean implements EnvironmentAware {
 您可以使用 `vcap` 属性来访问应用程序信息（例如应用程序的公共 URL）和服务信息（例如数据库凭据）。
 有关完整详细信息，请参阅 javadoc:org.springframework.boot.cloud.CloudFoundryVcapEnvironmentPostProcessor[] API 文档。
 
-提示：https://github.com/pivotal-cf/java-cfenv/[Java CFEnv] 项目更适合配置 DataSource 等任务。
+提示：link:https://github.com/pivotal-cf/java-cfenv/[Java CFEnv] 项目更适合配置 DataSource 等任务。
 
 [[howto.deployment.cloud.kubernetes]]
 == Kubernetes

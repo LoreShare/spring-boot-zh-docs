@@ -7,6 +7,6 @@
 
 有关如何使用 buildpack 的详细信息，请参阅 xref:maven-plugin:build-image.adoc#build-image[Maven] 和 xref:gradle-plugin:packaging-oci-image.adoc[Gradle] 的相应插件文档。
 
-注意：https://github.com/paketo-buildpacks/spring-boot[Paketo Spring Boot buildpack] 支持 `layers.idx` 文件，因此应用于该文件的任何 xref:packaging/container-images/efficient-images.adoc#packaging.container-images.efficient-images.layering[层自定义] 都将反映在 buildpack 创建的镜像中。
+注意：link:https://github.com/paketo-buildpacks/spring-boot[Paketo Spring Boot buildpack] 支持 `layers.idx` 文件，因此应用于该文件的任何 xref:packaging/container-images/efficient-images.adoc#packaging.container-images.efficient-images.layering[层自定义] 都将反映在 buildpack 创建的镜像中。
 
 注意：为了实现可重复构建和容器镜像缓存，buildpack 可能会操作应用程序资源的元数据（例如文件的“最后修改”信息）。你应该确保你的应用程序在运行时不依赖这些元数据。Spring Boot 在提供静态资源时可能会使用该信息，但可以通过 configprop:spring.web.resources.cache.use-last-modified[] 禁用它。

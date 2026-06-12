@@ -631,7 +631,7 @@ Spring Boot 不提供任何对属性值加密的内置支持，但它提供了�
 javadoc:org.springframework.boot.EnvironmentPostProcessor[] 接口允许你在应用程序启动前操作 javadoc:org.springframework.core.env.Environment[]。
 详情请参见 xref:how-to:application.adoc#howto.application.customize-the-environment-or-application-context[在 ApplicationContext 启动前自定义环境或 ApplicationContext]。
 
-如果你需要一种安全的方式来存储凭据和密码，https://cloud.spring.io/spring-cloud-vault/[Spring Cloud Vault] 项目提供了在 https://www.vaultproject.io/[HashiCorp Vault] 中存储外部化配置的支持。
+如果你需要一种安全的方式来存储凭据和密码，link:https://cloud.spring.io/spring-cloud-vault/[Spring Cloud Vault] 项目提供了在 https://www.vaultproject.io/[HashiCorp Vault] 中存储外部化配置的支持。
 
 [[features.external-config.yaml]]
 == 使用 YAML

@@ -1,7 +1,7 @@
 = 日志记录
 
 Spring Boot 在内部所有日志记录中使用 https://commons.apache.org/logging[Commons Logging]，但底层日志实现是开放的。
-为 {apiref-openjdk}/java.logging/java/util/logging/package-summary.html[Java Util Logging]、https://logging.apache.org/log4j/2.x/[Log4j2] 和 https://logback.qos.ch/[Logback] 提供了默认配置。
+为 {apiref-openjdk}/java.logging/java/util/logging/package-summary.html[Java Util Logging]、link:https://logging.apache.org/log4j/2.x/[Log4j2] 和 https://logback.qos.ch/[Logback] 提供了默认配置。
 每种情况下，日志记录器都预先配置为使用控制台输出，并可选择文件输出。
 
 默认情况下，如果你使用 starters，则使用 Logback 进行日志记录。

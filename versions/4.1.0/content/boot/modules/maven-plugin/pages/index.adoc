@@ -5,4 +5,4 @@ Spring Boot Maven 插件在 https://maven.org[Apache Maven] 中提供 Spring Boo
 
 要使用它，你必须使用 Maven 3.6.3 或更高版本。
 
-除了本用户指南外，https://docs.spring.io/spring-boot/4.1.0/maven-plugin/api/java/[API 文档,role=link-external, window=_blank] 也可用。
+除了本用户指南外，link:https://docs.spring.io/spring-boot/4.1.0/maven-plugin/api/java/[API 文档,role=link-external, window=_blank] 也可用。

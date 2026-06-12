@@ -56,4 +56,4 @@ $ systemctl enable myapp.service
 
 可以通过使用 https://github.com/kohsuke/winsw[`winsw`] 将 Spring Boot 应用程序作为 Windows 服务启动。
 
-一个（https://github.com/snicoll/spring-boot-daemon[单独维护的示例]）逐步描述了如何为 Spring Boot 应用程序创建 Windows 服务。
+一个（link:https://github.com/snicoll/spring-boot-daemon[单独维护的示例]）逐步描述了如何为 Spring Boot 应用程序创建 Windows 服务。

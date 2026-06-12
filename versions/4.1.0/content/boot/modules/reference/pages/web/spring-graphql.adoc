@@ -40,7 +40,7 @@ Spring for GraphQL 项目基于 https://github.com/graphql-java/graphql-java[Gra
 ----
 include::ROOT:example$resources/graphql/schema.graphqls[]
 ----
-NOTE: 默认情况下，https://spec.graphql.org/draft/#sec-Introspection[字段内省] 在模式上是允许的，因为 GraphiQL 等工具需要它。
+NOTE: 默认情况下，link:https://spec.graphql.org/draft/#sec-Introspection[字段内省] 在模式上是允许的，因为 GraphiQL 等工具需要它。
 如果您不希望暴露有关模式的信息，可以通过将 configprop:spring.graphql.schema.introspection.enabled[] 设置为 `false` 来禁用内省。
 
 

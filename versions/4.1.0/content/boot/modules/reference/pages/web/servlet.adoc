@@ -280,7 +280,7 @@ spring:
 您还可以使用 configprop:spring.web.resources.static-locations[] 属性自定义静态资源位置（用目录位置列表替换默认值）。
 根 Servlet 上下文路径 `"/"` 也会自动添加为一个位置。
 
-除了前面提到的“`standard`”静态资源位置外，https://www.webjars.org/[Webjars 内容] 是一个特例。
+除了前面提到的“`standard`”静态资源位置外，link:https://www.webjars.org/[Webjars 内容] 是一个特例。
 默认情况下，`+/webjars/**+` 路径下的任何资源如果以 Webjars 格式打包，则会从 jar 文件中提供。
 该路径可以通过 configprop:spring.mvc.webjars-path-pattern[] 属性自定义。
 

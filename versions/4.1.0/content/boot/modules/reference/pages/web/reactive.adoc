@@ -227,7 +227,7 @@ spring:
 如果这样做，默认欢迎页面的检测将切换到您的自定义位置。
 因此，如果在启动时您的任何位置中存在 `index.html`，它将成为应用程序的主页。
 
-除了前面列出的 "`standard`" 静态资源位置外，https://www.webjars.org/[Webjars 内容] 是一个特例。
+除了前面列出的 "`standard`" 静态资源位置外，link:https://www.webjars.org/[Webjars 内容] 是一个特例。
 默认情况下，路径在 `+/webjars/**+` 中的任何资源，如果以 Webjars 格式打包，则会从 jar 文件中提供。
 该路径可以通过 configprop:spring.webflux.webjars-path-pattern[] 属性进行自定义。
 

@@ -375,7 +375,7 @@ spring:
 [[io.grpc.server.health]]
 === 服务器健康
 
-gRPC 服务器可以使用标准服务 API（https://github.com/grpc/grpc-proto/blob/master/grpc/health/v1/health.proto[health/v1]）提供健康信息。
+gRPC 服务器可以使用标准服务 API（link:https://github.com/grpc/grpc-proto/blob/master/grpc/health/v1/health.proto[health/v1]）提供健康信息。
 这允许客户端检查你的服务器服务的健康状况，并相应地路由流量。
 
 Spring Boot 在其自身的 `spring-boot-health` 模块与标准 gRPC 健康服务之间提供了桥梁。

@@ -59,7 +59,7 @@ spring:
 [[howto.data-initialization.migration-tool]]
 == 使用更高级的数据库迁移工具
 
-Spring Boot 支持两种更高级的迁移工具：https://flywaydb.org/[Flyway] 和 https://www.liquibase.org/[Liquibase]。
+Spring Boot 支持两种更高级的迁移工具：link:https://flywaydb.org/[Flyway] 和 https://www.liquibase.org/[Liquibase]。
 
 
 

@@ -506,7 +506,7 @@ Spring Boot 提供了一个专用的 starter，`spring-boot-starter-data-elastic
 [[data.nosql.elasticsearch.connecting-using-rest]]
 === 使用 REST 客户端连接到 Elasticsearch
 
-Elasticsearch 提供了两种不同的 REST 客户端，可用于查询集群：https://www.elastic.co/docs/reference/elasticsearch/clients/java/transport/rest5-client/[低级客户端] 和 https://www.elastic.co/docs/reference/elasticsearch/clients/java[Java API 客户端]。
+Elasticsearch 提供了两种不同的 REST 客户端，可用于查询集群：link:https://www.elastic.co/docs/reference/elasticsearch/clients/java/transport/rest5-client/[低级客户端] 和 https://www.elastic.co/docs/reference/elasticsearch/clients/java[Java API 客户端]。
 Java API 客户端由 `co.elastic.clients:elasticsearch-java` 模块提供，
 低级客户端由 `co.elastic.clients:elasticsearch-rest5-client` 模块提供。
 此外，Spring Boot 还提供了对来自 `org.springframework.data:spring-data-elasticsearch` 模块的响应式客户端的支持。
@@ -764,7 +764,7 @@ spring:
     username: "user"
     password: "secret"
 ----
-可以使用https://docs.couchbase.com/server/current/manage/manage-security/configure-client-certificates.html[客户端证书]代替用户名和密码进行身份验证。
+可以使用link:https://docs.couchbase.com/server/current/manage/manage-security/configure-client-certificates.html[客户端证书]代替用户名和密码进行身份验证。
 包含客户端证书的Java KeyStore 的位置和密码可以按以下示例进行配置：
 
 [configprops,yaml]
