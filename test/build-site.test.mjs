@@ -6,6 +6,7 @@ import {
   buildSite,
   buildRedirectHtml,
   createCompatibilityRedirects,
+  copySiteRootFiles,
   removeDefaultHeader,
   removeLocalEditLinks,
 } from '../scripts/lib/build-site.mjs';
@@ -56,6 +57,38 @@ test('写入兼容入口时使用相对跳转路径', () => {
   assert.deepEqual(directories, ['build/site/maven-plugin']);
   assert.deepEqual(created, ['build/site/maven-plugin/index.html']);
   assert.match(writes['build/site/maven-plugin/index.html'], /\.\.\/boot\/4.1.0\/maven-plugin\/index.html/);
+});
+
+test('构建时复制站点根静态文件', () => {
+  const copied = [];
+  const directories = [];
+  const entries = new Map([
+    [
+      'site-root',
+      [
+        {
+          name: 'google993ab8b0f305f2d5.html',
+          isDirectory: () => false,
+          isFile: () => true,
+        },
+      ],
+    ],
+  ]);
+
+  const created = copySiteRootFiles({
+    outputDir: 'build/site',
+    rootFilesDir: 'site-root',
+    exists: () => true,
+    listEntries: (directory) => entries.get(directory) || [],
+    mkdir: (directory) => directories.push(directory),
+    copy: (source, target) => copied.push([source, target]),
+  });
+
+  assert.deepEqual(directories, ['build/site']);
+  assert.deepEqual(copied, [
+    ['site-root/google993ab8b0f305f2d5.html', 'build/site/google993ab8b0f305f2d5.html'],
+  ]);
+  assert.deepEqual(created, ['build/site/google993ab8b0f305f2d5.html']);
 });
 
 test('构建后移除默认 UI 生成的本机编辑链接', () => {
@@ -158,6 +191,7 @@ test('构建后发现未展开 include-code 时失败', () => {
         },
       ],
       listFiles: () => [],
+      exists: () => false,
       mkdir: () => {},
       write: () => {},
     }),

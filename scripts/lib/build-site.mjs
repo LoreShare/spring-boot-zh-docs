@@ -1,4 +1,6 @@
 import {
+  copyFileSync,
+  existsSync,
   mkdirSync,
   readdirSync,
   readFileSync,
@@ -159,6 +161,49 @@ export function createNoJekyllFile({
   return toPosixPath(file);
 }
 
+function listDirectoryEntries(directory) {
+  return readdirSync(directory, { withFileTypes: true });
+}
+
+export function copySiteRootFiles({
+  outputDir = 'build/site',
+  rootFilesDir = 'site-root',
+  exists = (file) => existsSync(file),
+  listEntries = listDirectoryEntries,
+  mkdir = (directory) => mkdirSync(directory, { recursive: true }),
+  copy = (source, target) => copyFileSync(source, target),
+} = {}) {
+  if (!exists(rootFilesDir)) {
+    return [];
+  }
+
+  const copied = [];
+
+  function copyDirectory(sourceDirectory, relativeDirectory = '') {
+    for (const entry of listEntries(sourceDirectory)) {
+      const relativePath = path.join(relativeDirectory, entry.name);
+      const sourcePath = path.join(sourceDirectory, entry.name);
+
+      if (entry.isDirectory()) {
+        copyDirectory(sourcePath, relativePath);
+        continue;
+      }
+
+      if (!entry.isFile()) {
+        continue;
+      }
+
+      const targetPath = path.join(outputDir, relativePath);
+      mkdir(path.dirname(targetPath));
+      copy(sourcePath, targetPath);
+      copied.push(toPosixPath(targetPath));
+    }
+  }
+
+  copyDirectory(rootFilesDir);
+  return copied.sort();
+}
+
 function listHtmlFiles(directory) {
   const results = [];
 
@@ -252,6 +297,7 @@ export function buildSite(options = {}) {
   removeDefaultHeader(options);
   const created = createCompatibilityRedirects(options);
   created.push(createNoJekyllFile(options));
+  created.push(...copySiteRootFiles(options));
   validateBuiltSiteHtml(options);
   return created;
 }
