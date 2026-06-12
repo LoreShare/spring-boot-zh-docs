@@ -271,7 +271,10 @@ test('页面校验能发现中文正文中不会渲染的裸 URL 宏', () => {
       '除了本用户指南外，https://docs.spring.io/spring-boot/4.1.0/maven-plugin/api/java/[API 文档,role=link-external, window=_blank] 也可用。',
       '响应式关系数据库连接（https://r2dbc.io[R2DBC]）项目将响应式编程 API 引入关系数据库。',
       '可以使用https://docs.couchbase.com/server/current/manage/manage-security/configure-client-certificates.html[客户端证书]代替用户名和密码进行身份验证。',
+      '如果你之前没有使用过 `spring-test` 模块，你应该先阅读 Spring Framework 参考文档中的{url-spring-framework-docs}/testing.html[相关章节]。',
+      'Paketo Java 构建包通过设置 `JAVA_TOOL_OPTIONS` 环境变量来{url-paketo-docs-java-buildpack}/#runtime-jvm-configuration[配置 JVM 运行时环境]。',
       '显式 link:https://example.com/[链接] 可以正常渲染。',
+      '显式 link:{url-spring-framework-docs}/testing.html[相关章节] 可以正常渲染。',
       '列表项开头的 URL 宏允许保留：',
       '* https://docs.spring.io/spring-boot/4.1.0/api/java/[Spring Boot,role=link-external, window=_blank]',
     ].join('\n'),
@@ -281,6 +284,8 @@ test('页面校验能发现中文正文中不会渲染的裸 URL 宏', () => {
     'modules/maven-plugin/pages/index.adoc：第 1 行风险裸 URL 宏可能不会渲染，请改用显式 link: 宏：https://docs.spring.io/spring-boot/4.1.0/maven-plugin/api/java/[API 文档,role=link-external, window=_blank]',
     'modules/maven-plugin/pages/index.adoc：第 2 行风险裸 URL 宏可能不会渲染，请改用显式 link: 宏：https://r2dbc.io[R2DBC]',
     'modules/maven-plugin/pages/index.adoc：第 3 行风险裸 URL 宏可能不会渲染，请改用显式 link: 宏：https://docs.couchbase.com/server/current/manage/manage-security/configure-client-certificates.html[客户端证书]',
+    'modules/maven-plugin/pages/index.adoc：第 4 行风险裸 URL 宏可能不会渲染，请改用显式 link: 宏：{url-spring-framework-docs}/testing.html[相关章节]',
+    'modules/maven-plugin/pages/index.adoc：第 5 行风险裸 URL 宏可能不会渲染，请改用显式 link: 宏：{url-paketo-docs-java-buildpack}/#runtime-jvm-configuration[配置 JVM 运行时环境]',
   ]);
 });
 

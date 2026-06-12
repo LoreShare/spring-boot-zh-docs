@@ -4,6 +4,11 @@ import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 const PAGE_FILE_PATTERN = /\.adoc$/;
 const DELIMITED_BLOCKS = new Set(['----', '....', '++++']);
 const URL_MACRO_PATTERN = /https?:\/\/[^\s\[]+\[(?:[^\[\]\n]|\[[^\]\n]*\])*\]/g;
+const ATTRIBUTE_URL_MACRO_PATTERN = /\{url[-\w.]*\}[^\s\[]*\[(?:[^\[\]\n]|\[[^\]\n]*\])*\]/g;
+const ANY_URL_MACRO_PATTERN = new RegExp(
+  `${URL_MACRO_PATTERN.source}|${ATTRIBUTE_URL_MACRO_PATTERN.source}`,
+  'g',
+);
 
 function toPosixPath(file) {
   return file.split(path.sep).join('/');
@@ -45,32 +50,28 @@ function isRiskyNakedUrlMacro(segment, index) {
   return !/\s/.test(segment[index - 1]);
 }
 
-function splitInlineCodeSegments(line) {
-  return line.split(/(`[^`\n]*`)/g);
+function collectInlineCodeRanges(line) {
+  return [...line.matchAll(/`[^`\n]*`/g)]
+    .map((match) => ({
+      start: match.index,
+      end: match.index + match[0].length,
+    }));
 }
 
-function normalizeTextSegment(segment) {
+function isInsideInlineCode(index, ranges) {
+  return ranges.some((range) => index >= range.start && index < range.end);
+}
+
+function normalizeLine(line) {
   let changed = false;
-  const content = segment.replace(URL_MACRO_PATTERN, (match, offset) => {
-    if (!isRiskyNakedUrlMacro(segment, offset)) {
+  const inlineCodeRanges = collectInlineCodeRanges(line);
+  const content = line.replace(ANY_URL_MACRO_PATTERN, (match, offset) => {
+    if (isInsideInlineCode(offset, inlineCodeRanges) || !isRiskyNakedUrlMacro(line, offset)) {
       return match;
     }
     changed = true;
     return `link:${match}`;
   });
-  return { changed, content };
-}
-
-function normalizeLine(line) {
-  let changed = false;
-  const content = splitInlineCodeSegments(line).map((segment) => {
-    if (segment.startsWith('`') && segment.endsWith('`')) {
-      return segment;
-    }
-    const normalized = normalizeTextSegment(segment);
-    changed = changed || normalized.changed;
-    return normalized.content;
-  }).join('');
   return { changed, content };
 }
 
@@ -89,17 +90,14 @@ export function findRiskyNakedUrlMacrosInContent(content) {
       return;
     }
 
-    for (const segment of splitInlineCodeSegments(line)) {
-      if (segment.startsWith('`') && segment.endsWith('`')) {
-        continue;
-      }
-      for (const match of segment.matchAll(URL_MACRO_PATTERN)) {
-        if (isRiskyNakedUrlMacro(segment, match.index)) {
-          issues.push({
-            lineNumber: index + 1,
-            macro: match[0],
-          });
-        }
+    const inlineCodeRanges = collectInlineCodeRanges(line);
+    for (const match of line.matchAll(ANY_URL_MACRO_PATTERN)) {
+      if (!isInsideInlineCode(match.index, inlineCodeRanges)
+        && isRiskyNakedUrlMacro(line, match.index)) {
+        issues.push({
+          lineNumber: index + 1,
+          macro: match[0],
+        });
       }
     }
   });
